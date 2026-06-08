@@ -95,7 +95,6 @@ const FRAMES = {
   // Removed frame_08_cream_gloves (too close-up, fills frame with glove tops only)
   s05: [
     `${S}/05_drop_001_tools_uniform/frame_01_cream_uniform_model.png`,
-    `${S}/05_drop_001_tools_uniform/frame_04_back_logo_apparel_model.png`,
     `${S}/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png`,
   ],
 
