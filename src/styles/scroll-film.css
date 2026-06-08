@@ -14,7 +14,7 @@ html, body {
 
 /* ── SCAFFOLD ─────────────────────────────────────── */
 .sf-wrapper    { position: relative; }
-.sf-scroll-space { height: 500vh; pointer-events: none; }
+.sf-scroll-space { height: 400vh; pointer-events: none; }
 
 .sf-fixed {
   position: fixed; inset: 0; z-index: 1;
@@ -345,133 +345,34 @@ html, body {
 
 /* ── CINEMATIC HEADER ─────────────────────────────────────────────────── */
 .sf-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 50;
-  height: 64px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  padding: 0 clamp(20px, 4vw, 56px);
-  background: linear-gradient(180deg, rgba(4,3,2,0.88) 0%, rgba(4,3,2,0) 100%);
-  backdrop-filter: blur(0px);
-  pointer-events: all;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  height: 64px; display: grid;
+  grid-template-columns: auto 1fr auto; align-items: center;
+  padding: 0 clamp(20px,4vw,56px);
+  background: linear-gradient(180deg,rgba(4,3,2,0.88) 0%,rgba(4,3,2,0) 100%);
 }
-
-.sf-header-logo {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-  text-decoration: none;
-  gap: 1px;
-}
-.sf-header-logo-text {
-  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-  font-weight: 900;
-  font-size: 18px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #f4f1ea;
-}
-.sf-header-logo-sub {
-  font-family: 'Barlow', Arial, sans-serif;
-  font-weight: 700;
-  font-size: 8px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(200,169,110,0.7);
-}
-
-.sf-header-nav {
-  display: flex;
-  justify-content: center;
-  gap: clamp(16px, 2.2vw, 36px);
-}
-.sf-header-nav-link {
-  font-family: 'Barlow', Arial, sans-serif;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(244,241,234,0.58);
-  text-decoration: none;
-  transition: color 0.2s;
-  white-space: nowrap;
-}
-.sf-header-nav-link:hover { color: #f4f1ea; }
-
-.sf-header-cta {
-  font-family: 'Barlow', Arial, sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(200,169,110,0.9);
-  border: 1px solid rgba(200,169,110,0.35);
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: border-color 0.2s, color 0.2s;
-  white-space: nowrap;
-}
-.sf-header-cta:hover {
-  border-color: rgba(200,169,110,0.7);
-  color: #c8a96e;
-}
-
-/* ── SCENE CTA (one per scene, text-link style) ──────────────────────── */
-.sf-scene-cta {
-  margin-top: 20px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.5s ease 0.58s, transform 0.5s ease 0.58s;
-}
-.sf-overlay--in .sf-scene-cta { opacity: 1; transform: none; }
-
-.sf-scene-cta-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Barlow', Arial, sans-serif;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(200,169,110,0.82);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(200,169,110,0.28);
-  padding-bottom: 4px;
-  transition: color 0.2s, border-color 0.2s;
-}
-.sf-scene-cta-link:hover {
-  color: #c8a96e;
-  border-color: rgba(200,169,110,0.6);
-}
-.sf-scene-cta-arrow {
-  font-size: 11px;
-  transition: transform 0.2s;
-}
-.sf-scene-cta-link:hover .sf-scene-cta-arrow { transform: translateX(3px); }
-
-/* ── MOBILE HEADER ────────────────────────────────────────────────────── */
-@media (max-width: 860px) {
+.sf-header-logo { display:flex; flex-direction:column; line-height:1; text-decoration:none; gap:1px; }
+.sf-header-logo-text { font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif; font-weight:900; font-size:18px; letter-spacing:.18em; text-transform:uppercase; color:#f4f1ea; }
+.sf-header-logo-sub  { font-family:'Barlow',Arial,sans-serif; font-weight:700; font-size:8px; letter-spacing:.28em; text-transform:uppercase; color:rgba(200,169,110,0.7); }
+.sf-header-nav { display:flex; justify-content:center; gap:clamp(16px,2.2vw,36px); }
+.sf-header-nav-link { font-family:'Barlow',Arial,sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(244,241,234,.58); text-decoration:none; transition:color .2s; white-space:nowrap; }
+.sf-header-nav-link:hover { color:#f4f1ea; }
+.sf-header-cta { font-family:'Barlow',Arial,sans-serif; font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(200,169,110,.9); border:1px solid rgba(200,169,110,.35); padding:8px 16px; text-decoration:none; transition:border-color .2s,color .2s; white-space:nowrap; }
+.sf-header-cta:hover { border-color:rgba(200,169,110,.7); color:#c8a96e; }
+@media (max-width:860px) {
   .sf-header { grid-template-columns: auto 1fr; }
   .sf-header-nav { display: none; }
   .sf-header-cta { justify-self: end; }
 }
 
-/* ── BEAT CONTENT (fades independently within a scene) ───────────────── */
-.sf-beat-content {
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.38s ease, transform 0.38s ease;
-}
-.sf-beat-content--in {
-  opacity: 1;
-  transform: none;
-}
-/* When beat content is in, let child transitions still run for headline lines */
-.sf-beat-content--in .sf-headline-line {
-  opacity: 1;
-  transform: none;
-  transition: none; /* beat fade handles the entrance, no double-animation */
-}
+/* ── BEAT CONTENT ─────────────────────────────────────────────────────── */
+.sf-beat-content { opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease; }
+.sf-beat-content--in { opacity:1; transform:none; }
+.sf-beat-content--in .sf-headline-line { opacity:1; transform:none; transition:none; }
+
+/* ── SCENE CTA ────────────────────────────────────────────────────────── */
+.sf-scene-cta { margin-top:18px; }
+.sf-scene-cta-link { display:inline-flex; align-items:center; gap:8px; font-family:'Barlow',Arial,sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:rgba(200,169,110,.82); text-decoration:none; border-bottom:1px solid rgba(200,169,110,.28); padding-bottom:4px; transition:color .2s,border-color .2s; }
+.sf-scene-cta-link:hover { color:#c8a96e; border-color:rgba(200,169,110,.6); }
+.sf-scene-cta-arrow { font-size:11px; transition:transform .2s; }
+.sf-scene-cta-link:hover .sf-scene-cta-arrow { transform:translateX(3px); }
