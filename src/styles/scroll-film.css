@@ -1,0 +1,249 @@
+/* ─────────────────────────────────────────────────
+   AURA FIGHT CLUB — SCROLL FILM
+   Draftly-style scroll-controlled video
+   ───────────────────────────────────────────────── */
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: #000;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* WRAPPER — provides scroll height */
+.sf-wrapper {
+  position: relative;
+  /* scroll space is 600vh — set by sf-scroll-space */
+}
+
+/* FIXED LAYER — contains video and all overlays */
+.sf-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: #000;
+}
+
+/* VIDEO */
+.sf-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: contrast(1.08) saturate(0.72) brightness(0.88);
+  will-change: auto;
+}
+
+/* SCROLL SPACER — 600vh of scrollable content */
+.sf-scroll-space {
+  height: 600vh;
+  pointer-events: none;
+  position: relative;
+  z-index: 0;
+}
+
+/* ── VIGNETTE ── */
+.sf-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 38%, rgba(0,0,0,0.72)),
+    linear-gradient(180deg, rgba(0,0,0,0.32) 0%, transparent 22%, transparent 72%, rgba(0,0,0,0.72) 100%);
+}
+
+/* ── GRAIN ── */
+.sf-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* ── LIGHT SWEEP ── */
+.sf-sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(
+    108deg,
+    transparent 28%,
+    rgba(255, 248, 218, 0.04) 46%,
+    transparent 62%
+  );
+  animation: sfSweep 14s ease-in-out infinite;
+}
+@keyframes sfSweep {
+  0%, 100% { opacity: 0.4; transform: translateX(-8%); }
+  50%       { opacity: 0.9; transform: translateX(8%);  }
+}
+
+/* ── TEXT MOMENT OVERLAY ── */
+.sf-moment {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 0 clamp(28px, 5.5vw, 88px) clamp(80px, 12vh, 140px);
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.sf-moment--visible { opacity: 1; }
+
+.sf-line {
+  display: block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #f4f1ea;
+  line-height: 0.88;
+
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.sf-moment--visible .sf-line { opacity: 1; transform: none; }
+
+/* Staggered delays */
+.sf-line--0 { font-size: clamp(52px, 7.5vw, 118px); transition-delay: 0.04s; }
+.sf-line--1 { font-size: clamp(44px, 6.2vw,  98px); transition-delay: 0.14s; color: rgba(244,241,234,0.82); }
+.sf-line--2 { font-size: clamp(38px, 5.2vw,  82px); transition-delay: 0.22s; color: rgba(244,241,234,0.64); }
+.sf-line--3 { font-size: clamp(34px, 4.5vw,  70px); transition-delay: 0.30s; color: rgba(244,241,234,0.5);  }
+
+/* Chrome accent line beneath first line */
+.sf-moment--visible .sf-line--0::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #c8a96e, transparent);
+  margin-top: 10px;
+  animation: sfChrome 0.8s ease 0.3s forwards;
+}
+@keyframes sfChrome {
+  to { width: clamp(80px, 12vw, 180px); }
+}
+
+/* ── PROGRESS BAR ── */
+.sf-progress-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 20;
+}
+.sf-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #c8a96e, rgba(200, 169, 110, 0.4));
+  transform-origin: left;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* ── DEBUG DISPLAY ── */
+.sf-debug {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(200, 169, 110, 0.3);
+  padding: 10px 14px;
+  backdrop-filter: blur(8px);
+}
+.sf-debug span {
+  font-family: 'Barlow', monospace, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(200, 169, 110, 0.9);
+  white-space: nowrap;
+}
+
+/* ── SCROLL HINT ── */
+.sf-scroll-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.sf-scroll-hint--visible { opacity: 1; }
+.sf-scroll-hint span:first-child {
+  font-family: 'Barlow', Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.45);
+}
+.sf-arrow {
+  font-size: 16px;
+  color: rgba(200, 169, 110, 0.6);
+  animation: sfBounce 2s ease-in-out infinite;
+}
+@keyframes sfBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+/* ── AURA WATERMARK ── */
+.sf-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 900;
+  font-size: clamp(120px, 22vw, 320px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(244, 241, 234, 0.022);
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .sf-line--0 { font-size: clamp(40px, 12vw, 72px); }
+  .sf-line--1 { font-size: clamp(34px, 10vw, 60px); }
+  .sf-line--2 { font-size: clamp(28px,  9vw, 50px); }
+  .sf-line--3 { font-size: clamp(24px,  8vw, 44px); }
+  .sf-moment  { padding: 0 22px 72px; }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .sf-sweep  { animation: none; opacity: 0.5; }
+  .sf-arrow  { animation: none; }
+  .sf-line   { transition: none; }
+  .sf-moment { transition: none; }
+}

@@ -1,11 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
+import ScrollFilm from './ScrollFilm.jsx';
 import './styles/global.css';
-import './styles/cinematic-home.css';
+import './styles/scroll-film.css';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <ScrollFilm />
   </React.StrictMode>
 );
