@@ -124,7 +124,7 @@ const SCENES = [
     start: 0.00, end: 0.06,
     visualType: 'video',
     src: VIDEO_SRC,
-    startTime: 0, endTime: 2,
+    startTime: 0, endTime: 7.3,
     label:    'AURA FIGHT CLUB',
     headline: ['YOUR AURA', 'IS EARNED.'],
     sub:      'The real fight is internal.\nThe opponent is just the mirror.',
@@ -378,7 +378,7 @@ export default function ScrollFilm() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    v.muted = true; v.playsInline = true; v.preload = 'auto'; v.loop = true;
+    v.muted = true; v.playsInline = true; v.preload = 'auto';
     const onMeta = () => setVideoReady(true);
     v.addEventListener('loadedmetadata', onMeta);
     if (v.readyState >= 1) onMeta();
@@ -590,7 +590,7 @@ export default function ScrollFilm() {
       <div className="sf-fixed">
 
         <video ref={videoRef} className="sf-video"
-          src={VIDEO_SRC} muted playsInline preload="auto" loop
+          src={VIDEO_SRC} muted playsInline preload="auto"
           style={{ opacity: 0 }} aria-hidden="true" />
 
         <div ref={slotARef} className="sf-image-slot" style={{ opacity: 0 }}>
