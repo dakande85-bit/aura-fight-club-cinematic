@@ -35,7 +35,7 @@
  *   - Canvas ambient (rain/fog) always on
  *   - React state for overlay text + debug only
  */
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
@@ -57,7 +57,8 @@ const SEEK_DELTA     = 0.03;
 const S = BASE; // shorthand
 
 const FRAMES = {
-  // Scene 02 — Shadow boxing: 5 frames
+  // Scene 02 — Shadow boxing: 8 curated frames
+  // Removed: frame_04_pivot_adjustment (too similar to 03), frame_09_reset_stance (too similar to 07)
   s02: [
     `${S}/02_shadow_boxing_the_standard/frame_02_shadow_02_guard_raised.png`,
     `${S}/02_shadow_boxing_the_standard/frame_05_shadow_05_jab_start.png`,
@@ -94,21 +95,18 @@ const FRAMES = {
     `${S}/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png`,
   ],
 
-  // Scene 06 — Campaign: using full-size frames from available assets
-  // NOTE: 06_campaign_mitts_sequence frames are 307x512 contact-sheet strips
-  //       and cannot be used as fullscreen images. Using these proper alternates:
-  //   - frame_10_campaign_mitts_hero from drop-001 folder (1672x941 landscape)
-  //   - fight club close frames (1672x941 landscape) — same cinematic mood
-  //   These are the only full-resolution campaign-atmosphere images in the ZIP.
+  // Scene 06 — Campaign mitts: 5 real frames (1672x941 each)
+  // Jab extension → follow-through → guard up → counter ready → reset guard
   s06: [
-    `${S}/05_drop_001_tools_uniform/frame_10_campaign_mitts_hero.png`,
-    `${S}/07_fight_club_close/frame_01_fight_club_close.png`,
-    `${S}/05_drop_001_tools_uniform/frame_10_campaign_mitts_hero.png`,
-    `${S}/07_fight_club_close/frame_02_alternate_fight_club_close.png`,
-    `${S}/05_drop_001_tools_uniform/frame_10_campaign_mitts_hero.png`,
+    `${S}/06_campaign_mitts_sequence/frame_01_mitts_real.png`,
+    `${S}/06_campaign_mitts_sequence/frame_02_mitts_real.png`,
+    `${S}/06_campaign_mitts_sequence/frame_03_mitts_real.png`,
+    `${S}/06_campaign_mitts_sequence/frame_04_mitts_real.png`,
+    `${S}/06_campaign_mitts_sequence/frame_05_mitts_real.png`,
   ],
 
   // Scene 07 — Fight Club close: 4 frames
+  // frame_02 removed (too similar to frame_01) — replaced with 3 new editorial shots
   s07: [
     `${S}/07_fight_club_close/frame_01_fight_club_close.png`,
     `${S}/07_fight_club_close/frame_03_fight_club_ringside_black.png`,
@@ -123,7 +121,7 @@ const FRAMES = {
 const SCENES = [
   {
     id: 'rain-intro',
-    start: 0.00, end: 0.06,
+    start: 0.00, end: 0.02,
     visualType: 'video',
     src: VIDEO_SRC,
     startTime: 0, endTime: 7.3,
@@ -134,37 +132,43 @@ const SCENES = [
   },
   {
     id: 'shadow-boxing',
-    start: 0.06, end: 0.24,
+    start: 0.02, end: 0.20,
     visualType: 'imageSequence',
     frames: FRAMES.s02,
     label:    'THE STANDARD',
     headline: ['THE REAL', 'FIGHT IS', 'INTERNAL.'],
     sub:      'The opponent is just the mirror.',
     cta:      null,
+    ctaLabel: 'Read Manifesto',
+    ctaHref:  '/campaign',
   },
   {
     id: 'the-work',
-    start: 0.24, end: 0.40,
+    start: 0.20, end: 0.36,
     visualType: 'imageSequence',
     frames: FRAMES.s03,
     label:    'THE WORK',
     headline: ['SILENCE.', 'DISCIPLINE.', 'PRESENCE.'],
     sub:      'Built where nobody is watching.',
     cta:      null,
+    ctaLabel: 'Explore The Standard',
+    ctaHref:  '/fight-club',
   },
   {
     id: 'footwork',
-    start: 0.40, end: 0.56,
+    start: 0.36, end: 0.52,
     visualType: 'imageSequence',
     frames: FRAMES.s04,
     label:    'FOOTWORK',
     headline: ['FOOTWORK.', 'TIMING.', 'CONTROL.'],
     sub:      'Built where nobody is watching.',
     cta:      null,
+    ctaLabel: 'Explore Footwear',
+    ctaHref:  '/footwear',
   },
   {
     id: 'drop-001',
-    start: 0.56, end: 0.72,
+    start: 0.52, end: 0.68,
     visualType: 'imageSequence',
     frames: FRAMES.s05,
     // FIX 3: longer fade in — product reveal needs breathing room after footwork
@@ -173,10 +177,12 @@ const SCENES = [
     headline: ['TOOLS FOR THE', 'WORK NOBODY', 'SEES.'],
     sub:      'The first uniform of AURA Fight Club.',
     cta:      null,
+    ctaLabel: 'View Drop 001',
+    ctaHref:  '/drop-001',
   },
   {
     id: 'campaign',
-    start: 0.72, end: 0.88,
+    start: 0.68, end: 0.84,
     visualType: 'imageSequence',
     frames: FRAMES.s06,
     fadeDur: FADE_DUR_LONG,
@@ -184,16 +190,20 @@ const SCENES = [
     headline: ['EARNED WHERE', 'NOBODY', 'IS WATCHING.'],
     sub:      'Pressure, rhythm, restraint, identity.',
     cta:      null,
+    ctaLabel: 'Watch Campaign',
+    ctaHref:  '/campaign',
   },
   {
     id: 'fight-club',
-    start: 0.88, end: 1.00,
+    start: 0.84, end: 1.00,
     visualType: 'imageSequence',
     frames: FRAMES.s07,
     label:    'FIGHT CLUB',
     headline: ['MORE THAN', 'A BRAND.', 'A FIGHT IDENTITY.'],
     sub:      'Join the first circle of AURA Fight Club.',
     cta:      'waitlist',
+    ctaLabel: 'Explore The Collection',
+    ctaHref:  '/apparel',
   },
 ];
 
@@ -282,6 +292,34 @@ function useAmbient(ref) {
   }, [ref]);
 }
 
+
+// ── CINEMATIC HEADER ──────────────────────────────────────────────────────────
+const NAV_LINKS = [
+  { label: 'Drop 001',     href: '/drop-001'  },
+  { label: 'Apparel',      href: '/apparel'   },
+  { label: 'Footwear',     href: '/footwear'  },
+  { label: 'Equipment',    href: '/equipment' },
+  { label: 'The Campaign', href: '/campaign'  },
+  { label: 'Fight Club',   href: '/fight-club'},
+];
+
+function CinematicHeader() {
+  return (
+    <header className="sf-header" role="banner">
+      <a href="/" className="sf-header-logo" aria-label="AURA Fight Club">
+        <span className="sf-header-logo-text">AURA</span>
+        <span className="sf-header-logo-sub">Fight Club</span>
+      </a>
+      <nav className="sf-header-nav" aria-label="Main navigation">
+        {NAV_LINKS.map(l => (
+          <a key={l.href} href={l.href} className="sf-header-nav-link">{l.label}</a>
+        ))}
+      </nav>
+      <a href="/fight-club" className="sf-header-cta">Join Waitlist</a>
+    </header>
+  );
+}
+
 // ── SCENE OVERLAY ──────────────────────────────────────────────────────────
 function SceneOverlay({ scene, visible }) {
   const [email, setEmail] = useState('');
@@ -304,8 +342,8 @@ function SceneOverlay({ scene, visible }) {
         )}
         {scene.cta === 'buttons' && (
           <div className="sf-cta-row">
-            <a href="#" className="sf-btn sf-btn--solid">Enter Drop 001</a>
-            <a href="#" className="sf-btn sf-btn--ghost">Join Fight Club</a>
+            <a href="/drop-001" className="sf-btn sf-btn--solid">Explore Drop 001</a>
+            <a href="/fight-club" className="sf-btn sf-btn--ghost">Enter Fight Club</a>
           </div>
         )}
         {scene.cta === 'waitlist' && (
@@ -364,7 +402,6 @@ export default function ScrollFilm() {
   const [isMobile,     setMobile]       = useState(false);
   const [overlayScene, setOverlayScene] = useState(SCENES[0]);
   const [overlayVis,   setOverlayVis]   = useState(false);
-  const [overlayFrame, setOverlayFrame] = useState(0);
   const [debug, setDebug] = useState({
     total:0, sceneId:'—', localPct:0, frame:0, totalFrames:0, type:'—', videoPaused:false,
   });
@@ -552,7 +589,6 @@ export default function ScrollFilm() {
             curFrameIdx.current = 0;
             doTransition.current(sc, prev);
             setOverlayVis(false);
-            setOverlayFrame(0);
             setTimeout(() => { setOverlayScene(sc); setOverlayVis(true); }, 200);
           }
 
@@ -618,7 +654,7 @@ export default function ScrollFilm() {
           </div>
         )}
 
-        <SceneOverlay scene={overlayScene} visible={overlayVis} frameIdx={overlayFrame} />
+        <SceneOverlay scene={overlayScene} visible={overlayVis} />
         <Indicators activeId={overlayScene?.id} />
 
         <div className="sf-progress-bar" aria-hidden="true">
