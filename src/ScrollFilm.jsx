@@ -121,7 +121,7 @@ const FRAMES = {
 const SCENES = [
   {
     id: 'rain-intro',
-    start: 0.00, end: 0.02,
+    start: 0.00, end: 0.06,
     visualType: 'video',
     src: VIDEO_SRC,
     startTime: 0, endTime: 7.3,
@@ -132,7 +132,7 @@ const SCENES = [
   },
   {
     id: 'shadow-boxing',
-    start: 0.02, end: 0.20,
+    start: 0.06, end: 0.22,
     visualType: 'imageSequence',
     frames: FRAMES.s02,
     // s02 has 5 frames (0-4) — 3 beats across them
@@ -155,7 +155,7 @@ const SCENES = [
   },
   {
     id: 'the-work',
-    start: 0.20, end: 0.36,
+    start: 0.22, end: 0.38,
     visualType: 'imageSequence',
     frames: FRAMES.s03,
     // s03 has 5 frames (0-4) — 3 beats
@@ -178,7 +178,7 @@ const SCENES = [
   },
   {
     id: 'footwork',
-    start: 0.36, end: 0.52,
+    start: 0.38, end: 0.54,
     visualType: 'imageSequence',
     frames: FRAMES.s04,
     // s04 has 5 frames (0-4) — 3 beats
@@ -201,7 +201,7 @@ const SCENES = [
   },
   {
     id: 'drop-001',
-    start: 0.52, end: 0.68,
+    start: 0.54, end: 0.70,
     visualType: 'imageSequence',
     frames: FRAMES.s05,
     fadeDur: FADE_DUR_LONG,
@@ -221,7 +221,7 @@ const SCENES = [
   },
   {
     id: 'campaign',
-    start: 0.68, end: 0.84,
+    start: 0.70, end: 0.85,
     visualType: 'imageSequence',
     frames: FRAMES.s06,
     fadeDur: FADE_DUR_LONG,
@@ -249,7 +249,7 @@ const SCENES = [
   },
   {
     id: 'fight-club',
-    start: 0.84, end: 1.00,
+    start: 0.85, end: 1.00,
     visualType: 'imageSequence',
     frames: FRAMES.s07,
     label:    'FIGHT CLUB',
