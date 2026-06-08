@@ -32,23 +32,18 @@ html, body {
   object-fit: cover;
   object-position: center;
   filter: contrast(1.06) saturate(0.7) brightness(0.84);
-  opacity: 0;
-  transition: opacity 0.55s ease;
+  opacity: 0; /* GSAP controls opacity */
   z-index: 1;
-  will-change: opacity;
 }
-.sf-video--active { opacity: 1; }
 
 /* ── IMAGE SLOTS (A + B for crossfade) ─────────────── */
 .sf-image-slot {
   position: absolute;
   inset: 0;
   z-index: 1;
-  opacity: 0;
-  transition: opacity 0.55s ease;
+  opacity: 0; /* GSAP controls opacity */
   overflow: hidden;
 }
-.sf-image-slot--active { opacity: 1; }
 
 .sf-image {
   position: absolute;
@@ -56,13 +51,9 @@ html, body {
   width: 100%; height: 100%;
   object-fit: cover;
   filter: contrast(1.06) saturate(0.7) brightness(0.78);
-  /* Slow scale via CSS animation — image parallax feel */
-  animation: sfImgScale 12s ease-in-out infinite alternate;
-  transform-origin: center;
-}
-@keyframes sfImgScale {
-  from { transform: scale(1.0); }
-  to   { transform: scale(1.06); }
+  /* Scale driven by GSAP from ScrollFilm.jsx — no CSS animation */
+  transform-origin: center center;
+  will-change: transform;
 }
 
 /* Fallback gradient when image src is null */

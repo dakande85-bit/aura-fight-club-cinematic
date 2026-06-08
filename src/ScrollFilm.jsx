@@ -1,35 +1,35 @@
 /**
- * AURA Fight Club — Multi-Scene Scroll Film
- * ──────────────────────────────────────────
- * Scroll progress drives the active scene.
- * Each scene has its own visual (video segment or image).
- * Video scenes: scroll maps to video.currentTime within startTime/endTime.
- * Image scenes: image shown fullscreen with subtle scale parallax.
- * Crossfade on scene change.
+ * AURA Fight Club — Scroll Film  (Glitch-Free v3)
+ * ─────────────────────────────────────────────────
+ * All visual transitions handled via direct DOM refs + GSAP — no React state
+ * races, no CSS animation resets, no slot flipping bugs.
+ *
+ * Architecture:
+ *  - Two persistent image <div> layers (A/B) for image scenes
+ *  - One persistent <video> for video scenes
+ *  - GSAP crossfades directly on DOM elements (no setState for visuals)
+ *  - React state used ONLY for overlay text + debug panel
+ *  - Video seeking throttled: rAF-gated, 30ms minimum delta, clamped
+ *  - Continuous scene ranges — no gaps, no null scene
  */
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── SOURCE VIDEO — swap by replacing this file ──────────────────────────────
+// ── SWAP VIDEO: replace this file to change the source ──────────────────────
 const VIDEO_SRC = '/assets/aura-scroll/aura-source.mp4';
 
-// ── SCENE CONFIG ────────────────────────────────────────────────────────────
-// visualType: 'video' | 'image'
-// video scenes: startTime/endTime map the scene's local progress to currentTime
-// image scenes: src shown fullscreen with slow scale; use null for gradient fallback
+// ── SCENE CONFIG ─────────────────────────────────────────────────────────────
+// Ranges are CONTINUOUS — no gaps. Full 0→1 covered.
 const SCENES = [
   {
     id:        'intro',
-    start:     0,
-    end:       0.16,
+    start:     0.00, end: 0.18,
     visualType:'video',
-    src:       VIDEO_SRC,
-    startTime: 0,
-    endTime:   2.8,
+    src:       VIDEO_SRC, startTime: 0,   endTime: 2.8,
     label:     'AURA FIGHT CLUB — DROP 001',
     headline:  ['YOUR AURA', 'IS EARNED.'],
     sub:       'The real fight is internal.\nThe opponent is just the mirror.',
@@ -37,12 +37,9 @@ const SCENES = [
   },
   {
     id:        'standard',
-    start:     0.18,
-    end:       0.33,
+    start:     0.18, end: 0.36,
     visualType:'video',
-    src:       VIDEO_SRC,
-    startTime: 2.8,
-    endTime:   5.2,
+    src:       VIDEO_SRC, startTime: 2.8, endTime: 5.2,
     label:     'THE STANDARD',
     headline:  ['THE REAL', 'FIGHT IS', 'INTERNAL.'],
     sub:       'The opponent is just the mirror.',
@@ -50,8 +47,7 @@ const SCENES = [
   },
   {
     id:        'work',
-    start:     0.35,
-    end:       0.50,
+    start:     0.36, end: 0.52,
     visualType:'image',
     src:       '/assets/aura-scroll/work.png',
     imgPos:    'center 22%',
@@ -62,8 +58,7 @@ const SCENES = [
   },
   {
     id:        'drop',
-    start:     0.52,
-    end:       0.66,
+    start:     0.52, end: 0.68,
     visualType:'image',
     src:       '/assets/aura-scroll/drop-001.png',
     imgPos:    'center center',
@@ -74,8 +69,7 @@ const SCENES = [
   },
   {
     id:        'campaign',
-    start:     0.68,
-    end:       0.83,
+    start:     0.68, end: 0.84,
     visualType:'image',
     src:       '/assets/aura-scroll/campaign.png',
     imgPos:    'center top',
@@ -86,8 +80,7 @@ const SCENES = [
   },
   {
     id:        'fightclub',
-    start:     0.85,
-    end:       1.0,
+    start:     0.84, end: 1.00,
     visualType:'image',
     src:       '/assets/aura-scroll/fight-club.png',
     imgPos:    '58% center',
@@ -100,21 +93,35 @@ const SCENES = [
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
 function getScene(p) {
-  return SCENES.find(s => p >= s.start && p <= s.end) ?? null;
+  // Clamp to last scene at exactly 1.0
+  if (p >= 1.0) return SCENES[SCENES.length - 1];
+  return SCENES.find(s => p >= s.start && p < s.end) ?? SCENES[0];
 }
-function sceneLocalProgress(scene, p) {
-  if (!scene) return 0;
+function localP(scene, p) {
   const range = scene.end - scene.start;
   return range > 0 ? Math.max(0, Math.min(1, (p - scene.start) / range)) : 0;
 }
 
-// ── SCENE OVERLAY ────────────────────────────────────────────────────────────
+// Preload an image, returns a Promise
+const imageCache = new Map();
+function preloadImage(src) {
+  if (!src) return Promise.resolve();
+  if (imageCache.has(src)) return imageCache.get(src);
+  const p = new Promise(res => {
+    const img = new Image();
+    img.onload  = () => res(true);
+    img.onerror = () => res(false);
+    img.src = src;
+  });
+  imageCache.set(src, p);
+  return p;
+}
+
+// ── SCENE OVERLAY (React — text only) ────────────────────────────────────────
 function SceneOverlay({ scene, visible }) {
   const [email, setEmail] = useState('');
   const [done, setDone]   = useState(false);
-
   useEffect(() => { setDone(false); setEmail(''); }, [scene?.id]);
-
   if (!scene) return null;
   return (
     <div className={`sf-overlay${visible ? ' sf-overlay--in' : ''}`}>
@@ -142,7 +149,8 @@ function SceneOverlay({ scene, visible }) {
               <div className="sf-form-row">
                 <input className="sf-email" type="email" placeholder="Enter your email"
                   value={email} onChange={e => setEmail(e.target.value)} />
-                <button className="sf-btn sf-btn--solid" onClick={() => email && setDone(true)}>
+                <button className="sf-btn sf-btn--solid"
+                  onClick={() => email && setDone(true)}>
                   Join Waitlist
                 </button>
               </div>
@@ -156,48 +164,7 @@ function SceneOverlay({ scene, visible }) {
   );
 }
 
-// ── VISUAL LAYER ─────────────────────────────────────────────────────────────
-// Two slots (A/B) crossfade when scene changes.
-function VisualLayer({ sceneA, sceneB, activeSlot, videoRef }) {
-  const renderVisual = (scene, slot) => {
-    if (!scene) return null;
-    const isActive = activeSlot === slot;
-    if (scene.visualType === 'video') {
-      return (
-        <div key={scene.id + slot}
-          className={`sf-visual-slot${isActive ? ' sf-visual-slot--active' : ''}`}>
-          {/* Video is rendered once outside; this slot just controls opacity */}
-        </div>
-      );
-    }
-    // Image
-    return (
-      <div key={scene.id + slot}
-        className={`sf-visual-slot${isActive ? ' sf-visual-slot--active' : ''}`}>
-        {scene.src ? (
-          <img
-            className="sf-image"
-            src={scene.src}
-            alt=""
-            style={{ objectPosition: scene.imgPos || 'center center' }}
-            loading="lazy"
-          />
-        ) : (
-          <div className="sf-gradient-fallback" />
-        )}
-      </div>
-    );
-  };
-
-  return (
-    <div className="sf-visual-container">
-      {renderVisual(sceneA, 'A')}
-      {renderVisual(sceneB, 'B')}
-    </div>
-  );
-}
-
-// ── INDICATORS ───────────────────────────────────────────────────────────────
+// ── INDICATORS ────────────────────────────────────────────────────────────────
 function Indicators({ activeId }) {
   return (
     <div className="sf-indicators" aria-hidden="true">
@@ -210,28 +177,37 @@ function Indicators({ activeId }) {
   );
 }
 
-// ── MAIN ─────────────────────────────────────────────────────────────────────
+// ── MAIN ──────────────────────────────────────────────────────────────────────
 export default function ScrollFilm() {
-  const videoRef    = useRef(null);
   const wrapperRef  = useRef(null);
-  const rafRef      = useRef(null);
 
+  // DOM refs — manipulated directly, no React re-render for visuals
+  const videoRef    = useRef(null);
+  const imgSlotARef = useRef(null);
+  const imgSlotBRef = useRef(null);
+  const imgARef     = useRef(null);  // <img> inside slot A
+  const imgBRef     = useRef(null);  // <img> inside slot B
+
+  // Transition state (plain refs, not state — avoid async setState)
+  const currentSlot    = useRef('A');   // which img slot is "current"
+  const currentSceneId = useRef(null);
+  const transitioning  = useRef(false);
+  const cancelTransRef = useRef(null);  // cancel in-flight GSAP tween
+
+  // Video seek throttle
+  const lastSeekTime   = useRef(-1);
+  const seekRafRef     = useRef(null);
+  const pendingSeek    = useRef(null);
+
+  // React state — overlay text + debug only
   const [videoReady, setVideoReady] = useState(false);
   const [isMobile,   setMobile]     = useState(false);
-
-  // Two-slot crossfade state
-  const [slotA,       setSlotA]       = useState(SCENES[0]);
-  const [slotB,       setSlotB]       = useState(null);
-  const [activeSlot,  setActiveSlot]  = useState('A');
-  const [sceneVisible,setSceneVisible]= useState(false);
-  const [activeScene, setActiveScene] = useState(SCENES[0]);
-
-  const [debug, setDebug] = useState({
-    total: 0, sceneId: 'intro', localProg: 0, videoTime: 0,
+  const [overlayScene, setOverlayScene] = useState(SCENES[0]);
+  const [overlayVisible, setOverlayVisible] = useState(false);
+  const [debugState, setDebugState] = useState({
+    total: 0, sceneId: '—', localPct: 0,
+    videoTime: 0, imgLoaded: true, transitioning: false, prevScene: '—',
   });
-
-  const lastSceneId = useRef(null);
-  const swapTimer   = useRef(null);
 
   // Mobile detect
   useEffect(() => {
@@ -239,6 +215,13 @@ export default function ScrollFilm() {
       window.matchMedia('(max-width: 768px)').matches ||
       /iPhone|iPad|Android/i.test(navigator.userAgent)
     );
+  }, []);
+
+  // Preload all image assets upfront
+  useEffect(() => {
+    SCENES.forEach(s => {
+      if (s.visualType === 'image' && s.src) preloadImage(s.src);
+    });
   }, []);
 
   // Video metadata
@@ -254,26 +237,96 @@ export default function ScrollFilm() {
     return () => v.removeEventListener('loadedmetadata', onMeta);
   }, []);
 
-  // Scene crossfade logic
-  const switchScene = useCallback((newScene) => {
-    if (!newScene || newScene.id === lastSceneId.current) return;
-    lastSceneId.current = newScene.id;
-    clearTimeout(swapTimer.current);
+  // ── SCENE TRANSITION ENGINE (DOM-direct, no React state) ─────────────────
+  const doTransition = useRef(null);
+  doTransition.current = (newScene, prevSceneId) => {
+    const video = videoRef.current;
+    const slotA = imgSlotARef.current;
+    const slotB = imgSlotBRef.current;
+    const imgA  = imgARef.current;
+    const imgB  = imgBRef.current;
+    if (!slotA || !slotB) return;
 
-    const incoming = activeSlot === 'A' ? 'B' : 'A';
-    if (incoming === 'A') setSlotA(newScene);
-    else                  setSlotB(newScene);
+    // Kill any in-flight tween
+    if (cancelTransRef.current) {
+      cancelTransRef.current.kill();
+      cancelTransRef.current = null;
+    }
 
-    // Brief fade: hide overlay, flip slot, show overlay
-    setSceneVisible(false);
-    swapTimer.current = setTimeout(() => {
-      setActiveSlot(incoming);
-      setActiveScene(newScene);
-      setSceneVisible(true);
-    }, 180);
-  }, [activeSlot]);
+    const prevIsVideo = SCENES.find(s => s.id === prevSceneId)?.visualType === 'video';
+    const nextIsVideo = newScene.visualType === 'video';
+    const sameVideo   = prevIsVideo && nextIsVideo; // video→video: no fade needed
 
-  // Main scroll engine
+    transitioning.current = true;
+
+    const onComplete = () => {
+      transitioning.current = false;
+      cancelTransRef.current = null;
+    };
+
+    if (sameVideo) {
+      // Video→video: just keep video visible, no crossfade
+      gsap.set(video, { opacity: 1 });
+      gsap.set(slotA, { opacity: 0 });
+      gsap.set(slotB, { opacity: 0 });
+      onComplete();
+      return;
+    }
+
+    const performSwitch = () => {
+      // Determine which image slot is "next"
+      const nextSlot = currentSlot.current === 'A' ? 'B' : 'A';
+      const nextSlotEl  = nextSlot === 'A' ? slotA : slotB;
+      const nextImgEl   = nextSlot === 'A' ? imgA  : imgB;
+      const currSlotEl  = currentSlot.current === 'A' ? slotA : slotB;
+
+      // Load image into next slot (if image scene)
+      if (nextIsVideo) {
+        nextSlotEl.style.opacity = '0';
+      } else {
+        if (nextImgEl) {
+          nextImgEl.src = newScene.src || '';
+          nextImgEl.style.objectPosition = newScene.imgPos || 'center center';
+          // Reset transform so scale starts from 1.0, not mid-animation
+          gsap.set(nextImgEl, { scale: 1 });
+        }
+        gsap.set(nextSlotEl, { opacity: 0 });
+      }
+
+      const FADE = 0.75; // crossfade duration (s)
+
+      // Bring next layer in
+      if (nextIsVideo) {
+        cancelTransRef.current = gsap.to(video, {
+          opacity: 1, duration: FADE, ease: 'power1.inOut',
+          onComplete,
+        });
+        gsap.to(currSlotEl, { opacity: 0, duration: FADE, ease: 'power1.inOut' });
+      } else {
+        cancelTransRef.current = gsap.to(nextSlotEl, {
+          opacity: 1, duration: FADE, ease: 'power1.inOut',
+          onComplete,
+        });
+        // Fade out video or previous image slot
+        if (prevIsVideo) {
+          gsap.to(video, { opacity: 0, duration: FADE, ease: 'power1.inOut' });
+        } else {
+          gsap.to(currSlotEl, { opacity: 0, duration: FADE, ease: 'power1.inOut' });
+        }
+      }
+
+      currentSlot.current = nextIsVideo ? currentSlot.current : nextSlot;
+    };
+
+    if (newScene.visualType === 'image' && newScene.src) {
+      // Wait for preload (likely already cached — near-instant)
+      preloadImage(newScene.src).then(performSwitch);
+    } else {
+      performSwitch();
+    }
+  };
+
+  // ── MAIN SCROLL ENGINE ────────────────────────────────────────────────────
   useEffect(() => {
     if (!videoReady) return;
     const video   = videoRef.current;
@@ -282,6 +335,18 @@ export default function ScrollFilm() {
 
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+    // Initialise first scene visually
+    const firstScene = SCENES[0];
+    currentSceneId.current = firstScene.id;
+    if (firstScene.visualType === 'video') {
+      gsap.set(video, { opacity: 1 });
+      gsap.set(imgSlotARef.current, { opacity: 0 });
+      gsap.set(imgSlotBRef.current, { opacity: 0 });
+    }
+    setOverlayScene(firstScene);
+    setTimeout(() => setOverlayVisible(true), 300);
+
+    // Lenis
     const lenis = new Lenis({
       duration:    mq.matches ? 0 : 1.05,
       easing:      t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -292,6 +357,9 @@ export default function ScrollFilm() {
     gsap.ticker.lagSmoothing(0);
     lenis.on('scroll', ScrollTrigger.update);
 
+    // Debug rAF ref
+    let debugRaf = null;
+
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: wrapper,
@@ -301,29 +369,65 @@ export default function ScrollFilm() {
         onUpdate(self) {
           const p     = self.progress;
           const scene = getScene(p);
-          const localP = sceneLocalProgress(scene, p);
+          const lp    = localP(scene, p);
 
-          // ── Video scrub ──────────────────────────────
-          if (scene?.visualType === 'video' && video.duration) {
-            const { startTime, endTime } = scene;
-            const targetTime = startTime + localP * (endTime - startTime);
-            if (isFinite(targetTime)) video.currentTime = targetTime;
+          // ── 1. VIDEO SCRUB (throttled) ────────────────
+          if (scene.visualType === 'video' && video.duration && isFinite(video.duration)) {
+            const target = Math.max(
+              scene.startTime,
+              Math.min(scene.endTime, scene.startTime + lp * (scene.endTime - scene.startTime))
+            );
+            const delta = Math.abs(target - lastSeekTime.current);
+            if (delta >= 0.03) {
+              pendingSeek.current = target;
+              if (!seekRafRef.current) {
+                seekRafRef.current = requestAnimationFrame(() => {
+                  seekRafRef.current = null;
+                  if (pendingSeek.current !== null) {
+                    video.currentTime  = pendingSeek.current;
+                    lastSeekTime.current = pendingSeek.current;
+                    pendingSeek.current  = null;
+                  }
+                });
+              }
+            }
           }
 
-          // ── Scene switch ─────────────────────────────
-          if (scene?.id !== lastSceneId.current) {
-            switchScene(scene);
+          // ── 2. IMAGE SCALE (GSAP, no CSS animation) ───
+          if (scene.visualType === 'image') {
+            const sc   = 1 + lp * 0.04;
+            const slot = currentSlot.current === 'A' ? imgARef.current : imgBRef.current;
+            if (slot) gsap.set(slot, { scale: sc });
           }
 
-          // ── Debug (via rAF to avoid layout thrash) ───
-          if (!rafRef.current) {
-            rafRef.current = requestAnimationFrame(() => {
-              rafRef.current = null;
-              setDebug({
-                total:    p,
-                sceneId:  scene?.id ?? '—',
-                localProg:localP,
-                videoTime:video.currentTime,
+          // ── 3. SCENE CHANGE ───────────────────────────
+          if (scene.id !== currentSceneId.current) {
+            const prevId = currentSceneId.current;
+            currentSceneId.current = scene.id;
+
+            // Overlay: fade out → update → fade in
+            setOverlayVisible(false);
+            setTimeout(() => {
+              setOverlayScene(scene);
+              setOverlayVisible(true);
+            }, 200);
+
+            // Visual crossfade
+            doTransition.current(scene, prevId);
+          }
+
+          // ── 4. DEBUG (rAF throttled) ──────────────────
+          if (!debugRaf) {
+            debugRaf = requestAnimationFrame(() => {
+              debugRaf = null;
+              setDebugState({
+                total:        p,
+                sceneId:      scene.id,
+                localPct:     lp,
+                videoTime:    video.currentTime,
+                imgLoaded:    imageCache.has(scene.src) ? true : (scene.visualType !== 'image'),
+                transitioning:transitioning.current,
+                prevScene:    currentSceneId.current,
               });
             });
           }
@@ -331,16 +435,12 @@ export default function ScrollFilm() {
       });
     });
 
-    // Mobile: slow autoplay fallback
+    // Mobile fallback
     if (isMobile) {
       video.playbackRate = 0.35;
       video.loop = true;
       video.play().catch(() => {});
     }
-
-    // Show first scene
-    lastSceneId.current = SCENES[0].id;
-    setSceneVisible(true);
 
     setTimeout(() => ScrollTrigger.refresh(), 400);
 
@@ -349,45 +449,35 @@ export default function ScrollFilm() {
       lenis.destroy();
       gsap.ticker.remove(ticker);
       ScrollTrigger.getAll().forEach(t => t.kill());
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      clearTimeout(swapTimer.current);
+      if (seekRafRef.current) cancelAnimationFrame(seekRafRef.current);
+      if (debugRaf)            cancelAnimationFrame(debugRaf);
     };
-  }, [videoReady, isMobile, switchScene]);
-
-  // Is active visual a video?
-  const activeIsVideo = (activeSlot === 'A' ? slotA : slotB)?.visualType === 'video';
+  }, [videoReady, isMobile]);
 
   return (
     <div className="sf-wrapper" ref={wrapperRef}>
       <div className="sf-fixed">
 
-        {/* ── VIDEO (always mounted, opacity toggled) ── */}
+        {/* ── VIDEO — always mounted, opacity via GSAP ── */}
         <video
           ref={videoRef}
-          className={`sf-video${activeIsVideo ? ' sf-video--active' : ''}`}
+          className="sf-video"
           src={VIDEO_SRC}
-          muted
-          playsInline
-          preload="auto"
+          muted playsInline preload="auto"
+          style={{ opacity: 0 }}
           aria-hidden="true"
         />
 
-        {/* ── IMAGE SLOTS ── */}
-        <div className={`sf-image-slot sf-image-slot--A${activeSlot === 'A' && slotA?.visualType === 'image' ? ' sf-image-slot--active' : ''}`}>
-          {slotA?.visualType === 'image' && slotA.src ? (
-            <img className="sf-image" src={slotA.src} alt=""
-              style={{ objectPosition: slotA.imgPos || 'center center' }} />
-          ) : slotA?.visualType === 'image' ? (
-            <div className="sf-gradient-fallback" />
-          ) : null}
+        {/* ── IMAGE SLOT A ── */}
+        <div ref={imgSlotARef} className="sf-image-slot" style={{ opacity: 0 }}>
+          <img ref={imgARef} className="sf-image" src="" alt=""
+            style={{ transformOrigin: 'center center' }} />
         </div>
-        <div className={`sf-image-slot sf-image-slot--B${activeSlot === 'B' && slotB?.visualType === 'image' ? ' sf-image-slot--active' : ''}`}>
-          {slotB?.visualType === 'image' && slotB.src ? (
-            <img className="sf-image" src={slotB.src} alt=""
-              style={{ objectPosition: slotB.imgPos || 'center center' }} />
-          ) : slotB?.visualType === 'image' ? (
-            <div className="sf-gradient-fallback" />
-          ) : null}
+
+        {/* ── IMAGE SLOT B ── */}
+        <div ref={imgSlotBRef} className="sf-image-slot" style={{ opacity: 0 }}>
+          <img ref={imgBRef} className="sf-image" src="" alt=""
+            style={{ transformOrigin: 'center center' }} />
         </div>
 
         {/* ── ATMOSPHERICS ── */}
@@ -403,24 +493,26 @@ export default function ScrollFilm() {
           </div>
         )}
 
-        {/* ── OVERLAY ── */}
-        <SceneOverlay scene={activeScene} visible={sceneVisible} />
+        {/* ── OVERLAY (text only — React) ── */}
+        <SceneOverlay scene={overlayScene} visible={overlayVisible} />
 
-        {/* ── INDICATORS ── */}
-        <Indicators activeId={activeScene?.id} />
+        {/* ── SCENE INDICATORS ── */}
+        <Indicators activeId={overlayScene?.id} />
 
         {/* ── PROGRESS BAR ── */}
         <div className="sf-progress-bar" aria-hidden="true">
           <div className="sf-progress-fill"
-            style={{ transform: `scaleX(${debug.total})` }} />
+            style={{ transform: `scaleX(${debugState.total})` }} />
         </div>
 
-        {/* ── DEBUG ── */}
+        {/* ── DEBUG PANEL ── */}
         <div className="sf-debug">
-          <span>TOTAL<em>{(debug.total * 100).toFixed(1)}%</em></span>
-          <span>SCENE<em>{debug.sceneId}</em></span>
-          <span>LOCAL<em>{(debug.localProg * 100).toFixed(1)}%</em></span>
-          <span>VID T<em>{debug.videoTime.toFixed(2)}s</em></span>
+          <span>TOTAL    <em>{(debugState.total * 100).toFixed(1)}%</em></span>
+          <span>SCENE    <em>{debugState.sceneId}</em></span>
+          <span>LOCAL    <em>{(debugState.localPct * 100).toFixed(1)}%</em></span>
+          <span>VID&nbsp;T  <em>{debugState.videoTime.toFixed(2)}s</em></span>
+          <span>IMG OK   <em>{debugState.imgLoaded ? 'YES' : 'WAIT'}</em></span>
+          <span>TRANS    <em>{debugState.transitioning ? 'YES' : 'NO'}</em></span>
           {isMobile && <span className="sf-debug-warn">MOBILE</span>}
         </div>
 
