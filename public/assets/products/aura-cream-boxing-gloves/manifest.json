@@ -1,0 +1,17 @@
+{
+  "slug": "aura-cream-boxing-gloves",
+  "name": "AURA Cream Boxing Gloves",
+  "category": "Equipment",
+  "collection": "Drop 001",
+  "mediaStatus": "live",
+  "notes": "",
+  "cardProduct": "/assets/products/aura-cream-boxing-gloves/card-product.webp",
+  "cardHoverModel": "/assets/products/aura-cream-boxing-gloves/card-hover-model.webp",
+  "gallery": [
+    "/assets/products/aura-cream-boxing-gloves/gallery-01.webp",
+    "/assets/products/aura-cream-boxing-gloves/gallery-02.webp",
+    "/assets/products/aura-cream-boxing-gloves/gallery-03.webp",
+    "/assets/products/aura-cream-boxing-gloves/gallery-04.webp",
+    "/assets/products/aura-cream-boxing-gloves/gallery-05.webp"
+  ]
+}

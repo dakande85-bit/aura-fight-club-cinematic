@@ -1,0 +1,17 @@
+{
+  "slug": "aura-sleeveless-hoodie",
+  "name": "AURA Sleeveless Hoodie",
+  "category": "Apparel",
+  "collection": "Drop 001",
+  "mediaStatus": "live",
+  "notes": "",
+  "cardProduct": "/assets/products/aura-sleeveless-hoodie/card-product.webp",
+  "cardHoverModel": "/assets/products/aura-sleeveless-hoodie/card-hover-model.webp",
+  "gallery": [
+    "/assets/products/aura-sleeveless-hoodie/gallery-01.webp",
+    "/assets/products/aura-sleeveless-hoodie/gallery-02.webp",
+    "/assets/products/aura-sleeveless-hoodie/gallery-03.webp",
+    "/assets/products/aura-sleeveless-hoodie/gallery-04.webp",
+    "/assets/products/aura-sleeveless-hoodie/gallery-05.webp"
+  ]
+}

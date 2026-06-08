@@ -1,0 +1,17 @@
+{
+  "slug": "aura-cream-fight-boots",
+  "name": "AURA Cream Fight Boots",
+  "category": "Footwear",
+  "collection": "Drop 001",
+  "mediaStatus": "live",
+  "notes": "",
+  "cardProduct": "/assets/products/aura-cream-fight-boots/card-product.webp",
+  "cardHoverModel": "/assets/products/aura-cream-fight-boots/card-hover-model.webp",
+  "gallery": [
+    "/assets/products/aura-cream-fight-boots/gallery-01.webp",
+    "/assets/products/aura-cream-fight-boots/gallery-02.webp",
+    "/assets/products/aura-cream-fight-boots/gallery-03.webp",
+    "/assets/products/aura-cream-fight-boots/gallery-04.webp",
+    "/assets/products/aura-cream-fight-boots/gallery-05.webp"
+  ]
+}

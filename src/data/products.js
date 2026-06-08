@@ -1,17 +1,16 @@
 /**
- * AURA Fight Club — Product Data
- * ──────────────────────────────
- * mediaStatus: 'live' = approved asset exists, safe to show
- *              'missing' = no approved asset, do not render live
+ * AURA Fight Club — Product Data  (Phase 1)
+ * ──────────────────────────────────────────
+ * All media paths point to /assets/products/[slug]/
+ * Webp files generated from approved source images.
+ *
+ * mediaStatus rules:
+ *   'live'    — card-product + card-hover-model + ≥3 gallery images confirmed
+ *   'missing' — insufficient approved media, not shown publicly
  */
 
-const PRODUCTS = '/assets/aura-live/products';
-const SCROLL   = '/assets/aura-scroll/05_drop_001_tools_uniform';
-const CAMPAIGN = '/assets/aura-scroll/06_campaign_mitts_sequence';
-const HERO     = '/assets/aura-live/hero';
-const LIVE_CAM = '/assets/aura-live/campaign';
-
 export const products = [
+  // ── LIVE ──────────────────────────────────────────────────────────────
   {
     slug:        'aura-cream-fight-boots',
     name:        'AURA Cream Fight Boots',
@@ -28,14 +27,17 @@ export const products = [
       'Reinforced ankle collar',
       'Available in sizes UK 6–12',
     ],
-    image:      `${SCROLL}/frame_03_cream_boots_product.png`,
-    hoverImage: `${SCROLL}/frame_01_cream_uniform_model.png`,
+    image:      '/assets/products/aura-cream-fight-boots/card-product.webp',
+    hoverImage: '/assets/products/aura-cream-fight-boots/card-hover-model.webp',
     gallery: [
-      { src: `${SCROLL}/frame_03_cream_boots_product.png`,     alt: 'AURA Cream Fight Boots — product' },
-      { src: `${SCROLL}/frame_01_cream_uniform_model.png`,     alt: 'AURA Cream Fight Boots — full outfit' },
-      { src: `${SCROLL}/frame_09_cream_full_outfit_model.png`, alt: 'AURA Cream Fight Boots — full look' },
+      { src: '/assets/products/aura-cream-fight-boots/gallery-01.webp', alt: 'AURA Cream Fight Boots — product shot' },
+      { src: '/assets/products/aura-cream-fight-boots/gallery-02.webp', alt: 'AURA Cream Fight Boots — high top' },
+      { src: '/assets/products/aura-cream-fight-boots/gallery-03.webp', alt: 'AURA Cream Fight Boots — low top' },
+      { src: '/assets/products/aura-cream-fight-boots/gallery-04.webp', alt: 'AURA Cream Fight Boots — model wearing' },
+      { src: '/assets/products/aura-cream-fight-boots/gallery-05.webp', alt: 'AURA Cream Fight Boots — full outfit' },
     ],
   },
+
   {
     slug:        'aura-cream-boxing-gloves',
     name:        'AURA Cream Boxing Gloves',
@@ -52,15 +54,17 @@ export const products = [
       'Hook-and-loop wrist closure',
       'Available in 12oz and 16oz',
     ],
-    image:      `${PRODUCTS}/gloves-cream.png`,
-    hoverImage: `${CAMPAIGN}/frame_01_mitts_real.png`,
+    image:      '/assets/products/aura-cream-boxing-gloves/card-product.webp',
+    hoverImage: '/assets/products/aura-cream-boxing-gloves/card-hover-model.webp',
     gallery: [
-      { src: `${PRODUCTS}/gloves-cream.png`,        alt: 'AURA Cream Boxing Gloves — product' },
-      { src: `${PRODUCTS}/gloves-closeup.png`,      alt: 'AURA Cream Boxing Gloves — detail' },
-      { src: `${CAMPAIGN}/frame_01_mitts_real.png`, alt: 'AURA Cream Boxing Gloves — in use' },
-      { src: `${CAMPAIGN}/frame_03_mitts_real.png`, alt: 'AURA Cream Boxing Gloves — pad work' },
+      { src: '/assets/products/aura-cream-boxing-gloves/gallery-01.webp', alt: 'AURA Cream Boxing Gloves — product' },
+      { src: '/assets/products/aura-cream-boxing-gloves/gallery-02.webp', alt: 'AURA Cream Boxing Gloves — detail closeup' },
+      { src: '/assets/products/aura-cream-boxing-gloves/gallery-03.webp', alt: 'AURA Cream Boxing Gloves — on pads' },
+      { src: '/assets/products/aura-cream-boxing-gloves/gallery-04.webp', alt: 'AURA Cream Boxing Gloves — pad work' },
+      { src: '/assets/products/aura-cream-boxing-gloves/gallery-05.webp', alt: 'AURA Cream Boxing Gloves — training' },
     ],
   },
+
   {
     slug:        'aura-sleeveless-hoodie',
     name:        'AURA Sleeveless Hoodie',
@@ -77,18 +81,55 @@ export const products = [
       'Kangaroo pocket',
       'Available in S, M, L, XL, XXL',
     ],
-    image:      `${PRODUCTS}/sleeveless-hoodie.png`,
-    hoverImage: `${HERO}/model-sleeveless-cream.png`,
+    image:      '/assets/products/aura-sleeveless-hoodie/card-product.webp',
+    hoverImage: '/assets/products/aura-sleeveless-hoodie/card-hover-model.webp',
     gallery: [
-      { src: `${PRODUCTS}/sleeveless-hoodie.png`,  alt: 'AURA Sleeveless Hoodie — product' },
-      { src: `${HERO}/model-sleeveless-cream.png`, alt: 'AURA Sleeveless Hoodie — model front' },
-      { src: `${HERO}/model-hoodie-dark.png`,      alt: 'AURA Sleeveless Hoodie — dark studio' },
-      { src: `${LIVE_CAM}/campaign-fighter.png`,   alt: 'AURA Sleeveless Hoodie — campaign' },
+      { src: '/assets/products/aura-sleeveless-hoodie/gallery-01.webp', alt: 'AURA Sleeveless Hoodie — product' },
+      { src: '/assets/products/aura-sleeveless-hoodie/gallery-02.webp', alt: 'AURA Sleeveless Hoodie — model front' },
+      { src: '/assets/products/aura-sleeveless-hoodie/gallery-03.webp', alt: 'AURA Sleeveless Hoodie — dark studio' },
+      { src: '/assets/products/aura-sleeveless-hoodie/gallery-04.webp', alt: 'AURA Sleeveless Hoodie — campaign' },
+      { src: '/assets/products/aura-sleeveless-hoodie/gallery-05.webp', alt: 'AURA Sleeveless Hoodie — back detail' },
     ],
+  },
+
+  // ── MISSING MEDIA — not shown publicly ───────────────────────────────
+  {
+    slug:        'aura-sauna-suit',
+    name:        'AURA Sauna Suit',
+    category:    'Apparel',
+    collection:  'Drop 001',
+    status:      'waitlist',
+    mediaStatus: 'missing',
+    notes:       'No confirmed sauna suit images available. Needs dedicated shoot. tracksuit-set.png is a different product.',
+    shortDesc:   '',
+    description: '',
+    details:     [],
+    image:       null,
+    hoverImage:  null,
+    gallery:     [],
+  },
+
+  {
+    slug:        'aura-black-fight-club-tee',
+    name:        'AURA Black Fight Club Tee',
+    category:    'Apparel',
+    collection:  'Drop 001',
+    status:      'waitlist',
+    mediaStatus: 'missing',
+    notes:       'Only 2 images available, no hover model shot confirmed as this specific tee. Needs shoot.',
+    shortDesc:   '',
+    description: '',
+    details:     [],
+    image:       null,
+    hoverImage:  null,
+    gallery:     [],
   },
 ];
 
+// Public-facing: only products with full live media
 export const liveProducts = products.filter(p => p.mediaStatus === 'live');
+
+// Lookup by slug
 export function getProduct(slug) {
   return products.find(p => p.slug === slug) ?? null;
 }
