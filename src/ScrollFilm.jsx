@@ -124,7 +124,7 @@ const SCENES = [
     start: 0.00, end: 0.02,
     visualType: 'video',
     src: VIDEO_SRC,
-    startTime: 0, endTime: 7.3,
+    startTime: 0, endTime: 10,
     label:    'AURA FIGHT CLUB',
     headline: ['YOUR AURA', 'IS EARNED.'],
     sub:      'The real fight is internal.\nThe opponent is just the mirror.',
