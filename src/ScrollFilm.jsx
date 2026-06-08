@@ -121,7 +121,7 @@ const FRAMES = {
 const SCENES = [
   {
     id: 'rain-intro',
-    start: 0.00, end: 0.18,
+    start: 0.00, end: 0.10,
     visualType: 'video',
     src: VIDEO_SRC,
     startTime: 0, endTime: 7.3,
@@ -132,7 +132,7 @@ const SCENES = [
   },
   {
     id: 'shadow-boxing',
-    start: 0.18, end: 0.34,
+    start: 0.10, end: 0.25,
     visualType: 'imageSequence',
     frames: FRAMES.s02,
     label:    'THE STANDARD',
@@ -142,7 +142,7 @@ const SCENES = [
   },
   {
     id: 'the-work',
-    start: 0.34, end: 0.50,
+    start: 0.25, end: 0.40,
     visualType: 'imageSequence',
     frames: FRAMES.s03,
     label:    'THE WORK',
@@ -152,7 +152,7 @@ const SCENES = [
   },
   {
     id: 'footwork',
-    start: 0.50, end: 0.64,
+    start: 0.40, end: 0.55,
     visualType: 'imageSequence',
     frames: FRAMES.s04,
     label:    'FOOTWORK',
@@ -162,7 +162,7 @@ const SCENES = [
   },
   {
     id: 'drop-001',
-    start: 0.64, end: 0.76,
+    start: 0.55, end: 0.70,
     visualType: 'imageSequence',
     frames: FRAMES.s05,
     // FIX 3: longer fade in — product reveal needs breathing room after footwork
@@ -174,7 +174,7 @@ const SCENES = [
   },
   {
     id: 'campaign',
-    start: 0.76, end: 0.88,
+    start: 0.70, end: 0.85,
     visualType: 'imageSequence',
     frames: FRAMES.s06,
     fadeDur: FADE_DUR_LONG,
@@ -185,7 +185,7 @@ const SCENES = [
   },
   {
     id: 'fight-club',
-    start: 0.88, end: 1.00,
+    start: 0.85, end: 1.00,
     visualType: 'imageSequence',
     frames: FRAMES.s07,
     label:    'FIGHT CLUB',
