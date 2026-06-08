@@ -139,6 +139,8 @@ const SCENES = [
     headline: ['THE REAL', 'FIGHT IS', 'INTERNAL.'],
     sub:      'The opponent is just the mirror.',
     cta:      null,
+    ctaLabel: 'Read Manifesto',
+    ctaHref:  '/campaign',
   },
   {
     id: 'the-work',
@@ -149,6 +151,8 @@ const SCENES = [
     headline: ['SILENCE.', 'DISCIPLINE.', 'PRESENCE.'],
     sub:      'Built where nobody is watching.',
     cta:      null,
+    ctaLabel: 'Explore The Standard',
+    ctaHref:  '/fight-club',
   },
   {
     id: 'footwork',
@@ -159,6 +163,8 @@ const SCENES = [
     headline: ['FOOTWORK.', 'TIMING.', 'CONTROL.'],
     sub:      'Built where nobody is watching.',
     cta:      null,
+    ctaLabel: 'Explore Footwear',
+    ctaHref:  '/footwear',
   },
   {
     id: 'drop-001',
@@ -171,6 +177,8 @@ const SCENES = [
     headline: ['TOOLS FOR THE', 'WORK NOBODY', 'SEES.'],
     sub:      'The first uniform of AURA Fight Club.',
     cta:      null,
+    ctaLabel: 'View Drop 001',
+    ctaHref:  '/drop-001',
   },
   {
     id: 'campaign',
@@ -182,6 +190,8 @@ const SCENES = [
     headline: ['EARNED WHERE', 'NOBODY', 'IS WATCHING.'],
     sub:      'Pressure, rhythm, restraint, identity.',
     cta:      null,
+    ctaLabel: 'Watch Campaign',
+    ctaHref:  '/campaign',
   },
   {
     id: 'fight-club',
@@ -192,6 +202,8 @@ const SCENES = [
     headline: ['MORE THAN', 'A BRAND.', 'A FIGHT IDENTITY.'],
     sub:      'Join the first circle of AURA Fight Club.',
     cta:      'waitlist',
+    ctaLabel: 'Explore The Collection',
+    ctaHref:  '/apparel',
   },
 ];
 
@@ -280,6 +292,34 @@ function useAmbient(ref) {
   }, [ref]);
 }
 
+
+// ── CINEMATIC HEADER ──────────────────────────────────────────────────────────
+const NAV_LINKS = [
+  { label: 'Drop 001',     href: '/drop-001'  },
+  { label: 'Apparel',      href: '/apparel'   },
+  { label: 'Footwear',     href: '/footwear'  },
+  { label: 'Equipment',    href: '/equipment' },
+  { label: 'The Campaign', href: '/campaign'  },
+  { label: 'Fight Club',   href: '/fight-club'},
+];
+
+function CinematicHeader() {
+  return (
+    <header className="sf-header" role="banner">
+      <a href="/" className="sf-header-logo" aria-label="AURA Fight Club">
+        <span className="sf-header-logo-text">AURA</span>
+        <span className="sf-header-logo-sub">Fight Club</span>
+      </a>
+      <nav className="sf-header-nav" aria-label="Main navigation">
+        {NAV_LINKS.map(l => (
+          <a key={l.href} href={l.href} className="sf-header-nav-link">{l.label}</a>
+        ))}
+      </nav>
+      <a href="/fight-club" className="sf-header-cta">Join Waitlist</a>
+    </header>
+  );
+}
+
 // ── SCENE OVERLAY ──────────────────────────────────────────────────────────
 function SceneOverlay({ scene, visible }) {
   const [email, setEmail] = useState('');
@@ -302,8 +342,8 @@ function SceneOverlay({ scene, visible }) {
         )}
         {scene.cta === 'buttons' && (
           <div className="sf-cta-row">
-            <a href="#" className="sf-btn sf-btn--solid">Enter Drop 001</a>
-            <a href="#" className="sf-btn sf-btn--ghost">Join Fight Club</a>
+            <a href="/drop-001" className="sf-btn sf-btn--solid">Explore Drop 001</a>
+            <a href="/fight-club" className="sf-btn sf-btn--ghost">Enter Fight Club</a>
           </div>
         )}
         {scene.cta === 'waitlist' && (
@@ -587,6 +627,7 @@ export default function ScrollFilm() {
 
   return (
     <div className="sf-wrapper" ref={wrapperRef}>
+      <CinematicHeader />
       <div className="sf-fixed">
 
         <video ref={videoRef} className="sf-video"
