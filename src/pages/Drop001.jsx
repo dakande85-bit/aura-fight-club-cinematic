@@ -8,33 +8,30 @@ export default function Drop001() {
 
   return (
     <div className="d001">
-      {/* Back to homepage */}
-      <button className="d001__back" onClick={() => navigate('/')}>
-        ← AURA Fight Club
-      </button>
-
-      {/* Header */}
-      <div className="d001__header">
+      {/* Hero band */}
+      <div className="d001__hero">
+        <button className="d001__back" onClick={() => navigate('/')}>
+          ← AURA Fight Club
+        </button>
         <p className="d001__eyebrow">AURA Fight Club</p>
         <h1 className="d001__title">Drop 001</h1>
         <p className="d001__sub">
           The first uniform of AURA Fight Club.<br />
           Tools for the work nobody sees.
         </p>
-        <div className="d001__divider" />
+        <div className="d001__chrome" />
         <p className="d001__meta">
           {liveProducts.length} pieces · Waitlist open · Limited run
         </p>
       </div>
 
-      {/* Product grid — cards navigate to /product/:slug */}
-      <div className="d001__grid">
-        {liveProducts.map(product => (
-          <ProductCard
-            key={product.slug}
-            product={product}
-          />
-        ))}
+      {/* Grid — only liveProducts (mediaStatus === 'live') */}
+      <div className="d001__grid-wrap">
+        <div className="d001__grid">
+          {liveProducts.map(p => (
+            <ProductCard key={p.slug} product={p} />
+          ))}
+        </div>
       </div>
     </div>
   );

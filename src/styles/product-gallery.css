@@ -1,66 +1,71 @@
-/* ── PRODUCT MEDIA GALLERY ──────────────────────────────────────────── */
-.pmg {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+/* ── PRODUCT MEDIA GALLERY ───────────────────────────────────────────── */
+
+.pmg { display: flex; flex-direction: column; gap: 10px; }
 
 /* Main image */
 .pmg__main {
   position: relative;
-  aspect-ratio: 1 / 1;
-  background: #0b0b0d;
+  background: #080808;
+  border: 1px solid rgba(255,255,255,0.07);
   overflow: hidden;
 }
 .pmg__main-img {
+  display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
-  padding: 32px;
-  animation: pmgFadeIn 0.3s ease;
+  padding: 40px;
+  animation: pmgIn 0.3s ease;
 }
-@keyframes pmgFadeIn {
-  from { opacity: 0; transform: scale(0.99); }
+/* Model/lifestyle shots fill frame */
+.pmg__main-img.pmg__main-img--cover {
+  object-fit: cover;
+  padding: 0;
+  object-position: center top;
+  aspect-ratio: 4 / 5;
+}
+@keyframes pmgIn {
+  from { opacity: 0; transform: scale(0.98); }
   to   { opacity: 1; transform: none; }
 }
 
-/* Thumbnails */
+/* Thumbnails row */
 .pmg__thumbs {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
 }
 .pmg__thumb {
-  width: 72px;
-  height: 72px;
-  background: #111114;
-  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  aspect-ratio: 1;
+  background: #0d0d10;
+  border: 1px solid rgba(255,255,255,0.07);
   cursor: pointer;
-  overflow: hidden;
   padding: 0;
-  flex-shrink: 0;
+  overflow: hidden;
   transition: border-color 0.2s;
 }
 .pmg__thumb img {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
   object-fit: cover;
   object-position: center top;
   display: block;
+  transition: transform 0.4s ease;
 }
-.pmg__thumb:hover         { border-color: rgba(200,169,110,0.5); }
-.pmg__thumb--active       { border-color: #c8a96e; }
-
-/* When main image is a portrait/model shot, use cover */
-.pmg__main-img[src*="model"],
-.pmg__main-img[src*="campaign"],
-.pmg__main-img[src*="mitts"],
-.pmg__main-img[src*="fighter"] {
-  object-fit: cover;
-  padding: 0;
-  object-position: center top;
+.pmg__thumb:hover               { border-color: rgba(200,169,110,0.4); }
+.pmg__thumb:hover img            { transform: scale(1.05); }
+.pmg__thumb--active             { border-color: #c8a96e; }
+.pmg__thumb--active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(200,169,110,0.08);
+  pointer-events: none;
 }
 
-@media (max-width: 600px) {
-  .pmg__thumb { width: 60px; height: 60px; }
+@media (max-width: 480px) {
+  .pmg__main-img       { padding: 24px; }
+  .pmg__thumbs          { grid-template-columns: repeat(5,1fr); gap: 4px; }
 }
