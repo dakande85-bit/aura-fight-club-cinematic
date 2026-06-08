@@ -46,8 +46,8 @@ gsap.registerPlugin(ScrollTrigger);
 const DEV_DEBUG  = false;
 const BASE       = '/assets/aura-scroll';
 const VIDEO_SRC  = `${BASE}/01_rain_intro_video/set01_rain_intro_video.mp4`;
-const FADE_DUR       = 0.82;   // default crossfade (seconds)
-const FADE_DUR_LONG  = 1.10;   // longer fade after footwork → product
+const FADE_DUR       = 0.65;   // default crossfade (seconds)
+const FADE_DUR_LONG  = 0.85;   // longer fade after footwork → product
 const SEEK_DELTA     = 0.03;
 
 // ── CURATED FRAME ARRAYS ───────────────────────────────────────────────────
