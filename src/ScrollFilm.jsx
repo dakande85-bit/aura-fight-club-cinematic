@@ -1,5 +1,5 @@
 /**
- * AURA Fight Club — Scroll Film  v7
+ * AURA Fight Club — Scroll Film  v8
  * ─────────────────────────────────────────────────────────────────
  * Fixes from v6 audit:
  *
@@ -18,14 +18,14 @@
  *
  *   FIX 3 — Longer crossfade after footwork → drop (1.1s vs 0.82s)
  *
- *   FIX 4 — New tighter scene ranges:
- *     0.00–0.14  rain-intro
- *     0.14–0.30  shadow-boxing
- *     0.30–0.44  the-work
- *     0.44–0.58  footwork
- *     0.58–0.74  drop-001      (longer: product reveal needs space)
- *     0.74–0.88  campaign
- *     0.88–1.00  fight-club
+ *   FIX 4 — Final tightened scene ranges (v8):
+ *     0.00–0.10  rain-intro    (short ignition — not a long static section)
+ *     0.10–0.27  shadow-boxing (8 frames)
+ *     0.27–0.42  the-work      (5 frames)
+ *     0.42–0.57  footwork      (5 frames)
+ *     0.57–0.72  drop-001      (5 frames, premium reveal)
+ *     0.72–0.88  campaign      (5 frames)
+ *     0.88–1.00  fight-club    (2 frames + waitlist)
  *
  *   FIX 5 — Debug panel shows video active/paused state
  *
@@ -57,58 +57,55 @@ const SEEK_DELTA     = 0.03;
 const S = BASE; // shorthand
 
 const FRAMES = {
-  // Scene 02 — Shadow boxing: all 10 frames, sequence is the strongest set
+  // Scene 02 — Shadow boxing: 8 curated frames
+  // Removed: frame_04_pivot_adjustment (too similar to 03), frame_09_reset_stance (too similar to 07)
   s02: [
     `${S}/02_shadow_boxing_the_standard/frame_01_shadow_01_neutral_stance.png`,
     `${S}/02_shadow_boxing_the_standard/frame_02_shadow_02_guard_raised.png`,
     `${S}/02_shadow_boxing_the_standard/frame_03_shadow_03_weight_shift.png`,
-    `${S}/02_shadow_boxing_the_standard/frame_04_shadow_04_pivot_adjustment.png`,
     `${S}/02_shadow_boxing_the_standard/frame_05_shadow_05_jab_start.png`,
     `${S}/02_shadow_boxing_the_standard/frame_06_shadow_06_jab_extension.png`,
     `${S}/02_shadow_boxing_the_standard/frame_07_shadow_07_return_guard.png`,
     `${S}/02_shadow_boxing_the_standard/frame_08_shadow_08_defensive_slip.png`,
-    `${S}/02_shadow_boxing_the_standard/frame_09_shadow_09_reset_stance.png`,
     `${S}/02_shadow_boxing_the_standard/frame_10_shadow_10_final_pose.png`,
   ],
 
-  // Scene 03 — Handwraps: 6 frames — start, pull, focus, detail, guard, final
-  // Skipping frames 3 (wrap_check) and 7 (wrap_settle) — too similar to neighbours
+  // Scene 03 — Handwraps: 5 curated frames
+  // Arc: begin wrapping → pull tight → detail focus → guard up → ready
   s03: [
     `${S}/03_the_work_handwraps/frame_01_handwrap_start.png`,
-    `${S}/03_the_work_handwraps/frame_02_wrap_pull.png`,
-    `${S}/03_the_work_handwraps/frame_04_wrap_focus.png`,
-    `${S}/03_the_work_handwraps/frame_06_wrap_detail.png`,
+    `${S}/03_the_work_handwraps/frame_03_wrap_check.png`,
+    `${S}/03_the_work_handwraps/frame_05_wrap_tighten.png`,
     `${S}/03_the_work_handwraps/frame_08_wrap_guard.png`,
     `${S}/03_the_work_handwraps/frame_10_work_final.png`,
   ],
 
-  // Scene 04 — Footwork/Skipping: 5 frames — ready, rope low, jump midair, high, reset
-  // Odd frames only — gives clean visual arc: prepare → in-motion → land
+  // Scene 04 — Footwork / Skipping: 5 curated frames
+  // Arc: ready → rope low → jump → peak → reset (clean rhythmic motion)
   s04: [
     `${S}/04_footwork_skipping/frame_01_skip_ready.png`,
     `${S}/04_footwork_skipping/frame_03_rope_swing_low.png`,
-    `${S}/04_footwork_skipping/frame_05_jump_start.png`,
+    `${S}/04_footwork_skipping/frame_06_jump_midair.png`,
     `${S}/04_footwork_skipping/frame_08_jump_high.png`,
     `${S}/04_footwork_skipping/frame_10_skip_reset.png`,
   ],
 
-  // Scene 05 — Drop 001: 6 frames — full outfit model → product details → hero
-  // Emphasis on editorial model shots first, then product, ending on campaign hero
+  // Scene 05 — Drop 001: 5 curated frames
+  // Premium reveal arc: full outfit model → gloves → boots → sleeveless → final hero
   s05: [
     `${S}/05_drop_001_tools_uniform/frame_01_cream_uniform_model.png`,
-    `${S}/05_drop_001_tools_uniform/frame_04_back_logo_apparel_model.png`,
-    `${S}/05_drop_001_tools_uniform/frame_07_black_sleeveless_hoodie_product.png`,
     `${S}/05_drop_001_tools_uniform/frame_08_cream_gloves_product.png`,
+    `${S}/05_drop_001_tools_uniform/frame_03_cream_boots_product.png`,
+    `${S}/05_drop_001_tools_uniform/frame_07_black_sleeveless_hoodie_product.png`,
     `${S}/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png`,
-    `${S}/05_drop_001_tools_uniform/frame_10_campaign_mitts_hero.png`,
   ],
 
-  // Scene 06 — Campaign mitts: 6 frames — spread across 10 for natural rhythm
+  // Scene 06 — Campaign mitts: 5 curated frames
+  // Spread evenly: opening stance → action build → peak → hold → close
   s06: [
     `${S}/06_campaign_mitts_sequence/frame_01_mitts_01.png`,
     `${S}/06_campaign_mitts_sequence/frame_03_mitts_03.png`,
     `${S}/06_campaign_mitts_sequence/frame_05_mitts_05.png`,
-    `${S}/06_campaign_mitts_sequence/frame_07_mitts_07.png`,
     `${S}/06_campaign_mitts_sequence/frame_08_mitts_08.png`,
     `${S}/06_campaign_mitts_sequence/frame_10_mitts_10.png`,
   ],
@@ -126,10 +123,10 @@ const FRAMES = {
 const SCENES = [
   {
     id: 'rain-intro',
-    start: 0.00, end: 0.14,
+    start: 0.00, end: 0.10,
     visualType: 'video',
     src: VIDEO_SRC,
-    startTime: 0, endTime: 6,
+    startTime: 0, endTime: 4,
     label:    'AURA FIGHT CLUB',
     headline: ['YOUR AURA', 'IS EARNED.'],
     sub:      'The real fight is internal.\nThe opponent is just the mirror.',
@@ -137,7 +134,7 @@ const SCENES = [
   },
   {
     id: 'shadow-boxing',
-    start: 0.14, end: 0.30,
+    start: 0.10, end: 0.27,
     visualType: 'imageSequence',
     frames: FRAMES.s02,
     label:    'THE STANDARD',
@@ -147,7 +144,7 @@ const SCENES = [
   },
   {
     id: 'the-work',
-    start: 0.30, end: 0.44,
+    start: 0.27, end: 0.42,
     visualType: 'imageSequence',
     frames: FRAMES.s03,
     label:    'THE WORK',
@@ -157,7 +154,7 @@ const SCENES = [
   },
   {
     id: 'footwork',
-    start: 0.44, end: 0.58,
+    start: 0.42, end: 0.57,
     visualType: 'imageSequence',
     frames: FRAMES.s04,
     label:    'FOOTWORK',
@@ -167,7 +164,7 @@ const SCENES = [
   },
   {
     id: 'drop-001',
-    start: 0.58, end: 0.74,
+    start: 0.57, end: 0.72,
     visualType: 'imageSequence',
     frames: FRAMES.s05,
     // FIX 3: longer fade in — product reveal needs breathing room after footwork
@@ -179,7 +176,7 @@ const SCENES = [
   },
   {
     id: 'campaign',
-    start: 0.74, end: 0.88,
+    start: 0.72, end: 0.88,
     visualType: 'imageSequence',
     frames: FRAMES.s06,
     fadeDur: FADE_DUR_LONG,
