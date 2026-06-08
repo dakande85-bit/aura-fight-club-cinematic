@@ -108,10 +108,13 @@ const FRAMES = {
     `${S}/06_campaign_mitts_sequence/frame_05_mitts_real.png`,
   ],
 
-  // Scene 07 — Fight Club close: both available frames
+  // Scene 07 — Fight Club close: 4 frames
+  // frame_02 removed (too similar to frame_01) — replaced with 3 new editorial shots
   s07: [
     `${S}/07_fight_club_close/frame_01_fight_club_close.png`,
-    `${S}/07_fight_club_close/frame_02_alternate_fight_club_close.png`,
+    `${S}/07_fight_club_close/frame_03_fight_club_ringside_black.png`,
+    `${S}/07_fight_club_close/frame_04_fight_club_tracksuit_ring.png`,
+    `${S}/07_fight_club_close/frame_05_fight_club_female_wraps.png`,
   ],
 };
 
