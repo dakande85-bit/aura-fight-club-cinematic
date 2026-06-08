@@ -59,3 +59,23 @@
 }
 @media (max-width:900px)  { .d001__grid { grid-template-columns: repeat(2,1fr); } }
 @media (max-width:540px)  { .d001__grid { grid-template-columns: 1fr; } }
+
+/* Back button */
+.d001__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Barlow', Arial, sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200,169,110,0.72);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 36px;
+  transition: color 0.2s;
+}
+.d001__back:hover { color: #c8a96e; }

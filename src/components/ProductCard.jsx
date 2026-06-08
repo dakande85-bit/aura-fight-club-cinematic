@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/product-card.css';
 
 export default function ProductCard({ product, onClick }) {
   const [hovered, setHovered] = useState(false);
+  const navigate = useNavigate();
 
   if (!product || product.mediaStatus !== 'live') return null;
 
@@ -19,10 +21,10 @@ export default function ProductCard({ product, onClick }) {
       className={`pc${hovered ? ' pc--hovered' : ''}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => onClick?.(product)}
+      onClick={() => { if (onClick) { onClick(product); } else { navigate(`/product/${product.slug}`); } }}
       role="button"
       tabIndex={0}
-      onKeyDown={e => e.key === 'Enter' && onClick?.(product)}
+      onKeyDown={e => { if (e.key === 'Enter') { if (onClick) { onClick(product); } else { navigate(`/product/${product.slug}`); } } }}
       aria-label={product.name}
     >
       {/* Image area — fixed aspect ratio, no layout shift */}

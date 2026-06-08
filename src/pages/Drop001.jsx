@@ -1,23 +1,18 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/ProductCard.jsx';
-import ProductDetail from './ProductDetail.jsx';
 import { liveProducts } from '../data/products.js';
 import '../styles/drop001.css';
 
 export default function Drop001() {
-  const [selected, setSelected] = useState(null);
-
-  if (selected) {
-    return (
-      <ProductDetail
-        product={selected}
-        onBack={() => setSelected(null)}
-      />
-    );
-  }
+  const navigate = useNavigate();
 
   return (
     <div className="d001">
+      {/* Back to homepage */}
+      <button className="d001__back" onClick={() => navigate('/')}>
+        ← AURA Fight Club
+      </button>
+
       {/* Header */}
       <div className="d001__header">
         <p className="d001__eyebrow">AURA Fight Club</p>
@@ -32,13 +27,12 @@ export default function Drop001() {
         </p>
       </div>
 
-      {/* Product grid */}
+      {/* Product grid — cards navigate to /product/:slug */}
       <div className="d001__grid">
         {liveProducts.map(product => (
           <ProductCard
             key={product.slug}
             product={product}
-            onClick={setSelected}
           />
         ))}
       </div>
