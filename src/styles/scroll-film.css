@@ -1,8 +1,7 @@
-/* ══════════════════════════════════════════════════════════════
-   AURA FIGHT CLUB — SCROLL FILM CSS
-   ══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   AURA Fight Club — Scroll Film CSS (Multi-Scene)
+   ══════════════════════════════════════════════════════ */
 
-/* ─── RESET ─────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body {
   background: #000;
@@ -12,40 +11,78 @@ html, body {
   font-family: 'Barlow', Arial, sans-serif;
 }
 
-/* ─── WRAPPER / SPACER ──────────────────────── */
+/* ── SCROLL SCAFFOLD ──────────────────────────────── */
 .sf-wrapper { position: relative; }
 .sf-scroll-space { height: 600vh; pointer-events: none; }
 
-/* ─── FIXED LAYER ───────────────────────────── */
+/* ── FIXED LAYER ─────────────────────────────────── */
 .sf-fixed {
   position: fixed;
   inset: 0;
   z-index: 1;
   overflow: hidden;
-  background: #060504;
+  background: #040302;
 }
 
-/* ─── VIDEO ─────────────────────────────────── */
+/* ── VIDEO LAYER ─────────────────────────────────── */
 .sf-video {
   position: absolute;
   inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: contrast(1.06) saturate(0.68) brightness(0.82);
-  will-change: auto;
+  filter: contrast(1.06) saturate(0.7) brightness(0.84);
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  z-index: 1;
+  will-change: opacity;
+}
+.sf-video--active { opacity: 1; }
+
+/* ── IMAGE SLOTS (A + B for crossfade) ─────────────── */
+.sf-image-slot {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  overflow: hidden;
+}
+.sf-image-slot--active { opacity: 1; }
+
+.sf-image {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: contrast(1.06) saturate(0.7) brightness(0.78);
+  /* Slow scale via CSS animation — image parallax feel */
+  animation: sfImgScale 12s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+@keyframes sfImgScale {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.06); }
 }
 
-/* ─── ATMOSPHERIC LAYERS ───────────────────── */
+/* Fallback gradient when image src is null */
+.sf-gradient-fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 64% 46%, #1c1814 0%, #0a0806 55%, #020101 100%);
+}
+
+/* ── ATMOSPHERICS ─────────────────────────────────── */
 .sf-vignette {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background:
-    radial-gradient(ellipse 110% 110% at 50% 50%, transparent 35%, rgba(0,0,0,0.68)),
+    radial-gradient(ellipse 110% 110% at 50% 50%, transparent 32%, rgba(0,0,0,0.72)),
     linear-gradient(180deg,
       rgba(0,0,0,0.42) 0%,
-      rgba(0,0,0,0.08) 18%,
-      transparent 55%,
-      rgba(0,0,0,0.78) 100%
+      rgba(0,0,0,0.06) 18%,
+      transparent 52%,
+      rgba(0,0,0,0.82) 100%
     );
 }
 
@@ -57,362 +94,244 @@ html, body {
 
 .sf-sweep {
   position: absolute; inset: 0; z-index: 4; pointer-events: none;
-  background: linear-gradient(108deg, transparent 26%, rgba(255,248,218,0.038) 44%, transparent 60%);
-  animation: sfSweep 16s ease-in-out infinite;
+  background: linear-gradient(108deg, transparent 26%, rgba(255,248,218,0.036) 44%, transparent 60%);
+  animation: sfSweep 18s ease-in-out infinite;
 }
 @keyframes sfSweep {
-  0%,100% { opacity: 0.5; transform: translateX(-6%); }
-  50%      { opacity: 1;   transform: translateX(6%);  }
+  0%,100% { opacity: 0.45; transform: translateX(-7%); }
+  50%      { opacity: 1.0;  transform: translateX(7%);  }
 }
 
-/* ─── LOADING STATE ─────────────────────────── */
+/* ── LOADING ──────────────────────────────────────── */
 .sf-loading {
   position: absolute; inset: 0; z-index: 20;
   display: flex; align-items: center; justify-content: center; gap: 12px;
-  background: rgba(4,3,2,0.88);
+  background: rgba(4,3,2,0.92);
   font-size: 10px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase;
   color: rgba(200,169,110,0.7);
 }
 .sf-loading-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #c8a96e;
+  width: 6px; height: 6px; border-radius: 50%; background: #c8a96e;
   animation: sfPulse 1.2s ease-in-out infinite;
 }
-@keyframes sfPulse { 0%,100%{opacity:0.3}50%{opacity:1} }
+@keyframes sfPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
 
-/* ─── SCENE OVERLAY ─────────────────────────── */
+/* ── SCENE OVERLAY ────────────────────────────────── */
 .sf-overlay {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   z-index: 10;
-  padding: 0 clamp(28px,5.5vw,88px) clamp(72px,10vh,120px);
+  padding: 0 clamp(28px, 5.5vw, 88px) clamp(72px, 10vh, 116px);
   pointer-events: none;
-
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transform: translateY(10px);
+  transition: opacity 0.42s ease, transform 0.42s ease;
 }
 .sf-overlay--in {
   opacity: 1;
   transform: translateY(0);
   pointer-events: all;
 }
-
-.sf-overlay-inner {
-  max-width: min(680px, 58vw);
-}
+.sf-overlay-inner { max-width: min(660px, 56vw); }
 
 /* Label */
 .sf-label {
   display: inline-block;
-  margin-bottom: 16px;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  color: rgba(200,169,110,0.72);
+  margin-bottom: 14px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.38em; text-transform: uppercase;
+  color: rgba(200,169,110,0.74);
   border-left: 2px solid rgba(200,169,110,0.5);
   padding-left: 10px;
 }
 
 /* Headline */
 .sf-headline {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-bottom: 18px;
+  display: flex; flex-direction: column; gap: 2px;
+  margin-bottom: 4px;
 }
+.sf-headline::after {
+  content: '';
+  display: block;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, #c8a96e, transparent);
+  margin-top: 10px;
+  transition: width 0.7s ease 0.38s;
+}
+.sf-overlay--in .sf-headline::after { width: clamp(60px, 10vw, 130px); }
+
 .sf-headline-line {
   display: block;
   font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
   font-weight: 900;
-  font-size: clamp(44px, 6.8vw, 108px);
+  font-size: clamp(46px, 6.8vw, 106px);
   line-height: 0.86;
   text-transform: uppercase;
   letter-spacing: 0.01em;
   color: #f4f1ea;
-
   opacity: 0;
   transform: translateY(20px);
   transition:
-    opacity  0.55s ease calc(var(--i, 0) * 0.1s + 0.1s),
-    transform 0.55s ease calc(var(--i, 0) * 0.1s + 0.1s);
+    opacity  0.55s ease calc(var(--i, 0) * 0.10s + 0.08s),
+    transform 0.55s ease calc(var(--i, 0) * 0.10s + 0.08s);
 }
-.sf-overlay--in .sf-headline-line {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Chrome accent under headline */
-.sf-headline::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #c8a96e, transparent);
-  margin-top: 10px;
-  transition: width 0.7s ease 0.4s;
-}
-.sf-overlay--in .sf-headline::after {
-  width: clamp(60px, 10vw, 140px);
-}
+.sf-overlay--in .sf-headline-line { opacity: 1; transform: none; }
 
 /* Sub copy */
 .sf-sub {
-  font-size: clamp(13px, 1.3vw, 16px);
-  font-weight: 400;
-  line-height: 1.72;
-  letter-spacing: 0.04em;
-  color: rgba(244,241,234,0.62);
-  max-width: 480px;
-  margin-bottom: 28px;
-
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.55s ease 0.38s, transform 0.55s ease 0.38s;
+  font-size: clamp(13px, 1.25vw, 15px); font-weight: 400;
+  line-height: 1.72; letter-spacing: 0.04em;
+  color: rgba(244,241,234,0.6); max-width: 460px;
+  margin: 16px 0 24px;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.5s ease 0.36s, transform 0.5s ease 0.36s;
 }
 .sf-overlay--in .sf-sub { opacity: 1; transform: none; }
 
 /* CTA row */
 .sf-cta-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s ease 0.52s, transform 0.5s ease 0.52s;
+  display: flex; gap: 12px; flex-wrap: wrap;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
 }
 .sf-overlay--in .sf-cta-row { opacity: 1; transform: none; }
 
 /* Buttons */
 .sf-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 48px;
-  padding: 0 26px;
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 48px; padding: 0 24px;
   font-family: 'Barlow', Arial, sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  border: 2px solid transparent;
-  cursor: pointer;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  border: 2px solid transparent; cursor: pointer;
   transition: background 0.2s, border-color 0.2s, transform 0.18s;
-  white-space: nowrap;
-  text-decoration: none;
-  background: none;
+  white-space: nowrap; text-decoration: none; background: none;
 }
 .sf-btn:hover { transform: translateY(-1px); }
-.sf-btn--solid {
-  background: #f4f1ea;
-  color: #060504;
-  border-color: #f4f1ea;
-}
+.sf-btn--solid { background: #f4f1ea; color: #060504; border-color: #f4f1ea; }
 .sf-btn--solid:hover { background: #fff; }
-.sf-btn--ghost {
-  background: transparent;
-  color: rgba(244,241,234,0.88);
-  border-color: rgba(244,241,234,0.32);
-}
-.sf-btn--ghost:hover { border-color: rgba(244,241,234,0.7); }
+.sf-btn--ghost { color: rgba(244,241,234,0.88); border-color: rgba(244,241,234,0.32); }
+.sf-btn--ghost:hover { border-color: rgba(244,241,234,0.72); }
 
 /* Waitlist */
 .sf-waitlist {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s ease 0.52s, transform 0.5s ease 0.52s;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
 }
 .sf-overlay--in .sf-waitlist { opacity: 1; transform: none; }
-
 .sf-form-row {
-  display: flex;
-  gap: 0;
-  border: 1.5px solid rgba(244,241,234,0.24);
-  max-width: 440px;
+  display: flex; max-width: 420px;
+  border: 1.5px solid rgba(244,241,234,0.22);
 }
 .sf-email {
-  flex: 1;
-  min-width: 0;
-  background: transparent;
-  border: none;
-  outline: none;
-  padding: 14px 18px;
-  color: #f4f1ea;
-  font-family: 'Barlow', Arial, sans-serif;
-  font-size: 13px;
+  flex: 1; min-width: 0; background: transparent; border: none; outline: none;
+  padding: 13px 16px; color: #f4f1ea;
+  font-family: 'Barlow', Arial, sans-serif; font-size: 13px;
 }
-.sf-email::placeholder { color: rgba(167,161,154,0.55); }
+.sf-email::placeholder { color: rgba(167,161,154,0.52); }
 .sf-form-row .sf-btn {
-  border: none;
-  border-left: 1.5px solid rgba(244,241,234,0.24);
-  height: auto;
-  padding: 14px 22px;
-  border-radius: 0;
+  border: none; border-left: 1.5px solid rgba(244,241,234,0.22); height: auto;
+  padding: 13px 20px; border-radius: 0;
 }
 .sf-confirm {
-  font-family: 'Barlow', Arial, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #c8a96e;
-  padding: 14px 0;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #c8a96e; padding: 14px 0;
 }
 
-/* ─── SCENE INDICATORS ──────────────────────── */
+/* ── SCENE INDICATORS ─────────────────────────────── */
 .sf-indicators {
   position: absolute;
-  right: clamp(16px, 2.5vw, 32px);
-  top: 50%;
-  transform: translateY(-50%);
+  right: clamp(14px, 2vw, 28px); top: 50%; transform: translateY(-50%);
   z-index: 20;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: flex; flex-direction: column; gap: 8px;
 }
 .sf-indicator {
-  width: 2px;
-  height: 22px;
-  background: rgba(244,241,234,0.2);
-  transition: background 0.3s, height 0.3s;
+  width: 2px; height: 20px;
+  background: rgba(244,241,234,0.18);
+  transition: background 0.3s ease, height 0.3s ease;
 }
-.sf-indicator--active {
-  background: #c8a96e;
-  height: 32px;
-}
+.sf-indicator--active { background: #c8a96e; height: 30px; }
 
-/* ─── PROGRESS BAR ──────────────────────────── */
+/* ── PROGRESS BAR ─────────────────────────────────── */
 .sf-progress-bar {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: rgba(255,255,255,0.07);
-  z-index: 20;
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: rgba(255,255,255,0.07); z-index: 20;
 }
 .sf-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #c8a96e, rgba(200,169,110,0.35));
-  transform-origin: left;
-  transform: scaleX(0);
-  will-change: transform;
+  background: linear-gradient(90deg, #c8a96e, rgba(200,169,110,0.3));
+  transform-origin: left; transform: scaleX(0);
   transition: transform 0.06s linear;
+  will-change: transform;
 }
 
-/* ─── DEBUG PANEL ───────────────────────────── */
+/* ── DEBUG PANEL ──────────────────────────────────── */
 .sf-debug {
-  position: absolute;
-  top: 14px; right: 14px;
-  z-index: 30;
-  background: rgba(4,3,2,0.78);
+  position: absolute; top: 14px; right: 14px; z-index: 30;
+  background: rgba(4,3,2,0.8);
   border: 1px solid rgba(200,169,110,0.28);
   padding: 10px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  display: flex; flex-direction: column; gap: 5px;
   backdrop-filter: blur(8px);
-  min-width: 180px;
+  min-width: 188px;
 }
 .sf-debug span {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  font-family: 'Barlow', Arial, monospace;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(200,169,110,0.55);
+  display: flex; justify-content: space-between; gap: 14px;
+  font-family: 'Barlow', monospace, Arial, sans-serif;
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(200,169,110,0.52);
 }
-.sf-debug em {
-  font-style: normal;
-  color: rgba(200,169,110,0.92);
-  font-variant-numeric: tabular-nums;
-}
+.sf-debug em { font-style: normal; color: rgba(200,169,110,0.92); font-variant-numeric: tabular-nums; }
 .sf-debug-warn {
   color: rgba(200,169,110,0.88) !important;
   border-top: 1px solid rgba(200,169,110,0.2);
-  padding-top: 5px;
-  margin-top: 2px;
+  padding-top: 5px; margin-top: 2px;
   justify-content: center !important;
 }
 
-/* ─── SCROLL HINT ───────────────────────────── */
+/* ── SCROLL HINT ──────────────────────────────────── */
 .sf-scroll-hint {
-  position: absolute;
-  bottom: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  animation: sfHint 3s ease infinite;
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 20; display: flex; flex-direction: column; align-items: center; gap: 5px;
 }
 .sf-scroll-hint span:first-child {
-  font-size: 8.5px;
-  font-weight: 700;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
+  font-size: 8.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase;
   color: rgba(244,241,234,0.36);
 }
 .sf-arrow {
-  font-size: 14px;
-  color: rgba(200,169,110,0.55);
+  font-size: 14px; color: rgba(200,169,110,0.55);
   animation: sfBounce 2s ease-in-out infinite;
 }
-@keyframes sfBounce {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(5px); }
-}
-@keyframes sfHint {
-  0%,60%,100% { opacity: 1; }
-  80%          { opacity: 0.5; }
-}
+@keyframes sfBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
 
-/* ─── AURA WATERMARK ────────────────────────── */
+/* ── WATERMARK ────────────────────────────────────── */
 .sf-watermark {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  font-family: 'Barlow Condensed', Arial, sans-serif;
-  font-weight: 900;
-  font-size: clamp(120px, 22vw, 300px);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(244,241,234,0.024);
-  user-select: none;
-  pointer-events: none;
-  white-space: nowrap;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  z-index: 5; pointer-events: none; user-select: none; white-space: nowrap;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 900; font-size: clamp(120px, 22vw, 300px);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: rgba(244,241,234,0.022);
 }
 
-/* ─── MOBILE ────────────────────────────────── */
+/* ── MOBILE ───────────────────────────────────────── */
 @media (max-width: 768px) {
-  .sf-overlay { padding: 0 22px 80px; }
+  .sf-overlay { padding: 0 22px 76px; }
   .sf-overlay-inner { max-width: 100%; }
-  .sf-headline-line { font-size: clamp(38px, 11vw, 64px); }
+  .sf-headline-line { font-size: clamp(38px, 11vw, 62px); }
   .sf-sub { font-size: 13px; }
   .sf-indicators { display: none; }
-  .sf-debug { top: auto; bottom: 52px; right: 10px; min-width: 160px; }
+  .sf-debug { top: auto; bottom: 52px; right: 10px; min-width: 164px; }
   .sf-debug span { font-size: 8.5px; }
   .sf-scroll-hint { display: none; }
   .sf-cta-row { flex-direction: column; }
   .sf-btn { width: 100%; justify-content: center; }
   .sf-form-row { flex-direction: column; max-width: 100%; }
-  .sf-form-row .sf-btn { border-left: none; border-top: 1.5px solid rgba(244,241,234,0.24); }
+  .sf-form-row .sf-btn { border-left: none; border-top: 1.5px solid rgba(244,241,234,0.22); }
 }
 
-/* ─── REDUCED MOTION ────────────────────────── */
+/* ── REDUCED MOTION ───────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .sf-sweep { animation: none; }
-  .sf-arrow { animation: none; }
-  .sf-scroll-hint { animation: none; }
-  .sf-headline-line, .sf-sub, .sf-cta-row, .sf-waitlist {
-    transition: none !important;
-  }
-  .sf-overlay { transition: none !important; }
+  .sf-sweep, .sf-arrow, .sf-loading-dot, .sf-image { animation: none !important; }
+  .sf-overlay, .sf-headline-line, .sf-sub, .sf-cta-row, .sf-waitlist { transition: none !important; }
+  .sf-video, .sf-image-slot { transition: none !important; }
   .sf-progress-fill { transition: none; }
 }
