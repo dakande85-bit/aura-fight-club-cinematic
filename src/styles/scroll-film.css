@@ -14,7 +14,7 @@ html, body {
 
 /* ── SCAFFOLD ─────────────────────────────────────── */
 .sf-wrapper    { position: relative; }
-.sf-scroll-space { height: 700vh; pointer-events: none; }
+.sf-scroll-space { height: 500vh; pointer-events: none; }
 
 .sf-fixed {
   position: fixed; inset: 0; z-index: 1;
