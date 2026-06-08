@@ -90,12 +90,12 @@ const FRAMES = {
     `${S}/04_footwork_skipping/frame_10_skip_reset.png`,
   ],
 
-  // Scene 05 — Drop 001: 5 curated frames
-  // Premium reveal arc: full outfit model → gloves → boots → sleeveless → final hero
+  // Scene 05 — Drop 001: 4 curated frames
+  // Premium reveal arc: full outfit model → back logo → sleeveless → final full look
+  // Removed frame_08_cream_gloves (too close-up, fills frame with glove tops only)
   s05: [
     `${S}/05_drop_001_tools_uniform/frame_01_cream_uniform_model.png`,
-    `${S}/05_drop_001_tools_uniform/frame_08_cream_gloves_product.png`,
-    `${S}/05_drop_001_tools_uniform/frame_03_cream_boots_product.png`,
+    `${S}/05_drop_001_tools_uniform/frame_04_back_logo_apparel_model.png`,
     `${S}/05_drop_001_tools_uniform/frame_07_black_sleeveless_hoodie_product.png`,
     `${S}/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png`,
   ],
