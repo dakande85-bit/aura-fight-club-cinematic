@@ -141,6 +141,13 @@ const SCENES = [
     cta:      null,
     ctaLabel: 'Read Manifesto',
     ctaHref:  '/campaign',
+    frameCaptions: [
+      'Read the room.',
+      'Feint with purpose.',
+      'Stay composed.',
+      'Let him commit.',
+      'Counter clean.',
+    ],
   },
   {
     id: 'the-work',
@@ -153,6 +160,13 @@ const SCENES = [
     cta:      null,
     ctaLabel: 'Explore The Standard',
     ctaHref:  '/fight-club',
+    frameCaptions: [
+      'The ritual before the rounds.',
+      'No audience required.',
+      'Discipline is built quietly.',
+      'Prepare the hands.',
+      'Prepare the mind.',
+    ],
   },
   {
     id: 'footwork',
@@ -165,6 +179,13 @@ const SCENES = [
     cta:      null,
     ctaLabel: 'Explore Footwear',
     ctaHref:  '/footwear',
+    frameCaptions: [
+      'Balance before power.',
+      'Find the rhythm.',
+      'Stay light.',
+      'Create the angle.',
+      'Control the distance.',
+    ],
   },
   {
     id: 'drop-001',
@@ -179,6 +200,13 @@ const SCENES = [
     cta:      null,
     ctaLabel: 'View Drop 001',
     ctaHref:  '/drop-001',
+    frameCaptions: [
+      'The first uniform.',
+      'Tools for the work.',
+      'Gloves. Boots. Wraps.',
+      'Built for training culture.',
+      'Made for presence.',
+    ],
   },
   {
     id: 'campaign',
@@ -192,6 +220,13 @@ const SCENES = [
     cta:      null,
     ctaLabel: 'Watch Campaign',
     ctaHref:  '/campaign',
+    frameCaptions: [
+      'Pressure.',
+      'Rhythm.',
+      'Restraint.',
+      'No wasted movement.',
+      'Earned where nobody is watching.',
+    ],
   },
   {
     id: 'fight-club',
@@ -321,7 +356,7 @@ function CinematicHeader() {
 }
 
 // ── SCENE OVERLAY ──────────────────────────────────────────────────────────
-function SceneOverlay({ scene, visible }) {
+function SceneOverlay({ scene, visible, frameIdx = 0 }) {
   const [email, setEmail] = useState('');
   const [done, setDone]   = useState(false);
   useEffect(() => { setDone(false); setEmail(''); }, [scene?.id]);
@@ -338,6 +373,11 @@ function SceneOverlay({ scene, visible }) {
         {scene.sub && (
           <p className="sf-sub">
             {scene.sub.split('\n').map((l, i) => <span key={i}>{l}<br /></span>)}
+          </p>
+        )}
+        {scene.frameCaptions && (
+          <p className="sf-frame-caption" key={frameIdx}>
+            {scene.frameCaptions[Math.min(frameIdx, scene.frameCaptions.length - 1)]}
           </p>
         )}
         {scene.cta === 'buttons' && (
@@ -402,6 +442,7 @@ export default function ScrollFilm() {
   const [isMobile,     setMobile]       = useState(false);
   const [overlayScene, setOverlayScene] = useState(SCENES[0]);
   const [overlayVis,   setOverlayVis]   = useState(false);
+  const [overlayFrame, setOverlayFrame] = useState(0);
   const [debug, setDebug] = useState({
     total:0, sceneId:'—', localPct:0, frame:0, totalFrames:0, type:'—', videoPaused:false,
   });
@@ -589,6 +630,7 @@ export default function ScrollFilm() {
             curFrameIdx.current = 0;
             doTransition.current(sc, prev);
             setOverlayVis(false);
+            setOverlayFrame(0);
             setTimeout(() => { setOverlayScene(sc); setOverlayVis(true); }, 200);
           }
 
@@ -654,7 +696,7 @@ export default function ScrollFilm() {
           </div>
         )}
 
-        <SceneOverlay scene={overlayScene} visible={overlayVis} />
+        <SceneOverlay scene={overlayScene} visible={overlayVis} frameIdx={overlayFrame} />
         <Indicators activeId={overlayScene?.id} />
 
         <div className="sf-progress-bar" aria-hidden="true">
