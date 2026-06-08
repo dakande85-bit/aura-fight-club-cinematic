@@ -1,0 +1,66 @@
+/* ── PRODUCT MEDIA GALLERY ──────────────────────────────────────────── */
+.pmg {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Main image */
+.pmg__main {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #0b0b0d;
+  overflow: hidden;
+}
+.pmg__main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 32px;
+  animation: pmgFadeIn 0.3s ease;
+}
+@keyframes pmgFadeIn {
+  from { opacity: 0; transform: scale(0.99); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Thumbnails */
+.pmg__thumbs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pmg__thumb {
+  width: 72px;
+  height: 72px;
+  background: #111114;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+  flex-shrink: 0;
+  transition: border-color 0.2s;
+}
+.pmg__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.pmg__thumb:hover         { border-color: rgba(200,169,110,0.5); }
+.pmg__thumb--active       { border-color: #c8a96e; }
+
+/* When main image is a portrait/model shot, use cover */
+.pmg__main-img[src*="model"],
+.pmg__main-img[src*="campaign"],
+.pmg__main-img[src*="mitts"],
+.pmg__main-img[src*="fighter"] {
+  object-fit: cover;
+  padding: 0;
+  object-position: center top;
+}
+
+@media (max-width: 600px) {
+  .pmg__thumb { width: 60px; height: 60px; }
+}
