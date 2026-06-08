@@ -1,0 +1,62 @@
+{
+  "folder": "04_footwork_skipping",
+  "title": "FOOTWORK. TIMING. CONTROL. / Skipping rope sequence",
+  "scene_text": {
+    "label": "FOOTWORK",
+    "headline": "FOOTWORK. TIMING. CONTROL.",
+    "subcopy": "Built where nobody is watching."
+  },
+  "frame_count": 10,
+  "frames": [
+    {
+      "index": 1,
+      "filename": "frame_01_skip_ready.png",
+      "note": "Skipping/footwork frame"
+    },
+    {
+      "index": 2,
+      "filename": "frame_02_skip_start.png",
+      "note": "Skipping/footwork frame"
+    },
+    {
+      "index": 3,
+      "filename": "frame_03_rope_swing_low.png",
+      "note": "Skipping/footwork frame"
+    },
+    {
+      "index": 4,
+      "filename": "frame_04_rope_rise.png",
+      "note": "Skipping/footwork frame"
+    },
+    {
+      "index": 5,
+      "filename": "frame_05_jump_start.png",
+      "note": "Skipping/footwork frame"
+    },
+    {
+      "index": 6,
+      "filename": "frame_06_jump_midair.png",
+      "note": "Skipping/footwork frame"
+    },
+    {
+      "index": 7,
+      "filename": "frame_07_rope_side.png",
+      "note": "Skipping/footwork frame"
+    },
+    {
+      "index": 8,
+      "filename": "frame_08_jump_high.png",
+      "note": "Skipping/footwork frame"
+    },
+    {
+      "index": 9,
+      "filename": "frame_09_rope_return.png",
+      "note": "Skipping/footwork frame"
+    },
+    {
+      "index": 10,
+      "filename": "frame_10_skip_reset.png",
+      "note": "Skipping/footwork frame"
+    }
+  ]
+}

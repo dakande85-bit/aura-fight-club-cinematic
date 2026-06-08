@@ -1,0 +1,350 @@
+{
+  "project": "AURA Fight Club cinematic scroll homepage",
+  "zip_purpose": "Claude-ready asset pack. Extract/copy the public/assets/aura-scroll folder into the project.",
+  "important": [
+    "Images were copied and renamed only; image content was not edited.",
+    "Frames are grouped by website section/set.",
+    "Filenames are numbered for direct ordered loading.",
+    "Rain intro video is included if present."
+  ],
+  "sets": [
+    {
+      "folder": "01_rain_intro_video",
+      "title": "AURA FIGHT CLUB / YOUR AURA IS EARNED. / Rain intro video",
+      "video": "set01_rain_intro_video.mp4",
+      "source_note": "Copied unchanged from Boxer_in_dark_boxing_environment_202606081159.mp4"
+    },
+    {
+      "folder": "02_shadow_boxing_the_standard",
+      "title": "THE STANDARD / THE REAL FIGHT IS INTERNAL. / Shadow boxing sequence",
+      "scene_text": {
+        "label": "THE STANDARD",
+        "headline": "THE REAL FIGHT IS INTERNAL.",
+        "subcopy": "The opponent is just the mirror."
+      },
+      "frame_count": 10,
+      "frames": [
+        {
+          "index": 1,
+          "filename": "frame_01_shadow_01_neutral_stance.png",
+          "note": "Shadow boxing frame"
+        },
+        {
+          "index": 2,
+          "filename": "frame_02_shadow_02_guard_raised.png",
+          "note": "Shadow boxing frame"
+        },
+        {
+          "index": 3,
+          "filename": "frame_03_shadow_03_weight_shift.png",
+          "note": "Shadow boxing frame"
+        },
+        {
+          "index": 4,
+          "filename": "frame_04_shadow_04_pivot_adjustment.png",
+          "note": "Shadow boxing frame"
+        },
+        {
+          "index": 5,
+          "filename": "frame_05_shadow_05_jab_start.png",
+          "note": "Shadow boxing frame"
+        },
+        {
+          "index": 6,
+          "filename": "frame_06_shadow_06_jab_extension.png",
+          "note": "Shadow boxing frame"
+        },
+        {
+          "index": 7,
+          "filename": "frame_07_shadow_07_return_guard.png",
+          "note": "Shadow boxing frame"
+        },
+        {
+          "index": 8,
+          "filename": "frame_08_shadow_08_defensive_slip.png",
+          "note": "Shadow boxing frame"
+        },
+        {
+          "index": 9,
+          "filename": "frame_09_shadow_09_reset_stance.png",
+          "note": "Shadow boxing frame"
+        },
+        {
+          "index": 10,
+          "filename": "frame_10_shadow_10_final_pose.png",
+          "note": "Shadow boxing frame"
+        }
+      ]
+    },
+    {
+      "folder": "03_the_work_handwraps",
+      "title": "THE WORK / SILENCE. DISCIPLINE. PRESENCE. / Handwrap preparation",
+      "scene_text": {
+        "label": "THE WORK",
+        "headline": "SILENCE. DISCIPLINE. PRESENCE.",
+        "subcopy": "Built where nobody is watching."
+      },
+      "frame_count": 10,
+      "frames": [
+        {
+          "index": 1,
+          "filename": "frame_01_handwrap_start.png",
+          "note": "Handwrap / preparation frame"
+        },
+        {
+          "index": 2,
+          "filename": "frame_02_wrap_pull.png",
+          "note": "Handwrap / preparation frame"
+        },
+        {
+          "index": 3,
+          "filename": "frame_03_wrap_check.png",
+          "note": "Handwrap / preparation frame"
+        },
+        {
+          "index": 4,
+          "filename": "frame_04_wrap_focus.png",
+          "note": "Handwrap / preparation frame"
+        },
+        {
+          "index": 5,
+          "filename": "frame_05_wrap_tighten.png",
+          "note": "Handwrap / preparation frame"
+        },
+        {
+          "index": 6,
+          "filename": "frame_06_wrap_detail.png",
+          "note": "Handwrap / preparation frame"
+        },
+        {
+          "index": 7,
+          "filename": "frame_07_wrap_settle.png",
+          "note": "Handwrap / preparation frame"
+        },
+        {
+          "index": 8,
+          "filename": "frame_08_wrap_guard.png",
+          "note": "Handwrap / preparation frame"
+        },
+        {
+          "index": 9,
+          "filename": "frame_09_wrap_ready.png",
+          "note": "Handwrap / preparation frame"
+        },
+        {
+          "index": 10,
+          "filename": "frame_10_work_final.png",
+          "note": "Handwrap / preparation frame"
+        }
+      ]
+    },
+    {
+      "folder": "04_footwork_skipping",
+      "title": "FOOTWORK. TIMING. CONTROL. / Skipping rope sequence",
+      "scene_text": {
+        "label": "FOOTWORK",
+        "headline": "FOOTWORK. TIMING. CONTROL.",
+        "subcopy": "Built where nobody is watching."
+      },
+      "frame_count": 10,
+      "frames": [
+        {
+          "index": 1,
+          "filename": "frame_01_skip_ready.png",
+          "note": "Skipping/footwork frame"
+        },
+        {
+          "index": 2,
+          "filename": "frame_02_skip_start.png",
+          "note": "Skipping/footwork frame"
+        },
+        {
+          "index": 3,
+          "filename": "frame_03_rope_swing_low.png",
+          "note": "Skipping/footwork frame"
+        },
+        {
+          "index": 4,
+          "filename": "frame_04_rope_rise.png",
+          "note": "Skipping/footwork frame"
+        },
+        {
+          "index": 5,
+          "filename": "frame_05_jump_start.png",
+          "note": "Skipping/footwork frame"
+        },
+        {
+          "index": 6,
+          "filename": "frame_06_jump_midair.png",
+          "note": "Skipping/footwork frame"
+        },
+        {
+          "index": 7,
+          "filename": "frame_07_rope_side.png",
+          "note": "Skipping/footwork frame"
+        },
+        {
+          "index": 8,
+          "filename": "frame_08_jump_high.png",
+          "note": "Skipping/footwork frame"
+        },
+        {
+          "index": 9,
+          "filename": "frame_09_rope_return.png",
+          "note": "Skipping/footwork frame"
+        },
+        {
+          "index": 10,
+          "filename": "frame_10_skip_reset.png",
+          "note": "Skipping/footwork frame"
+        }
+      ]
+    },
+    {
+      "folder": "05_drop_001_tools_uniform",
+      "title": "DROP 001 / TOOLS FOR THE WORK NOBODY SEES. / Product and uniform reveal",
+      "scene_text": {
+        "label": "DROP 001",
+        "headline": "TOOLS FOR THE WORK NOBODY SEES.",
+        "subcopy": "The first uniform of AURA Fight Club."
+      },
+      "frame_count": 10,
+      "frames": [
+        {
+          "index": 1,
+          "filename": "frame_01_cream_uniform_model.png",
+          "note": "Drop 001 product/uniform frame"
+        },
+        {
+          "index": 2,
+          "filename": "frame_02_gold_skipping_rope_product.png",
+          "note": "Drop 001 product/uniform frame"
+        },
+        {
+          "index": 3,
+          "filename": "frame_03_cream_boots_product.png",
+          "note": "Drop 001 product/uniform frame"
+        },
+        {
+          "index": 4,
+          "filename": "frame_04_back_logo_apparel_model.png",
+          "note": "Drop 001 product/uniform frame"
+        },
+        {
+          "index": 5,
+          "filename": "frame_05_mouthguard_product.png",
+          "note": "Drop 001 product/uniform frame"
+        },
+        {
+          "index": 6,
+          "filename": "frame_06_black_boots_product.png",
+          "note": "Drop 001 product/uniform frame"
+        },
+        {
+          "index": 7,
+          "filename": "frame_07_black_sleeveless_hoodie_product.png",
+          "note": "Drop 001 product/uniform frame"
+        },
+        {
+          "index": 8,
+          "filename": "frame_08_cream_gloves_product.png",
+          "note": "Drop 001 product/uniform frame"
+        },
+        {
+          "index": 9,
+          "filename": "frame_09_cream_full_outfit_model.png",
+          "note": "Drop 001 product/uniform frame"
+        },
+        {
+          "index": 10,
+          "filename": "frame_10_campaign_mitts_hero.png",
+          "note": "Drop 001 product/uniform frame"
+        }
+      ]
+    },
+    {
+      "folder": "06_campaign_mitts_sequence",
+      "title": "THE CAMPAIGN / YOUR AURA IS EARNED WHERE NOBODY IS WATCHING. / Mitts sequence",
+      "scene_text": {
+        "label": "THE CAMPAIGN",
+        "headline": "YOUR AURA IS EARNED WHERE NOBODY IS WATCHING.",
+        "subcopy": "Pressure, rhythm, restraint, identity."
+      },
+      "frame_count": 10,
+      "frames": [
+        {
+          "index": 1,
+          "filename": "frame_01_mitts_01.png",
+          "note": "Campaign mitts frame"
+        },
+        {
+          "index": 2,
+          "filename": "frame_02_mitts_02.png",
+          "note": "Campaign mitts frame"
+        },
+        {
+          "index": 3,
+          "filename": "frame_03_mitts_03.png",
+          "note": "Campaign mitts frame"
+        },
+        {
+          "index": 4,
+          "filename": "frame_04_mitts_04.png",
+          "note": "Campaign mitts frame"
+        },
+        {
+          "index": 5,
+          "filename": "frame_05_mitts_05.png",
+          "note": "Campaign mitts frame"
+        },
+        {
+          "index": 6,
+          "filename": "frame_06_mitts_06.png",
+          "note": "Campaign mitts frame"
+        },
+        {
+          "index": 7,
+          "filename": "frame_07_mitts_07.png",
+          "note": "Campaign mitts frame"
+        },
+        {
+          "index": 8,
+          "filename": "frame_08_mitts_08.png",
+          "note": "Campaign mitts frame"
+        },
+        {
+          "index": 9,
+          "filename": "frame_09_mitts_09.png",
+          "note": "Campaign mitts frame"
+        },
+        {
+          "index": 10,
+          "filename": "frame_10_mitts_10.png",
+          "note": "Campaign mitts frame"
+        }
+      ]
+    },
+    {
+      "folder": "07_fight_club_close",
+      "title": "FIGHT CLUB / MORE THAN A BRAND. A FIGHT IDENTITY. / Closing waitlist scene",
+      "scene_text": {
+        "label": "FIGHT CLUB",
+        "headline": "MORE THAN A BRAND. A FIGHT IDENTITY.",
+        "subcopy": "Join the first circle of AURA Fight Club."
+      },
+      "frame_count": 2,
+      "frames": [
+        {
+          "index": 1,
+          "filename": "frame_01_fight_club_close.png",
+          "note": "Fight Club closing scene"
+        },
+        {
+          "index": 2,
+          "filename": "frame_02_alternate_fight_club_close.png",
+          "note": "Fight Club closing scene"
+        }
+      ]
+    }
+  ]
+}

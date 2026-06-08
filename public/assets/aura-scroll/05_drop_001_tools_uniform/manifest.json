@@ -1,0 +1,62 @@
+{
+  "folder": "05_drop_001_tools_uniform",
+  "title": "DROP 001 / TOOLS FOR THE WORK NOBODY SEES. / Product and uniform reveal",
+  "scene_text": {
+    "label": "DROP 001",
+    "headline": "TOOLS FOR THE WORK NOBODY SEES.",
+    "subcopy": "The first uniform of AURA Fight Club."
+  },
+  "frame_count": 10,
+  "frames": [
+    {
+      "index": 1,
+      "filename": "frame_01_cream_uniform_model.png",
+      "note": "Drop 001 product/uniform frame"
+    },
+    {
+      "index": 2,
+      "filename": "frame_02_gold_skipping_rope_product.png",
+      "note": "Drop 001 product/uniform frame"
+    },
+    {
+      "index": 3,
+      "filename": "frame_03_cream_boots_product.png",
+      "note": "Drop 001 product/uniform frame"
+    },
+    {
+      "index": 4,
+      "filename": "frame_04_back_logo_apparel_model.png",
+      "note": "Drop 001 product/uniform frame"
+    },
+    {
+      "index": 5,
+      "filename": "frame_05_mouthguard_product.png",
+      "note": "Drop 001 product/uniform frame"
+    },
+    {
+      "index": 6,
+      "filename": "frame_06_black_boots_product.png",
+      "note": "Drop 001 product/uniform frame"
+    },
+    {
+      "index": 7,
+      "filename": "frame_07_black_sleeveless_hoodie_product.png",
+      "note": "Drop 001 product/uniform frame"
+    },
+    {
+      "index": 8,
+      "filename": "frame_08_cream_gloves_product.png",
+      "note": "Drop 001 product/uniform frame"
+    },
+    {
+      "index": 9,
+      "filename": "frame_09_cream_full_outfit_model.png",
+      "note": "Drop 001 product/uniform frame"
+    },
+    {
+      "index": 10,
+      "filename": "frame_10_campaign_mitts_hero.png",
+      "note": "Drop 001 product/uniform frame"
+    }
+  ]
+}

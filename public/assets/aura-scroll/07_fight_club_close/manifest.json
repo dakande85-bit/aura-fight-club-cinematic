@@ -1,0 +1,22 @@
+{
+  "folder": "07_fight_club_close",
+  "title": "FIGHT CLUB / MORE THAN A BRAND. A FIGHT IDENTITY. / Closing waitlist scene",
+  "scene_text": {
+    "label": "FIGHT CLUB",
+    "headline": "MORE THAN A BRAND. A FIGHT IDENTITY.",
+    "subcopy": "Join the first circle of AURA Fight Club."
+  },
+  "frame_count": 2,
+  "frames": [
+    {
+      "index": 1,
+      "filename": "frame_01_fight_club_close.png",
+      "note": "Fight Club closing scene"
+    },
+    {
+      "index": 2,
+      "filename": "frame_02_alternate_fight_club_close.png",
+      "note": "Fight Club closing scene"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "folder": "02_shadow_boxing_the_standard",
+  "title": "THE STANDARD / THE REAL FIGHT IS INTERNAL. / Shadow boxing sequence",
+  "scene_text": {
+    "label": "THE STANDARD",
+    "headline": "THE REAL FIGHT IS INTERNAL.",
+    "subcopy": "The opponent is just the mirror."
+  },
+  "frame_count": 10,
+  "frames": [
+    {
+      "index": 1,
+      "filename": "frame_01_shadow_01_neutral_stance.png",
+      "note": "Shadow boxing frame"
+    },
+    {
+      "index": 2,
+      "filename": "frame_02_shadow_02_guard_raised.png",
+      "note": "Shadow boxing frame"
+    },
+    {
+      "index": 3,
+      "filename": "frame_03_shadow_03_weight_shift.png",
+      "note": "Shadow boxing frame"
+    },
+    {
+      "index": 4,
+      "filename": "frame_04_shadow_04_pivot_adjustment.png",
+      "note": "Shadow boxing frame"
+    },
+    {
+      "index": 5,
+      "filename": "frame_05_shadow_05_jab_start.png",
+      "note": "Shadow boxing frame"
+    },
+    {
+      "index": 6,
+      "filename": "frame_06_shadow_06_jab_extension.png",
+      "note": "Shadow boxing frame"
+    },
+    {
+      "index": 7,
+      "filename": "frame_07_shadow_07_return_guard.png",
+      "note": "Shadow boxing frame"
+    },
+    {
+      "index": 8,
+      "filename": "frame_08_shadow_08_defensive_slip.png",
+      "note": "Shadow boxing frame"
+    },
+    {
+      "index": 9,
+      "filename": "frame_09_shadow_09_reset_stance.png",
+      "note": "Shadow boxing frame"
+    },
+    {
+      "index": 10,
+      "filename": "frame_10_shadow_10_final_pose.png",
+      "note": "Shadow boxing frame"
+    }
+  ]
+}

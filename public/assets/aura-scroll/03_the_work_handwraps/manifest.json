@@ -1,0 +1,62 @@
+{
+  "folder": "03_the_work_handwraps",
+  "title": "THE WORK / SILENCE. DISCIPLINE. PRESENCE. / Handwrap preparation",
+  "scene_text": {
+    "label": "THE WORK",
+    "headline": "SILENCE. DISCIPLINE. PRESENCE.",
+    "subcopy": "Built where nobody is watching."
+  },
+  "frame_count": 10,
+  "frames": [
+    {
+      "index": 1,
+      "filename": "frame_01_handwrap_start.png",
+      "note": "Handwrap / preparation frame"
+    },
+    {
+      "index": 2,
+      "filename": "frame_02_wrap_pull.png",
+      "note": "Handwrap / preparation frame"
+    },
+    {
+      "index": 3,
+      "filename": "frame_03_wrap_check.png",
+      "note": "Handwrap / preparation frame"
+    },
+    {
+      "index": 4,
+      "filename": "frame_04_wrap_focus.png",
+      "note": "Handwrap / preparation frame"
+    },
+    {
+      "index": 5,
+      "filename": "frame_05_wrap_tighten.png",
+      "note": "Handwrap / preparation frame"
+    },
+    {
+      "index": 6,
+      "filename": "frame_06_wrap_detail.png",
+      "note": "Handwrap / preparation frame"
+    },
+    {
+      "index": 7,
+      "filename": "frame_07_wrap_settle.png",
+      "note": "Handwrap / preparation frame"
+    },
+    {
+      "index": 8,
+      "filename": "frame_08_wrap_guard.png",
+      "note": "Handwrap / preparation frame"
+    },
+    {
+      "index": 9,
+      "filename": "frame_09_wrap_ready.png",
+      "note": "Handwrap / preparation frame"
+    },
+    {
+      "index": 10,
+      "filename": "frame_10_work_final.png",
+      "note": "Handwrap / preparation frame"
+    }
+  ]
+}
