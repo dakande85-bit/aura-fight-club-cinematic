@@ -458,3 +458,20 @@ html, body {
   .sf-header-nav { display: none; }
   .sf-header-cta { justify-self: end; }
 }
+
+/* ── BEAT CONTENT (fades independently within a scene) ───────────────── */
+.sf-beat-content {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.38s ease, transform 0.38s ease;
+}
+.sf-beat-content--in {
+  opacity: 1;
+  transform: none;
+}
+/* When beat content is in, let child transitions still run for headline lines */
+.sf-beat-content--in .sf-headline-line {
+  opacity: 1;
+  transform: none;
+  transition: none; /* beat fade handles the entrance, no double-animation */
+}

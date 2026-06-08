@@ -135,50 +135,89 @@ const SCENES = [
     start: 0.02, end: 0.20,
     visualType: 'imageSequence',
     frames: FRAMES.s02,
-    label:    'THE STANDARD',
-    headline: ['THE REAL', 'FIGHT IS', 'INTERNAL.'],
-    sub:      'The opponent is just the mirror.',
-    cta:      null,
-    ctaLabel: 'Read Manifesto',
-    ctaHref:  '/campaign',
+    // s02 has 5 frames (0-4) — 3 beats across them
+    beats: [
+      { fromFrame:0, toFrame:1,
+        headline: ['THE REAL', 'FIGHT IS', 'INTERNAL.'],
+        sub:      'The opponent is just the mirror.',
+        ctaLabel: 'Read Manifesto', ctaHref: '/campaign' },
+      { fromFrame:2, toFrame:2,
+        headline: ['READ.', 'FEINT.', 'COUNTER.'],
+        sub:      'Control the moment before it happens.',
+        ctaLabel: 'Enter Fight Club', ctaHref: '/fight-club' },
+      { fromFrame:3, toFrame:4,
+        headline: ['CONTROL', 'THE FIGHT.'],
+        sub:      'Your aura is earned through composure.',
+        ctaLabel: 'Explore The Standard', ctaHref: '/fight-club' },
+    ],
+    label: 'THE STANDARD',
+    cta:   null,
   },
   {
     id: 'the-work',
     start: 0.20, end: 0.36,
     visualType: 'imageSequence',
     frames: FRAMES.s03,
-    label:    'THE WORK',
-    headline: ['SILENCE.', 'DISCIPLINE.', 'PRESENCE.'],
-    sub:      'Built where nobody is watching.',
-    cta:      null,
-    ctaLabel: 'Explore The Standard',
-    ctaHref:  '/fight-club',
+    // s03 has 5 frames (0-4) — 3 beats
+    beats: [
+      { fromFrame:0, toFrame:1,
+        headline: ['SILENCE.'],
+        sub:      'Built where nobody is watching.',
+        ctaLabel: 'Explore Fight Club', ctaHref: '/fight-club' },
+      { fromFrame:2, toFrame:2,
+        headline: ['DISCIPLINE.'],
+        sub:      'The ritual before the rounds.',
+        ctaLabel: 'Read Manifesto', ctaHref: '/campaign' },
+      { fromFrame:3, toFrame:4,
+        headline: ['PRESENCE.'],
+        sub:      'No wasted movement.',
+        ctaLabel: 'Enter Fight Club', ctaHref: '/fight-club' },
+    ],
+    label: 'THE WORK',
+    cta:   null,
   },
   {
     id: 'footwork',
     start: 0.36, end: 0.52,
     visualType: 'imageSequence',
     frames: FRAMES.s04,
-    label:    'FOOTWORK',
-    headline: ['FOOTWORK.', 'TIMING.', 'CONTROL.'],
-    sub:      'Built where nobody is watching.',
-    cta:      null,
-    ctaLabel: 'Explore Footwear',
-    ctaHref:  '/footwear',
+    // s04 has 5 frames (0-4) — 3 beats
+    beats: [
+      { fromFrame:0, toFrame:1,
+        headline: ['FOOTWORK.'],
+        sub:      'Balance before power.',
+        ctaLabel: 'Explore Footwear', ctaHref: '/footwear' },
+      { fromFrame:2, toFrame:2,
+        headline: ['TIMING.'],
+        sub:      'Rhythm creates openings.',
+        ctaLabel: 'Explore Footwear', ctaHref: '/footwear' },
+      { fromFrame:3, toFrame:4,
+        headline: ['CONTROL.'],
+        sub:      'Move with intent.',
+        ctaLabel: 'View Training Gear', ctaHref: '/equipment' },
+    ],
+    label: 'FOOTWORK',
+    cta:   null,
   },
   {
     id: 'drop-001',
     start: 0.52, end: 0.68,
     visualType: 'imageSequence',
     frames: FRAMES.s05,
-    // FIX 3: longer fade in — product reveal needs breathing room after footwork
     fadeDur: FADE_DUR_LONG,
-    label:    'DROP 001',
-    headline: ['TOOLS FOR THE', 'WORK NOBODY', 'SEES.'],
-    sub:      'The first uniform of AURA Fight Club.',
-    cta:      null,
-    ctaLabel: 'View Drop 001',
-    ctaHref:  '/drop-001',
+    // s05 has 2 frames (0-1) — 2 beats
+    beats: [
+      { fromFrame:0, toFrame:0,
+        headline: ['THE FIRST', 'UNIFORM.'],
+        sub:      'Drop 001.',
+        ctaLabel: 'View Drop 001', ctaHref: '/drop-001' },
+      { fromFrame:1, toFrame:1,
+        headline: ['BUILT FOR', 'THE WORK.'],
+        sub:      'The first uniform of AURA Fight Club.',
+        ctaLabel: 'View Apparel', ctaHref: '/apparel' },
+    ],
+    label: 'DROP 001',
+    cta:   null,
   },
   {
     id: 'campaign',
@@ -186,12 +225,27 @@ const SCENES = [
     visualType: 'imageSequence',
     frames: FRAMES.s06,
     fadeDur: FADE_DUR_LONG,
-    label:    'THE CAMPAIGN',
-    headline: ['EARNED WHERE', 'NOBODY', 'IS WATCHING.'],
-    sub:      'Pressure, rhythm, restraint, identity.',
-    cta:      null,
-    ctaLabel: 'Watch Campaign',
-    ctaHref:  '/campaign',
+    // s06 has 5 frames (0-4) — 4 beats
+    beats: [
+      { fromFrame:0, toFrame:0,
+        headline: ['PRESSURE.'],
+        sub:      'Every round starts before the bell.',
+        ctaLabel: 'Watch Campaign', ctaHref: '/campaign' },
+      { fromFrame:1, toFrame:1,
+        headline: ['RHYTHM.'],
+        sub:      'Timing beats speed.',
+        ctaLabel: 'Watch Campaign', ctaHref: '/campaign' },
+      { fromFrame:2, toFrame:3,
+        headline: ['RESTRAINT.'],
+        sub:      'No wasted movement.',
+        ctaLabel: 'Read Campaign', ctaHref: '/campaign' },
+      { fromFrame:4, toFrame:4,
+        headline: ['YOUR AURA IS', 'EARNED WHERE', 'NOBODY WATCHES.'],
+        sub:      'Pressure, rhythm, restraint, identity.',
+        ctaLabel: 'Watch Campaign', ctaHref: '/campaign' },
+    ],
+    label: 'THE CAMPAIGN',
+    cta:   null,
   },
   {
     id: 'fight-club',
@@ -218,6 +272,13 @@ function localP(scene, p) {
 }
 function calcFrame(frames, lp) {
   return Math.max(0, Math.min(frames.length - 1, Math.round(lp * (frames.length - 1))));
+}
+
+// Get active beat for a scene at a given frame index
+function getBeat(scene, frameIdx) {
+  if (!scene.beats?.length) return null;
+  return scene.beats.find(b => frameIdx >= b.fromFrame && frameIdx <= b.toFrame)
+    ?? scene.beats[scene.beats.length - 1];
 }
 
 const imgCache = new Map();
@@ -321,7 +382,7 @@ function CinematicHeader() {
 }
 
 // ── SCENE OVERLAY ──────────────────────────────────────────────────────────
-function SceneOverlay({ scene, visible }) {
+function SceneOverlay({ scene, visible, frameIdx }) {
   const [email, setEmail] = useState('');
   const [done, setDone]   = useState(false);
   useEffect(() => { setDone(false); setEmail(''); }, [scene?.id]);
@@ -402,6 +463,7 @@ export default function ScrollFilm() {
   const [isMobile,     setMobile]       = useState(false);
   const [overlayScene, setOverlayScene] = useState(SCENES[0]);
   const [overlayVis,   setOverlayVis]   = useState(false);
+  const [overlayFrame, setOverlayFrame] = useState(0);
   const [debug, setDebug] = useState({
     total:0, sceneId:'—', localPct:0, frame:0, totalFrames:0, type:'—', videoPaused:false,
   });
@@ -589,6 +651,7 @@ export default function ScrollFilm() {
             curFrameIdx.current = 0;
             doTransition.current(sc, prev);
             setOverlayVis(false);
+            setOverlayFrame(0);
             setTimeout(() => { setOverlayScene(sc); setOverlayVis(true); }, 200);
           }
 
@@ -654,7 +717,7 @@ export default function ScrollFilm() {
           </div>
         )}
 
-        <SceneOverlay scene={overlayScene} visible={overlayVis} />
+        <SceneOverlay scene={overlayScene} visible={overlayVis} frameIdx={overlayFrame} />
         <Indicators activeId={overlayScene?.id} />
 
         <div className="sf-progress-bar" aria-hidden="true">
