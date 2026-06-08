@@ -60,14 +60,11 @@ const FRAMES = {
   // Scene 02 — Shadow boxing: 8 curated frames
   // Removed: frame_04_pivot_adjustment (too similar to 03), frame_09_reset_stance (too similar to 07)
   s02: [
-    `${S}/02_shadow_boxing_the_standard/frame_01_shadow_01_neutral_stance.png`,
     `${S}/02_shadow_boxing_the_standard/frame_02_shadow_02_guard_raised.png`,
-    `${S}/02_shadow_boxing_the_standard/frame_03_shadow_03_weight_shift.png`,
     `${S}/02_shadow_boxing_the_standard/frame_05_shadow_05_jab_start.png`,
     `${S}/02_shadow_boxing_the_standard/frame_06_shadow_06_jab_extension.png`,
     `${S}/02_shadow_boxing_the_standard/frame_07_shadow_07_return_guard.png`,
     `${S}/02_shadow_boxing_the_standard/frame_08_shadow_08_defensive_slip.png`,
-    `${S}/02_shadow_boxing_the_standard/frame_10_shadow_10_final_pose.png`,
   ],
 
   // Scene 03 — Handwraps: 5 curated frames
