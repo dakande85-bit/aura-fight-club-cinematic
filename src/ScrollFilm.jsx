@@ -125,10 +125,10 @@ const FRAMES = {
 const SCENES = [
   {
     id: 'rain-intro',
-    start: 0.00, end: 0.10,
+    start: 0.00, end: 0.06,
     visualType: 'video',
     src: VIDEO_SRC,
-    startTime: 0, endTime: 4,
+    startTime: 0, endTime: 2,
     label:    'AURA FIGHT CLUB',
     headline: ['YOUR AURA', 'IS EARNED.'],
     sub:      'The real fight is internal.\nThe opponent is just the mirror.',
@@ -136,7 +136,7 @@ const SCENES = [
   },
   {
     id: 'shadow-boxing',
-    start: 0.10, end: 0.27,
+    start: 0.06, end: 0.24,
     visualType: 'imageSequence',
     frames: FRAMES.s02,
     label:    'THE STANDARD',
@@ -146,7 +146,7 @@ const SCENES = [
   },
   {
     id: 'the-work',
-    start: 0.27, end: 0.42,
+    start: 0.24, end: 0.40,
     visualType: 'imageSequence',
     frames: FRAMES.s03,
     label:    'THE WORK',
@@ -156,7 +156,7 @@ const SCENES = [
   },
   {
     id: 'footwork',
-    start: 0.42, end: 0.57,
+    start: 0.40, end: 0.56,
     visualType: 'imageSequence',
     frames: FRAMES.s04,
     label:    'FOOTWORK',
@@ -166,7 +166,7 @@ const SCENES = [
   },
   {
     id: 'drop-001',
-    start: 0.57, end: 0.72,
+    start: 0.56, end: 0.72,
     visualType: 'imageSequence',
     frames: FRAMES.s05,
     // FIX 3: longer fade in — product reveal needs breathing room after footwork
@@ -489,7 +489,7 @@ export default function ScrollFilm() {
     setTimeout(() => setOverlayVis(true), 350);
 
     const lenis = new Lenis({
-      duration:    mq.matches ? 0 : 1.05,
+      duration:    mq.matches ? 0 : 0.7,
       easing:      t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: !mq.matches,
     });
