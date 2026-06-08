@@ -100,14 +100,18 @@ const FRAMES = {
     `${S}/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png`,
   ],
 
-  // Scene 06 — Campaign mitts: 5 curated frames
-  // Spread evenly: opening stance → action build → peak → hold → close
+  // Scene 06 — Campaign: using full-size frames from available assets
+  // NOTE: 06_campaign_mitts_sequence frames are 307x512 contact-sheet strips
+  //       and cannot be used as fullscreen images. Using these proper alternates:
+  //   - frame_10_campaign_mitts_hero from drop-001 folder (1672x941 landscape)
+  //   - fight club close frames (1672x941 landscape) — same cinematic mood
+  //   These are the only full-resolution campaign-atmosphere images in the ZIP.
   s06: [
-    `${S}/06_campaign_mitts_sequence/frame_01_mitts_01.png`,
-    `${S}/06_campaign_mitts_sequence/frame_03_mitts_03.png`,
-    `${S}/06_campaign_mitts_sequence/frame_05_mitts_05.png`,
-    `${S}/06_campaign_mitts_sequence/frame_08_mitts_08.png`,
-    `${S}/06_campaign_mitts_sequence/frame_10_mitts_10.png`,
+    `${S}/05_drop_001_tools_uniform/frame_10_campaign_mitts_hero.png`,
+    `${S}/07_fight_club_close/frame_01_fight_club_close.png`,
+    `${S}/05_drop_001_tools_uniform/frame_10_campaign_mitts_hero.png`,
+    `${S}/07_fight_club_close/frame_02_alternate_fight_club_close.png`,
+    `${S}/05_drop_001_tools_uniform/frame_10_campaign_mitts_hero.png`,
   ],
 
   // Scene 07 — Fight Club close: both available frames
