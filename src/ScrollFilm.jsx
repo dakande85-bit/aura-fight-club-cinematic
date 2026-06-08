@@ -121,7 +121,7 @@ const FRAMES = {
 const SCENES = [
   {
     id: 'rain-intro',
-    start: 0.00, end: 0.06,
+    start: 0.00, end: 0.18,
     visualType: 'video',
     src: VIDEO_SRC,
     startTime: 0, endTime: 7.3,
@@ -132,7 +132,7 @@ const SCENES = [
   },
   {
     id: 'shadow-boxing',
-    start: 0.06, end: 0.24,
+    start: 0.18, end: 0.34,
     visualType: 'imageSequence',
     frames: FRAMES.s02,
     label:    'THE STANDARD',
@@ -142,7 +142,7 @@ const SCENES = [
   },
   {
     id: 'the-work',
-    start: 0.24, end: 0.40,
+    start: 0.34, end: 0.50,
     visualType: 'imageSequence',
     frames: FRAMES.s03,
     label:    'THE WORK',
@@ -152,7 +152,7 @@ const SCENES = [
   },
   {
     id: 'footwork',
-    start: 0.40, end: 0.56,
+    start: 0.50, end: 0.64,
     visualType: 'imageSequence',
     frames: FRAMES.s04,
     label:    'FOOTWORK',
@@ -162,7 +162,7 @@ const SCENES = [
   },
   {
     id: 'drop-001',
-    start: 0.56, end: 0.72,
+    start: 0.64, end: 0.76,
     visualType: 'imageSequence',
     frames: FRAMES.s05,
     // FIX 3: longer fade in — product reveal needs breathing room after footwork
@@ -174,7 +174,7 @@ const SCENES = [
   },
   {
     id: 'campaign',
-    start: 0.72, end: 0.88,
+    start: 0.76, end: 0.88,
     visualType: 'imageSequence',
     frames: FRAMES.s06,
     fadeDur: FADE_DUR_LONG,
@@ -378,7 +378,7 @@ export default function ScrollFilm() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    v.muted = true; v.playsInline = true; v.preload = 'auto';
+    v.muted = true; v.playsInline = true; v.preload = 'auto'; v.loop = true;
     const onMeta = () => setVideoReady(true);
     v.addEventListener('loadedmetadata', onMeta);
     if (v.readyState >= 1) onMeta();
@@ -590,7 +590,7 @@ export default function ScrollFilm() {
       <div className="sf-fixed">
 
         <video ref={videoRef} className="sf-video"
-          src={VIDEO_SRC} muted playsInline preload="auto"
+          src={VIDEO_SRC} muted playsInline preload="auto" loop
           style={{ opacity: 0 }} aria-hidden="true" />
 
         <div ref={slotARef} className="sf-image-slot" style={{ opacity: 0 }}>
