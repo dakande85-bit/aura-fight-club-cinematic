@@ -9,11 +9,12 @@ export default function CollectionPage({ category, heading, subcopy }) {
 
   return (
     <div className="col-page">
-      <button className="col-back" onClick={() => navigate('/')}>
-        ← AURA Fight Club
-      </button>
 
-      <div className="col-header">
+      {/* Compact header band */}
+      <div className="col-header-block">
+        <button className="col-back" onClick={() => navigate('/')}>
+          ← AURA Fight Club
+        </button>
         <p className="col-eyebrow">AURA Fight Club</p>
         <h1 className="col-title">{heading}</h1>
         <p className="col-sub">{subcopy}</p>
@@ -29,22 +30,26 @@ export default function CollectionPage({ category, heading, subcopy }) {
         )}
       </div>
 
-      {loading ? (
-        <div className="col-loading">Loading collection…</div>
-      ) : products.length > 0 ? (
-        <div className={`col-grid${products.length === 1 ? ' col-grid--single' : ''}`}>
-          {products.map(p => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
-        </div>
-      ) : (
-        <div className="col-empty">
-          <p className="col-empty-label">More pieces coming soon.</p>
-          <button className="col-empty-cta" onClick={() => navigate('/drop-001')}>
-            View Drop 001 →
-          </button>
-        </div>
-      )}
+      {/* Grid — tight gap from header */}
+      <div className="col-grid-wrap">
+        {loading ? (
+          <div className="col-loading">Loading collection…</div>
+        ) : products.length > 0 ? (
+          <div className={`col-grid${products.length === 1 ? ' col-grid--single' : ''}`}>
+            {products.map(p => (
+              <ProductCard key={p.slug} product={p} />
+            ))}
+          </div>
+        ) : (
+          <div className="col-empty">
+            <p className="col-empty-label">More pieces coming soon.</p>
+            <button className="col-empty-cta" onClick={() => navigate('/drop-001')}>
+              View Drop 001 →
+            </button>
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }

@@ -9,7 +9,8 @@ export default function Drop001() {
 
   return (
     <div className="d001">
-      {/* Hero band */}
+
+      {/* Compact header band */}
       <div className="d001__hero">
         <button className="d001__back" onClick={() => navigate('/')}>
           ← AURA Fight Club
@@ -29,7 +30,7 @@ export default function Drop001() {
         </p>
       </div>
 
-      {/* Grid — sourced from Supabase, controlled by /admin */}
+      {/* Grid — tight gap from header */}
       <div className="d001__grid-wrap">
         {loading ? (
           <div className="d001__loading">Loading collection…</div>
@@ -45,6 +46,7 @@ export default function Drop001() {
           </div>
         )}
       </div>
+
     </div>
   );
 }
