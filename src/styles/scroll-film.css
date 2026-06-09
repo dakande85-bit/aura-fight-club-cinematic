@@ -52,8 +52,13 @@ html, body {
   /* transform (scale/translate) managed by GSAP — no CSS animation */
 }
 @media (max-width: 600px) {
-  /* Portrait mobile: keep subject in upper-centre of frame */
-  .sf-image { object-position: center 15%; }
+  /* Portrait mobile: show full image composition, don't crop.
+     Use contain so the whole 16:9 frame is visible.
+     Dark background already handled by .sf-fixed background. */
+  .sf-image {
+    object-fit: contain;
+    object-position: center center;
+  }
 }
 
 /* ── LAYER 1.5: SCENE LIGHT SWEEP ───────────────── */
@@ -163,7 +168,7 @@ html, body {
 }
 .sf-overlay-inner { max-width: min(660px, 56vw); }
 @media (max-width: 600px) {
-  .sf-overlay { padding: 0 20px clamp(48px,10vh,80px); }
+  .sf-overlay { padding: 0 20px 28px; }
   .sf-overlay-inner { max-width: 100%; }
 }
 
@@ -334,9 +339,9 @@ html, body {
 
 /* ── MOBILE ───────────────────────────────────────── */
 @media (max-width: 768px) {
-  .sf-overlay { padding: 0 22px 76px; }
+  .sf-overlay { padding: 0 22px 36px; }
   .sf-overlay-inner { max-width: 100%; }
-  .sf-headline-line { font-size: clamp(38px,11vw,62px); }
+  .sf-headline-line { font-size: clamp(32px,9.5vw,54px); }
   .sf-sub { font-size: 13px; }
   .sf-indicators { display: none; }
   .sf-debug { top: auto; bottom: 52px; right: 10px; min-width: 164px; }
