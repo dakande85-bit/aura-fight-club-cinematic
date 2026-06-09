@@ -618,3 +618,67 @@
   color: var(--adm-gold-d); animation: adm-pulse 1s ease-in-out infinite;
 }
 @keyframes adm-pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+/* ── SLOT TYPE LABEL ── */
+.adm-slot-type {
+  padding: 3px 9px;
+  font-size: 7px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(200,169,110,0.45); border-bottom: 1px solid var(--adm-border);
+  background: var(--adm-panel2);
+}
+
+/* ── MEDIA STATUS BADGE (on image) ── */
+.adm-media-status-badge {
+  position: absolute; bottom: 5px; right: 5px;
+  font-size: 7px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  padding: 2px 7px; border: 1px solid; backdrop-filter: blur(4px);
+}
+
+/* ── UPLOADING OVERLAY ── */
+.adm-slot-uploading {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.75);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--adm-gold); animation: adm-pulse 1s ease-in-out infinite;
+}
+
+/* ── STATUS ROW ── */
+.adm-slot-status-row {
+  display: flex; gap: 3px; padding: 4px 7px;
+  border-top: 1px solid var(--adm-border);
+}
+.adm-status-btn {
+  flex: 1; padding: 3px 0;
+  font-family: 'Barlow', sans-serif; font-size: 7px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  background: transparent; border: 1px solid var(--adm-border);
+  color: var(--adm-muted); cursor: pointer; text-align: center;
+  transition: all .15s;
+}
+.adm-status-btn:hover { color: var(--adm-text); border-color: rgba(255,255,255,.25); }
+.adm-status-btn--active { font-weight: 900; }
+
+/* ── FULL SCREEN PREVIEW ── */
+.adm-preview-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.92);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.adm-preview-img {
+  max-width: 90vw; max-height: 90vh;
+  object-fit: contain; box-shadow: 0 0 60px rgba(0,0,0,0.8);
+}
+.adm-preview-close {
+  position: absolute; top: 20px; right: 24px;
+  font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(244,241,234,0.5); cursor: pointer;
+}
+
+/* ── GALLERY LOADING ── */
+.pd__gallery-loading {
+  aspect-ratio: 1; background: #0b0b0b;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(167,161,154,.4);
+}
