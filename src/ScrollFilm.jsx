@@ -339,19 +339,58 @@ const NAV_LINKS = [
 ];
 
 function CinematicHeader() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen(v => !v);
+  const closeMenu  = () => setMenuOpen(false);
+
   return (
-    <header className="sf-header" role="banner">
-      <a href="/" className="sf-header-logo" aria-label="AURA Fight Club">
-        <span className="sf-header-logo-text">AURA</span>
-        <span className="sf-header-logo-sub">Fight Club</span>
-      </a>
-      <nav className="sf-header-nav" aria-label="Main navigation">
-        {NAV_LINKS.map(l => (
-          <a key={l.href} href={l.href} className="sf-header-nav-link">{l.label}</a>
-        ))}
-      </nav>
-      <a href="/fight-club" className="sf-header-cta">Join Waitlist</a>
-    </header>
+    <>
+      <header className="sf-header" role="banner">
+        <a href="/" className="sf-header-logo" aria-label="AURA Fight Club" onClick={closeMenu}>
+          <span className="sf-header-logo-text">AURA</span>
+          <span className="sf-header-logo-sub">Fight Club</span>
+        </a>
+        {/* Desktop nav */}
+        <nav className="sf-header-nav" aria-label="Main navigation">
+          {NAV_LINKS.map(l => (
+            <a key={l.href} href={l.href} className="sf-header-nav-link">{l.label}</a>
+          ))}
+        </nav>
+        {/* Desktop CTA */}
+        <a href="/fight-club" className="sf-header-cta sf-header-cta--desktop">Join Waitlist</a>
+        {/* Mobile hamburger */}
+        <button
+          className={`sf-hamburger${menuOpen ? ' sf-hamburger--open' : ''}`}
+          onClick={toggleMenu}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+        >
+          <span /><span /><span />
+        </button>
+      </header>
+
+      {/* Mobile menu overlay */}
+      <div
+        className={`sf-mobile-menu${menuOpen ? ' sf-mobile-menu--open' : ''}`}
+        aria-hidden={!menuOpen}
+      >
+        <nav className="sf-mobile-menu-nav" aria-label="Mobile navigation">
+          {NAV_LINKS.map(l => (
+            <a key={l.href} href={l.href} className="sf-mobile-nav-link" onClick={closeMenu}>
+              {l.label}
+            </a>
+          ))}
+          <a href="/fight-club" className="sf-mobile-nav-cta" onClick={closeMenu}>
+            Join Waitlist
+          </a>
+        </nav>
+      </div>
+
+      {/* Backdrop */}
+      {menuOpen && (
+        <div className="sf-mobile-menu-backdrop" onClick={closeMenu} aria-hidden="true" />
+      )}
+    </>
   );
 }
 
