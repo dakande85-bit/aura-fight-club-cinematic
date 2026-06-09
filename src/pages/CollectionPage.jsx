@@ -32,7 +32,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
       {loading ? (
         <div className="col-loading">Loading collection…</div>
       ) : products.length > 0 ? (
-        <div className="col-grid">
+        <div className={`col-grid${products.length === 1 ? ' col-grid--single' : ''}`}>
           {products.map(p => (
             <ProductCard key={p.slug} product={p} />
           ))}

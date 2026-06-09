@@ -119,3 +119,8 @@
   color: rgba(167,161,154,0.4);
   border-top: 1px solid rgba(255,255,255,0.08);
 }
+
+/* Single-product collections: don't stretch one card across 3 columns */
+.col-grid--single {
+  grid-template-columns: minmax(0, 360px);
+}
