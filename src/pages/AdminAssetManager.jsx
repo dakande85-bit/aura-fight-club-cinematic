@@ -247,8 +247,22 @@ export default function AdminAssetManager() {
     if(slot?.id) await supabase.from('aura_slots').update({img_url:publicUrl}).eq('id',slot.id);
     else await supabase.from('aura_slots').upsert({product_slug:activeSlug,slot_index:slotIdx,img_url:publicUrl,note:'',slot_type:slotType},{onConflict:'product_slug,slot_index'});
     const existingMedia=media[activeSlug]?.find(m=>m.slot_index===slotIdx);
-    if(existingMedia) await supabase.from('aura_media').update({file_url:publicUrl,storage_path:path,storage_bucket:bucket,status:'approved'}).eq('id',existingMedia.id);
-    else await supabase.from('aura_media').insert({product_slug:activeSlug,slot_index:slotIdx,slot_type:slotType,file_url:publicUrl,storage_path:path,storage_bucket:bucket,file_type:'image',status:'approved',sort_order:slotIdx});
+    // Demote ALL currently approved rows for this slot before approving new one.
+    // Prevents duplicate-approved violation from the partial unique index.
+    await supabase.from('aura_media')
+      .update({ status: 'replaced' })
+      .eq('product_slug', activeSlug)
+      .eq('slot_index', slotIdx)
+      .eq('status', 'approved');
+
+    if(existingMedia) {
+      await supabase.from('aura_media')
+        .update({file_url:publicUrl,storage_path:path,storage_bucket:bucket,status:'approved'})
+        .eq('id',existingMedia.id);
+    } else {
+      await supabase.from('aura_media')
+        .insert({product_slug:activeSlug,slot_index:slotIdx,slot_type:slotType,file_url:publicUrl,storage_path:path,storage_bucket:bucket,file_type:'image',status:'approved',sort_order:slotIdx});
+    }
     await updateProductStatus(activeSlug);
     await loadAll(); setSaving(false); setUploading(null); showToast('Uploaded ✓');
   };
@@ -261,8 +275,21 @@ export default function AdminAssetManager() {
     if(slot?.id) await supabase.from('aura_slots').update({img_url:url.trim()}).eq('id',slot.id);
     else await supabase.from('aura_slots').upsert({product_slug:activeSlug,slot_index:slotIdx,img_url:url.trim(),note:'',slot_type:slotType},{onConflict:'product_slug,slot_index'});
     const existingMedia=media[activeSlug]?.find(m=>m.slot_index===slotIdx);
-    if(existingMedia) await supabase.from('aura_media').update({file_url:url.trim(),status:'approved'}).eq('id',existingMedia.id);
-    else await supabase.from('aura_media').insert({product_slug:activeSlug,slot_index:slotIdx,slot_type:slotType,file_url:url.trim(),file_type:'image',status:'approved',sort_order:slotIdx});
+    // Demote all existing approved rows for this slot first
+    await supabase.from('aura_media')
+      .update({ status: 'replaced' })
+      .eq('product_slug', activeSlug)
+      .eq('slot_index', slotIdx)
+      .eq('status', 'approved');
+
+    if(existingMedia) {
+      await supabase.from('aura_media')
+        .update({file_url:url.trim(),status:'approved'})
+        .eq('id',existingMedia.id);
+    } else {
+      await supabase.from('aura_media')
+        .insert({product_slug:activeSlug,slot_index:slotIdx,slot_type:slotType,file_url:url.trim(),file_type:'image',status:'approved',sort_order:slotIdx});
+    }
     await updateProductStatus(activeSlug);
     setAssigningSlot(null); setAssignUrl('');
     await loadAll(); setSaving(false); showToast('Saved');
@@ -331,6 +358,32 @@ export default function AdminAssetManager() {
     setPromptLoading(false);
   };
 
+  // Audit: check for duplicate approved rows (should always return empty after migration)
+  const runAudit = useCallback(async () => {
+    const { data } = await supabase.rpc('run_media_audit');
+    // Fallback: manual query since rpc may not exist
+    const { data: rows } = await supabase
+      .from('aura_media')
+      .select('product_slug, slot_index, slot_type, status')
+      .eq('status', 'approved');
+
+    const counts = {};
+    (rows||[]).forEach(r => {
+      const key = r.product_slug + '|' + r.slot_index;
+      counts[key] = (counts[key]||0) + 1;
+    });
+    const dupes = Object.entries(counts).filter(([,c]) => c > 1);
+    if (dupes.length === 0) {
+      showToast('Audit clean — zero duplicate approved rows ✓');
+    } else {
+      showToast(`⚠ ${dupes.length} duplicate slots found — check console`);
+      console.table(dupes.map(([key]) => {
+        const [slug, idx] = key.split('|');
+        return { slug, slot_index: idx };
+      }));
+    }
+  }, []);
+
   if(loading) return <div className="adm-loading">Loading catalogue…</div>;
 
   // Filter products for sidebar
@@ -378,6 +431,11 @@ export default function AdminAssetManager() {
           <div style={{display:'flex',gap:4,marginTop:8}}>
             <button className="adm-back-btn" onClick={()=>navigate('/')}>← Site</button>
             <button className="adm-back-btn adm-btn--gold" style={{flex:1}} onClick={()=>setModal('add')}>+ Product</button>
+          </div>
+          <div style={{display:'flex',gap:4,marginTop:4}}>
+            <button className="adm-back-btn" style={{flex:1,fontSize:'7.5px'}} onClick={runAudit} title="Check for duplicate approved media rows">
+              ⬡ Audit media
+            </button>
           </div>
         </div>
 
