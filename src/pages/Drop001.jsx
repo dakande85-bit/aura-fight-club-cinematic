@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/ProductCard.jsx';
-import { liveProducts } from '../data/products.js';
+import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import '../styles/drop001.css';
 
 export default function Drop001() {
   const navigate = useNavigate();
+  const { products, loading } = useLiveProducts({ collection: 'Drop 001' });
 
   return (
     <div className="d001">
@@ -21,17 +22,28 @@ export default function Drop001() {
         </p>
         <div className="d001__chrome" />
         <p className="d001__meta">
-          {liveProducts.length} pieces · Waitlist open · Limited run
+          {loading
+            ? 'Loading…'
+            : `${products.length} ${products.length === 1 ? 'piece' : 'pieces'} · Waitlist open · Limited run`
+          }
         </p>
       </div>
 
-      {/* Grid — only liveProducts (mediaStatus === 'live') */}
+      {/* Grid — sourced from Supabase, controlled by /admin */}
       <div className="d001__grid-wrap">
-        <div className="d001__grid">
-          {liveProducts.map(p => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="d001__loading">Loading collection…</div>
+        ) : products.length > 0 ? (
+          <div className="d001__grid">
+            {products.map(p => (
+              <ProductCard key={p.slug} product={p} />
+            ))}
+          </div>
+        ) : (
+          <div className="d001__empty">
+            <p>Collection coming soon.</p>
+          </div>
+        )}
       </div>
     </div>
   );

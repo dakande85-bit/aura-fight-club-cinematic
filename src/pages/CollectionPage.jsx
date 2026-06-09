@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/ProductCard.jsx';
-import { liveProducts } from '../data/products.js';
+import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import '../styles/collection.css';
 
 export default function CollectionPage({ category, heading, subcopy }) {
-  const navigate  = useNavigate();
-  const products  = liveProducts.filter(p => p.category === category);
+  const navigate = useNavigate();
+  const { products, loading } = useLiveProducts({ category });
 
   return (
     <div className="col-page">
@@ -18,14 +18,20 @@ export default function CollectionPage({ category, heading, subcopy }) {
         <h1 className="col-title">{heading}</h1>
         <p className="col-sub">{subcopy}</p>
         <div className="col-divider" />
-        {products.length > 0 ? (
-          <p className="col-meta">{products.length} {products.length === 1 ? 'piece' : 'pieces'} · Waitlist open</p>
+        {loading ? (
+          <p className="col-meta">Loading…</p>
+        ) : products.length > 0 ? (
+          <p className="col-meta">
+            {products.length} {products.length === 1 ? 'piece' : 'pieces'} · Waitlist open
+          </p>
         ) : (
-          <p className="col-meta col-meta--empty">New pieces coming in Drop 001</p>
+          <p className="col-meta col-meta--empty">New pieces coming soon</p>
         )}
       </div>
 
-      {products.length > 0 ? (
+      {loading ? (
+        <div className="col-loading">Loading collection…</div>
+      ) : products.length > 0 ? (
         <div className="col-grid">
           {products.map(p => (
             <ProductCard key={p.slug} product={p} />
