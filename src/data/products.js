@@ -31,8 +31,8 @@ export const products = [
     hoverImage: '/assets/products/aura-cream-fight-boots/card-hover-model.webp',
     gallery: [
       { src: '/assets/products/aura-cream-fight-boots/gallery-01.webp', alt: 'AURA Cream Fight Boots — product shot' },
-      { src: '/assets/products/aura-cream-fight-boots/gallery-02.webp', alt: 'AURA Cream Fight Boots — high top' },
-      { src: '/assets/products/aura-cream-fight-boots/gallery-03.webp', alt: 'AURA Cream Fight Boots — low top' },
+      { src: '/assets/products/aura-cream-fight-boots/gallery-02.webp', alt: 'AURA Cream Fight Boots — high top detail' },
+      { src: '/assets/products/aura-cream-fight-boots/gallery-03.webp', alt: 'AURA Cream Fight Boots — studio angle' },
       { src: '/assets/products/aura-cream-fight-boots/gallery-04.webp', alt: 'AURA Cream Fight Boots — model wearing' },
       { src: '/assets/products/aura-cream-fight-boots/gallery-05.webp', alt: 'AURA Cream Fight Boots — full outfit' },
     ],
@@ -67,15 +67,15 @@ export const products = [
 
   {
     slug:        'aura-sleeveless-hoodie',
-    name:        'AURA Sleeveless Hoodie',
+    name:        'AURA Black Sleeveless Hoodie',
     category:    'Apparel',
     collection:  'Drop 001',
     status:      'waitlist',
     mediaStatus: 'live',
-    shortDesc:   'Cream heavyweight cotton. Cut for the gym. Worn for the culture.',
-    description: 'The AURA Sleeveless Hoodie is Drop 001\'s apparel anchor. Heavyweight cream cotton fleece, dropped armhole, kangaroo pocket, tonal AURA logo. Made to be worn over wraps, under a punchbag, and everywhere in between.',
+    shortDesc:   'Black heavyweight cotton. Cut for the gym. Worn for the culture.',
+    description: 'The AURA Black Sleeveless Hoodie is Drop 001\'s apparel anchor. Heavyweight black cotton fleece, dropped armhole, kangaroo pocket, tonal AURA logo. Made to be worn over wraps, under a punchbag, and everywhere in between.',
     details: [
-      '100% heavyweight cotton fleece',
+      '100% heavyweight black cotton fleece',
       'Tonal AURA embroidered chest logo',
       'Dropped armhole for full range of motion',
       'Kangaroo pocket',
@@ -84,11 +84,10 @@ export const products = [
     image:      '/assets/products/aura-sleeveless-hoodie/card-product.webp',
     hoverImage: '/assets/products/aura-sleeveless-hoodie/card-hover-model.webp',
     gallery: [
-      { src: '/assets/products/aura-sleeveless-hoodie/gallery-01.webp', alt: 'AURA Sleeveless Hoodie — product' },
-      { src: '/assets/products/aura-sleeveless-hoodie/gallery-02.webp', alt: 'AURA Sleeveless Hoodie — model front' },
-      { src: '/assets/products/aura-sleeveless-hoodie/gallery-03.webp', alt: 'AURA Sleeveless Hoodie — dark studio' },
-      { src: '/assets/products/aura-sleeveless-hoodie/gallery-04.webp', alt: 'AURA Sleeveless Hoodie — campaign' },
-      { src: '/assets/products/aura-sleeveless-hoodie/gallery-05.webp', alt: 'AURA Sleeveless Hoodie — back detail' },
+      { src: '/assets/products/aura-sleeveless-hoodie/gallery-01.webp', alt: 'AURA Black Sleeveless Hoodie — product' },
+      { src: '/assets/products/aura-sleeveless-hoodie/gallery-02.webp', alt: 'AURA Black Sleeveless Hoodie — model front' },
+      { src: '/assets/products/aura-sleeveless-hoodie/gallery-03.webp', alt: 'AURA Black Sleeveless Hoodie — dark studio' },
+      { src: '/assets/products/aura-sleeveless-hoodie/gallery-05.webp', alt: 'AURA Black Sleeveless Hoodie — back detail' },
     ],
   },
 
