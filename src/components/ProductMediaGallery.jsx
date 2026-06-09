@@ -1,20 +1,19 @@
 import { useState } from 'react';
 import '../styles/product-gallery.css';
 
-// Heuristic: if src contains these keywords, use cover fit (lifestyle shots)
-const COVER_KEYWORDS = ['model', 'campaign', 'mitts', 'fighter', 'hover', 'uniform', 'outfit'];
-const isCover = src => COVER_KEYWORDS.some(k => src.toLowerCase().includes(k));
-
 export default function ProductMediaGallery({ gallery = [], productName = '' }) {
   const [active, setActive] = useState(0);
   if (!gallery.length) return null;
 
   const activeItem = gallery[active];
-  const coverMode  = isCover(activeItem.src);
+  // Use explicit isCover flag from useProductMedia if available,
+  // otherwise fall back to filename heuristic for legacy local paths
+  const coverMode = activeItem.isCover ??
+    ['model','campaign','mitts','fighter','uniform','outfit','hover','lifestyle','ring']
+      .some(k => (activeItem.src || '').toLowerCase().includes(k));
 
   return (
     <div className="pmg">
-      {/* Main image */}
       <div className="pmg__main">
         <img
           key={active}
@@ -26,7 +25,6 @@ export default function ProductMediaGallery({ gallery = [], productName = '' }) 
         />
       </div>
 
-      {/* Thumbnails */}
       {gallery.length > 1 && (
         <div className="pmg__thumbs" role="listbox" aria-label="Product images">
           {gallery.map((item, i) => (
@@ -38,12 +36,7 @@ export default function ProductMediaGallery({ gallery = [], productName = '' }) 
               aria-selected={i === active}
               role="option"
             >
-              <img
-                src={item.src}
-                alt=""
-                loading="lazy"
-                draggable={false}
-              />
+              <img src={item.src} alt="" loading="lazy" draggable={false} />
             </button>
           ))}
         </div>

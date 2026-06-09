@@ -8,19 +8,25 @@ export default function ProductCard({ product }) {
 
   if (!product || product.mediaStatus !== 'live') return null;
 
-  // Supabase approved media takes priority; fall back to local webp
+  // Supabase deterministic slot media (v2 hook):
+  //   cardImage  = clean_product_shot (contain) or hero_product_dark (contain)
+  //   hoverImage = model_full_outfit (cover) — null if slot is empty
+  // Local webp fallback for legacy products if Supabase returns nothing
   const cardImage  = media?.cardImage  ?? product.image;
-  const hoverImage = media?.hoverImage ?? product.hoverImage;
+  const hoverImage = media?.hoverImage ?? product.hoverImage ?? null;
+  // Only swap on hover if we have a confirmed model/outfit image
+  const hasHover   = Boolean(hoverImage);
 
   const statusLabel = {
-    waitlist:   'Waitlist Open',
-    available:  'Available Now',
-    'sold-out': 'Sold Out',
+    waitlist:     'Waitlist Open',
+    available:    'Available Now',
+    'sold-out':   'Sold Out',
+    'coming-soon':'Coming Soon',
   }[product.status] ?? 'Coming Soon';
 
   return (
     <article
-      className="pc"
+      className={`pc${hasHover ? ' pc--has-hover' : ''}`}
       onClick={() => navigate(`/product/${product.slug}`)}
       onKeyDown={e => e.key === 'Enter' && navigate(`/product/${product.slug}`)}
       role="button"
@@ -28,14 +34,18 @@ export default function ProductCard({ product }) {
       aria-label={`${product.name} — ${statusLabel}`}
     >
       <div className="pc__media">
-        <img
-          src={cardImage}
-          alt={product.name}
-          className="pc__img pc__img--primary"
-          loading="lazy"
-          draggable={false}
-        />
-        {hoverImage && (
+        {/* Primary: clean product shot — always object-fit: contain */}
+        {cardImage && (
+          <img
+            src={cardImage}
+            alt={product.name}
+            className="pc__img pc__img--primary"
+            loading="lazy"
+            draggable={false}
+          />
+        )}
+        {/* Hover: model/outfit shot — only rendered if slot is filled */}
+        {hasHover && (
           <img
             src={hoverImage}
             alt=""

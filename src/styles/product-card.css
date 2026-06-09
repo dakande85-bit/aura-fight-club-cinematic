@@ -47,10 +47,11 @@
 
 /* Desktop hover only — mobile never depends on it */
 @media (hover: hover) {
-  .pc:hover .pc__img--primary { opacity: 0; }
-  .pc:hover .pc__img--hover   { opacity: 1; }
-  .pc:hover .pc__img           { transform: scale(1.03); }
-  .pc:hover                    { border-color: rgba(200,169,110,0.2); }
+  /* Only swap images when hover slot is confirmed filled (pc--has-hover) */
+  .pc--has-hover:hover .pc__img--primary { opacity: 0; }
+  .pc--has-hover:hover .pc__img--hover   { opacity: 1; }
+  .pc:hover .pc__img                     { transform: scale(1.03); }
+  .pc:hover                              { border-color: rgba(200,169,110,0.2); }
 }
 
 /* ── COLLECTION TAG ── */
