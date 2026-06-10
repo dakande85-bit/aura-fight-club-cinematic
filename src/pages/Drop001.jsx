@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import '../styles/drop001.css';
@@ -9,6 +10,7 @@ export default function Drop001() {
 
   return (
     <div className="d001">
+      <Header />
 
       {/* Compact header band */}
       <div className="d001__hero">
