@@ -1,0 +1,19 @@
+/* Emergency mobile homepage scroll-film fixes.
+   Keeps video above any autoplay fallback image during the intro scene. */
+.sf-video {
+  z-index: 3;
+}
+
+.sf-image-slot {
+  z-index: 2;
+}
+
+/* Keep overlay/ambient layers above both visual layers. */
+.sf-light-sweep { z-index: 4; }
+.sf-ambient { z-index: 5; }
+.sf-grain { z-index: 6; }
+.sf-vignette { z-index: 7; }
+.sf-overlay { z-index: 20; }
+.sf-header { z-index: 40; }
+.sf-mobile-menu { z-index: 45; }
+.sf-mobile-menu-backdrop { z-index: 44; }
