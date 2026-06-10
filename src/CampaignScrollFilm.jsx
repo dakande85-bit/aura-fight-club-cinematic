@@ -8,36 +8,21 @@ gsap.registerPlugin(ScrollTrigger);
 const BASE = '/campaign';
 const FADE_DUR = 0.82;
 
-const seq = (folder, prefix, count) =>
-  Array.from(
-    { length: count },
-    (_, i) => `${BASE}/${folder}/${prefix}-${String(i + 1).padStart(2, '0')}.webp`
-  );
+const frame = (folder, prefix, n) => `${BASE}/${folder}/${prefix}-${String(n).padStart(2, '0')}.webp`;
 
+// Curated emergency frame set: shorter arrays = faster load + fewer weak AI frames.
 const FRAMES = {
   hero: [
-    `${BASE}/jump-rope/jump-rope-07.webp`,
-    `${BASE}/jump-rope/jump-rope-08.webp`,
-    `${BASE}/jump-rope/jump-rope-09.webp`,
+    frame('jump-rope', 'jump-rope', 7),
+    frame('jump-rope', 'jump-rope', 8),
+    frame('jump-rope', 'jump-rope', 9),
   ],
-  rhythm: seq('jump-rope', 'jump-rope', 20),
-  pressure: seq('sparring', 'sparring', 18),
-  repetition: seq('heavy-bag', 'heavy-bag', 17),
-  floorBall: seq('floor-ball', 'floor-ball', 10),
-  control: [
-    `${BASE}/floor-ball/floor-ball-04.webp`,
-    `${BASE}/floor-ball/floor-ball-05.webp`,
-    `${BASE}/floor-ball/floor-ball-06.webp`,
-    `${BASE}/floor-ball/floor-ball-07.webp`,
-    `${BASE}/floor-ball/floor-ball-08.webp`,
-    `${BASE}/floor-ball/floor-ball-09.webp`,
-    `${BASE}/floor-ball/floor-ball-10.webp`,
-  ],
-  close: [
-    `${BASE}/floor-ball/floor-ball-08.webp`,
-    `${BASE}/floor-ball/floor-ball-09.webp`,
-    `${BASE}/floor-ball/floor-ball-10.webp`,
-  ],
+  rhythm: [2, 4, 6, 7, 8, 10, 13, 16, 18].map(n => frame('jump-rope', 'jump-rope', n)),
+  pressure: [2, 4, 6, 8, 10, 13].map(n => frame('sparring', 'sparring', n)),
+  repetition: [2, 4, 6, 8, 11, 14].map(n => frame('heavy-bag', 'heavy-bag', n)),
+  floorBall: [1, 3, 5, 7, 9].map(n => frame('floor-ball', 'floor-ball', n)),
+  control: [4, 6, 8, 10].map(n => frame('floor-ball', 'floor-ball', n)),
+  close: [8, 9, 10].map(n => frame('floor-ball', 'floor-ball', n)),
 };
 
 const SCENES = [
@@ -63,15 +48,22 @@ function preload(src) {
   return p;
 }
 
+function preloadAround(frames, idx) {
+  if (!frames?.length) return;
+  [idx - 1, idx, idx + 1].forEach(i => {
+    if (frames[i]) preload(frames[i]);
+  });
+}
+
 function useAmbient(ref) {
   useEffect(() => {
     const canvas = ref.current; if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    let W = 0, H = 0, raf = null, t = 0;
-    const drops = Array.from({ length: 72 }, () => ({ x: Math.random(), y: Math.random(), len: 0.04 + Math.random() * 0.06, speed: 0.0018 + Math.random() * 0.0028, opacity: 0.04 + Math.random() * 0.07, drift: (Math.random() - 0.5) * 0.0003 }));
+    let W = 0, H = 0, raf = null;
+    const drops = Array.from({ length: 42 }, () => ({ x: Math.random(), y: Math.random(), len: 0.04 + Math.random() * 0.06, speed: 0.0018 + Math.random() * 0.0028, opacity: 0.035 + Math.random() * 0.055, drift: (Math.random() - 0.5) * 0.0003 }));
     const resize = () => { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; };
     const ro = new ResizeObserver(resize); ro.observe(canvas); resize();
-    const draw = () => { ctx.clearRect(0, 0, W, H); drops.forEach(d => { d.y += d.speed; d.x += d.drift; if (d.y > 1) { d.y = -d.len; d.x = Math.random(); } ctx.save(); ctx.globalAlpha = d.opacity; ctx.strokeStyle = 'rgba(180,200,220,1)'; ctx.lineWidth = 0.65; ctx.beginPath(); ctx.moveTo(d.x*W, d.y*H); ctx.lineTo((d.x+d.drift*60)*W, (d.y+d.len)*H); ctx.stroke(); ctx.restore(); }); t += 0.016; raf = requestAnimationFrame(draw); };
+    const draw = () => { ctx.clearRect(0, 0, W, H); drops.forEach(d => { d.y += d.speed; d.x += d.drift; if (d.y > 1) { d.y = -d.len; d.x = Math.random(); } ctx.save(); ctx.globalAlpha = d.opacity; ctx.strokeStyle = 'rgba(180,200,220,1)'; ctx.lineWidth = 0.65; ctx.beginPath(); ctx.moveTo(d.x*W, d.y*H); ctx.lineTo((d.x+d.drift*60)*W, (d.y+d.len)*H); ctx.stroke(); ctx.restore(); }); raf = requestAnimationFrame(draw); };
     if (!window.matchMedia('(prefers-reduced-motion:reduce)').matches) raf = requestAnimationFrame(draw);
     return () => { ro.disconnect(); if (raf) cancelAnimationFrame(raf); };
   }, [ref]);
@@ -130,18 +122,23 @@ export default function CampaignScrollFilm() {
   const [progress, setProgress] = useState(0);
 
   useAmbient(ambientRef);
-  useEffect(() => { Promise.all(SCENES.flatMap(s => s.frames).map(preload)).then(() => setAllReady(true)); }, []);
+
+  useEffect(() => {
+    const initialFrames = Array.from(new Set([SCENES[0].frames[0], ...SCENES.map(s => s.frames[0]).filter(Boolean)]));
+    Promise.all(initialFrames.map(preload)).then(() => setAllReady(true));
+  }, []);
 
   const doTransition = useRef(null);
   doTransition.current = (newScene) => {
     const slotA = slotARef.current, slotB = slotBRef.current, imgA = imgARef.current, imgB = imgBRef.current;
-    if (!slotA || !slotB) return;
+    if (!slotA || !slotB || !imgA || !imgB) return;
     if (cancelTween.current) { cancelTween.current.kill(); cancelTween.current = null; }
     const nextSlotId = currentSlot.current === 'A' ? 'B' : 'A';
     const nextSlotEl = nextSlotId === 'A' ? slotA : slotB;
     const nextImgEl = nextSlotId === 'A' ? imgA : imgB;
     const currSlotEl = currentSlot.current === 'A' ? slotA : slotB;
     nextImgEl.src = newScene.frames[0];
+    preloadAround(newScene.frames, 0);
     gsap.set(nextSlotEl, { opacity: 0 });
     cancelTween.current = gsap.to(nextSlotEl, { opacity: 1, duration: FADE_DUR, ease: 'power1.inOut', onComplete: () => { cancelTween.current = null; } });
     gsap.to(currSlotEl, { opacity: 0, duration: FADE_DUR, ease: 'power1.inOut' });
@@ -149,10 +146,11 @@ export default function CampaignScrollFilm() {
   };
 
   useEffect(() => {
-    const wrapper = wrapperRef.current; if (!wrapper) return;
+    const wrapper = wrapperRef.current; if (!wrapper || !allReady) return;
     const mq = window.matchMedia('(prefers-reduced-motion:reduce)');
     currentScId.current = SCENES[0].id;
     imgARef.current.src = SCENES[0].frames[0];
+    preloadAround(SCENES[0].frames, 0);
     gsap.set(slotARef.current, { opacity: 1 });
     gsap.set(slotBRef.current, { opacity: 0 });
     setTimeout(() => setOverlayVis(true), 250);
@@ -169,6 +167,7 @@ export default function CampaignScrollFilm() {
         }
         if (frameIdx !== curFrameIdx.current) {
           curFrameIdx.current = frameIdx; setOverlayFrame(frameIdx);
+          preloadAround(scene.frames, frameIdx);
           const activeImg = currentSlot.current === 'A' ? imgARef.current : imgBRef.current;
           if (activeImg && scene.frames[frameIdx]) activeImg.src = scene.frames[frameIdx];
         }
@@ -186,7 +185,7 @@ export default function CampaignScrollFilm() {
       <canvas ref={ambientRef} className="sf-ambient" aria-hidden="true" />
       <div className="sf-grain" aria-hidden="true" />
       <div className="sf-vignette" aria-hidden="true" />
-      {!allReady && <div className="sf-loading" aria-live="polite"><span className="sf-loading-dot" /><span>Preloading campaign…</span></div>}
+      {!allReady && <div className="sf-loading" aria-live="polite"><span className="sf-loading-dot" /><span>Loading campaign…</span></div>}
       <SceneOverlay scene={overlayScene} visible={overlayVis} frameIdx={overlayFrame} />
       <Indicators activeId={overlayScene?.id} />
       <div className="sf-progress-bar" aria-hidden="true"><div className="sf-progress-fill" style={{ transform: `scaleX(${progress})` }} /></div>
