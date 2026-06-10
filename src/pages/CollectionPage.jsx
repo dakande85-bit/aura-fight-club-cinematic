@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import '../styles/collection.css';
@@ -9,6 +10,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
 
   return (
     <div className="col-page">
+      <Header />
 
       {/* Compact header band */}
       <div className="col-header-block">
