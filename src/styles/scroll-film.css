@@ -321,54 +321,6 @@ html, body {
 }
 
 /* ── MOBILE ───────────────────────────────────────── */
-/* ── MOBILE ≤600px ───────────────────────────────────────────────────────
-   Single consolidated block — no conflicts.
-   Goal: full-screen image with subject visible, text overlaid on lower portion.
-   ─────────────────────────────────────────────────────────────────────────── */
-@media (max-width: 600px) {
-  /* Video: shift right to keep fighter visible on portrait crop */
-  .sf-video {
-    object-position: 65% center;
-  }
-
-  /* Image slot: fill full viewport */
-  .sf-image-slot {
-    bottom: 0;
-  }
-
-  /* Image: cover + right-biased so subject stays in frame */
-  .sf-image {
-    object-fit: cover;
-    object-position: 65% center;
-  }
-
-  /* Vignette: transparent top, heavy dark over bottom 35% — text readable on image */
-  .sf-vignette {
-    background: linear-gradient(
-      180deg,
-      rgba(0,0,0,0.15) 0%,
-      transparent 22%,
-      transparent 45%,
-      rgba(0,0,0,0.68) 62%,
-      rgba(0,0,0,0.95) 75%,
-      rgba(0,0,0,0.97) 100%
-    );
-  }
-
-  /* Overlay: pinned to bottom, text sits ON the image */
-  .sf-overlay {
-    position: absolute;
-    bottom: 0;
-    top: auto;
-    left: 0;
-    right: 0;
-    padding: 0 20px 32px;
-  }
-
-  .sf-overlay-inner {
-    max-width: 100%;
-  }
-}
 
 @media (max-width: 768px) {
   .sf-overlay { padding: 0 22px 36px; }
@@ -635,3 +587,57 @@ html, body {
   from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: none; }
 }
+/* ── MOBILE ≤600px ────────────────────────────────────────────────────────
+   Strategy: constrain image to top 48% of viewport.
+   Text sits in bottom 52% — no overlap, no gap, no zoom distortion.
+   ────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+
+  /* Clip image container to top half — stops cover from zooming in on landscape images */
+  .sf-image-slot {
+    top: 0;
+    bottom: 52%;
+    left: 0;
+    right: 0;
+    position: absolute;
+  }
+
+  /* Within that container: cover + centre subject */
+  .sf-image {
+    object-fit: cover;
+    object-position: 65% center;
+  }
+
+  /* Video: same treatment, clip to top half */
+  .sf-video {
+    object-fit: cover;
+    object-position: 65% center;
+  }
+
+  /* Vignette: only fade the bottom of the image area */
+  .sf-vignette {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 30%,
+      rgba(0,0,0,0.5) 45%,
+      rgba(0,0,0,0.96) 52%,
+      rgba(0,0,0,0.97) 100%
+    );
+  }
+
+  /* Overlay: sits below the image in the bottom half */
+  .sf-overlay {
+    position: absolute;
+    top: 48%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    padding: 20px 20px 0;
+  }
+
+  .sf-overlay-inner {
+    max-width: 100%;
+  }
+}
+
