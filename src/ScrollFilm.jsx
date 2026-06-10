@@ -593,7 +593,17 @@ export default function ScrollFilm() {
     const mq = window.matchMedia('(prefers-reduced-motion:reduce)');
 
     // Start video for Scene 01
-    video.play().catch(() => {});
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // iOS Safari blocked autoplay — show first image frame as fallback
+        if (slotARef.current && imgARef.current) {
+          const fallbackSrc = '/assets/aura-scroll/02_shadow_boxing_the_standard/frame_01_shadow_01_neutral_stance.png';
+          imgARef.current.src = fallbackSrc;
+          gsap.set(slotARef.current, { opacity: 1 });
+        }
+      });
+    }
 
     // Init
     const first = SCENES[0];
@@ -712,7 +722,9 @@ export default function ScrollFilm() {
       <div className="sf-fixed">
 
         <video ref={videoRef} className="sf-video"
-          src={VIDEO_SRC} muted playsInline preload="auto" loop
+          src={VIDEO_SRC}
+          poster="/assets/aura-scroll/02_shadow_boxing_the_standard/frame_01_shadow_01_neutral_stance.png"
+          muted playsInline preload="auto" loop
           style={{ opacity: 0 }} aria-hidden="true" />
 
         <div ref={slotARef} className="sf-image-slot" style={{ opacity: 0 }}>
