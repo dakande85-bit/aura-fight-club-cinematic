@@ -30,22 +30,12 @@ html, body {
   z-index: 1;
   /* opacity managed by GSAP */
 }
-@media (max-width: 600px) {
-  /* On portrait mobile, shift subject up so face/torso stays visible */
-  .sf-video { object-position: 60% 10%; }
-}
 
 /* ── LAYER 1: IMAGE SLOTS ────────────────────────── */
 .sf-image-slot {
   position: absolute; inset: 0;
   z-index: 2; overflow: hidden;
   /* opacity managed by GSAP */
-}
-@media (max-width: 600px) {
-  /* Full screen — image fills viewport, text overlaps the lower portion */
-  .sf-image-slot {
-    bottom: 0;
-  }
 }
 .sf-image {
   position: absolute; inset: 0;
@@ -56,15 +46,6 @@ html, body {
   transform-origin: center center;
   will-change: transform;
   /* transform (scale/translate) managed by GSAP — no CSS animation */
-}
-@media (max-width: 600px) {
-  /* Portrait mobile: show full image composition, don't crop.
-     Use contain so the whole 16:9 frame is visible.
-     Dark background already handled by .sf-fixed background. */
-  .sf-image {
-    object-fit: contain;
-    object-position: center center;
-  }
 }
 
 /* ── LAYER 1.5: SCENE LIGHT SWEEP ───────────────── */
@@ -137,32 +118,6 @@ html, body {
       rgba(0,0,0,0.84) 100%
     );
 }
-@media (max-width: 600px) {
-  /* Dark gradient over lower half so text overlaps image legibly */
-  .sf-vignette {
-    background: linear-gradient(180deg,
-      rgba(0,0,0,0.25) 0%,
-      transparent 18%,
-      transparent 30%,
-      rgba(0,0,0,0.6) 42%,
-      rgba(0,0,0,0.93) 52%,
-      rgba(0,0,0,0.97) 100%
-    );
-  }
-}
-@media (max-width: 600px) {
-  /* Stronger bottom fade + mid-section darkening to bridge image/text gap */
-  .sf-vignette {
-    background:
-      linear-gradient(180deg,
-        rgba(0,0,0,0.3) 0%,
-        transparent 25%,
-        rgba(0,0,0,0.55) 50%,
-        rgba(0,0,0,0.92) 68%,
-        rgba(0,0,0,0.96) 100%
-      );
-  }
-}
 
 /* Gradient fallback for missing images */
 .sf-gradient-fallback {
@@ -199,16 +154,6 @@ html, body {
   pointer-events: all;
 }
 .sf-overlay-inner { max-width: min(660px, 56vw); }
-@media (max-width: 600px) {
-  /* Text overlaps the lower quarter of the image — cinematic overlap */
-  .sf-overlay {
-    bottom: auto;
-    top: 45%;
-    left: 0; right: 0;
-    padding: 0 22px 0;
-  }
-  .sf-overlay-inner { max-width: 100%; }
-}
 
 /* Label */
 .sf-label {
@@ -376,6 +321,55 @@ html, body {
 }
 
 /* ── MOBILE ───────────────────────────────────────── */
+/* ── MOBILE ≤600px ───────────────────────────────────────────────────────
+   Single consolidated block — no conflicts.
+   Goal: full-screen image with subject visible, text overlaid on lower portion.
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  /* Video: shift right to keep fighter visible on portrait crop */
+  .sf-video {
+    object-position: 65% center;
+  }
+
+  /* Image slot: fill full viewport */
+  .sf-image-slot {
+    bottom: 0;
+  }
+
+  /* Image: cover + right-biased so subject stays in frame */
+  .sf-image {
+    object-fit: cover;
+    object-position: 65% center;
+  }
+
+  /* Vignette: transparent top, heavy dark over bottom 35% — text readable on image */
+  .sf-vignette {
+    background: linear-gradient(
+      180deg,
+      rgba(0,0,0,0.15) 0%,
+      transparent 22%,
+      transparent 45%,
+      rgba(0,0,0,0.68) 62%,
+      rgba(0,0,0,0.95) 75%,
+      rgba(0,0,0,0.97) 100%
+    );
+  }
+
+  /* Overlay: pinned to bottom, text sits ON the image */
+  .sf-overlay {
+    position: absolute;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    padding: 0 20px 32px;
+  }
+
+  .sf-overlay-inner {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .sf-overlay { padding: 0 22px 36px; }
   .sf-overlay-inner { max-width: 100%; }

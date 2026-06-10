@@ -585,7 +585,7 @@ export default function ScrollFilm() {
 
   // ── MAIN SCROLL ENGINE ────────────────────────────────────────────────────
   useEffect(() => {
-    if (!videoReady || !allReady) return;
+    if (!videoReady) return;  // Start as soon as video is ready — don't wait for image preload
     const video   = videoRef.current;
     const wrapper = wrapperRef.current;
     if (!video || !wrapper) return;
@@ -704,7 +704,7 @@ export default function ScrollFilm() {
     };
   }, [videoReady, allReady, isMobile]);
 
-  const isReady = videoReady && allReady;
+  const isReady = videoReady; // Video shows immediately; images load in background
 
   return (
     <div className="sf-wrapper" ref={wrapperRef}>
