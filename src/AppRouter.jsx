@@ -8,6 +8,7 @@ import FootwearPage       from './pages/Footwear.jsx';
 import EquipmentPage      from './pages/Equipment.jsx';
 import FightClubPage      from './pages/FightClub.jsx';
 import AdminAssetManager  from './pages/AdminAssetManager.jsx';
+import CinematicSceneBuilder from './pages/admin/CinematicSceneBuilder.jsx';
 
 export default function AppRouter() {
   return (
@@ -24,6 +25,7 @@ export default function AppRouter() {
         <Route path="/fight-club"    element={<FightClubPage />} />
         <Route path="/fightclub"     element={<FightClubPage />} />
         <Route path="/admin"         element={<AdminAssetManager />} />
+        <Route path="/admin/cinematic" element={<CinematicSceneBuilder />} />
         {/* Catch-all → homepage */}
         <Route path="*"              element={<ScrollFilm />} />
       </Routes>
