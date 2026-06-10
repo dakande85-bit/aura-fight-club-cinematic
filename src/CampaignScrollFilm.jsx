@@ -5,47 +5,38 @@ import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BASE = '/assets/aura-scroll';
+const BASE = '/campaign';
 const FADE_DUR = 0.82;
+
+const seq = (folder, prefix, count) =>
+  Array.from(
+    { length: count },
+    (_, i) => `${BASE}/${folder}/${prefix}-${String(i + 1).padStart(2, '0')}.webp`
+  );
 
 const FRAMES = {
   hero: [
-    `${BASE}/04_footwork_skipping/frame_06_jump_midair.png`,
-    `${BASE}/04_footwork_skipping/frame_08_jump_high.png`,
+    `${BASE}/jump-rope/jump-rope-07.webp`,
+    `${BASE}/jump-rope/jump-rope-08.webp`,
+    `${BASE}/jump-rope/jump-rope-09.webp`,
   ],
-  rhythm: [
-    `${BASE}/04_footwork_skipping/frame_01_skip_ready.png`,
-    `${BASE}/04_footwork_skipping/frame_03_rope_swing_low.png`,
-    `${BASE}/04_footwork_skipping/frame_06_jump_midair.png`,
-    `${BASE}/04_footwork_skipping/frame_08_jump_high.png`,
-    `${BASE}/04_footwork_skipping/frame_10_skip_reset.png`,
-  ],
-  pressure: [
-    `${BASE}/06_campaign_mitts_sequence/frame_01_mitts_real.png`,
-    `${BASE}/06_campaign_mitts_sequence/frame_02_mitts_real.png`,
-    `${BASE}/06_campaign_mitts_sequence/frame_03_mitts_real.png`,
-    `${BASE}/06_campaign_mitts_sequence/frame_04_mitts_real.png`,
-    `${BASE}/06_campaign_mitts_sequence/frame_05_mitts_real.png`,
-  ],
-  repetition: [
-    `${BASE}/02_shadow_boxing_the_standard/frame_02_shadow_02_guard_raised.png`,
-    `${BASE}/02_shadow_boxing_the_standard/frame_05_shadow_05_jab_start.png`,
-    `${BASE}/02_shadow_boxing_the_standard/frame_06_shadow_06_jab_extension.png`,
-    `${BASE}/02_shadow_boxing_the_standard/frame_07_shadow_07_return_guard.png`,
-    `${BASE}/02_shadow_boxing_the_standard/frame_08_shadow_08_defensive_slip.png`,
-  ],
+  rhythm: seq('jump-rope', 'jump-rope', 20),
+  pressure: seq('sparring', 'sparring', 18),
+  repetition: seq('heavy-bag', 'heavy-bag', 17),
+  floorBall: seq('floor-ball', 'floor-ball', 10),
   control: [
-    `${BASE}/03_the_work_handwraps/frame_01_handwrap_start.png`,
-    `${BASE}/03_the_work_handwraps/frame_03_wrap_check.png`,
-    `${BASE}/03_the_work_handwraps/frame_05_wrap_tighten.png`,
-    `${BASE}/03_the_work_handwraps/frame_08_wrap_guard.png`,
-    `${BASE}/03_the_work_handwraps/frame_10_work_final.png`,
+    `${BASE}/floor-ball/floor-ball-04.webp`,
+    `${BASE}/floor-ball/floor-ball-05.webp`,
+    `${BASE}/floor-ball/floor-ball-06.webp`,
+    `${BASE}/floor-ball/floor-ball-07.webp`,
+    `${BASE}/floor-ball/floor-ball-08.webp`,
+    `${BASE}/floor-ball/floor-ball-09.webp`,
+    `${BASE}/floor-ball/floor-ball-10.webp`,
   ],
   close: [
-    `${BASE}/07_fight_club_close/frame_01_fight_club_close.png`,
-    `${BASE}/07_fight_club_close/frame_03_fight_club_ringside_black.png`,
-    `${BASE}/07_fight_club_close/frame_04_fight_club_tracksuit_ring.png`,
-    `${BASE}/07_fight_club_close/frame_05_fight_club_female_wraps.png`,
+    `${BASE}/floor-ball/floor-ball-08.webp`,
+    `${BASE}/floor-ball/floor-ball-09.webp`,
+    `${BASE}/floor-ball/floor-ball-10.webp`,
   ],
 };
 
@@ -54,8 +45,8 @@ const SCENES = [
   { id: 'rhythm', start: 0.12, end: 0.28, frames: FRAMES.rhythm, label: 'RHYTHM', headline: ['FOOTWORK.', 'TIMING.', 'CONTROL.'], sub: 'The round starts before the first punch.', frameCaptions: ['Balance before power.', 'Find the rhythm.', 'Stay light.', 'Create the angle.', 'Control the distance.'] },
   { id: 'pressure', start: 0.28, end: 0.44, frames: FRAMES.pressure, label: 'PRESSURE', headline: ['NOT PANIC.', 'PACE.'], sub: 'Read the room. Let him commit. Stay composed.', frameCaptions: ['Pressure.', 'Rhythm.', 'Restraint.', 'No wasted movement.', 'Earned where nobody is watching.'] },
   { id: 'repetition', start: 0.44, end: 0.60, frames: FRAMES.repetition, label: 'REPETITION', headline: ['POWER IS BUILT', 'ONE ROUND', 'AT A TIME.'], sub: 'Guard. Load. Impact. Return.', frameCaptions: ['Guard.', 'Load.', 'Impact.', 'Return.', 'Reset.'] },
-  { id: 'timing', start: 0.60, end: 0.76, frames: FRAMES.pressure, label: 'TIMING', headline: ['SPEED WITHOUT', 'CONTROL', 'IS WASTED.'], sub: 'Reflex under pressure. Precision without emotion.', frameCaptions: ['Read.', 'React.', 'Slip.', 'Touch.', 'Reset.'] },
-  { id: 'control', start: 0.76, end: 0.90, frames: FRAMES.control, label: 'CONTROL', headline: ['THE BODY FOLLOWS', 'WHAT THE MIND', 'CAN HOLD.'], sub: 'Discipline is built quietly.', frameCaptions: ['Quiet work.', 'No audience required.', 'Prepare the hands.', 'Prepare the mind.', 'Ready.'] },
+  { id: 'timing', start: 0.60, end: 0.76, frames: FRAMES.floorBall, label: 'TIMING', headline: ['SPEED WITHOUT', 'CONTROL', 'IS WASTED.'], sub: 'Reflex under pressure. Precision without emotion.', frameCaptions: ['Read.', 'React.', 'Slip.', 'Touch.', 'Reset.'] },
+  { id: 'control', start: 0.76, end: 0.90, frames: FRAMES.control, label: 'CONTROL', headline: ['THE BODY FOLLOWS', 'WHAT THE MIND', 'CAN HOLD.'], sub: 'Discipline is built quietly.', frameCaptions: ['Quiet work.', 'No audience required.', 'Stay composed.', 'Prepare the mind.', 'Ready.'] },
   { id: 'manifesto', start: 0.90, end: 1.00, frames: FRAMES.close, label: 'MANIFESTO', headline: ['YOUR AURA', 'IS EARNED.'], sub: 'The real fight is internal.\nThe opponent is just the mirror.', cta: 'buttons' },
 ];
 
