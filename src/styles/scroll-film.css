@@ -605,13 +605,13 @@ html, body {
   /* Within that container: cover + centre subject */
   .sf-image {
     object-fit: cover;
-    object-position: 65% center;
+    object-position: 65% 20%;
   }
 
   /* Video: same treatment, clip to top half */
   .sf-video {
     object-fit: cover;
-    object-position: 65% center;
+    object-position: 65% 20%;
   }
 
   /* Vignette: only fade the bottom of the image area */
