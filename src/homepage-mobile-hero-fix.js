@@ -1,47 +1,54 @@
 // Emergency mobile homepage hero fix.
-// Forces the first visible homepage hero visual to the training/jump-rope scene
-// instead of the old intro fallback/model frame on mobile Safari/Chrome.
-
-const MOBILE_HERO_FRAME = '/assets/aura-scroll/04_footwork_skipping/frame_08_jump_high.png';
+// Ensures the first visible homepage visual is the actual intro video on mobile,
+// not a static fallback/image-sequence frame.
 
 function isMobileHome() {
   return window.location.pathname === '/' && window.matchMedia('(max-width: 768px)').matches;
 }
 
-function applyMobileHeroFix() {
+function applyMobileVideoFix() {
   if (!isMobileHome()) return;
 
   const video = document.querySelector('.sf-video');
-  const firstSlot = document.querySelector('.sf-image-slot');
-  const firstImg = firstSlot?.querySelector('.sf-image');
+  const slots = document.querySelectorAll('.sf-image-slot');
 
-  if (!firstSlot || !firstImg) return;
-
-  // Only force the opening state while the user is still at the top.
-  // Once they scroll, the ScrollFilm engine can take over normally.
+  if (!video) return;
   if (window.scrollY > 12) return;
 
-  firstImg.src = MOBILE_HERO_FRAME;
-  firstImg.style.objectPosition = 'center top';
-  firstSlot.style.opacity = '1';
+  // Keep image sequence layers hidden while the homepage is still at the intro.
+  slots.forEach(slot => {
+    slot.style.opacity = '0';
+    slot.style.pointerEvents = 'none';
+  });
 
-  if (video) {
-    video.poster = MOBILE_HERO_FRAME;
-    video.pause();
-    video.style.opacity = '0';
-  }
+  // Force the real intro video to be the visible top layer.
+  video.muted = true;
+  video.playsInline = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
+  video.setAttribute('autoplay', '');
+  video.style.opacity = '1';
+  video.style.zIndex = '3';
+
+  // Try to play immediately. Muted inline video is allowed on modern mobile browsers.
+  const playPromise = video.play();
+  if (playPromise?.catch) playPromise.catch(() => {});
 }
 
-// Run several times because React/GSAP initializes after first paint on mobile.
 function scheduleFixes() {
   if (!isMobileHome()) return;
-  [0, 80, 180, 350, 700, 1200].forEach(delay => {
-    window.setTimeout(applyMobileHeroFix, delay);
+  [0, 60, 150, 300, 600, 1000, 1600].forEach(delay => {
+    window.setTimeout(applyMobileVideoFix, delay);
   });
 }
 
 window.addEventListener('pageshow', scheduleFixes);
 document.addEventListener('DOMContentLoaded', scheduleFixes);
 window.addEventListener('orientationchange', () => window.setTimeout(scheduleFixes, 250));
+window.addEventListener('scroll', () => {
+  // Let ScrollFilm take over after the user leaves the intro.
+  if (window.scrollY <= 12) applyMobileVideoFix();
+}, { passive: true });
 
 scheduleFixes();
