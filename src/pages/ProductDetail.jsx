@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Header from '../components/Header.jsx';
 import { useProductMedia } from '../hooks/useProductMedia.js';
 import ProductMediaGallery from '../components/ProductMediaGallery.jsx';
 import '../styles/product-detail.css';
@@ -11,6 +12,7 @@ export default function ProductDetail({ product, onBack }) {
   if (!product) {
     return (
       <div className="pd-empty">
+        <Header />
         <p>Product not found.</p>
         {onBack && <button className="pd-back" onClick={onBack}>← Drop 001</button>}
       </div>
@@ -30,6 +32,7 @@ export default function ProductDetail({ product, onBack }) {
 
   return (
     <div className="pd">
+      <Header />
       <nav className="pd-nav">
         {onBack && <button className="pd-back" onClick={onBack}>← Drop 001</button>}
         <span className="pd-nav-logo">AURA</span>
