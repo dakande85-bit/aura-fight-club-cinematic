@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header.jsx';
 import '../styles/editorial-page.css';
 
 export default function Campaign() {
   const navigate = useNavigate();
   return (
     <div className="ep">
+      <Header />
+
       <div className="ep__header-block">
         <button className="ep__back" onClick={() => navigate('/')}>← AURA Fight Club</button>
         <p className="ep__eyebrow">AURA Fight Club</p>
