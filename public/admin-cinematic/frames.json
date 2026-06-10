@@ -1,0 +1,147 @@
+{
+  "version": "0.1.0",
+  "note": "Current known cinematic frame structure for AURA Scene Builder prototype. This is the first manual inventory layer before Supabase upload/replace is connected.",
+  "pages": [
+    {
+      "id": "homepage",
+      "title": "Homepage Scroll Film",
+      "route": "/",
+      "status": "live",
+      "scenes": [
+        {
+          "id": "rain-intro",
+          "title": "Hero Intro Video",
+          "type": "video",
+          "status": "live-needs-poster-control",
+          "media": [
+            {
+              "kind": "video",
+              "label": "Intro video",
+              "path": "/assets/aura-scroll/01_rain_intro_video/set01_rain_intro_video.mp4",
+              "device": "desktop-mobile",
+              "notes": "Currently used by the homepage intro. Needs separate admin-controlled mobile poster/fallback later."
+            },
+            {
+              "kind": "poster",
+              "label": "Current poster/fallback",
+              "path": "/assets/aura-scroll/02_shadow_boxing_the_standard/frame_01_shadow_01_neutral_stance.png",
+              "device": "desktop-mobile",
+              "notes": "This is one source of the first-load visual mismatch on mobile."
+            }
+          ]
+        },
+        {
+          "id": "shadow-standard",
+          "title": "Shadow Boxing / The Standard",
+          "type": "image_sequence",
+          "status": "live",
+          "media": [
+            {
+              "kind": "frame",
+              "label": "Neutral stance",
+              "path": "/assets/aura-scroll/02_shadow_boxing_the_standard/frame_01_shadow_01_neutral_stance.png",
+              "frameOrder": 1,
+              "device": "desktop-mobile"
+            }
+          ]
+        },
+        {
+          "id": "footwork",
+          "title": "Footwork / Skipping",
+          "type": "image_sequence",
+          "status": "live",
+          "media": [
+            {
+              "kind": "frame",
+              "label": "Skip ready",
+              "path": "/assets/aura-scroll/04_footwork_skipping/frame_01_skip_ready.png",
+              "frameOrder": 1,
+              "device": "desktop-mobile"
+            },
+            {
+              "kind": "frame",
+              "label": "Rope swing low",
+              "path": "/assets/aura-scroll/04_footwork_skipping/frame_03_rope_swing_low.png",
+              "frameOrder": 2,
+              "device": "desktop-mobile"
+            },
+            {
+              "kind": "frame",
+              "label": "Jump midair",
+              "path": "/assets/aura-scroll/04_footwork_skipping/frame_06_jump_midair.png",
+              "frameOrder": 3,
+              "device": "desktop-mobile"
+            },
+            {
+              "kind": "frame",
+              "label": "Jump high",
+              "path": "/assets/aura-scroll/04_footwork_skipping/frame_08_jump_high.png",
+              "frameOrder": 4,
+              "device": "desktop-mobile",
+              "notes": "This is the image that visually matches the desired mobile first-load direction, but it should not be forced by hack."
+            },
+            {
+              "kind": "frame",
+              "label": "Skip reset",
+              "path": "/assets/aura-scroll/04_footwork_skipping/frame_10_skip_reset.png",
+              "frameOrder": 5,
+              "device": "desktop-mobile"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "campaign",
+      "title": "Campaign Page",
+      "route": "/campaign",
+      "status": "live",
+      "scenes": [
+        {
+          "id": "campaign-hero",
+          "title": "Campaign Hero / Jump Rope",
+          "type": "image_sequence",
+          "status": "live-review-needed",
+          "media": [
+            {
+              "kind": "folder",
+              "label": "Campaign jump rope frames",
+              "path": "/assets/campaign/jump-rope/",
+              "device": "desktop-mobile",
+              "notes": "Exact campaign folders should be fully inventoried next from CampaignScrollFilm.jsx."
+            }
+          ]
+        },
+        {
+          "id": "sparring",
+          "title": "Sparring Sequence",
+          "type": "image_sequence",
+          "status": "review-needed",
+          "media": [
+            {
+              "kind": "folder",
+              "label": "Campaign sparring frames",
+              "path": "/assets/campaign/sparring/",
+              "device": "desktop-mobile",
+              "notes": "Review gloves, hands, realism and consistency before long-term publish."
+            }
+          ]
+        },
+        {
+          "id": "heavy-bag",
+          "title": "Heavy Bag Sequence",
+          "type": "image_sequence",
+          "status": "review-needed",
+          "media": [
+            {
+              "kind": "folder",
+              "label": "Campaign heavy bag frames",
+              "path": "/assets/campaign/heavy-bag/",
+              "device": "desktop-mobile"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
