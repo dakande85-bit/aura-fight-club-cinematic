@@ -129,6 +129,7 @@ function makeReplacementManifest(page, scene) {
       replace: item.path,
       uploadedFileName: item.replacementName,
       suggestedReplacementPath: makeReplacementPath(item.path, item.replacementName),
+      packFilePath: `media/${makeReplacementFilename(item.path, item.replacementName)}`,
       device: item.device,
       type: item.type,
       status: 'draft-replacement',
@@ -140,19 +141,94 @@ function makeReplacementManifest(page, scene) {
   return {
     brand: 'AURA Fight Club',
     tool: 'Cinematic Scene Builder',
-    mode: 'replacement-manifest',
+    mode: 'replacement-pack',
     generatedAt: new Date().toISOString(),
     page: page?.id || null,
     scene: scene?.id || null,
     replacementCount: replacements.length,
     replacements,
-    publishInstructions: [
-      'Review every replacement visually in /admin/cinematic.',
-      'Rename/export files using suggestedReplacementPath or replace the original file path exactly.',
-      'Commit media files and updated config only after visual approval.',
+    packInstructions: [
+      'Open replacement-manifest.json first.',
+      'Media files are included in the media/ folder.',
+      'Commit files using suggestedReplacementPath or replace the original path exactly after approval.',
       'Do not modify live ScrollFilm/CampaignScrollFilm rendering until the replacement pack is approved.',
     ],
   };
+}
+
+function makeCrcTable() {
+  const table = new Uint32Array(256);
+  for (let n = 0; n < 256; n += 1) {
+    let c = n;
+    for (let k = 0; k < 8; k += 1) c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
+    table[n] = c >>> 0;
+  }
+  return table;
+}
+
+const CRC_TABLE = makeCrcTable();
+
+function crc32(bytes) {
+  let crc = 0xffffffff;
+  for (let i = 0; i < bytes.length; i += 1) crc = CRC_TABLE[(crc ^ bytes[i]) & 0xff] ^ (crc >>> 8);
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function u16(value) {
+  const bytes = new Uint8Array(2);
+  const view = new DataView(bytes.buffer);
+  view.setUint16(0, value, true);
+  return bytes;
+}
+
+function u32(value) {
+  const bytes = new Uint8Array(4);
+  const view = new DataView(bytes.buffer);
+  view.setUint32(0, value >>> 0, true);
+  return bytes;
+}
+
+function concatParts(parts) {
+  return new Blob(parts, { type: 'application/zip' });
+}
+
+async function makeZipBlob(entries) {
+  const encoder = new TextEncoder();
+  const localParts = [];
+  const centralParts = [];
+  let offset = 0;
+
+  for (const entry of entries) {
+    const nameBytes = encoder.encode(entry.name);
+    const data = entry.data instanceof Uint8Array ? entry.data : new Uint8Array(await entry.data.arrayBuffer());
+    const crc = crc32(data);
+    const localHeader = [
+      u32(0x04034b50), u16(20), u16(0), u16(0), u16(0), u16(0), u32(crc), u32(data.length), u32(data.length), u16(nameBytes.length), u16(0), nameBytes,
+    ];
+    const localSize = localHeader.reduce((sum, part) => sum + part.length, 0) + data.length;
+    localParts.push(...localHeader, data);
+
+    centralParts.push(
+      u32(0x02014b50), u16(20), u16(20), u16(0), u16(0), u16(0), u16(0), u32(crc), u32(data.length), u32(data.length),
+      u16(nameBytes.length), u16(0), u16(0), u16(0), u16(0), u32(0), u32(offset), nameBytes,
+    );
+    offset += localSize;
+  }
+
+  const centralSize = centralParts.reduce((sum, part) => sum + part.length, 0);
+  const end = [u32(0x06054b50), u16(0), u16(0), u16(entries.length), u16(entries.length), u32(centralSize), u32(offset), u16(0)];
+  return concatParts([...localParts, ...centralParts, ...end]);
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 }
 
 export default function CinematicSceneBuilder() {
@@ -161,6 +237,7 @@ export default function CinematicSceneBuilder() {
   const [activeSceneId, setActiveSceneId] = useState(null);
   const [activeMediaId, setActiveMediaId] = useState(null);
   const [error, setError] = useState('');
+  const [packStatus, setPackStatus] = useState('');
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -215,12 +292,14 @@ export default function CinematicSceneBuilder() {
     setActivePageId(pageId);
     setActiveSceneId(nextScene?.id || null);
     setActiveMediaId(nextMedia?.id || null);
+    setPackStatus('');
   }
 
   function selectScene(sceneId) {
     const nextScene = activePage?.scenes?.find((scene) => scene.id === sceneId);
     setActiveSceneId(sceneId);
     setActiveMediaId(nextScene?.media?.[0]?.id || null);
+    setPackStatus('');
   }
 
   function moveMedia(mediaId, direction) {
@@ -249,8 +328,9 @@ export default function CinematicSceneBuilder() {
     if (!file || !activeMedia) return;
     const localUrl = URL.createObjectURL(file);
     updateSceneMedia((media) => media.map((item) => item.id === activeMedia.id
-      ? { ...item, replacementUrl: localUrl, replacementName: file.name, status: 'draft-replacement' }
+      ? { ...item, replacementUrl: localUrl, replacementName: file.name, replacementFile: file, status: 'draft-replacement' }
       : item));
+    setPackStatus('Replacement staged. Export the pack when ready.');
     event.target.value = '';
   }
 
@@ -263,27 +343,36 @@ export default function CinematicSceneBuilder() {
   }
 
   function downloadJson() {
-    const blob = new Blob([configJson], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-config.json`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
+    downloadBlob(new Blob([configJson], { type: 'application/json' }), `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-config.json`);
   }
 
   function downloadReplacementManifest() {
-    const blob = new Blob([replacementManifestJson], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-replacement-manifest.json`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
+    downloadBlob(new Blob([replacementManifestJson], { type: 'application/json' }), `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-replacement-manifest.json`);
+  }
+
+  async function downloadReplacementPack() {
+    if (!activeScene || !hasReplacements) return;
+    const entries = [
+      { name: 'replacement-manifest.json', data: new TextEncoder().encode(replacementManifestJson) },
+    ];
+
+    activeScene.media.forEach((item) => {
+      if (!item.replacementFile || !item.replacementName) return;
+      entries.push({
+        name: `media/${makeReplacementFilename(item.path, item.replacementName)}`,
+        data: item.replacementFile,
+      });
+    });
+
+    if (entries.length === 1) {
+      setPackStatus('No replacement media files are still available in this browser session. Select the image again, then export.');
+      return;
+    }
+
+    setPackStatus('Building replacement ZIP...');
+    const zipBlob = await makeZipBlob(entries);
+    downloadBlob(zipBlob, `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-replacement-pack.zip`);
+    setPackStatus('Replacement ZIP downloaded. Upload that ZIP for publishing.');
   }
 
   if (error) {
@@ -312,7 +401,7 @@ export default function CinematicSceneBuilder() {
           <p>View current frames, test local replacements, reorder scenes, mark poster candidates, and export scene config.</p>
         </div>
         <div className="scb-header-card">
-          <Status value="phase-2-replacement-workflow" />
+          <Status value="phase-2-replacement-pack" />
           <span>No live media is changed from this page yet.</span>
         </div>
       </header>
@@ -387,6 +476,7 @@ export default function CinematicSceneBuilder() {
                   <>
                     <dt>Replacement file</dt><dd><code>{activeMedia.replacementName}</code></dd>
                     <dt>Suggested path</dt><dd><code>{makeReplacementPath(activeMedia.path, activeMedia.replacementName)}</code></dd>
+                    <dt>Pack path</dt><dd><code>media/{makeReplacementFilename(activeMedia.path, activeMedia.replacementName)}</code></dd>
                     <dt>Publish status</dt><dd><Status value="ready-for-publish" /></dd>
                   </>
                 )}
@@ -404,24 +494,26 @@ export default function CinematicSceneBuilder() {
             <div className="scb-config-head">
               <div>
                 <p className="scb-eyebrow">Draft replacement pack</p>
-                <h2>Replacement Manifest</h2>
+                <h2>Manifest + Media ZIP</h2>
               </div>
               <div>
                 <button className="scb-btn" onClick={copyReplacementManifest} disabled={!hasReplacements}>Copy Manifest</button>
-                <button className="scb-btn primary" onClick={downloadReplacementManifest} disabled={!hasReplacements}>Download Manifest</button>
+                <button className="scb-btn" onClick={downloadReplacementManifest} disabled={!hasReplacements}>Download Manifest</button>
+                <button className="scb-btn primary" onClick={downloadReplacementPack} disabled={!hasReplacements}>Export Replacement Pack .ZIP</button>
               </div>
             </div>
             {hasReplacements ? (
               <>
                 <div className="scb-replacement-summary">
                   <strong>{replacementManifest.replacementCount}</strong>
-                  <span>draft replacement{replacementManifest.replacementCount === 1 ? '' : 's'} ready for review/publish.</span>
+                  <span>draft replacement{replacementManifest.replacementCount === 1 ? '' : 's'} ready for review/publish. ZIP includes manifest + replacement media.</span>
                 </div>
+                {packStatus && <div className="scb-pack-status">{packStatus}</div>}
                 <pre><code>{replacementManifestJson}</code></pre>
               </>
             ) : (
               <div className="scb-empty-replacements">
-                Select a frame, choose “Select replacement image”, then this panel will generate a replacement manifest for handoff/publish.
+                Select a frame, choose “Select replacement image”, then export one replacement ZIP containing the manifest and image files.
               </div>
             )}
           </section>
