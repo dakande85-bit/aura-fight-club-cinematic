@@ -1,6 +1,7 @@
 {
-  "version": "0.1.0",
-  "note": "Current known cinematic frame structure for AURA Scene Builder prototype. This is the first manual inventory layer before Supabase upload/replace is connected.",
+  "version": "0.2.0",
+  "source": "Synced manually from src/ScrollFilm.jsx and src/CampaignScrollFilm.jsx",
+  "note": "Live cinematic frame inventory for AURA Scene Builder Phase 1. This file mirrors the currently hardcoded homepage and campaign scene arrays so the admin tool shows the real live media paths before upload/publish is connected.",
   "pages": [
     {
       "id": "homepage",
@@ -12,37 +13,67 @@
           "id": "rain-intro",
           "title": "Hero Intro Video",
           "type": "video",
-          "status": "live-needs-poster-control",
+          "status": "live",
+          "start": 0,
+          "end": 0.02,
+          "label": "AURA FIGHT CLUB",
+          "headline": ["YOUR AURA", "IS EARNED."],
+          "subtitle": "The real fight is internal. The opponent is just the mirror.",
           "media": [
             {
+              "id": "rain-intro-video",
               "kind": "video",
               "label": "Intro video",
               "path": "/assets/aura-scroll/01_rain_intro_video/set01_rain_intro_video.mp4",
-              "device": "desktop-mobile",
-              "notes": "Currently used by the homepage intro. Needs separate admin-controlled mobile poster/fallback later."
+              "device": "all",
+              "status": "live",
+              "notes": "VIDEO_SRC from ScrollFilm.jsx. Used only in the first homepage scene."
             },
             {
+              "id": "rain-intro-poster-fallback",
               "kind": "poster",
               "label": "Current poster/fallback",
               "path": "/assets/aura-scroll/02_shadow_boxing_the_standard/frame_01_shadow_01_neutral_stance.png",
-              "device": "desktop-mobile",
-              "notes": "This is one source of the first-load visual mismatch on mobile."
+              "device": "all",
+              "status": "review-needed",
+              "notes": "Poster/fallback currently referenced in homepage markup; likely related to first-load mobile mismatch."
             }
           ]
         },
         {
-          "id": "shadow-standard",
+          "id": "shadow-boxing",
           "title": "Shadow Boxing / The Standard",
           "type": "image_sequence",
           "status": "live",
+          "start": 0.02,
+          "end": 0.2,
+          "label": "THE STANDARD",
+          "headline": ["THE REAL", "FIGHT IS", "INTERNAL."],
+          "subtitle": "The opponent is just the mirror.",
           "media": [
-            {
-              "kind": "frame",
-              "label": "Neutral stance",
-              "path": "/assets/aura-scroll/02_shadow_boxing_the_standard/frame_01_shadow_01_neutral_stance.png",
-              "frameOrder": 1,
-              "device": "desktop-mobile"
-            }
+            { "id": "shadow-01", "kind": "frame", "label": "Guard raised", "path": "/assets/aura-scroll/02_shadow_boxing_the_standard/frame_02_shadow_02_guard_raised.png", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: Read the room." },
+            { "id": "shadow-02", "kind": "frame", "label": "Jab start", "path": "/assets/aura-scroll/02_shadow_boxing_the_standard/frame_05_shadow_05_jab_start.png", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: Feint with purpose." },
+            { "id": "shadow-03", "kind": "frame", "label": "Jab extension", "path": "/assets/aura-scroll/02_shadow_boxing_the_standard/frame_06_shadow_06_jab_extension.png", "device": "all", "status": "live", "frameOrder": 3, "notes": "Caption: Stay composed." },
+            { "id": "shadow-04", "kind": "frame", "label": "Return guard", "path": "/assets/aura-scroll/02_shadow_boxing_the_standard/frame_07_shadow_07_return_guard.png", "device": "all", "status": "live", "frameOrder": 4, "notes": "Caption: Let him commit." },
+            { "id": "shadow-05", "kind": "frame", "label": "Defensive slip", "path": "/assets/aura-scroll/02_shadow_boxing_the_standard/frame_08_shadow_08_defensive_slip.png", "device": "all", "status": "live", "frameOrder": 5, "notes": "Caption: Counter clean." }
+          ]
+        },
+        {
+          "id": "the-work",
+          "title": "The Work / Handwraps",
+          "type": "image_sequence",
+          "status": "live",
+          "start": 0.2,
+          "end": 0.36,
+          "label": "THE WORK",
+          "headline": ["SILENCE.", "DISCIPLINE.", "PRESENCE."],
+          "subtitle": "Built where nobody is watching.",
+          "media": [
+            { "id": "work-01", "kind": "frame", "label": "Handwrap start", "path": "/assets/aura-scroll/03_the_work_handwraps/frame_01_handwrap_start.png", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: The ritual before the rounds." },
+            { "id": "work-02", "kind": "frame", "label": "Wrap check", "path": "/assets/aura-scroll/03_the_work_handwraps/frame_03_wrap_check.png", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: No audience required." },
+            { "id": "work-03", "kind": "frame", "label": "Wrap tighten", "path": "/assets/aura-scroll/03_the_work_handwraps/frame_05_wrap_tighten.png", "device": "all", "status": "live", "frameOrder": 3, "notes": "Caption: Discipline is built quietly." },
+            { "id": "work-04", "kind": "frame", "label": "Wrap guard", "path": "/assets/aura-scroll/03_the_work_handwraps/frame_08_wrap_guard.png", "device": "all", "status": "live", "frameOrder": 4, "notes": "Caption: Prepare the hands." },
+            { "id": "work-05", "kind": "frame", "label": "Work final", "path": "/assets/aura-scroll/03_the_work_handwraps/frame_10_work_final.png", "device": "all", "status": "live", "frameOrder": 5, "notes": "Caption: Prepare the mind." }
           ]
         },
         {
@@ -50,43 +81,67 @@
           "title": "Footwork / Skipping",
           "type": "image_sequence",
           "status": "live",
+          "start": 0.36,
+          "end": 0.52,
+          "label": "FOOTWORK",
+          "headline": ["FOOTWORK.", "TIMING.", "CONTROL."],
+          "subtitle": "Built where nobody is watching.",
           "media": [
-            {
-              "kind": "frame",
-              "label": "Skip ready",
-              "path": "/assets/aura-scroll/04_footwork_skipping/frame_01_skip_ready.png",
-              "frameOrder": 1,
-              "device": "desktop-mobile"
-            },
-            {
-              "kind": "frame",
-              "label": "Rope swing low",
-              "path": "/assets/aura-scroll/04_footwork_skipping/frame_03_rope_swing_low.png",
-              "frameOrder": 2,
-              "device": "desktop-mobile"
-            },
-            {
-              "kind": "frame",
-              "label": "Jump midair",
-              "path": "/assets/aura-scroll/04_footwork_skipping/frame_06_jump_midair.png",
-              "frameOrder": 3,
-              "device": "desktop-mobile"
-            },
-            {
-              "kind": "frame",
-              "label": "Jump high",
-              "path": "/assets/aura-scroll/04_footwork_skipping/frame_08_jump_high.png",
-              "frameOrder": 4,
-              "device": "desktop-mobile",
-              "notes": "This is the image that visually matches the desired mobile first-load direction, but it should not be forced by hack."
-            },
-            {
-              "kind": "frame",
-              "label": "Skip reset",
-              "path": "/assets/aura-scroll/04_footwork_skipping/frame_10_skip_reset.png",
-              "frameOrder": 5,
-              "device": "desktop-mobile"
-            }
+            { "id": "footwork-01", "kind": "frame", "label": "Skip ready", "path": "/assets/aura-scroll/04_footwork_skipping/frame_01_skip_ready.png", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: Balance before power." },
+            { "id": "footwork-02", "kind": "frame", "label": "Rope swing low", "path": "/assets/aura-scroll/04_footwork_skipping/frame_03_rope_swing_low.png", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: Find the rhythm." },
+            { "id": "footwork-03", "kind": "frame", "label": "Jump midair", "path": "/assets/aura-scroll/04_footwork_skipping/frame_06_jump_midair.png", "device": "all", "status": "live", "frameOrder": 3, "notes": "Caption: Stay light." },
+            { "id": "footwork-04", "kind": "frame", "label": "Jump high", "path": "/assets/aura-scroll/04_footwork_skipping/frame_08_jump_high.png", "device": "all", "status": "live", "frameOrder": 4, "notes": "Caption: Create the angle. Strong mobile candidate." },
+            { "id": "footwork-05", "kind": "frame", "label": "Skip reset", "path": "/assets/aura-scroll/04_footwork_skipping/frame_10_skip_reset.png", "device": "all", "status": "live", "frameOrder": 5, "notes": "Caption: Control the distance." }
+          ]
+        },
+        {
+          "id": "drop-001",
+          "title": "Drop 001 / Tools Uniform",
+          "type": "image_sequence",
+          "status": "live",
+          "start": 0.52,
+          "end": 0.68,
+          "label": "DROP 001",
+          "headline": ["TOOLS FOR THE", "WORK NOBODY", "SEES."],
+          "subtitle": "The first uniform of AURA Fight Club.",
+          "media": [
+            { "id": "drop-001-01", "kind": "frame", "label": "Cream uniform model", "path": "/assets/aura-scroll/05_drop_001_tools_uniform/frame_01_cream_uniform_model.png", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: The first uniform." },
+            { "id": "drop-001-02", "kind": "frame", "label": "Cream full outfit model", "path": "/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: Tools for the work." }
+          ]
+        },
+        {
+          "id": "campaign",
+          "title": "Homepage Campaign Mitts",
+          "type": "image_sequence",
+          "status": "live",
+          "start": 0.68,
+          "end": 0.84,
+          "label": "THE CAMPAIGN",
+          "headline": ["EARNED WHERE", "NOBODY", "IS WATCHING."],
+          "subtitle": "Pressure, rhythm, restraint, identity.",
+          "media": [
+            { "id": "mitts-01", "kind": "frame", "label": "Mitts real 01", "path": "/assets/aura-scroll/06_campaign_mitts_sequence/frame_01_mitts_real.png", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: Pressure." },
+            { "id": "mitts-02", "kind": "frame", "label": "Mitts real 02", "path": "/assets/aura-scroll/06_campaign_mitts_sequence/frame_02_mitts_real.png", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: Rhythm." },
+            { "id": "mitts-03", "kind": "frame", "label": "Mitts real 03", "path": "/assets/aura-scroll/06_campaign_mitts_sequence/frame_03_mitts_real.png", "device": "all", "status": "live", "frameOrder": 3, "notes": "Caption: Restraint." },
+            { "id": "mitts-04", "kind": "frame", "label": "Mitts real 04", "path": "/assets/aura-scroll/06_campaign_mitts_sequence/frame_04_mitts_real.png", "device": "all", "status": "live", "frameOrder": 4, "notes": "Caption: No wasted movement." },
+            { "id": "mitts-05", "kind": "frame", "label": "Mitts real 05", "path": "/assets/aura-scroll/06_campaign_mitts_sequence/frame_05_mitts_real.png", "device": "all", "status": "live", "frameOrder": 5, "notes": "Caption: Earned where nobody is watching." }
+          ]
+        },
+        {
+          "id": "fight-club",
+          "title": "Fight Club Close",
+          "type": "image_sequence",
+          "status": "live",
+          "start": 0.84,
+          "end": 1,
+          "label": "FIGHT CLUB",
+          "headline": ["MORE THAN", "A BRAND.", "A FIGHT IDENTITY."],
+          "subtitle": "Join the first circle of AURA Fight Club.",
+          "media": [
+            { "id": "fight-close-01", "kind": "frame", "label": "Fight club close", "path": "/assets/aura-scroll/07_fight_club_close/frame_01_fight_club_close.png", "device": "all", "status": "live", "frameOrder": 1, "notes": "Opening Fight Club close frame." },
+            { "id": "fight-close-02", "kind": "frame", "label": "Ringside black", "path": "/assets/aura-scroll/07_fight_club_close/frame_03_fight_club_ringside_black.png", "device": "all", "status": "live", "frameOrder": 2, "notes": "Editorial ringside frame." },
+            { "id": "fight-close-03", "kind": "frame", "label": "Tracksuit ring", "path": "/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.png", "device": "all", "status": "live", "frameOrder": 3, "notes": "Tracksuit ring frame." },
+            { "id": "fight-close-04", "kind": "frame", "label": "Female wraps", "path": "/assets/aura-scroll/07_fight_club_close/frame_05_fight_club_female_wraps.png", "device": "all", "status": "live", "frameOrder": 4, "notes": "Female wraps frame." }
           ]
         }
       ]
@@ -98,46 +153,155 @@
       "status": "live",
       "scenes": [
         {
-          "id": "campaign-hero",
-          "title": "Campaign Hero / Jump Rope",
+          "id": "campaign-intro",
+          "title": "Campaign Intro / Hero Jump Rope",
           "type": "image_sequence",
-          "status": "live-review-needed",
+          "status": "live",
+          "start": 0,
+          "end": 0.12,
+          "label": "AURA FIGHT CLUB",
+          "headline": ["THE CAMPAIGN", "EARNED WHERE", "NOBODY IS WATCHING."],
+          "subtitle": "Pressure. Rhythm. Restraint. Identity.",
           "media": [
-            {
-              "kind": "folder",
-              "label": "Campaign jump rope frames",
-              "path": "/assets/campaign/jump-rope/",
-              "device": "desktop-mobile",
-              "notes": "Exact campaign folders should be fully inventoried next from CampaignScrollFilm.jsx."
-            }
+            { "id": "campaign-hero-01", "kind": "frame", "label": "Jump rope 07", "path": "/campaign/jump-rope/jump-rope-07.webp", "device": "all", "status": "live", "frameOrder": 1, "notes": "Hero frame 1." },
+            { "id": "campaign-hero-02", "kind": "frame", "label": "Jump rope 08", "path": "/campaign/jump-rope/jump-rope-08.webp", "device": "all", "status": "live", "frameOrder": 2, "notes": "Hero frame 2." },
+            { "id": "campaign-hero-03", "kind": "frame", "label": "Jump rope 09", "path": "/campaign/jump-rope/jump-rope-09.webp", "device": "all", "status": "live", "frameOrder": 3, "notes": "Hero frame 3." }
           ]
         },
         {
-          "id": "sparring",
-          "title": "Sparring Sequence",
+          "id": "rhythm",
+          "title": "Rhythm / Jump Rope",
           "type": "image_sequence",
-          "status": "review-needed",
+          "status": "live",
+          "start": 0.12,
+          "end": 0.28,
+          "label": "RHYTHM",
+          "headline": ["FOOTWORK.", "TIMING.", "CONTROL."],
+          "subtitle": "The round starts before the first punch.",
           "media": [
-            {
-              "kind": "folder",
-              "label": "Campaign sparring frames",
-              "path": "/assets/campaign/sparring/",
-              "device": "desktop-mobile",
-              "notes": "Review gloves, hands, realism and consistency before long-term publish."
-            }
+            { "id": "rhythm-01", "kind": "frame", "label": "Jump rope 02", "path": "/campaign/jump-rope/jump-rope-02.webp", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: Balance before power." },
+            { "id": "rhythm-02", "kind": "frame", "label": "Jump rope 04", "path": "/campaign/jump-rope/jump-rope-04.webp", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: Find the rhythm." },
+            { "id": "rhythm-03", "kind": "frame", "label": "Jump rope 06", "path": "/campaign/jump-rope/jump-rope-06.webp", "device": "all", "status": "live", "frameOrder": 3, "notes": "Caption: Stay light." },
+            { "id": "rhythm-04", "kind": "frame", "label": "Jump rope 07", "path": "/campaign/jump-rope/jump-rope-07.webp", "device": "all", "status": "live", "frameOrder": 4, "notes": "Caption: Create the angle." },
+            { "id": "rhythm-05", "kind": "frame", "label": "Jump rope 08", "path": "/campaign/jump-rope/jump-rope-08.webp", "device": "all", "status": "live", "frameOrder": 5, "notes": "Caption: Control the distance." },
+            { "id": "rhythm-06", "kind": "frame", "label": "Jump rope 10", "path": "/campaign/jump-rope/jump-rope-10.webp", "device": "all", "status": "live", "frameOrder": 6, "notes": "Extra curated rhythm frame." },
+            { "id": "rhythm-07", "kind": "frame", "label": "Jump rope 13", "path": "/campaign/jump-rope/jump-rope-13.webp", "device": "all", "status": "live", "frameOrder": 7, "notes": "Extra curated rhythm frame." },
+            { "id": "rhythm-08", "kind": "frame", "label": "Jump rope 16", "path": "/campaign/jump-rope/jump-rope-16.webp", "device": "all", "status": "live", "frameOrder": 8, "notes": "Extra curated rhythm frame." },
+            { "id": "rhythm-09", "kind": "frame", "label": "Jump rope 18", "path": "/campaign/jump-rope/jump-rope-18.webp", "device": "all", "status": "live", "frameOrder": 9, "notes": "Extra curated rhythm frame." }
           ]
         },
         {
-          "id": "heavy-bag",
-          "title": "Heavy Bag Sequence",
+          "id": "pressure",
+          "title": "Pressure / Sparring",
           "type": "image_sequence",
-          "status": "review-needed",
+          "status": "live",
+          "start": 0.28,
+          "end": 0.44,
+          "label": "PRESSURE",
+          "headline": ["NOT PANIC.", "PACE."],
+          "subtitle": "Read the room. Let him commit. Stay composed.",
+          "media": [
+            { "id": "pressure-01", "kind": "frame", "label": "Sparring 02", "path": "/campaign/sparring/sparring-02.webp", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: Pressure." },
+            { "id": "pressure-02", "kind": "frame", "label": "Sparring 04", "path": "/campaign/sparring/sparring-04.webp", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: Rhythm." },
+            { "id": "pressure-03", "kind": "frame", "label": "Sparring 06", "path": "/campaign/sparring/sparring-06.webp", "device": "all", "status": "live", "frameOrder": 3, "notes": "Caption: Restraint." },
+            { "id": "pressure-04", "kind": "frame", "label": "Sparring 08", "path": "/campaign/sparring/sparring-08.webp", "device": "all", "status": "live", "frameOrder": 4, "notes": "Caption: No wasted movement." },
+            { "id": "pressure-05", "kind": "frame", "label": "Sparring 10", "path": "/campaign/sparring/sparring-10.webp", "device": "all", "status": "live", "frameOrder": 5, "notes": "Caption: Earned where nobody is watching." },
+            { "id": "pressure-06", "kind": "frame", "label": "Sparring 13", "path": "/campaign/sparring/sparring-13.webp", "device": "all", "status": "live", "frameOrder": 6, "notes": "Extra curated pressure frame." }
+          ]
+        },
+        {
+          "id": "repetition",
+          "title": "Repetition / Heavy Bag",
+          "type": "image_sequence",
+          "status": "live",
+          "start": 0.44,
+          "end": 0.6,
+          "label": "REPETITION",
+          "headline": ["POWER IS BUILT", "ONE ROUND", "AT A TIME."],
+          "subtitle": "Guard. Load. Impact. Return.",
+          "media": [
+            { "id": "repetition-01", "kind": "frame", "label": "Heavy bag 02", "path": "/campaign/heavy-bag/heavy-bag-02.webp", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: Guard." },
+            { "id": "repetition-02", "kind": "frame", "label": "Heavy bag 04", "path": "/campaign/heavy-bag/heavy-bag-04.webp", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: Load." },
+            { "id": "repetition-03", "kind": "frame", "label": "Heavy bag 06", "path": "/campaign/heavy-bag/heavy-bag-06.webp", "device": "all", "status": "live", "frameOrder": 3, "notes": "Caption: Impact." },
+            { "id": "repetition-04", "kind": "frame", "label": "Heavy bag 08", "path": "/campaign/heavy-bag/heavy-bag-08.webp", "device": "all", "status": "live", "frameOrder": 4, "notes": "Caption: Return." },
+            { "id": "repetition-05", "kind": "frame", "label": "Heavy bag 11", "path": "/campaign/heavy-bag/heavy-bag-11.webp", "device": "all", "status": "live", "frameOrder": 5, "notes": "Caption: Reset." },
+            { "id": "repetition-06", "kind": "frame", "label": "Heavy bag 14", "path": "/campaign/heavy-bag/heavy-bag-14.webp", "device": "all", "status": "live", "frameOrder": 6, "notes": "Extra curated repetition frame." }
+          ]
+        },
+        {
+          "id": "timing",
+          "title": "Timing / Floor Ball",
+          "type": "image_sequence",
+          "status": "live",
+          "start": 0.6,
+          "end": 0.76,
+          "label": "TIMING",
+          "headline": ["SPEED WITHOUT", "CONTROL", "IS WASTED."],
+          "subtitle": "Reflex under pressure. Precision without emotion.",
+          "media": [
+            { "id": "timing-01", "kind": "frame", "label": "Floor ball 01", "path": "/campaign/floor-ball/floor-ball-01.webp", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: Read." },
+            { "id": "timing-02", "kind": "frame", "label": "Floor ball 03", "path": "/campaign/floor-ball/floor-ball-03.webp", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: React." },
+            { "id": "timing-03", "kind": "frame", "label": "Floor ball 05", "path": "/campaign/floor-ball/floor-ball-05.webp", "device": "all", "status": "live", "frameOrder": 3, "notes": "Caption: Slip." },
+            { "id": "timing-04", "kind": "frame", "label": "Floor ball 07", "path": "/campaign/floor-ball/floor-ball-07.webp", "device": "all", "status": "live", "frameOrder": 4, "notes": "Caption: Touch." },
+            { "id": "timing-05", "kind": "frame", "label": "Floor ball 09", "path": "/campaign/floor-ball/floor-ball-09.webp", "device": "all", "status": "live", "frameOrder": 5, "notes": "Caption: Reset." }
+          ]
+        },
+        {
+          "id": "control",
+          "title": "Control / Floor Ball Defensive",
+          "type": "image_sequence",
+          "status": "live",
+          "start": 0.76,
+          "end": 0.9,
+          "label": "CONTROL",
+          "headline": ["THE BODY FOLLOWS", "WHAT THE MIND", "CAN HOLD."],
+          "subtitle": "Discipline is built quietly.",
+          "media": [
+            { "id": "control-01", "kind": "frame", "label": "Floor ball 04", "path": "/campaign/floor-ball/floor-ball-04.webp", "device": "all", "status": "live", "frameOrder": 1, "notes": "Caption: Quiet work." },
+            { "id": "control-02", "kind": "frame", "label": "Floor ball 06", "path": "/campaign/floor-ball/floor-ball-06.webp", "device": "all", "status": "live", "frameOrder": 2, "notes": "Caption: No audience required." },
+            { "id": "control-03", "kind": "frame", "label": "Floor ball 08", "path": "/campaign/floor-ball/floor-ball-08.webp", "device": "all", "status": "live", "frameOrder": 3, "notes": "Caption: Stay composed." },
+            { "id": "control-04", "kind": "frame", "label": "Floor ball 10", "path": "/campaign/floor-ball/floor-ball-10.webp", "device": "all", "status": "live", "frameOrder": 4, "notes": "Caption: Prepare the mind." }
+          ]
+        },
+        {
+          "id": "manifesto",
+          "title": "Manifesto Close",
+          "type": "image_sequence",
+          "status": "live",
+          "start": 0.9,
+          "end": 1,
+          "label": "MANIFESTO",
+          "headline": ["YOUR AURA", "IS EARNED."],
+          "subtitle": "The real fight is internal. The opponent is just the mirror.",
+          "media": [
+            { "id": "manifesto-01", "kind": "frame", "label": "Floor ball 08", "path": "/campaign/floor-ball/floor-ball-08.webp", "device": "all", "status": "live", "frameOrder": 1, "notes": "Close frame 1." },
+            { "id": "manifesto-02", "kind": "frame", "label": "Floor ball 09", "path": "/campaign/floor-ball/floor-ball-09.webp", "device": "all", "status": "live", "frameOrder": 2, "notes": "Close frame 2." },
+            { "id": "manifesto-03", "kind": "frame", "label": "Floor ball 10", "path": "/campaign/floor-ball/floor-ball-10.webp", "device": "all", "status": "live", "frameOrder": 3, "notes": "Close frame 3." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fightclub",
+      "title": "Fight Club Page",
+      "route": "/fight-club",
+      "status": "placeholder",
+      "scenes": [
+        {
+          "id": "fightclub-hero",
+          "title": "Fight Club Hero",
+          "type": "still",
+          "status": "placeholder",
           "media": [
             {
-              "kind": "folder",
-              "label": "Campaign heavy bag frames",
-              "path": "/assets/campaign/heavy-bag/",
-              "device": "desktop-mobile"
+              "id": "fightclub-placeholder-01",
+              "kind": "frame",
+              "label": "Fight Club placeholder",
+              "path": "/assets/fight-club/hero.jpg",
+              "device": "all",
+              "status": "placeholder",
+              "frameOrder": 1,
+              "notes": "Placeholder until Fight Club page has its own admin-controlled cinematic inventory."
             }
           ]
         }
