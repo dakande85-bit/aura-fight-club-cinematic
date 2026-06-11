@@ -1,5 +1,41 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import JSZip from 'jszip';
 import './cinematic-scene-builder.css';
+import './cinematic-scene-builder-publish.css';
+
+// ─────────────────────────────────────────────────────────────────────────────
+// AURA — Cinematic Scene Builder (Admin)
+//
+// Phase 1: local/mock-data preview, reordering, hide/show, poster flags,
+//          per-scene JSON config preview (copy/download).
+// Phase 2 (this update): export a "Replacement Pack" ZIP for any media item
+//          with a draft-replacement, and publish that pack to GitHub via
+//          /api/admin/publish-cinematic-pack — which commits the media
+//          file(s) only. ScrollFilm.jsx / CampaignScrollFilm.jsx are never
+//          read or modified by this page or its publish endpoint.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const DATA_URL = '/admin-cinematic/frames.json';
+const PUBLISH_URL = '/api/admin/publish-cinematic-pack';
+
+const PAGE_STATUS_LABELS = {
+  live: 'Live',
+  draft: 'Draft',
+  missing: 'Missing',
+  review: 'Review',
+};
+
+const TYPE_LABELS = {
+  image: 'Image',
+  video: 'Video',
+  poster: 'Poster',
+  frame: 'Frame',
+};
+
+const PATH_PREFIX_MAP = [
+  ['/assets/', 'public/assets/'],
+  ['/campaign/', 'public/campaign/'],
+];
 
 function normaliseData(raw) {
   if (!raw) return [];
@@ -18,521 +54,807 @@ function normaliseData(raw) {
         media: (scene.media || []).map((item, index) => ({
           id: item.id || `${scene.id}-${index}`,
           path: item.path,
-          type: item.type || item.kind || 'frame',
+          label: item.label || item.title || item.id || `Frame ${index + 1}`,
+          type: item.type || (item.path?.endsWith('.mp4') ? 'video' : 'image'),
           device: item.device || 'all',
-          status: item.status || scene.status || 'live',
+          order: item.order ?? index + 1,
+          hidden: Boolean(item.hidden),
+          isPoster: Boolean(item.isPoster),
+          replacement: item.replacement || null,
           notes: item.notes || '',
-          label: item.label || item.id || `Frame ${index + 1}`,
-          posterCandidate: Boolean(item.posterCandidate),
         })),
       })),
     }));
   }
 
-  return Object.entries(raw).map(([id, page]) => ({
-    id,
-    label: page.label || id,
-    route: page.route || '',
-    status: page.status || 'draft',
-    scenes: (page.scenes || []).map((scene) => ({
-      id: scene.id,
-      name: scene.name || scene.title || scene.id,
-      type: scene.type || 'imageSequence',
-      status: scene.status || 'draft',
-      media: (scene.media || []).map((item, index) => ({
-        id: item.id || `${scene.id}-${index}`,
-        path: item.path,
-        type: item.type || item.kind || 'frame',
-        device: item.device || 'all',
-        status: item.status || scene.status || 'live',
-        notes: item.notes || '',
-        label: item.label || item.id || `Frame ${index + 1}`,
-        posterCandidate: Boolean(item.posterCandidate),
-      })),
-    })),
-  }));
+  return [];
 }
 
-function Status({ value }) {
-  return <span className={`scb-status scb-status--${String(value || 'draft').replaceAll('_', '-')}`}>{value || 'draft'}</span>;
+function slugifyFilePart(value) {
+  return String(value || 'replacement')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '') || 'replacement';
 }
 
-function isImage(item) {
-  const type = String(item?.type || '').toLowerCase();
-  const path = String(item?.replacementUrl || item?.path || '').toLowerCase();
-  return type === 'frame' || type === 'poster' || /\.(png|jpe?g|webp|gif|avif)$/i.test(path);
+function getFileExtension(fileName, fallback = 'png') {
+  const clean = String(fileName || '').split('?')[0].split('#')[0];
+  const ext = clean.includes('.') ? clean.split('.').pop() : fallback;
+  return slugifyFilePart(ext || fallback).replace(/[^a-z0-9]/g, '') || fallback;
 }
 
-function getExtension(filename = '') {
-  const clean = filename.split('?')[0].split('#')[0];
-  const dot = clean.lastIndexOf('.');
-  return dot >= 0 ? clean.slice(dot) : '';
+function getPathDirectory(path) {
+  const clean = String(path || '').split('?')[0].split('#')[0];
+  const parts = clean.split('/');
+  parts.pop();
+  return parts.join('/') || '';
 }
 
-function getBaseFilename(path = '') {
-  return String(path).split('/').pop() || 'replacement-file';
+function getPathBaseName(path) {
+  const clean = String(path || '').split('?')[0].split('#')[0];
+  const fileName = clean.split('/').pop() || 'replacement.png';
+  const dotIndex = fileName.lastIndexOf('.');
+  if (dotIndex === -1) return fileName;
+  return fileName.slice(0, dotIndex);
 }
 
-function makeReplacementFilename(originalPath = '', uploadedName = '') {
-  const originalName = getBaseFilename(originalPath);
-  const originalExt = getExtension(originalName);
-  const uploadedExt = getExtension(uploadedName);
-  const ext = uploadedExt || originalExt;
-  const stem = originalName.replace(originalExt, '') || 'replacement';
-  return `${stem}__draft-replacement${ext || '.png'}`;
+function buildSuggestedReplacementPath(currentPath, uploadedFileName) {
+  const directory = getPathDirectory(currentPath);
+  const baseName = getPathBaseName(currentPath);
+  const ext = getFileExtension(uploadedFileName, getFileExtension(currentPath, 'png'));
+  return `${directory}/${baseName}__draft-replacement.${ext}`;
 }
 
-function makeReplacementPath(originalPath = '', uploadedName = '') {
-  const filename = makeReplacementFilename(originalPath, uploadedName);
-  const folder = String(originalPath).split('/').slice(0, -1).join('/');
-  return folder ? `${folder}/${filename}` : filename;
+function publicPathToRepoPath(publicPath) {
+  for (const [publicPrefix, repoPrefix] of PATH_PREFIX_MAP) {
+    if (publicPath.startsWith(publicPrefix)) {
+      return publicPath.replace(publicPrefix, repoPrefix);
+    }
+  }
+  return publicPath.replace(/^\//, 'public/');
 }
 
-function makeSceneConfig(page, scene) {
-  if (!scene) return {};
-  return {
-    page: page?.id,
-    scene: {
-      id: scene.id,
-      name: scene.name,
-      type: scene.type,
-      status: scene.status,
-      media: scene.media.map((item, index) => ({
-        id: item.id,
-        order: index + 1,
-        type: item.type,
-        device: item.device,
-        status: item.status,
-        path: item.path,
-        draftReplacement: item.replacementName || null,
-        suggestedReplacementPath: item.replacementName ? makeReplacementPath(item.path, item.replacementName) : null,
-        posterCandidate: Boolean(item.posterCandidate),
-        notes: item.notes || '',
-      })),
-    },
-  };
+function buildPackFileName(replacement) {
+  const mediaId = slugifyFilePart(replacement.mediaId || replacement.mediaLabel || 'media');
+  const sourceName = slugifyFilePart(replacement.uploadedFileName || replacement.suggestedReplacementPath || 'replacement.png');
+  return `${mediaId}-${sourceName}`;
 }
 
-function makeReplacementManifest(page, scene) {
-  const replacements = [];
+function downloadBlob(blob, fileName) {
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = fileName;
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
+  URL.revokeObjectURL(url);
+}
 
-  (scene?.media || []).forEach((item, index) => {
-    if (!item.replacementName) return;
-    replacements.push({
-      page: page?.id,
-      pageLabel: page?.label,
-      scene: scene?.id,
-      sceneName: scene?.name,
-      mediaId: item.id,
-      mediaLabel: item.label || item.id,
-      order: index + 1,
-      replace: item.path,
-      uploadedFileName: item.replacementName,
-      suggestedReplacementPath: makeReplacementPath(item.path, item.replacementName),
-      packFilePath: `media/${makeReplacementFilename(item.path, item.replacementName)}`,
-      device: item.device,
-      type: item.type,
-      status: 'draft-replacement',
-      readyForPublish: true,
-      notes: item.notes || '',
+function downloadText(content, fileName, type = 'application/json') {
+  downloadBlob(new Blob([content], { type }), fileName);
+}
+
+function revokePreviewUrl(url) {
+  if (url && url.startsWith('blob:')) URL.revokeObjectURL(url);
+}
+
+function buildManifest({ pages, selectedPageId, selectedSceneId }) {
+  const selectedPage = pages.find((page) => page.id === selectedPageId);
+  const selectedScene = selectedPage?.scenes.find((scene) => scene.id === selectedSceneId);
+  const allReplacements = [];
+
+  pages.forEach((page) => {
+    page.scenes.forEach((scene) => {
+      scene.media.forEach((item) => {
+        if (!item.replacement) return;
+        const replacement = {
+          page: page.id,
+          pageLabel: page.label,
+          scene: scene.id,
+          sceneName: scene.name,
+          mediaId: item.id,
+          mediaLabel: item.label,
+          order: item.order,
+          replace: item.path,
+          uploadedFileName: item.replacement.fileName,
+          suggestedReplacementPath: item.replacement.suggestedReplacementPath,
+          repoPath: publicPathToRepoPath(item.replacement.suggestedReplacementPath),
+          packFilePath: item.replacement.packFilePath,
+          device: item.device,
+          type: item.type,
+          status: item.replacement.status || 'draft-replacement',
+          readyForPublish: item.replacement.readyForPublish === true,
+          notes: item.notes || '',
+        };
+        allReplacements.push(replacement);
+      });
     });
   });
 
   return {
     brand: 'AURA Fight Club',
     tool: 'Cinematic Scene Builder',
-    mode: 'replacement-pack',
+    mode: 'replacement-manifest',
     generatedAt: new Date().toISOString(),
-    page: page?.id || null,
-    scene: scene?.id || null,
-    replacementCount: replacements.length,
-    replacements,
-    packInstructions: [
-      'Open replacement-manifest.json first.',
-      'Media files are included in the media/ folder.',
-      'Commit files using suggestedReplacementPath or replace the original path exactly after approval.',
-      'Do not modify live ScrollFilm/CampaignScrollFilm rendering until the replacement pack is approved.',
+    page: selectedPage?.id || 'all',
+    scene: selectedScene?.id || 'all',
+    replacementCount: allReplacements.length,
+    replacements: allReplacements,
+    publishInstructions: [
+      'Review every replacement visually in /admin/cinematic.',
+      'Export the replacement pack ZIP and publish it through /api/admin/publish-cinematic-pack.',
+      'The serverless endpoint commits media files only.',
+      'ScrollFilm.jsx and CampaignScrollFilm.jsx are not modified automatically.',
     ],
   };
 }
 
-function makeCrcTable() {
-  const table = new Uint32Array(256);
-  for (let n = 0; n < 256; n += 1) {
-    let c = n;
-    for (let k = 0; k < 8; k += 1) c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
-    table[n] = c >>> 0;
-  }
-  return table;
-}
-
-const CRC_TABLE = makeCrcTable();
-
-function crc32(bytes) {
-  let crc = 0xffffffff;
-  for (let i = 0; i < bytes.length; i += 1) crc = CRC_TABLE[(crc ^ bytes[i]) & 0xff] ^ (crc >>> 8);
-  return (crc ^ 0xffffffff) >>> 0;
-}
-
-function u16(value) {
-  const bytes = new Uint8Array(2);
-  const view = new DataView(bytes.buffer);
-  view.setUint16(0, value, true);
-  return bytes;
-}
-
-function u32(value) {
-  const bytes = new Uint8Array(4);
-  const view = new DataView(bytes.buffer);
-  view.setUint32(0, value >>> 0, true);
-  return bytes;
-}
-
-function concatParts(parts) {
-  return new Blob(parts, { type: 'application/zip' });
-}
-
-async function makeZipBlob(entries) {
-  const encoder = new TextEncoder();
-  const localParts = [];
-  const centralParts = [];
-  let offset = 0;
-
-  for (const entry of entries) {
-    const nameBytes = encoder.encode(entry.name);
-    const data = entry.data instanceof Uint8Array ? entry.data : new Uint8Array(await entry.data.arrayBuffer());
-    const crc = crc32(data);
-    const localHeader = [
-      u32(0x04034b50), u16(20), u16(0), u16(0), u16(0), u16(0), u32(crc), u32(data.length), u32(data.length), u16(nameBytes.length), u16(0), nameBytes,
-    ];
-    const localSize = localHeader.reduce((sum, part) => sum + part.length, 0) + data.length;
-    localParts.push(...localHeader, data);
-
-    centralParts.push(
-      u32(0x02014b50), u16(20), u16(20), u16(0), u16(0), u16(0), u16(0), u32(crc), u32(data.length), u32(data.length),
-      u16(nameBytes.length), u16(0), u16(0), u16(0), u16(0), u32(0), u32(offset), nameBytes,
-    );
-    offset += localSize;
-  }
-
-  const centralSize = centralParts.reduce((sum, part) => sum + part.length, 0);
-  const end = [u32(0x06054b50), u16(0), u16(0), u16(entries.length), u16(entries.length), u32(centralSize), u32(offset), u16(0)];
-  return concatParts([...localParts, ...centralParts, ...end]);
-}
-
-function downloadBlob(blob, filename) {
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-}
-
 export default function CinematicSceneBuilder() {
   const [pages, setPages] = useState([]);
-  const [activePageId, setActivePageId] = useState('homepage');
-  const [activeSceneId, setActiveSceneId] = useState(null);
-  const [activeMediaId, setActiveMediaId] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [packStatus, setPackStatus] = useState('');
+  const [selectedPageId, setSelectedPageId] = useState('');
+  const [selectedSceneId, setSelectedSceneId] = useState('');
+  const [selectedMediaId, setSelectedMediaId] = useState('');
+  const [copyState, setCopyState] = useState('');
+  const [packState, setPackState] = useState('idle');
+  const [publishState, setPublishState] = useState({ status: 'idle', message: '' });
+  const [pendingUploadName, setPendingUploadName] = useState('');
   const fileInputRef = useRef(null);
+  const publishInputRef = useRef(null);
 
   useEffect(() => {
-    let mounted = true;
-    fetch('/admin-cinematic/frames.json', { cache: 'no-store' })
-      .then((res) => {
-        if (!res.ok) throw new Error(`Unable to load frames.json (${res.status})`);
-        return res.json();
-      })
-      .then((raw) => {
-        if (!mounted) return;
-        const data = normaliseData(raw);
-        setPages(data);
-        const firstPage = data.find((p) => p.id === 'homepage') || data[0];
-        const firstScene = firstPage?.scenes?.[0];
-        const firstMedia = firstScene?.media?.[0];
-        setActivePageId(firstPage?.id || 'homepage');
-        setActiveSceneId(firstScene?.id || null);
-        setActiveMediaId(firstMedia?.id || null);
-      })
-      .catch((err) => setError(err.message));
-    return () => { mounted = false; };
+    let active = true;
+
+    async function loadData() {
+      try {
+        setLoading(true);
+        const response = await fetch(DATA_URL, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`Could not load ${DATA_URL}`);
+        const json = await response.json();
+        const normalised = normaliseData(json);
+        if (!active) return;
+        setPages(normalised);
+        setSelectedPageId(normalised[0]?.id || '');
+        setSelectedSceneId(normalised[0]?.scenes?.[0]?.id || '');
+        setSelectedMediaId(normalised[0]?.scenes?.[0]?.media?.[0]?.id || '');
+      } catch (err) {
+        if (!active) return;
+        setError(err.message || 'Could not load scene data');
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+
+    loadData();
+
+    return () => {
+      active = false;
+      pages.forEach((page) => {
+        page.scenes.forEach((scene) => {
+          scene.media.forEach((item) => revokePreviewUrl(item.replacement?.previewUrl));
+        });
+      });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const activePage = pages.find((page) => page.id === activePageId) || pages[0];
-  const activeScene = activePage?.scenes?.find((scene) => scene.id === activeSceneId) || activePage?.scenes?.[0];
-  const activeMedia = activeScene?.media?.find((item) => item.id === activeMediaId) || activeScene?.media?.[0];
+  const selectedPage = useMemo(
+    () => pages.find((page) => page.id === selectedPageId),
+    [pages, selectedPageId]
+  );
 
-  const configJson = useMemo(() => JSON.stringify(makeSceneConfig(activePage, activeScene), null, 2), [activePage, activeScene]);
-  const replacementManifest = useMemo(() => makeReplacementManifest(activePage, activeScene), [activePage, activeScene]);
-  const replacementManifestJson = useMemo(() => JSON.stringify(replacementManifest, null, 2), [replacementManifest]);
-  const hasReplacements = replacementManifest.replacementCount > 0;
+  const selectedScene = useMemo(
+    () => selectedPage?.scenes.find((scene) => scene.id === selectedSceneId),
+    [selectedPage, selectedSceneId]
+  );
 
-  function updateSceneMedia(updater) {
-    if (!activePage || !activeScene) return;
-    setPages((currentPages) => currentPages.map((page) => {
-      if (page.id !== activePage.id) return page;
-      return {
+  const selectedMedia = useMemo(
+    () => selectedScene?.media.find((item) => item.id === selectedMediaId),
+    [selectedScene, selectedMediaId]
+  );
+
+  const currentConfig = useMemo(() => {
+    if (!selectedScene) return null;
+    return {
+      page: selectedPage?.id,
+      route: selectedPage?.route,
+      scene: selectedScene.id,
+      sceneName: selectedScene.name,
+      status: selectedScene.status,
+      media: selectedScene.media.map((item) => ({
+        id: item.id,
+        label: item.label,
+        path: item.replacement?.previewUrl || item.path,
+        originalPath: item.path,
+        suggestedReplacementPath: item.replacement?.suggestedReplacementPath || null,
+        hidden: item.hidden,
+        isPoster: item.isPoster,
+        order: item.order,
+        type: item.type,
+        device: item.device,
+        status: item.replacement?.status || null,
+        readyForPublish: item.replacement?.readyForPublish || false,
+      })),
+    };
+  }, [selectedPage, selectedScene]);
+
+  const manifest = useMemo(
+    () => buildManifest({ pages, selectedPageId, selectedSceneId }),
+    [pages, selectedPageId, selectedSceneId]
+  );
+
+  const pendingReplacements = manifest.replacements;
+
+  function updateMedia(mutator) {
+    setPages((current) =>
+      current.map((page) => {
+        if (page.id !== selectedPageId) return page;
+        return {
+          ...page,
+          scenes: page.scenes.map((scene) => {
+            if (scene.id !== selectedSceneId) return scene;
+            return {
+              ...scene,
+              media: scene.media.map((item) => {
+                if (item.id !== selectedMediaId) return item;
+                return mutator(item);
+              }),
+            };
+          }),
+        };
+      })
+    );
+  }
+
+  function updateReplacementReady(mediaId, readyForPublish) {
+    setPages((current) =>
+      current.map((page) => ({
         ...page,
-        scenes: page.scenes.map((scene) => {
-          if (scene.id !== activeScene.id) return scene;
-          return { ...scene, media: updater(scene.media) };
-        }),
-      };
-    }));
+        scenes: page.scenes.map((scene) => ({
+          ...scene,
+          media: scene.media.map((item) => {
+            if (item.id !== mediaId || !item.replacement) return item;
+            return {
+              ...item,
+              replacement: {
+                ...item.replacement,
+                readyForPublish,
+              },
+            };
+          }),
+        })),
+      }))
+    );
   }
 
-  function selectPage(pageId) {
-    const nextPage = pages.find((page) => page.id === pageId);
-    const nextScene = nextPage?.scenes?.[0];
-    const nextMedia = nextScene?.media?.[0];
-    setActivePageId(pageId);
-    setActiveSceneId(nextScene?.id || null);
-    setActiveMediaId(nextMedia?.id || null);
-    setPackStatus('');
+  function moveSelectedMedia(direction) {
+    if (!selectedScene) return;
+
+    setPages((current) =>
+      current.map((page) => {
+        if (page.id !== selectedPageId) return page;
+        return {
+          ...page,
+          scenes: page.scenes.map((scene) => {
+            if (scene.id !== selectedSceneId) return scene;
+
+            const currentIndex = scene.media.findIndex((item) => item.id === selectedMediaId);
+            const targetIndex = currentIndex + direction;
+            if (currentIndex === -1 || targetIndex < 0 || targetIndex >= scene.media.length) return scene;
+
+            const media = [...scene.media];
+            const [moved] = media.splice(currentIndex, 1);
+            media.splice(targetIndex, 0, moved);
+
+            return {
+              ...scene,
+              media: media.map((item, index) => ({ ...item, order: index + 1 })),
+            };
+          }),
+        };
+      })
+    );
   }
 
-  function selectScene(sceneId) {
-    const nextScene = activePage?.scenes?.find((scene) => scene.id === sceneId);
-    setActiveSceneId(sceneId);
-    setActiveMediaId(nextScene?.media?.[0]?.id || null);
-    setPackStatus('');
+  function handleToggleHidden() {
+    updateMedia((item) => ({ ...item, hidden: !item.hidden }));
   }
 
-  function moveMedia(mediaId, direction) {
-    updateSceneMedia((media) => {
-      const index = media.findIndex((item) => item.id === mediaId);
-      const target = index + direction;
-      if (index < 0 || target < 0 || target >= media.length) return media;
-      const next = [...media];
-      [next[index], next[target]] = [next[target], next[index]];
-      return next;
+  function handleTogglePoster() {
+    updateMedia((item) => ({ ...item, isPoster: !item.isPoster }));
+  }
+
+  function handleClearReplacement() {
+    updateMedia((item) => {
+      revokePreviewUrl(item.replacement?.previewUrl);
+      return { ...item, replacement: null };
     });
   }
 
-  function toggleHidden(mediaId) {
-    updateSceneMedia((media) => media.map((item) => item.id === mediaId
-      ? { ...item, status: item.status === 'hidden' ? 'draft' : 'hidden' }
-      : item));
-  }
-
-  function markPoster(mediaId) {
-    updateSceneMedia((media) => media.map((item) => ({ ...item, posterCandidate: item.id === mediaId ? !item.posterCandidate : item.posterCandidate })));
-  }
-
-  function replaceSelectedFile(event) {
+  function handleReplacementFile(event) {
     const file = event.target.files?.[0];
-    if (!file || !activeMedia) return;
-    const localUrl = URL.createObjectURL(file);
-    updateSceneMedia((media) => media.map((item) => item.id === activeMedia.id
-      ? { ...item, replacementUrl: localUrl, replacementName: file.name, replacementFile: file, status: 'draft-replacement' }
-      : item));
-    setPackStatus('Replacement staged. Export the pack when ready.');
+    if (!file || !selectedMedia) return;
+
+    const previewUrl = URL.createObjectURL(file);
+    const suggestedReplacementPath = buildSuggestedReplacementPath(selectedMedia.path, file.name);
+    const mediaId = selectedMedia.id;
+    const packFileName = `${slugifyFilePart(mediaId)}-${slugifyFilePart(file.name)}`;
+
+    updateMedia((item) => {
+      revokePreviewUrl(item.replacement?.previewUrl);
+      return {
+        ...item,
+        replacement: {
+          file,
+          fileName: file.name,
+          previewUrl,
+          suggestedReplacementPath,
+          repoPath: publicPathToRepoPath(suggestedReplacementPath),
+          packFilePath: `media/${packFileName}`,
+          status: 'draft-replacement',
+          readyForPublish: true,
+          createdAt: new Date().toISOString(),
+        },
+      };
+    });
+
     event.target.value = '';
   }
 
-  async function copyJson() {
-    await navigator.clipboard.writeText(configJson);
+  async function handleCopyConfig() {
+    if (!currentConfig) return;
+    await navigator.clipboard.writeText(JSON.stringify(currentConfig, null, 2));
+    setCopyState('Scene JSON copied');
+    setTimeout(() => setCopyState(''), 1800);
   }
 
-  async function copyReplacementManifest() {
-    await navigator.clipboard.writeText(replacementManifestJson);
+  async function handleCopyManifest() {
+    await navigator.clipboard.writeText(JSON.stringify(manifest, null, 2));
+    setCopyState('Manifest copied');
+    setTimeout(() => setCopyState(''), 1800);
   }
 
-  function downloadJson() {
-    downloadBlob(new Blob([configJson], { type: 'application/json' }), `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-config.json`);
+  function handleDownloadManifest() {
+    const fileName = `${selectedPageId || 'aura'}-${selectedSceneId || 'scene'}-replacement-manifest.json`;
+    downloadText(JSON.stringify(manifest, null, 2), fileName);
   }
 
-  function downloadReplacementManifest() {
-    downloadBlob(new Blob([replacementManifestJson], { type: 'application/json' }), `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-replacement-manifest.json`);
+  function handleDownloadSceneJson() {
+    if (!currentConfig) return;
+    const fileName = `${selectedPageId || 'aura'}-${selectedSceneId || 'scene'}-scene-config.json`;
+    downloadText(JSON.stringify(currentConfig, null, 2), fileName);
   }
 
-  async function downloadReplacementPack() {
-    if (!activeScene || !hasReplacements) return;
-    const entries = [
-      { name: 'replacement-manifest.json', data: new TextEncoder().encode(replacementManifestJson) },
-    ];
+  async function handleExportPack() {
+    if (!pendingReplacements.length) return;
 
-    activeScene.media.forEach((item) => {
-      if (!item.replacementFile || !item.replacementName) return;
-      entries.push({
-        name: `media/${makeReplacementFilename(item.path, item.replacementName)}`,
-        data: item.replacementFile,
-      });
-    });
+    try {
+      setPackState('building');
+      const zip = new JSZip();
+      const replacementsForPack = [];
 
-    if (entries.length === 1) {
-      setPackStatus('No replacement media files are still available in this browser session. Select the image again, then export.');
-      return;
+      for (const replacement of pendingReplacements) {
+        const sourceItem = pages
+          .find((page) => page.id === replacement.page)
+          ?.scenes.find((scene) => scene.id === replacement.scene)
+          ?.media.find((item) => item.id === replacement.mediaId);
+
+        const file = sourceItem?.replacement?.file;
+        if (!file) {
+          throw new Error(`Missing local file for ${replacement.mediaLabel || replacement.mediaId}`);
+        }
+
+        const packFilePath = sourceItem.replacement.packFilePath || `media/${buildPackFileName(replacement)}`;
+        zip.file(packFilePath, file);
+        replacementsForPack.push({ ...replacement, packFilePath });
+      }
+
+      const packManifest = {
+        ...manifest,
+        generatedAt: new Date().toISOString(),
+        replacementCount: replacementsForPack.length,
+        replacements: replacementsForPack,
+      };
+
+      zip.file('replacement-manifest.json', JSON.stringify(packManifest, null, 2));
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+      downloadBlob(blob, `aura-replacement-pack-${selectedPageId || 'all'}-${selectedSceneId || 'all'}-${stamp}.zip`);
+      setPackState('ready');
+      setTimeout(() => setPackState('idle'), 2200);
+    } catch (err) {
+      setPackState('error');
+      setPublishState({ status: 'error', message: err.message || 'Could not export pack' });
     }
+  }
 
-    setPackStatus('Building replacement ZIP...');
-    const zipBlob = await makeZipBlob(entries);
-    downloadBlob(zipBlob, `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-replacement-pack.zip`);
-    setPackStatus('Replacement ZIP downloaded. Upload that ZIP for publishing.');
+  async function handlePublishPack(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setPendingUploadName(file.name);
+    setPublishState({ status: 'uploading', message: 'Publishing replacement pack to GitHub…' });
+
+    try {
+      const formData = new FormData();
+      formData.append('pack', file);
+
+      const response = await fetch(PUBLISH_URL, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || result.success === false) {
+        throw new Error(
+          result.errors?.join('\n') || result.error || `Publish failed with HTTP ${response.status}`
+        );
+      }
+
+      setPublishState({
+        status: 'success',
+        message: 'Replacement media files published successfully.',
+        result,
+      });
+    } catch (err) {
+      setPublishState({
+        status: 'error',
+        message: err.message || 'Could not publish replacement pack',
+      });
+    } finally {
+      event.target.value = '';
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="scb-shell">
+        <div className="scb-loading">Loading AURA cinematic scenes…</div>
+      </div>
+    );
   }
 
   if (error) {
     return (
-      <main className="scb-page scb-page--center">
-        <section className="scb-error">
-          <p className="scb-eyebrow">AURA SCENE BUILDER</p>
-          <h1>Frame inventory failed to load</h1>
-          <p>{error}</p>
-          <p className="scb-muted">Expected file: <code>/admin-cinematic/frames.json</code></p>
-        </section>
-      </main>
+      <div className="scb-shell">
+        <div className="scb-error">{error}</div>
+      </div>
     );
   }
 
-  if (!pages.length) {
-    return <main className="scb-page scb-page--center"><p>Loading AURA Scene Builder...</p></main>;
-  }
-
   return (
-    <main className="scb-page">
+    <div className="scb-shell">
       <header className="scb-header">
         <div>
-          <p className="scb-eyebrow">AURA ADMIN / CINEMATIC SYSTEM</p>
-          <h1>AURA Scene Builder</h1>
-          <p>View current frames, test local replacements, reorder scenes, mark poster candidates, and export scene config.</p>
+          <p className="scb-kicker">AURA ADMIN</p>
+          <h1>Cinematic Scene Builder</h1>
+          <p>
+            Manage campaign/homepage scroll frames, preview replacements, export
+            replacement packs, and publish approved media files into GitHub.
+          </p>
         </div>
-        <div className="scb-header-card">
-          <Status value="phase-2-replacement-pack" />
-          <span>No live media is changed from this page yet.</span>
+        <div className="scb-header__meta">
+          <span>{pages.length} pages</span>
+          <span>{pendingReplacements.length} replacements</span>
         </div>
       </header>
 
-      <nav className="scb-tabs" aria-label="Cinematic pages">
-        {pages.map((page) => (
-          <button key={page.id} className={page.id === activePage?.id ? 'active' : ''} onClick={() => selectPage(page.id)}>
-            <span>{page.label}</span>
-            <small>{page.scenes.length} scenes</small>
-          </button>
-        ))}
-      </nav>
+      <main className="scb-grid">
+        <aside className="scb-sidebar">
+          <section className="scb-panel">
+            <div className="scb-panel__head">
+              <p>Pages</p>
+            </div>
+            <div className="scb-page-list">
+              {pages.map((page) => (
+                <button
+                  key={page.id}
+                  type="button"
+                  className={`scb-page-card ${page.id === selectedPageId ? 'is-active' : ''}`}
+                  onClick={() => {
+                    setSelectedPageId(page.id);
+                    setSelectedSceneId(page.scenes?.[0]?.id || '');
+                    setSelectedMediaId(page.scenes?.[0]?.media?.[0]?.id || '');
+                  }}
+                >
+                  <span>{page.label}</span>
+                  <small>{PAGE_STATUS_LABELS[page.status] || page.status}</small>
+                </button>
+              ))}
+            </div>
+          </section>
 
-      <section className="scb-grid">
-        <aside className="scb-panel scb-sidebar">
-          <div className="scb-panel-title">Scenes</div>
-          {activePage?.scenes.map((scene) => (
-            <button key={scene.id} className={`scb-scene-btn ${scene.id === activeScene?.id ? 'active' : ''}`} onClick={() => selectScene(scene.id)}>
-              <strong>{scene.name}</strong>
-              <span>{scene.type} · {scene.media.length} media</span>
-              <Status value={scene.status} />
-            </button>
-          ))}
+          <section className="scb-panel">
+            <div className="scb-panel__head">
+              <p>Scenes</p>
+            </div>
+            <div className="scb-scene-list">
+              {selectedPage?.scenes.map((scene) => (
+                <button
+                  key={scene.id}
+                  type="button"
+                  className={`scb-scene-card ${scene.id === selectedSceneId ? 'is-active' : ''}`}
+                  onClick={() => {
+                    setSelectedSceneId(scene.id);
+                    setSelectedMediaId(scene.media?.[0]?.id || '');
+                  }}
+                >
+                  <span>{scene.name}</span>
+                  <small>{scene.media.length} media</small>
+                </button>
+              ))}
+            </div>
+          </section>
         </aside>
 
-        <section className="scb-main">
-          <div className="scb-section-head">
-            <div>
-              <p className="scb-eyebrow">Selected scene</p>
-              <h2>{activeScene?.name}</h2>
-            </div>
-            <span className="scb-route">{activePage?.route || activePage?.id}</span>
-          </div>
-
-          <div className="scb-frame-strip">
-            {activeScene?.media.map((item, index) => (
-              <article key={item.id} className={`scb-frame-card ${item.id === activeMedia?.id ? 'active' : ''} ${item.status === 'hidden' ? 'hidden' : ''}`}>
-                <button className="scb-thumb" onClick={() => setActiveMediaId(item.id)}>
-                  {isImage(item) ? <img src={item.replacementUrl || item.path} alt={item.label || item.id} /> : <span className="scb-video-icon">VIDEO</span>}
-                  {item.posterCandidate && <em>POSTER</em>}
-                  {item.replacementName && <em className="scb-draft-flag">DRAFT</em>}
-                </button>
-                <div className="scb-frame-meta">
-                  <strong>{String(index + 1).padStart(2, '0')}</strong>
-                  <span>{item.type}</span>
-                </div>
-                <div className="scb-frame-actions">
-                  <button onClick={() => moveMedia(item.id, -1)} disabled={index === 0}>←</button>
-                  <button onClick={() => moveMedia(item.id, 1)} disabled={index === activeScene.media.length - 1}>→</button>
-                  <button onClick={() => toggleHidden(item.id)}>{item.status === 'hidden' ? 'Show' : 'Hide'}</button>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <section className="scb-inspector">
-            <div className="scb-preview">
-              {activeMedia && isImage(activeMedia) ? <img src={activeMedia.replacementUrl || activeMedia.path} alt={activeMedia.label || activeMedia.id} /> : <div className="scb-video-preview">Video / folder preview placeholder</div>}
-              {activeMedia?.replacementName && <div className="scb-banner">Draft replacement: {activeMedia.replacementName}</div>}
-            </div>
-
-            <div className="scb-details">
-              <p className="scb-eyebrow">Media inspector</p>
-              <h3>{activeMedia?.label || activeMedia?.id}</h3>
-              <dl>
-                <dt>Path</dt><dd><code>{activeMedia?.path}</code></dd>
-                <dt>Type</dt><dd>{activeMedia?.type}</dd>
-                <dt>Device</dt><dd>{activeMedia?.device}</dd>
-                <dt>Status</dt><dd><Status value={activeMedia?.status} /></dd>
-                <dt>Notes</dt><dd>{activeMedia?.notes || <span className="scb-muted">No notes</span>}</dd>
-                {activeMedia?.replacementName && (
-                  <>
-                    <dt>Replacement file</dt><dd><code>{activeMedia.replacementName}</code></dd>
-                    <dt>Suggested path</dt><dd><code>{makeReplacementPath(activeMedia.path, activeMedia.replacementName)}</code></dd>
-                    <dt>Pack path</dt><dd><code>media/{makeReplacementFilename(activeMedia.path, activeMedia.replacementName)}</code></dd>
-                    <dt>Publish status</dt><dd><Status value="ready-for-publish" /></dd>
-                  </>
-                )}
-              </dl>
-
-              <div className="scb-detail-actions">
-                <input ref={fileInputRef} type="file" accept="image/*" onChange={replaceSelectedFile} hidden />
-                <button className="scb-btn primary" onClick={() => fileInputRef.current?.click()}>Select replacement image</button>
-                <button className="scb-btn" onClick={() => activeMedia && markPoster(activeMedia.id)}>Toggle poster candidate</button>
+        <section className="scb-workspace">
+          <section className="scb-panel scb-hero-panel">
+            <div className="scb-panel__head scb-panel__head--spread">
+              <div>
+                <p>Selected scene</p>
+                <h2>{selectedScene?.name || 'No scene selected'}</h2>
               </div>
+              <div className="scb-actions">
+                <button type="button" onClick={handleCopyConfig} disabled={!currentConfig}>
+                  Copy Scene JSON
+                </button>
+                <button type="button" onClick={handleDownloadSceneJson} disabled={!currentConfig}>
+                  Download Scene JSON
+                </button>
+              </div>
+            </div>
+
+            {copyState && <div className="scb-toast">{copyState}</div>}
+
+            <div className="scb-frame-strip">
+              {selectedScene?.media.map((item) => {
+                const src = item.replacement?.previewUrl || item.path;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`scb-frame-card ${item.id === selectedMediaId ? 'is-active' : ''} ${
+                      item.hidden ? 'is-hidden' : ''
+                    }`}
+                    onClick={() => setSelectedMediaId(item.id)}
+                  >
+                    <span className="scb-frame-card__order">{item.order}</span>
+                    {item.replacement && (
+                      <span className="scb-frame-card__replacement-flag">Replacement</span>
+                    )}
+                    {item.type === 'video' ? (
+                      <video src={src} muted playsInline />
+                    ) : (
+                      <img src={src} alt="" />
+                    )}
+                    <span className="scb-frame-card__label">{item.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </section>
 
-          <section className="scb-replacement-panel">
-            <div className="scb-config-head">
-              <div>
-                <p className="scb-eyebrow">Draft replacement pack</p>
-                <h2>Manifest + Media ZIP</h2>
+          <section className="scb-detail-grid">
+            <section className="scb-panel scb-preview-panel">
+              <div className="scb-panel__head">
+                <p>Preview</p>
               </div>
+              {selectedMedia ? (
+                <div className="scb-preview">
+                  {selectedMedia.type === 'video' ? (
+                    <video src={selectedMedia.replacement?.previewUrl || selectedMedia.path} controls muted />
+                  ) : (
+                    <img src={selectedMedia.replacement?.previewUrl || selectedMedia.path} alt="" />
+                  )}
+                </div>
+              ) : (
+                <div className="scb-empty">Select a frame</div>
+              )}
+            </section>
+
+            <section className="scb-panel scb-inspector">
+              <div className="scb-panel__head">
+                <p>Inspector</p>
+              </div>
+
+              {selectedMedia ? (
+                <div className="scb-fields">
+                  <label>
+                    <span>Label</span>
+                    <input value={selectedMedia.label} readOnly />
+                  </label>
+
+                  <label>
+                    <span>Current path</span>
+                    <textarea value={selectedMedia.path || ''} readOnly />
+                  </label>
+
+                  <div className="scb-field-row">
+                    <label>
+                      <span>Type</span>
+                      <input value={TYPE_LABELS[selectedMedia.type] || selectedMedia.type} readOnly />
+                    </label>
+                    <label>
+                      <span>Device</span>
+                      <input value={selectedMedia.device} readOnly />
+                    </label>
+                  </div>
+
+                  {selectedMedia.replacement && (
+                    <div className="scb-replacement-box">
+                      <p className="scb-replacement-box__title">Draft replacement</p>
+                      <dl>
+                        <dt>Uploaded file</dt>
+                        <dd>{selectedMedia.replacement.fileName}</dd>
+                        <dt>Suggested public path</dt>
+                        <dd>{selectedMedia.replacement.suggestedReplacementPath}</dd>
+                        <dt>Repo path</dt>
+                        <dd>{selectedMedia.replacement.repoPath}</dd>
+                        <dt>Pack file</dt>
+                        <dd>{selectedMedia.replacement.packFilePath}</dd>
+                      </dl>
+                    </div>
+                  )}
+
+                  <div className="scb-actions scb-actions--wrap">
+                    <button type="button" onClick={() => fileInputRef.current?.click()}>
+                      Select replacement image
+                    </button>
+                    <button type="button" onClick={handleClearReplacement} disabled={!selectedMedia.replacement}>
+                      Clear replacement
+                    </button>
+                    <button type="button" onClick={handleToggleHidden}>
+                      {selectedMedia.hidden ? 'Show frame' : 'Hide frame'}
+                    </button>
+                    <button type="button" onClick={handleTogglePoster}>
+                      {selectedMedia.isPoster ? 'Unset poster' : 'Mark poster'}
+                    </button>
+                    <button type="button" onClick={() => moveSelectedMedia(-1)}>
+                      Move left
+                    </button>
+                    <button type="button" onClick={() => moveSelectedMedia(1)}>
+                      Move right
+                    </button>
+                  </div>
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*,video/*"
+                    className="scb-hidden-input"
+                    onChange={handleReplacementFile}
+                  />
+                </div>
+              ) : (
+                <div className="scb-empty">No media selected</div>
+              )}
+            </section>
+          </section>
+
+          <section className="scb-panel">
+            <div className="scb-panel__head scb-panel__head--spread">
               <div>
-                <button className="scb-btn" onClick={copyReplacementManifest} disabled={!hasReplacements}>Copy Manifest</button>
-                <button className="scb-btn" onClick={downloadReplacementManifest} disabled={!hasReplacements}>Download Manifest</button>
-                <button className="scb-btn primary" onClick={downloadReplacementPack} disabled={!hasReplacements}>Export Replacement Pack .ZIP</button>
+                <p>Scene config preview</p>
+                <h2>Current JSON</h2>
               </div>
             </div>
-            {hasReplacements ? (
-              <>
-                <div className="scb-replacement-summary">
-                  <strong>{replacementManifest.replacementCount}</strong>
-                  <span>draft replacement{replacementManifest.replacementCount === 1 ? '' : 's'} ready for review/publish. ZIP includes manifest + replacement media.</span>
-                </div>
-                {packStatus && <div className="scb-pack-status">{packStatus}</div>}
-                <pre><code>{replacementManifestJson}</code></pre>
-              </>
+            <pre className="scb-code">{JSON.stringify(currentConfig, null, 2)}</pre>
+          </section>
+
+          <section className="scb-panel">
+            <div className="scb-panel__head scb-panel__head--spread">
+              <div>
+                <p>Export replacement pack</p>
+                <h2>Draft replacements</h2>
+              </div>
+              <div className="scb-actions">
+                <button type="button" onClick={handleCopyManifest} disabled={!pendingReplacements.length}>
+                  Copy Manifest
+                </button>
+                <button type="button" onClick={handleDownloadManifest} disabled={!pendingReplacements.length}>
+                  Download Manifest
+                </button>
+                <button type="button" onClick={handleExportPack} disabled={!pendingReplacements.length || packState === 'building'}>
+                  {packState === 'building' ? 'Building pack…' : 'Export pack (.zip)'}
+                </button>
+              </div>
+            </div>
+
+            {pendingReplacements.length ? (
+              <ul className="scb-pending-list">
+                {pendingReplacements.map((replacement) => (
+                  <li key={`${replacement.page}-${replacement.scene}-${replacement.mediaId}`} className="scb-pending-item">
+                    <div className="scb-pending-item__main">
+                      <span className="scb-pending-item__label">
+                        {replacement.pageLabel} / {replacement.sceneName} / {replacement.mediaLabel}
+                      </span>
+                      <span className="scb-pending-item__path">{replacement.suggestedReplacementPath}</span>
+                    </div>
+                    <label className="scb-toggle">
+                      <input
+                        type="checkbox"
+                        checked={replacement.readyForPublish}
+                        onChange={(event) => updateReplacementReady(replacement.mediaId, event.target.checked)}
+                      />
+                      Ready
+                    </label>
+                  </li>
+                ))}
+              </ul>
             ) : (
-              <div className="scb-empty-replacements">
-                Select a frame, choose “Select replacement image”, then export one replacement ZIP containing the manifest and image files.
+              <div className="scb-empty scb-empty--inline">
+                Select a media item and choose a replacement image to build a pack.
               </div>
             )}
+
+            {packState === 'ready' && <div className="scb-toast">Replacement pack downloaded</div>}
           </section>
 
-          <section className="scb-config">
-            <div className="scb-config-head">
+          <section className="scb-panel">
+            <div className="scb-panel__head scb-panel__head--spread">
               <div>
-                <p className="scb-eyebrow">Generated config</p>
-                <h2>Scene JSON</h2>
+                <p>Publish replacement pack</p>
+                <h2>Commit media files to GitHub</h2>
               </div>
-              <div>
-                <button className="scb-btn" onClick={copyJson}>Copy JSON</button>
-                <button className="scb-btn primary" onClick={downloadJson}>Download JSON</button>
+              <div className="scb-actions">
+                <button
+                  type="button"
+                  onClick={() => publishInputRef.current?.click()}
+                  disabled={publishState.status === 'uploading'}
+                >
+                  {publishState.status === 'uploading' ? 'Publishing…' : 'Select pack & publish'}
+                </button>
               </div>
             </div>
-            <pre><code>{configJson}</code></pre>
+
+            <p className="scb-publish__notice">
+              Publishes media files only. Does not modify ScrollFilm.jsx or CampaignScrollFilm.jsx.
+              Requires GITHUB_TOKEN in Vercel environment variables.
+            </p>
+
+            <input
+              ref={publishInputRef}
+              type="file"
+              accept=".zip,application/zip,application/x-zip-compressed"
+              className="scb-hidden-input"
+              onChange={handlePublishPack}
+            />
+
+            <div className={`scb-publish-status scb-publish-status--${publishState.status}`}>
+              <p className="scb-publish-status__title">
+                {publishState.status === 'idle' && 'Waiting for replacement pack'}
+                {publishState.status === 'uploading' && 'Publishing'}
+                {publishState.status === 'success' && 'Published'}
+                {publishState.status === 'error' && 'Publish error'}
+              </p>
+              <p>{publishState.message || 'Choose a ZIP exported from this page.'}</p>
+              {pendingUploadName && <p>Selected pack: {pendingUploadName}</p>}
+              {publishState.result?.commitSha && <p>Commit: {publishState.result.commitSha}</p>}
+              {publishState.result?.filesWritten?.length > 0 && (
+                <ul className="scb-file-list">
+                  {publishState.result.filesWritten.map((file) => (
+                    <li key={file}>{file}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </section>
         </section>
-      </section>
-    </main>
+      </main>
+
+      <footer className="scb-footer">
+        <p>
+          Local edits, JSON export, and pack export are session-only. Publish
+          writes media files to GitHub in a single commit. No live media,
+          routes, products, or ScrollFilm/CampaignScrollFilm scene arrays are
+          modified automatically by this page.
+        </p>
+      </footer>
+    </div>
   );
 }
