@@ -1,0 +1,1 @@
+The replacement pack image was received, but binary media upload through the current GitHub connector is not available in this chat as a direct file parameter. This placeholder records that the pack was validated. The actual media file should be published to: public/assets/aura-scroll/02_shadow_boxing_the_standard/frame_01_shadow_01_neutral_stance__draft-replacement.png
