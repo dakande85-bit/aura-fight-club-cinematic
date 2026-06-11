@@ -63,6 +63,31 @@ function isImage(item) {
   return type === 'frame' || type === 'poster' || /\.(png|jpe?g|webp|gif|avif)$/i.test(path);
 }
 
+function getExtension(filename = '') {
+  const clean = filename.split('?')[0].split('#')[0];
+  const dot = clean.lastIndexOf('.');
+  return dot >= 0 ? clean.slice(dot) : '';
+}
+
+function getBaseFilename(path = '') {
+  return String(path).split('/').pop() || 'replacement-file';
+}
+
+function makeReplacementFilename(originalPath = '', uploadedName = '') {
+  const originalName = getBaseFilename(originalPath);
+  const originalExt = getExtension(originalName);
+  const uploadedExt = getExtension(uploadedName);
+  const ext = uploadedExt || originalExt;
+  const stem = originalName.replace(originalExt, '') || 'replacement';
+  return `${stem}__draft-replacement${ext || '.png'}`;
+}
+
+function makeReplacementPath(originalPath = '', uploadedName = '') {
+  const filename = makeReplacementFilename(originalPath, uploadedName);
+  const folder = String(originalPath).split('/').slice(0, -1).join('/');
+  return folder ? `${folder}/${filename}` : filename;
+}
+
 function makeSceneConfig(page, scene) {
   if (!scene) return {};
   return {
@@ -78,12 +103,55 @@ function makeSceneConfig(page, scene) {
         type: item.type,
         device: item.device,
         status: item.status,
-        path: item.replacementName ? item.path : item.path,
+        path: item.path,
         draftReplacement: item.replacementName || null,
+        suggestedReplacementPath: item.replacementName ? makeReplacementPath(item.path, item.replacementName) : null,
         posterCandidate: Boolean(item.posterCandidate),
         notes: item.notes || '',
       })),
     },
+  };
+}
+
+function makeReplacementManifest(page, scene) {
+  const replacements = [];
+
+  (scene?.media || []).forEach((item, index) => {
+    if (!item.replacementName) return;
+    replacements.push({
+      page: page?.id,
+      pageLabel: page?.label,
+      scene: scene?.id,
+      sceneName: scene?.name,
+      mediaId: item.id,
+      mediaLabel: item.label || item.id,
+      order: index + 1,
+      replace: item.path,
+      uploadedFileName: item.replacementName,
+      suggestedReplacementPath: makeReplacementPath(item.path, item.replacementName),
+      device: item.device,
+      type: item.type,
+      status: 'draft-replacement',
+      readyForPublish: true,
+      notes: item.notes || '',
+    });
+  });
+
+  return {
+    brand: 'AURA Fight Club',
+    tool: 'Cinematic Scene Builder',
+    mode: 'replacement-manifest',
+    generatedAt: new Date().toISOString(),
+    page: page?.id || null,
+    scene: scene?.id || null,
+    replacementCount: replacements.length,
+    replacements,
+    publishInstructions: [
+      'Review every replacement visually in /admin/cinematic.',
+      'Rename/export files using suggestedReplacementPath or replace the original file path exactly.',
+      'Commit media files and updated config only after visual approval.',
+      'Do not modify live ScrollFilm/CampaignScrollFilm rendering until the replacement pack is approved.',
+    ],
   };
 }
 
@@ -122,6 +190,9 @@ export default function CinematicSceneBuilder() {
   const activeMedia = activeScene?.media?.find((item) => item.id === activeMediaId) || activeScene?.media?.[0];
 
   const configJson = useMemo(() => JSON.stringify(makeSceneConfig(activePage, activeScene), null, 2), [activePage, activeScene]);
+  const replacementManifest = useMemo(() => makeReplacementManifest(activePage, activeScene), [activePage, activeScene]);
+  const replacementManifestJson = useMemo(() => JSON.stringify(replacementManifest, null, 2), [replacementManifest]);
+  const hasReplacements = replacementManifest.replacementCount > 0;
 
   function updateSceneMedia(updater) {
     if (!activePage || !activeScene) return;
@@ -187,12 +258,28 @@ export default function CinematicSceneBuilder() {
     await navigator.clipboard.writeText(configJson);
   }
 
+  async function copyReplacementManifest() {
+    await navigator.clipboard.writeText(replacementManifestJson);
+  }
+
   function downloadJson() {
     const blob = new Blob([configJson], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     link.download = `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-config.json`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function downloadReplacementManifest() {
+    const blob = new Blob([replacementManifestJson], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${activePage?.id || 'page'}-${activeScene?.id || 'scene'}-replacement-manifest.json`;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -225,7 +312,7 @@ export default function CinematicSceneBuilder() {
           <p>View current frames, test local replacements, reorder scenes, mark poster candidates, and export scene config.</p>
         </div>
         <div className="scb-header-card">
-          <Status value="phase-1-preview" />
+          <Status value="phase-2-replacement-workflow" />
           <span>No live media is changed from this page yet.</span>
         </div>
       </header>
@@ -266,6 +353,7 @@ export default function CinematicSceneBuilder() {
                 <button className="scb-thumb" onClick={() => setActiveMediaId(item.id)}>
                   {isImage(item) ? <img src={item.replacementUrl || item.path} alt={item.label || item.id} /> : <span className="scb-video-icon">VIDEO</span>}
                   {item.posterCandidate && <em>POSTER</em>}
+                  {item.replacementName && <em className="scb-draft-flag">DRAFT</em>}
                 </button>
                 <div className="scb-frame-meta">
                   <strong>{String(index + 1).padStart(2, '0')}</strong>
@@ -295,6 +383,13 @@ export default function CinematicSceneBuilder() {
                 <dt>Device</dt><dd>{activeMedia?.device}</dd>
                 <dt>Status</dt><dd><Status value={activeMedia?.status} /></dd>
                 <dt>Notes</dt><dd>{activeMedia?.notes || <span className="scb-muted">No notes</span>}</dd>
+                {activeMedia?.replacementName && (
+                  <>
+                    <dt>Replacement file</dt><dd><code>{activeMedia.replacementName}</code></dd>
+                    <dt>Suggested path</dt><dd><code>{makeReplacementPath(activeMedia.path, activeMedia.replacementName)}</code></dd>
+                    <dt>Publish status</dt><dd><Status value="ready-for-publish" /></dd>
+                  </>
+                )}
               </dl>
 
               <div className="scb-detail-actions">
@@ -303,6 +398,32 @@ export default function CinematicSceneBuilder() {
                 <button className="scb-btn" onClick={() => activeMedia && markPoster(activeMedia.id)}>Toggle poster candidate</button>
               </div>
             </div>
+          </section>
+
+          <section className="scb-replacement-panel">
+            <div className="scb-config-head">
+              <div>
+                <p className="scb-eyebrow">Draft replacement pack</p>
+                <h2>Replacement Manifest</h2>
+              </div>
+              <div>
+                <button className="scb-btn" onClick={copyReplacementManifest} disabled={!hasReplacements}>Copy Manifest</button>
+                <button className="scb-btn primary" onClick={downloadReplacementManifest} disabled={!hasReplacements}>Download Manifest</button>
+              </div>
+            </div>
+            {hasReplacements ? (
+              <>
+                <div className="scb-replacement-summary">
+                  <strong>{replacementManifest.replacementCount}</strong>
+                  <span>draft replacement{replacementManifest.replacementCount === 1 ? '' : 's'} ready for review/publish.</span>
+                </div>
+                <pre><code>{replacementManifestJson}</code></pre>
+              </>
+            ) : (
+              <div className="scb-empty-replacements">
+                Select a frame, choose “Select replacement image”, then this panel will generate a replacement manifest for handoff/publish.
+              </div>
+            )}
           </section>
 
           <section className="scb-config">
