@@ -53,33 +53,6 @@ function slugify(value) {
     .replace(/^-|-$/g, '') || 'replacement';
 }
 
-function getFileExtension(fileName, fallback = 'png') {
-  const clean = String(fileName || '').split('?')[0].split('#')[0];
-  const ext = clean.includes('.') ? clean.split('.').pop() : fallback;
-  return slugify(ext || fallback).replace(/[^a-z0-9]/g, '') || fallback;
-}
-
-function getPathDirectory(path) {
-  const clean = String(path || '').split('?')[0].split('#')[0];
-  const parts = clean.split('/');
-  parts.pop();
-  return parts.join('/') || '';
-}
-
-function getPathBaseName(path) {
-  const clean = String(path || '').split('?')[0].split('#')[0];
-  const fileName = clean.split('/').pop() || 'replacement.png';
-  const dotIndex = fileName.lastIndexOf('.');
-  return dotIndex === -1 ? fileName : fileName.slice(0, dotIndex);
-}
-
-function buildSuggestedReplacementPath(currentPath, uploadedFileName) {
-  const directory = getPathDirectory(currentPath);
-  const baseName = getPathBaseName(currentPath);
-  const ext = getFileExtension(uploadedFileName, getFileExtension(currentPath, 'png'));
-  return `${directory}/${baseName}__draft-replacement.${ext}`;
-}
-
 function publicPathToRepoPath(publicPath) {
   for (const [publicPrefix, repoPrefix] of PATH_PREFIX_MAP) {
     if (publicPath.startsWith(publicPrefix)) {
@@ -109,6 +82,7 @@ function buildReplacementPayload({ selectedPage, selectedScene, selectedMedia, r
 
   const packFileName = `${slugify(selectedMedia.id)}-${slugify(replacement.fileName)}`;
   const packFilePath = `media/${packFileName}`;
+  const livePath = selectedMedia.path;
 
   return {
     manifest: {
@@ -128,22 +102,22 @@ function buildReplacementPayload({ selectedPage, selectedScene, selectedMedia, r
           mediaId: selectedMedia.id,
           mediaLabel: selectedMedia.label,
           order: selectedMedia.order,
-          replace: selectedMedia.path,
+          replace: livePath,
           uploadedFileName: replacement.fileName,
-          suggestedReplacementPath: replacement.suggestedReplacementPath,
-          repoPath: publicPathToRepoPath(replacement.suggestedReplacementPath),
+          suggestedReplacementPath: livePath,
+          repoPath: publicPathToRepoPath(livePath),
           packFilePath,
           device: selectedMedia.device,
           type: selectedMedia.type,
-          status: 'draft-replacement',
+          status: 'ready-for-live-overwrite',
           readyForPublish: true,
           notes: selectedMedia.notes || '',
         },
       ],
       publishInstructions: [
-        'Review the replacement visually in /admin/cinematic.',
-        'This pack publishes media files only.',
-        'ScrollFilm.jsx and CampaignScrollFilm.jsx are not modified automatically.',
+        'This pack overwrites the selected live frame path in place.',
+        'No *_draft-replacement orphan file should be created.',
+        'After Vercel redeploys, refresh the live page to see the updated frame.',
       ],
     },
     packFilePath,
@@ -196,10 +170,10 @@ export default function CinematicSceneBuilder() {
 
     return () => {
       active = false;
-      revokePreviewUrl(replacement?.previewUrl);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => () => revokePreviewUrl(replacement?.previewUrl), [replacement?.previewUrl]);
 
   const selectedPage = useMemo(
     () => pages.find((page) => page.id === selectedPageId),
@@ -223,6 +197,14 @@ export default function CinematicSceneBuilder() {
 
   const previewSource = replacement?.previewUrl || selectedMedia?.path || '';
 
+  function clearReplacement() {
+    setReplacement((current) => {
+      revokePreviewUrl(current?.previewUrl);
+      return null;
+    });
+    setPublishState({ status: 'idle', message: '' });
+  }
+
   function selectPage(page) {
     setSelectedPageId(page.id);
     setSelectedSceneId(page.scenes?.[0]?.id || '');
@@ -241,20 +223,12 @@ export default function CinematicSceneBuilder() {
     clearReplacement();
   }
 
-  function clearReplacement() {
-    setReplacement((current) => {
-      revokePreviewUrl(current?.previewUrl);
-      return null;
-    });
-    setPublishState({ status: 'idle', message: '' });
-  }
-
   function handleReplacementFile(event) {
     const file = event.target.files?.[0];
     if (!file || !selectedMedia) return;
 
     const previewUrl = URL.createObjectURL(file);
-    const suggestedReplacementPath = buildSuggestedReplacementPath(selectedMedia.path, file.name);
+    const livePath = selectedMedia.path;
 
     setReplacement((current) => {
       revokePreviewUrl(current?.previewUrl);
@@ -262,12 +236,15 @@ export default function CinematicSceneBuilder() {
         file,
         fileName: file.name,
         previewUrl,
-        suggestedReplacementPath,
-        repoPath: publicPathToRepoPath(suggestedReplacementPath),
+        suggestedReplacementPath: livePath,
+        repoPath: publicPathToRepoPath(livePath),
       };
     });
 
-    setPublishState({ status: 'ready', message: 'Replacement ready. Review the preview, then publish.' });
+    setPublishState({
+      status: 'ready',
+      message: 'Replacement ready. This will overwrite the selected live frame path in place.',
+    });
     event.target.value = '';
   }
 
@@ -297,22 +274,16 @@ export default function CinematicSceneBuilder() {
       const formData = new FormData();
       formData.append('pack', zipBlob, 'aura-replacement-pack.zip');
 
-      const response = await fetch(PUBLISH_URL, {
-        method: 'POST',
-        body: formData,
-      });
-
+      const response = await fetch(PUBLISH_URL, { method: 'POST', body: formData });
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || result.success === false) {
-        throw new Error(
-          result.errors?.join('\n') || result.error || `Publish failed with HTTP ${response.status}`
-        );
+        throw new Error(result.errors?.join('\n') || result.error || `Publish failed with HTTP ${response.status}`);
       }
 
       setPublishState({
         status: 'success',
-        message: 'Replacement image published to GitHub. Vercel will redeploy from the new commit.',
+        message: 'Replacement image published to the live frame path. Vercel will redeploy from the new commit.',
         result,
       });
     } catch (err) {
@@ -342,20 +313,18 @@ export default function CinematicSceneBuilder() {
         <div>
           <p className="scb-kicker">AURA ADMIN</p>
           <h1>Cinematic Scene Builder</h1>
-          <p>Simple mode: choose a frame, preview a replacement, then publish it.</p>
+          <p>Choose a frame, preview a replacement, then overwrite the live frame path.</p>
         </div>
         <div className="scb-header__meta">
           <span>{pages.length} pages</span>
-          <span>{replacement ? '1 draft replacement' : 'No replacement selected'}</span>
+          <span>{replacement ? '1 live overwrite ready' : 'No replacement selected'}</span>
         </div>
       </header>
 
       <main className="scb-grid">
         <aside className="scb-sidebar">
           <section className="scb-panel">
-            <div className="scb-panel__head">
-              <p>1. Choose page</p>
-            </div>
+            <div className="scb-panel__head"><p>1. Choose page</p></div>
             <div className="scb-page-list">
               {pages.map((page) => (
                 <button
@@ -372,9 +341,7 @@ export default function CinematicSceneBuilder() {
           </section>
 
           <section className="scb-panel">
-            <div className="scb-panel__head">
-              <p>2. Choose scene</p>
-            </div>
+            <div className="scb-panel__head"><p>2. Choose scene</p></div>
             <div className="scb-scene-list">
               {selectedPage?.scenes.map((scene) => (
                 <button
@@ -412,7 +379,7 @@ export default function CinematicSceneBuilder() {
                     onClick={() => selectMedia(item.id)}
                   >
                     <span className="scb-frame-card__order">{item.order}</span>
-                    {isSelected && replacement && <span className="scb-frame-card__replacement-flag">Draft</span>}
+                    {isSelected && replacement && <span className="scb-frame-card__replacement-flag">Live overwrite</span>}
                     {item.type === 'video' ? <video src={src} muted playsInline /> : <img src={src} alt="" />}
                     <span className="scb-frame-card__label">{item.label}</span>
                   </button>
@@ -423,17 +390,11 @@ export default function CinematicSceneBuilder() {
 
           <section className="scb-detail-grid">
             <section className="scb-panel scb-preview-panel">
-              <div className="scb-panel__head">
-                <p>Preview</p>
-              </div>
+              <div className="scb-panel__head"><p>Preview</p></div>
               {selectedMedia ? (
                 <div className="scb-preview">
-                  {selectedMedia.type === 'video' ? (
-                    <video src={previewSource} controls muted />
-                  ) : (
-                    <img src={previewSource} alt="" />
-                  )}
-                  {replacement && <div className="scb-simple-banner">Draft replacement: {replacement.fileName}</div>}
+                  {selectedMedia.type === 'video' ? <video src={previewSource} controls muted /> : <img src={previewSource} alt="" />}
+                  {replacement && <div className="scb-simple-banner">Replacement: {replacement.fileName}</div>}
                 </div>
               ) : (
                 <div className="scb-empty">Select a frame</div>
@@ -441,9 +402,7 @@ export default function CinematicSceneBuilder() {
             </section>
 
             <section className="scb-panel scb-inspector">
-              <div className="scb-panel__head">
-                <p>4. Replace + publish</p>
-              </div>
+              <div className="scb-panel__head"><p>4. Replace + publish</p></div>
 
               {selectedMedia ? (
                 <div className="scb-fields">
@@ -474,7 +433,7 @@ export default function CinematicSceneBuilder() {
                       <dl>
                         <dt>File</dt>
                         <dd>{replacement.fileName}</dd>
-                        <dt>Will publish to</dt>
+                        <dt>Will overwrite live path</dt>
                         <dd>{replacement.suggestedReplacementPath}</dd>
                       </dl>
                     </div>
@@ -492,11 +451,7 @@ export default function CinematicSceneBuilder() {
                     >
                       {publishState.status === 'uploading' ? 'Publishing…' : 'Publish replacement'}
                     </button>
-                    {replacement && (
-                      <button type="button" onClick={clearReplacement}>
-                        Clear
-                      </button>
-                    )}
+                    {replacement && <button type="button" onClick={clearReplacement}>Clear</button>}
                   </div>
 
                   <input
@@ -520,9 +475,7 @@ export default function CinematicSceneBuilder() {
                     {publishState.result?.commitSha && <p>Commit: {publishState.result.commitSha}</p>}
                     {publishState.result?.filesWritten?.length > 0 && (
                       <ul className="scb-file-list">
-                        {publishState.result.filesWritten.map((file) => (
-                          <li key={file}>{file}</li>
-                        ))}
+                        {publishState.result.filesWritten.map((file) => <li key={file}>{file}</li>)}
                       </ul>
                     )}
                   </div>
@@ -533,12 +486,8 @@ export default function CinematicSceneBuilder() {
 
                   {advancedOpen && (
                     <div className="scb-advanced-box">
-                      <p>
-                        Backup pack is only for manual recovery. Normal workflow is now direct publish.
-                      </p>
-                      <button type="button" onClick={handleDownloadBackupPack} disabled={!replacement}>
-                        Download backup ZIP
-                      </button>
+                      <p>Backup pack is only for manual recovery. Normal workflow is direct live-path overwrite.</p>
+                      <button type="button" onClick={handleDownloadBackupPack} disabled={!replacement}>Download backup ZIP</button>
                       {replacementPayload && <pre>{JSON.stringify(replacementPayload.manifest, null, 2)}</pre>}
                     </div>
                   )}
@@ -552,9 +501,7 @@ export default function CinematicSceneBuilder() {
       </main>
 
       <footer className="scb-footer">
-        <p>
-          Simple mode publishes media files only. It does not modify ScrollFilm.jsx or CampaignScrollFilm.jsx yet.
-        </p>
+        <p>Simple mode now overwrites the selected live frame path. It does not create draft-replacement image paths.</p>
       </footer>
     </div>
   );
