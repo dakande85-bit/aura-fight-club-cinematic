@@ -1,6 +1,6 @@
 // Emergency homepage mobile initial-scroll sync.
-// Also applies the current /asset-version.json value to cinematic assets so
-// replaced frames do not stay stuck behind a browser/CDN cache.
+// Also applies a cache-busting query string to cinematic assets so replaced
+// frames do not stay stuck behind browser/CDN cache after admin publishing.
 
 const VERSIONABLE_ASSET_PATTERNS = ['/assets/aura-scroll/', '/campaign/'];
 const VERSION_PARAM = 'v';
@@ -11,6 +11,17 @@ function isMobileHome() {
 
 function isVersionableAsset(value = '') {
   return VERSIONABLE_ASSET_PATTERNS.some(pattern => value.includes(pattern));
+}
+
+function setAssetVersion(version) {
+  if (!version) return;
+  window.__AURA_ASSET_VERSION__ = String(version);
+  applyCinematicAssetVersion();
+}
+
+function fallbackAssetVersion() {
+  // Minute bucket keeps the site usable while still forcing fresh bytes after a publish.
+  return `runtime-${Math.floor(Date.now() / 60000)}`;
 }
 
 function addVersionToAssetUrl(value) {
@@ -58,6 +69,7 @@ function injectCinematicRuntimeFixes() {
     .scb-replacement-preview img,
     .scb-current-frame-preview img,
     .scb-preview-img,
+    .scb-preview img,
     [class*="preview"] img {
       object-fit: contain !important;
       background: #000 !important;
@@ -92,15 +104,18 @@ function installAssetVersionObserver() {
 async function loadAssetVersion() {
   try {
     const response = await fetch('/asset-version.json', { cache: 'no-store' });
-    if (!response.ok) return;
-    const data = await response.json();
-    if (data?.version) {
-      window.__AURA_ASSET_VERSION__ = String(data.version);
-      applyCinematicAssetVersion();
+    if (response.ok) {
+      const data = await response.json();
+      if (data?.version) {
+        setAssetVersion(data.version);
+        return;
+      }
     }
   } catch {
     // Missing asset-version.json must never break the site.
   }
+
+  setAssetVersion(fallbackAssetVersion());
 }
 
 function syncHomepageScrollFilm() {
