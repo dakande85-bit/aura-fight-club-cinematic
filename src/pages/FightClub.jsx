@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
 import '../styles/editorial-page.css';
 
 export default function FightClub() {
@@ -13,7 +14,7 @@ export default function FightClub() {
       <Header />
 
       <div className="ep__header-block">
-        <button className="ep__back" onClick={() => navigate('/')}>← AURA Fight Club</button>
+        <button className="ep__back" onClick={() => navigate('/')}>Back to AURA Fight Club</button>
         <p className="ep__eyebrow">AURA Fight Club</p>
         <h1 className="ep__title">Fight Club</h1>
         <p className="ep__sub">
@@ -68,10 +69,12 @@ export default function FightClub() {
 
         <div className="ep__cta-block" style={{ marginTop: '32px' }}>
           <button className="ep__cta ep__cta--ghost" onClick={() => navigate('/drop-001')}>
-            View Drop 001 →
+            View Drop 001
           </button>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
