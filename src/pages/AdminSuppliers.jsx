@@ -24,6 +24,8 @@ import {
   seededSuppliers,
   supplierStatusLabels,
 } from '../data/supplierCommandData.js';
+import { products as catalogueProducts } from '../data/products.js';
+import { supabase } from '../lib/supabase.js';
 import '../styles/admin-suppliers.css';
 
 const STORAGE_KEY = 'aura_supplier_command_centre_v1';
@@ -66,6 +68,13 @@ const productPipelineOrder = [
 
 const referenceSlotLabels = ['Main product mockup', 'Model wearing product', 'Detail / angle image'];
 
+const supplierProductSlugMap = {
+  'aura-premium-boxing-gloves': 'aura-cream-boxing-gloves',
+  'aura-sleeveless-zip-hoodie': 'aura-sleeveless-hoodie',
+  'aura-heavyweight-oversized-tee': 'aura-black-fight-club-tee',
+  'aura-tracksuit': 'aura-black-track-jacket',
+};
+
 function mergeById(seedRows, savedRows = []) {
   const savedById = Object.fromEntries(savedRows.map((row) => [row.id, row]));
   return seedRows.map((seed) => ({ ...seed, ...(savedById[seed.id] || {}) }));
@@ -81,6 +90,8 @@ function mergeProductSpecs(seedRows, savedRows = []) {
       status: saved.status || seed.status,
       sample_status: saved.sample_status || seed.sample_status,
       production_status: saved.production_status || seed.production_status,
+      reference_image_slots: saved.reference_image_slots || seed.reference_image_slots,
+      reference_image_urls: saved.reference_image_urls || seed.reference_image_urls,
     };
   });
 }
@@ -144,6 +155,118 @@ function statusTone(status) {
 
 function todayIso() {
   return new Date().toISOString().slice(0, 10);
+}
+
+function slugify(value = '') {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function inferProductSlug(spec) {
+  return supplierProductSlugMap[spec.id] || spec.product_slug || spec.slug || spec.id;
+}
+
+function productSearchTerms(spec) {
+  const slug = inferProductSlug(spec);
+  const normalizedName = slugify(spec.product_name || '');
+  const terms = new Set([
+    slug,
+    spec.id,
+    normalizedName,
+    normalizedName.replace('premium-boxing-gloves', 'cream-boxing-gloves'),
+    normalizedName.replace('sleeveless-zip-hoodie', 'sleeveless-hoodie'),
+    normalizedName.replace('heavyweight-oversized-tee', 'black-fight-club-tee'),
+  ].filter(Boolean));
+  return [...terms];
+}
+
+function assetUrlFromRow(row) {
+  return row?.file_url || row?.img_url || row?.src || row?.image || row?.url || '';
+}
+
+function assetNameFromRow(row, fallback = 'Asset image') {
+  return row?.name || row?.slot_type || row?.alt || row?.note || row?.file_name || fallback;
+}
+
+function createAssetCandidate(row, source, productMeta = {}) {
+  const url = assetUrlFromRow(row);
+  if (!url || String(url).endsWith('.json')) return null;
+  const productSlug = row.product_slug || productMeta.slug || '';
+  return {
+    id: `${source}-${productSlug || 'asset'}-${row.id || row.slot_index || row.sort_order || slugify(url)}`,
+    url,
+    name: assetNameFromRow(row, source),
+    productSlug,
+    productName: productMeta.name || row.product_name || productSlug || 'Unassigned product',
+    category: productMeta.category || row.category || '',
+    source,
+    slotIndex: row.slot_index,
+    status: row.status || row.media_status || '',
+  };
+}
+
+function scoreAssetForSpec(asset, spec) {
+  const terms = productSearchTerms(spec);
+  const haystack = [
+    asset.productSlug,
+    asset.productName,
+    asset.category,
+    asset.name,
+    asset.url,
+  ].join(' ').toLowerCase();
+  let score = 0;
+  terms.forEach((term) => {
+    if (term && haystack.includes(term.toLowerCase())) score += 4;
+  });
+  if (asset.category && spec.category && asset.category.toLowerCase() === spec.category.toLowerCase()) score += 2;
+  if (asset.status === 'approved') score += 1;
+  return score;
+}
+
+async function loadAssetManagerCandidates() {
+  const assetsByUrl = new Map();
+  const addAsset = (asset) => {
+    if (!asset?.url) return;
+    if (!assetsByUrl.has(asset.url)) assetsByUrl.set(asset.url, asset);
+  };
+
+  const productMeta = {};
+  catalogueProducts.forEach((product) => {
+    productMeta[product.slug] = { slug: product.slug, name: product.name, category: product.category };
+    addAsset(createAssetCandidate({ product_slug: product.slug, img_url: product.image, slot_index: 0, slot_type: 'card product' }, 'catalogue', product));
+    addAsset(createAssetCandidate({ product_slug: product.slug, img_url: product.hoverImage, slot_index: 1, slot_type: 'hover/model' }, 'catalogue', product));
+    (product.gallery || []).forEach((image, index) => {
+      addAsset(createAssetCandidate({ product_slug: product.slug, src: image.src, name: image.alt, slot_index: index + 2 }, 'catalogue', product));
+    });
+  });
+
+  try {
+    const [productsResult, slotsResult, mediaResult, candidatesResult] = await Promise.allSettled([
+      supabase.from('aura_products').select('slug,name,category'),
+      supabase.from('aura_slots').select('id,product_slug,slot_index,slot_type,img_url,note'),
+      supabase.from('aura_media').select('id,product_slug,slot_index,slot_type,file_url,status,sort_order'),
+      supabase.from('aura_candidates').select('id,product_slug,src,name,status,created_at'),
+    ]);
+
+    if (productsResult.status === 'fulfilled') {
+      (productsResult.value.data || []).forEach((product) => {
+        productMeta[product.slug] = { slug: product.slug, name: product.name, category: product.category };
+      });
+    }
+
+    if (slotsResult.status === 'fulfilled') {
+      (slotsResult.value.data || []).forEach((slot) => addAsset(createAssetCandidate(slot, 'slot', productMeta[slot.product_slug])));
+    }
+    if (mediaResult.status === 'fulfilled') {
+      (mediaResult.value.data || []).forEach((media) => addAsset(createAssetCandidate(media, 'media', productMeta[media.product_slug])));
+    }
+    if (candidatesResult.status === 'fulfilled') {
+      (candidatesResult.value.data || []).forEach((candidate) => addAsset(createAssetCandidate(candidate, 'candidate', productMeta[candidate.product_slug])));
+    }
+  } catch {
+    // Asset Manager data is optional for this local fallback admin surface.
+  }
+
+  return [...assetsByUrl.values()];
 }
 
 function makeLogId() {
@@ -349,7 +472,7 @@ function fileToDataUrl(file) {
   });
 }
 
-function ReferenceSlotEditor({ productId, slot, index, onUpdate }) {
+function ReferenceSlotEditor({ productId, slot, index, onUpdate, onChooseAsset }) {
   const handleFile = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -369,10 +492,78 @@ function ReferenceSlotEditor({ productId, slot, index, onUpdate }) {
       </label>
       <div className="sup-reference-slot__actions">
         {slot.url ? <a href={slot.url} target="_blank" rel="noreferrer">Open</a> : <span>Waiting</span>}
+        <button type="button" onClick={() => onChooseAsset(productId, index)}>Choose from Assets</button>
         <label>
           Upload
           <input type="file" accept="image/*" onChange={handleFile} />
         </label>
+      </div>
+    </div>
+  );
+}
+
+function AssetPickerModal({ spec, slotIndex, assets, loading, onClose, onSelect }) {
+  const [query, setQuery] = useState('');
+  const scoredAssets = useMemo(() => {
+    if (!spec) return [];
+    return assets
+      .map((asset) => ({ ...asset, matchScore: scoreAssetForSpec(asset, spec) }))
+      .sort((a, b) => b.matchScore - a.matchScore || a.productName.localeCompare(b.productName) || a.name.localeCompare(b.name));
+  }, [assets, spec]);
+
+  const filteredAssets = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return scoredAssets;
+    return scoredAssets.filter((asset) => [
+      asset.productName,
+      asset.productSlug,
+      asset.category,
+      asset.name,
+      asset.source,
+      asset.url,
+    ].join(' ').toLowerCase().includes(needle));
+  }, [query, scoredAssets]);
+
+  if (!spec) return null;
+  const matchedCount = scoredAssets.filter((asset) => asset.matchScore > 0).length;
+
+  return (
+    <div className="sup-modal">
+      <div className="sup-modal__panel sup-asset-picker">
+        <div className="sup-modal__head">
+          <div>
+            <div className="sup-drawer__eyebrow">Choose from Admin Asset Manager</div>
+            <h2>{referenceSlotLabels[slotIndex]} / {spec.product_name}</h2>
+          </div>
+          <IconButton title="Close" onClick={onClose}><X size={18} /></IconButton>
+        </div>
+        <div className="sup-asset-picker__toolbar">
+          <label className="sup-search">
+            <Search size={15} />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search assets, products, categories" />
+          </label>
+          <span>{loading ? 'Loading assets...' : `${matchedCount} matched / ${assets.length} available`}</span>
+        </div>
+        <div className="sup-asset-grid">
+          {filteredAssets.map((asset) => (
+            <button
+              type="button"
+              className={`sup-asset-option${asset.matchScore > 0 ? ' sup-asset-option--matched' : ''}`}
+              key={asset.id}
+              onClick={() => onSelect(asset.url)}
+            >
+              <span className="sup-asset-option__image">
+                <img src={asset.url} alt={asset.name} />
+              </span>
+              <strong>{asset.name}</strong>
+              <small>{asset.productName}</small>
+              <span>{asset.category || 'Uncategorised'} / {asset.source}</span>
+            </button>
+          ))}
+          {!loading && filteredAssets.length === 0 ? (
+            <div className="sup-empty">No matching asset images found. Paste URL and upload still work for this slot.</div>
+          ) : null}
+        </div>
       </div>
     </div>
   );
@@ -390,7 +581,7 @@ function ReferenceSlotPreview({ slot }) {
   );
 }
 
-function ProductManufacturingCard({ spec, suppliersById, onViewSpec, onSend, onReferenceUpdate }) {
+function ProductManufacturingCard({ spec, suppliersById, onViewSpec, onSend, onReferenceUpdate, onChooseAsset }) {
   const preferred = suppliersById[spec.preferred_supplier_id]?.name || 'Unassigned';
   const backups = getBackupSupplierNames(spec, suppliersById);
   const refs = getReferenceSlots(spec);
@@ -431,6 +622,7 @@ function ProductManufacturingCard({ spec, suppliersById, onViewSpec, onSend, onR
             slot={ref}
             index={index}
             onUpdate={onReferenceUpdate}
+            onChooseAsset={onChooseAsset}
           />
         ))}
       </div>
@@ -809,6 +1001,9 @@ export default function AdminSuppliers() {
   const [selectedSupplier, setSelectedSupplier] = useState(null);
   const [selectedSpec, setSelectedSpec] = useState(null);
   const [sendContext, setSendContext] = useState(null);
+  const [assetPicker, setAssetPicker] = useState(null);
+  const [assetCandidates, setAssetCandidates] = useState([]);
+  const [assetCandidatesLoading, setAssetCandidatesLoading] = useState(true);
   const [toast, setToast] = useState('');
   const [loading, setLoading] = useState(true);
   const [lastSavedLocally, setLastSavedLocally] = useState(null);
@@ -841,6 +1036,23 @@ export default function AdminSuppliers() {
     }, 0);
     return () => window.clearTimeout(loadTimer);
   }, [loadData]);
+
+  useEffect(() => {
+    let alive = true;
+    loadAssetManagerCandidates()
+      .then((assets) => {
+        if (alive) setAssetCandidates(assets);
+      })
+      .catch(() => {
+        if (alive) setAssetCandidates([]);
+      })
+      .finally(() => {
+        if (alive) setAssetCandidatesLoading(false);
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   const suppliersById = useMemo(
     () => Object.fromEntries(suppliers.map((supplier) => [supplier.id, supplier])),
@@ -984,6 +1196,19 @@ export default function AdminSuppliers() {
     showToast('Reference image saved');
   };
 
+  const openAssetPicker = (productId, slotIndex) => {
+    const spec = products.find((product) => product.id === productId);
+    if (!spec) return;
+    setAssetPicker({ productId, slotIndex });
+  };
+
+  const selectAssetForReferenceSlot = (url) => {
+    if (!assetPicker) return;
+    updateReferenceSlot(assetPicker.productId, assetPicker.slotIndex, url);
+    setAssetPicker(null);
+    showToast('Asset reference selected');
+  };
+
   const renderProductPipeline = () => (
     <>
       <section className="sup-pipeline-hero">
@@ -1006,6 +1231,7 @@ export default function AdminSuppliers() {
             onViewSpec={setSelectedSpec}
             onSend={(item) => setSendContext({ spec: item })}
             onReferenceUpdate={updateReferenceSlot}
+            onChooseAsset={openAssetPicker}
           />
         ))}
       </section>
@@ -1194,6 +1420,16 @@ export default function AdminSuppliers() {
             await saveContactLog(supplier, spec, email);
             setSendContext(null);
           }}
+        />
+      ) : null}
+      {assetPicker ? (
+        <AssetPickerModal
+          spec={products.find((product) => product.id === assetPicker.productId)}
+          slotIndex={assetPicker.slotIndex}
+          assets={assetCandidates}
+          loading={assetCandidatesLoading}
+          onClose={() => setAssetPicker(null)}
+          onSelect={selectAssetForReferenceSlot}
         />
       ) : null}
       {toast ? <div className="sup-toast">{toast}</div> : null}
