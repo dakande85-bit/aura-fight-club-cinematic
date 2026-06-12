@@ -1,0 +1,209 @@
+/* ─────────────────────────────────────────────────────────────
+   AURA Fight Club — Public Visual Pass
+   Purpose: surgical public-site polish only.
+   Does not touch admin, checkout, product data, routes, or scroll logic.
+   Loaded last from src/main.jsx.
+   ───────────────────────────────────────────────────────────── */
+
+/* 1) Homepage scroll film: lift image/video exposure without killing mood */
+.sf-video {
+  filter: contrast(1.05) saturate(0.78) brightness(0.96);
+}
+
+.sf-image {
+  filter: contrast(1.05) saturate(0.82) brightness(0.94);
+}
+
+.sf-vignette {
+  background:
+    radial-gradient(ellipse 116% 112% at 50% 46%, transparent 34%, rgba(0,0,0,0.58)),
+    linear-gradient(180deg,
+      rgba(0,0,0,0.30) 0%,
+      rgba(0,0,0,0.05) 18%,
+      transparent 48%,
+      rgba(0,0,0,0.76) 100%
+    );
+}
+
+.sf-header {
+  background: linear-gradient(180deg, rgba(4,3,2,0.92) 0%, rgba(4,3,2,0.46) 56%, rgba(4,3,2,0) 100%);
+}
+
+.sf-header-nav-link {
+  color: rgba(244,241,234,0.68);
+}
+
+.sf-header-logo-text {
+  letter-spacing: 0.2em;
+}
+
+/* 2) Mobile homepage: show fighter/model more clearly and avoid dead black top-half */
+@media (max-width: 600px) {
+  .sf-video,
+  .sf-image {
+    object-position: 58% 18%;
+    filter: contrast(1.04) saturate(0.84) brightness(1.02);
+  }
+
+  .sf-image-slot {
+    bottom: 48%;
+  }
+
+  .sf-vignette {
+    background: linear-gradient(
+      180deg,
+      rgba(0,0,0,0.04) 0%,
+      rgba(0,0,0,0.04) 28%,
+      rgba(0,0,0,0.38) 45%,
+      rgba(0,0,0,0.92) 54%,
+      rgba(0,0,0,0.98) 100%
+    );
+  }
+
+  .sf-overlay {
+    top: 49%;
+    padding: 18px 20px 0;
+  }
+
+  .sf-headline-line {
+    font-size: clamp(34px, 10vw, 56px);
+  }
+
+  .sf-sub {
+    color: rgba(244,241,234,0.72);
+  }
+}
+
+@media (max-width: 400px) {
+  .sf-video,
+  .sf-image {
+    object-position: 56% 16%;
+  }
+}
+
+/* 3) Product cards: premium editorial card density and cleaner hover */
+.pc {
+  background: linear-gradient(180deg, #101013 0%, #09090b 100%);
+  border-color: rgba(255,255,255,0.075);
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+.pc__media {
+  aspect-ratio: 4 / 5;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(200,169,110,0.09), transparent 34%),
+    #080808;
+}
+
+.pc__img {
+  padding: clamp(18px, 2.6vw, 34px);
+}
+
+.pc__img--hover {
+  object-position: center top;
+}
+
+.pc__info {
+  padding: 18px 20px 22px;
+  min-height: 188px;
+}
+
+.pc__category {
+  margin-bottom: 6px;
+  color: rgba(200,169,110,0.58);
+}
+
+.pc__name {
+  font-size: clamp(21px, 2.1vw, 28px);
+  margin-bottom: 8px;
+}
+
+.pc__desc {
+  line-height: 1.52;
+  color: rgba(167,161,154,0.7);
+  margin-bottom: 12px;
+}
+
+.pc__footer {
+  padding-top: 12px;
+}
+
+@media (hover: hover) {
+  .pc:hover {
+    border-color: rgba(200,169,110,0.28);
+    background: linear-gradient(180deg, #141416 0%, #0b0b0d 100%);
+    box-shadow: 0 18px 60px rgba(0,0,0,0.28);
+    transform: translateY(-2px);
+    transition: transform 0.28s ease, border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+  }
+
+  .pc:hover .pc__img {
+    transform: scale(1.018);
+  }
+}
+
+@media (max-width: 600px) {
+  .pc__media {
+    aspect-ratio: 3 / 4;
+  }
+
+  .pc__info {
+    min-height: auto;
+    padding: 16px 18px 20px;
+  }
+}
+
+/* 4) Collection pages: tighter editorial rhythm, less dead space */
+.col-header-block {
+  padding: 48px clamp(20px, 4.5vw, 60px) 28px;
+  background:
+    radial-gradient(circle at 84% 8%, rgba(200,169,110,0.055), transparent 28%),
+    #050505;
+}
+
+.col-eyebrow {
+  color: rgba(200,169,110,0.76);
+}
+
+.col-title {
+  font-size: clamp(54px, 7.4vw, 104px);
+  letter-spacing: 0.012em;
+}
+
+.col-sub {
+  max-width: 620px;
+  color: rgba(167,161,154,0.82);
+}
+
+.col-grid-wrap {
+  padding: 24px clamp(20px, 4.5vw, 60px) clamp(56px, 6vw, 96px);
+}
+
+.col-grid {
+  gap: 10px;
+  background: transparent;
+}
+
+.col-grid--single {
+  grid-template-columns: minmax(0, 390px);
+}
+
+@media (max-width: 900px) {
+  .col-grid {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .col-header-block {
+    padding: 44px 20px 22px;
+  }
+
+  .col-grid-wrap {
+    padding: 18px 16px 64px;
+  }
+
+  .col-title {
+    font-size: clamp(46px, 12.6vw, 74px);
+  }
+}
