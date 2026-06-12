@@ -1,0 +1,1 @@
+.header{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;gap:24px;padding:18px 48px;background:#000}.header__nav{display:flex;gap:24px}.header__mobile-menu,.header__backdrop,.header__menu-btn{display:none}.collection-page{padding-top:72px}
