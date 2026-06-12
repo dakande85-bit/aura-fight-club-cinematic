@@ -37,6 +37,7 @@ const navItems = [
   { id: 'send', label: 'Send Design' },
   { id: 'contacts', label: 'Contacts' },
   { id: 'samples', label: 'Samples' },
+  { id: 'qc', label: 'QC Review' },
   { id: 'production', label: 'Production' },
 ];
 
@@ -67,6 +68,26 @@ const productPipelineOrder = [
 ];
 
 const referenceSlotLabels = ['Main product mockup', 'Model wearing product', 'Detail / angle image'];
+
+const qcCriteria = [
+  { id: 'logo_accuracy', label: 'Logo accuracy' },
+  { id: 'typography_accuracy', label: 'Typography accuracy' },
+  { id: 'colour_accuracy', label: 'Colour accuracy' },
+  { id: 'material_accuracy', label: 'Material accuracy' },
+  { id: 'shape_accuracy', label: 'Shape accuracy' },
+  { id: 'stitching_construction_accuracy', label: 'Stitching / construction accuracy' },
+  { id: 'packaging_accuracy', label: 'Packaging accuracy' },
+];
+
+const qcDecisions = [
+  { id: 'pending', label: 'Pending' },
+  { id: 'request_changes', label: 'Request changes' },
+  { id: 'rejected', label: 'Rejected' },
+  { id: 'approved', label: 'Approved' },
+  { id: 'production_ready', label: 'Production ready' },
+];
+
+const sampleImageSlotLabels = ['Supplier sample 1', 'Supplier sample 2', 'Supplier sample 3'];
 
 const supplierProductSlugMap = {
   'aura-premium-boxing-gloves': 'aura-cream-boxing-gloves',
@@ -105,6 +126,7 @@ function readLocalData() {
         suppliers: mergeById(seededSuppliers, parsed.suppliers || []),
         products: mergeProductSpecs(seededProductSpecs, parsed.products || []),
         logs: (parsed.logs || seededContactLogs).map(normalizeContactLog),
+        qcReviews: parsed.qcReviews || {},
         lastSavedLocally: parsed.lastSavedLocally || null,
       };
     }
@@ -115,6 +137,7 @@ function readLocalData() {
     suppliers: seededSuppliers,
     products: seededProductSpecs,
     logs: seededContactLogs.map(normalizeContactLog),
+    qcReviews: {},
     lastSavedLocally: null,
   };
 }
@@ -308,6 +331,52 @@ function createBlankContactLog(supplierId = '', productSpecId = '') {
     contact_method: 'Email',
     created_at: new Date().toISOString(),
   });
+}
+
+function createBlankQcReview(productId) {
+  return {
+    product_id: productId,
+    sample_images: sampleImageSlotLabels.map((label) => ({ label, url: '' })),
+    sample_video_url: '',
+    scores: Object.fromEntries(qcCriteria.map((criterion) => [criterion.id, 5])),
+    decision: 'pending',
+    notes: '',
+    updated_at: new Date().toISOString(),
+  };
+}
+
+function normalizeQcReview(productId, review = {}) {
+  const blank = createBlankQcReview(productId);
+  const sampleImages = review.sample_images?.length ? review.sample_images : blank.sample_images;
+  return {
+    ...blank,
+    ...review,
+    product_id: productId,
+    sample_images: sampleImageSlotLabels.map((label, index) => ({
+      label,
+      url: sampleImages[index]?.url || '',
+    })),
+    scores: {
+      ...blank.scores,
+      ...(review.scores || {}),
+    },
+    decision: review.decision || blank.decision,
+    notes: review.notes || '',
+    sample_video_url: review.sample_video_url || '',
+  };
+}
+
+function normalizeQcReviews(products, savedReviews = {}) {
+  return Object.fromEntries(products.map((product) => [
+    product.id,
+    normalizeQcReview(product.id, savedReviews[product.id]),
+  ]));
+}
+
+function calculateQcScore(review) {
+  const values = qcCriteria.map((criterion) => Number(review.scores?.[criterion.id] || 0)).filter((score) => score > 0);
+  if (!values.length) return 0;
+  return Math.round((values.reduce((sum, score) => sum + score, 0) / values.length) * 10) / 10;
 }
 
 function Pill({ children, tone = 'muted' }) {
@@ -989,11 +1058,148 @@ function SupplierContactTracker({ logs, suppliers, products, onAdd, onUpdate, on
   );
 }
 
+function QcSampleReviewCentre({ products, reviews, onUpdate }) {
+  const setReviewPatch = (productId, patch) => {
+    const current = normalizeQcReview(productId, reviews[productId]);
+    onUpdate(productId, { ...current, ...patch, updated_at: new Date().toISOString() });
+  };
+
+  const setScore = (productId, criterionId, value) => {
+    const current = normalizeQcReview(productId, reviews[productId]);
+    const score = Math.min(10, Math.max(1, Number(value) || 1));
+    setReviewPatch(productId, {
+      scores: {
+        ...current.scores,
+        [criterionId]: score,
+      },
+    });
+  };
+
+  const setSampleImage = (productId, index, url) => {
+    const current = normalizeQcReview(productId, reviews[productId]);
+    const nextImages = current.sample_images.map((image, imageIndex) => (
+      imageIndex === index ? { ...image, url } : image
+    ));
+    setReviewPatch(productId, { sample_images: nextImages });
+  };
+
+  const handleSampleUpload = async (productId, index, event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const dataUrl = await fileToDataUrl(file);
+    setSampleImage(productId, index, dataUrl);
+    event.target.value = '';
+  };
+
+  return (
+    <section className="sup-qc-centre">
+      <div className="sup-pipeline-hero">
+        <div>
+          <div className="sup-section-title">QC Sample Review Centre</div>
+          <p>Compare supplier samples against original AURA references, score manufacturing accuracy, and decide whether each product moves toward production.</p>
+        </div>
+        <div className="sup-pipeline-hero__stats">
+          <StatCard label="Products reviewed" value={products.length} detail="QC records in localStorage" icon={ShieldCheck} />
+          <StatCard label="Approved" value={products.filter((product) => reviews[product.id]?.decision === 'approved').length} detail="Cleared sample direction" icon={Check} />
+          <StatCard label="Production ready" value={products.filter((product) => reviews[product.id]?.decision === 'production_ready').length} detail="Ready for bulk route" icon={Factory} />
+        </div>
+      </div>
+
+      {products.map((product) => {
+        const review = normalizeQcReview(product.id, reviews[product.id]);
+        const referenceSlots = getReferenceSlots(product);
+        const overallScore = calculateQcScore(review);
+
+        return (
+          <article className="sup-qc-card" key={product.id}>
+            <div className="sup-qc-card__head">
+              <div>
+                <div className="sup-product-card__eyebrow">{product.category} / {product.supplier_type_needed}</div>
+                <h2>{product.product_name}</h2>
+              </div>
+              <div className="sup-qc-score">
+                <span>Overall QC</span>
+                <strong>{overallScore}/10</strong>
+              </div>
+            </div>
+
+            <div className="sup-qc-media-grid">
+              <div>
+                <h3>Original reference images</h3>
+                <div className="sup-reference-slots sup-reference-slots--qc">
+                  {referenceSlots.map((slot) => <ReferenceSlotPreview key={`${product.id}-qc-ref-${slot.label}`} slot={slot} />)}
+                </div>
+              </div>
+              <div>
+                <h3>Supplier sample images</h3>
+                <div className="sup-reference-slots sup-reference-slots--qc">
+                  {review.sample_images.map((slot, index) => (
+                    <div className="sup-reference-slot" key={`${product.id}-sample-${slot.label}`}>
+                      <div className="sup-reference-slot__thumb">
+                        {slot.url ? <img src={slot.url} alt={`${product.product_name} supplier sample ${index + 1}`} /> : <span>No sample</span>}
+                      </div>
+                      <label>
+                        <span>{slot.label}</span>
+                        <input type="url" value={slot.url || ''} onChange={(event) => setSampleImage(product.id, index, event.target.value)} placeholder="Paste sample image URL" />
+                      </label>
+                      <div className="sup-reference-slot__actions">
+                        {slot.url ? <a href={slot.url} target="_blank" rel="noreferrer">Open</a> : <span>Waiting</span>}
+                        <label>
+                          Upload
+                          <input type="file" accept="image/*" onChange={(event) => handleSampleUpload(product.id, index, event)} />
+                        </label>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="sup-qc-controls">
+              <label className="sup-qc-video">
+                <span>Sample video URL</span>
+                <input value={review.sample_video_url} onChange={(event) => setReviewPatch(product.id, { sample_video_url: event.target.value })} placeholder="Paste supplier sample video URL" />
+              </label>
+              <label>
+                <span>Decision</span>
+                <select value={review.decision} onChange={(event) => setReviewPatch(product.id, { decision: event.target.value })}>
+                  {qcDecisions.map((decision) => <option key={decision.id} value={decision.id}>{decision.label}</option>)}
+                </select>
+              </label>
+            </div>
+
+            <div className="sup-qc-checklist">
+              {qcCriteria.map((criterion) => (
+                <label key={criterion.id}>
+                  <span>{criterion.label}</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    value={review.scores[criterion.id]}
+                    onChange={(event) => setScore(product.id, criterion.id, event.target.value)}
+                  />
+                </label>
+              ))}
+            </div>
+
+            <label className="sup-qc-notes">
+              <span>QC notes</span>
+              <textarea value={review.notes} onChange={(event) => setReviewPatch(product.id, { notes: event.target.value })} placeholder="Fit, logo, material, colour, construction, packaging, requested changes" />
+            </label>
+          </article>
+        );
+      })}
+    </section>
+  );
+}
+
 export default function AdminSuppliers() {
   const navigate = useNavigate();
   const [suppliers, setSuppliers] = useState([]);
   const [products, setProducts] = useState([]);
   const [logs, setLogs] = useState([]);
+  const [qcReviews, setQcReviews] = useState({});
   const [activeSection, setActiveSection] = useState('pipeline');
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
@@ -1013,10 +1219,10 @@ export default function AdminSuppliers() {
     window.setTimeout(() => setToast(''), 2400);
   }, []);
 
-  const persistLocal = useCallback((nextSuppliers, nextProducts, nextLogs) => {
-    const savedAt = writeLocalData({ suppliers: nextSuppliers, products: nextProducts, logs: nextLogs });
+  const persistLocal = useCallback((nextSuppliers, nextProducts, nextLogs, nextQcReviews = qcReviews) => {
+    const savedAt = writeLocalData({ suppliers: nextSuppliers, products: nextProducts, logs: nextLogs, qcReviews: nextQcReviews });
     setLastSavedLocally(savedAt);
-  }, []);
+  }, [qcReviews]);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -1025,6 +1231,7 @@ export default function AdminSuppliers() {
       setSuppliers(local.suppliers);
       setProducts(local.products);
       setLogs(local.logs);
+      setQcReviews(normalizeQcReviews(local.products, local.qcReviews));
       setLastSavedLocally(local.lastSavedLocally);
       setLoading(false);
     }, 0);
@@ -1209,6 +1416,16 @@ export default function AdminSuppliers() {
     showToast('Asset reference selected');
   };
 
+  const updateQcReview = (productId, nextReview) => {
+    const nextQcReviews = {
+      ...qcReviews,
+      [productId]: normalizeQcReview(productId, nextReview),
+    };
+    setQcReviews(nextQcReviews);
+    persistLocal(suppliers, products, logs, nextQcReviews);
+    showToast('QC review saved');
+  };
+
   const renderProductPipeline = () => (
     <>
       <section className="sup-pipeline-hero">
@@ -1310,6 +1527,14 @@ export default function AdminSuppliers() {
     </section>
   );
 
+  const renderQc = () => (
+    <QcSampleReviewCentre
+      products={pipelineProducts}
+      reviews={qcReviews}
+      onUpdate={updateQcReview}
+    />
+  );
+
   const renderProduction = () => (
     <section className="sup-panel">
       <div className="sup-section-title">Production Tracker</div>
@@ -1391,6 +1616,7 @@ export default function AdminSuppliers() {
           {!loading && activeSection === 'send' ? renderSend() : null}
           {!loading && activeSection === 'contacts' ? renderContacts() : null}
           {!loading && activeSection === 'samples' ? renderSamples() : null}
+          {!loading && activeSection === 'qc' ? renderQc() : null}
           {!loading && activeSection === 'production' ? renderProduction() : null}
         </div>
       </main>
