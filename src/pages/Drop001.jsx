@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import ProductCard from '../components/ProductCard.jsx';
+import Footer from '../components/Footer.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import '../styles/drop001.css';
 
@@ -12,10 +13,9 @@ export default function Drop001() {
     <div className="d001">
       <Header />
 
-      {/* Compact header band */}
       <div className="d001__hero">
         <button className="d001__back" onClick={() => navigate('/')}>
-          ← AURA Fight Club
+          Back to AURA Fight Club
         </button>
         <p className="d001__eyebrow">AURA Fight Club</p>
         <h1 className="d001__title">Drop 001</h1>
@@ -26,16 +26,15 @@ export default function Drop001() {
         <div className="d001__chrome" />
         <p className="d001__meta">
           {loading
-            ? 'Loading…'
+            ? 'Loading...'
             : `${products.length} ${products.length === 1 ? 'piece' : 'pieces'} · Waitlist open · Limited run`
           }
         </p>
       </div>
 
-      {/* Grid — tight gap from header */}
       <div className="d001__grid-wrap">
         {loading ? (
-          <div className="d001__loading">Loading collection…</div>
+          <div className="d001__loading">Loading collection...</div>
         ) : products.length > 0 ? (
           <div className="d001__grid">
             {products.map(p => (
@@ -49,6 +48,7 @@ export default function Drop001() {
         )}
       </div>
 
+      <Footer />
     </div>
   );
 }
