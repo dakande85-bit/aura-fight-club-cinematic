@@ -63,9 +63,25 @@ const productPipelineOrder = [
   'aura-sauna-suit',
 ];
 
+const referenceSlotLabels = ['Main product mockup', 'Model wearing product', 'Detail / angle image'];
+
 function mergeById(seedRows, savedRows = []) {
   const savedById = Object.fromEntries(savedRows.map((row) => [row.id, row]));
   return seedRows.map((seed) => ({ ...seed, ...(savedById[seed.id] || {}) }));
+}
+
+function mergeProductSpecs(seedRows, savedRows = []) {
+  const savedById = Object.fromEntries(savedRows.map((row) => [row.id, row]));
+  return seedRows.map((seed) => {
+    const saved = savedById[seed.id] || {};
+    return {
+      ...saved,
+      ...seed,
+      status: saved.status || seed.status,
+      sample_status: saved.sample_status || seed.sample_status,
+      production_status: saved.production_status || seed.production_status,
+    };
+  });
 }
 
 function readLocalData() {
@@ -75,7 +91,7 @@ function readLocalData() {
       const parsed = JSON.parse(saved);
       return {
         suppliers: mergeById(seededSuppliers, parsed.suppliers || []),
-        products: mergeById(seededProductSpecs, parsed.products || []),
+        products: mergeProductSpecs(seededProductSpecs, parsed.products || []),
         logs: parsed.logs || seededContactLogs,
         lastSavedLocally: parsed.lastSavedLocally || null,
       };
@@ -276,11 +292,67 @@ function getBackupSupplierNames(spec, suppliersById) {
 }
 
 function getReferenceSlots(spec) {
-  if (spec.reference_image_slots?.length) return spec.reference_image_slots;
-  return (spec.reference_image_urls || []).map((url, index) => ({ label: `Reference ${index + 1}`, url }));
+  const source = spec.reference_image_slots?.length
+    ? spec.reference_image_slots
+    : (spec.reference_image_urls || []).map((url, index) => ({ label: referenceSlotLabels[index] || `Reference ${index + 1}`, url }));
+
+  return referenceSlotLabels.map((label, index) => ({
+    label,
+    url: source[index]?.url || '',
+  }));
 }
 
-function ProductManufacturingCard({ spec, suppliersById, onViewSpec, onSend }) {
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function ReferenceSlotEditor({ productId, slot, index, onUpdate }) {
+  const handleFile = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const dataUrl = await fileToDataUrl(file);
+    onUpdate(productId, index, dataUrl);
+    event.target.value = '';
+  };
+
+  return (
+    <div className="sup-reference-slot">
+      <div className="sup-reference-slot__thumb">
+        {slot.url ? <img src={slot.url} alt={`${slot.label} reference`} /> : <span>No image</span>}
+      </div>
+      <label>
+        <span>{slot.label}</span>
+        <input type="url" value={slot.url || ''} onChange={(event) => onUpdate(productId, index, event.target.value)} placeholder="Paste image URL" />
+      </label>
+      <div className="sup-reference-slot__actions">
+        {slot.url ? <a href={slot.url} target="_blank" rel="noreferrer">Open</a> : <span>Waiting</span>}
+        <label>
+          Upload
+          <input type="file" accept="image/*" onChange={handleFile} />
+        </label>
+      </div>
+    </div>
+  );
+}
+
+function ReferenceSlotPreview({ slot }) {
+  return (
+    <div className="sup-reference-slot sup-reference-slot--preview">
+      <div className="sup-reference-slot__thumb">
+        {slot.url ? <img src={slot.url} alt={`${slot.label} reference`} /> : <span>No image</span>}
+      </div>
+      <span>{slot.label}</span>
+      <strong>{slot.url || 'No image URL saved'}</strong>
+    </div>
+  );
+}
+
+function ProductManufacturingCard({ spec, suppliersById, onViewSpec, onSend, onReferenceUpdate }) {
   const preferred = suppliersById[spec.preferred_supplier_id]?.name || 'Unassigned';
   const backups = getBackupSupplierNames(spec, suppliersById);
   const refs = getReferenceSlots(spec);
@@ -314,11 +386,14 @@ function ProductManufacturingCard({ spec, suppliersById, onViewSpec, onSend }) {
       </div>
 
       <div className="sup-reference-slots">
-        {refs.map((ref) => (
-          <a href={ref.url} target="_blank" rel="noreferrer" key={`${spec.id}-${ref.label}`}>
-            <span>{ref.label}</span>
-            <strong>{ref.url}</strong>
-          </a>
+        {refs.map((ref, index) => (
+          <ReferenceSlotEditor
+            key={`${spec.id}-${ref.label}`}
+            productId={spec.id}
+            slot={ref}
+            index={index}
+            onUpdate={onReferenceUpdate}
+          />
         ))}
       </div>
 
@@ -332,8 +407,28 @@ function ProductManufacturingCard({ spec, suppliersById, onViewSpec, onSend }) {
       </div>
 
       <div className="sup-product-card__notes">
+        <span>Supplier-ready spec</span>
+        <p>{spec.spec_summary}</p>
+      </div>
+
+      <div className="sup-product-card__notes">
         <span>Manufacturing notes</span>
         <p>{spec.manufacturing_notes}</p>
+      </div>
+
+      <div className="sup-product-intel">
+        <div>
+          <span>Quality risks</span>
+          <ul>
+            {(spec.quality_risks || []).map((risk) => <li key={risk}>{risk}</li>)}
+          </ul>
+        </div>
+        <div>
+          <span>Supplier questions</span>
+          <ul>
+            {(spec.supplier_questions || []).map((question) => <li key={question}>{question}</li>)}
+          </ul>
+        </div>
       </div>
 
       <div className="sup-actions">
@@ -423,6 +518,7 @@ function SupplierDrawer({ supplier, logs, onClose, onUpdateStatus, onCopyEmail }
 
 function SpecDrawer({ spec, suppliersById, onClose, onSend }) {
   if (!spec) return null;
+  const refs = getReferenceSlots(spec);
   const fields = [
     ['Material', spec.material],
     ['Fabric weight / GSM', spec.fabric_weight_gsm],
@@ -457,10 +553,14 @@ function SpecDrawer({ spec, suppliersById, onClose, onSend }) {
           <div><span>Target MOQ</span><strong>{spec.target_moq}</strong></div>
         </div>
         <div className="sup-drawer__block">
-          <h3>Reference image URLs</h3>
-          <div className="sup-ref-list">
-            {spec.reference_image_urls.map((url) => <a key={url} href={url} target="_blank" rel="noreferrer">{url}</a>)}
+          <h3>Reference image slots</h3>
+          <div className="sup-reference-slots sup-reference-slots--drawer">
+            {refs.map((slot) => <ReferenceSlotPreview key={`${spec.id}-drawer-${slot.label}`} slot={slot} />)}
           </div>
+        </div>
+        <div className="sup-drawer__block">
+          <h3>Supplier-ready spec</h3>
+          <p>{spec.spec_summary}</p>
         </div>
         {fields.map(([label, value]) => (
           <div className="sup-drawer__block" key={label}>
@@ -468,6 +568,18 @@ function SpecDrawer({ spec, suppliersById, onClose, onSend }) {
             <p>{value}</p>
           </div>
         ))}
+        <div className="sup-drawer__block">
+          <h3>Quality risks</h3>
+          <ul className="sup-drawer-list">
+            {(spec.quality_risks || []).map((risk) => <li key={risk}>{risk}</li>)}
+          </ul>
+        </div>
+        <div className="sup-drawer__block">
+          <h3>Supplier questions</h3>
+          <ul className="sup-drawer-list">
+            {(spec.supplier_questions || []).map((question) => <li key={question}>{question}</li>)}
+          </ul>
+        </div>
         <div className="sup-drawer__actions">
           <button type="button" onClick={() => onSend(spec)}><Send size={14} />Send to Supplier</button>
         </div>
@@ -655,6 +767,28 @@ export default function AdminSuppliers() {
 
   const markApproved = (supplier) => updateSupplierStatus(supplier, 'approved');
 
+  const updateReferenceSlot = (productId, slotIndex, url) => {
+    const nextProducts = products.map((product) => {
+      if (product.id !== productId) return product;
+      const currentSlots = getReferenceSlots(product);
+      const nextSlots = currentSlots.map((slot, index) => (
+        index === slotIndex ? { ...slot, url } : slot
+      ));
+      return {
+        ...product,
+        reference_image_slots: nextSlots,
+        reference_image_urls: nextSlots.map((slot) => slot.url).filter(Boolean),
+      };
+    });
+    setProducts(nextProducts);
+    const nextSelectedSpec = selectedSpec?.id === productId
+      ? nextProducts.find((product) => product.id === productId) || selectedSpec
+      : selectedSpec;
+    if (nextSelectedSpec !== selectedSpec) setSelectedSpec(nextSelectedSpec);
+    persistLocal(suppliers, nextProducts, logs);
+    showToast('Reference image saved');
+  };
+
   const renderProductPipeline = () => (
     <>
       <section className="sup-pipeline-hero">
@@ -676,6 +810,7 @@ export default function AdminSuppliers() {
             suppliersById={suppliersById}
             onViewSpec={setSelectedSpec}
             onSend={(item) => setSendContext({ spec: item })}
+            onReferenceUpdate={updateReferenceSlot}
           />
         ))}
       </section>
