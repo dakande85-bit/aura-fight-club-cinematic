@@ -54,13 +54,22 @@ function injectCinematicRuntimeFixes() {
   const style = document.createElement('style');
   style.id = 'aura-cinematic-runtime-fixes';
   style.textContent = `
+    /*
+      Frame 09 is a portrait/editorial product model image. Using cover on a
+      16:9 scroll-film stage zooms into the torso and cuts the head/legs. Keep
+      this frame contained and biased right so the full outfit remains visible
+      while the left headline area stays readable.
+    */
     img[src*="frame_09_cream_full_outfit_model"] {
-      object-position: center 34% !important;
+      object-fit: contain !important;
+      object-position: 78% center !important;
+      background: #050505 !important;
     }
 
     @media (max-width: 768px) {
       img[src*="frame_09_cream_full_outfit_model"] {
-        object-position: center 38% !important;
+        object-fit: contain !important;
+        object-position: center center !important;
       }
     }
 
