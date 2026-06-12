@@ -33,6 +33,7 @@ const navItems = [
   { id: 'directory', label: 'Directory' },
   { id: 'specs', label: 'Spec Library' },
   { id: 'send', label: 'Send Design' },
+  { id: 'contacts', label: 'Contacts' },
   { id: 'samples', label: 'Samples' },
   { id: 'production', label: 'Production' },
 ];
@@ -92,7 +93,7 @@ function readLocalData() {
       return {
         suppliers: mergeById(seededSuppliers, parsed.suppliers || []),
         products: mergeProductSpecs(seededProductSpecs, parsed.products || []),
-        logs: parsed.logs || seededContactLogs,
+        logs: (parsed.logs || seededContactLogs).map(normalizeContactLog),
         lastSavedLocally: parsed.lastSavedLocally || null,
       };
     }
@@ -102,7 +103,7 @@ function readLocalData() {
   return {
     suppliers: seededSuppliers,
     products: seededProductSpecs,
-    logs: seededContactLogs,
+    logs: seededContactLogs.map(normalizeContactLog),
     lastSavedLocally: null,
   };
 }
@@ -147,6 +148,43 @@ function todayIso() {
 
 function makeLogId() {
   return `log-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+function normalizeContactLog(log) {
+  return {
+    id: log.id || makeLogId(),
+    supplier_id: log.supplier_id || '',
+    product_spec_id: log.product_spec_id || '',
+    contact_type: log.contact_type || 'email',
+    date_contacted: log.date_contacted || (log.created_at ? log.created_at.slice(0, 10) : todayIso()),
+    contact_method: log.contact_method || 'Email',
+    subject: log.subject || '',
+    supplier_response: log.supplier_response || '',
+    quoted_sample_cost: log.quoted_sample_cost || '',
+    moq_quoted: log.moq_quoted || '',
+    bulk_unit_price_quoted: log.bulk_unit_price_quoted || '',
+    lead_time_quoted: log.lead_time_quoted || '',
+    shipping_quote: log.shipping_quote || '',
+    sample_invoice_status: log.sample_invoice_status || 'not_requested',
+    sample_paid_status: log.sample_paid_status || 'not_paid',
+    sample_received_status: log.sample_received_status || 'not_received',
+    decision: log.decision || 'pending',
+    follow_up_date: log.follow_up_date || '',
+    notes: log.notes || '',
+    body: log.body || '',
+    created_at: log.created_at || new Date().toISOString(),
+  };
+}
+
+function createBlankContactLog(supplierId = '', productSpecId = '') {
+  return normalizeContactLog({
+    id: makeLogId(),
+    supplier_id: supplierId,
+    product_spec_id: productSpecId,
+    contact_type: 'manual',
+    contact_method: 'Email',
+    created_at: new Date().toISOString(),
+  });
 }
 
 function Pill({ children, tone = 'muted' }) {
@@ -638,6 +676,127 @@ function SendDesignModal({ suppliers, specs, initialSupplier, initialSpec, onClo
   );
 }
 
+function SupplierContactTracker({ logs, suppliers, products, onAdd, onUpdate, onDelete }) {
+  const suppliersById = Object.fromEntries(suppliers.map((supplier) => [supplier.id, supplier]));
+  const productsById = Object.fromEntries(products.map((product) => [product.id, product]));
+  const sortedLogs = [...logs].sort((a, b) => String(b.date_contacted || b.created_at).localeCompare(String(a.date_contacted || a.created_at)));
+
+  const set = (id, field, value) => onUpdate(id, { [field]: value });
+
+  return (
+    <section className="sup-panel">
+      <div className="sup-contact-head">
+        <div>
+          <div className="sup-section-title">Supplier Contact Tracker</div>
+          <p>Track supplier outreach, responses, quotes, sample payments, delivery status, and approval decisions for each AURA product.</p>
+        </div>
+        <button type="button" onClick={onAdd}>Add Contact</button>
+      </div>
+
+      <div className="sup-contact-list">
+        {sortedLogs.map((log) => (
+          <article className="sup-contact-card" key={log.id}>
+            <div className="sup-contact-card__top">
+              <div>
+                <strong>{suppliersById[log.supplier_id]?.name || 'Unassigned supplier'}</strong>
+                <span>{productsById[log.product_spec_id]?.product_name || 'Unassigned product'}</span>
+              </div>
+              <button type="button" onClick={() => onDelete(log.id)}>Delete</button>
+            </div>
+
+            <div className="sup-contact-grid">
+              <label>
+                <span>Date contacted</span>
+                <input type="date" value={log.date_contacted || ''} onChange={(event) => set(log.id, 'date_contacted', event.target.value)} />
+              </label>
+              <label>
+                <span>Contact method</span>
+                <select value={log.contact_method || 'Email'} onChange={(event) => set(log.id, 'contact_method', event.target.value)}>
+                  {['Email', 'Contact form', 'Instagram', 'WhatsApp', 'Phone', 'Other'].map((method) => <option key={method}>{method}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Supplier</span>
+                <select value={log.supplier_id || ''} onChange={(event) => set(log.id, 'supplier_id', event.target.value)}>
+                  <option value="">Select supplier</option>
+                  {suppliers.map((supplier) => <option key={supplier.id} value={supplier.id}>{supplier.name}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Product</span>
+                <select value={log.product_spec_id || ''} onChange={(event) => set(log.id, 'product_spec_id', event.target.value)}>
+                  <option value="">Select product</option>
+                  {products.map((product) => <option key={product.id} value={product.id}>{product.product_name}</option>)}
+                </select>
+              </label>
+              <label className="sup-contact-grid__wide">
+                <span>Email subject</span>
+                <input value={log.subject || ''} onChange={(event) => set(log.id, 'subject', event.target.value)} placeholder="Subject sent to supplier" />
+              </label>
+              <label className="sup-contact-grid__wide">
+                <span>Supplier response</span>
+                <textarea value={log.supplier_response || ''} onChange={(event) => set(log.id, 'supplier_response', event.target.value)} placeholder="Paste or summarise supplier response" />
+              </label>
+              <label>
+                <span>Quoted sample cost</span>
+                <input value={log.quoted_sample_cost || ''} onChange={(event) => set(log.id, 'quoted_sample_cost', event.target.value)} placeholder="e.g. GBP 85" />
+              </label>
+              <label>
+                <span>MOQ quoted</span>
+                <input value={log.moq_quoted || ''} onChange={(event) => set(log.id, 'moq_quoted', event.target.value)} placeholder="e.g. 100 units" />
+              </label>
+              <label>
+                <span>Bulk unit price quoted</span>
+                <input value={log.bulk_unit_price_quoted || ''} onChange={(event) => set(log.id, 'bulk_unit_price_quoted', event.target.value)} placeholder="e.g. GBP 12.50" />
+              </label>
+              <label>
+                <span>Lead time quoted</span>
+                <input value={log.lead_time_quoted || ''} onChange={(event) => set(log.id, 'lead_time_quoted', event.target.value)} placeholder="e.g. 14 days sample / 45 days bulk" />
+              </label>
+              <label>
+                <span>Shipping quote</span>
+                <input value={log.shipping_quote || ''} onChange={(event) => set(log.id, 'shipping_quote', event.target.value)} placeholder="Shipping cost / method" />
+              </label>
+              <label>
+                <span>Sample invoice status</span>
+                <select value={log.sample_invoice_status || 'not_requested'} onChange={(event) => set(log.id, 'sample_invoice_status', event.target.value)}>
+                  {['not_requested', 'requested', 'received', 'approved', 'rejected'].map((status) => <option key={status} value={status}>{status.replaceAll('_', ' ')}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Sample paid status</span>
+                <select value={log.sample_paid_status || 'not_paid'} onChange={(event) => set(log.id, 'sample_paid_status', event.target.value)}>
+                  {['not_paid', 'pending', 'paid', 'refunded'].map((status) => <option key={status} value={status}>{status.replaceAll('_', ' ')}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Sample received status</span>
+                <select value={log.sample_received_status || 'not_received'} onChange={(event) => set(log.id, 'sample_received_status', event.target.value)}>
+                  {['not_received', 'in_transit', 'received', 'needs_revision'].map((status) => <option key={status} value={status}>{status.replaceAll('_', ' ')}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Approve / reject decision</span>
+                <select value={log.decision || 'pending'} onChange={(event) => set(log.id, 'decision', event.target.value)}>
+                  {['pending', 'approved', 'rejected', 'pending_revision', 'backup_only'].map((status) => <option key={status} value={status}>{status.replaceAll('_', ' ')}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Follow-up date</span>
+                <input type="date" value={log.follow_up_date || ''} onChange={(event) => set(log.id, 'follow_up_date', event.target.value)} />
+              </label>
+              <label className="sup-contact-grid__wide">
+                <span>Notes</span>
+                <textarea value={log.notes || ''} onChange={(event) => set(log.id, 'notes', event.target.value)} placeholder="Internal notes, risks, next action" />
+              </label>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function AdminSuppliers() {
   const navigate = useNavigate();
   const [suppliers, setSuppliers] = useState([]);
@@ -729,15 +888,29 @@ export default function AdminSuppliers() {
 
   const saveContactLog = async (supplier, spec, email, contactType = 'email') => {
     if (!supplier || !spec) return;
-    const log = {
+    const log = normalizeContactLog({
       id: makeLogId(),
       supplier_id: supplier.id,
       product_spec_id: spec.id,
       contact_type: contactType,
+      contact_method: 'Email',
+      date_contacted: todayIso(),
       subject: email.subject,
+      supplier_response: '',
+      quoted_sample_cost: '',
+      moq_quoted: '',
+      bulk_unit_price_quoted: '',
+      lead_time_quoted: '',
+      shipping_quote: '',
+      sample_invoice_status: 'not_requested',
+      sample_paid_status: 'not_paid',
+      sample_received_status: 'not_received',
+      decision: 'pending',
+      follow_up_date: '',
+      notes: contactType === 'sample_request' ? 'Sample request logged from supplier directory action.' : 'Generated supplier email saved from Send Design workflow.',
       body: email.body,
       created_at: new Date().toISOString(),
-    };
+    });
     const nextLogs = [log, ...logs];
     const nextSuppliers = suppliers.map((item) => (
       item.id === supplier.id ? { ...item, status: item.status === 'not_contacted' ? 'contacted' : item.status, last_contacted: todayIso() } : item
@@ -766,6 +939,28 @@ export default function AdminSuppliers() {
   };
 
   const markApproved = (supplier) => updateSupplierStatus(supplier, 'approved');
+
+  const addContactRecord = () => {
+    const nextLogs = [createBlankContactLog(suppliers[0]?.id || '', products[0]?.id || ''), ...logs];
+    setLogs(nextLogs);
+    persistLocal(suppliers, products, nextLogs);
+    showToast('Contact record added');
+  };
+
+  const updateContactRecord = (id, patch) => {
+    const nextLogs = logs.map((log) => (
+      log.id === id ? normalizeContactLog({ ...log, ...patch }) : log
+    ));
+    setLogs(nextLogs);
+    persistLocal(suppliers, products, nextLogs);
+  };
+
+  const deleteContactRecord = (id) => {
+    const nextLogs = logs.filter((log) => log.id !== id);
+    setLogs(nextLogs);
+    persistLocal(suppliers, products, nextLogs);
+    showToast('Contact record deleted');
+  };
 
   const updateReferenceSlot = (productId, slotIndex, url) => {
     const nextProducts = products.map((product) => {
@@ -857,6 +1052,17 @@ export default function AdminSuppliers() {
       </div>
       <button type="button" onClick={() => setSendContext({})}><Send size={16} />Launch workflow</button>
     </section>
+  );
+
+  const renderContacts = () => (
+    <SupplierContactTracker
+      logs={logs}
+      suppliers={suppliers}
+      products={products}
+      onAdd={addContactRecord}
+      onUpdate={updateContactRecord}
+      onDelete={deleteContactRecord}
+    />
   );
 
   const renderSamples = () => (
@@ -957,6 +1163,7 @@ export default function AdminSuppliers() {
           {!loading && activeSection === 'directory' ? renderDirectory() : null}
           {!loading && activeSection === 'specs' ? renderSpecs() : null}
           {!loading && activeSection === 'send' ? renderSend() : null}
+          {!loading && activeSection === 'contacts' ? renderContacts() : null}
           {!loading && activeSection === 'samples' ? renderSamples() : null}
           {!loading && activeSection === 'production' ? renderProduction() : null}
         </div>
