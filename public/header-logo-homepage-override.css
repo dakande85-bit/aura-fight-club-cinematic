@@ -1,0 +1,47 @@
+/* Emergency homepage logo visibility override */
+.sf-header .sf-header-logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  flex-direction: row !important;
+  min-width: 260px !important;
+  width: 260px !important;
+  height: 72px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+.sf-header .sf-header-logo::before {
+  content: "" !important;
+  display: block !important;
+  width: 238px !important;
+  height: 64px !important;
+  flex: 0 0 238px !important;
+  background-image: inherit !important;
+  background-position: center left !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.sf-header .sf-header-logo-text,
+.sf-header .sf-header-logo-sub {
+  display: none !important;
+}
+
+@media (max-width: 860px) {
+  .sf-header .sf-header-logo {
+    min-width: 150px !important;
+    width: 150px !important;
+    height: 56px !important;
+  }
+
+  .sf-header .sf-header-logo::before {
+    width: 144px !important;
+    height: 44px !important;
+    flex-basis: 144px !important;
+  }
+}
