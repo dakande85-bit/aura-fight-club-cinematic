@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ScrollFilm         from './ScrollFilm.jsx';
+import HomePage           from './pages/HomePage.jsx';
 import CampaignScrollFilm from './CampaignScrollFilm.jsx';
 import Drop001Page        from './pages/Drop001.jsx';
 import ProductDetailPage  from './pages/ProductDetailRoute.jsx';
@@ -15,7 +15,7 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/"              element={<ScrollFilm />} />
+        <Route path="/"              element={<HomePage />} />
         <Route path="/drop-001"      element={<Drop001Page />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
         <Route path="/apparel"       element={<ApparelPage />} />
@@ -29,7 +29,7 @@ export default function AppRouter() {
         <Route path="/admin/cinematic" element={<CinematicSceneBuilder />} />
         <Route path="/admin/suppliers" element={<AdminSuppliers />} />
         {/* Catch-all → homepage */}
-        <Route path="*"              element={<ScrollFilm />} />
+        <Route path="*"              element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );
