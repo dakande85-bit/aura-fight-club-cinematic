@@ -198,3 +198,67 @@
     padding: 24px;
   }
 }
+
+/* ============================================================
+   AURA — Homepage end-of-page layout fix
+   Appended to ensure the final CTA has its own full viewport
+   before the footer begins.
+   ============================================================ */
+
+.home-extra__final-cta,
+.hpx-final-cta {
+  max-width: none;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 150px 52px 120px;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: none;
+}
+
+.home-extra__final-cta h1,
+.home-extra__final-cta h2,
+.home-extra__final-cta .hpx-final-cta__title,
+.hpx-final-cta .hpx-final-cta__title {
+  margin: 0 0 2.5rem;
+}
+
+@media (max-width: 980px) {
+  .home-extra__final-cta,
+  .hpx-final-cta {
+    min-height: 92vh;
+    min-height: 92svh;
+    padding: 128px 24px 96px;
+  }
+}
+
+.home-extra__final-cta + footer,
+.home-extra__final-cta + .aura-footer,
+.hpx-final-cta + footer,
+.hpx-final-cta + .aura-footer,
+.aura-footer {
+  margin-top: 0;
+  position: relative;
+  z-index: 1;
+  clear: both;
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+  .home-extra__final-cta,
+  .hpx-final-cta {
+    padding-top: calc(150px + env(safe-area-inset-top));
+  }
+
+  @media (max-width: 980px) {
+    .home-extra__final-cta,
+    .hpx-final-cta {
+      padding-top: calc(128px + env(safe-area-inset-top));
+    }
+  }
+}
