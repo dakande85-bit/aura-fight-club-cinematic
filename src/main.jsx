@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import AppRouter from './AppRouter.jsx';
 import './styles/global.css';
 import './styles/scroll-film.css';
+import './styles/aura-public-visual-pass.css';
 import './homepage-scroll-sync.js';
 
 createRoot(document.getElementById('root')).render(
