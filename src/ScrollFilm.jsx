@@ -128,7 +128,10 @@ const SCENES = [
     label:    'AURA FIGHT CLUB',
     headline: ['YOUR AURA', 'IS EARNED.'],
     sub:      'The real fight is internal.\nThe opponent is just the mirror.',
-    cta:      'buttons',
+    ctas: [
+      { label: 'Explore Drop 001', href: '/drop-001', tone: 'primary' },
+      { label: 'Enter Fight Club', href: '/fight-club', tone: 'secondary' },
+    ],
   },
   {
     id: 'shadow-boxing',
@@ -138,9 +141,10 @@ const SCENES = [
     label:    'THE STANDARD',
     headline: ['THE REAL', 'FIGHT IS', 'INTERNAL.'],
     sub:      'The opponent is just the mirror.',
-    cta:      null,
-    ctaLabel: 'Read Manifesto',
-    ctaHref:  '/campaign',
+    ctas: [
+      { label: 'Watch Campaign', href: '/campaign', tone: 'primary' },
+      { label: 'Enter Fight Club', href: '/fight-club', tone: 'secondary' },
+    ],
     frameCaptions: [
       'Read the room.',
       'Feint with purpose.',
@@ -157,9 +161,10 @@ const SCENES = [
     label:    'THE WORK',
     headline: ['SILENCE.', 'DISCIPLINE.', 'PRESENCE.'],
     sub:      'Built where nobody is watching.',
-    cta:      null,
-    ctaLabel: 'Explore The Standard',
-    ctaHref:  '/fight-club',
+    ctas: [
+      { label: 'Shop Apparel', href: '/apparel', tone: 'primary' },
+      { label: 'View Drop 001', href: '/drop-001', tone: 'secondary' },
+    ],
     frameCaptions: [
       'The ritual before the rounds.',
       'No audience required.',
@@ -176,9 +181,9 @@ const SCENES = [
     label:    'FOOTWORK',
     headline: ['FOOTWORK.', 'TIMING.', 'CONTROL.'],
     sub:      'Built where nobody is watching.',
-    cta:      null,
-    ctaLabel: 'Explore Footwear',
-    ctaHref:  '/footwear',
+    ctas: [
+      { label: 'Explore Footwear', href: '/footwear', tone: 'primary' },
+    ],
     frameCaptions: [
       'Balance before power.',
       'Find the rhythm.',
@@ -197,9 +202,10 @@ const SCENES = [
     label:    'DROP 001',
     headline: ['TOOLS FOR THE', 'WORK NOBODY', 'SEES.'],
     sub:      'The first uniform of AURA Fight Club.',
-    cta:      null,
-    ctaLabel: 'View Drop 001',
-    ctaHref:  '/drop-001',
+    ctas: [
+      { label: 'Shop Equipment', href: '/equipment', tone: 'primary' },
+      { label: 'View Drop 001', href: '/drop-001', tone: 'secondary' },
+    ],
     frameCaptions: [
       'The first uniform.',
       'Tools for the work.',
@@ -217,9 +223,9 @@ const SCENES = [
     label:    'THE CAMPAIGN',
     headline: ['EARNED WHERE', 'NOBODY', 'IS WATCHING.'],
     sub:      'Pressure, rhythm, restraint, identity.',
-    cta:      null,
-    ctaLabel: 'Watch Campaign',
-    ctaHref:  '/campaign',
+    ctas: [
+      { label: 'Watch Campaign', href: '/campaign', tone: 'primary' },
+    ],
     frameCaptions: [
       'Pressure.',
       'Rhythm.',
@@ -237,8 +243,10 @@ const SCENES = [
     headline: ['MORE THAN', 'A BRAND.', 'A FIGHT IDENTITY.'],
     sub:      'Join the first circle of AURA Fight Club.',
     cta:      'waitlist',
-    ctaLabel: 'Explore The Collection',
-    ctaHref:  '/apparel',
+    ctas: [
+      { label: 'Join Waitlist', href: '#waitlist', tone: 'primary' },
+      { label: 'Shop Drop 001', href: '/drop-001', tone: 'secondary' },
+    ],
   },
 ];
 
@@ -419,14 +427,8 @@ function SceneOverlay({ scene, visible, frameIdx = 0 }) {
             {scene.frameCaptions[Math.min(frameIdx, scene.frameCaptions.length - 1)]}
           </p>
         )}
-        {scene.cta === 'buttons' && (
-          <div className="sf-cta-row">
-            <a href="/drop-001" className="sf-btn sf-btn--solid">Explore Drop 001</a>
-            <a href="/fight-club" className="sf-btn sf-btn--ghost">Enter Fight Club</a>
-          </div>
-        )}
         {scene.cta === 'waitlist' && (
-          <div className="sf-waitlist">
+          <div className="sf-waitlist" id="waitlist">
             {!done ? (
               <div className="sf-form-row">
                 <input className="sf-email" type="email"
@@ -437,6 +439,19 @@ function SceneOverlay({ scene, visible, frameIdx = 0 }) {
                   onClick={() => email && setDone(true)}>Join Waitlist</button>
               </div>
             ) : <p className="sf-confirm">YOU'RE ON THE LIST.</p>}
+          </div>
+        )}
+        {scene.ctas?.length > 0 && (
+          <div className="sf-cta-row" aria-label={`${scene.label} actions`}>
+            {scene.ctas.map((cta, index) => (
+              <a
+                href={cta.href}
+                className={`sf-btn ${cta.tone === 'primary' ? 'sf-btn--solid' : 'sf-btn--ghost'}`}
+                key={`${scene.id}-${cta.href}-${index}`}
+              >
+                {cta.label}
+              </a>
+            ))}
           </div>
         )}
       </div>

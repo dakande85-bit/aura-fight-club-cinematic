@@ -208,6 +208,10 @@ html, body {
 }
 .sf-overlay--in .sf-cta-row { opacity: 1; transform: none; }
 
+.sf-waitlist + .sf-cta-row {
+  margin-top: 12px;
+}
+
 /* Buttons */
 .sf-btn {
   display: inline-flex; align-items: center; justify-content: center;
