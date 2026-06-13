@@ -1,57 +1,442 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>AURA AI Trainer</title>
-<style>
-:root{--void:#050505;--panel:#101010;--panel2:#171717;--line:#2b2b2b;--bone:#f3eadb;--muted:#a9a29a;--gold:#c8a861;--silver:#c9ced4;--red:#7f1d1d;--green:#84cc16}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#29210e 0,#080808 38%,#030303 100%);color:var(--bone);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}.app{max-width:460px;margin:0 auto;min-height:100vh;padding:18px 16px 104px}.top{position:sticky;top:0;z-index:4;margin:-18px -16px 16px;padding:14px 16px 10px;background:linear-gradient(180deg,#050505 0%,rgba(5,5,5,.92) 70%,rgba(5,5,5,0));backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between}.brand{letter-spacing:.24em;font-weight:900;font-size:15px}.sub{font-size:10px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase}.scoreBadge{border:1px solid rgba(200,168,97,.45);color:var(--gold);border-radius:999px;padding:7px 10px;font:800 12px ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(200,168,97,.08)}.hero{padding:18px;border:1px solid rgba(200,168,97,.2);background:linear-gradient(145deg,rgba(200,168,97,.12),rgba(255,255,255,.03));border-radius:28px;box-shadow:0 20px 60px rgba(0,0,0,.35)}h1{font-size:34px;line-height:.95;margin:10px 0 12px;letter-spacing:-.04em;text-transform:uppercase}h2{font-size:21px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.02em}.eyebrow{font-size:11px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:800}.muted{color:var(--muted);line-height:1.55;font-size:14px}.grid{display:grid;gap:12px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),#0c0c0c);border-radius:22px;padding:14px}.stat{font-size:28px;font-weight:900;color:var(--bone)}.label{font-size:10px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase}.ring{width:122px;height:122px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) calc(var(--score)*1%),rgba(255,255,255,.09) 0);margin:auto;position:relative}.ring:after{content:"";position:absolute;inset:10px;border-radius:50%;background:#090909}.ring span{position:relative;z-index:2;font-size:32px;font-weight:950;color:var(--gold)}.btn{border:1px solid rgba(200,168,97,.5);background:linear-gradient(180deg,rgba(200,168,97,.24),rgba(200,168,97,.09));color:var(--bone);padding:13px 14px;border-radius:16px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;text-align:center}.btn.secondary{border-color:var(--line);background:#111;color:var(--muted)}.pill{display:inline-flex;gap:7px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:var(--muted);font-size:12px;background:#0d0d0d}.row{display:flex;gap:10px;align-items:center;justify-content:space-between}.section{margin-top:18px}.tabs{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(460px,calc(100% - 20px));display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:8px;background:rgba(7,7,7,.92);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:24px;z-index:9}.tab{border:0;background:transparent;color:var(--muted);border-radius:17px;padding:10px 4px;display:grid;gap:4px;place-items:center;font-size:10px;cursor:pointer}.tab.active{background:rgba(200,168,97,.14);color:var(--gold)}.page{display:none}.page.active{display:block}.workout{cursor:pointer}.rounds{display:none;margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.workout.open .rounds{display:block}.done{color:var(--green);font-weight:900}.chat{height:380px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding-right:3px}.bubble{max-width:88%;padding:12px 13px;border-radius:18px;font-size:14px;line-height:1.45}.assistant{background:#121212;border:1px solid var(--line);align-self:flex-start}.user{background:rgba(200,168,97,.18);border:1px solid rgba(200,168,97,.35);align-self:flex-end}.chips{display:flex;gap:8px;overflow:auto;padding:8px 0}.chip{white-space:nowrap;border:1px solid var(--line);background:#101010;color:var(--bone);border-radius:999px;padding:9px 11px;font-size:12px}.progress{height:8px;border-radius:999px;background:#252525;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#f5d386);width:var(--w)}input,select{width:100%;border:1px solid var(--line);background:#0d0d0d;color:var(--bone);border-radius:14px;padding:12px;font:inherit}.quote{border-left:3px solid var(--gold);padding-left:12px;color:var(--bone);font-style:italic}.notice{font-size:12px;color:var(--muted);text-align:center;margin-top:20px}@media(min-width:720px){.app{max-width:880px}.desktop{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.cards{grid-template-columns:repeat(4,1fr)}.tabs{max-width:520px}}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <title>AURA AI Trainer — Personal Boxing Coach</title>
+  <style>
+    :root{
+      --void:#030303;
+      --black:#070707;
+      --ink:#0b0b0b;
+      --panel:#111111;
+      --panel2:#171717;
+      --line:rgba(255,255,255,.105);
+      --line2:rgba(200,168,97,.28);
+      --bone:#f4ecdc;
+      --soft:#d7cec0;
+      --muted:#9f978c;
+      --dim:#706a62;
+      --gold:#c9a861;
+      --gold2:#f2d486;
+      --bronze:#7b5b27;
+      --red:#6f171a;
+      --green:#9ccf55;
+      --blue:#8aa4c6;
+      --shadow:0 32px 90px rgba(0,0,0,.58);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--bone);
+      background:
+        radial-gradient(circle at 18% -8%,rgba(201,168,97,.24),transparent 34%),
+        radial-gradient(circle at 82% 4%,rgba(111,23,26,.18),transparent 30%),
+        linear-gradient(180deg,#090807 0%,#030303 46%,#000 100%);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      overflow-x:hidden;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.24;
+      mix-blend-mode:screen;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(180deg,black,transparent 80%);
+    }
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    .wrap{
+      width:min(1180px,100%);
+      margin:0 auto;
+      padding:22px 14px 118px;
+    }
+    .siteTop{
+      position:sticky;
+      top:0;
+      z-index:50;
+      margin:-22px -14px 18px;
+      padding:14px 14px 12px;
+      backdrop-filter:blur(22px);
+      background:linear-gradient(180deg,rgba(3,3,3,.96),rgba(3,3,3,.74) 78%,transparent);
+      border-bottom:1px solid rgba(255,255,255,.055);
+    }
+    .siteTopInner{
+      width:min(1180px,100%);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .mark{display:flex;align-items:center;gap:10px;min-width:0}
+    .logo{
+      width:38px;height:38px;border-radius:14px;
+      display:grid;place-items:center;
+      color:#080808;font-weight:950;letter-spacing:-.08em;
+      background:linear-gradient(135deg,var(--gold2),var(--gold) 45%,#8a682f);
+      box-shadow:0 14px 34px rgba(201,168,97,.22), inset 0 0 0 1px rgba(255,255,255,.35);
+    }
+    .brand{font-weight:950;letter-spacing:.22em;font-size:14px;line-height:1;text-transform:uppercase}
+    .sub{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+    .statusPill{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--line2);
+      color:var(--gold2);
+      background:rgba(201,168,97,.08);
+      border-radius:999px;
+      padding:9px 11px;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 20px var(--green)}
+    .layout{
+      display:grid;
+      grid-template-columns:minmax(0,1fr);
+      gap:18px;
+      align-items:start;
+    }
+    .panel{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02)),
+        rgba(10,10,10,.92);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .hero{
+      position:relative;
+      padding:24px;
+      min-height:390px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:
+        radial-gradient(circle at 82% 6%,rgba(201,168,97,.26),transparent 30%),
+        radial-gradient(circle at 24% 100%,rgba(111,23,26,.22),transparent 38%),
+        linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+    }
+    .hero:after{
+      content:"";
+      position:absolute;inset:auto -20% -32% -20%;height:220px;
+      background:radial-gradient(ellipse at center,rgba(201,168,97,.18),transparent 62%);
+      pointer-events:none;
+    }
+    .eyebrow{font-size:11px;color:var(--gold2);letter-spacing:.24em;text-transform:uppercase;font-weight:950}
+    h1,h2,h3,p{margin-top:0}
+    h1{
+      font-size:clamp(43px,11vw,88px);
+      line-height:.82;
+      letter-spacing:-.078em;
+      text-transform:uppercase;
+      margin:16px 0 16px;
+      max-width:760px;
+    }
+    h2{font-size:23px;line-height:1;margin:0 0 10px;text-transform:uppercase;letter-spacing:-.04em}
+    h3{font-size:15px;margin:0 0 8px;text-transform:uppercase;letter-spacing:.03em}
+    .lead{font-size:15px;line-height:1.62;color:var(--soft);max-width:650px;margin-bottom:18px}
+    .muted{color:var(--muted);font-size:13px;line-height:1.55;margin-bottom:0}
+    .heroActions{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:2}
+    .btn{
+      border:1px solid rgba(201,168,97,.46);
+      color:var(--bone);
+      background:linear-gradient(180deg,rgba(201,168,97,.24),rgba(201,168,97,.08));
+      border-radius:17px;
+      padding:13px 15px;
+      min-height:48px;
+      font-weight:950;
+      letter-spacing:.085em;
+      text-transform:uppercase;
+      box-shadow:0 16px 42px rgba(0,0,0,.28);
+    }
+    .btn.ghost{border-color:var(--line);background:rgba(255,255,255,.035);color:var(--soft)}
+    .btn.full{width:100%}
+    .hud{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.022));
+      padding:16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card.gold{border-color:var(--line2);background:linear-gradient(145deg,rgba(201,168,97,.14),rgba(255,255,255,.025))}
+    .stat{font-size:31px;font-weight:950;letter-spacing:-.07em;color:var(--bone);line-height:1}
+    .label{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-top:7px}
+    .appShell{
+      border-radius:34px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg,#0f0f0f,#050505);
+      box-shadow:0 28px 100px rgba(0,0,0,.65), inset 0 0 0 1px rgba(255,255,255,.035);
+      min-height:720px;
+      overflow:hidden;
+      position:relative;
+    }
+    .appHeader{
+      position:sticky;top:0;z-index:20;
+      padding:17px 17px 12px;
+      background:linear-gradient(180deg,rgba(9,9,9,.98),rgba(9,9,9,.86));
+      border-bottom:1px solid rgba(255,255,255,.07);
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .screenTitle{font-weight:950;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
+    .scoreMini{display:flex;align-items:center;gap:8px;color:var(--gold2);font-weight:950;font-size:12px}
+    .miniRing{width:33px;height:33px;border-radius:50%;background:conic-gradient(var(--gold) calc(var(--score)*1%),rgba(255,255,255,.10) 0);display:grid;place-items:center;position:relative}
+    .miniRing:after{content:"";position:absolute;inset:4px;border-radius:50%;background:#090909}.miniRing span{position:relative;z-index:2;font-size:10px}
+    .screen{display:none;padding:17px 17px 104px;animation:fade .22s ease both}.screen.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .screenHero{
+      border:1px solid var(--line2);
+      border-radius:28px;
+      padding:18px;
+      background:
+        radial-gradient(circle at 82% 10%,rgba(201,168,97,.22),transparent 36%),
+        linear-gradient(145deg,rgba(201,168,97,.11),rgba(255,255,255,.025));
+      margin-bottom:14px;
+    }
+    .screenHero h2{font-size:28px;margin:8px 0 9px;letter-spacing:-.06em}
+    .chips{display:flex;gap:8px;overflow:auto;padding:3px 0 2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+    .chip,.pill{
+      white-space:nowrap;
+      display:inline-flex;align-items:center;gap:7px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.036);
+      color:var(--soft);
+      border-radius:999px;
+      padding:9px 11px;
+      font-size:12px;
+      line-height:1;
+    }
+    .chip{font-weight:800}.chip.gold{border-color:var(--line2);color:var(--gold2);background:rgba(201,168,97,.08)}
+    .stack{display:grid;gap:12px}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.row.top{align-items:flex-start}
+    .bigScore{display:grid;grid-template-columns:132px 1fr;gap:15px;align-items:center}
+    .ring{width:132px;height:132px;border-radius:50%;background:conic-gradient(var(--gold) calc(var(--score)*1%),rgba(255,255,255,.09) 0);display:grid;place-items:center;position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 22px 44px rgba(0,0,0,.32)}
+    .ring:after{content:"";position:absolute;inset:12px;border-radius:50%;background:#090909;border:1px solid rgba(255,255,255,.05)}.ring span{position:relative;z-index:2;color:var(--gold2);font-size:39px;font-weight:950;letter-spacing:-.08em}
+    .bar{height:8px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden}.bar i{display:block;height:100%;width:var(--w);border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+    .task{display:grid;grid-template-columns:42px 1fr auto;gap:11px;align-items:center}.icon{width:42px;height:42px;border-radius:16px;display:grid;place-items:center;background:rgba(201,168,97,.09);border:1px solid rgba(201,168,97,.18);font-weight:950;color:var(--gold2)}
+    .workout{transition:.2s ease}.workout:hover{border-color:rgba(201,168,97,.35)}.rounds{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.workout.open .rounds{display:grid;gap:9px}.doneBadge{display:none;color:var(--green);font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}.workout.done .doneBadge{display:inline-flex}
+    .round{display:grid;grid-template-columns:58px 1fr;gap:10px;padding:10px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+    .time{color:var(--gold2);font-weight:950;font-size:12px}
+    .chat{height:420px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding-right:3px;scrollbar-width:thin}.bubble{max-width:88%;padding:13px 14px;border-radius:19px;font-size:14px;line-height:1.48}.assistant{background:#141414;border:1px solid var(--line);align-self:flex-start}.user{background:rgba(201,168,97,.16);border:1px solid rgba(201,168,97,.30);align-self:flex-end}.coachInput{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}input,select{width:100%;background:#0d0d0d;border:1px solid var(--line);color:var(--bone);border-radius:16px;padding:13px 12px;outline:none}input:focus,select:focus{border-color:rgba(201,168,97,.45)}
+    .lesson{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}.lessonNo{font-size:12px;color:var(--gold2);font-weight:950}.quote{border-left:3px solid var(--gold);padding-left:12px;color:var(--soft);font-style:italic;line-height:1.5}.profileGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.setting{padding:13px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+    .dock{
+      position:fixed;left:50%;bottom:12px;transform:translateX(-50%);
+      width:min(520px,calc(100% - 18px));
+      z-index:60;
+      display:grid;grid-template-columns:repeat(5,1fr);gap:6px;
+      padding:8px;
+      border:1px solid rgba(255,255,255,.11);
+      background:rgba(7,7,7,.88);
+      backdrop-filter:blur(22px);
+      border-radius:25px;
+      box-shadow:0 24px 68px rgba(0,0,0,.6);
+    }
+    .navBtn{border:0;background:transparent;color:var(--muted);border-radius:18px;min-height:58px;display:grid;place-items:center;gap:4px;padding:7px 3px;font-size:10px;font-weight:800}.navBtn b{font-size:17px;line-height:1}.navBtn.active{color:var(--gold2);background:rgba(201,168,97,.13);box-shadow:inset 0 0 0 1px rgba(201,168,97,.12)}
+    .completedList{display:grid;gap:8px}.empty{border:1px dashed rgba(255,255,255,.16);border-radius:20px;padding:18px;text-align:center;color:var(--muted);background:rgba(255,255,255,.02)}
+    .desktopOnly{display:none}.mobileNote{font-size:12px;color:var(--dim);text-align:center;margin:16px 0 0}
+    @media(min-width:900px){
+      .wrap{padding:28px 24px 56px}.siteTop{margin:-28px -24px 24px;padding:16px 24px 13px}.layout{grid-template-columns:.92fr 440px}.hero{min-height:720px;padding:34px}.appShell{position:sticky;top:86px;min-height:760px}.desktopOnly{display:block}.hud{grid-template-columns:repeat(4,1fr)}.dock{position:absolute;bottom:12px}.profileGrid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:420px){.wrap{padding-left:10px;padding-right:10px}.hero{padding:20px;border-radius:25px}.appShell{border-radius:28px}.screen{padding-left:13px;padding-right:13px}.bigScore{grid-template-columns:1fr;text-align:center}.ring{margin:auto}.split{grid-template-columns:1fr}.profileGrid{grid-template-columns:1fr}.brand{font-size:12px}.sub{max-width:170px}.statusPill{padding:8px 9px;font-size:10px}.screenHero h2{font-size:25px}}
+  </style>
 </head>
 <body>
-<div class="app">
-<header class="top"><div><div class="brand">AURA</div><div class="sub">AI Trainer Preview</div></div><div class="scoreBadge">AURA 84</div></header>
+  <div class="wrap">
+    <header class="siteTop">
+      <div class="siteTopInner">
+        <div class="mark">
+          <div class="logo">A</div>
+          <div><div class="brand">AURA AI TRAINER</div><div class="sub">Personal boxing coach · v0.2 design preview</div></div>
+        </div>
+        <div class="statusPill"><span class="dot"></span> live preview</div>
+      </div>
+    </header>
 
-<main id="today" class="page active">
-  <section class="hero desktop"><div><div class="eyebrow">Today Command Center</div><h1>Your aura is earned.</h1><p class="muted">A personal AI boxing trainer built around your body, boxing style, goals, discipline and fight IQ. The real fight is internal.</p><div class="chips"><span class="pill">Counter Puncher</span><span class="pill">V-Taper Strength</span><span class="pill">20 min option</span></div></div><div><div class="ring" style="--score:84"><span>84</span></div><p class="notice">Sharp tier · consistency rising</p></div></section>
-  <section class="section cards"><div class="card"><div class="stat">5</div><div class="label">Sessions</div></div><div class="card"><div class="stat">42</div><div class="label">Rounds</div></div><div class="card"><div class="stat">78%</div><div class="label">Recovery</div></div><div class="card"><div class="stat">+8</div><div class="label">Discipline</div></div></section>
-  <section class="section grid"><div class="card"><div class="row"><div><h2>Today's Session</h2><p class="muted">Footwork + counter punching. Build light legs, clean exits, and shoulder-roll counters.</p></div><span class="pill">38 min</span></div><button class="btn" onclick="go('train')">Start Session</button></div><div class="card"><h2>Coach Note</h2><p class="quote">Stay long. Touch with the jab, draw the shot, pull back half a step, return straight. Fight with presence. Own your aura.</p></div></section>
-</main>
+    <div class="layout">
+      <section class="panel hero">
+        <div>
+          <div class="eyebrow">Private digital fight camp</div>
+          <h1>Your personal AI boxing trainer.</h1>
+          <p class="lead">AURA should feel like a cold, premium fight operating system — not a generic fitness tracker. It learns your style, your weak points, your schedule, your recovery, and builds the fighter around you.</p>
+          <div class="heroActions">
+            <button class="btn" onclick="showScreen('coach')">Ask AURA Coach</button>
+            <button class="btn ghost" onclick="showScreen('train')">Start session</button>
+          </div>
+        </div>
+        <div class="desktopOnly">
+          <div class="hud">
+            <div class="card"><div class="stat" id="heroScore">84</div><div class="label">Aura score</div></div>
+            <div class="card"><div class="stat" id="heroSessions">0</div><div class="label">Logged</div></div>
+            <div class="card"><div class="stat">42</div><div class="label">Rounds target</div></div>
+            <div class="card gold"><div class="stat">IQ</div><div class="label">Counter system</div></div>
+          </div>
+        </div>
+      </section>
 
-<main id="onboarding" class="page">
-  <section class="hero"><div class="eyebrow">Build your fighter profile</div><h1>Private fight camp setup.</h1><p class="muted">Choose your goal, level, stance and style. This demo saves locally in your browser.</p></section>
-  <section class="section grid"><div class="card"><h2>Main Goal</h2><select id="goal"><option>Build boxing stamina</option><option>Learn boxing</option><option>Build muscle</option><option>Fight preparation</option></select></div><div class="card"><h2>Archetype</h2><select id="arch"><option>Counter Puncher</option><option>Technician</option><option>Southpaw</option><option>Pressure Fighter</option></select></div><button class="btn" onclick="localStorage.setItem('aura:onboarding-completed','true');go('today')">Complete Setup</button></section>
-</main>
+      <section class="appShell" aria-label="AURA AI Trainer app preview">
+        <div class="appHeader">
+          <div><div class="screenTitle" id="screenName">Today</div><div class="sub">fight with presence</div></div>
+          <div class="scoreMini"><div class="miniRing" style="--score:84"><span id="miniScore">84</span></div> AURA</div>
+        </div>
 
-<main id="train" class="page">
-  <section class="hero"><div class="eyebrow">Train</div><h1>Sessions that build the fighter.</h1><p class="muted">Open a workout, check the round-by-round breakdown, and mark it complete.</p></section>
-  <section class="section grid" id="workouts"></section>
-</main>
+        <main id="today" class="screen active">
+          <section class="screenHero">
+            <div class="eyebrow">Today Command Center</div>
+            <h2>Your aura is earned.</h2>
+            <p class="muted">Stay long. Build light legs. Draw the shot. Counter clean. The real fight is internal.</p>
+            <div class="chips" style="margin-top:13px"><span class="chip gold">Counter Puncher</span><span class="chip">Switch hitter</span><span class="chip">Stamina focus</span></div>
+          </section>
 
-<main id="coach" class="page">
-  <section class="hero"><div class="eyebrow">AI Coach</div><h1>Ask AURA.</h1><p class="muted">Mock coach engine for the MVP. Real AI comes later through server API routes.</p></section>
-  <section class="section card"><div class="chat" id="chat"><div class="bubble assistant">I’m AURA Coach. Tell me what you need: stamina, footwork, counters, recovery, or a session for today.</div></div><div class="chips"><button class="chip" onclick="reply('Generate today’s session')">Generate today’s session</button><button class="chip" onclick="reply('20 minutes only')">20 minutes only</button><button class="chip" onclick="reply('My legs are sore')">Legs sore</button><button class="chip" onclick="reply('Harder session')">Harder session</button></div></section>
-</main>
+          <section class="card bigScore">
+            <div class="ring" style="--score:84"><span id="mainScore">84</span></div>
+            <div>
+              <h2>Sharp tier</h2>
+              <p class="muted">Score improves when you complete sessions and study Fight IQ. Supabase sync comes later; this preview saves locally.</p>
+              <div style="display:grid;gap:8px;margin-top:12px">
+                <div><div class="row"><span class="label">Consistency</span><span class="label">82%</span></div><div class="bar"><i style="--w:82%"></i></div></div>
+                <div><div class="row"><span class="label">Fight IQ</span><span class="label">76%</span></div><div class="bar"><i style="--w:76%"></i></div></div>
+                <div><div class="row"><span class="label">Recovery</span><span class="label">68%</span></div><div class="bar"><i style="--w:68%"></i></div></div>
+              </div>
+            </div>
+          </section>
 
-<main id="fight-iq" class="page">
-  <section class="hero"><div class="eyebrow">Fight IQ</div><h1>Think before you trade.</h1><p class="muted">Study archetypes, techniques, distance control, and defensive systems.</p></section>
-  <section class="section grid"><div class="card"><h2>Counter Puncher</h2><p class="muted">Strengths: patience, timing, clean counters, drawing mistakes. Focus drills: pull counter, shoulder roll, check hook, exits.</p><div class="progress"><i style="--w:82%"></i></div></div><div class="card"><h2>Technique Library</h2><p class="muted">Jab · Cross · Check Hook · Pull Counter · Shoulder Roll · L-Step · Pivot · Duck Under · Feints · Distance Control</p></div><div class="card"><h2>Lesson</h2><p class="quote">Timing beats speed. Make them miss by inches, not miles.</p></div></section>
-</main>
+          <section class="stack" style="margin-top:12px">
+            <div class="card gold">
+              <div class="task"><div class="icon">01</div><div><h3>Today’s session</h3><p class="muted">Footwork, jab rhythm, pull counter, check hook exit.</p></div><span class="pill">38m</span></div>
+              <button class="btn full" style="margin-top:13px" onclick="showScreen('train')">Start training</button>
+            </div>
+            <div class="card">
+              <h3>Coach note</h3>
+              <p class="quote">Do not bounce heavy. Step light, touch with the jab, make them reach, then punish the mistake.</p>
+            </div>
+            <div class="card">
+              <div class="row"><h3>Recent sessions</h3><span class="pill" id="recentCount">0 logged</span></div>
+              <div class="completedList" id="recentSessions"><div class="empty">No completed sessions yet.</div></div>
+            </div>
+          </section>
+        </main>
 
-<main id="profile" class="page">
-  <section class="hero"><div class="eyebrow">Profile</div><h1>Fighter identity.</h1><p class="muted">Your saved local profile for the preview. Supabase account sync comes next.</p></section>
-  <section class="section grid"><div class="card"><h2>Daré · AURA Fighter</h2><p class="muted">Goal: build stamina and elite boxing physique<br>Level: intermediate<br>Style: long-range counter puncher<br>Stance: switch hitter</p></div><div class="card"><h2>AURA Score</h2><div class="ring" style="--score:84"><span>84</span></div><p class="notice">Your aura is earned.</p></div></section>
-</main>
-</div>
+        <main id="onboarding" class="screen">
+          <section class="screenHero">
+            <div class="eyebrow">Fighter setup</div>
+            <h2>Build the profile first.</h2>
+            <p class="muted">This is where the app starts learning the person, not just throwing random workouts at them.</p>
+          </section>
+          <section class="stack">
+            <div class="card"><h3>Main goal</h3><select id="goal"><option>Build boxing stamina</option><option>Learn boxing fundamentals</option><option>Build fighter muscle</option><option>Fight preparation</option><option>Lose fat and move better</option></select></div>
+            <div class="card"><h3>Fighter archetype</h3><select id="archetype"><option>Counter Puncher</option><option>Technician</option><option>Southpaw</option><option>Pressure Fighter</option><option>Ring General</option></select></div>
+            <div class="card"><h3>Available equipment</h3><div class="chips"><span class="chip gold">Gloves</span><span class="chip gold">Skipping rope</span><span class="chip">Gym</span><span class="chip">Bag</span></div></div>
+            <button class="btn full" onclick="saveProfile()">Complete setup</button>
+          </section>
+        </main>
 
-<nav class="tabs"><button class="tab active" data-tab="today" onclick="go('today')">Today</button><button class="tab" data-tab="train" onclick="go('train')">Train</button><button class="tab" data-tab="coach" onclick="go('coach')">Coach</button><button class="tab" data-tab="fight-iq" onclick="go('fight-iq')">Fight IQ</button><button class="tab" data-tab="profile" onclick="go('profile')">Profile</button></nav>
-<script>
-const sessions=[['Counter Puncher Session','38 min','Warm-up footwork, jab rhythm, pull counter, shoulder roll return, check hook exit.'],['20-Minute No-Excuse Session','20 min','Fast warm-up, 4 shadowboxing rounds, push-ups, core, cooldown.'],['Footwork & Angle Control','32 min','L-step, pivots, diamond step, exit after every combination.'],['V-Taper Strength Session','45 min','Pull-ups/rows, lateral raises, rear delts, core, loaded carries.']];
-function renderWorkouts(){const el=document.getElementById('workouts');el.innerHTML=sessions.map((s,i)=>`<div class="card workout" onclick="this.classList.toggle('open')"><div class="row"><div><h2>${s[0]}</h2><p class="muted">${s[2]}</p></div><span class="pill">${s[1]}</span></div><div class="rounds"><p class="muted">Round 1: warm-up and rhythm. Round 2: technique. Round 3: conditioning. Round 4: clean exits. Coach note: quality first.</p><button class="btn" onclick="event.stopPropagation();complete('${s[0]}')">Mark Session Complete</button></div></div>`).join('')}
-function complete(t){let done=JSON.parse(localStorage.getItem('aura:completed-sessions')||'[]');done.unshift({title:t,at:new Date().toISOString()});localStorage.setItem('aura:completed-sessions',JSON.stringify(done));alert('Session complete: '+t)}
-function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));scrollTo({top:0,behavior:'smooth'})}
-function reply(text){const chat=document.getElementById('chat');chat.innerHTML+=`<div class="bubble user">${text}</div>`;let ans='';if(text.includes('20'))ans='20-minute version: 3 min warm-up, 4 x 2-minute shadowboxing rounds, 3 x 45s footwork bursts, 2 min cooldown. Stay sharp, not sloppy.';else if(text.includes('legs'))ans='Legs sore: reduce bouncing, use controlled pivots, upper-body defense drills, light shadowboxing and mobility. No hard plyometrics today.';else if(text.includes('Harder'))ans='Harder session: add 2 extra rounds, finish with 6 x 20-second punch-volume bursts and 60 seconds plank. Keep form clean under fatigue.';else ans='Today: jab rhythm, draw the attack, pull counter, check hook exit, then stamina finisher. You are building a counter puncher engine.';chat.innerHTML+=`<div class="bubble assistant">${ans}</div>`;chat.scrollTop=chat.scrollHeight}
-renderWorkouts();
-</script>
+        <main id="train" class="screen">
+          <section class="screenHero">
+            <div class="eyebrow">Train</div>
+            <h2>Built around your style.</h2>
+            <p class="muted">Open the session, view the round plan, mark it complete, and watch the app respond.</p>
+          </section>
+          <section class="stack" id="workouts"></section>
+        </main>
+
+        <main id="coach" class="screen">
+          <section class="screenHero">
+            <div class="eyebrow">AI Coach</div>
+            <h2>Ask AURA.</h2>
+            <p class="muted">Mock coach engine for now. The real version should call a server API and use your saved profile/history.</p>
+          </section>
+          <section class="card">
+            <div class="chat" id="chat"><div class="bubble assistant">I’m AURA Coach. Give me your constraint: time, sore legs, no equipment, stamina, counters, recovery or fight IQ.</div></div>
+            <div class="chips" style="margin-top:10px"><button class="chip gold" onclick="quickReply('Generate today’s session')">Generate session</button><button class="chip" onclick="quickReply('20 minutes only')">20 min</button><button class="chip" onclick="quickReply('My legs are sore')">Legs sore</button><button class="chip" onclick="quickReply('No equipment')">No equipment</button><button class="chip" onclick="quickReply('Harder session')">Harder</button></div>
+            <div class="coachInput"><input id="coachText" placeholder="Ask AURA Coach..." onkeydown="if(event.key==='Enter')sendCoach()" /><button class="btn" onclick="sendCoach()">Send</button></div>
+          </section>
+        </main>
+
+        <main id="fight-iq" class="screen">
+          <section class="screenHero">
+            <div class="eyebrow">Fight IQ</div>
+            <h2>Think before you trade.</h2>
+            <p class="muted">A study room for archetypes, technique systems, and tactical notes.</p>
+          </section>
+          <section class="stack">
+            <div class="card gold">
+              <div class="row top"><div><h3>Counter Puncher</h3><p class="muted">Patience, distance, shoulder roll, pull counter, check hook exits, and making opponents pay for reaching.</p></div><span class="pill">82%</span></div>
+              <div class="bar" style="margin-top:12px"><i style="--w:82%"></i></div>
+            </div>
+            <div class="card"><div class="lesson"><div><span class="lessonNo">LESSON 01</span><h3>Distance control</h3><p class="muted">Win before the exchange starts. Own the first step and the last step.</p></div><span class="pill">6m</span></div></div>
+            <div class="card"><div class="lesson"><div><span class="lessonNo">LESSON 02</span><h3>Pull counter</h3><p class="muted">Trigger the jab, withdraw just enough, return straight down the line.</p></div><span class="pill">8m</span></div></div>
+            <div class="card"><h3>Technique library</h3><p class="muted">Jab · Cross · Check Hook · Pull Counter · Shoulder Roll · L-Step · Pivot · Duck Under · Feints · Ring Cutting</p></div>
+          </section>
+        </main>
+
+        <main id="profile" class="screen">
+          <section class="screenHero">
+            <div class="eyebrow">Profile</div>
+            <h2>Fighter identity.</h2>
+            <p class="muted">The real product should use this profile to shape every session and coach reply.</p>
+          </section>
+          <section class="stack">
+            <div class="card gold"><h3>Daré · AURA Fighter</h3><p class="muted" id="profileText">Goal: build boxing stamina<br>Archetype: Counter Puncher<br>Stance: switch hitter<br>Focus: light legs, defense, stamina</p></div>
+            <div class="profileGrid">
+              <div class="setting"><div class="label">Height</div><div class="stat" style="font-size:25px">188cm</div></div>
+              <div class="setting"><div class="label">Weight</div><div class="stat" style="font-size:25px">83kg</div></div>
+              <div class="setting"><div class="label">Style</div><div class="stat" style="font-size:21px">Counter</div></div>
+              <div class="setting"><div class="label">Logged</div><div class="stat" id="profileLogged" style="font-size:25px">0</div></div>
+            </div>
+            <div class="card"><h3>AURA principle</h3><p class="quote">The real fight is internal. The opponent is just the mirror.</p></div>
+          </section>
+        </main>
+
+        <nav class="dock">
+          <button class="navBtn active" data-screen="today" onclick="showScreen('today')"><b>⌁</b>Today</button>
+          <button class="navBtn" data-screen="train" onclick="showScreen('train')"><b>◆</b>Train</button>
+          <button class="navBtn" data-screen="coach" onclick="showScreen('coach')"><b>◎</b>Coach</button>
+          <button class="navBtn" data-screen="fight-iq" onclick="showScreen('fight-iq')"><b>◐</b>IQ</button>
+          <button class="navBtn" data-screen="profile" onclick="showScreen('profile')"><b>◧</b>Profile</button>
+        </nav>
+      </section>
+    </div>
+
+    <p class="mobileNote">Preview route inside the existing AURA site. Next step: rebuild this design inside the real Next.js app repo.</p>
+  </div>
+
+  <script>
+    const screens = {today:'Today', onboarding:'Onboarding', train:'Train', coach:'AI Coach', 'fight-iq':'Fight IQ', profile:'Profile'};
+    const workouts = [
+      {id:'counter', title:'Counter Puncher Session', time:'38m', tag:'Skill', desc:'Jab rhythm, draw the shot, pull counter, check hook exit.', rounds:[['05m','Warm-up: rope rhythm, ankle bounce, hip circles'],['08m','Shadowbox: jab-only range finder, double jab exit'],['10m','Skill: pull counter after feint trigger'],['08m','Defense: shoulder roll, return right hand, pivot out'],['05m','Finisher: 5 x 30s controlled punch volume'],['02m','Cooldown: nasal breathing and calves']]},
+      {id:'lightlegs', title:'Light Legs Footwork', time:'32m', tag:'Movement', desc:'L-step, pivots, diamond step, and exiting after every combination.', rounds:[['06m','Mobility: calves, hips, ankles'],['08m','L-step both directions'],['08m','Pivot after jab-cross'],['06m','Diamond step with feints'],['04m','Cooldown and foot reset']]},
+      {id:'noexcuse', title:'20-Minute No-Excuse', time:'20m', tag:'Fast', desc:'For days with limited time. No wasted movement.', rounds:[['03m','Warm-up: bounce, arms, hips'],['08m','4 x 2m shadowboxing rounds'],['05m','Footwork bursts: 5 x 30s'],['03m','Push-up/core circuit'],['01m','Breathing reset']]},
+      {id:'vtaper', title:'V-Taper Strength', time:'45m', tag:'Gym', desc:'Lats, delts, rear delts, core and loaded carries for fighter shape.', rounds:[['08m','Warm-up: scapula and shoulders'],['12m','Pull-ups or pulldown + row'],['10m','Lateral raise + rear delt fly'],['08m','Core anti-rotation'],['07m','Loaded carries and stretch']]}
+    ];
+    function getDone(){try{return JSON.parse(localStorage.getItem('aura:completed-sessions')||'[]')}catch(e){return[]}}
+    function setDone(v){localStorage.setItem('aura:completed-sessions',JSON.stringify(v))}
+    function auraScore(){return Math.min(99,84 + Math.min(12,getDone().length*2))}
+    function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));document.getElementById('screenName').textContent=screens[id]||'AURA';document.querySelector('.appShell').scrollIntoView({block:'nearest'});window.scrollTo({top:0,behavior:'smooth'});updateHUD()}
+    function renderWorkouts(){const done=getDone().map(x=>x.id);document.getElementById('workouts').innerHTML=workouts.map(w=>`<article class="card workout ${done.includes(w.id)?'done':''}" onclick="this.classList.toggle('open')"><div class="row top"><div><div class="row" style="justify-content:flex-start;gap:8px"><span class="pill">${w.tag}</span><span class="doneBadge">Complete</span></div><h3 style="margin-top:10px">${w.title}</h3><p class="muted">${w.desc}</p></div><span class="pill">${w.time}</span></div><div class="rounds">${w.rounds.map(r=>`<div class="round"><div class="time">${r[0]}</div><div class="muted">${r[1]}</div></div>`).join('')}<button class="btn full" onclick="event.stopPropagation();completeSession('${w.id}')">Mark Session Complete</button></div></article>`).join('')}
+    function completeSession(id){const w=workouts.find(x=>x.id===id);let done=getDone();done=done.filter(x=>x.id!==id);done.unshift({id:w.id,title:w.title,time:w.time,at:new Date().toISOString()});setDone(done);renderWorkouts();updateHUD();showScreen('today')}
+    function updateHUD(){const done=getDone();const score=auraScore();['miniScore','mainScore','heroScore'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=score});document.querySelectorAll('.miniRing,.ring').forEach(r=>r.style.setProperty('--score',score));document.getElementById('heroSessions').textContent=done.length;document.getElementById('profileLogged').textContent=done.length;document.getElementById('recentCount').textContent=done.length+' logged';const list=document.getElementById('recentSessions');list.innerHTML=done.length?done.slice(0,3).map(x=>`<div class="setting"><div class="row"><div><strong>${x.title}</strong><div class="label">${new Date(x.at).toLocaleDateString()}</div></div><span class="pill">${x.time}</span></div></div>`).join(''):'<div class="empty">No completed sessions yet.</div>'}
+    function saveProfile(){const goal=document.getElementById('goal').value;const arch=document.getElementById('archetype').value;localStorage.setItem('aura:profile',JSON.stringify({goal,arch}));document.getElementById('profileText').innerHTML=`Goal: ${goal}<br>Archetype: ${arch}<br>Stance: switch hitter<br>Focus: light legs, defense, stamina`;showScreen('today')}
+    function coachAnswer(text){const t=text.toLowerCase();if(t.includes('20'))return '20-minute version: 3 min warm-up, 4 x 2-minute shadowboxing, 5 x 30s footwork bursts, push-up/core finisher, 1 minute breathing reset. Sharp, not sloppy.';if(t.includes('sore')||t.includes('legs'))return 'Legs sore: remove hard bouncing and plyometrics. Use controlled pivots, upper-body defense, light shadowboxing, calf mobility and nasal breathing. Today is quality movement.';if(t.includes('equipment'))return 'No equipment session: shadowbox in rounds. Jab rhythm, pull counter, check hook exit, wall slips, plank, slow squats. You only need space and discipline.';if(t.includes('harder'))return 'Harder version: add 2 rounds, finish with 6 x 20-second punch-volume bursts, 40 seconds rest. Keep the guard clean when tired.';if(t.includes('stamina'))return 'For stamina, build repeatable output: 6 rounds shadowboxing, last 30 seconds each round higher volume, then controlled recovery. Do not burn out in round one.';if(t.includes('counter'))return 'Counter-puncher focus: make them miss by inches, not miles. Jab to draw, half-step back, return straight, pivot out. Touch, bait, punish, disappear.';return 'Today: jab rhythm, draw the attack, pull counter, check hook exit, then stamina finisher. Your aura is earned through clean repetition.'}
+    function quickReply(text){addChat('user',text);setTimeout(()=>addChat('assistant',coachAnswer(text)),160)}
+    function sendCoach(){const input=document.getElementById('coachText');const text=input.value.trim();if(!text)return;input.value='';quickReply(text)}
+    function addChat(role,text){const chat=document.getElementById('chat');const div=document.createElement('div');div.className='bubble '+(role==='user'?'user':'assistant');div.textContent=text;chat.appendChild(div);chat.scrollTop=chat.scrollHeight}
+    renderWorkouts();updateHUD();
+  </script>
 </body>
 </html>
