@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
+import PageHero from '../components/PageHero.jsx';
 import Footer from '../components/Footer.jsx';
 import '../styles/editorial-page.css';
 
@@ -13,19 +14,19 @@ export default function FightClub() {
     <div className="ep">
       <Header />
 
-      <div className="ep__header-block">
-        <button className="ep__back" onClick={() => navigate('/')}>Back to AURA Fight Club</button>
-        <p className="ep__eyebrow">AURA Fight Club</p>
-        <h1 className="ep__title">Fight Club</h1>
-        <p className="ep__sub">
-          More than a brand. A fight identity.<br />
-          Join the first circle.
-        </p>
-        <div className="ep__divider" />
-        <p className="ep__meta">Drop 001 · Founding Members Opening</p>
-      </div>
+      <PageHero
+        label="AURA FIGHT CLUB"
+        headline={'THE REAL FIGHT\nIS INTERNAL'}
+        copy="AURA Fight Club is the world behind the product: discipline, identity, training culture, and the presence earned before anyone is watching."
+        image="/campaign/sparring/sparring-08.webp"
+        imagePosition="68% center"
+        ctas={[
+          { label: 'Enter Fight Club', to: '#fight-club-story', variant: 'primary', scroll: true },
+          { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
+        ]}
+      />
 
-      <div className="ep__body">
+      <div className="ep__body" id="fight-club-story">
         <div className="ep__copy-block">
           <p className="ep__copy">
             AURA Fight Club is not a gym. It is not a label. It is a standard.
