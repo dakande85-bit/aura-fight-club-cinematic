@@ -39,6 +39,7 @@ const navItems = [
   { id: 'samples', label: 'Samples' },
   { id: 'qc', label: 'QC Review' },
   { id: 'production', label: 'Production' },
+  { id: 'po', label: 'PO Centre' },
 ];
 
 const sampleStatusLabels = {
@@ -87,6 +88,36 @@ const qcDecisions = [
   { id: 'production_ready', label: 'Production ready' },
 ];
 
+const productionFilters = [
+  { id: '', label: 'All products' },
+  { id: 'not_contacted', label: 'Not contacted' },
+  { id: 'sample_requested', label: 'Sample requested' },
+  { id: 'qc_pending', label: 'QC pending' },
+  { id: 'request_changes', label: 'Request changes' },
+  { id: 'approved', label: 'Approved' },
+  { id: 'production_ready', label: 'Production ready' },
+];
+
+const productionReadinessLabels = {
+  not_started: 'Not started',
+  supplier_contacted: 'Supplier contacted',
+  sample_in_progress: 'Sample in progress',
+  qc_pending: 'QC pending',
+  changes_required: 'Changes required',
+  approved: 'Approved',
+  production_ready: 'Production ready',
+};
+
+const purchaseOrderStatuses = [
+  { id: 'draft', label: 'Draft' },
+  { id: 'sent', label: 'Sent' },
+  { id: 'deposit_paid', label: 'Deposit Paid' },
+  { id: 'in_production', label: 'In Production' },
+  { id: 'shipped', label: 'Shipped' },
+  { id: 'delivered', label: 'Delivered' },
+  { id: 'completed', label: 'Completed' },
+];
+
 const sampleImageSlotLabels = ['Supplier sample 1', 'Supplier sample 2', 'Supplier sample 3'];
 
 const supplierProductSlugMap = {
@@ -127,6 +158,8 @@ function readLocalData() {
         products: mergeProductSpecs(seededProductSpecs, parsed.products || []),
         logs: (parsed.logs || seededContactLogs).map(normalizeContactLog),
         qcReviews: parsed.qcReviews || {},
+        productionRecords: parsed.productionRecords || {},
+        purchaseOrders: (parsed.purchaseOrders || []).map(normalizePurchaseOrder),
         lastSavedLocally: parsed.lastSavedLocally || null,
       };
     }
@@ -138,6 +171,8 @@ function readLocalData() {
     products: seededProductSpecs,
     logs: seededContactLogs.map(normalizeContactLog),
     qcReviews: {},
+    productionRecords: {},
+    purchaseOrders: [],
     lastSavedLocally: null,
   };
 }
@@ -296,6 +331,10 @@ function makeLogId() {
   return `log-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
+function makePurchaseOrderId() {
+  return `po-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
 function normalizeContactLog(log) {
   return {
     id: log.id || makeLogId(),
@@ -320,6 +359,53 @@ function normalizeContactLog(log) {
     body: log.body || '',
     created_at: log.created_at || new Date().toISOString(),
   };
+}
+
+function parseMoney(value) {
+  const parsed = Number(String(value || '').replace(/[^0-9.-]/g, ''));
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function formatMoney(value) {
+  return `GBP ${Number(value || 0).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function normalizePurchaseOrder(order = {}) {
+  const quantity = Math.max(0, Number(order.quantity) || 0);
+  const unitCost = Math.max(0, parseMoney(order.unit_cost));
+  const totalCost = quantity * unitCost;
+  const depositPaid = Math.max(0, parseMoney(order.deposit_paid));
+  return {
+    id: order.id || makePurchaseOrderId(),
+    po_number: order.po_number || `AURA-PO-${new Date().getFullYear()}-${String(Date.now()).slice(-5)}`,
+    product_spec_id: order.product_spec_id || '',
+    supplier_id: order.supplier_id || '',
+    quantity,
+    unit_cost: order.unit_cost ?? '',
+    total_cost: totalCost,
+    deposit_paid: order.deposit_paid ?? '',
+    balance_due: Math.max(0, totalCost - depositPaid),
+    production_start_date: order.production_start_date || '',
+    estimated_completion_date: order.estimated_completion_date || '',
+    shipping_method: order.shipping_method || '',
+    tracking_number: order.tracking_number || '',
+    expected_arrival_date: order.expected_arrival_date || '',
+    status: order.status || 'draft',
+    created_at: order.created_at || new Date().toISOString(),
+    updated_at: order.updated_at || new Date().toISOString(),
+  };
+}
+
+function createPurchaseOrder(product, supplier) {
+  return normalizePurchaseOrder({
+    id: makePurchaseOrderId(),
+    product_spec_id: product?.id || '',
+    supplier_id: supplier?.id || product?.preferred_supplier_id || '',
+    quantity: product?.target_moq ? Number(String(product.target_moq).replace(/[^0-9]/g, '')) || 0 : 0,
+    unit_cost: product?.target_price || '',
+    status: 'draft',
+    created_at: new Date().toISOString(),
+  });
 }
 
 function createBlankContactLog(supplierId = '', productSpecId = '') {
@@ -377,6 +463,73 @@ function calculateQcScore(review) {
   const values = qcCriteria.map((criterion) => Number(review.scores?.[criterion.id] || 0)).filter((score) => score > 0);
   if (!values.length) return 0;
   return Math.round((values.reduce((sum, score) => sum + score, 0) / values.length) * 10) / 10;
+}
+
+function latestLogForProduct(logs, productId) {
+  return logs
+    .filter((log) => log.product_spec_id === productId)
+    .sort((a, b) => String(b.date_contacted || b.created_at).localeCompare(String(a.date_contacted || a.created_at)))[0] || null;
+}
+
+function logsForProduct(logs, productId) {
+  return logs.filter((log) => log.product_spec_id === productId);
+}
+
+function inferContactStatus(productLogs) {
+  if (!productLogs.length) return 'not_contacted';
+  if (productLogs.some((log) => log.supplier_response?.trim())) return 'supplier_responded';
+  return 'contacted';
+}
+
+function inferSampleStatus(product, productLogs) {
+  if (productLogs.some((log) => log.sample_received_status === 'received')) return 'sample_received';
+  if (productLogs.some((log) => ['pending', 'paid'].includes(log.sample_paid_status) || log.contact_type === 'sample_request')) return 'sample_requested';
+  return product.sample_status || 'not_requested';
+}
+
+function inferProductionReadiness(product, qcDecision, sampleStatus, contactStatus) {
+  if (product.production_status === 'production_ready' || qcDecision === 'production_ready') return 'production_ready';
+  if (qcDecision === 'approved') return 'approved';
+  if (qcDecision === 'request_changes' || qcDecision === 'rejected') return 'changes_required';
+  if (sampleStatus === 'sample_received') return 'qc_pending';
+  if (sampleStatus === 'sample_requested') return 'sample_in_progress';
+  if (contactStatus !== 'not_contacted') return 'supplier_contacted';
+  return 'not_started';
+}
+
+function calculateReadinessScore({ contactStatus, sampleStatus, qcScore, qcDecision, readinessStatus }) {
+  let score = 0;
+  if (contactStatus !== 'not_contacted') score += 15;
+  if (contactStatus === 'supplier_responded') score += 10;
+  if (sampleStatus === 'sample_requested') score += 15;
+  if (sampleStatus === 'sample_received') score += 25;
+  if (qcScore) score += Math.round(qcScore * 3);
+  if (qcDecision === 'approved') score += 15;
+  if (qcDecision === 'production_ready') score += 25;
+  if (readinessStatus === 'production_ready') score += 15;
+  if (readinessStatus === 'changes_required') score = Math.min(score, 64);
+  return Math.min(100, score);
+}
+
+function readinessTone(status) {
+  if (status === 'production_ready' || status === 'approved') return 'green';
+  if (status === 'changes_required') return 'red';
+  if (['sample_in_progress', 'qc_pending'].includes(status)) return 'amber';
+  if (status === 'supplier_contacted') return 'silver';
+  return 'muted';
+}
+
+function productApprovedForPurchaseOrder(product, review, productionRecord = {}) {
+  return ['approved', 'production_ready'].includes(review?.decision)
+    || ['approved', 'production_ready'].includes(productionRecord.readiness_status)
+    || product.production_status === 'production_ready';
+}
+
+function purchaseOrderTone(status) {
+  if (['delivered', 'completed'].includes(status)) return 'green';
+  if (['deposit_paid', 'in_production', 'shipped'].includes(status)) return 'amber';
+  if (status === 'sent') return 'silver';
+  return 'muted';
 }
 
 function Pill({ children, tone = 'muted' }) {
@@ -1194,12 +1347,340 @@ function QcSampleReviewCentre({ products, reviews, onUpdate }) {
   );
 }
 
+function ProductionDashboard({ products, suppliersById, logs, reviews, productionRecords, onUpdate }) {
+  const [filter, setFilter] = useState('');
+
+  const rows = useMemo(() => products.map((product) => {
+    const productLogs = logsForProduct(logs, product.id);
+    const latestLog = latestLogForProduct(logs, product.id);
+    const review = normalizeQcReview(product.id, reviews[product.id]);
+    const qcScore = calculateQcScore(review);
+    const contactStatus = inferContactStatus(productLogs);
+    const sampleStatus = inferSampleStatus(product, productLogs);
+    const inferredReadiness = inferProductionReadiness(product, review.decision, sampleStatus, contactStatus);
+    const record = productionRecords[product.id] || {};
+    const readinessStatus = record.readiness_status || inferredReadiness;
+    const readinessScore = calculateReadinessScore({
+      contactStatus,
+      sampleStatus,
+      qcScore,
+      qcDecision: review.decision,
+      readinessStatus,
+    });
+
+    return {
+      product,
+      productLogs,
+      latestLog,
+      review,
+      record,
+      contactStatus,
+      sampleStatus,
+      qcScore,
+      qcDecision: review.decision,
+      readinessStatus,
+      readinessScore,
+      preferredSupplier: suppliersById[product.preferred_supplier_id],
+      backupSuppliers: (product.backup_supplier_ids || []).map((id) => suppliersById[id]).filter(Boolean),
+      nextAction: record.next_action || latestLog?.notes || product.next_action || '',
+      followUpDate: record.follow_up_date || latestLog?.follow_up_date || '',
+      notes: record.notes || '',
+    };
+  }), [logs, productionRecords, products, reviews, suppliersById]);
+
+  const filteredRows = rows.filter((row) => {
+    if (!filter) return true;
+    if (filter === 'not_contacted') return row.contactStatus === 'not_contacted';
+    if (filter === 'sample_requested') return row.sampleStatus === 'sample_requested';
+    if (filter === 'qc_pending') return row.qcDecision === 'pending' || row.readinessStatus === 'qc_pending';
+    if (filter === 'request_changes') return row.qcDecision === 'request_changes' || row.readinessStatus === 'changes_required';
+    if (filter === 'approved') return row.qcDecision === 'approved' || row.readinessStatus === 'approved';
+    if (filter === 'production_ready') return row.qcDecision === 'production_ready' || row.readinessStatus === 'production_ready';
+    return true;
+  });
+
+  const setProductionField = (productId, key, value) => {
+    onUpdate(productId, { [key]: value });
+  };
+
+  return (
+    <section className="sup-production">
+      <div className="sup-pipeline-hero">
+        <div>
+          <div className="sup-section-title">Production Dashboard</div>
+          <p>Roll up supplier contact, sample status, QC decisions, and production readiness for every AURA product route.</p>
+        </div>
+        <div className="sup-pipeline-hero__stats">
+          <StatCard label="Products tracked" value={rows.length} detail="Pipeline products" icon={Factory} />
+          <StatCard label="Approved" value={rows.filter((row) => row.qcDecision === 'approved').length} detail="QC approved" icon={Check} />
+          <StatCard label="Production ready" value={rows.filter((row) => row.readinessStatus === 'production_ready').length} detail="Ready status" icon={Truck} />
+        </div>
+      </div>
+
+      <div className="sup-production-filters">
+        {productionFilters.map((item) => (
+          <button
+            className={filter === item.id ? 'active' : ''}
+            key={item.id}
+            type="button"
+            onClick={() => setFilter(item.id)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="sup-production-list">
+        {filteredRows.map((row) => (
+          <article className="sup-production-card" key={row.product.id}>
+            <div className="sup-production-card__head">
+              <div>
+                <div className="sup-product-card__eyebrow">{row.product.category} / {row.product.supplier_type_needed}</div>
+                <h2>{row.product.product_name}</h2>
+              </div>
+              <div className="sup-readiness-score">
+                <span>Readiness</span>
+                <strong>{row.readinessScore}%</strong>
+              </div>
+            </div>
+
+            <div className="sup-production-grid">
+              <div>
+                <span>Preferred supplier</span>
+                <strong>{row.preferredSupplier?.name || 'Unassigned'}</strong>
+              </div>
+              <div>
+                <span>Backup suppliers</span>
+                <strong>{row.backupSuppliers.map((supplier) => supplier.name).join(', ') || 'None assigned'}</strong>
+              </div>
+              <div>
+                <span>Contact status</span>
+                <Pill tone={statusTone(row.contactStatus)}>{row.contactStatus.replaceAll('_', ' ')}</Pill>
+              </div>
+              <div>
+                <span>Sample status</span>
+                <Pill tone={statusTone(row.sampleStatus)}>{sampleStatusLabels[row.sampleStatus] || row.sampleStatus.replaceAll('_', ' ')}</Pill>
+              </div>
+              <div>
+                <span>QC score</span>
+                <strong>{row.qcScore}/10</strong>
+              </div>
+              <div>
+                <span>QC decision</span>
+                <Pill tone={statusTone(row.qcDecision)}>{row.qcDecision.replaceAll('_', ' ')}</Pill>
+              </div>
+            </div>
+
+            <div className="sup-production-edit">
+              <label>
+                <span>Production readiness status</span>
+                <select value={row.readinessStatus} onChange={(event) => setProductionField(row.product.id, 'readiness_status', event.target.value)}>
+                  {Object.entries(productionReadinessLabels).map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                <span>Status badge</span>
+                <Pill tone={readinessTone(row.readinessStatus)}>{productionReadinessLabels[row.readinessStatus] || row.readinessStatus}</Pill>
+              </label>
+              <label>
+                <span>Next action</span>
+                <input value={row.nextAction} onChange={(event) => setProductionField(row.product.id, 'next_action', event.target.value)} placeholder="e.g. Chase quote, pay sample invoice, review QC changes" />
+              </label>
+              <label>
+                <span>Follow-up date</span>
+                <input type="date" value={row.followUpDate} onChange={(event) => setProductionField(row.product.id, 'follow_up_date', event.target.value)} />
+              </label>
+              <label className="sup-production-edit__wide">
+                <span>Production notes</span>
+                <textarea value={row.notes} onChange={(event) => setProductionField(row.product.id, 'notes', event.target.value)} placeholder="Production risks, supplier constraints, approvals, costing, timing" />
+              </label>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PurchaseOrderCentre({ products, suppliersById, reviews, productionRecords, purchaseOrders, onCreate, onUpdate }) {
+  const productsById = useMemo(
+    () => Object.fromEntries(products.map((product) => [product.id, product])),
+    [products],
+  );
+
+  const approvedProducts = useMemo(() => products.filter((product) => (
+    productApprovedForPurchaseOrder(product, normalizeQcReview(product.id, reviews[product.id]), productionRecords[product.id])
+  )), [products, productionRecords, reviews]);
+
+  const totals = useMemo(() => purchaseOrders.reduce((acc, rawOrder) => {
+    const order = normalizePurchaseOrder(rawOrder);
+    acc.totalProductionValue += order.total_cost;
+    acc.outstandingBalance += order.balance_due;
+    acc.unitsOrdered += order.quantity;
+    if (['delivered', 'completed'].includes(order.status)) acc.unitsDelivered += order.quantity;
+    return acc;
+  }, {
+    totalProductionValue: 0,
+    outstandingBalance: 0,
+    unitsOrdered: 0,
+    unitsDelivered: 0,
+  }), [purchaseOrders]);
+
+  const ordersByProduct = useMemo(() => purchaseOrders.reduce((acc, order) => {
+    if (!acc[order.product_spec_id]) acc[order.product_spec_id] = [];
+    acc[order.product_spec_id].push(order);
+    return acc;
+  }, {}), [purchaseOrders]);
+
+  const setOrderField = (orderId, key, value) => {
+    onUpdate(orderId, { [key]: value });
+  };
+
+  return (
+    <section className="sup-po-centre">
+      <div className="sup-pipeline-hero">
+        <div>
+          <div className="sup-section-title">Purchase Order Centre</div>
+          <p>Create and track purchase orders for approved AURA products, from draft PO through deposit, production, shipping, delivery, and completion.</p>
+        </div>
+        <div className="sup-pipeline-hero__stats">
+          <StatCard label="Total Production Value" value={formatMoney(totals.totalProductionValue)} detail="Across active POs" icon={Factory} />
+          <StatCard label="Outstanding Balance" value={formatMoney(totals.outstandingBalance)} detail="Balance due" icon={PackageCheck} />
+          <StatCard label="Units Ordered" value={totals.unitsOrdered} detail={`${totals.unitsDelivered} delivered`} icon={Truck} />
+        </div>
+      </div>
+
+      <section className="sup-po-approved">
+        <div className="sup-section-title">Approved Products</div>
+        {approvedProducts.length ? (
+          <div className="sup-po-approved__grid">
+            {approvedProducts.map((product) => {
+              const supplier = suppliersById[product.preferred_supplier_id];
+              const productOrders = ordersByProduct[product.id] || [];
+              return (
+                <article key={product.id}>
+                  <div>
+                    <span>{product.category}</span>
+                    <strong>{product.product_name}</strong>
+                    <small>{supplier?.name || 'Preferred supplier unassigned'} / {productOrders.length} PO{productOrders.length === 1 ? '' : 's'}</small>
+                  </div>
+                  <button type="button" onClick={() => onCreate(product, supplier)}>
+                    Create Purchase Order
+                  </button>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="sup-empty">No products are approved for purchase orders yet. Approve QC or mark production readiness first.</div>
+        )}
+      </section>
+
+      <section className="sup-po-list">
+        <div className="sup-section-title">Purchase Orders</div>
+        {purchaseOrders.length ? purchaseOrders.map((rawOrder) => {
+          const order = normalizePurchaseOrder(rawOrder);
+          const product = productsById[order.product_spec_id];
+          const supplier = suppliersById[order.supplier_id];
+          return (
+            <article className="sup-po-card" key={order.id}>
+              <div className="sup-po-card__head">
+                <div>
+                  <span>PO Number</span>
+                  <h2>{order.po_number}</h2>
+                  <p>{product?.product_name || 'Product unassigned'} / {supplier?.name || 'Supplier unassigned'}</p>
+                </div>
+                <Pill tone={purchaseOrderTone(order.status)}>
+                  {purchaseOrderStatuses.find((status) => status.id === order.status)?.label || order.status}
+                </Pill>
+              </div>
+
+              <div className="sup-po-grid">
+                <label>
+                  <span>PO Number</span>
+                  <input value={order.po_number} onChange={(event) => setOrderField(order.id, 'po_number', event.target.value)} />
+                </label>
+                <label>
+                  <span>Product</span>
+                  <select value={order.product_spec_id} onChange={(event) => setOrderField(order.id, 'product_spec_id', event.target.value)}>
+                    <option value="">Select product</option>
+                    {approvedProducts.map((item) => <option key={item.id} value={item.id}>{item.product_name}</option>)}
+                  </select>
+                </label>
+                <label>
+                  <span>Supplier</span>
+                  <select value={order.supplier_id} onChange={(event) => setOrderField(order.id, 'supplier_id', event.target.value)}>
+                    <option value="">Select supplier</option>
+                    {Object.values(suppliersById).map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+                  </select>
+                </label>
+                <label>
+                  <span>Quantity</span>
+                  <input type="number" min="0" value={order.quantity} onChange={(event) => setOrderField(order.id, 'quantity', event.target.value)} />
+                </label>
+                <label>
+                  <span>Unit Cost</span>
+                  <input value={order.unit_cost} onChange={(event) => setOrderField(order.id, 'unit_cost', event.target.value)} placeholder="e.g. GBP 42" />
+                </label>
+                <label>
+                  <span>Total Cost</span>
+                  <strong>{formatMoney(order.total_cost)}</strong>
+                </label>
+                <label>
+                  <span>Deposit Paid</span>
+                  <input value={order.deposit_paid} onChange={(event) => setOrderField(order.id, 'deposit_paid', event.target.value)} placeholder="e.g. GBP 500" />
+                </label>
+                <label>
+                  <span>Balance Due</span>
+                  <strong>{formatMoney(order.balance_due)}</strong>
+                </label>
+                <label>
+                  <span>Production Start Date</span>
+                  <input type="date" value={order.production_start_date} onChange={(event) => setOrderField(order.id, 'production_start_date', event.target.value)} />
+                </label>
+                <label>
+                  <span>Estimated Completion Date</span>
+                  <input type="date" value={order.estimated_completion_date} onChange={(event) => setOrderField(order.id, 'estimated_completion_date', event.target.value)} />
+                </label>
+                <label>
+                  <span>Shipping Method</span>
+                  <input value={order.shipping_method} onChange={(event) => setOrderField(order.id, 'shipping_method', event.target.value)} placeholder="Air, sea, courier" />
+                </label>
+                <label>
+                  <span>Tracking Number</span>
+                  <input value={order.tracking_number} onChange={(event) => setOrderField(order.id, 'tracking_number', event.target.value)} />
+                </label>
+                <label>
+                  <span>Expected Arrival Date</span>
+                  <input type="date" value={order.expected_arrival_date} onChange={(event) => setOrderField(order.id, 'expected_arrival_date', event.target.value)} />
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select value={order.status} onChange={(event) => setOrderField(order.id, 'status', event.target.value)}>
+                    {purchaseOrderStatuses.map((status) => <option key={status.id} value={status.id}>{status.label}</option>)}
+                  </select>
+                </label>
+              </div>
+            </article>
+          );
+        }) : (
+          <div className="sup-empty">No purchase orders created yet.</div>
+        )}
+      </section>
+    </section>
+  );
+}
+
 export default function AdminSuppliers() {
   const navigate = useNavigate();
   const [suppliers, setSuppliers] = useState([]);
   const [products, setProducts] = useState([]);
   const [logs, setLogs] = useState([]);
   const [qcReviews, setQcReviews] = useState({});
+  const [productionRecords, setProductionRecords] = useState({});
+  const [purchaseOrders, setPurchaseOrders] = useState([]);
   const [activeSection, setActiveSection] = useState('pipeline');
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
@@ -1219,10 +1700,17 @@ export default function AdminSuppliers() {
     window.setTimeout(() => setToast(''), 2400);
   }, []);
 
-  const persistLocal = useCallback((nextSuppliers, nextProducts, nextLogs, nextQcReviews = qcReviews) => {
-    const savedAt = writeLocalData({ suppliers: nextSuppliers, products: nextProducts, logs: nextLogs, qcReviews: nextQcReviews });
+  const persistLocal = useCallback((nextSuppliers, nextProducts, nextLogs, nextQcReviews = qcReviews, nextProductionRecords = productionRecords, nextPurchaseOrders = purchaseOrders) => {
+    const savedAt = writeLocalData({
+      suppliers: nextSuppliers,
+      products: nextProducts,
+      logs: nextLogs,
+      qcReviews: nextQcReviews,
+      productionRecords: nextProductionRecords,
+      purchaseOrders: nextPurchaseOrders,
+    });
     setLastSavedLocally(savedAt);
-  }, [qcReviews]);
+  }, [productionRecords, purchaseOrders, qcReviews]);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -1232,6 +1720,8 @@ export default function AdminSuppliers() {
       setProducts(local.products);
       setLogs(local.logs);
       setQcReviews(normalizeQcReviews(local.products, local.qcReviews));
+      setProductionRecords(local.productionRecords || {});
+      setPurchaseOrders(local.purchaseOrders || []);
       setLastSavedLocally(local.lastSavedLocally);
       setLoading(false);
     }, 0);
@@ -1426,6 +1916,34 @@ export default function AdminSuppliers() {
     showToast('QC review saved');
   };
 
+  const updateProductionRecord = (productId, patch) => {
+    const nextProductionRecords = {
+      ...productionRecords,
+      [productId]: {
+        ...(productionRecords[productId] || {}),
+        ...patch,
+        updated_at: new Date().toISOString(),
+      },
+    };
+    setProductionRecords(nextProductionRecords);
+    persistLocal(suppliers, products, logs, qcReviews, nextProductionRecords);
+  };
+
+  const createPurchaseOrderRecord = (product, supplier) => {
+    const nextPurchaseOrders = [createPurchaseOrder(product, supplier), ...purchaseOrders];
+    setPurchaseOrders(nextPurchaseOrders);
+    persistLocal(suppliers, products, logs, qcReviews, productionRecords, nextPurchaseOrders);
+    showToast('Purchase order created');
+  };
+
+  const updatePurchaseOrderRecord = (orderId, patch) => {
+    const nextPurchaseOrders = purchaseOrders.map((order) => (
+      order.id === orderId ? normalizePurchaseOrder({ ...order, ...patch, updated_at: new Date().toISOString() }) : order
+    ));
+    setPurchaseOrders(nextPurchaseOrders);
+    persistLocal(suppliers, products, logs, qcReviews, productionRecords, nextPurchaseOrders);
+  };
+
   const renderProductPipeline = () => (
     <>
       <section className="sup-pipeline-hero">
@@ -1536,20 +2054,26 @@ export default function AdminSuppliers() {
   );
 
   const renderProduction = () => (
-    <section className="sup-panel">
-      <div className="sup-section-title">Production Tracker</div>
-      <div className="sup-tracker">
-        {products.map((spec) => (
-          <div className="sup-tracker__row" key={spec.id}>
-            <strong>{spec.product_name}</strong>
-            <span>{spec.category}</span>
-            <span>{suppliersById[spec.preferred_supplier_id]?.name || 'Unassigned'}</span>
-            <Pill tone={statusTone(spec.status)}>{supplierStatusLabels[spec.status] || spec.status}</Pill>
-            <button type="button" onClick={() => setSelectedSpec(spec)}>Spec</button>
-          </div>
-        ))}
-      </div>
-    </section>
+    <ProductionDashboard
+      products={pipelineProducts}
+      suppliersById={suppliersById}
+      logs={logs}
+      reviews={qcReviews}
+      productionRecords={productionRecords}
+      onUpdate={updateProductionRecord}
+    />
+  );
+
+  const renderPurchaseOrders = () => (
+    <PurchaseOrderCentre
+      products={pipelineProducts}
+      suppliersById={suppliersById}
+      reviews={qcReviews}
+      productionRecords={productionRecords}
+      purchaseOrders={purchaseOrders}
+      onCreate={createPurchaseOrderRecord}
+      onUpdate={updatePurchaseOrderRecord}
+    />
   );
 
   return (
@@ -1618,6 +2142,7 @@ export default function AdminSuppliers() {
           {!loading && activeSection === 'samples' ? renderSamples() : null}
           {!loading && activeSection === 'qc' ? renderQc() : null}
           {!loading && activeSection === 'production' ? renderProduction() : null}
+          {!loading && activeSection === 'po' ? renderPurchaseOrders() : null}
         </div>
       </main>
 
