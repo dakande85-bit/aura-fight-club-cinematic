@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
 import { useProductMedia } from '../hooks/useProductMedia.js';
 import ProductMediaGallery from '../components/ProductMediaGallery.jsx';
 import '../styles/product-detail.css';
@@ -114,8 +115,6 @@ export default function ProductDetail({ product, onBack }) {
               <span className="pd__badge">{statusLabel}</span>
               {product.price ? <span className="pd__price">{product.price}</span> : null}
             </div>
-            {product.shortDesc ? <p className="pd__short">{product.shortDesc}</p> : null}
-            {product.description ? <p className="pd__desc">{product.description}</p> : null}
 
             <div className="pd__waitlist">
               <p className="pd__waitlist-label">{actionLabel} / {product.collection}</p>
@@ -141,6 +140,9 @@ export default function ProductDetail({ product, onBack }) {
               <Link to="/drop-001">View Drop 001</Link>
               <Link to={categoryPath}>Shop {product.category}</Link>
             </div>
+
+            {product.shortDesc ? <p className="pd__short">{product.shortDesc}</p> : null}
+            {product.description ? <p className="pd__desc">{product.description}</p> : null}
           </div>
         </section>
 
@@ -185,6 +187,7 @@ export default function ProductDetail({ product, onBack }) {
           ))}
         </section>
       </main>
+      <Footer />
     </div>
   );
 }
