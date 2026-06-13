@@ -31,12 +31,11 @@ import '../styles/admin-suppliers.css';
 const STORAGE_KEY = 'aura_supplier_command_centre_v1';
 
 const navItems = [
-  { id: 'pipeline', label: 'Product Pipeline' },
-  { id: 'directory', label: 'Directory' },
-  { id: 'specs', label: 'Spec Library' },
-  { id: 'send', label: 'Send Design' },
+  { id: 'overview', label: 'Overview' },
+  { id: 'directory', label: 'Suppliers' },
+  { id: 'pipeline', label: 'Pipeline' },
+  { id: 'specs', label: 'Specs' },
   { id: 'contacts', label: 'Contacts' },
-  { id: 'samples', label: 'Samples' },
   { id: 'qc', label: 'QC Review' },
   { id: 'production', label: 'Production' },
   { id: 'po', label: 'PO Centre' },
@@ -597,9 +596,24 @@ function BackendStatusPanel({ supplierCount, productCount, logCount, lastSavedLo
   );
 }
 
-function SupplierCard({ supplier, logs, onView, onEmail, onSpec, onSample, onApprove, onEdit }) {
+function SectionHeading({ eyebrow, title, copy, actions = null }) {
   return (
-    <article className="sup-card">
+    <div className="sup-section-heading">
+      <div>
+        {eyebrow ? <span>{eyebrow}</span> : null}
+        <h2>{title}</h2>
+        {copy ? <p>{copy}</p> : null}
+      </div>
+      {actions ? <div className="sup-section-heading__actions">{actions}</div> : null}
+    </div>
+  );
+}
+
+function SupplierCard({ supplier, logs, viewMode, onView, onEmail, onSpec, onSample, onApprove, onEdit, onDelete }) {
+  const [moreOpen, setMoreOpen] = useState(false);
+
+  return (
+    <article className={`sup-card sup-card--supplier sup-card--${viewMode}`}>
       <div className="sup-card__head">
         <div>
           <div className="sup-card__name">{supplier.name}</div>
@@ -608,34 +622,57 @@ function SupplierCard({ supplier, logs, onView, onEmail, onSpec, onSample, onApp
         <Pill tone={supplier.type.toLowerCase()}>{supplier.type}</Pill>
       </div>
 
-      <div className="sup-card__line">
-        <span>Website</span>
-        <a href={supplier.website} target="_blank" rel="noreferrer">{supplier.website.replace(/^https?:\/\//, '')}</a>
+      <div className="sup-supplier-summary">
+        <div>
+          <span>Best for</span>
+          <strong>{supplier.best_for}</strong>
+        </div>
+        <div>
+          <span>Status</span>
+          <Pill tone={statusTone(supplier.status)}>{supplierStatusLabels[supplier.status]}</Pill>
+        </div>
+        <div>
+          <span>Contact logs</span>
+          <strong>{logs.length}</strong>
+        </div>
       </div>
-      <div className="sup-card__line">
-        <span>Email</span>
-        <strong>{supplier.contact_email}</strong>
-      </div>
-      <div className="sup-tags">
-        {supplier.product_categories.map((category) => <span key={category}>{category}</span>)}
-      </div>
-      <p className="sup-card__best">{supplier.best_for}</p>
-      <p className="sup-card__notes">{supplier.notes}</p>
 
-      <div className="sup-card__footer">
-        <Pill tone={statusTone(supplier.status)}>{supplierStatusLabels[supplier.status]}</Pill>
-        <span>{supplier.sample_available ? 'Sample available' : 'No sample listed'}</span>
-        <span>{formatDate(supplier.last_contacted)}</span>
-        <span>{logs.length} logs</span>
-      </div>
+      {viewMode === 'detailed' ? (
+        <>
+          <div className="sup-card__line">
+            <span>Website</span>
+            <a href={supplier.website} target="_blank" rel="noreferrer">{supplier.website.replace(/^https?:\/\//, '')}</a>
+          </div>
+          <div className="sup-card__line">
+            <span>Email</span>
+            <strong>{supplier.contact_email}</strong>
+          </div>
+          <div className="sup-tags">
+            {supplier.product_categories.map((category) => <span key={category}>{category}</span>)}
+          </div>
+          <p className="sup-card__notes">{supplier.notes}</p>
+          <div className="sup-card__footer">
+            <span>{supplier.sample_available ? 'Sample available' : 'No sample listed'}</span>
+            <span>{formatDate(supplier.last_contacted)}</span>
+          </div>
+        </>
+      ) : null}
 
       <div className="sup-actions">
         <button type="button" onClick={() => onView(supplier)}><Eye size={14} />View</button>
-        <button type="button" onClick={() => onEdit(supplier)}><PenLine size={14} />Edit</button>
         <button type="button" onClick={() => onEmail(supplier)}><Mail size={14} />Email</button>
-        <button type="button" onClick={() => onSpec(supplier)}><PackageCheck size={14} />Add Spec</button>
-        <button type="button" onClick={() => onSample(supplier)}><Send size={14} />Sample</button>
-        <button type="button" onClick={() => onApprove(supplier)}><Check size={14} />Approve</button>
+        <div className="sup-more">
+          <button type="button" onClick={() => setMoreOpen((open) => !open)}>More</button>
+          {moreOpen ? (
+            <div className="sup-more__menu">
+              <button type="button" onClick={() => onEdit(supplier)}><PenLine size={14} />Edit</button>
+              <button type="button" onClick={() => onSpec(supplier)}><PackageCheck size={14} />Add Spec</button>
+              <button type="button" onClick={() => onSample(supplier)}><Send size={14} />Sample</button>
+              <button type="button" onClick={() => onApprove(supplier)}><Check size={14} />Approve</button>
+              <button type="button" onClick={() => onDelete(supplier)}><X size={14} />Delete</button>
+            </div>
+          ) : null}
+        </div>
       </div>
     </article>
   );
@@ -1681,7 +1718,8 @@ export default function AdminSuppliers() {
   const [qcReviews, setQcReviews] = useState({});
   const [productionRecords, setProductionRecords] = useState({});
   const [purchaseOrders, setPurchaseOrders] = useState([]);
-  const [activeSection, setActiveSection] = useState('pipeline');
+  const [activeSection, setActiveSection] = useState('overview');
+  const [viewMode, setViewMode] = useState('compact');
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
@@ -1871,6 +1909,16 @@ export default function AdminSuppliers() {
     showToast('Contact record deleted');
   };
 
+  const deleteSupplier = (supplier) => {
+    const nextSuppliers = suppliers.filter((item) => item.id !== supplier.id);
+    const nextLogs = logs.filter((log) => log.supplier_id !== supplier.id);
+    setSuppliers(nextSuppliers);
+    setLogs(nextLogs);
+    if (selectedSupplier?.id === supplier.id) setSelectedSupplier(null);
+    persistLocal(nextSuppliers, products, nextLogs);
+    showToast('Supplier deleted');
+  };
+
   const updateReferenceSlot = (productId, slotIndex, url) => {
     const nextProducts = products.map((product) => {
       if (product.id !== productId) return product;
@@ -1944,8 +1992,41 @@ export default function AdminSuppliers() {
     persistLocal(suppliers, products, logs, qcReviews, productionRecords, nextPurchaseOrders);
   };
 
+  const renderOverview = () => {
+    const approvedCount = Object.values(qcReviews).filter((review) => ['approved', 'production_ready'].includes(review.decision)).length;
+    const poValue = purchaseOrders.reduce((sum, order) => sum + normalizePurchaseOrder(order).total_cost, 0);
+
+    return (
+      <section className="sup-overview">
+        <SectionHeading
+          eyebrow="Overview"
+          title="Supplier Command Overview"
+          copy="A cleaner snapshot of supplier readiness, manufacturing status, QC progress, and purchase orders."
+        />
+        <div className="sup-stats">
+          <StatCard label="Suppliers" value={suppliers.length} detail="Directory records" icon={Factory} />
+          <StatCard label="Pipeline Products" value={pipelineProducts.length} detail="AURA products in build" icon={PackageCheck} />
+          <StatCard label="QC Approved" value={approvedCount} detail="Approved or production ready" icon={ShieldCheck} />
+          <StatCard label="PO Value" value={formatMoney(poValue)} detail="Total production value" icon={Truck} />
+        </div>
+        <div className="sup-overview-actions">
+          <button type="button" onClick={() => setActiveSection('directory')}>Open Suppliers</button>
+          <button type="button" onClick={() => setActiveSection('pipeline')}>Review Pipeline</button>
+          <button type="button" onClick={() => setActiveSection('send')}>Send Design</button>
+          <button type="button" onClick={() => setActiveSection('samples')}>Sample Tracker</button>
+          <button type="button" onClick={() => setActiveSection('po')}>Open PO Centre</button>
+        </div>
+      </section>
+    );
+  };
+
   const renderProductPipeline = () => (
     <>
+      <SectionHeading
+        eyebrow="Manufacturing"
+        title="Manufacturing Pipeline"
+        copy="AURA Product to reference imagery, production spec, supplier route, sample status, and production readiness."
+      />
       <section className="sup-pipeline-hero">
         <div>
           <div className="sup-section-title">Product Manufacturing Pipeline</div>
@@ -1974,35 +2055,65 @@ export default function AdminSuppliers() {
   );
 
   const renderDirectory = () => (
-    <section className="sup-card-grid">
-      {filteredSuppliers.map((supplier) => (
-        <SupplierCard
-          key={supplier.id}
-          supplier={supplier}
-          logs={logsBySupplier[supplier.id] || []}
-          onView={setSelectedSupplier}
-          onEdit={setSelectedSupplier}
-          onEmail={(item) => setSendContext({ supplier: item })}
-          onSpec={() => setActiveSection('specs')}
-          onSample={requestSample}
-          onApprove={markApproved}
-        />
-      ))}
-    </section>
+    <>
+      <SectionHeading
+        eyebrow="Directory"
+        title="Supplier Directory"
+        copy="Browse suppliers with cleaner primary actions. Switch to detailed view when you need full notes, links, and category context."
+        actions={(
+          <div className="sup-view-toggle" aria-label="Supplier card view">
+            {['compact', 'detailed'].map((mode) => (
+              <button
+                className={viewMode === mode ? 'active' : ''}
+                key={mode}
+                type="button"
+                onClick={() => setViewMode(mode)}
+              >
+                {mode === 'compact' ? 'Compact' : 'Detailed'}
+              </button>
+            ))}
+          </div>
+        )}
+      />
+      <section className={`sup-card-grid sup-card-grid--suppliers sup-card-grid--${viewMode}`}>
+        {filteredSuppliers.map((supplier) => (
+          <SupplierCard
+            key={supplier.id}
+            supplier={supplier}
+            logs={logsBySupplier[supplier.id] || []}
+            viewMode={viewMode}
+            onView={setSelectedSupplier}
+            onEdit={setSelectedSupplier}
+            onEmail={(item) => setSendContext({ supplier: item })}
+            onSpec={() => setActiveSection('specs')}
+            onSample={requestSample}
+            onApprove={markApproved}
+            onDelete={deleteSupplier}
+          />
+        ))}
+      </section>
+    </>
   );
 
   const renderSpecs = () => (
-    <section className="sup-card-grid sup-card-grid--specs">
-      {products.map((spec) => (
-        <ProductSpecCard
-          key={spec.id}
-          spec={spec}
-          suppliersById={suppliersById}
-          onView={setSelectedSpec}
-          onSend={(item) => setSendContext({ spec: item })}
-        />
-      ))}
-    </section>
+    <>
+      <SectionHeading
+        eyebrow="Specs"
+        title="Product Spec Library"
+        copy="Manufacturing specs, preferred suppliers, backup suppliers, and supplier-ready send actions."
+      />
+      <section className="sup-card-grid sup-card-grid--specs">
+        {products.map((spec) => (
+          <ProductSpecCard
+            key={spec.id}
+            spec={spec}
+            suppliersById={suppliersById}
+            onView={setSelectedSpec}
+            onSend={(item) => setSendContext({ spec: item })}
+          />
+        ))}
+      </section>
+    </>
   );
 
   const renderSend = () => (
@@ -2016,14 +2127,21 @@ export default function AdminSuppliers() {
   );
 
   const renderContacts = () => (
-    <SupplierContactTracker
-      logs={logs}
-      suppliers={suppliers}
-      products={products}
-      onAdd={addContactRecord}
-      onUpdate={updateContactRecord}
-      onDelete={deleteContactRecord}
-    />
+    <>
+      <SectionHeading
+        eyebrow="Outreach"
+        title="Contact Tracker"
+        copy="Supplier outreach, responses, quotes, sample invoices, payment status, and follow-up dates."
+      />
+      <SupplierContactTracker
+        logs={logs}
+        suppliers={suppliers}
+        products={products}
+        onAdd={addContactRecord}
+        onUpdate={updateContactRecord}
+        onDelete={deleteContactRecord}
+      />
+    </>
   );
 
   const renderSamples = () => (
@@ -2046,34 +2164,55 @@ export default function AdminSuppliers() {
   );
 
   const renderQc = () => (
-    <QcSampleReviewCentre
-      products={pipelineProducts}
-      reviews={qcReviews}
-      onUpdate={updateQcReview}
-    />
+    <>
+      <SectionHeading
+        eyebrow="Sample QC"
+        title="QC Review"
+        copy="Score sample accuracy, record supplier media, and decide whether each product moves toward production."
+      />
+      <QcSampleReviewCentre
+        products={pipelineProducts}
+        reviews={qcReviews}
+        onUpdate={updateQcReview}
+      />
+    </>
   );
 
   const renderProduction = () => (
-    <ProductionDashboard
-      products={pipelineProducts}
-      suppliersById={suppliersById}
-      logs={logs}
-      reviews={qcReviews}
-      productionRecords={productionRecords}
-      onUpdate={updateProductionRecord}
-    />
+    <>
+      <SectionHeading
+        eyebrow="Production"
+        title="Production Dashboard"
+        copy="Readiness, next actions, supplier status, QC status, and production notes in one place."
+      />
+      <ProductionDashboard
+        products={pipelineProducts}
+        suppliersById={suppliersById}
+        logs={logs}
+        reviews={qcReviews}
+        productionRecords={productionRecords}
+        onUpdate={updateProductionRecord}
+      />
+    </>
   );
 
   const renderPurchaseOrders = () => (
-    <PurchaseOrderCentre
-      products={pipelineProducts}
-      suppliersById={suppliersById}
-      reviews={qcReviews}
-      productionRecords={productionRecords}
-      purchaseOrders={purchaseOrders}
-      onCreate={createPurchaseOrderRecord}
-      onUpdate={updatePurchaseOrderRecord}
-    />
+    <>
+      <SectionHeading
+        eyebrow="Purchase Orders"
+        title="Purchase Orders"
+        copy="Create and track approved-product POs from draft through delivery and completion."
+      />
+      <PurchaseOrderCentre
+        products={pipelineProducts}
+        suppliersById={suppliersById}
+        reviews={qcReviews}
+        productionRecords={productionRecords}
+        purchaseOrders={purchaseOrders}
+        onCreate={createPurchaseOrderRecord}
+        onUpdate={updatePurchaseOrderRecord}
+      />
+    </>
   );
 
   return (
@@ -2134,6 +2273,7 @@ export default function AdminSuppliers() {
               lastSavedLocally={lastSavedLocally}
             />
           ) : null}
+          {!loading && activeSection === 'overview' ? renderOverview() : null}
           {!loading && activeSection === 'pipeline' ? renderProductPipeline() : null}
           {!loading && activeSection === 'directory' ? renderDirectory() : null}
           {!loading && activeSection === 'specs' ? renderSpecs() : null}
