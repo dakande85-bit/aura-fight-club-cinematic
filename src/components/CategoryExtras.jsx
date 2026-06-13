@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import PageHero from './PageHero.jsx';
 import '../styles/category-extras.css';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -8,8 +9,6 @@ import '../styles/category-extras.css';
 // Drop 001 connection, and final waitlist CTA for a category page.
 //
 // Driven entirely by `category` ('apparel' | 'footwear' | 'equipment').
-// Apparel and footwear have content defined. Equipment intentionally renders
-// `null` until the equipment category receives its own commercial pass.
 // Existing product grid / ProductCard / product data are NOT touched —
 // this component only wraps around them (hero above, extras below).
 // ─────────────────────────────────────────────────────────────────────────────
@@ -21,6 +20,8 @@ const CONTENT = {
       headline: 'BUILT FOR THE\nUNSEEN ROUNDS',
       copy:
         'Training layers for the work nobody sees. Clean, composed, and built around presence before attention.',
+      image: '/campaign/jump-rope/jump-rope-07.webp',
+      imagePosition: '72% center',
       ctas: [
         { label: 'Shop Apparel', to: '#apparel-lineup', variant: 'primary', scroll: true },
         { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
@@ -31,7 +32,7 @@ const CONTENT = {
       title: 'Training identity, not gymwear.',
       paragraphs: [
         'AURA apparel is built around what training actually looks like: early mornings, repetition, and the quiet discipline between rounds. It is fightwear that moves like lifestyle — clean enough to wear outside the gym, composed enough to wear into it.',
-        'Nothing here is loud. There are no oversized graphics, no generic "boxing merch" signals. Just considered pieces built for the version of you that shows up before anyone is watching.',
+        'Nothing here is loud. There are no oversized graphics, no generic boxing merch signals. Just considered pieces built for the version of you that shows up before anyone is watching.',
       ],
     },
     lineup: {
@@ -100,6 +101,8 @@ const CONTENT = {
       headline: 'MOVEMENT BEFORE\nIMPACT',
       copy:
         'Footwear built around control, rhythm, and the steps nobody studies until they lose the round.',
+      image: '/campaign/jump-rope/jump-rope-07.webp',
+      imagePosition: '72% center',
       ctas: [
         { label: 'Shop Footwear', to: '#footwear-lineup', variant: 'primary', scroll: true },
         { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
@@ -172,6 +175,87 @@ const CONTENT = {
       cta: { label: 'Join Waitlist', href: '#waitlist' },
     },
   },
+
+  equipment: {
+    hero: {
+      label: 'AURA EQUIPMENT',
+      headline: 'TOOLS FOR\nDISCIPLINE',
+      copy:
+        'Training equipment for daily preparation, consistency, and the routine of getting sharper.',
+      image: '/campaign/heavy-bag/heavy-bag-07.webp',
+      imagePosition: '70% center',
+      ctas: [
+        { label: 'Shop Equipment', to: '#equipment-lineup', variant: 'primary', scroll: true },
+        { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
+      ],
+    },
+    story: {
+      eyebrow: 'The Equipment',
+      title: 'Tools for the daily training ritual.',
+      paragraphs: [
+        'AURA equipment supports the quiet preparation behind the brand: repetition, control, and consistency. It is gear for the daily routine that sharpens the athlete before attention arrives.',
+        'The category is clean, premium, and purposeful. Each piece should feel connected to the wider AURA uniform rather than like random accessory merchandise.',
+      ],
+    },
+    lineup: {
+      eyebrow: 'Product Lineup',
+      title: 'EQUIPMENT LINEUP',
+      copy:
+        'Training tools built around preparation, consistency, and the daily ritual of becoming sharper.',
+    },
+    useCases: {
+      eyebrow: 'Use Cases',
+      title: 'Built for daily preparation.',
+      cards: [
+        {
+          title: 'Training',
+          copy: 'Built for warm-ups, conditioning, and daily training routines.',
+        },
+        {
+          title: 'Preparation',
+          copy: 'Small tools that support rhythm, discipline, and consistency.',
+        },
+        {
+          title: 'Lifestyle',
+          copy: 'Clean training gear designed to sit inside the AURA uniform.',
+        },
+      ],
+    },
+    fit: {
+      eyebrow: 'Function / Ritual / Identity',
+      title: 'Purposeful gear for disciplined repetition.',
+      points: [
+        {
+          title: 'Training Utility',
+          copy:
+            'Practical pieces positioned around the daily rhythm of training, preparation, and consistency.',
+        },
+        {
+          title: 'Clean AURA Aesthetic',
+          copy:
+            'Equipment that feels aligned with the wider AURA identity: composed, dark, and intentional.',
+        },
+        {
+          title: 'Built Around Repetition',
+          copy:
+            'The category supports the repeated work that creates presence before attention arrives.',
+        },
+      ],
+    },
+    dropConnection: {
+      eyebrow: 'Drop 001',
+      title: 'PART OF DROP 001',
+      copy:
+        'Equipment completes the AURA training uniform, connecting apparel, footwear, and training tools into one disciplined first release.',
+      cta: { label: 'View Drop 001', to: '/drop-001' },
+    },
+    finalCta: {
+      title: 'ENTER THE FIRST CIRCLE',
+      copy:
+        'Join the waitlist for early access to AURA equipment releases and Drop 001 updates.',
+      cta: { label: 'Join Waitlist', href: '#waitlist' },
+    },
+  },
 };
 
 function getCategoryContent(category) {
@@ -179,50 +263,11 @@ function getCategoryContent(category) {
   return CONTENT[String(category).toLowerCase()] || null;
 }
 
-function CtaLink({ item }) {
-  if (!item) return null;
-
-  const className = `cx-btn cx-btn--${item.variant || 'ghost'}`;
-
-  if (item.to?.startsWith('#')) {
-    return (
-      <a href={item.to} className={className}>
-        {item.label}
-      </a>
-    );
-  }
-
-  return (
-    <Link to={item.to} className={className}>
-      {item.label}
-    </Link>
-  );
-}
-
 export function CategoryHero({ category }) {
   const content = getCategoryContent(category);
   if (!content?.hero) return null;
 
-  const { hero } = content;
-
-  return (
-    <section className="cx-hero" data-category={category}>
-      <div className="cx-hero__inner">
-        <p className="cx-eyebrow">{hero.label}</p>
-        <h1 className="cx-hero__title">
-          {hero.headline.split('\n').map(line => (
-            <span key={line}>{line}</span>
-          ))}
-        </h1>
-        <p className="cx-hero__copy">{hero.copy}</p>
-        <div className="cx-hero__ctas">
-          {hero.ctas.map(item => (
-            <CtaLink key={item.label} item={item} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return <PageHero {...content.hero} />;
 }
 
 export function CategoryLineupIntro({ category }) {
