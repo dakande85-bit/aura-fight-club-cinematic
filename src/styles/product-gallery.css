@@ -5,16 +5,30 @@
 /* Main image */
 .pmg__main {
   position: relative;
-  background: #080808;
-  border: 1px solid rgba(255,255,255,0.07);
+  min-height: min(72vh, 720px);
+  background:
+    radial-gradient(circle at 50% 34%, rgba(244,241,234,0.075), transparent 40%),
+    linear-gradient(160deg, rgba(255,255,255,0.045), transparent 44%),
+    #080808;
+  border: 1px solid rgba(255,255,255,0.08);
   overflow: hidden;
 }
+
+.pmg__main::after {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(200,169,110,0.12);
+  pointer-events: none;
+}
+
 .pmg__main-img {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  min-height: min(72vh, 720px);
+  aspect-ratio: 4 / 5;
   object-fit: contain;
-  padding: 40px;
+  padding: clamp(24px, 5vw, 62px);
   animation: pmgIn 0.3s ease;
 }
 /* Model/lifestyle shots fill frame */
@@ -22,7 +36,6 @@
   object-fit: cover;
   padding: 0;
   object-position: center top;
-  aspect-ratio: 4 / 5;
 }
 @keyframes pmgIn {
   from { opacity: 0; transform: scale(0.98); }
@@ -66,6 +79,8 @@
 }
 
 @media (max-width: 480px) {
+  .pmg__main,
+  .pmg__main-img       { min-height: 420px; }
   .pmg__main-img       { padding: 24px; }
   .pmg__thumbs          { grid-template-columns: repeat(5,1fr); gap: 4px; }
 }
