@@ -450,3 +450,26 @@
     min-height: 50px;
   }
 }
+
+/* 6) Preserve the image-led manifesto/category campaign cards after mobile overrides */
+@media (max-width: 768px) {
+  .home-extra__drop,
+  .home-extra__manifesto {
+    padding-top: 330px;
+  }
+
+  .home-extra__drop-media,
+  .home-extra__manifesto-media {
+    height: 390px;
+  }
+
+  .home-extra__category-card,
+  .home-extra__preview-card {
+    min-height: 340px;
+  }
+
+  .home-extra__manifesto h2 {
+    font-size: clamp(3.05rem, 15vw, 5.2rem);
+    line-height: 0.88;
+  }
+}

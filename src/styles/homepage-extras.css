@@ -1,6 +1,7 @@
 .home-extra {
   position: relative;
   z-index: 4;
+  overflow-x: hidden;
   background: #050505;
   color: #f4f0e8;
   border-top: 1px solid rgba(244, 240, 232, 0.08);
@@ -9,7 +10,7 @@
 .home-extra__section {
   max-width: 1500px;
   margin: 0 auto;
-  padding: 96px 52px;
+  padding: clamp(72px, 8vw, 118px) clamp(20px, 4vw, 52px);
   border-bottom: 1px solid rgba(244, 240, 232, 0.08);
 }
 
@@ -22,38 +23,23 @@
   font-weight: 900;
 }
 
-.home-extra__split {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 0.8fr);
-  gap: 72px;
-  align-items: start;
+.home-extra h2,
+.home-extra h3 {
+  margin: 0;
+  text-transform: uppercase;
 }
 
 .home-extra h2 {
-  margin: 0;
-  max-width: 820px;
-  font-size: clamp(3.4rem, 7vw, 8rem);
+  max-width: 840px;
+  font-size: clamp(3.1rem, 6.8vw, 8rem);
   line-height: 0.88;
-  letter-spacing: -0.055em;
-  text-transform: uppercase;
+  letter-spacing: -0.05em;
 }
 
 .home-extra h3 {
-  margin: 0;
   font-size: clamp(2rem, 3.6vw, 4.8rem);
   line-height: 0.94;
-  letter-spacing: -0.045em;
-  text-transform: uppercase;
-}
-
-.home-extra__copy {
-  color: rgba(244, 240, 232, 0.72);
-  font-size: 1.02rem;
-  line-height: 1.85;
-}
-
-.home-extra__copy p {
-  margin: 0 0 18px;
+  letter-spacing: -0.04em;
 }
 
 .home-extra__button {
@@ -84,26 +70,128 @@
   border-color: #f4f0e8;
 }
 
+.home-extra__drop {
+  position: relative;
+  min-height: min(820px, 92svh);
+  display: grid;
+  align-items: end;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: none;
+}
+
+.home-extra__drop::after,
+.home-extra__manifesto::after,
+.home-extra__preview-card::after,
+.home-extra__category-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.home-extra__drop::after {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.96) 0%, rgba(5, 5, 5, 0.72) 38%, rgba(5, 5, 5, 0.1) 72%),
+    linear-gradient(0deg, #050505 0%, transparent 34%);
+}
+
+.home-extra__drop-media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.home-extra__drop-media img,
+.home-extra__manifesto-media img,
+.home-extra__category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.home-extra__drop-media img {
+  object-position: 68% center;
+  filter: saturate(0.9) contrast(1.05) brightness(0.9);
+}
+
+.home-extra__split {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 0.8fr);
+  gap: clamp(28px, 6vw, 92px);
+  align-items: end;
+}
+
+.home-extra__split--media {
+  width: min(1500px, 100%);
+  margin: 0 auto;
+}
+
+.home-extra__drop-copy {
+  max-width: 870px;
+}
+
+.home-extra__drop-copy p,
+.home-extra__copy,
+.home-extra__category-card p,
+.home-extra__manifesto-lines,
+.home-extra__preview-card span,
+.home-extra__final-cta p {
+  color: rgba(244, 240, 232, 0.72);
+  line-height: 1.72;
+}
+
+.home-extra__drop-copy p {
+  max-width: 620px;
+  margin: 24px 0 0;
+  font-size: clamp(1rem, 1.4vw, 1.22rem);
+}
+
+.home-extra__copy {
+  font-size: 1.02rem;
+}
+
+.home-extra__copy p {
+  margin: 0 0 18px;
+}
+
+.home-extra__copy--panel {
+  border: 1px solid rgba(244, 240, 232, 0.14);
+  background: rgba(5, 5, 5, 0.64);
+  padding: clamp(20px, 2.6vw, 34px);
+  backdrop-filter: blur(12px);
+}
+
 .home-extra__category-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 
 .home-extra__category-card,
 .home-extra__preview-card {
-  min-height: 310px;
+  position: relative;
+  overflow: hidden;
+  min-height: 430px;
   border: 1px solid rgba(244, 240, 232, 0.12);
-  background:
-    radial-gradient(circle at 20% 0%, rgba(198, 154, 74, 0.08), transparent 36%),
-    linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
   color: #f4f0e8;
   text-decoration: none;
-  padding: 30px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+  justify-content: flex-end;
+  transition: transform 0.22s ease, border-color 0.22s ease;
+  isolation: isolate;
+}
+
+.home-extra__category-card::after,
+.home-extra__preview-card::after {
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(5, 5, 5, 0.04) 0%, rgba(5, 5, 5, 0.34) 40%, rgba(5, 5, 5, 0.94) 100%),
+    radial-gradient(circle at 18% 0%, rgba(198, 154, 74, 0.18), transparent 34%);
 }
 
 .home-extra__category-card:hover,
@@ -112,19 +200,31 @@
   border-color: rgba(198, 154, 74, 0.52);
 }
 
+.home-extra__category-card img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  object-position: center top;
+  filter: saturate(0.9) contrast(1.04) brightness(0.86);
+  transition: transform 0.45s ease;
+}
+
+.home-extra__category-card:hover img {
+  transform: scale(1.035);
+}
+
 .home-extra__category-card span {
-  font-size: clamp(2.2rem, 4vw, 4.8rem);
+  max-width: 100%;
+  font-size: clamp(2.25rem, 4.2vw, 5rem);
   line-height: 0.88;
   text-transform: uppercase;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.045em;
   font-weight: 900;
 }
 
-.home-extra__category-card p,
-.home-extra__preview-card span,
-.home-extra__final-cta p {
-  color: rgba(244, 240, 232, 0.66);
-  line-height: 1.7;
+.home-extra__category-card p {
+  max-width: 340px;
+  margin: 16px 0 22px;
 }
 
 .home-extra__category-card small {
@@ -135,23 +235,71 @@
 }
 
 .home-extra__manifesto {
-  text-align: center;
-}
-
-.home-extra__manifesto blockquote {
-  margin: 0 auto;
-  max-width: 1120px;
+  position: relative;
+  min-height: min(840px, 92svh);
+  max-width: none;
   display: grid;
-  gap: 18px;
-  font-size: clamp(2.8rem, 6vw, 7.5rem);
-  line-height: 0.9;
-  letter-spacing: -0.055em;
-  text-transform: uppercase;
-  font-weight: 900;
+  align-items: center;
+  isolation: isolate;
+  overflow: hidden;
 }
 
-.home-extra__manifesto blockquote span:nth-child(even) {
-  color: rgba(244, 240, 232, 0.42);
+.home-extra__manifesto::after {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.94) 0%, rgba(5, 5, 5, 0.74) 42%, rgba(5, 5, 5, 0.2) 76%),
+    linear-gradient(0deg, #050505 0%, transparent 28%, transparent 72%, #050505 100%);
+}
+
+.home-extra__manifesto-media {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -2;
+  width: min(62vw, 980px);
+}
+
+.home-extra__manifesto-media img {
+  object-position: 56% center;
+  filter: saturate(0.86) contrast(1.08) brightness(0.82);
+}
+
+.home-extra__manifesto-copy {
+  width: min(1500px, 100%);
+  margin: 0 auto;
+}
+
+.home-extra__manifesto h2 {
+  max-width: 850px;
+  font-size: clamp(4rem, 8.4vw, 10rem);
+  line-height: 0.84;
+  text-shadow: 0 28px 70px rgba(0, 0, 0, 0.68);
+}
+
+.home-extra__manifesto h2 span {
+  display: block;
+  color: #c69a4a;
+}
+
+.home-extra__manifesto-lines {
+  display: grid;
+  gap: 8px;
+  max-width: 590px;
+  margin-top: 28px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: clamp(0.9rem, 1.35vw, 1.18rem);
+  font-weight: 800;
+}
+
+.home-extra__manifesto-lines span:nth-child(2) {
+  color: rgba(244, 240, 232, 0.48);
+}
+
+.home-extra__manifesto-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
 }
 
 .home-extra__previews {
@@ -161,11 +309,41 @@
 }
 
 .home-extra__preview-card {
-  min-height: 420px;
+  min-height: 460px;
+  background-size: cover;
+  background-position: center;
 }
 
-.home-extra__final-cta {
+.home-extra__preview-card--campaign {
+  background-image: url('/assets/aura-scroll/06_campaign_mitts_sequence/frame_03_mitts_real.png');
+}
+
+.home-extra__preview-card--fight {
+  background-image: url('/assets/aura-scroll/07_fight_club_close/frame_05_fight_club_female_wraps.png');
+}
+
+.home-extra__preview-card span {
+  margin-top: 24px;
+  color: #c69a4a;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 900;
+}
+
+.home-extra__final-cta,
+.hpx-final-cta {
+  max-width: none;
+  width: 100%;
+  min-height: 82svh;
+  padding: 132px 52px 108px;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  border-bottom: none;
   background:
     radial-gradient(circle at center top, rgba(198, 154, 74, 0.12), transparent 42%),
     #050505;
@@ -180,6 +358,17 @@
   margin: 24px auto 0;
 }
 
+.home-extra__final-cta + footer,
+.home-extra__final-cta + .aura-footer,
+.hpx-final-cta + footer,
+.hpx-final-cta + .aura-footer,
+.aura-footer {
+  margin-top: 0;
+  position: relative;
+  z-index: 1;
+  clear: both;
+}
+
 @media (max-width: 980px) {
   .home-extra__section {
     padding: 72px 24px;
@@ -192,150 +381,102 @@
     gap: 18px;
   }
 
+  .home-extra__drop,
+  .home-extra__manifesto {
+    min-height: auto;
+    padding-top: 420px;
+  }
+
+  .home-extra__drop-media,
+  .home-extra__manifesto-media {
+    inset: 0 0 auto;
+    width: 100%;
+    height: 520px;
+  }
+
+  .home-extra__drop::after,
+  .home-extra__manifesto::after {
+    background:
+      linear-gradient(180deg, rgba(5, 5, 5, 0.08) 0%, rgba(5, 5, 5, 0.36) 38%, #050505 72%),
+      linear-gradient(90deg, rgba(5, 5, 5, 0.34), transparent);
+  }
+
   .home-extra__category-card,
   .home-extra__preview-card {
-    min-height: 260px;
+    min-height: 340px;
     padding: 24px;
   }
 }
 
-/* ============================================================
-   AURA — Homepage end-of-page layout fix
-   Appended to ensure the final CTA has its own full viewport
-   before the footer begins.
-   ============================================================ */
-
-.home-extra__final-cta,
-.hpx-final-cta {
-  max-width: none;
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
-  padding: 150px 52px 120px;
-  margin: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-bottom: none;
-}
-
-.home-extra__final-cta h1,
-.home-extra__final-cta h2,
-.home-extra__final-cta .hpx-final-cta__title,
-.hpx-final-cta .hpx-final-cta__title {
-  margin: 0 0 2.5rem;
-}
-
-@media (max-width: 980px) {
-  .home-extra__final-cta,
-  .hpx-final-cta {
-    min-height: 92vh;
-    min-height: 92svh;
-    padding: 128px 24px 96px;
-  }
-}
-
-.home-extra__final-cta + footer,
-.home-extra__final-cta + .aura-footer,
-.hpx-final-cta + footer,
-.hpx-final-cta + .aura-footer,
-.aura-footer {
-  margin-top: 0;
-  position: relative;
-  z-index: 1;
-  clear: both;
-}
-
-@supports (padding-top: env(safe-area-inset-top)) {
-  .home-extra__final-cta,
-  .hpx-final-cta {
-    padding-top: calc(150px + env(safe-area-inset-top));
+@media (max-width: 640px) {
+  .home-extra__section {
+    padding: 58px 20px;
   }
 
-  @media (max-width: 980px) {
-    .home-extra__final-cta,
-    .hpx-final-cta {
-      padding-top: calc(128px + env(safe-area-inset-top));
-    }
+  .home-extra h2 {
+    font-size: clamp(2.45rem, 11vw, 4.2rem);
+    line-height: 0.94;
+    letter-spacing: -0.035em;
   }
-}
 
-/* ============================================================
-   AURA — Homepage manifesto hierarchy fix
-   Reduces wall-of-text effect by assigning clear scale/rhythm
-   to each manifesto line without changing JSX/content.
-   ============================================================ */
+  .home-extra h3 {
+    font-size: clamp(2rem, 9vw, 3.35rem);
+    letter-spacing: -0.025em;
+  }
 
-.home-extra__manifesto {
-  padding-top: 86px;
-  padding-bottom: 86px;
-}
-
-.home-extra__manifesto blockquote {
-  max-width: 980px;
-  gap: clamp(10px, 1.6vw, 18px);
-  line-height: 0.96;
-  letter-spacing: -0.045em;
-  text-wrap: balance;
-}
-
-.home-extra__manifesto blockquote span {
-  display: block;
-  max-width: 100%;
-}
-
-.home-extra__manifesto blockquote span:nth-of-type(1) {
-  color: #f4f0e8;
-  font-size: clamp(3.4rem, 7vw, 7.4rem);
-}
-
-.home-extra__manifesto blockquote span:nth-of-type(2) {
-  color: #c69a4a;
-  font-size: clamp(2.1rem, 4.4vw, 4.8rem);
-  letter-spacing: -0.035em;
-}
-
-.home-extra__manifesto blockquote span:nth-of-type(3) {
-  color: rgba(244, 240, 232, 0.58);
-  font-size: clamp(1.65rem, 3.2vw, 3.5rem);
-  letter-spacing: -0.025em;
-}
-
-.home-extra__manifesto blockquote span:nth-of-type(4) {
-  color: rgba(244, 240, 232, 0.82);
-  font-size: clamp(1.15rem, 2vw, 2rem);
-  line-height: 1.18;
-  letter-spacing: 0.08em;
-}
-
-@media (max-width: 760px) {
+  .home-extra__drop,
   .home-extra__manifesto {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 330px;
   }
 
-  .home-extra__manifesto blockquote {
-    max-width: 92vw;
-    gap: 12px;
+  .home-extra__drop-media,
+  .home-extra__manifesto-media {
+    height: 390px;
   }
 
-  .home-extra__manifesto blockquote span:nth-of-type(1) {
-    font-size: clamp(2.3rem, 13vw, 4.4rem);
+  .home-extra__drop-media img {
+    object-position: 62% center;
   }
 
-  .home-extra__manifesto blockquote span:nth-of-type(2) {
-    font-size: clamp(1.55rem, 8.4vw, 2.7rem);
+  .home-extra__manifesto-media img {
+    object-position: 58% center;
   }
 
-  .home-extra__manifesto blockquote span:nth-of-type(3) {
-    font-size: clamp(1.25rem, 6.5vw, 2rem);
+  .home-extra__copy {
+    font-size: 0.95rem;
+    line-height: 1.68;
   }
 
-  .home-extra__manifesto blockquote span:nth-of-type(4) {
-    font-size: clamp(0.86rem, 4vw, 1.15rem);
-    line-height: 1.28;
+  .home-extra__category-card {
+    min-height: 360px;
+  }
+
+  .home-extra__category-card span {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .home-extra__manifesto h2 {
+    font-size: clamp(3.05rem, 15vw, 5.2rem);
+    line-height: 0.88;
+  }
+
+  .home-extra__manifesto-lines {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .home-extra__manifesto-actions,
+  .home-extra__manifesto-actions .home-extra__button {
+    width: 100%;
+  }
+
+  .home-extra__preview-card {
+    min-height: 340px;
+  }
+
+  .home-extra__final-cta,
+  .hpx-final-cta {
+    min-height: 76svh;
+    padding: 82px 20px 72px;
   }
 }
