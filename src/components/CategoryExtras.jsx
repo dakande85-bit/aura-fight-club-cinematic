@@ -8,13 +8,8 @@ import '../styles/category-extras.css';
 // Drop 001 connection, and final waitlist CTA for a category page.
 //
 // Driven entirely by `category` ('apparel' | 'footwear' | 'equipment').
-// Only 'apparel' has content defined for now — other categories render
-// `null`, leaving /footwear and /equipment exactly as they currently are.
-// This means CollectionPage.jsx can safely render
-// `<CategoryExtras category={categorySlug} />` unconditionally without
-// any risk to the other two pages until their content is added to
-// CONTENT below.
-//
+// Apparel and footwear have content defined. Equipment intentionally renders
+// `null` until the equipment category receives its own commercial pass.
 // Existing product grid / ProductCard / product data are NOT touched —
 // this component only wraps around them (hero above, extras below).
 // ─────────────────────────────────────────────────────────────────────────────
@@ -98,6 +93,85 @@ const CONTENT = {
       cta: { label: 'Join Waitlist', href: '#waitlist' },
     },
   },
+
+  footwear: {
+    hero: {
+      label: 'AURA FOOTWEAR',
+      headline: 'MOVEMENT BEFORE\nIMPACT',
+      copy:
+        'Footwear built around control, rhythm, and the steps nobody studies until they lose the round.',
+      ctas: [
+        { label: 'Shop Footwear', to: '#footwear-lineup', variant: 'primary', scroll: true },
+        { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
+      ],
+    },
+    story: {
+      eyebrow: 'The Footwork',
+      title: 'A fight-club silhouette built from the ground up.',
+      paragraphs: [
+        'AURA footwear takes cues from boxing rhythm, footwork, balance, and control, then brings that energy into a wearable training-lifestyle silhouette. It is built for the way a fighter moves before impact, not just the moment the punch lands.',
+        'These are not ordinary trainers and they are not costume boxing boots. The goal is a practical athletic and casual crossover: sharp enough for the street, disciplined enough for the gym, and aligned with the AURA uniform.',
+      ],
+    },
+    lineup: {
+      eyebrow: 'Product Lineup',
+      title: 'FOOTWEAR LINEUP',
+      copy:
+        'Fight-inspired footwear built around movement, rhythm, and everyday training identity. Explore the silhouettes anchoring the AURA uniform from the ground up.',
+    },
+    useCases: {
+      eyebrow: 'Use Cases',
+      title: 'Built around movement before impact.',
+      cards: [
+        {
+          title: 'Footwork',
+          copy: 'Built for pivots, rhythm changes, and clean movement patterns.',
+        },
+        {
+          title: 'Street',
+          copy: 'A fight-club silhouette designed to carry outside the gym.',
+        },
+        {
+          title: 'Travel',
+          copy: 'Light, sharp, and easy to style with the AURA uniform.',
+        },
+      ],
+    },
+    fit: {
+      eyebrow: 'Fit / Movement / Identity',
+      title: 'Footwear for rhythm, balance, and presence.',
+      points: [
+        {
+          title: 'Lightweight Feel',
+          copy:
+            'Designed to feel clean and mobile without turning into generic running-shoe language.',
+        },
+        {
+          title: 'High-Top Fight Silhouette',
+          copy:
+            'A boxing-inspired profile that gives the category its fight-club identity.',
+        },
+        {
+          title: 'Everyday Training Identity',
+          copy:
+            'Built to sit naturally with the AURA uniform: composed, sharp, and ready for daily movement.',
+        },
+      ],
+    },
+    dropConnection: {
+      eyebrow: 'Drop 001',
+      title: 'PART OF DROP 001',
+      copy:
+        'Footwear anchors the first AURA release from the ground up, connecting movement, apparel, and equipment into one disciplined uniform.',
+      cta: { label: 'View Drop 001', to: '/drop-001' },
+    },
+    finalCta: {
+      title: 'ENTER THE FIRST CIRCLE',
+      copy:
+        'Join the waitlist for early access to AURA footwear releases, Drop 001 updates, and the first circle of the fight club.',
+      cta: { label: 'Join Waitlist', href: '#waitlist' },
+    },
+  },
 };
 
 function getCategoryContent(category) {
@@ -156,7 +230,7 @@ export function CategoryLineupIntro({ category }) {
   if (!content?.lineup) return null;
 
   const { lineup } = content;
-  const anchorId = category === 'apparel' ? 'apparel-lineup' : `${category || 'category'}-lineup`;
+  const anchorId = `${String(category || 'category').toLowerCase()}-lineup`;
 
   return (
     <section className="cx-lineup-intro" id={anchorId}>
