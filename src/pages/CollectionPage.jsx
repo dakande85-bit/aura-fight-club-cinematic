@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import Footer from '../components/Footer.jsx';
+import CategoryExtras, { CategoryHero, CategoryLineupIntro } from '../components/CategoryExtras.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import '../styles/collection.css';
 
@@ -12,6 +13,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
   return (
     <div className="col-page">
       <Header />
+      <CategoryHero category={category} />
 
       <div className="col-header-block">
         <button className="col-back" onClick={() => navigate('/')}>
@@ -32,6 +34,8 @@ export default function CollectionPage({ category, heading, subcopy }) {
         )}
       </div>
 
+      <CategoryLineupIntro category={category} />
+
       <div className="col-grid-wrap">
         {loading ? (
           <div className="col-loading">Loading collection...</div>
@@ -51,6 +55,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
         )}
       </div>
 
+      <CategoryExtras category={category} />
       <Footer />
     </div>
   );
