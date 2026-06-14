@@ -2,6 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import { useProductMedia } from '../hooks/useProductMedia.js';
 import '../styles/product-card.css';
 
+function toClassKey(value) {
+  return String(value || 'uncategorized')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'uncategorized';
+}
+
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
   const { media } = useProductMedia(product?.slug);
@@ -17,6 +24,9 @@ export default function ProductCard({ product }) {
   // Only swap on hover if we have a confirmed model/outfit image
   const hasHover   = Boolean(hoverImage);
 
+  const categoryKey = toClassKey(product.category);
+  const collectionKey = toClassKey(product.collection);
+
   const statusLabel = {
     waitlist:     'Waitlist Open',
     available:    'Available Now',
@@ -26,7 +36,9 @@ export default function ProductCard({ product }) {
 
   return (
     <article
-      className={`pc${hasHover ? ' pc--has-hover' : ''}`}
+      className={`pc pc--category-${categoryKey} pc--collection-${collectionKey}${hasHover ? ' pc--has-hover' : ''}`}
+      data-category={categoryKey}
+      data-collection={collectionKey}
       onClick={() => navigate(`/product/${product.slug}`)}
       onKeyDown={e => e.key === 'Enter' && navigate(`/product/${product.slug}`)}
       role="button"
