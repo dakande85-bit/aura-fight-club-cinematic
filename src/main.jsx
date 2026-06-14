@@ -4,6 +4,7 @@ import AppRouter from './AppRouter.jsx';
 import './styles/global.css';
 import './styles/scroll-film.css';
 import './styles/aura-public-visual-pass.css';
+import './styles/aura-launch-polish.css';
 import './homepage-scroll-sync.js';
 
 function forceAuraLogo() {
