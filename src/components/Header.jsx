@@ -6,7 +6,8 @@ const navItems = [
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
   { label: 'Equipment', href: '/equipment' },
-  { label: 'The Campaign', href: '/campaign' },
+  { label: 'Campaign', href: '/campaign' },
+  { label: 'Cinematic', href: '/cinematic' },
   { label: 'Fight Club', href: '/fight-club' },
 ];
 
