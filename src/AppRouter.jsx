@@ -11,6 +11,7 @@ import FightClubPage from './pages/FightClub.jsx';
 import AdminAssetManager from './pages/AdminAssetManager.jsx';
 import AdminPageMedia from './pages/AdminPageMedia.jsx';
 import AdminLaunchChecklist from './pages/AdminLaunchChecklist.jsx';
+import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import CinematicSceneBuilder from './pages/admin/CinematicSceneBuilder.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
 
@@ -34,6 +35,7 @@ export default function AppRouter() {
         <Route path="/admin/cinematic" element={<CinematicSceneBuilder />} />
         <Route path="/admin/suppliers" element={<AdminSuppliers />} />
         <Route path="/admin/launch" element={<AdminLaunchChecklist />} />
+        <Route path="/admin/waitlist" element={<AdminWaitlist />} />
         <Route path="*" element={<LaunchLandingPage />} />
       </Routes>
     </BrowserRouter>
