@@ -1,0 +1,73 @@
+/* Final media-control layer — loaded last. */
+
+.header__logo.aura-logo-lockup {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: clamp(118px, 8vw, 158px) !important;
+  min-width: clamp(118px, 8vw, 158px) !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+
+.header__logo.aura-logo-lockup::before,
+.header__logo.aura-logo-lockup::after {
+  display: none !important;
+  content: none !important;
+}
+
+.header__logo.aura-logo-lockup .aura-logo-lockup__image {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 48px !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.header__logo.aura-logo-lockup .aura-logo-lockup__main,
+.header__logo.aura-logo-lockup .aura-logo-lockup__sub {
+  display: none !important;
+}
+
+.ph--drop001 .ph__image,
+.ph--fight-club .ph__image {
+  object-fit: cover !important;
+  transform: none !important;
+}
+
+.ph--drop001 .ph__image {
+  object-position: 68% 28% !important;
+}
+
+.ph--fight-club .ph__image {
+  object-position: center center !important;
+}
+
+@media (max-width: 720px) {
+  .header__logo.aura-logo-lockup {
+    width: 112px !important;
+    min-width: 112px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+  }
+
+  .header__logo.aura-logo-lockup .aura-logo-lockup__image {
+    max-height: 42px !important;
+  }
+
+  .ph--drop001 .ph__image {
+    object-position: 66% 24% !important;
+  }
+
+  .ph--fight-club .ph__image {
+    object-position: 56% center !important;
+  }
+}
