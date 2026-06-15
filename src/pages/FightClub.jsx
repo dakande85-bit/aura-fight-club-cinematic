@@ -20,7 +20,7 @@ export default function FightClub() {
         headline={'THE REAL FIGHT\nIS INTERNAL'}
         copy="AURA Fight Club is the world behind the product: discipline, identity, training culture, and the presence earned before anyone is watching."
         image={fightClubHeroData}
-        imagePosition="center 43%"
+        imagePosition="right center"
         className="ph--fight-club"
         ctas={[
           { label: 'Enter Fight Club', to: '#fight-club-story', variant: 'primary', scroll: true },
