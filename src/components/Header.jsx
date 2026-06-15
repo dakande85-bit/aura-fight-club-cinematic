@@ -21,9 +21,9 @@ export default function Header() {
   return (
     <>
       <header className="header" role="banner">
-        <a className="header__logo" href="/" aria-label="AURA Fight Club home" onClick={closeMenu}>
-          <span className="header__logo-main">AURA</span>
-          <span className="header__logo-sub">Fight Club</span>
+        <a className="header__logo aura-logo-lockup" href="/" aria-label="AURA Fight Club home" onClick={closeMenu}>
+          <span className="aura-logo-lockup__main">AURA</span>
+          <span className="aura-logo-lockup__sub">FIGHT CLUB</span>
         </a>
 
         <nav className="header__nav" aria-label="Main navigation">
