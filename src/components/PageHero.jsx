@@ -28,20 +28,21 @@ export default function PageHero({
   image,
   imageAlt = '',
   imagePosition = 'center center',
+  imageFit = 'cover',
   align = 'left',
   className = '',
 }) {
   const lines = String(headline || '').split('\n').filter(Boolean);
 
   return (
-    <section className={`ph ph--${align} ${className}`.trim()}>
+    <section className={`ph ph--${align} ${className}`.trim()} data-image-fit={imageFit}>
       {image && (
         <div className="ph__media" aria-hidden={imageAlt ? undefined : true}>
           <img
             className="ph__image"
             src={image}
             alt={imageAlt}
-            style={{ objectPosition: imagePosition }}
+            style={{ objectPosition: imagePosition, objectFit: imageFit }}
             loading="eager"
           />
         </div>
