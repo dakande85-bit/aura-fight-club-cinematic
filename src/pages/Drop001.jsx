@@ -3,10 +3,12 @@ import PageHero from '../components/PageHero.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import Footer from '../components/Footer.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
+import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import '../styles/drop001.css';
 
 export default function Drop001() {
   const { products, loading } = useLiveProducts({ collection: 'Drop 001' });
+  const heroMedia = usePageHeroMedia('drop001');
   const safeProducts = products || [];
   const productCountLabel = safeProducts.length + ' ' + (safeProducts.length === 1 ? 'piece' : 'pieces') + ' · Waitlist open · Limited run';
 
@@ -18,11 +20,12 @@ export default function Drop001() {
         label="DROP 001"
         headline={'THE FIRST\nUNIFORM'}
         copy="The first AURA release establishes the training uniform: apparel, footwear, and equipment built around discipline, rhythm, and presence."
-        image="/campaign/jump-rope/jump-rope-04.webp"
-        imagePosition="72% 18%"
+        image={heroMedia.image}
+        imagePosition={heroMedia.imagePosition}
+        imageFit={heroMedia.imageFit}
         className="ph--drop001"
         ctas={[
-          { label: 'Shop Drop 001', to: '#drop-lineup', variant: 'primary', scroll: true },
+          { label: 'Shop Drop 001', to: '/drop-001', variant: 'primary' },
           { label: 'Explore Apparel', to: '/apparel', variant: 'ghost' },
         ]}
       />
