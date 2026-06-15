@@ -14,12 +14,14 @@ import AdminLaunchChecklist from './pages/AdminLaunchChecklist.jsx';
 import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import CinematicSceneBuilder from './pages/admin/CinematicSceneBuilder.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
+import EngagementModal from './components/EngagementModal.jsx';
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LaunchLandingPage />} />
+        <Route path="/" element={<CinematicPage />} />
+        <Route path="/launch" element={<LaunchLandingPage />} />
         <Route path="/cinematic" element={<CinematicPage />} />
         <Route path="/drop-001" element={<Drop001Page />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
@@ -36,8 +38,9 @@ export default function AppRouter() {
         <Route path="/admin/suppliers" element={<AdminSuppliers />} />
         <Route path="/admin/launch" element={<AdminLaunchChecklist />} />
         <Route path="/admin/waitlist" element={<AdminWaitlist />} />
-        <Route path="*" element={<LaunchLandingPage />} />
+        <Route path="*" element={<CinematicPage />} />
       </Routes>
+      <EngagementModal />
     </BrowserRouter>
   );
 }
