@@ -4,12 +4,12 @@ import '../styles/admin-launch-checklist.css';
 
 const blockers = [
   {
-    title: 'Waitlist not connected',
+    title: 'Waitlist backend not connected',
     severity: 'critical',
     owner: 'Launch system',
-    action: 'Connect / and /fight-club forms to one real email capture backend before sending traffic.',
-    link: '/fight-club',
-    linkLabel: 'Check waitlist page',
+    action: 'Forms now share one local test store, but production still needs Klaviyo, Mailchimp, Supabase, or another real backend before paid traffic.',
+    link: '/admin/waitlist',
+    linkLabel: 'Open waitlist admin',
   },
   {
     title: 'Final logo/media lock pending',
@@ -61,10 +61,10 @@ const workOrder = [
   },
   {
     step: '04',
-    title: 'Connect waitlist',
-    copy: 'The landing page now converts visually, but emails must be saved to one backend before launch traffic starts.',
-    primary: { href: '/fight-club', label: 'Fight Club' },
-    secondary: { href: '/', label: 'Landing page' },
+    title: 'Test waitlist capture',
+    copy: 'The landing page and Fight Club page now share one local capture store. Test entries, export CSV, then connect the real backend.',
+    primary: { href: '/admin/waitlist', label: 'Waitlist admin' },
+    secondary: { href: '/fight-club', label: 'Fight Club' },
   },
   {
     step: '05',
@@ -126,14 +126,14 @@ const checklist = [
   },
   {
     area: 'Waitlist',
-    status: 'not-connected',
+    status: 'local-test',
     priority: 'P0',
-    route: '/fight-club',
+    route: '/admin/waitlist',
     items: [
-      'Current landing-page waitlist is front-end confirmation only.',
-      'Connect to Klaviyo, Mailchimp, Supabase, or email capture endpoint before launch.',
-      'Use the same waitlist backend on / and /fight-club.',
-      'Add success/error states and test mobile entry.',
+      'Landing page and Fight Club page now save to one local test store.',
+      'Use /admin/waitlist to view entries and export CSV.',
+      'Connect to Klaviyo, Mailchimp, Supabase, or email capture endpoint before paid traffic.',
+      'Use the same backend on / and /fight-club.',
     ],
   },
   {
@@ -177,6 +177,7 @@ const checklist = [
 const adminTools = [
   { title: 'Page media', href: '/admin/page-media', copy: 'Logo, hero images, fit, crop, and page-level media control.' },
   { title: 'Cinematic editor', href: '/admin/cinematic', copy: 'Replace frames, remove weak frames, restore, and export cleanup manifest.' },
+  { title: 'Waitlist', href: '/admin/waitlist', copy: 'View local test entries, export CSV, and verify capture flow before backend connection.' },
   { title: 'Product assets', href: '/admin', copy: 'Product media slots, candidate assets, and product visual review.' },
   { title: 'Suppliers', href: '/admin/suppliers', copy: 'Suppliers, contacts, samples, QC review, production, and PO centre.' },
 ];
@@ -187,6 +188,7 @@ function statusLabel(status) {
     'in-progress': 'In progress',
     partial: 'Partial',
     'not-connected': 'Not connected',
+    'local-test': 'Local test',
     pending: 'Pending',
     usable: 'Usable',
   }[status] || status;
@@ -221,6 +223,7 @@ export default function AdminLaunchChecklist() {
           <div className="alc-actions">
             <a href="/admin/page-media">Page media</a>
             <a href="/admin/cinematic">Cinematic editor</a>
+            <a href="/admin/waitlist">Waitlist</a>
             <a href="/admin/suppliers">Supplier admin</a>
             <a href="/">View landing page</a>
           </div>
