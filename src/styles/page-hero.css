@@ -8,7 +8,7 @@
 
 .ph {
   position: relative;
-  min-height: 82svh;
+  min-height: 86svh;
   overflow: hidden;
   isolation: isolate;
   background: var(--ph-black);
@@ -28,7 +28,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(0.92) contrast(1.04) brightness(0.86);
+  filter: saturate(0.96) contrast(1.03) brightness(0.96);
   transform: scale(1.01);
 }
 
@@ -38,15 +38,15 @@
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 78% 18%, rgba(184, 151, 90, 0.16), transparent 28%),
-    linear-gradient(90deg, rgba(3, 3, 3, 0.96) 0%, rgba(3, 3, 3, 0.86) 27%, rgba(3, 3, 3, 0.46) 54%, rgba(3, 3, 3, 0.14) 78%, rgba(3, 3, 3, 0.5) 100%),
-    linear-gradient(0deg, rgba(3, 3, 3, 0.86) 0%, transparent 36%);
+    radial-gradient(circle at 78% 18%, rgba(184, 151, 90, 0.13), transparent 28%),
+    linear-gradient(90deg, rgba(3, 3, 3, 0.78) 0%, rgba(3, 3, 3, 0.62) 30%, rgba(3, 3, 3, 0.26) 56%, rgba(3, 3, 3, 0.04) 80%, rgba(3, 3, 3, 0.34) 100%),
+    linear-gradient(0deg, rgba(3, 3, 3, 0.72) 0%, transparent 38%);
 }
 
 .ph__content {
   position: relative;
   z-index: 2;
-  min-height: 82svh;
+  min-height: 86svh;
   width: min(1180px, 100% - 10vw);
   margin: 0 auto;
   display: flex;
@@ -70,9 +70,9 @@
   max-width: 690px;
   margin: 0;
   color: var(--ph-offwhite);
-  font-size: clamp(3.4rem, 6.4vw, 6.8rem);
-  line-height: 0.88;
-  letter-spacing: -0.055em;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem) !important;
+  line-height: 0.96;
+  letter-spacing: -0.038em;
   text-transform: uppercase;
   text-wrap: balance;
 }
@@ -152,8 +152,8 @@
 
   .ph__scrim {
     background:
-      linear-gradient(180deg, rgba(3, 3, 3, 0.16) 0%, rgba(3, 3, 3, 0.38) 38%, rgba(3, 3, 3, 0.94) 78%, #050505 100%),
-      linear-gradient(90deg, rgba(3, 3, 3, 0.62), rgba(3, 3, 3, 0.2));
+      linear-gradient(180deg, rgba(3, 3, 3, 0.12) 0%, rgba(3, 3, 3, 0.32) 38%, rgba(3, 3, 3, 0.86) 78%, #050505 100%),
+      linear-gradient(90deg, rgba(3, 3, 3, 0.52), rgba(3, 3, 3, 0.16));
   }
 
   .ph__content {
@@ -164,7 +164,7 @@
 
   .ph__headline {
     max-width: 100%;
-    font-size: clamp(2.65rem, 12vw, 4.8rem);
+    font-size: clamp(1.55rem, 7vw, 2.3rem) !important;
   }
 
   .ph__copy {
@@ -175,16 +175,16 @@
 @media (max-width: 640px) {
   .ph,
   .ph__content {
-    min-height: 72svh;
+    min-height: 70svh;
   }
 
   .ph__image {
-    filter: saturate(0.92) contrast(1.03) brightness(0.78);
+    filter: saturate(0.94) contrast(1.02) brightness(0.92);
   }
 
   .ph__headline {
-    font-size: clamp(2.2rem, 13.5vw, 3.8rem);
-    letter-spacing: -0.052em;
+    font-size: clamp(1.4rem, 6.5vw, 2rem) !important;
+    letter-spacing: -0.034em;
   }
 
   .ph__ctas {
