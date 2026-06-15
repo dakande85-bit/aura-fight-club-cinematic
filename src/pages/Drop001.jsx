@@ -18,8 +18,8 @@ export default function Drop001() {
         label="DROP 001"
         headline={'THE FIRST\nUNIFORM'}
         copy="The first AURA release establishes the training uniform: apparel, footwear, and equipment built around discipline, rhythm, and presence."
-        image="/campaign/sparring/sparring-09.webp"
-        imagePosition="right center"
+        image="/campaign/jump-rope/jump-rope-04.webp"
+        imagePosition="72% 18%"
         className="ph--drop001"
         ctas={[
           { label: 'Shop Drop 001', to: '#drop-lineup', variant: 'primary', scroll: true },
