@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
-import auraUploadedLogo from '../assets/brand/auraUploadedLogoData.js';
+import { useBrandLogo } from '../hooks/usePageMedia.js';
 
 const navItems = [
-  { label: 'Drop 001',     href: '/drop-001' },
-  { label: 'Apparel',      href: '/apparel' },
-  { label: 'Footwear',     href: '/footwear' },
-  { label: 'Equipment',    href: '/equipment' },
+  { label: 'Drop 001', href: '/drop-001' },
+  { label: 'Apparel', href: '/apparel' },
+  { label: 'Footwear', href: '/footwear' },
+  { label: 'Equipment', href: '/equipment' },
   { label: 'The Campaign', href: '/campaign' },
-  { label: 'Fight Club',   href: '/fight-club' },
+  { label: 'Fight Club', href: '/fight-club' },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const logoSrc = useBrandLogo();
   const closeMenu = () => setOpen(false);
 
   useEffect(() => {
@@ -19,11 +20,14 @@ export default function Header() {
     return () => document.body.classList.remove('aura-menu-open');
   }, [open]);
 
+  const menuButtonClass = open ? 'header__menu-btn header__menu-btn--open' : 'header__menu-btn';
+  const mobileMenuClass = open ? 'header__mobile-menu header__mobile-menu--open' : 'header__mobile-menu';
+
   return (
     <>
       <header className="header" role="banner">
         <a className="header__logo aura-logo-lockup" href="/" aria-label="AURA Fight Club home" onClick={closeMenu}>
-          <img className="aura-logo-lockup__image" src={auraUploadedLogo} alt="AURA Fight Club" />
+          <img className="aura-logo-lockup__image" src={logoSrc} alt="AURA Fight Club" />
         </a>
 
         <nav className="header__nav" aria-label="Main navigation">
@@ -35,12 +39,12 @@ export default function Header() {
         <a className="header__cta header__cta--desktop" href="/fight-club">Join Waitlist</a>
 
         <button
-          className={`header__menu-btn${open ? ' header__menu-btn--open' : ''}`}
+          className={menuButtonClass}
           type="button"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="aura-mobile-menu"
-          onClick={() => setOpen(v => !v)}
+          onClick={() => setOpen(value => !value)}
         >
           <span />
           <span />
@@ -50,7 +54,7 @@ export default function Header() {
 
       <aside
         id="aura-mobile-menu"
-        className={`header__mobile-menu${open ? ' header__mobile-menu--open' : ''}`}
+        className={mobileMenuClass}
         aria-hidden={!open}
       >
         <nav className="header__mobile-nav" aria-label="Mobile navigation">
