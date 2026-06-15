@@ -88,7 +88,8 @@
 }
 
 .apm a,
-.apm button {
+.apm button,
+.apm__file-label {
   border: 1px solid rgba(220, 169, 82, 0.36);
   background: rgba(220, 169, 82, 0.08);
   color: #f5f1e8;
@@ -99,15 +100,20 @@
   font-size: 0.68rem;
   font-weight: 900;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
 }
 
-.apm__upload-row button:first-child {
+.apm__file-label {
   background: #dca952;
-  color: #050505;
+  color: #050505 !important;
 }
 
 .apm a:hover,
 .apm button:hover,
+.apm__file-label:hover,
 .apm__tabs button.active {
   background: #dca952;
   color: #050505;
@@ -115,6 +121,14 @@
 
 .apm__file-input {
   display: none !important;
+}
+
+.apm__real-file {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0.01;
 }
 
 .apm__logo-panel {
@@ -194,7 +208,7 @@
   grid-column: 1 / -1;
 }
 
-.apm label {
+.apm label:not(.apm__file-label) {
   font-size: 0.68rem;
   font-weight: 900;
   color: #dca952;
