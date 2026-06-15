@@ -5,6 +5,7 @@ import './cinematic-scene-builder-publish.css';
 
 const DATA_URL = '/admin-cinematic/frames.json';
 const PUBLISH_URL = '/api/admin/publish-cinematic-pack';
+const REMOVED_FRAMES_KEY = 'aura:cinematic:removed-frame-ids';
 
 const TYPE_LABELS = {
   image: 'Image',
@@ -35,9 +36,9 @@ function normaliseData(raw) {
         id: item.id || `${scene.id}-${index}`,
         path: item.path,
         label: item.label || item.title || item.id || `Frame ${index + 1}`,
-        type: item.type || (item.path?.endsWith('.mp4') ? 'video' : 'image'),
+        type: item.type || item.kind || (item.path?.endsWith('.mp4') ? 'video' : 'image'),
         device: item.device || 'all',
-        order: item.order ?? index + 1,
+        order: item.order ?? item.frameOrder ?? index + 1,
         notes: item.notes || '',
       })),
     })),
@@ -73,8 +74,26 @@ function downloadBlob(blob, fileName) {
   URL.revokeObjectURL(url);
 }
 
+function downloadJson(data, fileName) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  downloadBlob(blob, fileName);
+}
+
 function revokePreviewUrl(url) {
   if (url && url.startsWith('blob:')) URL.revokeObjectURL(url);
+}
+
+function readRemovedFrameIds() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(REMOVED_FRAMES_KEY) || '[]');
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function frameKey(pageId, sceneId, mediaId) {
+  return `${pageId}::${sceneId}::${mediaId}`;
 }
 
 function buildReplacementPayload({ selectedPage, selectedScene, selectedMedia, replacement }) {
@@ -141,6 +160,8 @@ export default function CinematicSceneBuilder() {
   const [replacement, setReplacement] = useState(null);
   const [publishState, setPublishState] = useState({ status: 'idle', message: '' });
   const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [removedFrameIds, setRemovedFrameIds] = useState(() => readRemovedFrameIds());
+  const [showRemoved, setShowRemoved] = useState(true);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -175,6 +196,12 @@ export default function CinematicSceneBuilder() {
 
   useEffect(() => () => revokePreviewUrl(replacement?.previewUrl), [replacement?.previewUrl]);
 
+  useEffect(() => {
+    localStorage.setItem(REMOVED_FRAMES_KEY, JSON.stringify(removedFrameIds));
+  }, [removedFrameIds]);
+
+  const removedFrameSet = useMemo(() => new Set(removedFrameIds), [removedFrameIds]);
+
   const selectedPage = useMemo(
     () => pages.find((page) => page.id === selectedPageId),
     [pages, selectedPageId]
@@ -185,10 +212,39 @@ export default function CinematicSceneBuilder() {
     [selectedPage, selectedSceneId]
   );
 
-  const selectedMedia = useMemo(
-    () => selectedScene?.media.find((item) => item.id === selectedMediaId),
-    [selectedScene, selectedMediaId]
+  const selectedSceneMedia = useMemo(() => {
+    if (!selectedPage || !selectedScene) return [];
+    return selectedScene.media.map((item) => ({
+      ...item,
+      frameKey: frameKey(selectedPage.id, selectedScene.id, item.id),
+      isRemoved: removedFrameSet.has(frameKey(selectedPage.id, selectedScene.id, item.id)),
+    }));
+  }, [selectedPage, selectedScene, removedFrameSet]);
+
+  const visibleSceneMedia = useMemo(
+    () => selectedSceneMedia.filter((item) => !item.isRemoved),
+    [selectedSceneMedia]
   );
+
+  const selectedMedia = useMemo(
+    () => selectedSceneMedia.find((item) => item.id === selectedMediaId),
+    [selectedSceneMedia, selectedMediaId]
+  );
+
+  const selectedMediaIsRemoved = Boolean(selectedMedia?.isRemoved);
+
+  useEffect(() => {
+    if (!selectedSceneMedia.length) return;
+    if (!selectedMedia || selectedMedia.isRemoved) {
+      setSelectedMediaId(visibleSceneMedia[0]?.id || selectedSceneMedia[0]?.id || '');
+    }
+  }, [selectedSceneMedia, visibleSceneMedia, selectedMedia]);
+
+  const removedFrames = useMemo(() => {
+    return pages.flatMap((page) => page.scenes.flatMap((scene) => scene.media
+      .filter((item) => removedFrameSet.has(frameKey(page.id, scene.id, item.id)))
+      .map((item) => ({ ...item, pageId: page.id, pageLabel: page.label, sceneId: scene.id, sceneName: scene.name, frameKey: frameKey(page.id, scene.id, item.id) }))));
+  }, [pages, removedFrameSet]);
 
   const replacementPayload = useMemo(
     () => buildReplacementPayload({ selectedPage, selectedScene, selectedMedia, replacement }),
@@ -207,14 +263,17 @@ export default function CinematicSceneBuilder() {
 
   function selectPage(page) {
     setSelectedPageId(page.id);
-    setSelectedSceneId(page.scenes?.[0]?.id || '');
-    setSelectedMediaId(page.scenes?.[0]?.media?.[0]?.id || '');
+    const nextScene = page.scenes?.[0];
+    setSelectedSceneId(nextScene?.id || '');
+    const nextMedia = nextScene?.media?.find((item) => !removedFrameSet.has(frameKey(page.id, nextScene.id, item.id))) || nextScene?.media?.[0];
+    setSelectedMediaId(nextMedia?.id || '');
     clearReplacement();
   }
 
   function selectScene(scene) {
     setSelectedSceneId(scene.id);
-    setSelectedMediaId(scene.media?.[0]?.id || '');
+    const nextMedia = scene.media?.find((item) => !removedFrameSet.has(frameKey(selectedPageId, scene.id, item.id))) || scene.media?.[0];
+    setSelectedMediaId(nextMedia?.id || '');
     clearReplacement();
   }
 
@@ -225,7 +284,7 @@ export default function CinematicSceneBuilder() {
 
   function handleReplacementFile(event) {
     const file = event.target.files?.[0];
-    if (!file || !selectedMedia) return;
+    if (!file || !selectedMedia || selectedMediaIsRemoved) return;
 
     const previewUrl = URL.createObjectURL(file);
     const livePath = selectedMedia.path;
@@ -246,6 +305,55 @@ export default function CinematicSceneBuilder() {
       message: 'Replacement ready. This will overwrite the selected live frame path in place.',
     });
     event.target.value = '';
+  }
+
+  function removeSelectedFrame() {
+    if (!selectedPage || !selectedScene || !selectedMedia || selectedMediaIsRemoved) return;
+    const key = frameKey(selectedPage.id, selectedScene.id, selectedMedia.id);
+    setRemovedFrameIds((current) => Array.from(new Set([...current, key])));
+    clearReplacement();
+    const nextMedia = visibleSceneMedia.find((item) => item.id !== selectedMedia.id) || selectedSceneMedia.find((item) => item.id !== selectedMedia.id);
+    setSelectedMediaId(nextMedia?.id || '');
+    setPublishState({ status: 'ready', message: 'Frame removed from this editor view. Export the removal manifest when ready to apply the cleanup permanently.' });
+  }
+
+  function restoreFrame(key) {
+    setRemovedFrameIds((current) => current.filter((item) => item !== key));
+    setPublishState({ status: 'ready', message: 'Frame restored to the editor view.' });
+  }
+
+  function resetRemovedFrames() {
+    setRemovedFrameIds([]);
+    setPublishState({ status: 'ready', message: 'All removed frames restored.' });
+  }
+
+  function exportRemovalManifest() {
+    const manifest = {
+      brand: 'AURA Fight Club',
+      tool: 'Cinematic Scene Builder',
+      mode: 'frame-removal-manifest',
+      generatedAt: new Date().toISOString(),
+      removedCount: removedFrames.length,
+      removedFrames: removedFrames.map((item) => ({
+        page: item.pageId,
+        pageLabel: item.pageLabel,
+        scene: item.sceneId,
+        sceneName: item.sceneName,
+        mediaId: item.id,
+        mediaLabel: item.label,
+        order: item.order,
+        path: item.path,
+        repoPath: publicPathToRepoPath(item.path || ''),
+        frameKey: item.frameKey,
+        notes: item.notes || '',
+      })),
+      instructions: [
+        'Use this manifest as the source of truth for a permanent cleanup commit.',
+        'Remove these media entries from public/admin-cinematic/frames.json and the matching live scene arrays/components.',
+        'Do not delete source image files unless the asset is unused elsewhere.',
+      ],
+    };
+    downloadJson(manifest, `aura-frame-removal-manifest-${new Date().toISOString().replace(/[:.]/g, '-')}.json`);
   }
 
   async function handleDownloadBackupPack() {
@@ -313,10 +421,11 @@ export default function CinematicSceneBuilder() {
         <div>
           <p className="scb-kicker">AURA ADMIN</p>
           <h1>Cinematic Scene Builder</h1>
-          <p>Choose a frame, preview a replacement, then overwrite the live frame path.</p>
+          <p>Choose a frame, preview a replacement, remove weak frames, then publish or export a cleanup manifest.</p>
         </div>
         <div className="scb-header__meta">
           <span>{pages.length} pages</span>
+          <span>{removedFrames.length} frames marked removed</span>
           <span>{replacement ? '1 live overwrite ready' : 'No replacement selected'}</span>
         </div>
       </header>
@@ -327,12 +436,7 @@ export default function CinematicSceneBuilder() {
             <div className="scb-panel__head"><p>1. Choose page</p></div>
             <div className="scb-page-list">
               {pages.map((page) => (
-                <button
-                  key={page.id}
-                  type="button"
-                  className={`scb-page-card ${page.id === selectedPageId ? 'is-active' : ''}`}
-                  onClick={() => selectPage(page)}
-                >
+                <button key={page.id} type="button" className={`scb-page-card ${page.id === selectedPageId ? 'is-active' : ''}`} onClick={() => selectPage(page)}>
                   <span>{page.label}</span>
                   <small>{page.route || page.id}</small>
                 </button>
@@ -343,18 +447,43 @@ export default function CinematicSceneBuilder() {
           <section className="scb-panel">
             <div className="scb-panel__head"><p>2. Choose scene</p></div>
             <div className="scb-scene-list">
-              {selectedPage?.scenes.map((scene) => (
-                <button
-                  key={scene.id}
-                  type="button"
-                  className={`scb-scene-card ${scene.id === selectedSceneId ? 'is-active' : ''}`}
-                  onClick={() => selectScene(scene)}
-                >
-                  <span>{scene.name}</span>
-                  <small>{scene.media.length} media</small>
-                </button>
-              ))}
+              {selectedPage?.scenes.map((scene) => {
+                const total = scene.media.length;
+                const removed = scene.media.filter((item) => removedFrameSet.has(frameKey(selectedPage.id, scene.id, item.id))).length;
+                return (
+                  <button key={scene.id} type="button" className={`scb-scene-card ${scene.id === selectedSceneId ? 'is-active' : ''}`} onClick={() => selectScene(scene)}>
+                    <span>{scene.name}</span>
+                    <small>{total - removed}/{total} visible</small>
+                  </button>
+                );
+              })}
             </div>
+          </section>
+
+          <section className="scb-panel scb-remove-panel">
+            <div className="scb-panel__head scb-panel__head--spread">
+              <p>Removed frames</p>
+              <button type="button" className="scb-text-button" onClick={() => setShowRemoved((value) => !value)}>{showRemoved ? 'Hide' : 'Show'}</button>
+            </div>
+            {showRemoved && (
+              <div className="scb-removed-list">
+                {removedFrames.length === 0 ? (
+                  <p className="scb-muted">No frames removed.</p>
+                ) : (
+                  removedFrames.map((item) => (
+                    <div key={item.frameKey} className="scb-removed-item">
+                      <span>{item.label}</span>
+                      <small>{item.pageLabel} / {item.sceneName}</small>
+                      <button type="button" onClick={() => restoreFrame(item.frameKey)}>Restore</button>
+                    </div>
+                  ))
+                )}
+                <div className="scb-simple-actions scb-simple-actions--stacked">
+                  <button type="button" onClick={exportRemovalManifest} disabled={!removedFrames.length}>Export removal manifest</button>
+                  <button type="button" onClick={resetRemovedFrames} disabled={!removedFrames.length}>Restore all</button>
+                </div>
+              </div>
+            )}
           </section>
         </aside>
 
@@ -365,20 +494,17 @@ export default function CinematicSceneBuilder() {
                 <p>3. Choose frame</p>
                 <h2>{selectedScene?.name || 'No scene selected'}</h2>
               </div>
+              <span className="scb-frame-count">{visibleSceneMedia.length}/{selectedSceneMedia.length} active</span>
             </div>
 
             <div className="scb-frame-strip">
-              {selectedScene?.media.map((item) => {
+              {selectedSceneMedia.map((item) => {
                 const isSelected = item.id === selectedMediaId;
                 const src = isSelected && replacement ? replacement.previewUrl : item.path;
                 return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`scb-frame-card ${isSelected ? 'is-active' : ''}`}
-                    onClick={() => selectMedia(item.id)}
-                  >
+                  <button key={item.id} type="button" className={`scb-frame-card ${isSelected ? 'is-active' : ''} ${item.isRemoved ? 'is-removed' : ''}`} onClick={() => selectMedia(item.id)}>
                     <span className="scb-frame-card__order">{item.order}</span>
+                    {item.isRemoved && <span className="scb-frame-card__replacement-flag scb-frame-card__replacement-flag--removed">Removed</span>}
                     {isSelected && replacement && <span className="scb-frame-card__replacement-flag">Live overwrite</span>}
                     {item.type === 'video' ? <video src={src} muted playsInline /> : <img src={src} alt="" />}
                     <span className="scb-frame-card__label">{item.label}</span>
@@ -392,8 +518,9 @@ export default function CinematicSceneBuilder() {
             <section className="scb-panel scb-preview-panel">
               <div className="scb-panel__head"><p>Preview</p></div>
               {selectedMedia ? (
-                <div className="scb-preview">
+                <div className={`scb-preview ${selectedMediaIsRemoved ? 'is-removed' : ''}`}>
                   {selectedMedia.type === 'video' ? <video src={previewSource} controls muted /> : <img src={previewSource} alt="" />}
+                  {selectedMediaIsRemoved && <div className="scb-simple-banner scb-simple-banner--danger">Removed from working set</div>}
                   {replacement && <div className="scb-simple-banner">Replacement: {replacement.fileName}</div>}
                 </div>
               ) : (
@@ -402,7 +529,7 @@ export default function CinematicSceneBuilder() {
             </section>
 
             <section className="scb-panel scb-inspector">
-              <div className="scb-panel__head"><p>4. Replace + publish</p></div>
+              <div className="scb-panel__head"><p>4. Replace / remove / publish</p></div>
 
               {selectedMedia ? (
                 <div className="scb-fields">
@@ -440,27 +567,18 @@ export default function CinematicSceneBuilder() {
                   )}
 
                   <div className="scb-simple-actions">
-                    <button type="button" className="scb-primary-action" onClick={() => fileInputRef.current?.click()}>
+                    <button type="button" className="scb-primary-action" onClick={() => fileInputRef.current?.click()} disabled={selectedMediaIsRemoved}>
                       {replacement ? 'Change replacement image' : 'Select replacement image'}
                     </button>
-                    <button
-                      type="button"
-                      className="scb-primary-action scb-primary-action--gold"
-                      onClick={handleDirectPublish}
-                      disabled={!replacement || publishState.status === 'uploading'}
-                    >
+                    <button type="button" className="scb-primary-action scb-primary-action--gold" onClick={handleDirectPublish} disabled={!replacement || publishState.status === 'uploading' || selectedMediaIsRemoved}>
                       {publishState.status === 'uploading' ? 'Publishing…' : 'Publish replacement'}
                     </button>
+                    <button type="button" className="scb-danger-action" onClick={removeSelectedFrame} disabled={selectedMediaIsRemoved}>Remove frame</button>
+                    {selectedMediaIsRemoved && <button type="button" onClick={() => restoreFrame(selectedMedia.frameKey)}>Restore frame</button>}
                     {replacement && <button type="button" onClick={clearReplacement}>Clear</button>}
                   </div>
 
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*,video/*"
-                    className="scb-hidden-input"
-                    onChange={handleReplacementFile}
-                  />
+                  <input ref={fileInputRef} type="file" accept="image/*,video/*" className="scb-hidden-input" onChange={handleReplacementFile} />
 
                   <div className={`scb-publish-status scb-publish-status--${publishState.status}`}>
                     <p className="scb-publish-status__title">
@@ -471,7 +589,7 @@ export default function CinematicSceneBuilder() {
                       {publishState.status === 'success' && 'Published'}
                       {publishState.status === 'error' && 'Error'}
                     </p>
-                    <p>{publishState.message || 'Select a replacement image, check preview, then publish.'}</p>
+                    <p>{publishState.message || 'Select a replacement image, remove weak frames, or export a cleanup manifest.'}</p>
                     {publishState.result?.commitSha && <p>Commit: {publishState.result.commitSha}</p>}
                     {publishState.result?.filesWritten?.length > 0 && (
                       <ul className="scb-file-list">
@@ -488,6 +606,7 @@ export default function CinematicSceneBuilder() {
                     <div className="scb-advanced-box">
                       <p>Backup pack is only for manual recovery. Normal workflow is direct live-path overwrite.</p>
                       <button type="button" onClick={handleDownloadBackupPack} disabled={!replacement}>Download backup ZIP</button>
+                      <button type="button" onClick={exportRemovalManifest} disabled={!removedFrames.length}>Download removal manifest</button>
                       {replacementPayload && <pre>{JSON.stringify(replacementPayload.manifest, null, 2)}</pre>}
                     </div>
                   )}
@@ -501,7 +620,7 @@ export default function CinematicSceneBuilder() {
       </main>
 
       <footer className="scb-footer">
-        <p>Simple mode now overwrites the selected live frame path. It does not create draft-replacement image paths.</p>
+        <p>Simple mode overwrites selected live frame paths. Removed frames are saved locally and exported as a cleanup manifest before permanent commit.</p>
       </footer>
     </div>
   );
