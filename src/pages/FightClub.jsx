@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Footer from '../components/Footer.jsx';
+import { addWaitlistEntry } from '../lib/waitlistStore.js';
 import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import '../styles/editorial-page.css';
 
@@ -10,7 +11,22 @@ export default function FightClub() {
   const navigate = useNavigate();
   const heroMedia = usePageHeroMedia('fightClub');
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('idle');
+
+  function submitWaitlist() {
+    const result = addWaitlistEntry({ email, source: 'fight-club-page', product: 'AURA Fight Club' });
+
+    if (!result.ok) {
+      setStatus('error');
+      setMessage('Enter a valid email address.');
+      return;
+    }
+
+    setEmail('');
+    setStatus('success');
+    setMessage(result.duplicate ? 'YOU WERE ALREADY ON THE LIST. UPDATED.' : "YOU'RE ON THE LIST.");
+  }
 
   return (
     <div className="ep">
@@ -49,27 +65,24 @@ export default function FightClub() {
 
         <div className="ep__waitlist-block">
           <p className="ep__waitlist-label">Join the first circle</p>
-          {!submitted ? (
-            <div className="ep__form">
-              <input
-                className="ep__email"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={event => setEmail(event.target.value)}
-                onKeyDown={event => event.key === 'Enter' && email && setSubmitted(true)}
-                aria-label="Email address"
-              />
-              <button
-                className="ep__submit"
-                onClick={() => email && setSubmitted(true)}
-              >
-                Join Waitlist
-              </button>
-            </div>
-          ) : (
-            <p className="ep__confirm">YOU'RE ON THE LIST.</p>
-          )}
+          <div className="ep__form">
+            <input
+              className="ep__email"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={event => setEmail(event.target.value)}
+              onKeyDown={event => event.key === 'Enter' && submitWaitlist()}
+              aria-label="Email address"
+            />
+            <button
+              className="ep__submit"
+              onClick={submitWaitlist}
+            >
+              Join Waitlist
+            </button>
+          </div>
+          {message && <p className={`ep__confirm ep__confirm--${status}`}>{message}</p>}
         </div>
 
         <div className="ep__cta-block" style={{ marginTop: '32px' }}>
