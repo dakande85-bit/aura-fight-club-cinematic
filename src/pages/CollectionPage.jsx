@@ -2,18 +2,21 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import Footer from '../components/Footer.jsx';
-import CategoryExtras, { CategoryHero, CategoryLineupIntro } from '../components/CategoryExtras.jsx';
+import CategoryExtras, { CategoryLineupIntro } from '../components/CategoryExtras.jsx';
+import ControlledCategoryHero from '../components/ControlledCategoryHero.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import '../styles/collection.css';
 
 export default function CollectionPage({ category, heading, subcopy }) {
   const navigate = useNavigate();
   const { products, loading } = useLiveProducts({ category });
+  const safeProducts = products || [];
+  const gridClass = safeProducts.length === 1 ? 'col-grid col-grid--single' : 'col-grid';
 
   return (
     <div className="col-page">
       <Header />
-      <CategoryHero category={category} />
+      <ControlledCategoryHero category={category} />
 
       <div className="col-header-block">
         <button className="col-back" onClick={() => navigate('/')}>
@@ -25,9 +28,9 @@ export default function CollectionPage({ category, heading, subcopy }) {
         <div className="col-divider" />
         {loading ? (
           <p className="col-meta">Loading...</p>
-        ) : products.length > 0 ? (
+        ) : safeProducts.length > 0 ? (
           <p className="col-meta">
-            {products.length} {products.length === 1 ? 'piece' : 'pieces'} · Waitlist open
+            {safeProducts.length} {safeProducts.length === 1 ? 'piece' : 'pieces'} · Waitlist open
           </p>
         ) : (
           <p className="col-meta col-meta--empty">New pieces coming soon</p>
@@ -39,9 +42,9 @@ export default function CollectionPage({ category, heading, subcopy }) {
       <div className="col-grid-wrap">
         {loading ? (
           <div className="col-loading">Loading collection...</div>
-        ) : products.length > 0 ? (
-          <div className={`col-grid${products.length === 1 ? ' col-grid--single' : ''}`}>
-            {products.map(p => (
+        ) : safeProducts.length > 0 ? (
+          <div className={gridClass}>
+            {safeProducts.map(p => (
               <ProductCard key={p.slug} product={p} />
             ))}
           </div>
