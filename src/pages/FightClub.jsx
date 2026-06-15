@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Footer from '../components/Footer.jsx';
-import fightClubHeroData from '../assets/generated/fightClubHeroData.js';
+import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import '../styles/editorial-page.css';
 
 export default function FightClub() {
-  const navigate  = useNavigate();
-  const [email,     setEmail]     = useState('');
+  const navigate = useNavigate();
+  const heroMedia = usePageHeroMedia('fightClub');
+  const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   return (
@@ -19,11 +20,12 @@ export default function FightClub() {
         label="AURA FIGHT CLUB"
         headline={'THE REAL FIGHT\nIS INTERNAL'}
         copy="AURA Fight Club is the world behind the product: discipline, identity, training culture, and the presence earned before anyone is watching."
-        image={fightClubHeroData}
-        imagePosition="right center"
+        image={heroMedia.image}
+        imagePosition={heroMedia.imagePosition}
+        imageFit={heroMedia.imageFit}
         className="ph--fight-club"
         ctas={[
-          { label: 'Enter Fight Club', to: '#fight-club-story', variant: 'primary', scroll: true },
+          { label: 'Enter Fight Club', to: '/fight-club', variant: 'primary' },
           { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
         ]}
       />
@@ -54,8 +56,8 @@ export default function FightClub() {
                 type="email"
                 placeholder="Enter your email"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && email && setSubmitted(true)}
+                onChange={event => setEmail(event.target.value)}
+                onKeyDown={event => event.key === 'Enter' && email && setSubmitted(true)}
                 aria-label="Email address"
               />
               <button
