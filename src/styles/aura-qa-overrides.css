@@ -1,0 +1,54 @@
+/* AURA QA Overrides — loaded last for narrow public hero corrections */
+
+.ph,
+.ph__content {
+  min-height: 86svh !important;
+}
+
+.ph__headline {
+  max-width: 690px !important;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem) !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.038em !important;
+}
+
+.ph__image {
+  filter: saturate(0.96) contrast(1.03) brightness(0.98) !important;
+}
+
+.ph__scrim {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(184, 151, 90, 0.12), transparent 28%),
+    linear-gradient(90deg, rgba(3, 3, 3, 0.78) 0%, rgba(3, 3, 3, 0.62) 30%, rgba(3, 3, 3, 0.26) 56%, rgba(3, 3, 3, 0.04) 80%, rgba(3, 3, 3, 0.34) 100%),
+    linear-gradient(0deg, rgba(3, 3, 3, 0.72) 0%, transparent 38%) !important;
+}
+
+@media (max-width: 980px) {
+  .ph,
+  .ph__content {
+    min-height: 76svh !important;
+  }
+
+  .ph__headline {
+    max-width: 100% !important;
+    font-size: clamp(1.55rem, 7vw, 2.3rem) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .ph,
+  .ph__content {
+    min-height: 70svh !important;
+  }
+
+  .ph__headline {
+    font-size: clamp(1.4rem, 6.5vw, 2rem) !important;
+    letter-spacing: -0.034em !important;
+  }
+
+  .ph__scrim {
+    background:
+      linear-gradient(180deg, rgba(3, 3, 3, 0.04) 0%, rgba(3, 3, 3, 0.22) 42%, rgba(3, 3, 3, 0.86) 78%, #050505 100%),
+      linear-gradient(90deg, rgba(3, 3, 3, 0.44), rgba(3, 3, 3, 0.12)) !important;
+  }
+}
