@@ -8,15 +8,10 @@ import './styles/aura-launch-polish.css';
 import './styles/aura-qa-overrides.css';
 import './styles/aura-media-control.css';
 import './homepage-scroll-sync.js';
-
-function forceAuraLogo() {
-  return;
-}
+import './homepage-logo-fix.js';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AppRouter />
   </React.StrictMode>
 );
-
-forceAuraLogo();
