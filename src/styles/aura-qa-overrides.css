@@ -23,6 +23,17 @@
     linear-gradient(0deg, rgba(3, 3, 3, 0.72) 0%, transparent 38%) !important;
 }
 
+.ph--fight-club .ph__image {
+  filter: saturate(1.02) contrast(1.02) brightness(1.06) !important;
+}
+
+.ph--fight-club .ph__scrim {
+  background:
+    radial-gradient(circle at 76% 20%, rgba(184, 151, 90, 0.1), transparent 30%),
+    linear-gradient(90deg, rgba(3, 3, 3, 0.7) 0%, rgba(3, 3, 3, 0.5) 28%, rgba(3, 3, 3, 0.16) 55%, rgba(3, 3, 3, 0.02) 78%, rgba(3, 3, 3, 0.24) 100%),
+    linear-gradient(0deg, rgba(3, 3, 3, 0.54) 0%, transparent 42%) !important;
+}
+
 @media (max-width: 980px) {
   .ph,
   .ph__content {
@@ -32,6 +43,10 @@
   .ph__headline {
     max-width: 100% !important;
     font-size: clamp(1.55rem, 7vw, 2.3rem) !important;
+  }
+
+  .ph--fight-club .ph__image {
+    object-position: 61% 42% !important;
   }
 }
 
@@ -50,5 +65,15 @@
     background:
       linear-gradient(180deg, rgba(3, 3, 3, 0.04) 0%, rgba(3, 3, 3, 0.22) 42%, rgba(3, 3, 3, 0.86) 78%, #050505 100%),
       linear-gradient(90deg, rgba(3, 3, 3, 0.44), rgba(3, 3, 3, 0.12)) !important;
+  }
+
+  .ph--fight-club .ph__image {
+    object-position: 62% 42% !important;
+  }
+
+  .ph--fight-club .ph__scrim {
+    background:
+      linear-gradient(180deg, rgba(3, 3, 3, 0.08) 0%, rgba(3, 3, 3, 0.2) 38%, rgba(3, 3, 3, 0.82) 78%, #050505 100%),
+      linear-gradient(90deg, rgba(3, 3, 3, 0.34), rgba(3, 3, 3, 0.08)) !important;
   }
 }
