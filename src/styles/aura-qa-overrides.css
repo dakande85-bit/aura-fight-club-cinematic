@@ -1,5 +1,67 @@
 /* AURA QA Overrides — loaded last for narrow public hero corrections */
 
+/* Stable text logo lockup. This bypasses the broken injected/SVG logo path entirely. */
+.header__logo.aura-logo-lockup {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.18rem !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 96px !important;
+  min-height: 40px !important;
+  padding: 0 !important;
+  color: #f4f1ea !important;
+  text-decoration: none !important;
+  line-height: 1 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+.header__logo.aura-logo-lockup::before,
+.header__logo.aura-logo-lockup::after {
+  content: none !important;
+  display: none !important;
+}
+
+.header__logo.aura-logo-lockup img,
+.header__logo.aura-logo-lockup svg {
+  display: none !important;
+}
+
+.aura-logo-lockup__main,
+.aura-logo-lockup__sub {
+  display: block !important;
+  position: static !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  clip: auto !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  overflow: visible !important;
+  color: #f4f1ea !important;
+  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.55) !important;
+}
+
+.aura-logo-lockup__main {
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif !important;
+  font-size: clamp(1.42rem, 1.9vw, 1.92rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.24em !important;
+  text-transform: uppercase !important;
+}
+
+.aura-logo-lockup__sub {
+  font-family: 'Barlow', Arial, sans-serif !important;
+  font-size: 0.46rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.62em !important;
+  text-transform: uppercase !important;
+}
+
 .ph,
 .ph__content {
   min-height: 86svh !important;
@@ -23,15 +85,33 @@
     linear-gradient(0deg, rgba(3, 3, 3, 0.72) 0%, transparent 38%) !important;
 }
 
+/* Page-specific hero image controls. Use cover, not contain: heroes must fill the frame while keeping the subject's head visible. */
 .ph--fight-club .ph__image {
-  filter: saturate(1.02) contrast(1.02) brightness(1.06) !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  filter: saturate(1.02) contrast(1.02) brightness(1.05) !important;
+  transform: none !important;
 }
 
 .ph--fight-club .ph__scrim {
   background:
-    radial-gradient(circle at 76% 20%, rgba(184, 151, 90, 0.1), transparent 30%),
-    linear-gradient(90deg, rgba(3, 3, 3, 0.7) 0%, rgba(3, 3, 3, 0.5) 28%, rgba(3, 3, 3, 0.16) 55%, rgba(3, 3, 3, 0.02) 78%, rgba(3, 3, 3, 0.24) 100%),
-    linear-gradient(0deg, rgba(3, 3, 3, 0.54) 0%, transparent 42%) !important;
+    radial-gradient(circle at 78% 20%, rgba(184, 151, 90, 0.08), transparent 30%),
+    linear-gradient(90deg, rgba(3, 3, 3, 0.74) 0%, rgba(3, 3, 3, 0.54) 31%, rgba(3, 3, 3, 0.14) 58%, rgba(3, 3, 3, 0.02) 78%, rgba(3, 3, 3, 0.20) 100%),
+    linear-gradient(0deg, rgba(3, 3, 3, 0.46) 0%, transparent 42%) !important;
+}
+
+.ph--drop001 .ph__image {
+  object-fit: cover !important;
+  object-position: 72% 18% !important;
+  filter: saturate(0.98) contrast(1.03) brightness(0.99) !important;
+  transform: none !important;
+}
+
+.ph--drop001 .ph__scrim {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(184, 151, 90, 0.08), transparent 28%),
+    linear-gradient(90deg, rgba(3, 3, 3, 0.84) 0%, rgba(3, 3, 3, 0.66) 30%, rgba(3, 3, 3, 0.22) 58%, rgba(3, 3, 3, 0.04) 80%, rgba(3, 3, 3, 0.28) 100%),
+    linear-gradient(0deg, rgba(3, 3, 3, 0.58) 0%, transparent 42%) !important;
 }
 
 @media (max-width: 980px) {
@@ -46,11 +126,29 @@
   }
 
   .ph--fight-club .ph__image {
-    object-position: 61% 42% !important;
+    object-position: 63% center !important;
+  }
+
+  .ph--drop001 .ph__image {
+    object-position: 70% 18% !important;
   }
 }
 
 @media (max-width: 640px) {
+  .header__logo.aura-logo-lockup {
+    min-width: 80px !important;
+  }
+
+  .aura-logo-lockup__main {
+    font-size: 1.32rem !important;
+    letter-spacing: 0.22em !important;
+  }
+
+  .aura-logo-lockup__sub {
+    font-size: 0.38rem !important;
+    letter-spacing: 0.5em !important;
+  }
+
   .ph,
   .ph__content {
     min-height: 70svh !important;
@@ -68,28 +166,17 @@
   }
 
   .ph--fight-club .ph__image {
-    object-position: 62% 42% !important;
+    object-position: 66% center !important;
   }
 
-  .ph--fight-club .ph__scrim {
+  .ph--drop001 .ph__image {
+    object-position: 68% 16% !important;
+  }
+
+  .ph--fight-club .ph__scrim,
+  .ph--drop001 .ph__scrim {
     background:
       linear-gradient(180deg, rgba(3, 3, 3, 0.08) 0%, rgba(3, 3, 3, 0.2) 38%, rgba(3, 3, 3, 0.82) 78%, #050505 100%),
       linear-gradient(90deg, rgba(3, 3, 3, 0.34), rgba(3, 3, 3, 0.08)) !important;
-  }
-}
-
-.ph--fight-club .ph__image,
-.ph--drop001 .ph__image {
-  object-fit: contain !important;
-  object-position: right center !important;
-  background-color: #000 !important;
-  transform: none !important;
-}
-
-@media (max-width: 980px) {
-  .ph--fight-club .ph__image,
-  .ph--drop001 .ph__image {
-    object-fit: contain !important;
-    object-position: center center !important;
   }
 }
