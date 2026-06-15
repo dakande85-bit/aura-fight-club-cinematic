@@ -7,7 +7,7 @@ const blockers = [
     title: 'Waitlist backend not connected',
     severity: 'critical',
     owner: 'Launch system',
-    action: 'Forms now share one local test store, but production still needs Klaviyo, Mailchimp, Supabase, or another real backend before paid traffic.',
+    action: 'Modal forms now share one local test store, but production still needs Klaviyo, Mailchimp, Supabase, or another real backend before paid traffic.',
     link: '/admin/waitlist',
     linkLabel: 'Open waitlist admin',
   },
@@ -43,33 +43,33 @@ const workOrder = [
     title: 'Control the visuals first',
     copy: 'Open page media and select the logo + hero for each major page. Do not manually edit individual page files unless the value is being locked permanently.',
     primary: { href: '/admin/page-media', label: 'Page media' },
-    secondary: { href: '/', label: 'View landing' },
+    secondary: { href: '/', label: 'View site' },
   },
   {
     step: '02',
+    title: 'Check modal behaviour',
+    copy: 'The launch capture now behaves as a modal: closeable, route-aware, and different by page. Test home, product pages, campaign, and Fight Club.',
+    primary: { href: '/', label: 'Home modal' },
+    secondary: { href: '/admin/waitlist', label: 'Waitlist admin' },
+  },
+  {
+    step: '03',
     title: 'Clean the cinematic experience',
     copy: 'Remove weak, repeated, cropped, or too-dark frames. Export the removal manifest before any permanent cleanup commit.',
     primary: { href: '/admin/cinematic', label: 'Cinematic editor' },
     secondary: { href: '/cinematic', label: 'View cinematic' },
   },
   {
-    step: '03',
+    step: '04',
     title: 'Check launch product reality',
     copy: 'Launch only with the three products that have live media unless additional product slots are properly completed.',
     primary: { href: '/drop-001', label: 'Drop 001' },
     secondary: { href: '/admin', label: 'Product admin' },
   },
   {
-    step: '04',
-    title: 'Test waitlist capture',
-    copy: 'The landing page and Fight Club page now share one local capture store. Test entries, export CSV, then connect the real backend.',
-    primary: { href: '/admin/waitlist', label: 'Waitlist admin' },
-    secondary: { href: '/fight-club', label: 'Fight Club' },
-  },
-  {
     step: '05',
     title: 'Final mobile QA',
-    copy: 'Check iPhone first: header, hero crop, CTA visibility, product cards, product pages, footer, and speed.',
+    copy: 'Check iPhone first: header, modal, hero crop, CTA visibility, product cards, product pages, footer, and speed.',
     primary: { href: '/', label: 'Start QA' },
     secondary: { href: '/admin/suppliers', label: 'Suppliers' },
   },
@@ -77,15 +77,28 @@ const workOrder = [
 
 const checklist = [
   {
-    area: 'Landing page',
+    area: 'Main website',
     status: 'needs-review',
     priority: 'P0',
     route: '/',
     items: [
-      'Review new launch landing page on desktop and mobile after Vercel deploy.',
+      'Review the real site experience on desktop and mobile after Vercel deploy.',
       'Confirm hero image/logo using /admin/page-media.',
-      'Make sure waitlist CTA is visible above the fold.',
-      'Confirm the page feels like a launch page, not just a cinematic experiment.',
+      'Confirm modal appears and can be closed.',
+      'Confirm /launch is only a reference page, not the main public landing page.',
+    ],
+  },
+  {
+    area: 'Modal capture system',
+    status: 'local-test',
+    priority: 'P0',
+    route: '/admin/waitlist',
+    items: [
+      'Home modal: Drop 001 early access.',
+      'Fight Club modal: join first circle.',
+      'Campaign/Cinematic modal: newsletter/campaign updates.',
+      'Product/category modal: product waitlist.',
+      'Download app modal variant still needs final app destination when app exists.',
     ],
   },
   {
@@ -119,21 +132,21 @@ const checklist = [
     route: '/drop-001',
     items: [
       'Only 3 products currently have live media: Cream Fight Boots, Cream Boxing Gloves, Black Sleeveless Hoodie.',
-      'Keep missing-media products off the launch landing page until visuals are ready.',
+      'Keep missing-media products off the launch-facing areas until visuals are ready.',
       'Prepare final card, hover, and gallery images for all launch products.',
       'Check product detail page for each live product.',
     ],
   },
   {
-    area: 'Waitlist',
+    area: 'Waitlist backend',
     status: 'local-test',
     priority: 'P0',
     route: '/admin/waitlist',
     items: [
-      'Landing page and Fight Club page now save to one local test store.',
+      'Modal, landing reference page, and Fight Club page now save to one local test store.',
       'Use /admin/waitlist to view entries and export CSV.',
       'Connect to Klaviyo, Mailchimp, Supabase, or email capture endpoint before paid traffic.',
-      'Use the same backend on / and /fight-club.',
+      'Use the same backend for all modal variants.',
     ],
   },
   {
@@ -149,26 +162,15 @@ const checklist = [
     ],
   },
   {
-    area: 'Supplier backend',
-    status: 'usable',
-    priority: 'P2',
-    route: '/admin/suppliers',
-    items: [
-      'Use supplier admin for sample tracking, production readiness, QC, and purchase-order planning.',
-      'Do not let supplier work block landing-page launch unless product claims depend on it.',
-      'Keep supplier status separate from public launch visuals.',
-    ],
-  },
-  {
     area: 'Launch QA',
     status: 'pending',
     priority: 'P0',
     route: '/',
     items: [
       'Check mobile header/menu.',
+      'Check modal close and re-open trigger.',
       'Check all public route links.',
       'Check product cards and product detail pages.',
-      'Check 404 fallback route.',
       'Check footer and legal/basic contact details before paid traffic.',
     ],
   },
@@ -177,7 +179,8 @@ const checklist = [
 const adminTools = [
   { title: 'Page media', href: '/admin/page-media', copy: 'Logo, hero images, fit, crop, and page-level media control.' },
   { title: 'Cinematic editor', href: '/admin/cinematic', copy: 'Replace frames, remove weak frames, restore, and export cleanup manifest.' },
-  { title: 'Waitlist', href: '/admin/waitlist', copy: 'View local test entries, export CSV, and verify capture flow before backend connection.' },
+  { title: 'Waitlist', href: '/admin/waitlist', copy: 'View local test entries, export CSV, and verify modal capture flow before backend connection.' },
+  { title: 'Launch reference', href: '/launch', copy: 'Reference-only launch page. The live strategy is modal capture over the real site.' },
   { title: 'Product assets', href: '/admin', copy: 'Product media slots, candidate assets, and product visual review.' },
   { title: 'Suppliers', href: '/admin/suppliers', copy: 'Suppliers, contacts, samples, QC review, production, and PO centre.' },
 ];
@@ -213,19 +216,19 @@ export default function AdminLaunchChecklist() {
         <section className="alc-hero">
           <p className="alc-kicker">AURA Admin</p>
           <h1>Launch command centre</h1>
-          <p>Work from this page first. It keeps the landing page, media controls, cinematic editor, product readiness, waitlist, and launch QA in one operating view.</p>
+          <p>Work from this page first. The launch capture is now a modal system over the real website, not a separate landing page that blocks browsing.</p>
           <div className="alc-scoreboard" aria-label="Launch status summary">
             <div><strong>{criticalCount}</strong><span>Critical blockers</span></div>
             <div><strong>{p0Count}</strong><span>P0 launch areas</span></div>
+            <div><strong>4</strong><span>Modal variants</span></div>
             <div><strong>3</strong><span>Products with live media</span></div>
-            <div><strong>1</strong><span>Landing page ready for review</span></div>
           </div>
           <div className="alc-actions">
             <a href="/admin/page-media">Page media</a>
             <a href="/admin/cinematic">Cinematic editor</a>
             <a href="/admin/waitlist">Waitlist</a>
-            <a href="/admin/suppliers">Supplier admin</a>
-            <a href="/">View landing page</a>
+            <a href="/launch">Launch reference</a>
+            <a href="/">View site</a>
           </div>
         </section>
 
