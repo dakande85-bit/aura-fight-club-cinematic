@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage.jsx';
+import LaunchLandingPage from './pages/LaunchLandingPage.jsx';
+import CinematicPage from './pages/CinematicPage.jsx';
 import CampaignPage from './pages/CampaignPage.jsx';
 import Drop001Page from './pages/Drop001.jsx';
 import ProductDetailPage from './pages/ProductDetailRoute.jsx';
@@ -16,7 +17,8 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LaunchLandingPage />} />
+        <Route path="/cinematic" element={<CinematicPage />} />
         <Route path="/drop-001" element={<Drop001Page />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
         <Route path="/apparel" element={<ApparelPage />} />
@@ -30,7 +32,7 @@ export default function AppRouter() {
         <Route path="/admin/page-media" element={<AdminPageMedia />} />
         <Route path="/admin/cinematic" element={<CinematicSceneBuilder />} />
         <Route path="/admin/suppliers" element={<AdminSuppliers />} />
-        <Route path="*" element={<HomePage />} />
+        <Route path="*" element={<LaunchLandingPage />} />
       </Routes>
     </BrowserRouter>
   );
