@@ -7,6 +7,7 @@ import '../styles/drop001.css';
 
 export default function Drop001() {
   const { products, loading } = useLiveProducts({ collection: 'Drop 001' });
+  const productCountLabel = products.length + ' ' + (products.length === 1 ? 'piece' : 'pieces') + ' · Waitlist open · Limited run';
 
   return (
     <div className="d001">
@@ -16,8 +17,9 @@ export default function Drop001() {
         label="DROP 001"
         headline={'THE FIRST\nUNIFORM'}
         copy="The first AURA release establishes the training uniform: apparel, footwear, and equipment built around discipline, rhythm, and presence."
-        image="/campaign/jump-rope/jump-rope-07.webp"
-        imagePosition="72% center"
+        image="/campaign/jump-rope/jump-rope-04.webp"
+        imagePosition="68% 28%"
+        className="ph--drop001"
         ctas={[
           { label: 'Shop Drop 001', to: '#drop-lineup', variant: 'primary', scroll: true },
           { label: 'Explore Apparel', to: '/apparel', variant: 'ghost' },
@@ -26,10 +28,7 @@ export default function Drop001() {
 
       <div className="d001__grid-wrap" id="drop-lineup">
         <p className="d001__meta">
-          {loading
-            ? 'Loading...'
-            : `${products.length} ${products.length === 1 ? 'piece' : 'pieces'} · Waitlist open · Limited run`
-          }
+          {loading ? 'Loading...' : productCountLabel}
         </p>
 
         {loading ? (
