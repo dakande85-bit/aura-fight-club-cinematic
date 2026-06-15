@@ -77,3 +77,19 @@
       linear-gradient(90deg, rgba(3, 3, 3, 0.34), rgba(3, 3, 3, 0.08)) !important;
   }
 }
+
+.ph--fight-club .ph__image,
+.ph--drop001 .ph__image {
+  object-fit: contain !important;
+  object-position: right center !important;
+  background-color: #000 !important;
+  transform: none !important;
+}
+
+@media (max-width: 980px) {
+  .ph--fight-club .ph__image,
+  .ph--drop001 .ph__image {
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+}
