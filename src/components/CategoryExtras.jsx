@@ -21,7 +21,7 @@ const CONTENT = {
       copy:
         'Training layers for the work nobody sees. Clean, composed, and built around presence before attention.',
       image: '/campaign/jump-rope/jump-rope-07.webp',
-      imagePosition: '72% center',
+      imagePosition: 'center 15%',
       ctas: [
         { label: 'Shop Apparel', to: '#apparel-lineup', variant: 'primary', scroll: true },
         { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
@@ -101,8 +101,8 @@ const CONTENT = {
       headline: 'MOVEMENT BEFORE\nIMPACT',
       copy:
         'Footwear built around control, rhythm, and the steps nobody studies until they lose the round.',
-      image: '/campaign/jump-rope/jump-rope-07.webp',
-      imagePosition: '72% center',
+      image: '/campaign/sparring/sparring-09.webp',
+      imagePosition: 'center 34%',
       ctas: [
         { label: 'Shop Footwear', to: '#footwear-lineup', variant: 'primary', scroll: true },
         { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
@@ -183,7 +183,7 @@ const CONTENT = {
       copy:
         'Training equipment for daily preparation, consistency, and the routine of getting sharper.',
       image: '/campaign/heavy-bag/heavy-bag-07.webp',
-      imagePosition: '70% center',
+      imagePosition: 'center 30%',
       ctas: [
         { label: 'Shop Equipment', to: '#equipment-lineup', variant: 'primary', scroll: true },
         { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
