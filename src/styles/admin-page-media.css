@@ -50,6 +50,20 @@
   margin-bottom: 8px !important;
 }
 
+.apm__warning,
+.apm__notice {
+  margin-top: 12px !important;
+  color: #dca952 !important;
+  font-size: 0.86rem;
+}
+
+.apm__notice {
+  border: 1px solid rgba(220, 169, 82, 0.28);
+  background: rgba(220, 169, 82, 0.08);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
 .apm__header p:not(.apm__eyebrow),
 .apm__logo-panel p,
 .apm__editor-head p,
@@ -59,12 +73,18 @@
 }
 
 .apm__links,
-.apm__actions {
+.apm__actions,
+.apm__upload-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: flex-start;
   justify-content: flex-end;
+}
+
+.apm__upload-row {
+  justify-content: flex-start;
+  margin-top: 2px;
 }
 
 .apm a,
@@ -81,11 +101,20 @@
   cursor: pointer;
 }
 
+.apm__upload-row button:first-child {
+  background: #dca952;
+  color: #050505;
+}
+
 .apm a:hover,
 .apm button:hover,
 .apm__tabs button.active {
   background: #dca952;
   color: #050505;
+}
+
+.apm__file-input {
+  display: none !important;
 }
 
 .apm__logo-panel {
@@ -246,5 +275,10 @@
   .apm__body,
   .apm__grid {
     grid-template-columns: 1fr;
+  }
+
+  .apm__links,
+  .apm__actions {
+    justify-content: flex-start;
   }
 }
