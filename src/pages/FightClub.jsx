@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Footer from '../components/Footer.jsx';
+import fightClubHeroData from '../assets/generated/fightClubHeroData.js';
 import '../styles/editorial-page.css';
 
 export default function FightClub() {
@@ -18,8 +19,9 @@ export default function FightClub() {
         label="AURA FIGHT CLUB"
         headline={'THE REAL FIGHT\nIS INTERNAL'}
         copy="AURA Fight Club is the world behind the product: discipline, identity, training culture, and the presence earned before anyone is watching."
-        image="/campaign/sparring/sparring-08.webp"
-        imagePosition="68% center"
+        image={fightClubHeroData}
+        imagePosition="center 43%"
+        className="ph--fight-club"
         ctas={[
           { label: 'Enter Fight Club', to: '#fight-club-story', variant: 'primary', scroll: true },
           { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
