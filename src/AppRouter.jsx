@@ -10,6 +10,7 @@ import EquipmentPage from './pages/Equipment.jsx';
 import FightClubPage from './pages/FightClub.jsx';
 import AdminAssetManager from './pages/AdminAssetManager.jsx';
 import AdminPageMedia from './pages/AdminPageMedia.jsx';
+import AdminLaunchChecklist from './pages/AdminLaunchChecklist.jsx';
 import CinematicSceneBuilder from './pages/admin/CinematicSceneBuilder.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
 
@@ -32,6 +33,7 @@ export default function AppRouter() {
         <Route path="/admin/page-media" element={<AdminPageMedia />} />
         <Route path="/admin/cinematic" element={<CinematicSceneBuilder />} />
         <Route path="/admin/suppliers" element={<AdminSuppliers />} />
+        <Route path="/admin/launch" element={<AdminLaunchChecklist />} />
         <Route path="*" element={<LaunchLandingPage />} />
       </Routes>
     </BrowserRouter>
