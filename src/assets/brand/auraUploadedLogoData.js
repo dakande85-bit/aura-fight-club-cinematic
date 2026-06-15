@@ -1,0 +1,3 @@
+const auraUploadedLogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA4QAAAEECAYAAAD5xldTAAEAAElEQVR42uzdB5wkx3kH8G/TmUmSpKhSQKGBQKGBQR3QHQQUKGBQQe8uFqJQKFAoUCEQhUJQUCgUCBQKb3T+...';
+
+export default auraUploadedLogo;
