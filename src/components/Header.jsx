@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import auraUploadedLogo from '../assets/brand/auraUploadedLogoData.js';
 
 const navItems = [
   { label: 'Drop 001',     href: '/drop-001' },
@@ -22,8 +23,7 @@ export default function Header() {
     <>
       <header className="header" role="banner">
         <a className="header__logo aura-logo-lockup" href="/" aria-label="AURA Fight Club home" onClick={closeMenu}>
-          <span className="aura-logo-lockup__main">AURA</span>
-          <span className="aura-logo-lockup__sub">FIGHT CLUB</span>
+          <img className="aura-logo-lockup__image" src={auraUploadedLogo} alt="AURA Fight Club" />
         </a>
 
         <nav className="header__nav" aria-label="Main navigation">
