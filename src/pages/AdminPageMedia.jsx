@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   defaultBrandLogo,
   getBrandLogoOverride,
@@ -15,19 +15,11 @@ import '../styles/admin-page-media.css';
 const pageOrder = ['drop001', 'fightClub', 'apparel', 'footwear', 'equipment'];
 const fitOptions = ['cover', 'contain'];
 const positionPresets = ['center center', 'center 20%', 'center 30%', 'right center', '70% center', '68% 28%', '72% 18%'];
+const MAX_UPLOAD_SIZE = 1800;
+const UPLOAD_QUALITY = 0.82;
 
-function readImageFile(file) {
+function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
-    if (!file) {
-      reject(new Error('No file selected'));
-      return;
-    }
-
-    if (!file.type.startsWith('image/')) {
-      reject(new Error('Please select an image file'));
-      return;
-    }
-
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
     reader.onerror = () => reject(new Error('Could not read image file'));
@@ -35,54 +27,99 @@ function readImageFile(file) {
   });
 }
 
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error('Could not load selected image'));
+    image.src = src;
+  });
+}
+
+async function prepareImageFile(file, { preserveOriginal = false } = {}) {
+  if (!file) throw new Error('No file selected');
+  if (!file.type.startsWith('image/')) throw new Error('Please select an image file');
+
+  const originalDataUrl = await readFileAsDataUrl(file);
+
+  if (preserveOriginal || file.type === 'image/svg+xml') {
+    return originalDataUrl;
+  }
+
+  const image = await loadImage(originalDataUrl);
+  const scale = Math.min(1, MAX_UPLOAD_SIZE / Math.max(image.naturalWidth || image.width, image.naturalHeight || image.height));
+  const width = Math.max(1, Math.round((image.naturalWidth || image.width) * scale));
+  const height = Math.max(1, Math.round((image.naturalHeight || image.height) * scale));
+
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext('2d');
+  if (!context) return originalDataUrl;
+  context.drawImage(image, 0, 0, width, height);
+
+  return canvas.toDataURL('image/webp', UPLOAD_QUALITY);
+}
+
 export default function AdminPageMedia() {
   const [version, setVersion] = useState(0);
   const [activePage, setActivePage] = useState('drop001');
   const [logoOverride, setLogoOverride] = useState(() => getBrandLogoOverride());
   const [uploadMessage, setUploadMessage] = useState('');
-  const logoInputRef = useRef(null);
-  const heroInputRef = useRef(null);
   const activeMedia = useMemo(() => resolvePageMedia(activePage), [activePage, version]);
   const activeBase = pageHeroMedia[activePage];
   const activeAsset = resolveAsset(activeMedia.assetId);
 
   const refresh = () => setVersion(value => value + 1);
+
   const updatePage = values => {
-    savePageMediaOverride(activePage, values);
-    refresh();
+    try {
+      savePageMediaOverride(activePage, values);
+      refresh();
+    } catch (error) {
+      setUploadMessage('Save failed. Try a smaller image or use a public image path.');
+    }
   };
+
   const resetPage = () => {
     resetPageMediaOverride(activePage);
     setUploadMessage('Page reset to default media.');
     refresh();
   };
+
   const updateLogo = value => {
-    setLogoOverride(value);
-    saveBrandLogoOverride(value);
-    refresh();
+    try {
+      setLogoOverride(value);
+      saveBrandLogoOverride(value);
+      refresh();
+    } catch (error) {
+      setUploadMessage('Logo save failed. Try a smaller image or use a public image path.');
+    }
   };
 
   async function handleLogoUpload(event) {
     const file = event.target.files?.[0];
-    event.target.value = '';
     try {
-      const dataUrl = await readImageFile(file);
+      const dataUrl = await prepareImageFile(file, { preserveOriginal: true });
       updateLogo(dataUrl);
       setUploadMessage(`Logo uploaded for local preview: ${file.name}`);
     } catch (error) {
       setUploadMessage(error.message || 'Logo upload failed.');
+    } finally {
+      event.target.value = '';
     }
   }
 
   async function handleHeroUpload(event) {
     const file = event.target.files?.[0];
-    event.target.value = '';
     try {
-      const dataUrl = await readImageFile(file);
+      const dataUrl = await prepareImageFile(file);
       updatePage({ assetId: '', image: dataUrl });
-      setUploadMessage(`Hero image uploaded for ${activeBase.label}: ${file.name}`);
+      setUploadMessage(`Hero image uploaded and compressed for ${activeBase.label}: ${file.name}`);
     } catch (error) {
       setUploadMessage(error.message || 'Hero image upload failed.');
+    } finally {
+      event.target.value = '';
     }
   }
 
@@ -109,7 +146,7 @@ export default function AdminPageMedia() {
         <div>
           <p className="apm__eyebrow">Brand Logo</p>
           <h2>Header logo</h2>
-          <p>Blank uses the bundled uploaded logo. Paste a public path or upload an image for local preview.</p>
+          <p>Blank uses the bundled uploaded logo. Paste a public path or select an image for local preview.</p>
         </div>
         <div className="apm__logo-preview">
           <img src={logoOverride || defaultBrandLogo} alt="AURA Fight Club logo preview" />
@@ -123,9 +160,9 @@ export default function AdminPageMedia() {
             onChange={event => updateLogo(event.target.value)}
           />
           <div className="apm__upload-row">
-            <button type="button" onClick={() => logoInputRef.current?.click()}>Upload Logo</button>
+            <label className="apm__file-label" htmlFor="logo-upload">Upload Logo</label>
+            <input id="logo-upload" type="file" accept="image/*" className="apm__real-file" onChange={handleLogoUpload} />
             <button type="button" onClick={() => updateLogo('')}>Reset Logo</button>
-            <input ref={logoInputRef} type="file" accept="image/*" className="apm__file-input" onChange={handleLogoUpload} />
           </div>
         </div>
       </section>
@@ -203,9 +240,9 @@ export default function AdminPageMedia() {
               <label htmlFor="custom-image">Custom image path or uploaded image</label>
               <input id="custom-image" value={activeAsset ? '' : activeMedia.image || ''} onChange={event => updatePage({ assetId: '', image: event.target.value })} placeholder="/assets/... or uploaded data image" />
               <div className="apm__upload-row">
-                <button type="button" onClick={() => heroInputRef.current?.click()}>Upload New Image</button>
+                <label className="apm__file-label" htmlFor={`hero-upload-${activePage}`}>Upload New Image</label>
+                <input key={activePage} id={`hero-upload-${activePage}`} type="file" accept="image/*" className="apm__real-file" onChange={handleHeroUpload} />
                 <button type="button" onClick={() => updatePage({ assetId: '', image: '' })}>Clear Custom Image</button>
-                <input ref={heroInputRef} type="file" accept="image/*" className="apm__file-input" onChange={handleHeroUpload} />
               </div>
             </div>
           </div>
