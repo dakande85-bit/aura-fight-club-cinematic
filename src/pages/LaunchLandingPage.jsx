@@ -3,6 +3,7 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { liveProducts } from '../data/products.js';
+import { addWaitlistEntry } from '../lib/waitlistStore.js';
 import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import '../styles/launch-landing.css';
 
@@ -27,12 +28,22 @@ const launchPoints = [
 
 function WaitlistForm({ compact = false }) {
   const [email, setEmail] = useState('');
-  const [done, setDone] = useState(false);
+  const [message, setMessage] = useState('Early access only. Launch updates and Drop 001 access.');
+  const [status, setStatus] = useState('idle');
 
   function submit(event) {
     event.preventDefault();
-    if (!email.trim()) return;
-    setDone(true);
+    const result = addWaitlistEntry({ email, source: 'launch-landing', product: 'Drop 001' });
+
+    if (!result.ok) {
+      setStatus('error');
+      setMessage('Enter a valid email address.');
+      return;
+    }
+
+    setEmail('');
+    setStatus('success');
+    setMessage(result.duplicate ? 'You were already on the list. Updated.' : 'You are on the list.');
   }
 
   return (
@@ -45,9 +56,9 @@ function WaitlistForm({ compact = false }) {
         aria-label="Email address"
       />
       <button className="launch-btn launch-btn--primary" type="submit">
-        {done ? 'You are on the list' : compact ? 'Join Waitlist' : 'Join the Fight Club waitlist'}
+        {compact ? 'Join Waitlist' : 'Join the Fight Club waitlist'}
       </button>
-      <p className="launch-form__note">Early access only. No spam. Launch updates and Drop 001 access.</p>
+      <p className={`launch-form__note launch-form__note--${status}`}>{message}</p>
     </form>
   );
 }
@@ -156,8 +167,8 @@ export default function LaunchLandingPage() {
               <p className="launch-kicker">Join the first circle</p>
               <h2>Enter before the drop.</h2>
               <p>
-                Get early access to Drop 001 and the launch campaign. This form is currently front-end confirmation only;
-                next step is connecting it to the final email platform.
+                Get early access to Drop 001 and the launch campaign. Entries are saved locally for testing now;
+                the next production step is connecting this same flow to the final email platform.
               </p>
             </div>
             <WaitlistForm />
