@@ -1,0 +1,250 @@
+.apm {
+  min-height: 100vh;
+  background: #050505;
+  color: #f5f1e8;
+  padding: 96px clamp(18px, 4vw, 64px) 64px;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.apm__header,
+.apm__logo-panel,
+.apm__body,
+.apm__editor {
+  border: 1px solid rgba(220, 169, 82, 0.24);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.36);
+}
+
+.apm__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.apm h1,
+.apm h2,
+.apm p {
+  margin: 0;
+}
+
+.apm h1 {
+  font-size: clamp(2rem, 5vw, 4.8rem);
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.apm h2 {
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+.apm__eyebrow {
+  color: #dca952;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 8px !important;
+}
+
+.apm__header p:not(.apm__eyebrow),
+.apm__logo-panel p,
+.apm__editor-head p,
+.apm__current {
+  color: rgba(245, 241, 232, 0.68);
+  line-height: 1.65;
+}
+
+.apm__links,
+.apm__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.apm a,
+.apm button {
+  border: 1px solid rgba(220, 169, 82, 0.36);
+  background: rgba(220, 169, 82, 0.08);
+  color: #f5f1e8;
+  padding: 11px 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.apm a:hover,
+.apm button:hover,
+.apm__tabs button.active {
+  background: #dca952;
+  color: #050505;
+}
+
+.apm__logo-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 320px);
+  gap: 20px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.apm__logo-preview {
+  min-height: 100px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.apm__logo-preview img {
+  width: min(260px, 100%);
+  max-height: 92px;
+  object-fit: contain;
+}
+
+.apm__body {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.apm__tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.apm__tabs button {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.apm__tabs small {
+  color: rgba(245, 241, 232, 0.5);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.apm__editor {
+  padding: 24px;
+}
+
+.apm__editor-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.apm__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.apm__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.apm__field--full {
+  grid-column: 1 / -1;
+}
+
+.apm label {
+  font-size: 0.68rem;
+  font-weight: 900;
+  color: #dca952;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.apm input,
+.apm select {
+  min-height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.55);
+  color: #f5f1e8;
+  padding: 0 12px;
+}
+
+.apm__preview {
+  position: relative;
+  height: min(48vw, 440px);
+  min-height: 280px;
+  margin-top: 24px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.apm__preview img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.apm__preview-copy {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.apm__preview-copy span,
+.apm__preview-copy strong,
+.apm__preview-copy em {
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(220, 169, 82, 0.32);
+  padding: 8px 10px;
+  font-style: normal;
+  font-size: 0.75rem;
+}
+
+.apm__current {
+  margin-top: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.apm__current code {
+  display: block;
+  max-height: 90px;
+  overflow: auto;
+  white-space: pre-wrap;
+  background: rgba(0, 0, 0, 0.52);
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 860px) {
+  .apm__header,
+  .apm__logo-panel,
+  .apm__body,
+  .apm__editor-head {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .apm__body,
+  .apm__grid {
+    grid-template-columns: 1fr;
+  }
+}
