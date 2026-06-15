@@ -7,7 +7,8 @@ import '../styles/drop001.css';
 
 export default function Drop001() {
   const { products, loading } = useLiveProducts({ collection: 'Drop 001' });
-  const productCountLabel = products.length + ' ' + (products.length === 1 ? 'piece' : 'pieces') + ' · Waitlist open · Limited run';
+  const safeProducts = products || [];
+  const productCountLabel = safeProducts.length + ' ' + (safeProducts.length === 1 ? 'piece' : 'pieces') + ' · Waitlist open · Limited run';
 
   return (
     <div className="d001">
@@ -17,8 +18,8 @@ export default function Drop001() {
         label="DROP 001"
         headline={'THE FIRST\nUNIFORM'}
         copy="The first AURA release establishes the training uniform: apparel, footwear, and equipment built around discipline, rhythm, and presence."
-        image="/campaign/jump-rope/jump-rope-04.webp"
-        imagePosition="68% 28%"
+        image="/campaign/sparring/sparring-09.webp"
+        imagePosition="right center"
         className="ph--drop001"
         ctas={[
           { label: 'Shop Drop 001', to: '#drop-lineup', variant: 'primary', scroll: true },
@@ -33,9 +34,9 @@ export default function Drop001() {
 
         {loading ? (
           <div className="d001__loading">Loading collection...</div>
-        ) : products.length > 0 ? (
+        ) : safeProducts.length > 0 ? (
           <div className="d001__grid">
-            {products.map(p => (
+            {safeProducts.map(p => (
               <ProductCard key={p.slug} product={p} />
             ))}
           </div>
