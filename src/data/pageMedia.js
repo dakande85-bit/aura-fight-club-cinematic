@@ -183,5 +183,5 @@ export function saveBrandLogoOverride(value) {
 }
 
 export function resolveBrandLogo() {
-  return getBrandLogoOverride() || defaultBrandLogo;
+  return defaultBrandLogo;
 }
