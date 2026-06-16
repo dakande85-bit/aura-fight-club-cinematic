@@ -77,6 +77,7 @@ export const pageHeroMedia = {
     image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png',
     imagePosition: 'center center',
     imageFit: 'contain',
+    imageScale: 1,
   },
   fightClub: {
     label: 'Fight Club',
@@ -85,6 +86,7 @@ export const pageHeroMedia = {
     image: fightClubHeroData,
     imagePosition: 'center center',
     imageFit: 'contain',
+    imageScale: 1,
   },
   apparel: {
     label: 'Apparel',
@@ -93,6 +95,7 @@ export const pageHeroMedia = {
     image: '/campaign/jump-rope/jump-rope-07.webp',
     imagePosition: 'center center',
     imageFit: 'contain',
+    imageScale: 1,
   },
   footwear: {
     label: 'Footwear',
@@ -101,6 +104,7 @@ export const pageHeroMedia = {
     image: '/campaign/sparring/sparring-09.webp',
     imagePosition: 'center center',
     imageFit: 'contain',
+    imageScale: 1,
   },
   equipment: {
     label: 'Equipment',
@@ -109,6 +113,7 @@ export const pageHeroMedia = {
     image: '/campaign/heavy-bag/heavy-bag-07.webp',
     imagePosition: 'center center',
     imageFit: 'contain',
+    imageScale: 1,
   },
 };
 
@@ -147,6 +152,7 @@ export function resolvePageMedia(pageKey) {
     assetId: selectedAsset?.id || override.assetId || base.assetId,
     imagePosition: override.imagePosition || base.imagePosition || 'center center',
     imageFit: override.imageFit || base.imageFit || 'contain',
+    imageScale: override.imageScale || base.imageScale || 1,
   };
 }
 
