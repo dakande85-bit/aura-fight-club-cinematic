@@ -20,6 +20,10 @@ function HeroCta({ item }) {
   );
 }
 
+function normalizeFit(value) {
+  return value === 'contain' ? 'contain' : 'cover';
+}
+
 export default function PageHero({
   label,
   headline,
@@ -33,16 +37,24 @@ export default function PageHero({
   className = '',
 }) {
   const lines = String(headline || '').split('\n').filter(Boolean);
+  const safeFit = normalizeFit(imageFit);
+  const imageStyle = {
+    objectPosition: imagePosition,
+    objectFit: safeFit,
+  };
 
   return (
-    <section className={`ph ph--${align} ${className}`.trim()} data-image-fit={imageFit}>
+    <section className={`ph ph--${align} ph--fit-${safeFit} ${className}`.trim()} data-image-fit={safeFit}>
       {image && (
         <div className="ph__media" aria-hidden={imageAlt ? undefined : true}>
+          {safeFit === 'contain' && (
+            <img className="ph__backdrop" src={image} alt="" aria-hidden="true" loading="eager" />
+          )}
           <img
             className="ph__image"
             src={image}
             alt={imageAlt}
-            style={{ objectPosition: imagePosition, objectFit: imageFit }}
+            style={imageStyle}
             loading="eager"
           />
         </div>
