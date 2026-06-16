@@ -17,13 +17,18 @@ function injectHomepageLogoStyles() {
   const style = document.createElement('style');
   style.id = STYLE_ID;
   style.textContent = `
+    .sf-header {
+      height: 76px !important;
+    }
+
     .sf-header-logo {
       display: inline-flex !important;
       align-items: center !important;
       justify-content: flex-start !important;
-      width: clamp(190px, 13vw, 260px) !important;
-      min-width: clamp(190px, 13vw, 260px) !important;
-      height: 64px !important;
+      width: clamp(230px, 15vw, 320px) !important;
+      min-width: clamp(230px, 15vw, 320px) !important;
+      height: 74px !important;
+      min-height: 74px !important;
       padding: 0 !important;
       overflow: visible !important;
       text-decoration: none !important;
@@ -36,7 +41,7 @@ function injectHomepageLogoStyles() {
       width: 100% !important;
       height: auto !important;
       max-width: 100% !important;
-      max-height: 58px !important;
+      max-height: 68px !important;
       object-fit: contain !important;
       object-position: left center !important;
       opacity: 1 !important;
@@ -50,22 +55,36 @@ function injectHomepageLogoStyles() {
       display: none !important;
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 1100px) {
       .sf-header-logo {
-        width: 170px !important;
-        min-width: 170px !important;
-        height: 58px !important;
+        width: 210px !important;
+        min-width: 210px !important;
+        height: 64px !important;
+        min-height: 64px !important;
       }
 
       .sf-header-logo-image {
-        max-height: 52px !important;
+        max-height: 60px !important;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .sf-header-logo {
+        width: 190px !important;
+        min-width: 190px !important;
+        height: 58px !important;
+        min-height: 58px !important;
+      }
+
+      .sf-header-logo-image {
+        max-height: 54px !important;
       }
     }
 
     @media (max-width: 420px) {
       .sf-header-logo {
-        width: 152px !important;
-        min-width: 152px !important;
+        width: 166px !important;
+        min-width: 166px !important;
       }
 
       .sf-header-logo-image {
