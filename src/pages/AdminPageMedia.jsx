@@ -13,8 +13,20 @@ import {
 import '../styles/admin-page-media.css';
 
 const pageOrder = ['drop001', 'fightClub', 'apparel', 'footwear', 'equipment'];
-const MAX_UPLOAD_SIZE = 1800;
-const UPLOAD_QUALITY = 0.82;
+const MAX_UPLOAD_SIZE = 2400;
+const UPLOAD_QUALITY = 0.86;
+
+const focusOptions = [
+  { label: 'Top left', value: 'left top' },
+  { label: 'Top', value: 'center top' },
+  { label: 'Top right', value: 'right top' },
+  { label: 'Left', value: 'left center' },
+  { label: 'Centre', value: 'center center' },
+  { label: 'Right', value: 'right center' },
+  { label: 'Bottom left', value: 'left bottom' },
+  { label: 'Bottom', value: 'center bottom' },
+  { label: 'Bottom right', value: 'right bottom' },
+];
 
 function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
@@ -45,9 +57,11 @@ async function prepareImageFile(file, { preserveOriginal = false } = {}) {
   }
 
   const image = await loadImage(originalDataUrl);
-  const scale = Math.min(1, MAX_UPLOAD_SIZE / Math.max(image.naturalWidth || image.width, image.naturalHeight || image.height));
-  const width = Math.max(1, Math.round((image.naturalWidth || image.width) * scale));
-  const height = Math.max(1, Math.round((image.naturalHeight || image.height) * scale));
+  const naturalWidth = image.naturalWidth || image.width;
+  const naturalHeight = image.naturalHeight || image.height;
+  const scale = Math.min(1, MAX_UPLOAD_SIZE / Math.max(naturalWidth, naturalHeight));
+  const width = Math.max(1, Math.round(naturalWidth * scale));
+  const height = Math.max(1, Math.round(naturalHeight * scale));
 
   const canvas = document.createElement('canvas');
   canvas.width = width;
@@ -67,12 +81,13 @@ export default function AdminPageMedia() {
   const activeMedia = useMemo(() => resolvePageMedia(activePage), [activePage, version]);
   const activeBase = pageHeroMedia[activePage];
   const activeAsset = resolveAsset(activeMedia.assetId);
+  const selectedFocus = activeMedia.imagePosition || 'center center';
 
   const refresh = () => setVersion(value => value + 1);
 
   const updatePage = values => {
     try {
-      savePageMediaOverride(activePage, { ...values, imageFit: 'cover' });
+      savePageMediaOverride(activePage, values);
       refresh();
     } catch (error) {
       setUploadMessage('Save failed. Try a smaller image or use a public image path.');
@@ -81,7 +96,7 @@ export default function AdminPageMedia() {
 
   const resetPage = () => {
     resetPageMediaOverride(activePage);
-    setUploadMessage('Page reset to stable cover media.');
+    setUploadMessage('Page reset to default media and centre crop.');
     refresh();
   };
 
@@ -113,7 +128,7 @@ export default function AdminPageMedia() {
     try {
       const dataUrl = await prepareImageFile(file);
       updatePage({ assetId: '', image: dataUrl, imagePosition: 'center center' });
-      setUploadMessage(`Hero image uploaded in stable fill mode for ${activeBase.label}: ${file.name}`);
+      setUploadMessage(`Hero image uploaded for ${activeBase.label}: ${file.name}`);
     } catch (error) {
       setUploadMessage(error.message || 'Hero image upload failed.');
     } finally {
@@ -127,8 +142,8 @@ export default function AdminPageMedia() {
         <div>
           <p className="apm__eyebrow">AURA ADMIN</p>
           <h1>Page Media Control</h1>
-          <p>Stable mode only: choose a hero image and set its focal point. The hero always fills the page so there are no blank gaps.</p>
-          <p className="apm__warning">Zoom and full-image mode were removed because they made the hero layout unstable. Use 16:9 or wide hero images for best results.</p>
+          <p>Clean hero media system: one image source, one crop model, one focal point. No zoom hacks, no contain mode, no preset conflicts.</p>
+          <p className="apm__warning">Best practice: use a wide 16:9 or 21:9 hero image around 2400px wide. The crop window below matches the real hero behaviour.</p>
         </div>
         <div className="apm__links">
           <a href="/admin/launch">Launch</a>
@@ -144,7 +159,7 @@ export default function AdminPageMedia() {
         <div>
           <p className="apm__eyebrow">Brand Logo</p>
           <h2>Header logo</h2>
-          <p>Blank uses the bundled uploaded logo. Paste a public path or select an image for local preview.</p>
+          <p>Blank uses the bundled brand logo. Paste a public path or upload an image for local preview.</p>
         </div>
         <div className="apm__logo-preview">
           <img src={logoOverride || defaultBrandLogo} alt="AURA Fight Club logo preview" />
@@ -154,7 +169,7 @@ export default function AdminPageMedia() {
           <input
             id="logo-source"
             value={logoOverride}
-            placeholder="Leave blank for uploaded logo asset"
+            placeholder="Leave blank for bundled logo asset"
             onChange={event => updateLogo(event.target.value)}
           />
           <div className="apm__upload-row">
@@ -196,6 +211,20 @@ export default function AdminPageMedia() {
             </div>
           </div>
 
+          <div className="apm__preview" aria-label="Hero crop preview">
+            <img
+              className="apm__preview-image"
+              src={activeMedia.image}
+              alt="Selected hero crop preview"
+              style={{ objectPosition: selectedFocus }}
+            />
+            <div className="apm__preview-copy">
+              <span>{activeBase.label}</span>
+              <strong>Cover crop</strong>
+              <em>{selectedFocus}</em>
+            </div>
+          </div>
+
           <div className="apm__grid">
             <div className="apm__field">
               <label htmlFor="asset-select">Saved image</label>
@@ -215,14 +244,30 @@ export default function AdminPageMedia() {
             </div>
 
             <div className="apm__field">
-              <label htmlFor="image-position">Focal point</label>
+              <label>Focal point</label>
+              <div className="apm__focus-grid" role="group" aria-label="Hero focal point">
+                {focusOptions.map(option => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    className={selectedFocus === option.value ? 'active' : ''}
+                    onClick={() => updatePage({ imagePosition: option.value })}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="apm__field apm__field--full">
+              <label htmlFor="image-position">Manual focal point</label>
               <input
                 id="image-position"
-                value={activeMedia.imagePosition || 'center center'}
+                value={selectedFocus}
                 placeholder="Examples: center center, 60% center, center top"
                 onChange={event => updatePage({ imagePosition: event.target.value })}
               />
-              <small className="apm__hint">Use this to move the crop. Examples: center center, 70% center, center top, right center.</small>
+              <small className="apm__hint">This is standard CSS object-position. Use values such as center center, right center, 65% center, center top.</small>
             </div>
 
             <div className="apm__field apm__field--full">
@@ -233,20 +278,6 @@ export default function AdminPageMedia() {
                 <input key={activePage} id={`hero-upload-${activePage}`} type="file" accept="image/*" className="apm__real-file" onChange={handleHeroUpload} />
                 <button type="button" onClick={() => updatePage({ assetId: '', image: '', imagePosition: 'center center' })}>Clear Custom Image</button>
               </div>
-            </div>
-          </div>
-
-          <div className="apm__preview">
-            <img
-              className="apm__preview-image"
-              src={activeMedia.image}
-              alt="Selected hero preview"
-              style={{ objectPosition: activeMedia.imagePosition || 'center center' }}
-            />
-            <div className="apm__preview-copy">
-              <span>{activeBase.label}</span>
-              <strong>Stable fill mode</strong>
-              <em>{activeMedia.imagePosition || 'center center'}</em>
             </div>
           </div>
 
