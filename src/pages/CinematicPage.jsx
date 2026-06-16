@@ -1,11 +1,11 @@
-import ScrollFilm from '../ScrollFilm.jsx';
+import HomeStaticHero from '../components/HomeStaticHero.jsx';
 import HomepageExtras from '../components/HomepageExtras.jsx';
 import Footer from '../components/Footer.jsx';
 
 export default function CinematicPage() {
   return (
     <>
-      <ScrollFilm />
+      <HomeStaticHero />
       <HomepageExtras />
       <Footer />
     </>
