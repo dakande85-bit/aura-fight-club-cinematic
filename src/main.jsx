@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import AppRouter from './AppRouter.jsx';
 import './styles/global.css';
 import './styles/scroll-film.css';
+import './styles/home-static.css';
 import './styles/aura-public-visual-pass.css';
 import './styles/aura-launch-polish.css';
 import './styles/aura-qa-overrides.css';
