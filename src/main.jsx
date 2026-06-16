@@ -8,6 +8,7 @@ import './styles/aura-launch-polish.css';
 import './styles/aura-qa-overrides.css';
 import './styles/aura-media-control.css';
 import './styles/aura-mobile-release-fix.css';
+import './styles/aura-homepage-mobile-static.css';
 import './homepage-scroll-sync.js';
 import './homepage-logo-fix.js';
 import './aura-release-dom-fixes.js';
