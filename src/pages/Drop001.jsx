@@ -23,6 +23,7 @@ export default function Drop001() {
         image={heroMedia.image}
         imagePosition={heroMedia.imagePosition}
         imageFit={heroMedia.imageFit}
+        imageScale={heroMedia.imageScale}
         className="ph--drop001"
         ctas={[
           { label: 'Shop Drop 001', to: '/drop-001', variant: 'primary' },
