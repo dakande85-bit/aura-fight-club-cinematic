@@ -1,6 +1,7 @@
 import Header from './Header.jsx';
+import auraHomeHeroAttached from '../assets/generated/auraHomeHeroAttachedData.js';
 
-const HERO_IMAGE = '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png';
+const HERO_IMAGE = auraHomeHeroAttached;
 
 export default function HomeStaticHero() {
   return (
