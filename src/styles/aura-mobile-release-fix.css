@@ -354,3 +354,50 @@
     flex-direction: column !important;
   }
 }
+
+/* Homepage scroll film mobile: prevent cover-cropped scenes. */
+@media (max-width: 640px) {
+  .sf-image-slot {
+    top: 0 !important;
+    bottom: 48% !important;
+    left: 0 !important;
+    right: 0 !important;
+    position: absolute !important;
+    background: #050505 !important;
+    overflow: hidden !important;
+  }
+
+  .sf-image,
+  .sf-video {
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: #050505 !important;
+  }
+
+  .sf-vignette {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 32%,
+      rgba(0,0,0,0.44) 48%,
+      rgba(0,0,0,0.96) 56%,
+      rgba(0,0,0,0.98) 100%
+    ) !important;
+  }
+
+  .sf-overlay {
+    position: absolute !important;
+    top: 48% !important;
+    bottom: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 20px 20px 0 !important;
+  }
+
+  .sf-overlay-inner {
+    max-width: 100% !important;
+  }
+}
