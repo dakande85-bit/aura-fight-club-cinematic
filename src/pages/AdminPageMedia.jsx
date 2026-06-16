@@ -13,10 +13,6 @@ import {
 import '../styles/admin-page-media.css';
 
 const pageOrder = ['drop001', 'fightClub', 'apparel', 'footwear', 'equipment'];
-const fitOptions = [
-  { value: 'contain', label: 'Full image / no crop' },
-  { value: 'cover', label: 'Fill hero / crop allowed' },
-];
 const MAX_UPLOAD_SIZE = 1800;
 const UPLOAD_QUALITY = 0.82;
 
@@ -36,12 +32,6 @@ function loadImage(src) {
     image.onerror = () => reject(new Error('Could not load selected image'));
     image.src = src;
   });
-}
-
-function clampScale(value) {
-  const parsed = Number(value);
-  if (!Number.isFinite(parsed)) return 1;
-  return Math.min(2, Math.max(0.55, parsed));
 }
 
 async function prepareImageFile(file, { preserveOriginal = false } = {}) {
@@ -77,14 +67,12 @@ export default function AdminPageMedia() {
   const activeMedia = useMemo(() => resolvePageMedia(activePage), [activePage, version]);
   const activeBase = pageHeroMedia[activePage];
   const activeAsset = resolveAsset(activeMedia.assetId);
-  const activeFit = activeMedia.imageFit === 'cover' ? 'cover' : 'contain';
-  const activeScale = clampScale(activeMedia.imageScale);
 
   const refresh = () => setVersion(value => value + 1);
 
   const updatePage = values => {
     try {
-      savePageMediaOverride(activePage, values);
+      savePageMediaOverride(activePage, { ...values, imageFit: 'cover' });
       refresh();
     } catch (error) {
       setUploadMessage('Save failed. Try a smaller image or use a public image path.');
@@ -93,7 +81,7 @@ export default function AdminPageMedia() {
 
   const resetPage = () => {
     resetPageMediaOverride(activePage);
-    setUploadMessage('Page reset to default media.');
+    setUploadMessage('Page reset to stable cover media.');
     refresh();
   };
 
@@ -124,8 +112,8 @@ export default function AdminPageMedia() {
     const file = event.target.files?.[0];
     try {
       const dataUrl = await prepareImageFile(file);
-      updatePage({ assetId: '', image: dataUrl, imageFit: 'contain', imagePosition: 'center center', imageScale: 1 });
-      setUploadMessage(`Hero image uploaded in full-image/no-crop mode for ${activeBase.label}: ${file.name}`);
+      updatePage({ assetId: '', image: dataUrl, imagePosition: 'center center' });
+      setUploadMessage(`Hero image uploaded in stable fill mode for ${activeBase.label}: ${file.name}`);
     } catch (error) {
       setUploadMessage(error.message || 'Hero image upload failed.');
     } finally {
@@ -139,8 +127,8 @@ export default function AdminPageMedia() {
         <div>
           <p className="apm__eyebrow">AURA ADMIN</p>
           <h1>Page Media Control</h1>
-          <p>Simple controls only: choose an image, choose full image or fill hero, then adjust zoom and focal point.</p>
-          <p className="apm__warning">Preset crop buttons were removed because they were unreliable. Use the manual controls below.</p>
+          <p>Stable mode only: choose a hero image and set its focal point. The hero always fills the page so there are no blank gaps.</p>
+          <p className="apm__warning">Zoom and full-image mode were removed because they made the hero layout unstable. Use 16:9 or wide hero images for best results.</p>
         </div>
         <div className="apm__links">
           <a href="/admin/launch">Launch</a>
@@ -216,20 +204,13 @@ export default function AdminPageMedia() {
                 value={activeMedia.assetId || ''}
                 onChange={event => {
                   const asset = resolveAsset(event.target.value);
-                  updatePage({ assetId: event.target.value, image: asset ? '' : activeMedia.image, imageScale: 1, imagePosition: 'center center' });
+                  updatePage({ assetId: event.target.value, image: asset ? '' : activeMedia.image, imagePosition: 'center center' });
                 }}
               >
                 <option value="">Custom image</option>
                 {pageMediaAssets.map(asset => (
                   <option key={asset.id} value={asset.id}>{asset.group} - {asset.label}</option>
                 ))}
-              </select>
-            </div>
-
-            <div className="apm__field">
-              <label htmlFor="image-fit">Image layout</label>
-              <select id="image-fit" value={activeFit} onChange={event => updatePage({ imageFit: event.target.value, imageScale: 1 })}>
-                {fitOptions.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </div>
 
@@ -241,46 +222,31 @@ export default function AdminPageMedia() {
                 placeholder="Examples: center center, 60% center, center top"
                 onChange={event => updatePage({ imagePosition: event.target.value })}
               />
-            </div>
-
-            <div className="apm__field">
-              <label htmlFor="image-scale">Image zoom / size: {Math.round(activeScale * 100)}%</label>
-              <input
-                id="image-scale"
-                type="range"
-                min="0.55"
-                max="2"
-                step="0.05"
-                value={activeScale}
-                onChange={event => updatePage({ imageScale: Number(event.target.value) })}
-              />
-              <small className="apm__hint">100% shows the normal image. More than 100% intentionally zooms/crops.</small>
+              <small className="apm__hint">Use this to move the crop. Examples: center center, 70% center, center top, right center.</small>
             </div>
 
             <div className="apm__field apm__field--full">
               <label htmlFor="custom-image">Custom image path or uploaded image</label>
-              <input id="custom-image" value={activeAsset ? '' : activeMedia.image || ''} onChange={event => updatePage({ assetId: '', image: event.target.value, imageScale: 1 })} placeholder="/assets/... or uploaded data image" />
+              <input id="custom-image" value={activeAsset ? '' : activeMedia.image || ''} onChange={event => updatePage({ assetId: '', image: event.target.value })} placeholder="/assets/... or uploaded data image" />
               <div className="apm__upload-row">
                 <label className="apm__file-label" htmlFor={`hero-upload-${activePage}`}>Upload New Image</label>
                 <input key={activePage} id={`hero-upload-${activePage}`} type="file" accept="image/*" className="apm__real-file" onChange={handleHeroUpload} />
-                <button type="button" onClick={() => updatePage({ assetId: '', image: '', imageFit: 'contain', imagePosition: 'center center', imageScale: 1 })}>Clear Custom Image</button>
+                <button type="button" onClick={() => updatePage({ assetId: '', image: '', imagePosition: 'center center' })}>Clear Custom Image</button>
               </div>
             </div>
           </div>
 
-          <div className={`apm__preview apm__preview--${activeFit}`}>
-            {activeFit === 'contain' && <img className="apm__preview-backdrop" src={activeMedia.image} alt="" aria-hidden="true" />}
+          <div className="apm__preview">
             <img
               className="apm__preview-image"
               src={activeMedia.image}
               alt="Selected hero preview"
-              style={{ objectFit: activeFit, objectPosition: activeMedia.imagePosition, '--apm-preview-scale': activeScale }}
+              style={{ objectPosition: activeMedia.imagePosition || 'center center' }}
             />
             <div className="apm__preview-copy">
               <span>{activeBase.label}</span>
-              <strong>{activeFit === 'contain' ? 'Full image / no crop' : 'Fill hero / crop allowed'}</strong>
-              <em>{activeMedia.imagePosition}</em>
-              <em>{Math.round(activeScale * 100)}%</em>
+              <strong>Stable fill mode</strong>
+              <em>{activeMedia.imagePosition || 'center center'}</em>
             </div>
           </div>
 
