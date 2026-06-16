@@ -1,30 +1,40 @@
 /* Final media-control layer — loaded last. Keep this free of fixed hero crop overrides. */
 
-.header__logo.aura-logo-lockup {
+.header__logo.aura-logo-lockup,
+.sf-header-logo {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  width: clamp(190px, 12vw, 250px) !important;
-  min-width: clamp(190px, 12vw, 250px) !important;
-  height: 66px !important;
-  min-height: 66px !important;
+  width: clamp(230px, 15vw, 320px) !important;
+  min-width: clamp(230px, 15vw, 320px) !important;
+  height: 74px !important;
+  min-height: 74px !important;
   padding: 0 !important;
   overflow: visible !important;
   background: transparent !important;
+  text-decoration: none !important;
+  line-height: 1 !important;
+}
+
+.sf-header {
+  height: 76px !important;
 }
 
 .header__logo.aura-logo-lockup::before,
-.header__logo.aura-logo-lockup::after {
+.header__logo.aura-logo-lockup::after,
+.sf-header-logo::before,
+.sf-header-logo::after {
   display: none !important;
   content: none !important;
 }
 
-.header__logo.aura-logo-lockup .aura-logo-lockup__image {
+.header__logo.aura-logo-lockup .aura-logo-lockup__image,
+.sf-header-logo .sf-header-logo-image {
   display: block !important;
   width: 100% !important;
   height: auto !important;
   max-width: 100% !important;
-  max-height: 60px !important;
+  max-height: 68px !important;
   object-fit: contain !important;
   object-position: left center !important;
   opacity: 1 !important;
@@ -34,7 +44,9 @@
 }
 
 .header__logo.aura-logo-lockup .aura-logo-lockup__main,
-.header__logo.aura-logo-lockup .aura-logo-lockup__sub {
+.header__logo.aura-logo-lockup .aura-logo-lockup__sub,
+.sf-header-logo .sf-header-logo-text,
+.sf-header-logo .sf-header-logo-sub {
   display: none !important;
 }
 
@@ -42,28 +54,47 @@
   transform: none !important;
 }
 
+@media (max-width: 1100px) {
+  .header__logo.aura-logo-lockup,
+  .sf-header-logo {
+    width: 210px !important;
+    min-width: 210px !important;
+    height: 64px !important;
+    min-height: 64px !important;
+  }
+
+  .header__logo.aura-logo-lockup .aura-logo-lockup__image,
+  .sf-header-logo .sf-header-logo-image {
+    max-height: 60px !important;
+  }
+}
+
 @media (max-width: 900px) {
-  .header__logo.aura-logo-lockup {
-    width: 170px !important;
-    min-width: 170px !important;
+  .header__logo.aura-logo-lockup,
+  .sf-header-logo {
+    width: 190px !important;
+    min-width: 190px !important;
     height: 58px !important;
     min-height: 58px !important;
   }
 
-  .header__logo.aura-logo-lockup .aura-logo-lockup__image {
-    max-height: 52px !important;
+  .header__logo.aura-logo-lockup .aura-logo-lockup__image,
+  .sf-header-logo .sf-header-logo-image {
+    max-height: 54px !important;
   }
 }
 
 @media (max-width: 420px) {
-  .header__logo.aura-logo-lockup {
-    width: 152px !important;
-    min-width: 152px !important;
+  .header__logo.aura-logo-lockup,
+  .sf-header-logo {
+    width: 166px !important;
+    min-width: 166px !important;
     height: 52px !important;
     min-height: 52px !important;
   }
 
-  .header__logo.aura-logo-lockup .aura-logo-lockup__image {
+  .header__logo.aura-logo-lockup .aura-logo-lockup__image,
+  .sf-header-logo .sf-header-logo-image {
     max-height: 48px !important;
   }
 }
