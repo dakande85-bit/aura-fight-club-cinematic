@@ -51,10 +51,17 @@
 }
 
 .apm__warning,
-.apm__notice {
+.apm__notice,
+.apm__hint {
   margin-top: 12px !important;
   color: #dca952 !important;
   font-size: 0.86rem;
+}
+
+.apm__hint {
+  margin-top: 0 !important;
+  color: rgba(245, 241, 232, 0.6) !important;
+  line-height: 1.45;
 }
 
 .apm__notice {
@@ -225,6 +232,12 @@
   padding: 0 12px;
 }
 
+.apm input[type='range'] {
+  min-height: 46px;
+  padding: 0;
+  accent-color: #dca952;
+}
+
 .apm__preview {
   position: relative;
   height: min(48vw, 440px);
@@ -241,10 +254,11 @@
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.apm__preview--contain .apm__preview-image {
-  padding: clamp(10px, 2.5vw, 28px) clamp(10px, 4vw, 56px);
+  box-sizing: border-box;
+  padding: 0;
+  transform: scale(var(--apm-preview-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .apm__preview-backdrop {
