@@ -8,6 +8,7 @@ import './styles/aura-launch-polish.css';
 import './styles/aura-qa-overrides.css';
 import './styles/aura-media-control.css';
 import './styles/media-stable.css';
+import './styles/fight-club-hero-crop.css';
 import './homepage-scroll-sync.js';
 import './homepage-logo-fix.js';
 
