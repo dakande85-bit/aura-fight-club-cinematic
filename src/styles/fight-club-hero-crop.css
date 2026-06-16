@@ -1,7 +1,3 @@
-.ph--fight-club .ph__image {
-  object-position: right top !important;
-}
-
-.apm__preview-image {
-  object-position: inherit;
-}
+/* Retired.
+   Hero crop is controlled by PageHero via the imagePosition value from pageMedia.
+   Do not add page-specific !important object-position rules here. */
