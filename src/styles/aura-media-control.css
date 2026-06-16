@@ -50,8 +50,10 @@
   display: none !important;
 }
 
+/* Do not kill PageHero zoom. This file loads last, so it must preserve the admin scale variable. */
 .ph__image {
-  transform: none !important;
+  transform: scale(var(--ph-image-scale, 1)) !important;
+  transform-origin: center center !important;
 }
 
 @media (max-width: 1100px) {
