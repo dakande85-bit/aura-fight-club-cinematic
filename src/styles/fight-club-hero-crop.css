@@ -1,0 +1,7 @@
+.ph--fight-club .ph__image {
+  object-position: right top !important;
+}
+
+.apm__preview-image {
+  object-position: inherit;
+}
