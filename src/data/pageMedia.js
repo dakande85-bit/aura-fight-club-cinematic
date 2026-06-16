@@ -1,14 +1,26 @@
 import fightClubHeroData from '../assets/generated/fightClubHeroData.js';
+import drop001HeroLocked from '../assets/generated/drop001HeroLockedSmall.js';
 import auraUploadedLogo from '../assets/brand/auraUploadedLogoData.js';
 
-// v4 intentionally ignores the failed experimental contain/zoom/local crop state.
-// The page media system now uses one stable best-practice model: cover image + focal point.
-export const PAGE_MEDIA_STORAGE_KEY = 'aura:page-media-overrides:v4-cover-focal-point';
+// v5 ignores failed admin/local crop experiments and locks approved page hero media.
+export const PAGE_MEDIA_STORAGE_KEY = 'aura:page-media-overrides:v5-locked-hero-assets';
 export const BRAND_LOGO_STORAGE_KEY = 'aura:brand-logo-override:v1';
 
 export const defaultBrandLogo = auraUploadedLogo;
 
 export const pageMediaAssets = [
+  {
+    id: 'drop-001-locked-hero',
+    label: 'Drop 001 — approved full hero canvas',
+    src: drop001HeroLocked,
+    group: 'Locked Heroes',
+  },
+  {
+    id: 'fight-club-locked-hero',
+    label: 'Fight Club — approved full hero canvas',
+    src: fightClubHeroData,
+    group: 'Locked Heroes',
+  },
   {
     id: 'drop-jump-rope-04',
     label: 'Jump Rope 04 — Drop training hero',
@@ -63,26 +75,20 @@ export const pageMediaAssets = [
     src: '/campaign/heavy-bag/heavy-bag-07.webp',
     group: 'Equipment',
   },
-  {
-    id: 'fight-club-uploaded-gloves',
-    label: 'Fight Club — gloves athlete hero',
-    src: fightClubHeroData,
-    group: 'Fight Club',
-  },
 ];
 
 export const pageHeroMedia = {
   drop001: {
     label: 'Drop 001',
     pagePath: '/drop-001',
-    assetId: 'scroll-drop-frame-09',
-    image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png',
+    assetId: 'drop-001-locked-hero',
+    image: drop001HeroLocked,
     imagePosition: 'center center',
   },
   fightClub: {
     label: 'Fight Club',
     pagePath: '/fight-club',
-    assetId: 'fight-club-uploaded-gloves',
+    assetId: 'fight-club-locked-hero',
     image: fightClubHeroData,
     imagePosition: 'center center',
   },
