@@ -1,8 +1,8 @@
-import fightClubHeroLocked from '../assets/generated/fightClubHeroLockedSmall.js';
+import fightClubHeroUserAttached from '../assets/generated/fightClubHeroUserAttachedData.js';
 import auraUploadedLogo from '../assets/brand/auraUploadedLogoData.js';
 
-// v6 ignores failed data-URI Drop hero and uses a reliable repo/public asset for Drop 001.
-export const PAGE_MEDIA_STORAGE_KEY = 'aura:page-media-overrides:v6-stable-hero-assets';
+// v7 locks the user-attached Fight Club hero and uses a reliable public Drop 001 image.
+export const PAGE_MEDIA_STORAGE_KEY = 'aura:page-media-overrides:v7-attached-fight-hero';
 export const BRAND_LOGO_STORAGE_KEY = 'aura:brand-logo-override:v1';
 
 export const defaultBrandLogo = auraUploadedLogo;
@@ -17,9 +17,9 @@ export const pageMediaAssets = [
     group: 'Locked Heroes',
   },
   {
-    id: 'fight-club-locked-hero',
-    label: 'Fight Club — approved full hero canvas',
-    src: fightClubHeroLocked,
+    id: 'fight-club-attached-hero',
+    label: 'Fight Club — user attached white kit hero',
+    src: fightClubHeroUserAttached,
     group: 'Locked Heroes',
   },
   {
@@ -89,8 +89,8 @@ export const pageHeroMedia = {
   fightClub: {
     label: 'Fight Club',
     pagePath: '/fight-club',
-    assetId: 'fight-club-locked-hero',
-    image: fightClubHeroLocked,
+    assetId: 'fight-club-attached-hero',
+    image: fightClubHeroUserAttached,
     imagePosition: 'center center',
   },
   apparel: {
