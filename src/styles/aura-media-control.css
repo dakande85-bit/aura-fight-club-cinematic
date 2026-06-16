@@ -50,13 +50,23 @@
   display: none !important;
 }
 
-/* Do not kill PageHero zoom. This file loads last, so it must preserve the admin image-size variable. */
+/* Hero zoom must resize the actual image box. */
 .ph__image {
+  position: absolute !important;
   top: 50% !important;
   left: 50% !important;
   width: var(--ph-image-size, 100%) !important;
   height: var(--ph-image-size, 100%) !important;
   transform: translate(-50%, -50%) !important;
+  transform-origin: center center !important;
+}
+
+/* Admin preview still receives the old scale variable, so force that one to visibly transform. */
+.apm__preview-image {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(var(--apm-preview-scale, 1)) !important;
   transform-origin: center center !important;
 }
 
