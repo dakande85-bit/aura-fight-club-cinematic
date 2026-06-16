@@ -32,7 +32,7 @@ export default function PageHero({
   className = '',
 }) {
   const lines = String(headline || '').split('\n').filter(Boolean);
-  const imageStyle = { objectPosition: imagePosition || 'center center' };
+  const safeImagePosition = imagePosition || 'center center';
 
   return (
     <section className={`ph ph--${align} ${className}`.trim()}>
@@ -42,7 +42,7 @@ export default function PageHero({
             className="ph__image"
             src={image}
             alt={imageAlt}
-            style={imageStyle}
+            style={{ objectPosition: safeImagePosition }}
             loading="eager"
           />
         </div>
