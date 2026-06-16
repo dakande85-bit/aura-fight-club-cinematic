@@ -104,6 +104,12 @@ export default function EngagementModal() {
     setOpen(false);
   }
 
+  function handleClose(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    closeModal();
+  }
+
   function submit(event) {
     event.preventDefault();
     const result = addWaitlistEntry({ email, source: config.source, product: config.product });
@@ -125,9 +131,9 @@ export default function EngagementModal() {
 
       {open && (
         <div className="em-overlay" role="presentation">
-          <button className="em-backdrop" type="button" aria-label="Close modal" onClick={closeModal} />
+          <button className="em-backdrop" type="button" aria-label="Close modal" onPointerDown={handleClose} onClick={handleClose} />
           <section className="em-modal" role="dialog" aria-modal="true" aria-labelledby="engagement-modal-title">
-            <button className="em-close" type="button" aria-label="Close" onClick={closeModal}>×</button>
+            <button className="em-close" type="button" aria-label="Close" onPointerDown={handleClose} onClick={handleClose}>×</button>
             <div className="em-modal__media" aria-hidden="true">
               <img src={config.image} alt="" />
             </div>
