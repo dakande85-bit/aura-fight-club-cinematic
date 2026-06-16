@@ -5,6 +5,7 @@ import Footer from '../components/Footer.jsx';
 import CategoryExtras, { CategoryLineupIntro } from '../components/CategoryExtras.jsx';
 import ControlledCategoryHero from '../components/ControlledCategoryHero.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
+import apparelFeatureImage from '../assets/generated/fightClubHeroUserAttachedData.js';
 import '../styles/collection.css';
 
 export default function CollectionPage({ category, heading, subcopy }) {
@@ -12,9 +13,10 @@ export default function CollectionPage({ category, heading, subcopy }) {
   const { products, loading } = useLiveProducts({ category });
   const safeProducts = products || [];
   const gridClass = safeProducts.length === 1 ? 'col-grid col-grid--single' : 'col-grid';
+  const key = String(category || '').toLowerCase();
 
   return (
-    <div className="col-page">
+    <div className={'col-page col-page--' + key}>
       <Header />
       <ControlledCategoryHero category={category} />
 
@@ -36,6 +38,12 @@ export default function CollectionPage({ category, heading, subcopy }) {
           <p className="col-meta col-meta--empty">New pieces coming soon</p>
         )}
       </div>
+
+      {key === 'apparel' && (
+        <section className="col-feature-media" aria-label="AURA apparel editorial image">
+          <img src={apparelFeatureImage} alt="AURA Fight Club apparel editorial" />
+        </section>
+      )}
 
       <CategoryLineupIntro category={category} />
 
