@@ -1,0 +1,73 @@
+/* Final mobile homepage fallback: no cropped scroll-film frames on phones.
+   Use one contained static campaign image with the existing homepage copy/buttons. */
+
+@media (max-width: 640px) {
+  .sf-wrapper .sf-fixed {
+    background: #050505 !important;
+  }
+
+  .sf-wrapper .sf-video,
+  .sf-wrapper .sf-image-slot,
+  .sf-wrapper .sf-ambient,
+  .sf-wrapper .sf-grain,
+  .sf-wrapper .sf-progress-bar,
+  .sf-wrapper .sf-indicators {
+    display: none !important;
+  }
+
+  .sf-wrapper .sf-fixed::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 76px !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 42svh !important;
+    min-height: 300px !important;
+    z-index: 2 !important;
+    background-image: url('/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png') !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: contain !important;
+    background-color: #050505 !important;
+  }
+
+  .sf-wrapper .sf-vignette {
+    z-index: 4 !important;
+    background: linear-gradient(
+      180deg,
+      rgba(5,5,5,0.05) 0%,
+      rgba(5,5,5,0.1) 40%,
+      rgba(5,5,5,0.92) 56%,
+      #050505 100%
+    ) !important;
+  }
+
+  .sf-wrapper .sf-overlay {
+    position: absolute !important;
+    z-index: 20 !important;
+    top: calc(76px + 42svh) !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    padding: 26px 20px 0 !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  .sf-wrapper .sf-overlay-inner {
+    max-width: 100% !important;
+  }
+
+  .sf-wrapper .sf-headline-line,
+  .sf-wrapper .sf-sub,
+  .sf-wrapper .sf-cta-row,
+  .sf-wrapper .sf-waitlist {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .sf-wrapper .sf-scroll-space {
+    height: 150vh !important;
+  }
+}
