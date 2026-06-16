@@ -22,6 +22,106 @@ function currentModalImage() {
   return ROUTE_MODAL_IMAGE.find(item => item.test(path))?.src || ROUTE_MODAL_IMAGE[0].src;
 }
 
+function injectMobileMenuStyle() {
+  if (document.getElementById('aura-mobile-menu-force-style')) return;
+  const style = document.createElement('style');
+  style.id = 'aura-mobile-menu-force-style';
+  style.textContent = `
+    @media (max-width: 900px) {
+      .header, .sf-header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 2147483000 !important;
+        min-height: 86px !important;
+        height: 86px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding: env(safe-area-inset-top, 0px) 18px 0 18px !important;
+        background: rgba(3, 3, 3, 0.96) !important;
+        border-bottom: 1px solid rgba(214, 181, 109, 0.28) !important;
+        overflow: visible !important;
+        pointer-events: auto !important;
+      }
+      .header__nav, .header__cta--desktop, .sf-header-nav, .sf-header-cta, .sf-header-cta--desktop {
+        display: none !important;
+      }
+      .header__logo.aura-logo-lockup, .sf-header-logo {
+        position: relative !important;
+        z-index: 2147483001 !important;
+        width: 178px !important;
+        min-width: 178px !important;
+        max-width: 48vw !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+      }
+      .header__logo.aura-logo-lockup img, .aura-logo-lockup__image, .sf-header-logo img, .sf-header-logo-image {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 68px !important;
+        display: block !important;
+        background: transparent !important;
+      }
+      .header__menu-btn, .sf-hamburger {
+        position: fixed !important;
+        top: calc(env(safe-area-inset-top, 0px) + 22px) !important;
+        right: 16px !important;
+        z-index: 2147483647 !important;
+        display: flex !important;
+        width: 58px !important;
+        height: 48px !important;
+        min-width: 58px !important;
+        min-height: 48px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column !important;
+        gap: 7px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        transform: none !important;
+      }
+      .header__menu-btn::before, .header__menu-btn::after, .header__menu-btn span,
+      .sf-hamburger::before, .sf-hamburger::after, .sf-hamburger span {
+        content: '' !important;
+        display: block !important;
+        width: 40px !important;
+        height: 3px !important;
+        min-height: 3px !important;
+        border-radius: 999px !important;
+        background: #f6f1e8 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        box-shadow: 0 1px 8px rgba(0,0,0,0.45) !important;
+        transform: none !important;
+      }
+      .header__mobile-menu, .sf-mobile-menu {
+        position: fixed !important;
+        top: calc(env(safe-area-inset-top, 0px) + 92px) !important;
+        left: 16px !important;
+        right: 16px !important;
+        z-index: 2147483200 !important;
+        max-height: calc(100svh - 108px) !important;
+        overflow-y: auto !important;
+      }
+      body { padding-top: 86px !important; }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 function fixFooterLinks() {
   document.querySelectorAll('.aura-footer__legal a[href="#privacy"]').forEach(link => {
     link.setAttribute('href', '/fight-club');
@@ -135,6 +235,7 @@ function closeMenusOnNav(event) {
 }
 
 function applyReleaseFixes() {
+  injectMobileMenuStyle();
   fixFooterLinks();
   addModalImage();
 }
