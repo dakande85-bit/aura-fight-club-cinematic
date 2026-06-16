@@ -4,6 +4,7 @@ import './cinematic-scene-builder-publish.css';
 
 const STORAGE_KEY = 'aura:home-frame-overrides:v1';
 const BASE = '/assets/aura-scroll';
+const MAX_FILE_MB = 18;
 
 const FRAME_CATALOG = [
   ['shadow-boxing', 'Shadow guard raised', '02_shadow_boxing_the_standard/frame_02_shadow_02_guard_raised.png'],
@@ -44,17 +45,22 @@ const SCENES = [
   { id: 'fight-club', label: 'Fight Club' },
 ];
 
+function emptySettings() {
+  return { videoSrc: '', mobileHero: '', replacements: {}, removed: [] };
+}
+
 function readSettings() {
   try {
     const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
     return {
+      ...emptySettings(),
       videoSrc: parsed.videoSrc || '',
       mobileHero: parsed.mobileHero || '',
       replacements: parsed.replacements || {},
       removed: Array.isArray(parsed.removed) ? parsed.removed : [],
     };
   } catch {
-    return { videoSrc: '', mobileHero: '', replacements: {}, removed: [] };
+    return emptySettings();
   }
 }
 
@@ -64,17 +70,33 @@ function saveSettings(settings) {
   window.AURA_APPLY_HOME_FRAME_OVERRIDES?.();
 }
 
+function isVideo(value = '') {
+  return String(value).startsWith('data:video/') || /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(String(value));
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 export default function CinematicSceneBuilder() {
   const [settings, setSettings] = useState(() => readSettings());
   const [sceneId, setSceneId] = useState('drop-001');
   const [selectedPath, setSelectedPath] = useState(FRAME_CATALOG.find(f => f.scene === 'drop-001')?.path || FRAME_CATALOG[0].path);
   const [newUrl, setNewUrl] = useState('');
-  const [message, setMessage] = useState('Changes save to this browser and affect the homepage after refresh/opening it.');
+  const [uploadedName, setUploadedName] = useState('');
+  const [message, setMessage] = useState('Upload image/video, paste a URL/path, replace frames, hide frames, delete replacements, or update the home video.');
 
   const sceneFrames = useMemo(() => FRAME_CATALOG.filter(frame => frame.scene === sceneId), [sceneId]);
   const selectedFrame = FRAME_CATALOG.find(frame => frame.path === selectedPath) || sceneFrames[0] || FRAME_CATALOG[0];
   const previewSrc = settings.replacements[selectedFrame.path] || selectedFrame.path;
+  const pendingSrc = newUrl.trim();
   const isRemoved = settings.removed.includes(selectedFrame.path);
+  const hasReplacement = Boolean(settings.replacements[selectedFrame.path]);
 
   function updateSetting(next) {
     setSettings(next);
@@ -86,12 +108,34 @@ export default function CinematicSceneBuilder() {
     const first = FRAME_CATALOG.find(frame => frame.scene === id);
     if (first) setSelectedPath(first.path);
     setNewUrl('');
+    setUploadedName('');
+  }
+
+  async function handleUpload(event, mediaKind = 'image') {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+
+    const fileSizeMb = file.size / (1024 * 1024);
+    if (fileSizeMb > MAX_FILE_MB) {
+      setMessage(`File is ${fileSizeMb.toFixed(1)}MB. Use a smaller compressed ${mediaKind}. Browser uploads are stored locally.`);
+      return;
+    }
+
+    try {
+      const dataUrl = await readFileAsDataUrl(file);
+      setNewUrl(dataUrl);
+      setUploadedName(`${file.name} · ${fileSizeMb.toFixed(1)}MB`);
+      setMessage(`${mediaKind === 'video' ? 'Video' : 'Image'} loaded. Now click the update/replace button to apply it.`);
+    } catch {
+      setMessage('Upload failed. Try a smaller file or paste a URL/path.');
+    }
   }
 
   function replaceFrame() {
     const value = newUrl.trim();
     if (!value) {
-      setMessage('Paste an image URL or site path first. Example: /assets/aura-scroll/.../frame.png');
+      setMessage('Upload an image/video or paste a URL/site path first.');
       return;
     }
     const next = {
@@ -100,16 +144,26 @@ export default function CinematicSceneBuilder() {
       removed: settings.removed.filter(path => path !== selectedFrame.path),
     };
     updateSetting(next);
-    setMessage(`Replaced: ${selectedFrame.label}. Open/refresh homepage to see it.`);
+    setMessage(`Updated frame: ${selectedFrame.label}. Open/refresh homepage to see it.`);
   }
 
-  function removeFrame() {
+  function hideFrame() {
     const next = {
       ...settings,
       removed: Array.from(new Set([...settings.removed, selectedFrame.path])),
     };
     updateSetting(next);
-    setMessage(`Removed from homepage rotation: ${selectedFrame.label}.`);
+    setMessage(`Hidden from homepage rotation: ${selectedFrame.label}.`);
+  }
+
+  function deleteReplacement() {
+    const replacements = { ...settings.replacements };
+    delete replacements[selectedFrame.path];
+    const next = { ...settings, replacements };
+    updateSetting(next);
+    setNewUrl('');
+    setUploadedName('');
+    setMessage(`Deleted replacement. Original remains ${settings.removed.includes(selectedFrame.path) ? 'hidden' : 'visible'}.`);
   }
 
   function restoreFrame() {
@@ -122,25 +176,43 @@ export default function CinematicSceneBuilder() {
     };
     updateSetting(next);
     setNewUrl('');
-    setMessage(`Restored: ${selectedFrame.label}.`);
+    setUploadedName('');
+    setMessage(`Restored and shown: ${selectedFrame.label}.`);
   }
 
   function saveVideo() {
-    updateSetting({ ...settings, videoSrc: newUrl.trim() });
-    setMessage('Home intro video source saved. Open/refresh homepage to see it.');
+    const value = newUrl.trim();
+    if (!value) {
+      setMessage('Upload a video or paste a video URL/path first.');
+      return;
+    }
+    updateSetting({ ...settings, videoSrc: value });
+    setMessage('Home intro video source updated. Open/refresh homepage to see it.');
+  }
+
+  function deleteVideo() {
+    updateSetting({ ...settings, videoSrc: '' });
+    setNewUrl('');
+    setUploadedName('');
+    setMessage('Intro video override deleted. Default video restored.');
   }
 
   function setMobileHero() {
     const value = newUrl.trim() || previewSrc;
     updateSetting({ ...settings, mobileHero: value });
-    setMessage('Mobile homepage hero image saved. Open/refresh homepage on mobile to see it.');
+    setMessage('Mobile homepage hero image updated. Open/refresh homepage on mobile to see it.');
+  }
+
+  function deleteMobileHero() {
+    updateSetting({ ...settings, mobileHero: '' });
+    setMessage('Mobile homepage hero override deleted.');
   }
 
   function resetAll() {
-    const empty = { videoSrc: '', mobileHero: '', replacements: {}, removed: [] };
-    updateSetting(empty);
+    updateSetting(emptySettings());
     setNewUrl('');
-    setMessage('All homepage frame overrides reset.');
+    setUploadedName('');
+    setMessage('All homepage frame, video, hidden, and mobile hero overrides reset.');
   }
 
   return (
@@ -148,12 +220,13 @@ export default function CinematicSceneBuilder() {
       <header className="scb-header">
         <div>
           <p className="scb-kicker">AURA ADMIN</p>
-          <h1>Homepage Frames</h1>
-          <p>This panel now changes the homepage frames in this browser. Replace, remove, restore, set mobile hero, or change intro video.</p>
+          <h1>Homepage Media Manager</h1>
+          <p>Upload image/video files, paste URLs, replace frames, hide frames, delete replacements, update intro video, and set the mobile hero. Saves locally in this browser.</p>
         </div>
         <div className="scb-header__meta">
           <span>{Object.keys(settings.replacements).length} replaced</span>
-          <span>{settings.removed.length} removed</span>
+          <span>{settings.removed.length} hidden</span>
+          <span>{settings.videoSrc ? 'Video changed' : 'Default video'}</span>
           <span>{settings.mobileHero ? 'Mobile hero set' : 'Default mobile hero'}</span>
         </div>
       </header>
@@ -161,12 +234,12 @@ export default function CinematicSceneBuilder() {
       <main className="scb-grid">
         <aside className="scb-sidebar">
           <section className="scb-panel">
-            <div className="scb-panel__head"><p>1. Choose scene</p></div>
+            <div className="scb-panel__head"><p>1. Choose area</p></div>
             <div className="scb-scene-list">
               {SCENES.map(scene => (
                 <button key={scene.id} type="button" className={`scb-scene-card ${scene.id === sceneId ? 'is-active' : ''}`} onClick={() => selectScene(scene.id)}>
                   <span>{scene.label}</span>
-                  <small>{scene.id === 'rain-intro' ? 'video source' : `${FRAME_CATALOG.filter(frame => frame.scene === scene.id).length} frames`}</small>
+                  <small>{scene.id === 'rain-intro' ? 'upload/replace video' : `${FRAME_CATALOG.filter(frame => frame.scene === scene.id).length} frames`}</small>
                 </button>
               ))}
             </div>
@@ -188,11 +261,12 @@ export default function CinematicSceneBuilder() {
                   {sceneFrames.map(frame => {
                     const replaced = Boolean(settings.replacements[frame.path]);
                     const removed = settings.removed.includes(frame.path);
+                    const src = settings.replacements[frame.path] || frame.path;
                     return (
                       <button key={frame.path} type="button" className={`scb-frame-card ${frame.path === selectedFrame.path ? 'is-active' : ''} ${removed ? 'is-removed' : ''}`} onClick={() => setSelectedPath(frame.path)}>
-                        {removed && <span className="scb-frame-card__replacement-flag scb-frame-card__replacement-flag--removed">Removed</span>}
-                        {replaced && <span className="scb-frame-card__replacement-flag">Replaced</span>}
-                        <img src={settings.replacements[frame.path] || frame.path} alt="" />
+                        {removed && <span className="scb-frame-card__replacement-flag scb-frame-card__replacement-flag--removed">Hidden</span>}
+                        {replaced && <span className="scb-frame-card__replacement-flag">Updated</span>}
+                        {isVideo(src) ? <video src={src} muted playsInline /> : <img src={src} alt="" />}
                         <span className="scb-frame-card__label">{frame.label}</span>
                       </button>
                     );
@@ -204,31 +278,40 @@ export default function CinematicSceneBuilder() {
                 <section className="scb-panel scb-preview-panel">
                   <div className="scb-panel__head"><p>Preview</p></div>
                   <div className={`scb-preview ${isRemoved ? 'is-removed' : ''}`}>
-                    <img src={previewSrc} alt="" />
-                    {isRemoved && <div className="scb-simple-banner scb-simple-banner--danger">Removed from homepage rotation</div>}
+                    {isVideo(previewSrc) ? <video src={previewSrc} controls muted playsInline /> : <img src={previewSrc} alt="" />}
+                    {isRemoved && <div className="scb-simple-banner scb-simple-banner--danger">Hidden from homepage rotation</div>}
                   </div>
+                  {pendingSrc && (
+                    <div className="scb-upload-preview">
+                      <p className="scb-replacement-box__title">Pending upload / URL</p>
+                      {isVideo(pendingSrc) ? <video src={pendingSrc} controls muted playsInline /> : <img src={pendingSrc} alt="" />}
+                    </div>
+                  )}
                 </section>
 
                 <section className="scb-panel scb-inspector">
-                  <div className="scb-panel__head"><p>3. Replace / remove / save</p></div>
+                  <div className="scb-panel__head"><p>3. Upload / replace / hide / delete</p></div>
                   <div className="scb-fields">
                     <label>
                       <span>Selected frame</span>
                       <input value={selectedFrame.label} readOnly />
                     </label>
                     <label>
-                      <span>Original path</span>
-                      <textarea value={selectedFrame.path} readOnly />
+                      <span>Upload image or video</span>
+                      <input type="file" accept="image/*,video/*" onChange={event => handleUpload(event, 'image')} />
                     </label>
+                    {uploadedName && <p className="scb-upload-note">Loaded: {uploadedName}</p>}
                     <label>
-                      <span>New image URL or site path</span>
-                      <textarea value={newUrl} onChange={event => setNewUrl(event.target.value)} placeholder="Paste /assets/... image path or uploaded image URL" />
+                      <span>Or paste image/video URL or site path</span>
+                      <textarea value={newUrl} onChange={event => setNewUrl(event.target.value)} placeholder="Paste /assets/... path, image URL, video URL, or upload a file above" />
                     </label>
                     <div className="scb-simple-actions">
-                      <button type="button" className="scb-primary-action scb-primary-action--gold" onClick={replaceFrame}>Replace frame</button>
-                      <button type="button" className="scb-danger-action" onClick={removeFrame}>Remove frame</button>
-                      <button type="button" onClick={restoreFrame}>Restore frame</button>
+                      <button type="button" className="scb-primary-action scb-primary-action--gold" onClick={replaceFrame}>Update / replace frame</button>
+                      <button type="button" className="scb-danger-action" onClick={hideFrame}>Hide frame</button>
+                      <button type="button" onClick={deleteReplacement} disabled={!hasReplacement}>Delete uploaded replacement</button>
+                      <button type="button" onClick={restoreFrame}>Restore + show original</button>
                       <button type="button" onClick={setMobileHero}>Use as mobile hero</button>
+                      <button type="button" onClick={deleteMobileHero} disabled={!settings.mobileHero}>Delete mobile hero</button>
                       <a className="scb-primary-action" href="/" target="_blank" rel="noreferrer">Open homepage</a>
                     </div>
                   </div>
@@ -240,15 +323,22 @@ export default function CinematicSceneBuilder() {
               <div className="scb-panel__head"><p>Intro video</p></div>
               <div className="scb-fields">
                 <label>
-                  <span>Current override</span>
+                  <span>Current video override</span>
                   <textarea value={settings.videoSrc || 'Default intro video'} readOnly />
                 </label>
                 <label>
-                  <span>New video URL or site path</span>
-                  <textarea value={newUrl} onChange={event => setNewUrl(event.target.value)} placeholder="Paste video URL or /assets/...mp4 path" />
+                  <span>Upload video</span>
+                  <input type="file" accept="video/*" onChange={event => handleUpload(event, 'video')} />
                 </label>
+                {uploadedName && <p className="scb-upload-note">Loaded: {uploadedName}</p>}
+                <label>
+                  <span>Or paste video URL or site path</span>
+                  <textarea value={newUrl} onChange={event => setNewUrl(event.target.value)} placeholder="Paste video URL, /assets/...mp4 path, or upload a video above" />
+                </label>
+                {pendingSrc && <div className="scb-upload-preview"><video src={pendingSrc} controls muted playsInline /></div>}
                 <div className="scb-simple-actions">
-                  <button type="button" className="scb-primary-action scb-primary-action--gold" onClick={saveVideo}>Save intro video</button>
+                  <button type="button" className="scb-primary-action scb-primary-action--gold" onClick={saveVideo}>Update home video</button>
+                  <button type="button" className="scb-danger-action" onClick={deleteVideo} disabled={!settings.videoSrc}>Delete video override</button>
                   <a className="scb-primary-action" href="/" target="_blank" rel="noreferrer">Open homepage</a>
                 </div>
               </div>
@@ -259,7 +349,8 @@ export default function CinematicSceneBuilder() {
 
       <footer className="scb-footer">
         <p>{message}</p>
-        <button type="button" className="scb-danger-action" onClick={resetAll}>Reset all homepage frame overrides</button>
+        <p className="scb-muted">Uploads are saved in this browser storage. Use compressed images/videos. For permanent public launch changes, these choices still need committing or backend storage.</p>
+        <button type="button" className="scb-danger-action" onClick={resetAll}>Reset all media overrides</button>
       </footer>
     </div>
   );
