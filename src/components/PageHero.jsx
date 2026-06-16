@@ -24,6 +24,12 @@ function normalizeFit(value) {
   return value === 'contain' ? 'contain' : 'cover';
 }
 
+function normalizeScale(value) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) return 1;
+  return Math.min(2, Math.max(0.55, parsed));
+}
+
 export default function PageHero({
   label,
   headline,
@@ -33,14 +39,17 @@ export default function PageHero({
   imageAlt = '',
   imagePosition = 'center center',
   imageFit = 'cover',
+  imageScale = 1,
   align = 'left',
   className = '',
 }) {
   const lines = String(headline || '').split('\n').filter(Boolean);
   const safeFit = normalizeFit(imageFit);
+  const safeScale = normalizeScale(imageScale);
   const imageStyle = {
     objectPosition: imagePosition,
     objectFit: safeFit,
+    '--ph-image-scale': safeScale,
   };
 
   return (
