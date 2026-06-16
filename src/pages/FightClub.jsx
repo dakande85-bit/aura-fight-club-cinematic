@@ -39,6 +39,7 @@ export default function FightClub() {
         image={heroMedia.image}
         imagePosition={heroMedia.imagePosition}
         imageFit={heroMedia.imageFit}
+        imageScale={heroMedia.imageScale}
         className="ph--fight-club"
         ctas={[
           { label: 'Enter Fight Club', to: '/fight-club', variant: 'primary' },
