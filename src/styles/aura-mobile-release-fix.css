@@ -13,6 +13,52 @@
   }
 }
 
+/* Modal imagery injected by aura-release-dom-fixes.js */
+.em-modal {
+  display: grid !important;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr) !important;
+  width: min(920px, 100%) !important;
+}
+
+.em-modal__media {
+  min-height: 100% !important;
+  background: #050505 !important;
+  border-right: 1px solid rgba(214, 181, 109, 0.18) !important;
+  overflow: hidden !important;
+}
+
+.em-modal__media img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 520px !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  filter: saturate(0.95) contrast(1.03) brightness(0.9) !important;
+}
+
+.em-modal__content {
+  align-self: center !important;
+}
+
+@media (max-width: 700px) {
+  .em-modal {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .em-modal__media {
+    height: 190px !important;
+    min-height: 190px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(214, 181, 109, 0.18) !important;
+  }
+
+  .em-modal__media img {
+    min-height: 190px !important;
+    object-position: center 22% !important;
+  }
+}
+
 /* Larger logo lockup across normal and cinematic headers. */
 .header__logo.aura-logo-lockup,
 .sf-header-logo {
