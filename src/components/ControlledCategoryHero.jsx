@@ -44,6 +44,7 @@ export default function ControlledCategoryHero({ category }) {
       image={media.image}
       imagePosition={media.imagePosition}
       imageFit={media.imageFit}
+      imageScale={media.imageScale}
       pageMediaKey={key}
       className={'ph--' + key}
     />
