@@ -1,4 +1,4 @@
-import fightClubHeroData from '../assets/generated/fightClubHeroData.js';
+import fightClubHeroLocked from '../assets/generated/fightClubHeroLockedSmall.js';
 import drop001HeroLocked from '../assets/generated/drop001HeroLockedSmall.js';
 import auraUploadedLogo from '../assets/brand/auraUploadedLogoData.js';
 
@@ -18,7 +18,7 @@ export const pageMediaAssets = [
   {
     id: 'fight-club-locked-hero',
     label: 'Fight Club — approved full hero canvas',
-    src: fightClubHeroData,
+    src: fightClubHeroLocked,
     group: 'Locked Heroes',
   },
   {
@@ -89,7 +89,7 @@ export const pageHeroMedia = {
     label: 'Fight Club',
     pagePath: '/fight-club',
     assetId: 'fight-club-locked-hero',
-    image: fightClubHeroData,
+    image: fightClubHeroLocked,
     imagePosition: 'center center',
   },
   apparel: {
