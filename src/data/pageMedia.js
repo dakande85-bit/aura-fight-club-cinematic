@@ -1,18 +1,19 @@
 import fightClubHeroLocked from '../assets/generated/fightClubHeroLockedSmall.js';
-import drop001HeroLocked from '../assets/generated/drop001HeroLockedSmall.js';
 import auraUploadedLogo from '../assets/brand/auraUploadedLogoData.js';
 
-// v5 ignores failed admin/local crop experiments and locks approved page hero media.
-export const PAGE_MEDIA_STORAGE_KEY = 'aura:page-media-overrides:v5-locked-hero-assets';
+// v6 ignores failed data-URI Drop hero and uses a reliable repo/public asset for Drop 001.
+export const PAGE_MEDIA_STORAGE_KEY = 'aura:page-media-overrides:v6-stable-hero-assets';
 export const BRAND_LOGO_STORAGE_KEY = 'aura:brand-logo-override:v1';
 
 export const defaultBrandLogo = auraUploadedLogo;
 
+const DROP001_RELIABLE_HERO = '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png';
+
 export const pageMediaAssets = [
   {
-    id: 'drop-001-locked-hero',
-    label: 'Drop 001 — approved full hero canvas',
-    src: drop001HeroLocked,
+    id: 'drop-001-reliable-hero',
+    label: 'Drop 001 — reliable product hero',
+    src: DROP001_RELIABLE_HERO,
     group: 'Locked Heroes',
   },
   {
@@ -81,8 +82,8 @@ export const pageHeroMedia = {
   drop001: {
     label: 'Drop 001',
     pagePath: '/drop-001',
-    assetId: 'drop-001-locked-hero',
-    image: drop001HeroLocked,
+    assetId: 'drop-001-reliable-hero',
+    image: DROP001_RELIABLE_HERO,
     imagePosition: 'center center',
   },
   fightClub: {
