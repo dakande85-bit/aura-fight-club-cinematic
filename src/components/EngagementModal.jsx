@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { addWaitlistEntry } from '../lib/waitlistStore.js';
 import './engagement-modal.css';
 
-const MODAL_CLOSED_PREFIX = 'aura_modal_closed_';
+const MODAL_CLOSED_VISIT_KEY = 'aura_modal_closed_this_visit';
 
 const modalByRoute = [
   {
@@ -57,14 +57,14 @@ function getModalConfig(pathname) {
   return modalByRoute.find((item) => item.match(pathname)) || modalByRoute[0];
 }
 
-function wasClosed(key) {
-  if (typeof window === 'undefined' || !key) return false;
-  return window.sessionStorage.getItem(`${MODAL_CLOSED_PREFIX}${key}`) === '1';
+function wasClosedThisVisit() {
+  if (typeof window === 'undefined') return false;
+  return window.sessionStorage.getItem(MODAL_CLOSED_VISIT_KEY) === '1';
 }
 
-function markClosed(key) {
-  if (typeof window === 'undefined' || !key) return;
-  window.sessionStorage.setItem(`${MODAL_CLOSED_PREFIX}${key}`, '1');
+function markClosedThisVisit() {
+  if (typeof window === 'undefined') return;
+  window.sessionStorage.setItem(MODAL_CLOSED_VISIT_KEY, '1');
 }
 
 export default function EngagementModal() {
@@ -78,12 +78,12 @@ export default function EngagementModal() {
     setEmail('');
     setStatus({ type: 'idle', message: 'No spam. Early access and launch updates only.' });
 
-    if (!config || wasClosed(config.key)) {
+    if (!config || wasClosedThisVisit()) {
       setOpen(false);
       return undefined;
     }
 
-    const delay = location.pathname === '/' ? 1100 : 1600;
+    const delay = location.pathname === '/' ? 1100 : 1200;
     const timer = window.setTimeout(() => setOpen(true), delay);
     return () => window.clearTimeout(timer);
   }, [config, location.pathname]);
@@ -97,10 +97,10 @@ export default function EngagementModal() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [open]);
 
-  if (!config) return null;
+  if (!config || wasClosedThisVisit()) return null;
 
   function closeModal() {
-    markClosed(config.key);
+    markClosedThisVisit();
     setOpen(false);
   }
 
@@ -125,10 +125,6 @@ export default function EngagementModal() {
 
   return (
     <>
-      <button className="em-trigger" type="button" onClick={() => setOpen(true)}>
-        {config.cta}
-      </button>
-
       {open && (
         <div className="em-overlay" role="presentation">
           <button className="em-backdrop" type="button" aria-label="Close modal" onPointerDown={handleClose} onClick={handleClose} />
