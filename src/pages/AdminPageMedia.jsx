@@ -13,8 +13,11 @@ import {
 import '../styles/admin-page-media.css';
 
 const pageOrder = ['drop001', 'fightClub', 'apparel', 'footwear', 'equipment'];
-const fitOptions = ['cover', 'contain'];
-const positionPresets = ['center center', 'center 20%', 'center 30%', 'right center', '70% center', '68% 28%', '72% 18%'];
+const fitOptions = [
+  { value: 'contain', label: 'Full image — no crop' },
+  { value: 'cover', label: 'Fill hero — crop edges' },
+];
+const positionPresets = ['center center', 'center top', 'center 20%', 'center 30%', 'center bottom', 'left center', 'right center', '70% center', '68% 28%', '72% 18%'];
 const MAX_UPLOAD_SIZE = 1800;
 const UPLOAD_QUALITY = 0.82;
 
@@ -69,6 +72,7 @@ export default function AdminPageMedia() {
   const activeMedia = useMemo(() => resolvePageMedia(activePage), [activePage, version]);
   const activeBase = pageHeroMedia[activePage];
   const activeAsset = resolveAsset(activeMedia.assetId);
+  const activeFit = activeMedia.imageFit === 'cover' ? 'cover' : 'contain';
 
   const refresh = () => setVersion(value => value + 1);
 
@@ -114,8 +118,8 @@ export default function AdminPageMedia() {
     const file = event.target.files?.[0];
     try {
       const dataUrl = await prepareImageFile(file);
-      updatePage({ assetId: '', image: dataUrl });
-      setUploadMessage(`Hero image uploaded and compressed for ${activeBase.label}: ${file.name}`);
+      updatePage({ assetId: '', image: dataUrl, imageFit: 'contain', imagePosition: 'center center' });
+      setUploadMessage(`Hero image uploaded in full-image/no-crop mode for ${activeBase.label}: ${file.name}`);
     } catch (error) {
       setUploadMessage(error.message || 'Hero image upload failed.');
     } finally {
@@ -130,7 +134,7 @@ export default function AdminPageMedia() {
           <p className="apm__eyebrow">AURA ADMIN</p>
           <h1>Page Media Control</h1>
           <p>Select hero images, logo source, image fit, and crop position from one place.</p>
-          <p className="apm__warning">Uploads are saved to this browser for preview. Once approved, lock the final image into GitHub/permanent assets.</p>
+          <p className="apm__warning">Use Full image — no crop for uploaded/generated images. Cover fills the hero but will always crop edges.</p>
         </div>
         <div className="apm__links">
           <a href="/admin/launch">Launch</a>
@@ -218,8 +222,8 @@ export default function AdminPageMedia() {
 
             <div className="apm__field">
               <label htmlFor="image-fit">Image fit</label>
-              <select id="image-fit" value={activeMedia.imageFit || 'cover'} onChange={event => updatePage({ imageFit: event.target.value })}>
-                {fitOptions.map(option => <option key={option} value={option}>{option}</option>)}
+              <select id="image-fit" value={activeFit} onChange={event => updatePage({ imageFit: event.target.value })}>
+                {fitOptions.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </div>
 
@@ -242,16 +246,17 @@ export default function AdminPageMedia() {
               <div className="apm__upload-row">
                 <label className="apm__file-label" htmlFor={`hero-upload-${activePage}`}>Upload New Image</label>
                 <input key={activePage} id={`hero-upload-${activePage}`} type="file" accept="image/*" className="apm__real-file" onChange={handleHeroUpload} />
-                <button type="button" onClick={() => updatePage({ assetId: '', image: '' })}>Clear Custom Image</button>
+                <button type="button" onClick={() => updatePage({ assetId: '', image: '', imageFit: 'contain', imagePosition: 'center center' })}>Clear Custom Image</button>
               </div>
             </div>
           </div>
 
-          <div className="apm__preview">
-            <img src={activeMedia.image} alt="Selected hero preview" style={{ objectFit: activeMedia.imageFit, objectPosition: activeMedia.imagePosition }} />
+          <div className={`apm__preview apm__preview--${activeFit}`}>
+            {activeFit === 'contain' && <img className="apm__preview-backdrop" src={activeMedia.image} alt="" aria-hidden="true" />}
+            <img className="apm__preview-image" src={activeMedia.image} alt="Selected hero preview" style={{ objectFit: activeFit, objectPosition: activeMedia.imagePosition }} />
             <div className="apm__preview-copy">
               <span>{activeBase.label}</span>
-              <strong>{activeMedia.imageFit}</strong>
+              <strong>{activeFit === 'contain' ? 'Full image — no crop' : 'Cover — crops edges'}</strong>
               <em>{activeMedia.imagePosition}</em>
             </div>
           </div>
