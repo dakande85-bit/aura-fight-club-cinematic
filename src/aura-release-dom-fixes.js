@@ -88,15 +88,41 @@ function toggleCinematicMenu(event) {
 }
 
 function closeMenusOnNav(event) {
-  if (event.target.closest?.('.header__mobile-menu a')) setNormalMenu(false);
-  if (event.target.closest?.('.sf-mobile-menu a')) setCinematicMenu(false);
+  const link = event.target.closest?.('.header__mobile-menu a, .sf-mobile-menu a');
+  if (!link) return;
+
+  setNormalMenu(false);
+  setCinematicMenu(false);
+
+  const href = link.getAttribute('href');
+  if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
+
+  // Mobile Safari has been unreliable with the layered menu. Force navigation as a backup.
+  window.setTimeout(() => {
+    if (window.location.pathname !== new URL(link.href, window.location.href).pathname) {
+      window.location.href = link.href;
+    }
+  }, 0);
+}
+
+function closeModalHard() {
+  const modalOverlay = document.querySelector('.em-overlay');
+  if (!modalOverlay) return;
+  modalOverlay.remove();
+  document.querySelectorAll('.em-trigger').forEach(trigger => {
+    trigger.style.display = 'none';
+  });
 }
 
 function closeModalFromAnyCloseButton(event) {
   const close = event.target.closest?.('.em-close, .em-backdrop');
   if (!close) return;
-  // Let React handle state first. This only prevents duplicate synthetic clicks behind the modal.
+
+  event.preventDefault();
   event.stopPropagation();
+  if (typeof event.stopImmediatePropagation === 'function') event.stopImmediatePropagation();
+
+  closeModalHard();
 }
 
 function applyReleaseFixes() {
@@ -110,12 +136,14 @@ if (typeof window !== 'undefined') {
   document.addEventListener('click', toggleNormalMenu, true);
   document.addEventListener('click', toggleCinematicMenu, true);
   document.addEventListener('click', closeMenusOnNav, true);
+  document.addEventListener('pointerdown', closeModalFromAnyCloseButton, true);
   document.addEventListener('click', closeModalFromAnyCloseButton, true);
 
   window.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
       setNormalMenu(false);
       setCinematicMenu(false);
+      closeModalHard();
     }
   });
 
