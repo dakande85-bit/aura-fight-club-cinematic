@@ -1,7 +1,7 @@
 import Header from './Header.jsx';
-import auraHomeHeroAttached from '../assets/generated/auraHomeHeroAttachedData.js';
+import { homepageHeroMedia } from '../data/auraMediaManifest.js';
 
-const HERO_IMAGE = auraHomeHeroAttached;
+const HERO_IMAGE = homepageHeroMedia.source;
 
 export default function HomeStaticHero() {
   return (
@@ -9,7 +9,7 @@ export default function HomeStaticHero() {
       <Header />
       <div className="home-static__stage">
         <div className="home-static__media" aria-hidden="true">
-          <img src={HERO_IMAGE} alt="" loading="eager" decoding="async" />
+          <img src={HERO_IMAGE} alt="" loading="eager" decoding="async" fetchPriority="high" />
         </div>
         <div className="home-static__scrim" aria-hidden="true" />
         <div className="home-static__content">
