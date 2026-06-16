@@ -14,10 +14,9 @@ import '../styles/admin-page-media.css';
 
 const pageOrder = ['drop001', 'fightClub', 'apparel', 'footwear', 'equipment'];
 const fitOptions = [
-  { value: 'contain', label: 'Full image — no crop' },
-  { value: 'cover', label: 'Fill hero — crop edges' },
+  { value: 'contain', label: 'Full image / no crop' },
+  { value: 'cover', label: 'Fill hero / crop allowed' },
 ];
-const positionPresets = ['center center', 'center top', 'center 20%', 'center 30%', 'center bottom', 'left center', 'right center', '70% center', '68% 28%', '72% 18%'];
 const MAX_UPLOAD_SIZE = 1800;
 const UPLOAD_QUALITY = 0.82;
 
@@ -37,6 +36,12 @@ function loadImage(src) {
     image.onerror = () => reject(new Error('Could not load selected image'));
     image.src = src;
   });
+}
+
+function clampScale(value) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) return 1;
+  return Math.min(2, Math.max(0.55, parsed));
 }
 
 async function prepareImageFile(file, { preserveOriginal = false } = {}) {
@@ -73,6 +78,7 @@ export default function AdminPageMedia() {
   const activeBase = pageHeroMedia[activePage];
   const activeAsset = resolveAsset(activeMedia.assetId);
   const activeFit = activeMedia.imageFit === 'cover' ? 'cover' : 'contain';
+  const activeScale = clampScale(activeMedia.imageScale);
 
   const refresh = () => setVersion(value => value + 1);
 
@@ -118,7 +124,7 @@ export default function AdminPageMedia() {
     const file = event.target.files?.[0];
     try {
       const dataUrl = await prepareImageFile(file);
-      updatePage({ assetId: '', image: dataUrl, imageFit: 'contain', imagePosition: 'center center' });
+      updatePage({ assetId: '', image: dataUrl, imageFit: 'contain', imagePosition: 'center center', imageScale: 1 });
       setUploadMessage(`Hero image uploaded in full-image/no-crop mode for ${activeBase.label}: ${file.name}`);
     } catch (error) {
       setUploadMessage(error.message || 'Hero image upload failed.');
@@ -133,8 +139,8 @@ export default function AdminPageMedia() {
         <div>
           <p className="apm__eyebrow">AURA ADMIN</p>
           <h1>Page Media Control</h1>
-          <p>Select hero images, logo source, image fit, and crop position from one place.</p>
-          <p className="apm__warning">Use Full image — no crop for uploaded/generated images. Cover fills the hero but will always crop edges.</p>
+          <p>Simple controls only: choose an image, choose full image or fill hero, then adjust zoom and focal point.</p>
+          <p className="apm__warning">Preset crop buttons were removed because they were unreliable. Use the manual controls below.</p>
         </div>
         <div className="apm__links">
           <a href="/admin/launch">Launch</a>
@@ -204,13 +210,13 @@ export default function AdminPageMedia() {
 
           <div className="apm__grid">
             <div className="apm__field">
-              <label htmlFor="asset-select">Asset preset</label>
+              <label htmlFor="asset-select">Saved image</label>
               <select
                 id="asset-select"
                 value={activeMedia.assetId || ''}
                 onChange={event => {
                   const asset = resolveAsset(event.target.value);
-                  updatePage({ assetId: event.target.value, image: asset ? '' : activeMedia.image });
+                  updatePage({ assetId: event.target.value, image: asset ? '' : activeMedia.image, imageScale: 1, imagePosition: 'center center' });
                 }}
               >
                 <option value="">Custom image</option>
@@ -221,43 +227,60 @@ export default function AdminPageMedia() {
             </div>
 
             <div className="apm__field">
-              <label htmlFor="image-fit">Image fit</label>
-              <select id="image-fit" value={activeFit} onChange={event => updatePage({ imageFit: event.target.value })}>
+              <label htmlFor="image-fit">Image layout</label>
+              <select id="image-fit" value={activeFit} onChange={event => updatePage({ imageFit: event.target.value, imageScale: 1 })}>
                 {fitOptions.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </div>
 
             <div className="apm__field">
-              <label htmlFor="image-position">Object position</label>
-              <input id="image-position" value={activeMedia.imagePosition || ''} onChange={event => updatePage({ imagePosition: event.target.value })} />
+              <label htmlFor="image-position">Focal point</label>
+              <input
+                id="image-position"
+                value={activeMedia.imagePosition || 'center center'}
+                placeholder="Examples: center center, 60% center, center top"
+                onChange={event => updatePage({ imagePosition: event.target.value })}
+              />
             </div>
 
             <div className="apm__field">
-              <label htmlFor="position-preset">Position preset</label>
-              <select id="position-preset" value="" onChange={event => event.target.value && updatePage({ imagePosition: event.target.value })}>
-                <option value="">Choose preset</option>
-                {positionPresets.map(option => <option key={option} value={option}>{option}</option>)}
-              </select>
+              <label htmlFor="image-scale">Image zoom / size: {Math.round(activeScale * 100)}%</label>
+              <input
+                id="image-scale"
+                type="range"
+                min="0.55"
+                max="2"
+                step="0.05"
+                value={activeScale}
+                onChange={event => updatePage({ imageScale: Number(event.target.value) })}
+              />
+              <small className="apm__hint">100% shows the normal image. More than 100% intentionally zooms/crops.</small>
             </div>
 
             <div className="apm__field apm__field--full">
               <label htmlFor="custom-image">Custom image path or uploaded image</label>
-              <input id="custom-image" value={activeAsset ? '' : activeMedia.image || ''} onChange={event => updatePage({ assetId: '', image: event.target.value })} placeholder="/assets/... or uploaded data image" />
+              <input id="custom-image" value={activeAsset ? '' : activeMedia.image || ''} onChange={event => updatePage({ assetId: '', image: event.target.value, imageScale: 1 })} placeholder="/assets/... or uploaded data image" />
               <div className="apm__upload-row">
                 <label className="apm__file-label" htmlFor={`hero-upload-${activePage}`}>Upload New Image</label>
                 <input key={activePage} id={`hero-upload-${activePage}`} type="file" accept="image/*" className="apm__real-file" onChange={handleHeroUpload} />
-                <button type="button" onClick={() => updatePage({ assetId: '', image: '', imageFit: 'contain', imagePosition: 'center center' })}>Clear Custom Image</button>
+                <button type="button" onClick={() => updatePage({ assetId: '', image: '', imageFit: 'contain', imagePosition: 'center center', imageScale: 1 })}>Clear Custom Image</button>
               </div>
             </div>
           </div>
 
           <div className={`apm__preview apm__preview--${activeFit}`}>
             {activeFit === 'contain' && <img className="apm__preview-backdrop" src={activeMedia.image} alt="" aria-hidden="true" />}
-            <img className="apm__preview-image" src={activeMedia.image} alt="Selected hero preview" style={{ objectFit: activeFit, objectPosition: activeMedia.imagePosition }} />
+            <img
+              className="apm__preview-image"
+              src={activeMedia.image}
+              alt="Selected hero preview"
+              style={{ objectFit: activeFit, objectPosition: activeMedia.imagePosition, '--apm-preview-scale': activeScale }}
+            />
             <div className="apm__preview-copy">
               <span>{activeBase.label}</span>
-              <strong>{activeFit === 'contain' ? 'Full image — no crop' : 'Cover — crops edges'}</strong>
+              <strong>{activeFit === 'contain' ? 'Full image / no crop' : 'Fill hero / crop allowed'}</strong>
               <em>{activeMedia.imagePosition}</em>
+              <em>{Math.round(activeScale * 100)}%</em>
             </div>
           </div>
 
