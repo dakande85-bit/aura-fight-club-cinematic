@@ -1,7 +1,8 @@
 import fightClubHeroData from '../assets/generated/fightClubHeroData.js';
 import auraUploadedLogo from '../assets/brand/auraUploadedLogoData.js';
 
-export const PAGE_MEDIA_STORAGE_KEY = 'aura:page-media-overrides:v2';
+// v3 intentionally ignores old localStorage overrides that stored broken contain/zoom values.
+export const PAGE_MEDIA_STORAGE_KEY = 'aura:page-media-overrides:v3-stable-cover';
 export const BRAND_LOGO_STORAGE_KEY = 'aura:brand-logo-override:v1';
 
 export const defaultBrandLogo = auraUploadedLogo;
@@ -76,8 +77,7 @@ export const pageHeroMedia = {
     assetId: 'scroll-drop-frame-09',
     image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png',
     imagePosition: 'center center',
-    imageFit: 'contain',
-    imageScale: 1,
+    imageFit: 'cover',
   },
   fightClub: {
     label: 'Fight Club',
@@ -85,8 +85,7 @@ export const pageHeroMedia = {
     assetId: 'fight-club-uploaded-gloves',
     image: fightClubHeroData,
     imagePosition: 'center center',
-    imageFit: 'contain',
-    imageScale: 1,
+    imageFit: 'cover',
   },
   apparel: {
     label: 'Apparel',
@@ -94,8 +93,7 @@ export const pageHeroMedia = {
     assetId: 'drop-jump-rope-07',
     image: '/campaign/jump-rope/jump-rope-07.webp',
     imagePosition: 'center center',
-    imageFit: 'contain',
-    imageScale: 1,
+    imageFit: 'cover',
   },
   footwear: {
     label: 'Footwear',
@@ -103,8 +101,7 @@ export const pageHeroMedia = {
     assetId: 'footwear-sparring-09',
     image: '/campaign/sparring/sparring-09.webp',
     imagePosition: 'center center',
-    imageFit: 'contain',
-    imageScale: 1,
+    imageFit: 'cover',
   },
   equipment: {
     label: 'Equipment',
@@ -112,8 +109,7 @@ export const pageHeroMedia = {
     assetId: 'equipment-heavy-bag-07',
     image: '/campaign/heavy-bag/heavy-bag-07.webp',
     imagePosition: 'center center',
-    imageFit: 'contain',
-    imageScale: 1,
+    imageFit: 'cover',
   },
 };
 
@@ -151,8 +147,7 @@ export function resolvePageMedia(pageKey) {
     image: customImage || selectedAsset?.src || base.image,
     assetId: selectedAsset?.id || override.assetId || base.assetId,
     imagePosition: override.imagePosition || base.imagePosition || 'center center',
-    imageFit: override.imageFit || base.imageFit || 'contain',
-    imageScale: override.imageScale || base.imageScale || 1,
+    imageFit: 'cover',
   };
 }
 
@@ -164,6 +159,7 @@ export function savePageMediaOverride(pageKey, values) {
     [pageKey]: {
       ...(current[pageKey] || {}),
       ...values,
+      imageFit: 'cover',
     },
   };
   window.localStorage.setItem(PAGE_MEDIA_STORAGE_KEY, JSON.stringify(next, null, 2));
