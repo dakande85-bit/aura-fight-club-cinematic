@@ -50,9 +50,13 @@
   display: none !important;
 }
 
-/* Do not kill PageHero zoom. This file loads last, so it must preserve the admin scale variable. */
+/* Do not kill PageHero zoom. This file loads last, so it must preserve the admin image-size variable. */
 .ph__image {
-  transform: scale(var(--ph-image-scale, 1)) !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: var(--ph-image-size, 100%) !important;
+  height: var(--ph-image-size, 100%) !important;
+  transform: translate(-50%, -50%) !important;
   transform-origin: center center !important;
 }
 
