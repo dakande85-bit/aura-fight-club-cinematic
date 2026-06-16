@@ -46,10 +46,11 @@ export default function PageHero({
   const lines = String(headline || '').split('\n').filter(Boolean);
   const safeFit = normalizeFit(imageFit);
   const safeScale = normalizeScale(imageScale);
+  const imageSize = `${Math.round(safeScale * 1000) / 10}%`;
   const imageStyle = {
     objectPosition: imagePosition,
     objectFit: safeFit,
-    '--ph-image-scale': safeScale,
+    '--ph-image-size': imageSize,
   };
 
   return (
