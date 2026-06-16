@@ -51,7 +51,16 @@ function closeCinematicMenuOnNav(event) {
   if (event.target.closest?.('.sf-mobile-menu a')) setCinematicMenu(false);
 }
 
+function markModalClosedThisVisit() {
+  try {
+    window.sessionStorage.setItem('aura_modal_closed_this_visit', '1');
+  } catch (error) {
+    // Ignore storage errors in private/locked contexts.
+  }
+}
+
 function closeModalHard() {
+  markModalClosedThisVisit();
   const modalOverlay = document.querySelector('.em-overlay');
   if (!modalOverlay) return;
   modalOverlay.remove();
