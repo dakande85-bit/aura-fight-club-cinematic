@@ -15,7 +15,7 @@ const modalByRoute = [
     cta: 'Join Waitlist',
     source: 'modal-home-waitlist',
     product: 'Drop 001',
-    secondary: { label: 'View cinematic', href: '/cinematic' },
+    image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png',
   },
   {
     match: (path) => path.includes('fight-club'),
@@ -26,7 +26,7 @@ const modalByRoute = [
     cta: 'Join Fight Club',
     source: 'modal-fight-club',
     product: 'AURA Fight Club',
-    secondary: { label: 'Preview Drop 001', href: '/drop-001' },
+    image: '/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.png',
   },
   {
     match: (path) => path.includes('campaign') || path.includes('cinematic'),
@@ -37,7 +37,7 @@ const modalByRoute = [
     cta: 'Get updates',
     source: 'modal-campaign-newsletter',
     product: 'Campaign newsletter',
-    secondary: { label: 'Shop Drop 001', href: '/drop-001' },
+    image: '/assets/aura-scroll/06_campaign_mitts_sequence/frame_03_mitts_real.png',
   },
   {
     match: (path) => path.includes('product') || path.includes('drop-001') || path.includes('apparel') || path.includes('footwear') || path.includes('equipment'),
@@ -48,7 +48,7 @@ const modalByRoute = [
     cta: 'Join Product Waitlist',
     source: 'modal-product-waitlist',
     product: 'AURA products',
-    secondary: { label: 'Join Fight Club', href: '/fight-club' },
+    image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_01_cream_uniform_model.png',
   },
 ];
 
@@ -128,6 +128,9 @@ export default function EngagementModal() {
           <button className="em-backdrop" type="button" aria-label="Close modal" onClick={closeModal} />
           <section className="em-modal" role="dialog" aria-modal="true" aria-labelledby="engagement-modal-title">
             <button className="em-close" type="button" aria-label="Close" onClick={closeModal}>×</button>
+            <div className="em-modal__media" aria-hidden="true">
+              <img src={config.image} alt="" />
+            </div>
             <div className="em-modal__content">
               <p className="em-eyebrow">{config.eyebrow}</p>
               <h2 id="engagement-modal-title">{config.title}</h2>
@@ -143,10 +146,6 @@ export default function EngagementModal() {
                 <button type="submit">{config.cta}</button>
               </form>
               <p className={`em-message em-message--${status.type}`}>{status.message}</p>
-              <div className="em-actions">
-                {config.secondary && <a href={config.secondary.href}>{config.secondary.label}</a>}
-                <button type="button" onClick={closeModal}>Continue browsing</button>
-              </div>
             </div>
           </section>
         </div>
