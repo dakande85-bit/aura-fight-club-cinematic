@@ -1,6 +1,61 @@
 /* AURA mobile release fix — loaded last.
-   Purpose: stop hero artwork being used as a cropped background on mobile
+   Purpose: protect mobile layout, shorten homepage scroll, enlarge logo,
    and force mobile menus above every page layer. */
+
+/* Shorter cinematic homepage: reach extras/footer much faster. */
+.sf-scroll-space {
+  height: 320vh !important;
+}
+
+@media (max-width: 640px) {
+  .sf-scroll-space {
+    height: 220vh !important;
+  }
+}
+
+/* Larger logo lockup across normal and cinematic headers. */
+.header__logo.aura-logo-lockup,
+.sf-header-logo {
+  width: clamp(320px, 24vw, 520px) !important;
+  min-width: clamp(320px, 24vw, 520px) !important;
+  height: 92px !important;
+  min-height: 92px !important;
+}
+
+.header__logo.aura-logo-lockup .aura-logo-lockup__image,
+.sf-header-logo .sf-header-logo-image {
+  max-height: 86px !important;
+}
+
+@media (max-width: 900px) {
+  .header__logo.aura-logo-lockup,
+  .sf-header-logo {
+    width: min(54vw, 280px) !important;
+    min-width: min(54vw, 280px) !important;
+    height: 74px !important;
+    min-height: 74px !important;
+  }
+
+  .header__logo.aura-logo-lockup .aura-logo-lockup__image,
+  .sf-header-logo .sf-header-logo-image {
+    max-height: 68px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .header__logo.aura-logo-lockup,
+  .sf-header-logo {
+    width: min(58vw, 245px) !important;
+    min-width: min(58vw, 245px) !important;
+    height: 70px !important;
+    min-height: 70px !important;
+  }
+
+  .header__logo.aura-logo-lockup .aura-logo-lockup__image,
+  .sf-header-logo .sf-header-logo-image {
+    max-height: 64px !important;
+  }
+}
 
 @media (max-width: 640px) {
   .ph.ph--drop001,
@@ -19,7 +74,7 @@
     z-index: 2 !important;
     min-height: auto !important;
     width: calc(100% - 40px) !important;
-    padding: 7.35rem 0 1.9rem !important;
+    padding: 8.2rem 0 1.9rem !important;
     justify-content: flex-start !important;
   }
 
