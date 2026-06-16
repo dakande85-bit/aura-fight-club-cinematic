@@ -1,8 +1,20 @@
+import './home-frame-runtime.js';
+
 const HOME_MOBILE_IMAGE = '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png';
 
 function isHomePath() {
   const path = window.location.pathname || '/';
   return path === '/' || path === '/launch';
+}
+
+function getMobileHeroImage() {
+  try {
+    const key = window.AURA_HOME_FRAME_STORAGE_KEY || 'aura:home-frame-overrides:v1';
+    const parsed = JSON.parse(window.localStorage.getItem(key) || '{}');
+    return parsed.mobileHero || HOME_MOBILE_IMAGE;
+  } catch {
+    return HOME_MOBILE_IMAGE;
+  }
 }
 
 function injectHomeMobileStyle() {
@@ -100,7 +112,7 @@ function applyHomeMobileHardStop() {
     img.setAttribute('aria-hidden', 'true');
     fixed.insertBefore(img, fixed.firstChild);
   }
-  img.src = HOME_MOBILE_IMAGE;
+  img.src = getMobileHeroImage();
 
   ['.sf-video', '.sf-image-slot', '.sf-ambient', '.sf-grain', '.sf-progress-bar', '.sf-indicators', '.sf-watermark'].forEach(selector => {
     document.querySelectorAll(selector).forEach(el => {
@@ -114,6 +126,7 @@ function applyHomeMobileHardStop() {
 if (typeof window !== 'undefined') {
   window.addEventListener('DOMContentLoaded', applyHomeMobileHardStop);
   window.addEventListener('resize', applyHomeMobileHardStop);
+  window.addEventListener('aura-home-frames-updated', applyHomeMobileHardStop);
   window.addEventListener('popstate', () => setTimeout(applyHomeMobileHardStop, 80));
   setTimeout(applyHomeMobileHardStop, 200);
   setTimeout(applyHomeMobileHardStop, 1000);
