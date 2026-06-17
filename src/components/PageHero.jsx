@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import '../styles/page-hero.css';
 
 function HeroCta({ item }) {
   if (!item) return null;
@@ -28,22 +27,31 @@ export default function PageHero({
   image,
   imageAlt = '',
   imagePosition = 'center center',
+  imageFit = 'contain',
+  imageScale = 1,
   align = 'left',
   className = '',
 }) {
   const lines = String(headline || '').split('\n').filter(Boolean);
   const safeImagePosition = imagePosition || 'center center';
+  const safeImageFit = imageFit || 'contain';
+  const safeImageScale = Number(imageScale) || 1;
+  const heroStyle = {
+    '--ph-image-position': safeImagePosition,
+    '--ph-image-fit': safeImageFit,
+    '--ph-image-scale': safeImageScale,
+  };
 
   return (
-    <section className={`ph ph--${align} ${className}`.trim()}>
+    <section className={`ph ph--${align} ${className}`.trim()} style={heroStyle}>
       {image && (
         <div className="ph__media" aria-hidden={imageAlt ? undefined : true}>
           <img
             className="ph__image"
             src={image}
             alt={imageAlt}
-            style={{ objectPosition: safeImagePosition }}
             loading="eager"
+            decoding="async"
           />
         </div>
       )}

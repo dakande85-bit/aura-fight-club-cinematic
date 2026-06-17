@@ -71,6 +71,12 @@ export const pageMediaAssets = [
     group: 'Footwear',
   },
   {
+    id: 'footwork-jump-midair',
+    label: 'Footwork sequence - jump and boots hero',
+    src: '/assets/aura-scroll/04_footwork_skipping/frame_06_jump_midair.png',
+    group: 'Footwear',
+  },
+  {
     id: 'equipment-heavy-bag-07',
     label: 'Heavy Bag 07 — Equipment hero',
     src: '/campaign/heavy-bag/heavy-bag-07.webp',
@@ -85,13 +91,15 @@ export const pageHeroMedia = {
     assetId: 'drop-001-reliable-hero',
     image: DROP001_RELIABLE_HERO,
     imagePosition: 'center center',
+    imageFit: 'contain',
   },
   fightClub: {
     label: 'Fight Club',
     pagePath: '/fight-club',
-    assetId: 'fight-club-attached-hero',
-    image: fightClubHeroUserAttached,
+    assetId: 'scroll-fight-tracksuit-ring',
+    image: '/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.png',
     imagePosition: 'center center',
+    imageFit: 'contain',
   },
   apparel: {
     label: 'Apparel',
@@ -99,6 +107,7 @@ export const pageHeroMedia = {
     assetId: 'drop-jump-rope-07',
     image: '/campaign/jump-rope/jump-rope-07.webp',
     imagePosition: 'center center',
+    imageFit: 'contain',
   },
   footwear: {
     label: 'Footwear',
@@ -106,6 +115,7 @@ export const pageHeroMedia = {
     assetId: 'footwear-sparring-09',
     image: '/campaign/sparring/sparring-09.webp',
     imagePosition: 'center center',
+    imageFit: 'contain',
   },
   equipment: {
     label: 'Equipment',
@@ -113,6 +123,7 @@ export const pageHeroMedia = {
     assetId: 'equipment-heavy-bag-07',
     image: '/campaign/heavy-bag/heavy-bag-07.webp',
     imagePosition: 'center center',
+    imageFit: 'contain',
   },
 };
 
@@ -150,6 +161,8 @@ export function resolvePageMedia(pageKey) {
     image: customImage || selectedAsset?.src || base.image,
     assetId: selectedAsset?.id || override.assetId || base.assetId,
     imagePosition: override.imagePosition || base.imagePosition || 'center center',
+    imageFit: override.imageFit || base.imageFit || 'contain',
+    imageScale: override.imageScale || base.imageScale || 1,
   };
 }
 

@@ -1,27 +1,27 @@
 import Header from './Header.jsx';
+import PageHero from './PageHero.jsx';
 import { homepageHeroMedia } from '../data/auraMediaManifest.js';
 
 const HERO_IMAGE = homepageHeroMedia.source;
 
 export default function HomeStaticHero() {
   return (
-    <section className="home-static" aria-label="AURA Fight Club homepage hero">
+    <div className="home-static" aria-label="AURA Fight Club homepage">
       <Header />
-      <div className="home-static__stage">
-        <div className="home-static__media" aria-hidden="true">
-          <img src={HERO_IMAGE} alt="" loading="eager" decoding="async" fetchPriority="high" />
-        </div>
-        <div className="home-static__scrim" aria-hidden="true" />
-        <div className="home-static__content">
-          <p className="home-static__eyebrow">AURA FIGHT CLUB</p>
-          <h1>YOUR AURA<br />IS EARNED.</h1>
-          <p className="home-static__copy">The real fight is internal.<br />The opponent is just the mirror.</p>
-          <div className="home-static__actions">
-            <a className="home-static__button home-static__button--primary" href="/drop-001">Explore Drop 001</a>
-            <a className="home-static__button home-static__button--secondary" href="/fight-club">Enter Fight Club</a>
-          </div>
-        </div>
-      </div>
-    </section>
+      <PageHero
+        label="AURA FIGHT CLUB"
+        headline={'YOUR AURA\nIS EARNED.'}
+        copy={'The real fight is internal.\nThe opponent is just the mirror.'}
+        image={HERO_IMAGE}
+        imageFit="contain"
+        imagePosition="center center"
+        imageAlt="AURA Fight Club model in cream training kit"
+        className="ph--home"
+        ctas={[
+          { label: 'Explore Drop 001', to: '/drop-001', variant: 'primary' },
+          { label: 'Enter Fight Club', to: '/fight-club', variant: 'ghost' },
+        ]}
+      />
+    </div>
   );
 }
