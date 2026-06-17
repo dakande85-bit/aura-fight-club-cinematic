@@ -178,7 +178,7 @@
 }
 
 .ph--home {
-  --ph-hero-height: clamp(540px, calc(100svh - 104px), 650px);
+  --ph-hero-height: clamp(560px, 68vw, 650px);
   --ph-media-bg: #030303;
   grid-template-columns: minmax(320px, 0.82fr) minmax(360px, 1.18fr);
 }
@@ -253,6 +253,10 @@
     border-top: 1px solid rgba(243, 238, 230, 0.1);
   }
 
+  .ph--home .ph__media {
+    height: clamp(360px, 62vw, 540px);
+  }
+
   .ph__scrim {
     display: none;
   }
@@ -277,6 +281,10 @@
     height: clamp(320px, 56svh, 470px);
     min-height: 320px !important;
     padding: 12px 12px 24px;
+  }
+
+  .ph--home .ph__media {
+    height: clamp(320px, 118vw, 470px);
   }
 
   .ph__image {

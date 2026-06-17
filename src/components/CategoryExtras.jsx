@@ -35,6 +35,11 @@ const CONTENT = {
         'Nothing here is loud. There are no oversized graphics, no generic boxing merch signals. Just considered pieces built for the version of you that shows up before anyone is watching.',
       ],
     },
+    visuals: [
+      { src: '/assets/category-support/apparel-black-hoodie.png', alt: 'AURA black hoodie in the ring' },
+      { src: '/assets/category-support/apparel-cream-jacket.png', alt: 'AURA cream jacket training outfit' },
+      { src: '/assets/category-support/apparel-training-vest.png', alt: 'AURA black training vest in the ring' },
+    ],
     lineup: {
       eyebrow: 'Product Lineup',
       title: 'APPAREL LINEUP',
@@ -116,6 +121,11 @@ const CONTENT = {
         'These are not ordinary trainers and they are not costume boxing boots. The goal is a practical athletic and casual crossover: sharp enough for the street, disciplined enough for the gym, and aligned with the AURA uniform.',
       ],
     },
+    visuals: [
+      { src: '/assets/category-support/footwear-cream-high.png', alt: 'AURA cream high-top fight boots' },
+      { src: '/assets/category-support/footwear-cream-low.png', alt: 'AURA cream low-top training shoes' },
+      { src: '/assets/category-support/footwear-black-high.png', alt: 'AURA black high-top fight boots' },
+    ],
     lineup: {
       eyebrow: 'Product Lineup',
       title: 'FOOTWEAR LINEUP',
@@ -197,6 +207,11 @@ const CONTENT = {
         'The category is clean, premium, and purposeful. Each piece should feel connected to the wider AURA uniform rather than like random accessory merchandise.',
       ],
     },
+    visuals: [
+      { src: '/assets/category-support/equipment-mouthguard.png', alt: 'AURA mouthguard and case' },
+      { src: '/assets/category-support/equipment-gloves-front.png', alt: 'AURA cream training gloves front and palm' },
+      { src: '/assets/category-support/equipment-gloves-grip.png', alt: 'AURA cream grip training gloves' },
+    ],
     lineup: {
       eyebrow: 'Product Lineup',
       title: 'EQUIPMENT LINEUP',
@@ -290,10 +305,10 @@ export default function CategoryExtras({ category }) {
   const content = getCategoryContent(category);
   if (!content) return null;
 
-  const { story, useCases, fit, dropConnection, finalCta } = content;
+  const { story, visuals = [], useCases, fit, dropConnection, finalCta } = content;
 
   return (
-    <div className="cx" data-category={category}>
+    <div className="cx" data-category={String(category || '').toLowerCase()}>
       {/* ── STORY ─────────────────────────────────────────────── */}
       <section className="cx-section cx-story">
         <div className="cx-story__grid">
@@ -310,6 +325,27 @@ export default function CategoryExtras({ category }) {
       </section>
 
       {/* ── USE CASES ─────────────────────────────────────────── */}
+      {visuals.length > 0 && (
+        <section className="cx-section cx-visual-support" aria-label={`${category} supporting imagery`}>
+          <div className="cx-visual-support__grid">
+            {visuals.map((item, index) => (
+              <figure className="cx-visual-card" key={item.src}>
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="cx-visual-card__image"
+                />
+                <figcaption className="cx-visual-card__label">
+                  {String(index + 1).padStart(2, '0')}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="cx-section cx-usecases">
         <p className="cx-eyebrow cx-eyebrow--center">{useCases.eyebrow}</p>
         <h2 className="cx-section-title cx-section-title--center">{useCases.title}</h2>

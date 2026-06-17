@@ -13,16 +13,14 @@ const frame = (folder, prefix, n) => `${BASE}/${folder}/${prefix}-${String(n).pa
 // Curated emergency frame set: shorter arrays = faster load + fewer weak AI frames.
 const FRAMES = {
   hero: [
-    frame('jump-rope', 'jump-rope', 7),
     frame('jump-rope', 'jump-rope', 8),
-    frame('jump-rope', 'jump-rope', 9),
   ],
-  rhythm: [2, 4, 6, 7, 8, 10, 13, 16, 18].map(n => frame('jump-rope', 'jump-rope', n)),
-  pressure: [2, 4, 6, 8, 10, 13].map(n => frame('sparring', 'sparring', n)),
-  repetition: [2, 4, 6, 8, 11, 14].map(n => frame('heavy-bag', 'heavy-bag', n)),
-  floorBall: [1, 3, 5, 7, 9].map(n => frame('floor-ball', 'floor-ball', n)),
-  control: [4, 6, 8, 10].map(n => frame('floor-ball', 'floor-ball', n)),
-  close: [8, 9, 10].map(n => frame('floor-ball', 'floor-ball', n)),
+  rhythm: [2, 7, 13, 18].map(n => frame('jump-rope', 'jump-rope', n)),
+  pressure: [2, 8, 13].map(n => frame('sparring', 'sparring', n)),
+  repetition: [2, 8, 14].map(n => frame('heavy-bag', 'heavy-bag', n)),
+  floorBall: [1, 5, 9].map(n => frame('floor-ball', 'floor-ball', n)),
+  control: [4, 8, 10].map(n => frame('floor-ball', 'floor-ball', n)),
+  close: [9].map(n => frame('floor-ball', 'floor-ball', n)),
 };
 
 const SCENES = [

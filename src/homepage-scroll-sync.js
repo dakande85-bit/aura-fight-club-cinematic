@@ -1,13 +1,8 @@
-// Emergency homepage mobile initial-scroll sync.
-// Also applies a cache-busting query string to cinematic assets so replaced
+// Applies a cache-busting query string to cinematic assets so replaced
 // frames do not stay stuck behind browser/CDN cache after admin publishing.
 
 const VERSIONABLE_ASSET_PATTERNS = ['/assets/aura-scroll/', '/campaign/'];
 const VERSION_PARAM = 'v';
-
-function isMobileHome() {
-  return window.location.pathname === '/' && window.matchMedia('(max-width: 768px)').matches;
-}
 
 function isVersionableAsset(value = '') {
   return VERSIONABLE_ASSET_PATTERNS.some(pattern => value.includes(pattern));
@@ -127,45 +122,13 @@ async function loadAssetVersion() {
   setAssetVersion(fallbackAssetVersion());
 }
 
-function syncHomepageScrollFilm() {
-  if (!isMobileHome()) return;
-  if (window.scrollY > 4) return;
-
-  const originalBehavior = document.documentElement.style.scrollBehavior;
-  document.documentElement.style.scrollBehavior = 'auto';
-
-  window.dispatchEvent(new Event('resize'));
-  window.dispatchEvent(new Event('scroll'));
-
-  window.scrollTo(0, 1);
-  window.dispatchEvent(new Event('scroll'));
-
-  window.requestAnimationFrame(() => {
-    window.scrollTo(0, 0);
-    window.dispatchEvent(new Event('scroll'));
-    document.documentElement.style.scrollBehavior = originalBehavior;
-  });
-}
-
-function scheduleSync() {
-  if (!isMobileHome()) return;
-  [120, 350, 700].forEach(delay => {
-    window.setTimeout(syncHomepageScrollFilm, delay);
-  });
-}
-
 injectCinematicRuntimeFixes();
 installAssetVersionObserver();
 loadAssetVersion();
 
 window.addEventListener('pageshow', () => {
   loadAssetVersion();
-  scheduleSync();
 });
 document.addEventListener('DOMContentLoaded', () => {
   loadAssetVersion();
-  scheduleSync();
 });
-window.addEventListener('orientationchange', () => window.setTimeout(scheduleSync, 300));
-
-scheduleSync();

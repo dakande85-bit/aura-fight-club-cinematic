@@ -127,6 +127,71 @@
   line-height: 0.98;
 }
 
+.cx-visual-support {
+  padding-top: clamp(28px, 5vw, 72px);
+  padding-bottom: clamp(28px, 5vw, 72px);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(184, 151, 90, 0.08), transparent 32%),
+    #050505;
+}
+
+.cx-visual-support__grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.95fr 0.95fr;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+.cx-visual-card {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--cx-line);
+  background: #090909;
+}
+
+.cx-visual-card:first-child {
+  aspect-ratio: 4 / 5.35;
+}
+
+.cx-visual-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: saturate(0.98) contrast(1.04) brightness(0.92);
+}
+
+.cx-visual-card__label {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  color: rgba(232, 228, 220, 0.72);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+}
+
+.cx[data-category="footwear"] .cx-visual-card__image,
+.cx[data-category="equipment"] .cx-visual-card__image {
+  object-fit: contain;
+  padding: clamp(14px, 2vw, 28px);
+  background: #f3f1ee;
+  filter: saturate(0.98) contrast(1.02);
+}
+
+.cx[data-category="equipment"] .cx-visual-card__image {
+  background: #111;
+}
+
+.cx[data-category="footwear"] .cx-visual-card__label {
+  color: rgba(7, 7, 7, 0.62);
+}
+
 .cx-section-title--center {
   margin: 0 auto 3rem;
   text-align: center;
@@ -236,6 +301,15 @@
   .cx-usecases__grid,
   .cx-fit__grid {
     grid-template-columns: 1fr;
+  }
+
+  .cx-visual-support__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cx-visual-card,
+  .cx-visual-card:first-child {
+    aspect-ratio: 4 / 5;
   }
 
   .cx-usecase-card {

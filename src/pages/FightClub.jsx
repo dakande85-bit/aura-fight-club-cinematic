@@ -8,6 +8,7 @@ import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import '../styles/editorial-page.css';
 
 const appComingSoonImage = '/assets/fight-club/aura-app-coming-soon.png';
+const fightClubMotionImage = '/assets/fight-club/aura-fight-club-motion.gif';
 
 export default function FightClub() {
   const navigate = useNavigate();
@@ -50,6 +51,8 @@ export default function FightClub() {
       />
 
       <div className="ep__body" id="fight-club-story">
+        <div className="ep__story-grid">
+          <div className="ep__story-main">
         <div className="ep__copy-block">
           <p className="ep__copy">
             AURA Fight Club is not a gym. It is not a label. It is a standard.
@@ -103,6 +106,17 @@ export default function FightClub() {
           <button className="ep__cta ep__cta--ghost" onClick={() => navigate('/drop-001')}>
             View Drop 001
           </button>
+        </div>
+          </div>
+
+          <figure className="ep__motion-panel" aria-label="AURA Fight Club motion preview">
+            <img
+              src={fightClubMotionImage}
+              alt="AURA Fight Club motion preview"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
         </div>
       </div>
 
