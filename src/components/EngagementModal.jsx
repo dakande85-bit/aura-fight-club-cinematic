@@ -67,12 +67,30 @@ function markClosedThisVisit() {
   window.sessionStorage.setItem(MODAL_CLOSED_VISIT_KEY, '1');
 }
 
+function preloadModalImage(src) {
+  if (!src || typeof window === 'undefined') return undefined;
+
+  const image = new Image();
+  image.decoding = 'async';
+  image.src = src;
+
+  return image;
+}
+
 export default function EngagementModal() {
   const location = useLocation();
   const config = useMemo(() => getModalConfig(location.pathname), [location.pathname]);
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState({ type: 'idle', message: 'No spam. Early access and launch updates only.' });
+
+  useEffect(() => {
+    if (!config || wasClosedThisVisit()) return undefined;
+    const preloadedImage = preloadModalImage(config.image);
+    return () => {
+      if (preloadedImage) preloadedImage.src = '';
+    };
+  }, [config]);
 
   useEffect(() => {
     setEmail('');
@@ -131,7 +149,12 @@ export default function EngagementModal() {
           <section className="em-modal" role="dialog" aria-modal="true" aria-labelledby="engagement-modal-title">
             <button className="em-close" type="button" aria-label="Close" onPointerDown={handleClose} onClick={handleClose}>×</button>
             <div className="em-modal__media" aria-hidden="true">
-              <img src={config.image} alt="" />
+              <img
+                src={config.image}
+                alt=""
+                decoding="async"
+                fetchPriority="high"
+              />
             </div>
             <div className="em-modal__content">
               <p className="em-eyebrow">{config.eyebrow}</p>
