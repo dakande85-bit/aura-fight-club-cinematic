@@ -28,7 +28,7 @@ export default function Header() {
     <>
       <header className="header" role="banner">
         <a className="header__logo aura-logo-lockup" href="/" aria-label="AURA Fight Club home" onClick={closeMenu}>
-          <img className="aura-logo-lockup__image" src={logoSrc} alt="AURA Fight Club" />
+          <img className="aura-logo-lockup__image" src={logoSrc} alt="AURA Fight Club" width="1200" height="1200" decoding="async" fetchPriority="high" />
         </a>
 
         <nav className="header__nav" aria-label="Main navigation">

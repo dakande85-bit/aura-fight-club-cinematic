@@ -16,6 +16,8 @@ export default function HomeStaticHero() {
         imageFit="contain"
         imagePosition="center center"
         imageAlt="AURA Fight Club model in cream training kit"
+        imageWidth="1122"
+        imageHeight="1402"
         className="ph--home"
         ctas={[
           { label: 'Explore Drop 001', to: '/drop-001', variant: 'primary' },

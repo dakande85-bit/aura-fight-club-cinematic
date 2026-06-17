@@ -29,6 +29,8 @@ export default function PageHero({
   imagePosition = 'center center',
   imageFit = 'contain',
   imageScale = 1,
+  imageWidth,
+  imageHeight,
   align = 'left',
   className = '',
 }) {
@@ -50,7 +52,10 @@ export default function PageHero({
             className="ph__image"
             src={image}
             alt={imageAlt}
+            width={imageWidth}
+            height={imageHeight}
             loading="eager"
+            fetchPriority="high"
             decoding="async"
           />
         </div>

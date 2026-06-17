@@ -1,11 +1,10 @@
 import fightClubHeroUserAttached from '../assets/generated/fightClubHeroUserAttachedData.js';
-import auraUploadedLogo from '../assets/brand/auraUploadedLogoData.js';
 
 // v7 locks the user-attached Fight Club hero and uses a reliable public Drop 001 image.
 export const PAGE_MEDIA_STORAGE_KEY = 'aura:page-media-overrides:v7-attached-fight-hero';
 export const BRAND_LOGO_STORAGE_KEY = 'aura:brand-logo-override:v1';
 
-export const defaultBrandLogo = auraUploadedLogo;
+export const defaultBrandLogo = '/assets/brand/aura-fight-club-logo-attached.png';
 
 const DROP001_RELIABLE_HERO = '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png';
 
