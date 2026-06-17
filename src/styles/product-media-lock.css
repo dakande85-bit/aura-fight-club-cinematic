@@ -1,0 +1,70 @@
+/* Product card media lock: keep product/model imagery fully framed. */
+.pc__media {
+  aspect-ratio: 4 / 5 !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(ellipse 62% 34% at 50% 58%, rgba(200,169,110,0.08), transparent 68%),
+    linear-gradient(180deg, #111114 0%, #070708 100%) !important;
+}
+
+.pc__img,
+.pc__img--primary,
+.pc__img--hover,
+.pc--category-footwear .pc__img--primary,
+.pc--category-footwear .pc__img--hover,
+.pc--category-equipment .pc__img--primary,
+.pc--category-equipment .pc__img--hover,
+.pc--category-apparel .pc__img--primary,
+.pc--category-apparel .pc__img--hover {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+}
+
+.pc__img--primary,
+.pc--category-footwear .pc__img--primary,
+.pc--category-equipment .pc__img--primary,
+.pc--category-apparel .pc__img--primary {
+  padding: clamp(18px, 2.6vw, 36px) !important;
+}
+
+.pc__img--hover,
+.pc--category-footwear .pc__img--hover,
+.pc--category-equipment .pc__img--hover,
+.pc--category-apparel .pc__img--hover {
+  padding: clamp(14px, 2.2vw, 30px) !important;
+}
+
+@media (min-width: 900px) {
+  .pc--category-footwear .pc__media {
+    aspect-ratio: 4 / 5 !important;
+  }
+}
+
+@media (hover: hover) {
+  .pc:hover .pc__img,
+  .pc--has-hover:hover .pc__img--hover,
+  .pc--category-footwear.pc--has-hover:hover .pc__img--hover {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .pc__media,
+  .pc--category-footwear .pc__media {
+    aspect-ratio: 4 / 5 !important;
+  }
+
+  .pc__img--primary,
+  .pc__img--hover,
+  .pc--category-footwear .pc__img--primary,
+  .pc--category-footwear .pc__img--hover,
+  .pc--category-equipment .pc__img--primary,
+  .pc--category-equipment .pc__img--hover,
+  .pc--category-apparel .pc__img--primary,
+  .pc--category-apparel .pc__img--hover {
+    padding: clamp(16px, 5vw, 28px) !important;
+  }
+}
