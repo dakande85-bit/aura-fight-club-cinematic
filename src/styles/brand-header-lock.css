@@ -4,7 +4,7 @@
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
-  z-index: 10000 !important;
+  z-index: 20000 !important;
   display: grid !important;
   grid-template-columns: clamp(150px, 15vw, 220px) minmax(0, 1fr) auto !important;
   align-items: center !important;
@@ -84,6 +84,7 @@
     display: flex !important;
     min-height: 76px !important;
     padding: 10px 18px !important;
+    z-index: 20000 !important;
   }
 
   .header__logo.aura-logo-lockup {
@@ -94,5 +95,27 @@
 
   .header__menu-btn {
     margin-left: auto !important;
+    position: relative !important;
+    z-index: 20005 !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+  }
+
+  .header__mobile-menu {
+    z-index: 20003 !important;
+  }
+
+  .header__mobile-menu--open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .header__backdrop {
+    z-index: 19990 !important;
+  }
+
+  body.aura-menu-open {
+    overflow: hidden !important;
   }
 }
