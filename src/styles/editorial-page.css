@@ -98,6 +98,20 @@
   color: rgba(167,161,154,0.82);
 }
 
+.ep__app-promo {
+  width: min(100%, 960px);
+  margin: 0 0 42px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #030303;
+  overflow: hidden;
+}
+
+.ep__app-promo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* ── CTA BLOCK ── */
 .ep__cta-block {
   display: flex;
@@ -196,6 +210,7 @@
   .ep__header-block { padding: 48px 20px 24px; }
   .ep__body          { padding: 32px 20px 64px; }
   .ep__title         { font-size: clamp(44px, 12vw, 72px); }
+  .ep__app-promo     { margin-bottom: 34px; }
   .ep__form          { flex-direction: column; max-width: 100%; }
   .ep__submit        { padding: 14px; border-top: 1.5px solid rgba(244,241,234,0.18); }
   .ep__cta-block     { flex-direction: column; }

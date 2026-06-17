@@ -7,6 +7,8 @@ import { addWaitlistEntry } from '../lib/waitlistStore.js';
 import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import '../styles/editorial-page.css';
 
+const appComingSoonImage = '/assets/fight-club/aura-app-coming-soon.png';
+
 export default function FightClub() {
   const navigate = useNavigate();
   const heroMedia = usePageHeroMedia('fightClub');
@@ -63,6 +65,17 @@ export default function FightClub() {
             Drop 001 is the first uniform. The founding members get access first.
           </p>
         </div>
+
+        <figure className="ep__app-promo" aria-label="AURA Fight Club app coming soon">
+          <img
+            src={appComingSoonImage}
+            alt="AURA Fight Club app coming soon"
+            width="1536"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
 
         <div className="ep__waitlist-block">
           <p className="ep__waitlist-label">Join the first circle</p>
