@@ -7,6 +7,7 @@ const navItems = [
   { label: 'Footwear', href: '/footwear' },
   { label: 'Equipment', href: '/equipment' },
   { label: 'Campaign', href: '/campaign' },
+  { label: 'Our Story', href: '/our-story' },
   { label: 'Aura', href: '/cinematic' },
   { label: 'Fight Club', href: '/fight-club' },
 ];

@@ -10,6 +10,7 @@ const SHOP_LINKS = [
 
 const WORLD_LINKS = [
   { label: 'The Campaign', href: '/campaign' },
+  { label: 'Our Story', href: '/our-story' },
   { label: 'Fight Club', href: '/fight-club' },
 ];
 
