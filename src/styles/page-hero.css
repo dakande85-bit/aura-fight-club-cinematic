@@ -277,6 +277,10 @@
     padding: 2.35rem 0 1.8rem !important;
   }
 
+  .ph--home .ph__content {
+    min-height: clamp(385px, 111vw, 433px) !important;
+  }
+
   .ph__media {
     height: clamp(320px, 56svh, 470px);
     min-height: 320px !important;
