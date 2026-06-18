@@ -15,7 +15,7 @@ const modalByRoute = [
     cta: 'Join Waitlist',
     source: 'modal-home-waitlist',
     product: 'Drop 001',
-    image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png',
+    image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.webp',
   },
   {
     match: (path) => path.includes('fight-club'),
@@ -26,7 +26,7 @@ const modalByRoute = [
     cta: 'Join Fight Club',
     source: 'modal-fight-club',
     product: 'AURA Fight Club',
-    image: '/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.png',
+    image: '/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.webp',
   },
   {
     match: (path) => path.includes('campaign') || path.includes('cinematic'),
@@ -37,7 +37,7 @@ const modalByRoute = [
     cta: 'Get updates',
     source: 'modal-campaign-newsletter',
     product: 'Campaign newsletter',
-    image: '/assets/aura-scroll/06_campaign_mitts_sequence/frame_03_mitts_real.png',
+    image: '/assets/aura-scroll/06_campaign_mitts_sequence/frame_03_mitts_real.webp',
   },
   {
     match: (path) => path.includes('product') || path.includes('drop-001') || path.includes('apparel') || path.includes('footwear') || path.includes('equipment'),
@@ -48,7 +48,7 @@ const modalByRoute = [
     cta: 'Join Product Waitlist',
     source: 'modal-product-waitlist',
     product: 'AURA products',
-    image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_01_cream_uniform_model.png',
+    image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_01_cream_uniform_model.webp',
   },
 ];
 

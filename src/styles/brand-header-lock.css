@@ -63,6 +63,16 @@
 .header__nav {
   grid-column: 2 !important;
   justify-self: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(10px, 1.15vw, 20px) !important;
+  min-width: 0 !important;
+}
+
+.header__nav a {
+  white-space: nowrap !important;
+  font-size: clamp(9px, 0.72vw, 11px) !important;
 }
 
 .header__cta--desktop {
@@ -105,13 +115,29 @@
     z-index: 20003 !important;
   }
 
+  .sf-mobile-menu {
+    z-index: 20003 !important;
+  }
+
   .header__mobile-menu--open {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .sf-mobile-menu--open {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
   }
 
   .header__backdrop {
+    display: block !important;
+    z-index: 19990 !important;
+  }
+
+  .sf-mobile-menu-backdrop {
     z-index: 19990 !important;
   }
 

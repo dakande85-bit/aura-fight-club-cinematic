@@ -80,7 +80,7 @@ export default function CategoryPanels() {
             aria-label={cat.label}
           >
             {cat.image && (
-              <img src={cat.image} alt="" loading="lazy" />
+              <img src={cat.image} alt="" loading="lazy" decoding="async" />
             )}
             <div className="category-panel__content">
               <p className="category-panel__eyebrow">{cat.sub}</p>

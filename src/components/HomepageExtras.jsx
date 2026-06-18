@@ -31,9 +31,10 @@ export default function HomepageExtras() {
       <div className="home-extra__section home-extra__drop">
         <div className="home-extra__drop-media" aria-hidden="true">
           <img
-            src="/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png"
+            src="/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.webp"
             alt=""
-            loading="eager"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div className="home-extra__split home-extra__split--media">
@@ -58,7 +59,7 @@ export default function HomepageExtras() {
         <div className="home-extra__category-grid">
           {categories.map((category) => (
             <Link key={category.href} to={category.href} className="home-extra__category-card">
-              <img src={category.image} alt={category.imageAlt} loading="eager" />
+              <img src={category.image} alt={category.imageAlt} loading="lazy" decoding="async" />
               <span>{category.title}</span>
               <p>{category.text}</p>
               <small>View {category.title}</small>
@@ -70,9 +71,10 @@ export default function HomepageExtras() {
       <div className="home-extra__section home-extra__manifesto">
         <div className="home-extra__manifesto-media" aria-hidden="true">
           <img
-            src="/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.png"
+            src="/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.webp"
             alt=""
-            loading="eager"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div className="home-extra__manifesto-copy">

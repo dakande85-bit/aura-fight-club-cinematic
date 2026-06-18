@@ -53,6 +53,7 @@ export default function ProductCard({ product }) {
             alt={product.name}
             className="pc__img pc__img--primary"
             loading="lazy"
+            decoding="async"
             draggable={false}
           />
         )}
@@ -63,6 +64,7 @@ export default function ProductCard({ product }) {
             alt=""
             className="pc__img pc__img--hover"
             loading="lazy"
+            decoding="async"
             draggable={false}
             aria-hidden="true"
           />

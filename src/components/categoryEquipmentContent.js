@@ -73,7 +73,7 @@ const equipmentContent = {
     title: 'ENTER THE FIRST CIRCLE',
     copy:
       'Join the waitlist for early access to AURA equipment releases and Drop 001 updates.',
-    cta: { label: 'Join Waitlist', href: '#waitlist' },
+    cta: { label: 'Join Waitlist', href: '/fight-club' },
   },
 };
 

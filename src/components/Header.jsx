@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { useBrandLogo } from '../hooks/usePageMedia.js';
 
 const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Aura', href: '/cinematic' },
+  { label: 'Our Story', href: '/our-story' },
   { label: 'Drop 001', href: '/drop-001' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
   { label: 'Equipment', href: '/equipment' },
   { label: 'Campaign', href: '/campaign' },
-  { label: 'Our Story', href: '/our-story' },
-  { label: 'Aura', href: '/cinematic' },
   { label: 'Fight Club', href: '/fight-club' },
 ];
 
@@ -20,6 +21,19 @@ export default function Header() {
   useEffect(() => {
     document.body.classList.toggle('aura-menu-open', open);
     return () => document.body.classList.remove('aura-menu-open');
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, [open]);
 
   const menuButtonClass = open ? 'header__menu-btn header__menu-btn--open' : 'header__menu-btn';

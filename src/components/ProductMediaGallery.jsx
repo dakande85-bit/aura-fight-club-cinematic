@@ -21,6 +21,7 @@ export default function ProductMediaGallery({ gallery = [], productName = '' }) 
           alt={activeItem.alt || productName}
           className={`pmg__main-img${coverMode ? ' pmg__main-img--cover' : ''}`}
           loading="eager"
+          decoding="async"
           draggable={false}
         />
       </div>
@@ -36,7 +37,7 @@ export default function ProductMediaGallery({ gallery = [], productName = '' }) 
               aria-selected={i === active}
               role="option"
             >
-              <img src={item.src} alt="" loading="lazy" draggable={false} />
+              <img src={item.src} alt="" loading="lazy" decoding="async" draggable={false} />
             </button>
           ))}
         </div>

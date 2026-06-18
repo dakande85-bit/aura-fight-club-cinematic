@@ -9,6 +9,7 @@ export default function ProductRevealCard({ product }) {
           alt={product.name}
           className="product-card__img product-card__img--primary"
           loading="lazy"
+          decoding="async"
         />
         {product.hoverImage && (
           <img
@@ -16,6 +17,7 @@ export default function ProductRevealCard({ product }) {
             alt={`${product.name} in use`}
             className="product-card__img product-card__img--hover"
             loading="lazy"
+            decoding="async"
           />
         )}
         <span className="product-card__status">Waitlist Open</span>

@@ -6,7 +6,7 @@ export const BRAND_LOGO_STORAGE_KEY = 'aura:brand-logo-override:v1';
 
 export const defaultBrandLogo = '/assets/brand/aura-fight-club-logo-attached.png';
 
-const DROP001_RELIABLE_HERO = '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png';
+const DROP001_RELIABLE_HERO = '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.webp';
 
 export const pageMediaAssets = [
   {
@@ -36,13 +36,13 @@ export const pageMediaAssets = [
   {
     id: 'scroll-drop-frame-01',
     label: 'Scroll Film Drop 001 — cream uniform model',
-    src: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_01_cream_uniform_model.png',
+    src: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_01_cream_uniform_model.webp',
     group: 'Scroll Film / Drop',
   },
   {
     id: 'scroll-drop-frame-09',
     label: 'Scroll Film Drop 001 — full outfit model',
-    src: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.png',
+    src: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.webp',
     group: 'Scroll Film / Drop',
   },
   {
@@ -60,7 +60,7 @@ export const pageMediaAssets = [
   {
     id: 'scroll-fight-tracksuit-ring',
     label: 'Scroll Film Fight Club — tracksuit ring',
-    src: '/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.png',
+    src: '/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.webp',
     group: 'Scroll Film / Fight Club',
   },
   {
@@ -72,7 +72,7 @@ export const pageMediaAssets = [
   {
     id: 'footwork-jump-midair',
     label: 'Footwork sequence - jump and boots hero',
-    src: '/assets/aura-scroll/04_footwork_skipping/frame_06_jump_midair.png',
+    src: '/assets/aura-scroll/04_footwork_skipping/frame_06_jump_midair.webp',
     group: 'Footwear',
   },
   {
@@ -96,7 +96,7 @@ export const pageHeroMedia = {
     label: 'Fight Club',
     pagePath: '/fight-club',
     assetId: 'scroll-fight-tracksuit-ring',
-    image: '/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.png',
+    image: '/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.webp',
     imagePosition: 'center center',
     imageFit: 'contain',
   },

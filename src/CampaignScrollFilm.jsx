@@ -68,17 +68,35 @@ function useAmbient(ref) {
 }
 
 const NAV_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'Aura', href: '/cinematic' },
+  { label: 'Our Story', href: '/our-story' },
   { label: 'Drop 001', href: '/drop-001' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
   { label: 'Equipment', href: '/equipment' },
-  { label: 'The Campaign', href: '/campaign' },
+  { label: 'Campaign', href: '/campaign' },
   { label: 'Fight Club', href: '/fight-club' },
 ];
 
 function CinematicHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    document.body.classList.toggle('aura-menu-open', menuOpen);
+    return () => document.body.classList.remove('aura-menu-open');
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') closeMenu();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [menuOpen]);
+
   return <>
     <header className="sf-header" role="banner">
       <a href="/" className="sf-header-logo" aria-label="AURA Fight Club" onClick={closeMenu}><span className="sf-header-logo-text">AURA</span><span className="sf-header-logo-sub">Fight Club</span></a>

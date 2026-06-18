@@ -7,7 +7,7 @@ import { addWaitlistEntry } from '../lib/waitlistStore.js';
 import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import '../styles/editorial-page.css';
 
-const appComingSoonImage = '/assets/fight-club/aura-app-coming-soon.png';
+const appComingSoonImage = '/assets/fight-club/aura-app-coming-soon.webp';
 
 export default function FightClub() {
   const navigate = useNavigate();

@@ -36,9 +36,9 @@ const CONTENT = {
       ],
     },
     visuals: [
-      { src: '/assets/category-support/apparel-black-hoodie.png', alt: 'AURA black hoodie in the ring' },
-      { src: '/assets/category-support/apparel-cream-jacket.png', alt: 'AURA cream jacket training outfit' },
-      { src: '/assets/category-support/apparel-training-vest.png', alt: 'AURA black training vest in the ring' },
+      { src: '/assets/category-support/apparel-black-hoodie.webp', alt: 'AURA black hoodie in the ring' },
+      { src: '/assets/category-support/apparel-cream-jacket.webp', alt: 'AURA cream jacket training outfit' },
+      { src: '/assets/category-support/apparel-training-vest.webp', alt: 'AURA black training vest in the ring' },
     ],
     lineup: {
       eyebrow: 'Product Lineup',
@@ -96,7 +96,7 @@ const CONTENT = {
       title: 'ENTER THE FIRST CIRCLE',
       copy:
         'Join the waitlist for early access to AURA apparel releases, Drop 001 updates, and the first circle of the fight club.',
-      cta: { label: 'Join Waitlist', href: '#waitlist' },
+      cta: { label: 'Join Waitlist', href: '/fight-club' },
     },
   },
 
@@ -122,9 +122,9 @@ const CONTENT = {
       ],
     },
     visuals: [
-      { src: '/assets/category-support/footwear-cream-high.png', alt: 'AURA cream high-top fight boots' },
-      { src: '/assets/category-support/footwear-cream-low.png', alt: 'AURA cream low-top training shoes' },
-      { src: '/assets/category-support/footwear-black-high.png', alt: 'AURA black high-top fight boots' },
+      { src: '/assets/category-support/footwear-cream-high.webp', alt: 'AURA cream high-top fight boots' },
+      { src: '/assets/category-support/footwear-cream-low.webp', alt: 'AURA cream low-top training shoes' },
+      { src: '/assets/category-support/footwear-black-high.webp', alt: 'AURA black high-top fight boots' },
     ],
     lineup: {
       eyebrow: 'Product Lineup',
@@ -182,7 +182,7 @@ const CONTENT = {
       title: 'ENTER THE FIRST CIRCLE',
       copy:
         'Join the waitlist for early access to AURA footwear releases, Drop 001 updates, and the first circle of the fight club.',
-      cta: { label: 'Join Waitlist', href: '#waitlist' },
+      cta: { label: 'Join Waitlist', href: '/fight-club' },
     },
   },
 
@@ -208,9 +208,9 @@ const CONTENT = {
       ],
     },
     visuals: [
-      { src: '/assets/category-support/equipment-mouthguard.png', alt: 'AURA mouthguard and case' },
-      { src: '/assets/category-support/equipment-gloves-front.png', alt: 'AURA cream training gloves front and palm' },
-      { src: '/assets/category-support/equipment-gloves-grip.png', alt: 'AURA cream grip training gloves' },
+      { src: '/assets/category-support/equipment-mouthguard.webp', alt: 'AURA mouthguard and case' },
+      { src: '/assets/category-support/equipment-gloves-front.webp', alt: 'AURA cream training gloves front and palm' },
+      { src: '/assets/category-support/equipment-gloves-grip.webp', alt: 'AURA cream grip training gloves' },
     ],
     lineup: {
       eyebrow: 'Product Lineup',
@@ -268,7 +268,7 @@ const CONTENT = {
       title: 'ENTER THE FIRST CIRCLE',
       copy:
         'Join the waitlist for early access to AURA equipment releases and Drop 001 updates.',
-      cta: { label: 'Join Waitlist', href: '#waitlist' },
+      cta: { label: 'Join Waitlist', href: '/fight-club' },
     },
   },
 };
