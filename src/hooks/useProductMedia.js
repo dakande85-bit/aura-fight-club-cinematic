@@ -24,6 +24,7 @@
  */
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase.js';
+import { optimizedImageUrl } from '../lib/optimizedImageUrl.js';
 
 // Slot types whose images should use object-fit: cover (model/lifestyle shots)
 export const COVER_SLOT_TYPES = new Set([
@@ -57,21 +58,21 @@ function resolveMedia(rows) {
     byType['clean_product_shot'] ??
     byType['hero_product_dark']  ??
     rows[0];
-  const cardImage = cardRow?.file_url ?? null;
+  const cardImage = optimizedImageUrl(cardRow?.file_url ?? null);
 
   // ── HOVER IMAGE ───────────────────────────────────────────────────────
   // Strictly model_full_outfit only.
   // If empty → null. We never substitute a lifestyle or campaign image
   // to avoid wrong-product hover images.
   const hoverRow  = byType['model_full_outfit'] ?? null;
-  const hoverImage = hoverRow?.file_url ?? null;
+  const hoverImage = optimizedImageUrl(hoverRow?.file_url ?? null);
 
   // ── GALLERY ───────────────────────────────────────────────────────────
   // All approved rows in slot_index order, with slot_type for cover/contain
   const gallery = [...rows]
     .sort((a, b) => a.slot_index - b.slot_index)
     .map(m => ({
-      src:      m.file_url,
+      src:      optimizedImageUrl(m.file_url),
       alt:      m.alt_text || m.title || m.slot_type || '',
       slotType: m.slot_type,
       isCover:  COVER_SLOT_TYPES.has(m.slot_type),

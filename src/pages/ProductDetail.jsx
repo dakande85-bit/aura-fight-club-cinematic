@@ -59,7 +59,8 @@ function getProductCards(product) {
 export default function ProductDetail({ product, onBack }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const { media, loading } = useProductMedia(product?.slug);
+  const hasLocalGallery = Boolean(product?.gallery?.length || product?.image);
+  const { media } = useProductMedia(hasLocalGallery ? null : product?.slug);
 
   if (!product) {
     return (
@@ -71,10 +72,10 @@ export default function ProductDetail({ product, onBack }) {
     );
   }
 
-  const gallery = media?.gallery?.length
-    ? media.gallery
-    : product.gallery?.length
-      ? product.gallery
+  const gallery = product.gallery?.length
+    ? product.gallery
+    : media?.gallery?.length
+      ? media.gallery
       : product.image
         ? [{ src: product.image, alt: product.name }]
         : [];
@@ -96,9 +97,7 @@ export default function ProductDetail({ product, onBack }) {
 
         <section className="pd-hero">
           <div className="pd__gallery-col">
-            {loading ? (
-              <div className="pd__gallery-loading">Loading product media</div>
-            ) : gallery.length ? (
+            {gallery.length ? (
               <ProductMediaGallery gallery={gallery} productName={product.name} />
             ) : (
               <div className="pd__gallery-empty">

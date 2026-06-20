@@ -5,12 +5,14 @@ import Footer from '../components/Footer.jsx';
 import CategoryExtras, { CategoryLineupIntro } from '../components/CategoryExtras.jsx';
 import ControlledCategoryHero from '../components/ControlledCategoryHero.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
+import { useAllProductMedia } from '../hooks/useProductMedia.js';
 import apparelFeatureImage from '../assets/generated/fightClubHeroUserAttachedData.js';
 import '../styles/collection.css';
 
 export default function CollectionPage({ category, heading, subcopy }) {
   const navigate = useNavigate();
   const { products, loading } = useLiveProducts({ category });
+  const { mediaMap } = useAllProductMedia();
   const safeProducts = products || [];
   const gridClass = safeProducts.length === 1 ? 'col-grid col-grid--single' : 'col-grid';
   const key = String(category || '').toLowerCase();
@@ -53,7 +55,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
         ) : safeProducts.length > 0 ? (
           <div className={gridClass}>
             {safeProducts.map(p => (
-              <ProductCard key={p.slug} product={p} />
+              <ProductCard key={p.slug} product={p} media={mediaMap[p.slug]} deferMediaFetch />
             ))}
           </div>
         ) : (

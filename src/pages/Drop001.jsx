@@ -3,11 +3,13 @@ import PageHero from '../components/PageHero.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import Footer from '../components/Footer.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
+import { useAllProductMedia } from '../hooks/useProductMedia.js';
 import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import '../styles/drop001.css';
 
 export default function Drop001() {
   const { products, loading } = useLiveProducts({ collection: 'Drop 001' });
+  const { mediaMap } = useAllProductMedia();
   const heroMedia = usePageHeroMedia('drop001');
   const safeProducts = products || [];
   const productCountLabel = safeProducts.length + ' ' + (safeProducts.length === 1 ? 'piece' : 'pieces') + ' · Waitlist open · Limited run';
@@ -41,7 +43,7 @@ export default function Drop001() {
         ) : safeProducts.length > 0 ? (
           <div className="d001__grid">
             {safeProducts.map(p => (
-              <ProductCard key={p.slug} product={p} />
+              <ProductCard key={p.slug} product={p} media={mediaMap[p.slug]} deferMediaFetch />
             ))}
           </div>
         ) : (

@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard.jsx';
 import { liveProducts } from '../data/products.js';
 import { addWaitlistEntry } from '../lib/waitlistStore.js';
 import { usePageHeroMedia } from '../hooks/usePageMedia.js';
+import { useAllProductMedia } from '../hooks/useProductMedia.js';
 import '../styles/launch-landing.css';
 
 const launchPoints = [
@@ -65,6 +66,7 @@ function WaitlistForm({ compact = false }) {
 
 export default function LaunchLandingPage() {
   const heroMedia = usePageHeroMedia('home');
+  const { mediaMap } = useAllProductMedia();
   const heroImage = heroMedia?.image || '/campaign/jump-rope/jump-rope-07.webp';
   const featuredProducts = liveProducts.slice(0, 3);
 
@@ -118,7 +120,7 @@ export default function LaunchLandingPage() {
 
           <div className="launch-product-grid">
             {featuredProducts.map((product) => (
-              <ProductCard key={product.slug} product={product} />
+              <ProductCard key={product.slug} product={product} media={mediaMap[product.slug]} deferMediaFetch />
             ))}
           </div>
         </section>

@@ -9,9 +9,11 @@ function toClassKey(value) {
     .replace(/^-+|-+$/g, '') || 'uncategorized';
 }
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, media: providedMedia, deferMediaFetch = false }) {
   const navigate = useNavigate();
-  const { media } = useProductMedia(product?.slug);
+  const shouldFetchMedia = !deferMediaFetch && !providedMedia;
+  const { media: fetchedMedia } = useProductMedia(shouldFetchMedia ? product?.slug : null);
+  const media = providedMedia ?? fetchedMedia;
 
   if (!product || product.mediaStatus !== 'live') return null;
 
@@ -19,8 +21,8 @@ export default function ProductCard({ product }) {
   //   cardImage  = clean_product_shot (contain) or hero_product_dark (contain)
   //   hoverImage = model_full_outfit (cover) — null if slot is empty
   // Local webp fallback for legacy products if Supabase returns nothing
-  const cardImage  = media?.cardImage  ?? product.image;
-  const hoverImage = media?.hoverImage ?? product.hoverImage ?? null;
+  const cardImage  = product.image ?? media?.cardImage;
+  const hoverImage = product.hoverImage ?? media?.hoverImage ?? null;
   // Only swap on hover if we have a confirmed model/outfit image
   const hasHover   = Boolean(hoverImage);
 
