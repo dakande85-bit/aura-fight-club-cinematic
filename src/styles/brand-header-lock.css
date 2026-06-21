@@ -97,6 +97,11 @@
     z-index: 20000 !important;
   }
 
+  .header__nav,
+  .header__cta--desktop {
+    display: none !important;
+  }
+
   .header__logo.aura-logo-lockup {
     width: clamp(132px, 40vw, 168px) !important;
     min-width: clamp(132px, 40vw, 168px) !important;

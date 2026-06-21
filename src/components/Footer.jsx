@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import '../styles/footer.css';
 
 const SHOP_LINKS = [
+  { label: 'Drops', href: '/drops' },
   { label: 'Drop 001', href: '/drop-001' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
@@ -11,8 +12,8 @@ const SHOP_LINKS = [
 const WORLD_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Aura', href: '/cinematic' },
-  { label: 'The Campaign', href: '/campaign' },
   { label: 'Our Story', href: '/our-story' },
+  { label: 'The Campaign', href: '/campaign' },
   { label: 'Fight Club', href: '/fight-club' },
 ];
 

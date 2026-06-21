@@ -3,6 +3,7 @@ import HomeStaticHero from './components/HomeStaticHero.jsx';
 import LaunchLandingPage from './pages/LaunchLandingPage.jsx';
 import CinematicPage from './pages/CinematicPage.jsx';
 import CampaignPage from './pages/CampaignPage.jsx';
+import DropsPage from './pages/Drops.jsx';
 import Drop001Page from './pages/Drop001.jsx';
 import ProductDetailPage from './pages/ProductDetailRoute.jsx';
 import ApparelPage from './pages/Apparel.jsx';
@@ -25,6 +26,7 @@ export default function AppRouter() {
         <Route path="/" element={<HomeStaticHero />} />
         <Route path="/launch" element={<LaunchLandingPage />} />
         <Route path="/cinematic" element={<CinematicPage />} />
+        <Route path="/drops" element={<DropsPage />} />
         <Route path="/drop-001" element={<Drop001Page />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
         <Route path="/apparel" element={<ApparelPage />} />

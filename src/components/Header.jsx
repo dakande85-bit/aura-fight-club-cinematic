@@ -5,7 +5,7 @@ const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Aura', href: '/cinematic' },
   { label: 'Our Story', href: '/our-story' },
-  { label: 'Drop 001', href: '/drop-001' },
+  { label: 'Drops', href: '/drops' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
   { label: 'Equipment', href: '/equipment' },
