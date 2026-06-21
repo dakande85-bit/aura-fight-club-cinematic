@@ -4,7 +4,7 @@ export default function Footwear() {
     <CollectionPage
       category="Footwear"
       heading="Footwear"
-      subcopy="Fight-inspired footwear built for movement, rhythm, and everyday presence."
+      subcopy="Footwear remains in the Drop 002 pipeline as supplier-built gear. Sample required. Not part of Drop 001."
     />
   );
 }

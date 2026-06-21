@@ -24,7 +24,6 @@ export function useLiveProducts({ collection, category } = {}) {
           .or('archived.is.null,archived.eq.false')
           .order('sort_order', { ascending: true });
 
-        if (collection) query = query.eq('collection', collection);
         if (category) query = query.eq('category', category);
 
         const { data, error: sbError } = await query;
@@ -37,18 +36,22 @@ export function useLiveProducts({ collection, category } = {}) {
           return {
             slug: row.slug,
             name: row.name,
-            category: row.category,
-            collection: row.collection,
-            status: row.availability || 'waitlist',
+            category: localProduct?.category ?? row.category,
+            collection: localProduct?.collection ?? row.collection,
+            status: localProduct?.status ?? row.availability ?? 'waitlist',
             mediaStatus: 'live',
-            shortDesc: row.short_desc || '',
-            description: row.description || '',
-            details: Array.isArray(row.details) ? row.details : [],
+            shortDesc: localProduct?.shortDesc ?? row.short_desc ?? '',
+            description: localProduct?.description ?? row.description ?? '',
+            details: localProduct?.details ?? (Array.isArray(row.details) ? row.details : []),
             price: row.price_gbp,
             image: localProduct?.image ?? null,
             hoverImage: localProduct?.hoverImage ?? null,
             gallery: localProduct?.gallery ?? [],
           };
+        }).filter((product) => {
+          if (collection && product.collection !== collection) return false;
+          if (category && product.category !== category) return false;
+          return true;
         });
 
         setProducts(shaped);

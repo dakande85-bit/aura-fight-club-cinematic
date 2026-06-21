@@ -1,14 +1,7 @@
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
+import { dropOneCategories, dropOnePipeline, dropTwoPipeline } from '../data/products.js';
 import '../styles/drops.css';
-
-const currentCategories = [
-  'Heavyweight tees',
-  'Hoodies',
-  'Sweatshirts',
-  'Caps / beanies',
-  'Campaign posters',
-];
 
 const upcomingCandidates = [
   'AURA boxing-style casual shoes',
@@ -21,15 +14,7 @@ const upcomingCandidates = [
   'AURA compression/performance wear',
 ];
 
-const pipeline = [
-  { product: 'AURA Fight Club Apparel', drop: 'Drop 001', stage: 'POD setup', status: 'Waitlist opening' },
-  { product: 'AURA Campaign Posters', drop: 'Drop 001', stage: 'POD setup', status: 'Launch candidate' },
-  { product: 'AURA Boxing-Style Shoe', drop: 'Drop 002', stage: 'Supplier research', status: 'Sample required' },
-  { product: 'AURA Sauna Suit', drop: 'Drop 002', stage: 'Supplier shortlist', status: 'Sample required' },
-  { product: 'AURA Boxing Gloves', drop: 'Drop 002', stage: 'Supplier shortlist', status: 'Quality testing required' },
-  { product: 'AURA Fight Bag', drop: 'Drop 002', stage: 'Design phase', status: 'Supplier quote needed' },
-  { product: 'AURA Premium Tracksuit', drop: 'Drop 002', stage: 'Supplier research', status: 'Fabric sample required' },
-];
+const pipeline = [...dropOnePipeline, ...dropTwoPipeline];
 
 function DropCard({ eyebrow, title, status, copy, items, cta, href }) {
   return (
@@ -58,7 +43,7 @@ export default function Drops() {
           <h1>DROPS</h1>
           <p className="drops-subtitle">CURRENT RELEASES. UPCOMING GEAR. WAITLIST ACCESS.</p>
           <p className="drops-hero__copy">
-            AURA drops are released in stages. Drop 001 begins with POD-ready apparel and campaign pieces. Drop 002 moves into supplier-built fight lifestyle gear after samples, quality checks, and production approval.
+            AURA drops are released in stages. Drop 001 begins with launch-ready essentials for Men & Women. Drop 002 moves into supplier-built fight lifestyle gear only after samples, materials, fit, and production quality meet the AURA standard.
           </p>
           <div className="drops-actions">
             <a className="drops-btn drops-btn--primary" href="/drop-001">VIEW DROP 001</a>
@@ -73,10 +58,10 @@ export default function Drops() {
           </div>
           <DropCard
             eyebrow="DROP 001"
-            title="DROP 001 - POD LAUNCH"
-            status="COMING SOON / WAITLIST"
-            copy="The first AURA release focuses on premium POD-ready apparel and campaign pieces that can launch quickly through Gelato or Printful while supplier-built gear is developed properly."
-            items={currentCategories}
+            title="DROP 001 - MEN & WOMEN"
+            status="POD LAUNCH / WAITLIST"
+            copy="Drop 001 starts with clean, launch-ready AURA essentials for men and women. These pieces are built around the core Fight Club identity and prepared for POD fulfilment through Gelato or Printful where available."
+            items={dropOneCategories}
             cta="View Drop 001"
             href="/drop-001"
           />
@@ -91,7 +76,7 @@ export default function Drops() {
             eyebrow="DROP 002"
             title="DROP 002 - SUPPLIER-BUILT GEAR"
             status="IN DEVELOPMENT"
-            copy="Drop 002 is reserved for products that need supplier conversations, samples, testing, and quality control before launch. These products should not go live until materials, fit, sizing, and production quality are confirmed."
+            copy="Drop 002 moves into supplier-built gear. These pieces stay in development until samples, materials, fit, and production quality meet the AURA standard."
             items={upcomingCandidates}
             cta="Join Drop 002 Waitlist"
             href="#waitlist"
@@ -103,7 +88,7 @@ export default function Drops() {
             <p className="drops-eyebrow">ROADMAP</p>
             <h2 id="pipeline-title">PRODUCT PIPELINE</h2>
             <p>
-              The pipeline shows what is ready to launch, what needs supplier approval, and what is being prepared for future drops.
+              The pipeline shows what is ready for POD waitlist launch, what needs supplier approval, and what is being prepared for future drops.
             </p>
           </div>
           <div className="drops-pipeline__grid">
@@ -161,7 +146,7 @@ export default function Drops() {
           <p className="drops-eyebrow">DROP 001 STARTS THE STANDARD</p>
           <h2 id="drops-closing-title">DROP 001 STARTS THE STANDARD</h2>
           <p>
-            AURA launches with what can be delivered cleanly first. The serious gear follows only after samples, suppliers, and quality checks are ready.
+            AURA launches with what can be delivered cleanly first. The supplier-built gear follows only after samples, suppliers, and quality checks are ready.
           </p>
           <div className="drops-actions">
             <a className="drops-btn drops-btn--primary" href="/drop-001">View Drop 001</a>

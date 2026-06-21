@@ -89,7 +89,7 @@ const CONTENT = {
       eyebrow: 'Drop 001',
       title: 'PART OF DROP 001',
       copy:
-        'The first release establishes the AURA uniform: apparel, footwear, and equipment shaped around discipline, presence, and the internal fight.',
+        'Drop 001 apparel focuses on T-Shirts, Hoodies, Joggers, and Tank Tops for men and women. Supplier-built apparel remains in the next drop pipeline.',
       cta: { label: 'View Drop 001', to: '/drop-001' },
     },
     finalCta: {
@@ -105,12 +105,12 @@ const CONTENT = {
       label: 'AURA FOOTWEAR',
       headline: 'MOVEMENT BEFORE\nIMPACT',
       copy:
-        'Footwear built around control, rhythm, and the steps nobody studies until they lose the round.',
+        'Footwear built around control and rhythm, held for Drop 002 until supplier samples are approved.',
       image: '/campaign/sparring/sparring-09.webp',
       imagePosition: 'center 34%',
       ctas: [
-        { label: 'Shop Footwear', to: '#footwear-lineup', variant: 'primary', scroll: true },
-        { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
+        { label: 'View Pipeline', to: '/drops', variant: 'primary' },
+        { label: 'Join Waitlist', to: '/fight-club', variant: 'ghost' },
       ],
     },
     story: {
@@ -127,10 +127,10 @@ const CONTENT = {
       { src: '/assets/category-support/footwear-black-high.webp', alt: 'AURA black high-top fight boots' },
     ],
     lineup: {
-      eyebrow: 'Product Lineup',
-      title: 'FOOTWEAR LINEUP',
+      eyebrow: 'Drop 002 Pipeline',
+      title: 'FOOTWEAR PIPELINE',
       copy:
-        'Fight-inspired footwear built around movement, rhythm, and everyday training identity. Explore the silhouettes anchoring the AURA uniform from the ground up.',
+        'Fight-inspired footwear stays upcoming, not live. Each silhouette needs supplier research, samples, fit checks, and production approval.',
     },
     useCases: {
       eyebrow: 'Use Cases',
@@ -172,16 +172,16 @@ const CONTENT = {
       ],
     },
     dropConnection: {
-      eyebrow: 'Drop 001',
-      title: 'PART OF DROP 001',
+      eyebrow: 'Drop 002 Candidate',
+      title: 'SUPPLIER SAMPLE REQUIRED',
       copy:
-        'Footwear anchors the first AURA release from the ground up, connecting movement, apparel, and equipment into one disciplined uniform.',
-      cta: { label: 'View Drop 001', to: '/drop-001' },
+        'Footwear is not part of Drop 001. These products remain in the Drop 002 pipeline until samples, fit, and production quality are approved.',
+      cta: { label: 'View Drops', to: '/drops' },
     },
     finalCta: {
       title: 'ENTER THE FIRST CIRCLE',
       copy:
-        'Join the waitlist for early access to AURA footwear releases, Drop 001 updates, and the first circle of the fight club.',
+        'Join the waitlist for Drop 002 footwear updates when samples are approved.',
       cta: { label: 'Join Waitlist', href: '/fight-club' },
     },
   },
@@ -191,12 +191,12 @@ const CONTENT = {
       label: 'AURA EQUIPMENT',
       headline: 'TOOLS FOR\nDISCIPLINE',
       copy:
-        'Training equipment for daily preparation, consistency, and the routine of getting sharper.',
+        'Steel Water Bottle belongs to the Drop 001 POD candidate list. Supplier-built fight tools remain Drop 002 candidates.',
       image: '/campaign/heavy-bag/heavy-bag-07.webp',
       imagePosition: 'center 30%',
       ctas: [
-        { label: 'Shop Equipment', to: '#equipment-lineup', variant: 'primary', scroll: true },
-        { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
+        { label: 'View Pipeline', to: '/drops', variant: 'primary' },
+        { label: 'Join Waitlist', to: '/fight-club', variant: 'ghost' },
       ],
     },
     story: {
@@ -213,10 +213,10 @@ const CONTENT = {
       { src: '/assets/category-support/equipment-gloves-grip.webp', alt: 'AURA cream grip training gloves' },
     ],
     lineup: {
-      eyebrow: 'Product Lineup',
-      title: 'EQUIPMENT LINEUP',
+      eyebrow: 'Drop 001 / Drop 002',
+      title: 'EQUIPMENT PIPELINE',
       copy:
-        'Training tools built around preparation, consistency, and the daily ritual of becoming sharper.',
+        'Steel Water Bottle is a Drop 001 POD candidate. Gloves, wraps, bags, and training tools stay upcoming until supplier approval.',
     },
     useCases: {
       eyebrow: 'Use Cases',
@@ -258,16 +258,16 @@ const CONTENT = {
       ],
     },
     dropConnection: {
-      eyebrow: 'Drop 001',
-      title: 'PART OF DROP 001',
+      eyebrow: 'Drop 002 Candidate',
+      title: 'SUPPLIER SAMPLE REQUIRED',
       copy:
-        'Equipment completes the AURA training uniform, connecting apparel, footwear, and training tools into one disciplined first release.',
-      cta: { label: 'View Drop 001', to: '/drop-001' },
+        'Supplier-built equipment is not part of Drop 001. It remains visible in the pipeline until samples and quality checks meet the AURA standard.',
+      cta: { label: 'View Drops', to: '/drops' },
     },
     finalCta: {
       title: 'ENTER THE FIRST CIRCLE',
       copy:
-        'Join the waitlist for early access to AURA equipment releases and Drop 001 updates.',
+        'Join the waitlist for Drop 001 bottle updates and Drop 002 equipment sample approvals.',
       cta: { label: 'Join Waitlist', href: '/fight-club' },
     },
   },

@@ -91,7 +91,7 @@ export default function LaunchLandingPage() {
             <h1>Your aura is earned.</h1>
             <p className="launch-hero__lead">
               A cinematic boxing lifestyle brand built around discipline, presence, and the training culture behind the fighter.
-              Drop 001 begins with the first uniform: boots, gloves, and the pieces worn before the lights come on.
+              Drop 001 begins with the first essentials: T-Shirts, Hoodies, Steel Water Bottles, Joggers, and Tank Tops for men and women.
             </p>
             <div className="launch-actions">
               <a className="launch-btn launch-btn--primary" href="#waitlist">Join Waitlist</a>
@@ -99,7 +99,7 @@ export default function LaunchLandingPage() {
               <a className="launch-btn launch-btn--ghost" href="/cinematic">View Cinematic</a>
             </div>
             <div className="launch-hero__stats" aria-label="Launch highlights">
-              <div className="launch-stat"><strong>Drop 001</strong><span>Apparel, footwear, and equipment built as one training uniform.</span></div>
+              <div className="launch-stat"><strong>Drop 001</strong><span>POD candidates for men and women. Supplier-built gear moves to Drop 002.</span></div>
               <div className="launch-stat"><strong>Waitlist</strong><span>Early access before the public product release.</span></div>
               <div className="launch-stat"><strong>Fight identity</strong><span>The real fight is internal. The opponent is just the mirror.</span></div>
             </div>

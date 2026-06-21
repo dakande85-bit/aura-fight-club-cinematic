@@ -14,19 +14,19 @@ const heroCopy = {
   footwear: {
     label: 'AURA FOOTWEAR',
     headline: 'MOVEMENT BEFORE\nIMPACT',
-    copy: 'Footwear built around control, rhythm, and the steps nobody studies until they lose the round.',
+    copy: 'Footwear sits in the Drop 002 pipeline until supplier samples, fit, and production quality are approved.',
     ctas: [
-      { label: 'Shop Footwear', to: '/footwear', variant: 'primary' },
-      { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
+      { label: 'View Pipeline', to: '/drops', variant: 'primary' },
+      { label: 'Join Waitlist', to: '/fight-club', variant: 'ghost' },
     ],
   },
   equipment: {
     label: 'AURA EQUIPMENT',
     headline: 'TOOLS FOR\nDISCIPLINE',
-    copy: 'Training equipment for daily preparation, consistency, and the routine of getting sharper.',
+    copy: 'Steel Water Bottle is allowed for Drop 001. Supplier-built fight tools stay in the Drop 002 pipeline.',
     ctas: [
-      { label: 'Shop Equipment', to: '/equipment', variant: 'primary' },
-      { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
+      { label: 'View Pipeline', to: '/drops', variant: 'primary' },
+      { label: 'Join Waitlist', to: '/fight-club', variant: 'ghost' },
     ],
   },
 };

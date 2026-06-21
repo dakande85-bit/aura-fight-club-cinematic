@@ -25,6 +25,10 @@ function getActionLabel(status) {
   return status === 'waitlist' ? 'Join Waitlist' : 'Notify Me';
 }
 
+function getCollectionRoute(product) {
+  return product?.collection === 'Drop 001' ? '/drop-001' : '/drops';
+}
+
 function getCategoryRole(category) {
   return {
     Apparel: 'A training layer for the hours before, during, and after the work. It belongs in the AURA uniform because it keeps the look clean while the discipline stays loud in the routine.',
@@ -67,7 +71,7 @@ export default function ProductDetail({ product, onBack }) {
       <div className="pd-empty">
         <Header />
         <p>Product not found.</p>
-        {onBack && <button className="pd-back" onClick={onBack}>Back to Drop 001</button>}
+        {onBack && <button className="pd-back" onClick={onBack}>Back to Drops</button>}
       </div>
     );
   }
@@ -83,6 +87,8 @@ export default function ProductDetail({ product, onBack }) {
   const statusLabel = getStatusLabel(product.status);
   const actionLabel = getActionLabel(product.status);
   const categoryPath = categoryRoutes[product.category] || '/drop-001';
+  const collectionPath = getCollectionRoute(product);
+  const collectionLabel = product.collection === 'Drop 001' ? 'View Drop 001' : 'View Drops';
   const relatedCategories = ['Apparel', 'Footwear', 'Equipment'].filter((category) => category !== product.category);
   const detailCards = getProductCards(product);
 
@@ -91,7 +97,7 @@ export default function ProductDetail({ product, onBack }) {
       <Header />
       <main>
         <nav className="pd-nav" aria-label="Product navigation">
-          {onBack && <button className="pd-back" onClick={onBack}>Back to Drop 001</button>}
+          {onBack && <button className="pd-back" onClick={onBack}>Back to Drops</button>}
           <span className="pd-nav-logo">AURA PRODUCT</span>
         </nav>
 
@@ -136,8 +142,8 @@ export default function ProductDetail({ product, onBack }) {
             </div>
 
             <div className="pd__cta-row" aria-label="Related product links">
-              <Link to="/drop-001">View Drop 001</Link>
-              <Link to={categoryPath}>Shop {product.category}</Link>
+              <Link to={collectionPath}>{collectionLabel}</Link>
+              <Link to={categoryPath}>{product.collection === 'Drop 001' ? 'Shop' : 'View'} {product.category}</Link>
             </div>
 
             {product.shortDesc ? <p className="pd__short">{product.shortDesc}</p> : null}
@@ -179,7 +185,7 @@ export default function ProductDetail({ product, onBack }) {
         </section>
 
         <section className="pd-related" aria-label="Related navigation">
-          <Link to="/drop-001">Drop 001</Link>
+          <Link to={collectionPath}>{product.collection === 'Drop 001' ? 'Drop 001' : 'Drops'}</Link>
           <Link to={categoryPath}>{product.category}</Link>
           {relatedCategories.map((category) => (
             <Link to={categoryRoutes[category]} key={category}>{category}</Link>

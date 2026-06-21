@@ -3,10 +3,10 @@ const equipmentContent = {
     label: 'AURA EQUIPMENT',
     headline: 'TOOLS FOR\nDISCIPLINE',
     copy:
-      'Training equipment for daily preparation, consistency, and the routine of getting sharper.',
+      'Steel Water Bottle belongs to Drop 001. Supplier-built fight tools stay in the Drop 002 pipeline until samples are approved.',
     ctas: [
-      { label: 'Shop Equipment', to: '#equipment-lineup', variant: 'primary', scroll: true },
-      { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
+      { label: 'View Pipeline', to: '/drops', variant: 'primary' },
+      { label: 'Join Waitlist', to: '/fight-club', variant: 'ghost' },
     ],
   },
   story: {
@@ -18,10 +18,10 @@ const equipmentContent = {
     ],
   },
   lineup: {
-    eyebrow: 'Product Lineup',
-    title: 'EQUIPMENT LINEUP',
+    eyebrow: 'Drop 001 / Drop 002',
+    title: 'EQUIPMENT PIPELINE',
     copy:
-      'Training tools built around preparation, consistency, and the daily ritual of becoming sharper.',
+      'Steel Water Bottle is a Drop 001 POD candidate. Gloves, wraps, bags, and training tools stay upcoming until supplier approval.',
   },
   useCases: {
     eyebrow: 'Use Cases',
@@ -63,16 +63,16 @@ const equipmentContent = {
     ],
   },
   dropConnection: {
-    eyebrow: 'Drop 001',
-    title: 'PART OF DROP 001',
+    eyebrow: 'Drop 002 Candidate',
+    title: 'SUPPLIER SAMPLE REQUIRED',
     copy:
-      'Equipment completes the AURA training uniform, connecting apparel, footwear, and training tools into one disciplined first release.',
-    cta: { label: 'View Drop 001', to: '/drop-001' },
+      'Supplier-built equipment is not part of Drop 001. It remains visible in the pipeline until samples and quality checks meet the AURA standard.',
+    cta: { label: 'View Drops', to: '/drops' },
   },
   finalCta: {
     title: 'ENTER THE FIRST CIRCLE',
     copy:
-      'Join the waitlist for early access to AURA equipment releases and Drop 001 updates.',
+      'Join the waitlist for Drop 001 bottle updates and Drop 002 equipment sample approvals.',
     cta: { label: 'Join Waitlist', href: '/fight-club' },
   },
 };

@@ -4,7 +4,7 @@ export default function Equipment() {
     <CollectionPage
       category="Equipment"
       heading="Equipment"
-      subcopy="Gloves, wraps, tools, and training essentials for the work behind the aura."
+      subcopy="Steel Water Bottle is a Drop 001 POD candidate. Gloves, wraps, bags, and fight tools remain Drop 002 supplier sample candidates."
     />
   );
 }

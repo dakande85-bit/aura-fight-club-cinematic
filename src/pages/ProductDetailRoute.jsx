@@ -10,7 +10,7 @@ export default function ProductDetailRoute() {
   return (
     <ProductDetail
       product={product}
-      onBack={() => navigate('/drop-001')}
+      onBack={() => navigate(product?.collection === 'Drop 001' ? '/drop-001' : '/drops')}
     />
   );
 }

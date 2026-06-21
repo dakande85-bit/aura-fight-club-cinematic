@@ -4,7 +4,7 @@ export default function Apparel() {
     <CollectionPage
       category="Apparel"
       heading="Apparel"
-      subcopy="The uniform for discipline, presence, and work nobody sees."
+      subcopy="Drop 001 apparel essentials for men and women: T-Shirts, Hoodies, Joggers, and Tank Tops prepared as POD candidates."
     />
   );
 }

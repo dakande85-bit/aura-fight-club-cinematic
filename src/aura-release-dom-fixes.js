@@ -51,35 +51,6 @@ function closeCinematicMenuOnNav(event) {
   if (event.target.closest?.('.sf-mobile-menu a')) setCinematicMenu(false);
 }
 
-function markModalClosedThisVisit() {
-  try {
-    window.sessionStorage.setItem('aura_modal_closed_this_visit', '1');
-  } catch (error) {
-    // Ignore storage errors in private/locked contexts.
-  }
-}
-
-function closeModalHard() {
-  markModalClosedThisVisit();
-  const modalOverlay = document.querySelector('.em-overlay');
-  if (!modalOverlay) return;
-  modalOverlay.remove();
-  document.querySelectorAll('.em-trigger').forEach(trigger => {
-    trigger.style.display = 'none';
-  });
-}
-
-function closeModalFromAnyCloseButton(event) {
-  const close = event.target.closest?.('.em-close, .em-backdrop');
-  if (!close) return;
-
-  event.preventDefault();
-  event.stopPropagation();
-  if (typeof event.stopImmediatePropagation === 'function') event.stopImmediatePropagation();
-
-  closeModalHard();
-}
-
 function applyReleaseFixes() {
   fixFooterLinks();
 }
@@ -90,13 +61,10 @@ if (typeof window !== 'undefined') {
 
   document.addEventListener('click', toggleCinematicMenu, true);
   document.addEventListener('click', closeCinematicMenuOnNav, true);
-  document.addEventListener('pointerdown', closeModalFromAnyCloseButton, true);
-  document.addEventListener('click', closeModalFromAnyCloseButton, true);
 
   window.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
       setCinematicMenu(false);
-      closeModalHard();
     }
   });
 
