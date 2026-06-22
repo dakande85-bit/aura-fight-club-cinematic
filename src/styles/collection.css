@@ -97,6 +97,7 @@
 .col-feature-media img {
   display: block;
   width: min(900px, 100%);
+  height: clamp(280px, 46vw, 560px);
   max-height: 560px;
   margin: 0 auto;
   object-fit: contain;
@@ -146,6 +147,8 @@
 
 .col-grid--concept {
   background: rgba(200,169,110,0.16);
+  gap: clamp(14px,1.6vw,22px);
+  background: transparent;
 }
 
 .col-concept-card {

@@ -1,6 +1,7 @@
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
-import { dropOneCategories, dropOnePipeline, dropTwoPipeline } from '../data/products.js';
+import LaunchProductCard from '../components/LaunchProductCard.jsx';
+import { dropOneCategories, dropOnePipeline, dropOneProducts, dropTwoPipeline } from '../data/products.js';
 import '../styles/drops.css';
 
 const upcomingCandidates = [
@@ -92,6 +93,11 @@ export default function Drops() {
             image={dropImages.drop001}
             imageAlt="Drop 001 cream AURA uniform on model"
           />
+          <div className="drops-product-preview" aria-label="Drop 001 product preview">
+            {dropOneProducts.map((product) => (
+              <LaunchProductCard product={product} compact key={product.slug} />
+            ))}
+          </div>
         </section>
 
         <section className="drops-section drops-section--split" aria-labelledby="upcoming-drop-title">
@@ -137,6 +143,10 @@ export default function Drops() {
                 </dl>
               </article>
             ))}
+          </div>
+          <div className="drops-actions drops-actions--pipeline">
+            <a className="drops-btn drops-btn--primary" href="/fight-club">JOIN WAITLIST</a>
+            <a className="drops-btn drops-btn--ghost" href="/drop-001">VIEW DROP 001</a>
           </div>
         </section>
 

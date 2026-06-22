@@ -4,10 +4,10 @@ import ProductCard from '../components/ProductCard.jsx';
 import Footer from '../components/Footer.jsx';
 import CategoryExtras, { CategoryLineupIntro } from '../components/CategoryExtras.jsx';
 import ControlledCategoryHero from '../components/ControlledCategoryHero.jsx';
+import LaunchProductCard from '../components/LaunchProductCard.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import { useAllProductMedia } from '../hooks/useProductMedia.js';
-import { dropOneProducts } from '../data/products.js';
-import apparelFeatureImage from '../assets/generated/fightClubHeroUserAttachedData.js';
+import { dropOneApparelProducts } from '../data/products.js';
 import '../styles/collection.css';
 
 export default function CollectionPage({ category, heading, subcopy }) {
@@ -17,8 +17,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
   const key = String(category || '').toLowerCase();
   const isLaunchApparel = key === 'apparel';
   const isFutureCategory = key === 'footwear' || key === 'equipment';
-  const dropOneApparel = dropOneProducts.filter((product) => ['T-Shirt', 'Hoodie', 'Joggers', 'Tank Top'].includes(product.category));
-  const safeProducts = isLaunchApparel ? dropOneApparel : (products || []);
+  const safeProducts = isLaunchApparel ? dropOneApparelProducts : (products || []);
   const gridClass = safeProducts.length === 1 ? 'col-grid col-grid--single' : 'col-grid';
 
   return (
@@ -51,7 +50,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
 
       {key === 'apparel' && (
         <section className="col-feature-media" aria-label="AURA apparel editorial image">
-          <img src={apparelFeatureImage} alt="AURA Fight Club apparel editorial" />
+          <img src="/assets/category-support/apparel-cream-jacket.webp" alt="AURA Fight Club apparel editorial" loading="lazy" decoding="async" />
         </section>
       )}
 
@@ -63,12 +62,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
         ) : isLaunchApparel ? (
           <div className="col-grid col-grid--concept">
             {safeProducts.map((product) => (
-              <article className="col-concept-card" key={product.name}>
-                <p>{product.category}</p>
-                <h2>{product.name}</h2>
-                <span>{product.audience}</span>
-                <small>{product.status}</small>
-              </article>
+              <LaunchProductCard product={product} key={product.slug} />
             ))}
           </div>
         ) : safeProducts.length > 0 ? (

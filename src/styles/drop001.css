@@ -105,16 +105,35 @@
 .d001__grid-wrap {
   padding: 28px clamp(20px,5vw,64px) clamp(48px,6vw,96px);
 }
+
+.d001__lineup-title {
+  max-width: 920px;
+  margin: 18px 0 0;
+  color: #f4f1ea;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 900;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.d001__lineup-copy {
+  max-width: 760px;
+  margin: 20px 0 30px;
+  color: rgba(244,241,234,0.68);
+  font-size: clamp(0.98rem,1.2vw,1.08rem);
+  line-height: 1.72;
+}
+
 .d001__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: clamp(10px,1.2vw,16px);
+  gap: clamp(14px,1.6vw,22px);
 }
 
 .d001__grid--confirmed {
   background: transparent;
-  gap: 1px;
-  border: 1px solid rgba(200,169,110,0.16);
+  border: 0;
 }
 
 .d001-card {
@@ -176,6 +195,51 @@
   background: rgba(255,255,255,0.025);
 }
 
+.d001__waitlist {
+  display: grid;
+  gap: 16px;
+  margin-top: clamp(28px,4vw,46px);
+  border: 1px solid rgba(214,181,109,0.24);
+  padding: clamp(24px,4vw,42px);
+  background:
+    radial-gradient(circle at 85% 0%, rgba(214,181,109,0.12), transparent 34%),
+    #0a0908;
+}
+
+.d001__waitlist h2 {
+  margin: 0;
+  color: #fff8ec;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-size: clamp(2.7rem,6vw,6rem);
+  font-weight: 900;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.d001__waitlist p {
+  max-width: 660px;
+  margin: 0;
+  color: rgba(244,241,234,0.68);
+  line-height: 1.7;
+}
+
+.d001__waitlist a {
+  min-height: 52px;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d6b56d;
+  background: #d6b56d;
+  color: #060504;
+  padding: 0 22px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
 .d001__note p {
   max-width: 860px;
   margin: 0;
@@ -210,4 +274,5 @@
   .d001__eyebrow  { font-size: 10px; }
   .d001__meta     { font-size: 10px; }
   .d001-card dl div { grid-template-columns: 1fr; gap: 5px; }
+  .d001__waitlist a { width: 100%; }
 }
