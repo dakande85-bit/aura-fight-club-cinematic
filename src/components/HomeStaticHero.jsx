@@ -4,10 +4,10 @@ import { homepageHeroMedia } from '../data/auraMediaManifest.js';
 
 const HERO_IMAGE = homepageHeroMedia.source;
 
-export default function HomeStaticHero() {
+export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' }) {
   return (
     <div className="home-static" aria-label="AURA Fight Club homepage">
-      <Header />
+      {showHeader && <Header />}
       <PageHero
         label="AURA FIGHT CLUB"
         headline={'YOUR AURA\nIS EARNED.'}
@@ -19,6 +19,7 @@ export default function HomeStaticHero() {
         imageWidth="1122"
         imageHeight="1402"
         className="ph--home"
+        headingLevel={headingLevel}
         ctas={[
           { label: 'Explore Drop 001', to: '/drop-001', variant: 'primary' },
           { label: 'Enter Fight Club', to: '/fight-club', variant: 'ghost' },

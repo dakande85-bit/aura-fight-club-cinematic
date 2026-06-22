@@ -33,8 +33,10 @@ export default function PageHero({
   imageHeight,
   align = 'left',
   className = '',
+  headingLevel = 'h1',
 }) {
   const lines = String(headline || '').split('\n').filter(Boolean);
+  const Heading = headingLevel === 'h2' ? 'h2' : 'h1';
   const safeImagePosition = imagePosition || 'center center';
   const safeImageFit = imageFit || 'contain';
   const safeImageScale = Number(imageScale) || 1;
@@ -66,11 +68,11 @@ export default function PageHero({
       <div className="ph__content">
         {label && <p className="ph__label">{label}</p>}
         {lines.length > 0 && (
-          <h1 className="ph__headline">
+          <Heading className="ph__headline">
             {lines.map(line => (
               <span key={line}>{line}</span>
             ))}
-          </h1>
+          </Heading>
         )}
         {copy && <p className="ph__copy">{copy}</p>}
         {ctas.length > 0 && (
