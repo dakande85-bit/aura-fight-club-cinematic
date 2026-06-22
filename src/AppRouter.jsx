@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomeStaticHero from './components/HomeStaticHero.jsx';
 import LaunchLandingPage from './pages/LaunchLandingPage.jsx';
 import CinematicPage from './pages/CinematicPage.jsx';
@@ -10,7 +10,6 @@ import ApparelPage from './pages/Apparel.jsx';
 import FootwearPage from './pages/Footwear.jsx';
 import EquipmentPage from './pages/Equipment.jsx';
 import FightClubPage from './pages/FightClub.jsx';
-import OurStoryPage from './pages/OurStory.jsx';
 import AdminAssetManager from './pages/AdminAssetManager.jsx';
 import AdminPageMedia from './pages/AdminPageMedia.jsx';
 import AdminLaunchChecklist from './pages/AdminLaunchChecklist.jsx';
@@ -32,7 +31,7 @@ export default function AppRouter() {
         <Route path="/apparel" element={<ApparelPage />} />
         <Route path="/footwear" element={<FootwearPage />} />
         <Route path="/equipment" element={<EquipmentPage />} />
-        <Route path="/our-story" element={<OurStoryPage />} />
+        <Route path="/our-story" element={<Navigate to="/cinematic#who-we-are" replace />} />
         <Route path="/campaign" element={<CampaignPage />} />
         <Route path="/the-campaign" element={<CampaignPage />} />
         <Route path="/fight-club" element={<FightClubPage />} />

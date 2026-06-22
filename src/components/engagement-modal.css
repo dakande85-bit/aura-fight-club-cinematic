@@ -160,16 +160,22 @@
   }
 
   .em-overlay {
-    align-items: center;
-    padding: 12px;
+    align-items: flex-start;
+    justify-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: calc(env(safe-area-inset-top, 0px) + 14px) 12px calc(env(safe-area-inset-bottom, 0px) + 28px);
   }
 
   .em-modal {
     width: 100%;
-    max-height: calc(100svh - 24px);
+    max-height: none;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow: visible;
   }
 
   .em-close {
@@ -201,7 +207,7 @@
 
   .em-modal__content {
     order: 2;
-    padding: 28px 24px 30px;
+    padding: 28px 24px calc(env(safe-area-inset-bottom, 0px) + 34px);
   }
 
   .em-modal h2 {

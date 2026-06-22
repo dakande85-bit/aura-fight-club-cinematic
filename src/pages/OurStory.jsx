@@ -106,16 +106,13 @@ function StoryImage({ src, alt, eager = false }) {
   );
 }
 
-export default function OurStory() {
+export function WhoWeAreSections({ title = 'WHO WE ARE' }) {
   return (
-    <div className="os-page">
-      <Header />
-
-      <main>
+    <main id="who-we-are">
         <section className="os-hero" aria-labelledby="our-story-title">
           <div className="os-hero__content">
-            <p className="os-eyebrow">AURA FIGHT CLUB</p>
-            <h1 id="our-story-title">OUR STORY</h1>
+            <p className="os-eyebrow">AURA FIGHT CLUB / OUR STORY</p>
+            <h1 id="our-story-title">{title}</h1>
             <p className="os-hero__subtitle">DISCIPLINE. SACRIFICE. DESTINY.</p>
             <p className="os-hero__copy">
               AURA Fight Club was built for the fighter before the fight - the unseen miles, the silent rounds, the private pressure, and the decision to become someone different before anyone else sees it.
@@ -199,7 +196,14 @@ export default function OurStory() {
           </div>
         </section>
       </main>
+  );
+}
 
+export default function OurStory() {
+  return (
+    <div className="os-page">
+      <Header />
+      <WhoWeAreSections />
       <Footer />
     </div>
   );

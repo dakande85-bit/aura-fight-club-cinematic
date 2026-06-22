@@ -244,10 +244,23 @@
 }
 
 @media (max-width: 740px) {
+  .em-overlay {
+    align-items: flex-start !important;
+    justify-items: center !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: calc(env(safe-area-inset-top, 0px) + 14px) 12px calc(env(safe-area-inset-bottom, 0px) + 28px) !important;
+  }
+
   .em-modal {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
+    max-height: none !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
   }
 
   .em-modal__media {
@@ -268,7 +281,7 @@
 
   .em-modal__content {
     order: 2 !important;
-    padding: 28px 24px 30px !important;
+    padding: 28px 24px calc(env(safe-area-inset-bottom, 0px) + 34px) !important;
   }
 
   .em-modal h2 {
