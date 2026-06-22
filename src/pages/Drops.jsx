@@ -16,9 +16,21 @@ const upcomingCandidates = [
 
 const pipeline = [...dropOnePipeline, ...dropTwoPipeline];
 
-function DropCard({ eyebrow, title, status, copy, items, cta, href }) {
+const dropImages = {
+  hero: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.webp',
+  drop001: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_01_cream_uniform_model.webp',
+  drop002: '/assets/category-support/equipment-gloves-grip.webp',
+  closing: '/assets/category-support/footwear-cream-high.webp',
+};
+
+function DropCard({ eyebrow, title, status, copy, items, cta, href, image, imageAlt }) {
   return (
     <article className="drops-card">
+      {image && (
+        <div className="drops-card__media">
+          <img src={image} alt={imageAlt} loading="lazy" decoding="async" />
+        </div>
+      )}
       <div className="drops-card__head">
         <p>{eyebrow}</p>
         <span>{status}</span>
@@ -39,15 +51,28 @@ export default function Drops() {
       <Header />
       <main>
         <section className="drops-hero">
-          <p className="drops-eyebrow">AURA FIGHT CLUB</p>
-          <h1>DROPS</h1>
-          <p className="drops-subtitle">CURRENT RELEASES. UPCOMING GEAR. WAITLIST ACCESS.</p>
-          <p className="drops-hero__copy">
-            AURA drops are released in stages. Drop 001 begins with launch-ready essentials for Men & Women. Drop 002 moves into supplier-built fight lifestyle gear only after samples, materials, fit, and production quality meet the AURA standard.
-          </p>
-          <div className="drops-actions">
-            <a className="drops-btn drops-btn--primary" href="/drop-001">VIEW DROP 001</a>
-            <a className="drops-btn drops-btn--ghost" href="#waitlist">JOIN WAITLIST</a>
+          <div className="drops-hero__content">
+            <p className="drops-eyebrow">AURA FIGHT CLUB</p>
+            <h1>DROPS</h1>
+            <p className="drops-subtitle">CURRENT RELEASES. UPCOMING GEAR. WAITLIST ACCESS.</p>
+            <p className="drops-hero__copy">
+              AURA drops are released in stages. Drop 001 begins with launch-ready essentials for Men & Women. Drop 002 moves into supplier-built fight lifestyle gear only after samples, materials, fit, and production quality meet the AURA standard.
+            </p>
+            <div className="drops-actions">
+              <a className="drops-btn drops-btn--primary" href="/drop-001">VIEW DROP 001</a>
+              <a className="drops-btn drops-btn--ghost" href="#waitlist">JOIN WAITLIST</a>
+            </div>
+          </div>
+          <div className="drops-hero__media">
+            <img
+              src={dropImages.hero}
+              alt="AURA Drop 001 cream training uniform"
+              width="1122"
+              height="1402"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+            />
           </div>
         </section>
 
@@ -64,6 +89,8 @@ export default function Drops() {
             items={dropOneCategories}
             cta="View Drop 001"
             href="/drop-001"
+            image={dropImages.drop001}
+            imageAlt="Drop 001 cream AURA uniform on model"
           />
         </section>
 
@@ -80,6 +107,8 @@ export default function Drops() {
             items={upcomingCandidates}
             cta="Join Drop 002 Waitlist"
             href="#waitlist"
+            image={dropImages.drop002}
+            imageAlt="AURA supplier-built equipment preview"
           />
         </section>
 
@@ -143,14 +172,19 @@ export default function Drops() {
         </section>
 
         <section className="drops-closing" aria-labelledby="drops-closing-title">
-          <p className="drops-eyebrow">DROP 001 STARTS THE STANDARD</p>
-          <h2 id="drops-closing-title">DROP 001 STARTS THE STANDARD</h2>
-          <p>
-            AURA launches with what can be delivered cleanly first. The supplier-built gear follows only after samples, suppliers, and quality checks are ready.
-          </p>
-          <div className="drops-actions">
-            <a className="drops-btn drops-btn--primary" href="/drop-001">View Drop 001</a>
-            <a className="drops-btn drops-btn--ghost" href="/fight-club">Enter Fight Club</a>
+          <div className="drops-closing__media">
+            <img src={dropImages.closing} alt="AURA cream high-top footwear preview" loading="lazy" decoding="async" />
+          </div>
+          <div className="drops-closing__copy">
+            <p className="drops-eyebrow">DROP 001 STARTS THE STANDARD</p>
+            <h2 id="drops-closing-title">DROP 001 STARTS THE STANDARD</h2>
+            <p>
+              AURA launches with what can be delivered cleanly first. The supplier-built gear follows only after samples, suppliers, and quality checks are ready.
+            </p>
+            <div className="drops-actions">
+              <a className="drops-btn drops-btn--primary" href="/drop-001">View Drop 001</a>
+              <a className="drops-btn drops-btn--ghost" href="/fight-club">Enter Fight Club</a>
+            </div>
           </div>
         </section>
       </main>

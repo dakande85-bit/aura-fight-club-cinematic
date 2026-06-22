@@ -11,8 +11,7 @@ const SHOP_LINKS = [
 
 const WORLD_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'Aura', href: '/cinematic' },
-  { label: 'Our Story', href: '/our-story' },
+  { label: 'Who We Are', href: '/who-we-are' },
   { label: 'The Campaign', href: '/campaign' },
   { label: 'Fight Club', href: '/fight-club' },
 ];

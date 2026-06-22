@@ -96,7 +96,7 @@ export default function LaunchLandingPage() {
             <div className="launch-actions">
               <a className="launch-btn launch-btn--primary" href="#waitlist">Join Waitlist</a>
               <a className="launch-btn launch-btn--ghost" href="/drop-001">Preview Drop 001</a>
-              <a className="launch-btn launch-btn--ghost" href="/cinematic">View Cinematic</a>
+              <a className="launch-btn launch-btn--ghost" href="/who-we-are">Who We Are</a>
             </div>
             <div className="launch-hero__stats" aria-label="Launch highlights">
               <div className="launch-stat"><strong>Drop 001</strong><span>POD candidates for men and women. Supplier-built gear moves to Drop 002.</span></div>

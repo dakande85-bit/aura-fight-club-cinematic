@@ -24,14 +24,15 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<HomeStaticHero />} />
         <Route path="/launch" element={<LaunchLandingPage />} />
-        <Route path="/cinematic" element={<CinematicPage />} />
+        <Route path="/who-we-are" element={<CinematicPage />} />
+        <Route path="/cinematic" element={<Navigate to="/who-we-are" replace />} />
         <Route path="/drops" element={<DropsPage />} />
         <Route path="/drop-001" element={<Drop001Page />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
         <Route path="/apparel" element={<ApparelPage />} />
         <Route path="/footwear" element={<FootwearPage />} />
         <Route path="/equipment" element={<EquipmentPage />} />
-        <Route path="/our-story" element={<Navigate to="/cinematic#who-we-are" replace />} />
+        <Route path="/our-story" element={<Navigate to="/who-we-are" replace />} />
         <Route path="/campaign" element={<CampaignPage />} />
         <Route path="/the-campaign" element={<CampaignPage />} />
         <Route path="/fight-club" element={<FightClubPage />} />

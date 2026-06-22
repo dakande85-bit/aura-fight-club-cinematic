@@ -69,8 +69,7 @@ function useAmbient(ref) {
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'Aura', href: '/cinematic' },
-  { label: 'Our Story', href: '/our-story' },
+  { label: 'Who We Are', href: '/who-we-are' },
   { label: 'Drop 001', href: '/drop-001' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
