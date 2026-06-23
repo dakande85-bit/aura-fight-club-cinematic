@@ -10,26 +10,26 @@ const categories = [
   {
     id: 'apparel',
     label: 'Apparel',
-    sub: 'Built for presence.',
+    sub: 'Fit, comfort, movement.',
     image: liveAssets.campaign.hoodie,
     cta: 'Explore Apparel',
-    href: '#drop',
+    href: '/apparel',
   },
   {
     id: 'footwear',
     label: 'Footwear',
-    sub: 'Move with control.',
-    image: null, // No LIVE footwear image — premium placeholder
-    cta: 'Coming Soon',
-    href: '#fight-club',
+    sub: 'Supplier samples required.',
+    image: null,
+    cta: 'View Pipeline',
+    href: '/footwear',
   },
   {
     id: 'equipment',
     label: 'Equipment',
-    sub: 'Train the unseen rounds.',
+    sub: 'Routine tools and accessories.',
     image: liveAssets.campaign.fighter,
     cta: 'Explore Equipment',
-    href: '#drop',
+    href: '/equipment',
   },
 ];
 
@@ -70,7 +70,7 @@ export default function CategoryPanels() {
 
   return (
     <section className="category-panels" id="categories" aria-label="Product categories">
-      <SectionLabel>The Collection</SectionLabel>
+      <SectionLabel>The Uniform</SectionLabel>
       <div className="category-panels__grid" ref={gridRef}>
         {categories.map(cat => (
           <a
