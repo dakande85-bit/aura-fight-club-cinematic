@@ -6,9 +6,9 @@ import SectionLabel from './SectionLabel.jsx';
 gsap.registerPlugin(ScrollTrigger);
 
 const lines = [
-  'Silence before\nthe fight.',
-  'Discipline before\nthe spotlight.',
-  'Presence before\nthe punch.',
+  'Fit that feels\nright.',
+  'Comfort that removes\ndistraction.',
+  'Presence you can\ncarry.',
 ];
 
 export default function BrandStatementScene() {
@@ -28,7 +28,6 @@ export default function BrandStatementScene() {
 
     const lineEls = section.querySelectorAll('.brand-statement__line');
 
-    // Stagger each line in as user scrolls
     lineEls.forEach((el, i) => {
       gsap.fromTo(el,
         { opacity: 0, y: 36 },
@@ -47,7 +46,6 @@ export default function BrandStatementScene() {
       );
     });
 
-    // Divider grows
     gsap.fromTo(dividerRef.current,
       { width: 0 },
       {
