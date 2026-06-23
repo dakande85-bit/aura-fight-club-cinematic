@@ -45,10 +45,10 @@ export default function DropReveal() {
       <SectionLabel>Drop 001</SectionLabel>
       <div className="drop-reveal__header">
         <h2 className="drop-reveal__title">
-          The First<br />Release.
+          Training<br />To Lifestyle.
         </h2>
         <div className="drop-reveal__meta">
-          <p>Limited run</p>
+          <p>POD candidates</p>
           <p>Waitlist only</p>
         </div>
       </div>
