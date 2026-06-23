@@ -6,81 +6,81 @@ const JOURNEY = [
   {
     number: '01',
     label: 'ROADWORK',
-    title: 'THE ROAD BEFORE THE WORLD WAKES',
-    body: 'Before the noise, before the gym, before the gloves are tied, the fighter moves. Roadwork is where the lungs open, the legs harden, and the mind learns to keep going without applause.',
-    micro: 'Discipline starts in silence.',
+    title: 'MILES BEFORE THE GYM',
+    body: 'Roadwork sets the baseline: lungs, legs, posture, and discipline. AURA is built for the training hours that shape how the body moves and how the frame carries clothing.',
+    micro: 'Start with the base.',
     image: '/assets/our-story/our-story-01-roadwork.webp',
     alt: 'AURA fighter running through a cold mountain road at dawn',
   },
   {
     number: '02',
     label: 'SHADOW BOXING',
-    title: 'FIGHTING THE INVISIBLE OPPONENT',
-    body: 'Shadow boxing is where rhythm becomes identity. Every step, feint, slip, and counter is rehearsed before pressure arrives. The fighter learns to move with control before the opponent is even real.',
-    micro: 'The opponent is just the mirror.',
+    title: 'CONTROL BEFORE CONTACT',
+    body: 'Shadow boxing is where balance, rhythm, range, and shape are refined. The same idea guides the clothing: minimal pieces that do not fight the movement.',
+    micro: 'Move clean first.',
     image: '/assets/our-story/our-story-02-shadow-boxing.webp',
     alt: 'AURA fighter shadow boxing in black training gear near the coast',
   },
   {
     number: '03',
     label: 'STRENGTH',
-    title: 'BUILT BEFORE IT IS SEEN',
-    body: 'Strength is not decoration. It is posture, structure, control, and the ability to hold form under pressure. The body becomes armour because the work is repeated when nobody cares.',
-    micro: 'Built by repetition.',
+    title: 'STRUCTURE THAT SHOWS',
+    body: 'Strength changes posture and silhouette. AURA pieces are designed to work with the frame: shoulders, chest, waist, legs, and the way a person stands after training.',
+    micro: 'Fit follows structure.',
     image: '/assets/our-story/our-story-03-strength.webp',
     alt: 'AURA fighter performing strength work on a pull-up bar at dawn',
   },
   {
     number: '04',
     label: 'RHYTHM',
-    title: 'THE ROPE TEACHES TIMING',
-    body: 'Skipping is not warm-up. It is rhythm, breath, balance, and footwork. The fighter learns to stay light, calm, and sharp while fatigue tries to steal coordination.',
-    micro: 'Timing beats speed.',
+    title: 'LIGHT FEET, CLEAN FIT',
+    body: 'Skipping teaches timing, coordination, and relaxed control. The product direction is the same: comfortable enough to move in, sharp enough to keep on after training.',
+    micro: 'Comfort removes noise.',
     image: '/assets/our-story/our-story-04-rhythm.webp',
     alt: 'AURA fighter skipping rope in black training gear above a city at sunrise',
   },
   {
     number: '05',
     label: 'POWER',
-    title: 'EVERY SHOT HAS A COST',
-    body: 'The heavy bag does not lie. It records every weakness in balance, breath, and intention. Power is not anger. Power is structure, timing, and the discipline to hit with purpose.',
-    micro: 'Pressure tested.',
+    title: 'CONTROLLED OUTPUT',
+    body: 'Power works only when the structure is right. AURA is not built around loud graphics. It is built around silhouette, restraint, and the confidence that comes from feeling put together.',
+    micro: 'No wasted movement.',
     image: '/assets/our-story/our-story-05-heavy-bag.webp',
     alt: 'AURA fighter training with impact and controlled power in a dark gym',
   },
   {
     number: '06',
     label: 'PRECISION',
-    title: 'CONTROL THE SMALL THINGS',
-    body: 'The ceiling ball sharpens what the crowd barely notices - eyes, timing, patience, and touch. Precision is the difference between movement and mastery.',
-    micro: 'Control creates aura.',
+    title: 'DETAILS MATTER',
+    body: 'Small details change the whole impression: sleeve length, shoulder shape, taper, weight, and where the branding sits. AURA is designed to stay minimal but intentional.',
+    micro: 'Clean details. Better presence.',
     image: '/assets/our-story/our-story-06-precision.webp',
     alt: 'AURA fighter training precision with a reflex ball in a cinematic gym',
   },
   {
     number: '07',
     label: 'PREPARATION',
-    title: 'THE QUIET RITUAL',
-    body: 'Wrapping the hands is the final private act before contact. It is protection, intention, and transition. The fighter leaves the ordinary world and enters the fight.',
-    micro: 'Prepare like it matters.',
+    title: 'READY WITHOUT EXCESS',
+    body: 'The goal is not costume fightwear. The goal is clothing that feels ready: training, recovery, travel, and daily life without changing identity between each one.',
+    micro: 'Train in it. Live in it.',
     image: '/assets/our-story/our-story-07-preparation.webp',
     alt: 'AURA fighter wrapping hands in a dark locker room before training',
   },
   {
     number: '08',
     label: 'SPARRING',
-    title: 'THE TEST BEFORE THE TEST',
-    body: 'Sparring exposes what training hides. Distance, fear, timing, ego, and composure all reveal themselves under pressure. This is where the fighter learns who he is when the answer comes back.',
-    micro: 'Composure under fire.',
+    title: 'TESTED UNDER PRESSURE',
+    body: 'Sparring shows what holds up. AURA will grow the same way: pieces stay in development until fit, materials, and quality match the standard.',
+    micro: 'Approval before release.',
     image: '/assets/our-story/our-story-08-sparring.webp',
     alt: 'Two AURA fighters sparring in a dark boxing ring',
   },
   {
     number: '09',
     label: 'ARRIVAL',
-    title: 'THE WALK INTO DESTINY',
-    body: 'By the time the fighter walks to the ring, the story is already written. The crowd sees the entrance. The fighter carries the miles, the rounds, the sacrifice, and the silence.',
-    micro: 'Your aura is earned.',
+    title: 'CARRY IT OUTSIDE',
+    body: 'The work changes how you carry yourself. AURA is for that space after training too: clean, minimal clothing that keeps the same presence outside the gym.',
+    micro: 'Carry your aura.',
     image: '/assets/our-story/our-story-09-arrival.webp',
     alt: 'AURA fighter moving toward the final stage of the journey at dawn',
   },
@@ -111,13 +111,13 @@ export function WhoWeAreSections({ title = 'WHO WE ARE' }) {
     <main id="who-we-are">
         <section className="os-hero" aria-labelledby="our-story-title">
           <div className="os-hero__content">
-            <p className="os-eyebrow">AURA FIGHT CLUB / OUR STORY</p>
+            <p className="os-eyebrow">AURA FIGHT CLUB / BRAND PHILOSOPHY</p>
             <h1 id="our-story-title">{title}</h1>
-            <p className="os-hero__subtitle">DISCIPLINE. SACRIFICE. DESTINY.</p>
+            <p className="os-hero__subtitle">FIT. COMFORT. PRESENCE.</p>
             <p className="os-hero__copy">
-              AURA Fight Club was built for the fighter before the fight - the unseen miles, the silent rounds, the private pressure, and the decision to become someone different before anyone else sees it.
+              AURA Fight Club was built from a simple problem: finding minimal training clothes that fit well, feel comfortable, and bring out the physique without looking loud or generic.
             </p>
-            <p className="os-hero__micro">Your aura is earned.</p>
+            <p className="os-hero__micro">Train in it. Live in it. Carry it.</p>
           </div>
 
           <StoryImage
@@ -130,24 +130,24 @@ export function WhoWeAreSections({ title = 'WHO WE ARE' }) {
         <section className="os-origin" aria-labelledby="origin-title">
           <div className="os-section-head">
             <p className="os-eyebrow">ORIGIN</p>
-            <h2 id="origin-title">THE REAL FIGHT IS INTERNAL</h2>
+            <h2 id="origin-title">THE FIT CHANGES THE FEEL</h2>
           </div>
           <div className="os-origin__copy">
             <p>
-              The opponent is only the mirror. Before the lights, before the crowd, before the first bell, the real fight has already started. It starts when nobody is watching. It starts when the body is tired, the mind is loud, and the easy choice is still available.
+              Most training clothes are either too plain, too loud, badly fitted, or built only for the gym. AURA sits between boxing, training, and lifestyle: pieces made to move well, fit clean, and carry outside of training.
             </p>
             <p>
-              AURA exists for that moment. The moment a fighter chooses discipline over emotion, repetition over comfort, and presence over noise.
+              When clothing feels right, you carry yourself differently. Comfort removes distraction. A clean silhouette builds confidence. Confidence and control create aura.
             </p>
           </div>
         </section>
 
         <section className="os-journey" aria-labelledby="journey-title">
           <div className="os-journey__intro">
-            <p className="os-eyebrow">THE WARRIOR JOURNEY</p>
-            <h2 id="journey-title">NINE STAGES BEFORE THE BELL</h2>
+            <p className="os-eyebrow">TRAINING TO LIFESTYLE</p>
+            <h2 id="journey-title">THE SYSTEM BEHIND THE PRODUCT</h2>
             <p>
-              Every fighter carries a story the crowd never sees. These are the stages that build the aura before the arena ever feels it.
+              AURA is designed around the whole training rhythm: roadwork, gym work, recovery, movement, and the hours after. The clothes should support the work and still look composed outside it.
             </p>
           </div>
 
@@ -170,29 +170,28 @@ export function WhoWeAreSections({ title = 'WHO WE ARE' }) {
         </section>
 
         <section className="os-manifesto" aria-labelledby="manifesto-title">
-          <p className="os-eyebrow">MANIFESTO</p>
-          <h2 id="manifesto-title">AURA IS NOT GIVEN</h2>
+          <p className="os-eyebrow">DESIGN STANDARD</p>
+          <h2 id="manifesto-title">AURA IS CARRIED</h2>
           <div className="os-manifesto__copy">
-            <p>AURA is not confidence. It is evidence.</p>
-            <p>Evidence of the miles.</p>
-            <p>Evidence of the rounds.</p>
-            <p>Evidence of the sacrifices nobody saw.</p>
-            <p>Evidence of the person you became before the world had permission to notice.</p>
+            <p>Minimal branding.</p>
+            <p>Strong silhouette.</p>
+            <p>Comfortable movement.</p>
+            <p>Training-to-lifestyle versatility.</p>
+            <p>Pieces that bring out the frame without shouting.</p>
             <p>The real fight is internal.</p>
-            <p>The opponent is just the mirror.</p>
             <p>Your aura is earned.</p>
           </div>
         </section>
 
         <section className="os-closing" aria-labelledby="closing-title">
           <p className="os-eyebrow">AURA FIGHT CLUB</p>
-          <h2 id="closing-title">FIGHT WITH PRESENCE</h2>
+          <h2 id="closing-title">MOVE WITH PRESENCE</h2>
           <p>
-            AURA Fight Club is built for the ones who train before the lights, move before the crowd, and carry discipline into every room they enter.
+            AURA is built for people who want training clothes that feel comfortable, fit clean, and make them feel composed before, during, and after the work.
           </p>
           <div className="os-actions" aria-label="Our Story actions">
             <a className="os-btn os-btn--primary" href="/drop-001">EXPLORE DROP 001</a>
-            <a className="os-btn os-btn--ghost" href="/fight-club">ENTER FIGHT CLUB</a>
+            <a className="os-btn os-btn--ghost" href="/fight-club">JOIN WAITLIST</a>
           </div>
         </section>
       </main>
