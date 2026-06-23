@@ -16,8 +16,8 @@ export default function Drop001() {
 
       <PageHero
         label="DROP 001 / MEN & WOMEN"
-        headline={'THE FIRST\nUNIFORM'}
-        copy="Drop 001 begins with the essentials - everyday AURA pieces built for the hours before the lights. Men's and women's launch products focused on identity, discipline, and clean wearability."
+        headline={'BUILT TO TRAIN.\nCUT TO CARRY.'}
+        copy="The first AURA release focuses on training-to-lifestyle essentials: T-shirts, hoodies, joggers, tank tops, and a steel water bottle. Clean silhouettes. Minimal branding. Comfortable pieces designed to move well and fit sharp."
         image={heroMedia.image}
         imagePosition={heroMedia.imagePosition}
         imageFit={heroMedia.imageFit}
@@ -33,7 +33,7 @@ export default function Drop001() {
         <p className="d001__meta">{productCountLabel}</p>
         <h2 className="d001__lineup-title">DROP 001 - MEN & WOMEN</h2>
         <p className="d001__lineup-copy">
-          T-Shirts. Hoodies. Steel Water Bottles. Joggers. Tank Tops. Every product below is a waitlist-only POD candidate until the launch window opens.
+          T-Shirts. Hoodies. Steel Water Bottles. Joggers. Tank Tops. Every product below stays waitlist-only until the POD supplier, mockup, and price are confirmed.
         </p>
 
         <div className="d001__grid d001__grid--confirmed">
@@ -44,14 +44,14 @@ export default function Drop001() {
 
         <section className="d001__waitlist" aria-labelledby="drop001-waitlist-title">
           <p className="d001__meta">Waitlist Opening</p>
-          <h2 id="drop001-waitlist-title">JOIN BEFORE THE DROP.</h2>
+          <h2 id="drop001-waitlist-title">JOIN THE DROP LIST.</h2>
           <p>Get first access when the Drop 001 POD candidates move from preview to release.</p>
           <a href="/fight-club">Join Waitlist</a>
         </section>
 
         <section className="d001__note" aria-label="Drop 001 scope">
           <p>Drop 001 only includes T-Shirts, Hoodies, Steel Water Bottles, Joggers, and Tank Tops.</p>
-          <p>Footwear, gloves, wraps, sauna suits, fight bags, tracksuits, and other supplier-built gear are reserved for the Drop 002 pipeline until samples are approved.</p>
+          <p>Footwear, gloves, wraps, sauna suits, fight bags, tracksuits, and performance wear remain in the Drop 002 pipeline until samples are approved.</p>
         </section>
       </div>
 
