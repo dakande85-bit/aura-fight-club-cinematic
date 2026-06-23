@@ -57,7 +57,7 @@ export default function Drops() {
             <h1>DROPS</h1>
             <p className="drops-subtitle">CURRENT RELEASES. UPCOMING GEAR. WAITLIST ACCESS.</p>
             <p className="drops-hero__copy">
-              AURA drops are released in stages. Drop 001 begins with launch-ready essentials for Men & Women. Drop 002 moves into supplier-built fight lifestyle gear only after samples, materials, fit, and production quality meet the AURA standard.
+              AURA drops are released in stages. Drop 001 starts with minimal training-to-lifestyle essentials for men and women. Drop 002 moves into supplier-built gear only after samples, fit, and production quality are approved.
             </p>
             <div className="drops-actions">
               <a className="drops-btn drops-btn--primary" href="/drop-001">VIEW DROP 001</a>
@@ -86,7 +86,7 @@ export default function Drops() {
             eyebrow="DROP 001"
             title="DROP 001 - MEN & WOMEN"
             status="POD LAUNCH / WAITLIST"
-            copy="Drop 001 starts with clean, launch-ready AURA essentials for men and women. These pieces are built around the core Fight Club identity and prepared for POD fulfilment through Gelato or Printful where available."
+            copy="Clean silhouettes, minimal branding, and comfortable pieces designed for training, movement, and casual wear. Drop 001 launches only when POD supplier, mockups, and pricing are confirmed."
             items={dropOneCategories}
             cta="View Drop 001"
             href="/drop-001"
@@ -109,7 +109,7 @@ export default function Drops() {
             eyebrow="DROP 002"
             title="DROP 002 - SUPPLIER-BUILT GEAR"
             status="IN DEVELOPMENT"
-            copy="Drop 002 moves into supplier-built gear. These pieces stay in development until samples, materials, fit, and production quality meet the AURA standard."
+            copy="Drop 002 is reserved for products that need samples, sizing checks, material approval, and supplier conversations before they can represent the AURA standard."
             items={upcomingCandidates}
             cta="Join Drop 002 Waitlist"
             href="#waitlist"
@@ -123,7 +123,7 @@ export default function Drops() {
             <p className="drops-eyebrow">ROADMAP</p>
             <h2 id="pipeline-title">PRODUCT PIPELINE</h2>
             <p>
-              The pipeline shows what is ready for POD waitlist launch, what needs supplier approval, and what is being prepared for future drops.
+              The pipeline shows what is being prepared for POD launch and what still needs supplier approval before release.
             </p>
           </div>
           <div className="drops-pipeline__grid">
@@ -155,7 +155,7 @@ export default function Drops() {
             <p className="drops-eyebrow">EARLY ACCESS</p>
             <h2 id="drops-waitlist-title">JOIN THE DROP LIST</h2>
             <p>
-              Join the AURA Drop List for early access to Drop 001 and updates when Drop 002 samples are approved.
+              Get Drop 001 access first and follow Drop 002 as samples, suppliers, and production decisions are approved.
             </p>
           </div>
           <form className="drops-form">
@@ -186,14 +186,14 @@ export default function Drops() {
             <img src={dropImages.closing} alt="AURA cream high-top footwear preview" loading="lazy" decoding="async" />
           </div>
           <div className="drops-closing__copy">
-            <p className="drops-eyebrow">DROP 001 STARTS THE STANDARD</p>
-            <h2 id="drops-closing-title">DROP 001 STARTS THE STANDARD</h2>
+            <p className="drops-eyebrow">AURA STANDARD</p>
+            <h2 id="drops-closing-title">RELEASE WHAT IS READY.</h2>
             <p>
-              AURA launches with what can be delivered cleanly first. The supplier-built gear follows only after samples, suppliers, and quality checks are ready.
+              AURA launches with products we can deliver cleanly first. Supplier-built gear follows only after the fit, materials, and quality are right.
             </p>
             <div className="drops-actions">
               <a className="drops-btn drops-btn--primary" href="/drop-001">View Drop 001</a>
-              <a className="drops-btn drops-btn--ghost" href="/fight-club">Enter Fight Club</a>
+              <a className="drops-btn drops-btn--ghost" href="/fight-club">Join Waitlist</a>
             </div>
           </div>
         </section>
