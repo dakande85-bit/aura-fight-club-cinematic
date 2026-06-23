@@ -10,8 +10,8 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
       {showHeader && <Header />}
       <PageHero
         label="AURA FIGHT CLUB"
-        headline={'YOUR AURA\nIS EARNED.'}
-        copy={'The real fight is internal.\nThe opponent is just the mirror.'}
+        headline={'TRAIN IN IT.\nLIVE IN IT.\nCARRY IT.'}
+        copy={'Minimal fight-lifestyle clothing built for training, movement, and everyday presence. Designed to fit clean, feel comfortable, and bring out the frame without shouting for attention.'}
         image={HERO_IMAGE}
         imageFit="contain"
         imagePosition="center center"
@@ -22,7 +22,7 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
         headingLevel={headingLevel}
         ctas={[
           { label: 'Explore Drop 001', to: '/drop-001', variant: 'primary' },
-          { label: 'Enter Fight Club', to: '/fight-club', variant: 'ghost' },
+          { label: 'Join Drop List', to: '/fight-club', variant: 'ghost' },
         ]}
       />
     </div>
