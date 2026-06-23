@@ -36,15 +36,15 @@ export default function FightClub() {
 
       <PageHero
         label="AURA FIGHT CLUB"
-        headline={'THE REAL FIGHT\nIS INTERNAL'}
-        copy="AURA Fight Club is the world behind the product: discipline, identity, training culture, and the presence earned before anyone is watching."
+        headline={'TRAINING CULTURE\nBEHIND THE BRAND'}
+        copy="AURA Fight Club is the waitlist and product culture behind the label: training, fit, movement, supplier development, and early access to each drop."
         image={heroMedia.image}
         imagePosition={heroMedia.imagePosition}
         imageFit={heroMedia.imageFit}
         imageScale={heroMedia.imageScale}
         className="ph--fight-club"
         ctas={[
-          { label: 'Enter Fight Club', to: '/fight-club', variant: 'primary' },
+          { label: 'Join Waitlist', to: '/fight-club', variant: 'primary' },
           { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
         ]}
       />
@@ -52,17 +52,13 @@ export default function FightClub() {
       <div className="ep__body" id="fight-club-story">
         <div className="ep__copy-block">
           <p className="ep__copy">
-            AURA Fight Club is not a gym. It is not a label. It is a standard.
-            A way of approaching the work — the rounds, the wraps, the discipline —
-            that most people never see and fewer still maintain.
+            AURA is built around clothing that feels right in training and still looks composed outside the gym. The focus is fit, comfort, movement, and the confidence that comes from wearing pieces that bring out the frame.
           </p>
           <p className="ep__copy">
-            The first circle of AURA Fight Club is reserved for those who understand
-            that the aura is not given. It is built in private, over time,
-            without an audience.
+            Fight Club is where early access, product feedback, supplier updates, and future drops are organised. Drop 001 starts with POD-ready essentials. Drop 002 moves into supplier-built gear after samples and quality checks.
           </p>
           <p className="ep__copy">
-            Drop 001 is the first uniform. The founding members get access first.
+            Join the list for first access and product updates before each public release.
           </p>
         </div>
 
@@ -78,7 +74,7 @@ export default function FightClub() {
         </figure>
 
         <div className="ep__waitlist-block">
-          <p className="ep__waitlist-label">Join the first circle</p>
+          <p className="ep__waitlist-label">Join the drop list</p>
           <div className="ep__form">
             <input
               className="ep__email"
