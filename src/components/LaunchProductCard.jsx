@@ -13,10 +13,9 @@ export default function LaunchProductCard({ product, compact = false }) {
         {hasImage ? (
           <img src={product.image} alt={product.imageAlt || product.name} loading="lazy" decoding="async" />
         ) : (
-          <div className="lpc__placeholder" aria-label={`${product.name} image pending`}>
+          <div className="lpc__placeholder" aria-label={`${product.name} preview artwork pending`}>
             <strong>AURA</strong>
             <span>{product.category}</span>
-            <small>Image pending</small>
           </div>
         )}
       </div>
