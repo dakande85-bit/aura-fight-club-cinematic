@@ -1,0 +1,554 @@
+/* AURA public stabilisation pass — loaded last.
+   Purpose: stop the public site feeling patched together: cleaner header,
+   readable heroes, visible model/product media, tighter mobile rhythm. */
+
+:root {
+  --aura-black: #050505;
+  --aura-panel: #0a0a0a;
+  --aura-cream: #f4f1ea;
+  --aura-muted: rgba(244, 241, 234, 0.72);
+  --aura-soft: rgba(167, 161, 154, 0.72);
+  --aura-gold: #d6b56d;
+  --aura-line: rgba(244, 241, 234, 0.1);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: var(--aura-black) !important;
+}
+
+body.aura-menu-open {
+  overflow: hidden;
+}
+
+main {
+  background: var(--aura-black);
+}
+
+/* Header: fewer surprises, no cramped ecommerce bar, stable on mobile. */
+.header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10000 !important;
+  min-height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(14px, 2vw, 26px) !important;
+  padding: 12px clamp(18px, 4vw, 56px) !important;
+  background: rgba(4, 4, 4, 0.94) !important;
+  border-bottom: 1px solid rgba(214, 181, 109, 0.24) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  overflow: visible !important;
+}
+
+.header__logo.aura-logo-lockup {
+  flex: 0 0 auto !important;
+  width: clamp(118px, 12vw, 172px) !important;
+  max-width: 42vw !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.header__logo.aura-logo-lockup .aura-logo-lockup__image {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 54px !important;
+  object-fit: contain !important;
+}
+
+.header__nav {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(14px, 1.65vw, 28px) !important;
+}
+
+.header__nav a {
+  white-space: nowrap !important;
+  color: rgba(244, 241, 234, 0.74) !important;
+  font-size: 0.66rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  transition: color 0.18s ease, opacity 0.18s ease !important;
+}
+
+.header__nav a:hover {
+  color: var(--aura-gold) !important;
+}
+
+.header__cta--desktop {
+  flex: 0 0 auto !important;
+  min-height: 42px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(214, 181, 109, 0.46) !important;
+  padding: 0 18px !important;
+  color: var(--aura-cream) !important;
+  font-size: 0.62rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+}
+
+.header__menu-btn,
+.header__mobile-menu,
+.header__backdrop {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .header__nav {
+    gap: 12px !important;
+  }
+
+  .header__nav a,
+  .header__cta--desktop {
+    font-size: 0.58rem !important;
+    letter-spacing: 0.14em !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    min-height: 70px !important;
+    justify-content: space-between !important;
+    padding: 10px 18px !important;
+  }
+
+  .header__nav,
+  .header__cta--desktop {
+    display: none !important;
+  }
+
+  .header__menu-btn {
+    position: relative !important;
+    z-index: 10004 !important;
+    display: inline-flex !important;
+    width: 44px !important;
+    height: 44px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    border: 1px solid rgba(214, 181, 109, 0.42) !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.035) !important;
+    padding: 0 !important;
+  }
+
+  .header__menu-btn span {
+    display: block !important;
+    width: 22px !important;
+    height: 2px !important;
+    border-radius: 999px !important;
+    background: var(--aura-cream) !important;
+  }
+
+  .header__mobile-menu {
+    position: fixed !important;
+    top: calc(70px + env(safe-area-inset-top, 0px)) !important;
+    left: 14px !important;
+    right: 14px !important;
+    z-index: 10003 !important;
+    display: block !important;
+    max-height: calc(100svh - 92px) !important;
+    overflow-y: auto !important;
+    padding: 18px !important;
+    background: rgba(5, 5, 5, 0.985) !important;
+    border: 1px solid rgba(214, 181, 109, 0.34) !important;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.74) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-8px) !important;
+    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease !important;
+  }
+
+  .header__mobile-menu--open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+  }
+
+  .header__mobile-nav {
+    display: grid !important;
+    gap: 0 !important;
+  }
+
+  .header__mobile-nav a,
+  .header__mobile-cta {
+    display: block !important;
+    padding: 15px 4px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: rgba(244, 241, 234, 0.9) !important;
+    font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif !important;
+    font-size: 1.3rem !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+  }
+
+  .header__mobile-cta {
+    margin-top: 14px !important;
+    border: 0 !important;
+    background: var(--aura-gold) !important;
+    color: var(--aura-black) !important;
+    text-align: center !important;
+    font-family: 'Barlow', Arial, sans-serif !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  .header__backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 10002 !important;
+    display: block !important;
+    border: 0 !important;
+    background: rgba(0, 0, 0, 0.56) !important;
+  }
+}
+
+/* Public page heroes: visible artwork, readable copy, no crushed black overlay. */
+.ph {
+  min-height: clamp(600px, calc(100svh - 72px), 780px) !important;
+  height: auto !important;
+  max-height: none !important;
+  grid-template-columns: minmax(330px, 0.78fr) minmax(420px, 1.22fr) !important;
+  padding: 0 clamp(22px, 5vw, 76px) !important;
+  background:
+    radial-gradient(circle at 74% 16%, rgba(214, 181, 109, 0.13), transparent 30%),
+    linear-gradient(120deg, #050505 0%, #080808 54%, #030303 100%) !important;
+}
+
+.ph__content {
+  width: min(650px, 100%) !important;
+  padding: clamp(58px, 8vh, 96px) clamp(18px, 3vw, 46px) clamp(52px, 7vh, 86px) 0 !important;
+}
+
+.ph__headline {
+  letter-spacing: -0.015em !important;
+}
+
+.ph__copy {
+  color: rgba(244, 241, 234, 0.77) !important;
+}
+
+.ph__media {
+  min-height: clamp(520px, calc(100svh - 120px), 740px) !important;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(214, 181, 109, 0.08), transparent 36%),
+    #050505 !important;
+}
+
+.ph__image {
+  filter: saturate(1.02) contrast(1.03) brightness(1.08) !important;
+}
+
+.ph__scrim {
+  background:
+    linear-gradient(90deg, rgba(3, 3, 3, 0.7) 0%, rgba(3, 3, 3, 0.36) 34%, rgba(3, 3, 3, 0.06) 67%, rgba(3, 3, 3, 0.2) 100%),
+    linear-gradient(0deg, rgba(3, 3, 3, 0.56) 0%, transparent 35%) !important;
+}
+
+.ph--home {
+  min-height: clamp(650px, calc(100svh - 72px), 840px) !important;
+}
+
+.ph--home .ph__image {
+  transform: scale(1.015) !important;
+  filter: saturate(1.04) contrast(1.04) brightness(1.14) !important;
+}
+
+@media (max-width: 760px) {
+  .ph,
+  .ph.ph--home,
+  .ph.ph--drop001,
+  .ph.ph--fight-club,
+  .ph.ph--apparel,
+  .ph.ph--footwear,
+  .ph.ph--equipment {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .ph__content,
+  .ph--home .ph__content,
+  .ph.ph--drop001 .ph__content,
+  .ph.ph--fight-club .ph__content {
+    order: 1 !important;
+    width: calc(100% - 36px) !important;
+    min-height: 0 !important;
+    padding: 2.05rem 0 1.45rem !important;
+    margin: 0 auto !important;
+    justify-content: flex-start !important;
+  }
+
+  .ph__headline,
+  .ph.ph--drop001 .ph__headline,
+  .ph.ph--fight-club .ph__headline {
+    font-size: clamp(2.55rem, 12vw, 4.2rem) !important;
+    line-height: 0.88 !important;
+  }
+
+  .ph__copy,
+  .ph.ph--drop001 .ph__copy,
+  .ph.ph--fight-club .ph__copy {
+    font-size: 0.96rem !important;
+    line-height: 1.56 !important;
+  }
+
+  .ph__media,
+  .ph--home .ph__media,
+  .ph.ph--drop001 .ph__media,
+  .ph.ph--fight-club .ph__media {
+    order: 2 !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 14px 24px !important;
+    border-top: 1px solid rgba(244, 241, 234, 0.1) !important;
+    background: #050505 !important;
+  }
+
+  .ph__image,
+  .ph.ph--drop001 .ph__image,
+  .ph.ph--fight-club .ph__image {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: min(62svh, 520px) !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    filter: saturate(1.02) contrast(1.03) brightness(1.08) !important;
+  }
+
+  .ph__scrim {
+    display: none !important;
+  }
+
+  .ph__ctas {
+    width: 100% !important;
+    flex-direction: column !important;
+  }
+}
+
+/* Product cards: show one clean product image first; hover can still reveal model. */
+.pc {
+  min-height: 100% !important;
+  background:
+    linear-gradient(180deg, rgba(244, 241, 234, 0.035), rgba(244, 241, 234, 0.01)),
+    #090909 !important;
+  border-color: rgba(244, 241, 234, 0.1) !important;
+}
+
+.pc__media {
+  aspect-ratio: 4 / 5 !important;
+  background:
+    radial-gradient(ellipse 62% 38% at 50% 58%, rgba(214, 181, 109, 0.1), transparent 64%),
+    #080808 !important;
+}
+
+.pc__img--primary {
+  padding: clamp(18px, 2.5vw, 32px) !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+.pc__img--hover {
+  object-position: center 10% !important;
+}
+
+.pc--category-footwear .pc__media {
+  aspect-ratio: 1 / 1 !important;
+}
+
+.pc--category-footwear .pc__img--primary {
+  padding: clamp(14px, 2vw, 24px) !important;
+}
+
+.pc__info {
+  padding: 18px 18px 22px !important;
+}
+
+.pc__name {
+  font-size: clamp(1.45rem, 2.1vw, 2rem) !important;
+}
+
+.pc__desc {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 3.2em;
+  overflow: hidden !important;
+}
+
+@media (max-width: 640px) {
+  .pc__media,
+  .pc--category-footwear .pc__media {
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  .pc__img--primary,
+  .pc--category-footwear .pc__img--primary,
+  .pc--category-equipment .pc__img--primary,
+  .pc--category-apparel .pc__img--primary {
+    padding: 16px !important;
+  }
+}
+
+/* Drop 001 launch cards: placeholders look intentional rather than unfinished. */
+.d001__grid-wrap {
+  max-width: 1500px !important;
+  margin: 0 auto !important;
+}
+
+.d001__grid {
+  gap: clamp(16px, 2vw, 28px) !important;
+}
+
+.lpc {
+  overflow: hidden !important;
+  border-color: rgba(244, 241, 234, 0.11) !important;
+}
+
+.lpc__media {
+  aspect-ratio: 1 / 1 !important;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(214, 181, 109, 0.13), transparent 36%),
+    #10100f !important;
+}
+
+.lpc__placeholder {
+  width: calc(100% - 32px) !important;
+  height: calc(100% - 32px) !important;
+  border-color: rgba(214, 181, 109, 0.22) !important;
+  background:
+    linear-gradient(135deg, rgba(214, 181, 109, 0.08), rgba(255, 255, 255, 0.018)),
+    #0d0d0c !important;
+}
+
+.lpc__placeholder small {
+  display: none !important;
+}
+
+.lpc h2 {
+  font-size: clamp(2rem, 3.35vw, 3.65rem) !important;
+}
+
+.lpc p {
+  color: rgba(244, 241, 234, 0.72) !important;
+}
+
+/* Homepage sections: less huge dead space; cleaner mobile media flow. */
+.home-extra__section {
+  padding-top: clamp(58px, 7vw, 96px) !important;
+  padding-bottom: clamp(58px, 7vw, 96px) !important;
+}
+
+.home-extra__drop,
+.home-extra__manifesto {
+  min-height: min(760px, 88svh) !important;
+}
+
+.home-extra__drop-media img,
+.home-extra__manifesto-media img,
+.home-extra__category-card img {
+  filter: saturate(0.96) contrast(1.04) brightness(0.94) !important;
+}
+
+.home-extra__category-card,
+.home-extra__preview-card {
+  min-height: clamp(340px, 34vw, 460px) !important;
+}
+
+@media (max-width: 760px) {
+  .home-extra__drop,
+  .home-extra__manifesto {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: auto !important;
+    padding-top: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .home-extra__drop-media,
+  .home-extra__manifesto-media {
+    position: relative !important;
+    inset: auto !important;
+    z-index: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5 !important;
+  }
+
+  .home-extra__drop-media img,
+  .home-extra__manifesto-media img {
+    object-fit: cover !important;
+    object-position: center top !important;
+  }
+
+  .home-extra__split,
+  .home-extra__manifesto-copy {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+  }
+
+  .home-extra__category-card,
+  .home-extra__preview-card {
+    min-height: 320px !important;
+  }
+}
+
+/* Product detail: prevent oversized sticky galleries and cramped forms on mobile. */
+.pd-hero {
+  max-width: 1440px !important;
+}
+
+@media (max-width: 980px) {
+  .pd__gallery-col {
+    position: static !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .pd-hero,
+  .pd-story,
+  .pd-detail-section,
+  .pd-related {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .pd__name {
+    font-size: clamp(2.7rem, 13vw, 4.35rem) !important;
+  }
+
+  .pd__form {
+    flex-direction: column !important;
+  }
+
+  .pd__submit,
+  .pd__cta-row a,
+  .pd-related a {
+    width: 100% !important;
+  }
+}
