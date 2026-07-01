@@ -16,7 +16,6 @@ import AdminLaunchChecklist from './pages/AdminLaunchChecklist.jsx';
 import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import AdminCinematic from './pages/AdminCinematic.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
-import EngagementModal from './components/EngagementModal.jsx';
 
 export default function AppRouter() {
   return (
@@ -45,7 +44,6 @@ export default function AppRouter() {
         <Route path="/admin/waitlist" element={<AdminWaitlist />} />
         <Route path="*" element={<CinematicPage />} />
       </Routes>
-      <EngagementModal />
     </BrowserRouter>
   );
 }
