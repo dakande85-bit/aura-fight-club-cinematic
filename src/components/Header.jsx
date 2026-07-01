@@ -3,8 +3,7 @@ import { useBrandLogo } from '../hooks/usePageMedia.js';
 
 const navItems = [
   { label: 'Home', href: '/' },
-  { label: 'Who We Are', href: '/who-we-are' },
-  { label: 'Drops', href: '/drops' },
+  { label: 'Drop 001', href: '/drop-001' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
   { label: 'Equipment', href: '/equipment' },
