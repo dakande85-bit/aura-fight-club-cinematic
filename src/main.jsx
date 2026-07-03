@@ -15,6 +15,7 @@ import './styles/page-hero.css';
 import './styles/brand-header-lock.css';
 import './styles/product-media-lock.css';
 import './styles/aura-public-stabilisation.css';
+import './styles/aura-public-organisation.css';
 import './homepage-scroll-sync.js';
 import './homepage-logo-fix.js';
 import './aura-release-dom-fixes.js';
