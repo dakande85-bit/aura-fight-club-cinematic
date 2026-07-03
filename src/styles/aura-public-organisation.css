@@ -1,0 +1,111 @@
+/* AURA public organisation pass. */
+
+.home-extra__previews,
+.drops-pipeline,
+.cx-fit,
+.cx-drop {
+  display: none !important;
+}
+
+.home-extra__section,
+.cx-section,
+.drops-section,
+.os-origin,
+.os-journey,
+.os-manifesto,
+.os-closing {
+  padding-top: clamp(44px, 5.5vw, 78px) !important;
+  padding-bottom: clamp(44px, 5.5vw, 78px) !important;
+}
+
+.ph__image,
+.lpc__media img,
+.pc__img--primary,
+.pd-gallery img,
+.pd__gallery-col img {
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+.home-extra__drop-media img,
+.home-extra__manifesto-media img,
+.drops-hero__media img,
+.drops-card__media img,
+.drops-closing__media img,
+.os-image-shell img,
+.cx-visual-card__image {
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: #050505 !important;
+}
+
+.home-extra__drop-media,
+.home-extra__manifesto-media,
+.drops-hero__media,
+.drops-card__media,
+.drops-closing__media,
+.os-image-shell,
+.cx-visual-card {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(214, 181, 109, 0.08), transparent 38%),
+    #050505 !important;
+}
+
+.lpc h2,
+.pc__name {
+  overflow-wrap: anywhere;
+}
+
+.lpc p,
+.pc__desc,
+.drops-card__copy,
+.col-sub,
+.cx-body,
+.os-hero__copy,
+.os-origin__copy p {
+  color: rgba(244, 241, 234, 0.76) !important;
+}
+
+.lpc__status small {
+  color: rgba(214, 181, 109, 0.82) !important;
+}
+
+.col-page--equipment .col-eyebrow::after,
+.ph--equipment .ph__label::after {
+  content: ' / ACCESSORIES';
+}
+
+@media (max-width: 760px) {
+  .home-extra__section,
+  .cx-section,
+  .drops-section,
+  .os-origin,
+  .os-journey,
+  .os-manifesto,
+  .os-closing {
+    padding-top: 38px !important;
+    padding-bottom: 38px !important;
+  }
+
+  .home-extra__drop-media,
+  .home-extra__manifesto-media,
+  .drops-hero__media,
+  .drops-card__media,
+  .drops-closing__media,
+  .os-image-shell {
+    min-height: 0 !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5 !important;
+  }
+
+  .home-extra__drop-media img,
+  .home-extra__manifesto-media img,
+  .drops-hero__media img,
+  .drops-card__media img,
+  .drops-closing__media img,
+  .os-image-shell img {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 520px !important;
+  }
+}
