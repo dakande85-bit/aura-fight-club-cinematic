@@ -6,9 +6,9 @@ const navItems = [
   { label: 'Drop 001', href: '/drop-001' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
-  { label: 'Equipment', href: '/equipment' },
-  { label: 'Campaign', href: '/campaign' },
-  { label: 'Fight Club', href: '/fight-club' },
+  { label: 'Accessories', href: '/equipment' },
+  { label: 'Story', href: '/who-we-are' },
+  { label: 'Waitlist', href: '/fight-club' },
 ];
 
 export default function Header() {
@@ -40,8 +40,8 @@ export default function Header() {
   return (
     <>
       <header className="header" role="banner">
-        <a className="header__logo aura-logo-lockup" href="/" aria-label="AURA Fight Club home" onClick={closeMenu}>
-          <img className="aura-logo-lockup__image" src={logoSrc} alt="AURA Fight Club" width="1200" height="1200" decoding="async" fetchPriority="high" />
+        <a className="header__logo aura-logo-lockup" href="/" aria-label="AURA home" onClick={closeMenu}>
+          <img className="aura-logo-lockup__image" src={logoSrc} alt="AURA" width="1200" height="1200" decoding="async" fetchPriority="high" />
         </a>
 
         <nav className="header__nav" aria-label="Main navigation">
