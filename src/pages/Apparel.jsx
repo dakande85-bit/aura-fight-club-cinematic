@@ -1,10 +1,11 @@
 import CollectionPage from './CollectionPage.jsx';
+
 export default function Apparel() {
   return (
     <CollectionPage
       category="Apparel"
       heading="Apparel"
-      subcopy="Drop 001 apparel essentials for men and women: T-Shirts, Hoodies, Joggers, and Tank Tops prepared as POD candidates."
+      subcopy="Comfortable AURA clothing for training, recovery, travel, and everyday life. Clean layers you can wear in the gym and keep on after."
     />
   );
 }
