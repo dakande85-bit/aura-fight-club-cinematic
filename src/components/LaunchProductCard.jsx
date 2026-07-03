@@ -6,6 +6,8 @@ export default function LaunchProductCard({ product, compact = false }) {
 
   const hasImage = Boolean(product.image);
   const cardClass = compact ? 'lpc lpc--compact' : 'lpc';
+  const statusLabel = 'Coming Soon';
+  const supportLabel = product.category ? `${product.category} / Waitlist` : 'Waitlist';
 
   return (
     <article className={cardClass}>
@@ -27,8 +29,8 @@ export default function LaunchProductCard({ product, compact = false }) {
         <h2>{product.name}</h2>
         <p>{product.description}</p>
         <div className="lpc__status">
-          <span>{product.status}</span>
-          <small>{product.secondaryLabel}</small>
+          <span>{statusLabel}</span>
+          <small>{supportLabel}</small>
         </div>
         <Link className="lpc__cta" to="/fight-club">Join Waitlist</Link>
       </div>
