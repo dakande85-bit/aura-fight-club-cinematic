@@ -1,10 +1,11 @@
 import CollectionPage from './CollectionPage.jsx';
+
 export default function Footwear() {
   return (
     <CollectionPage
       category="Footwear"
       heading="Footwear"
-      subcopy="Footwear remains in the Drop 002 pipeline as supplier-built gear. Sample required. Not part of Drop 001."
+      subcopy="Upcoming AURA footwear concepts for movement, travel, and everyday styling. Designed to carry the brand's training energy outside the gym."
     />
   );
 }
