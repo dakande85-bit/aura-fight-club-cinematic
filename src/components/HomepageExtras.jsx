@@ -5,29 +5,29 @@ const categories = [
   {
     title: 'Apparel',
     href: '/apparel',
-    text: 'Uniform layers for discipline, presence, and work nobody sees.',
+    text: 'Comfortable clothing for training, recovery, travel, and everyday life.',
     image: '/assets/products/aura-sleeveless-hoodie/card-hover-model.webp',
-    imageAlt: 'AURA sleeveless hoodie worn as part of the training uniform',
+    imageAlt: 'AURA apparel worn as part of the training-to-lifestyle uniform',
   },
   {
     title: 'Footwear',
     href: '/footwear',
-    text: 'Fight-coded silhouettes built for movement, rhythm, and daily wear.',
+    text: 'Upcoming movement-focused footwear concepts for the next AURA phase.',
     image: '/assets/products/aura-cream-fight-boots/card-product.webp',
-    imageAlt: 'AURA Cream Fight Boots product image',
+    imageAlt: 'AURA cream footwear preview',
   },
   {
-    title: 'Equipment',
+    title: 'Accessories',
     href: '/equipment',
-    text: 'Tools for preparation, recovery, and the ritual before the round.',
+    text: 'Bottles, bags, and everyday carry pieces to complete the AURA look.',
     image: '/assets/products/aura-cream-boxing-gloves/card-product.webp',
-    imageAlt: 'AURA Cream Boxing Gloves product image',
+    imageAlt: 'AURA accessory preview',
   },
 ];
 
 export default function HomepageExtras() {
   return (
-    <section className="home-extra" aria-label="AURA Fight Club landing sections">
+    <section className="home-extra" aria-label="AURA homepage sections">
       <div className="home-extra__section home-extra__drop">
         <div className="home-extra__drop-media" aria-hidden="true">
           <img
@@ -40,14 +40,14 @@ export default function HomepageExtras() {
         <div className="home-extra__split home-extra__split--media">
           <div className="home-extra__drop-copy">
             <div className="home-extra__kicker">DROP 001</div>
-            <h2>BUILT FOR THE INTERNAL FIGHT</h2>
+            <h2>COMFORTABLE DAILY TRAINING LAYERS</h2>
             <p>
-              The first release from AURA Fight Club is not merchandise. It is a uniform for the work that happens before anyone sees the result.
+              AURA starts with clothing you can train in, recover in, travel in, and keep wearing through the day.
             </p>
           </div>
           <div className="home-extra__copy home-extra__copy--panel">
             <p>
-              Discipline. Presence. Restraint. Drop 001 marks the beginning of the standard.
+              T-shirts, hoodies, joggers, tank tops, and a steel water bottle form the first AURA release.
             </p>
             <Link to="/drop-001" className="home-extra__button">Explore Drop 001</Link>
           </div>
@@ -71,47 +71,34 @@ export default function HomepageExtras() {
       <div className="home-extra__section home-extra__manifesto">
         <div className="home-extra__manifesto-media" aria-hidden="true">
           <img
-            src="/assets/aura-scroll/07_fight_club_close/frame_04_fight_club_tracksuit_ring.webp"
+            src="/assets/category-support/apparel-cream-jacket.webp"
             alt=""
             loading="lazy"
             decoding="async"
           />
         </div>
         <div className="home-extra__manifesto-copy">
-          <p className="home-extra__kicker">MANIFESTO</p>
+          <p className="home-extra__kicker">WHY AURA EXISTS</p>
           <h2>
-            YOUR AURA
-            <span>IS EARNED.</span>
+            LIFE HAS
+            <span>ROUNDS.</span>
           </h2>
           <div className="home-extra__manifesto-lines">
-            <span>The real fight is internal.</span>
-            <span>The opponent is just the mirror.</span>
-            <span>Fight with presence. Own your aura.</span>
+            <span>Train in comfort.</span>
+            <span>Move with presence.</span>
+            <span>Dress for the whole day.</span>
           </div>
           <div className="home-extra__manifesto-actions">
-            <Link to="/drop-001" className="home-extra__button home-extra__button--light">Explore Drop 001</Link>
-            <Link to="/fight-club" className="home-extra__button">Enter Fight Club</Link>
+            <Link to="/who-we-are" className="home-extra__button home-extra__button--light">Read Story</Link>
+            <Link to="/fight-club" className="home-extra__button">Join Waitlist</Link>
           </div>
         </div>
       </div>
 
-      <div className="home-extra__section home-extra__previews">
-        <Link to="/campaign" className="home-extra__preview-card home-extra__preview-card--campaign">
-          <p className="home-extra__kicker">THE CAMPAIGN</p>
-          <h3>Earned where nobody is watching.</h3>
-          <span>Enter the cinematic story</span>
-        </Link>
-        <Link to="/fight-club" className="home-extra__preview-card home-extra__preview-card--fight">
-          <p className="home-extra__kicker">FIGHT CLUB</p>
-          <h3>The identity layer behind the brand.</h3>
-          <span>Join the first circle</span>
-        </Link>
-      </div>
-
       <div className="home-extra__section home-extra__final-cta">
-        <p className="home-extra__kicker">FOUNDING ACCESS</p>
-        <h2>ENTER THE FIRST CIRCLE.</h2>
-        <p>Get early access to Drop 001, Fight Club updates, and the next phase of AURA.</p>
+        <p className="home-extra__kicker">EARLY ACCESS</p>
+        <h2>JOIN THE DROP LIST.</h2>
+        <p>Get early access to the first AURA release and future product updates.</p>
         <Link to="/fight-club" className="home-extra__button home-extra__button--light">Join Waitlist</Link>
       </div>
     </section>
