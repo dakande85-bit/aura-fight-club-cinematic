@@ -1,6 +1,33 @@
 import { Link } from 'react-router-dom';
 import '../styles/launch-product-card.css';
 
+function getDisplayCopy(product) {
+  const category = String(product?.category || '').toLowerCase();
+  const name = String(product?.name || '').toLowerCase();
+
+  if (category.includes('t-shirt')) {
+    return 'A clean everyday tee for training, recovery, travel, and casual wear.';
+  }
+
+  if (category.includes('hoodie')) {
+    return 'A comfortable AURA layer for warm-ups, rest days, travel, and everyday life.';
+  }
+
+  if (category.includes('jogger')) {
+    return 'Clean joggers for training, recovery, travel, and daily movement.';
+  }
+
+  if (category.includes('tank')) {
+    return 'A training tank for gym work, warm weather, and easy layering.';
+  }
+
+  if (category.includes('water') || name.includes('bottle')) {
+    return 'An everyday training bottle for the gym bag, roadwork, and daily routine.';
+  }
+
+  return product?.shortDesc || product?.description || 'AURA training-to-lifestyle piece.';
+}
+
 export default function LaunchProductCard({ product, compact = false }) {
   if (!product) return null;
 
@@ -27,7 +54,7 @@ export default function LaunchProductCard({ product, compact = false }) {
           <span>{product.audience}</span>
         </div>
         <h2>{product.name}</h2>
-        <p>{product.description}</p>
+        <p>{getDisplayCopy(product)}</p>
         <div className="lpc__status">
           <span>{statusLabel}</span>
           <small>{supportLabel}</small>
