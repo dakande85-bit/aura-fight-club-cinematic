@@ -4,29 +4,29 @@ import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 const heroCopy = {
   apparel: {
     label: 'AURA APPAREL',
-    headline: 'BUILT FOR THE\nUNSEEN ROUNDS',
-    copy: 'Training layers for the work nobody sees. Clean, composed, and built around presence before attention.',
+    headline: 'TRAIN IN IT.\nLIVE IN IT.',
+    copy: 'Comfortable fight-inspired layers for training, recovery, travel, and everyday wear. Built to move well and look clean outside the gym.',
     ctas: [
-      { label: 'Shop Apparel', to: '/apparel', variant: 'primary' },
+      { label: 'View Apparel', to: '#apparel-lineup', variant: 'primary' },
       { label: 'Explore Drop 001', to: '/drop-001', variant: 'ghost' },
     ],
   },
   footwear: {
     label: 'AURA FOOTWEAR',
-    headline: 'MOVEMENT BEFORE\nIMPACT',
-    copy: 'Footwear sits in the Drop 002 pipeline until supplier samples, fit, and production quality are approved.',
+    headline: 'MOVE THROUGH\nEVERY ROUND.',
+    copy: 'Fight-coded footwear concepts for footwork, travel, and daily movement. Coming after the first clothing drop.',
     ctas: [
-      { label: 'View Pipeline', to: '/drops', variant: 'primary' },
-      { label: 'Join Waitlist', to: '/fight-club', variant: 'ghost' },
+      { label: 'Join Waitlist', to: '/fight-club', variant: 'primary' },
+      { label: 'View Drop 001', to: '/drop-001', variant: 'ghost' },
     ],
   },
   equipment: {
-    label: 'AURA EQUIPMENT',
-    headline: 'TOOLS FOR\nDISCIPLINE',
-    copy: 'Steel Water Bottle is allowed for Drop 001. Supplier-built fight tools stay in the Drop 002 pipeline.',
+    label: 'AURA ACCESSORIES',
+    headline: 'CARRY THE\nFIGHT THEME.',
+    copy: 'Training accessories for the daily routine: bottles, wraps, gloves, bags, and the small pieces that complete the AURA uniform.',
     ctas: [
-      { label: 'View Pipeline', to: '/drops', variant: 'primary' },
-      { label: 'Join Waitlist', to: '/fight-club', variant: 'ghost' },
+      { label: 'Join Waitlist', to: '/fight-club', variant: 'primary' },
+      { label: 'View Drop 001', to: '/drop-001', variant: 'ghost' },
     ],
   },
 };
