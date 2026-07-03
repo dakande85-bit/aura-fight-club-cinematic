@@ -1,27 +1,21 @@
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import LaunchProductCard from '../components/LaunchProductCard.jsx';
-import { dropOneCategories, dropOnePipeline, dropOneProducts, dropTwoPipeline } from '../data/products.js';
+import { dropOneCategories, dropOneProducts } from '../data/products.js';
 import '../styles/drops.css';
 
 const upcomingCandidates = [
-  'AURA boxing-style casual shoes',
-  'AURA wrestling high-top trainer',
-  'AURA sauna suit',
-  'AURA boxing gloves',
-  'AURA hand wraps',
-  'AURA fight bag',
-  'AURA premium tracksuit',
-  'AURA compression/performance wear',
+  'Footwear',
+  'Training accessories',
+  'Everyday carry pieces',
+  'Premium tracksuit layers',
 ];
-
-const pipeline = [...dropOnePipeline, ...dropTwoPipeline];
 
 const dropImages = {
   hero: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.webp',
   drop001: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_01_cream_uniform_model.webp',
-  drop002: '/assets/category-support/equipment-gloves-grip.webp',
-  closing: '/assets/category-support/footwear-cream-high.webp',
+  drop002: '/assets/category-support/footwear-cream-high.webp',
+  closing: '/assets/category-support/apparel-cream-jacket.webp',
 };
 
 function DropCard({ eyebrow, title, status, copy, items, cta, href, image, imageAlt }) {
@@ -55,9 +49,9 @@ export default function Drops() {
           <div className="drops-hero__content">
             <p className="drops-eyebrow">AURA FIGHT CLUB</p>
             <h1>DROPS</h1>
-            <p className="drops-subtitle">CURRENT RELEASES. UPCOMING GEAR. WAITLIST ACCESS.</p>
+            <p className="drops-subtitle">TRAINING. LIFESTYLE. EVERYDAY PRESENCE.</p>
             <p className="drops-hero__copy">
-              AURA drops are released in stages. Drop 001 starts with minimal training-to-lifestyle essentials for men and women. Drop 002 moves into supplier-built gear only after samples, fit, and production quality are approved.
+              AURA releases clothing and accessories in stages. Drop 001 begins with comfortable training-to-lifestyle essentials: pieces you can wear in the gym, after training, while travelling, and through daily life.
             </p>
             <div className="drops-actions">
               <a className="drops-btn drops-btn--primary" href="/drop-001">VIEW DROP 001</a>
@@ -79,14 +73,14 @@ export default function Drops() {
 
         <section className="drops-section" aria-labelledby="current-drop-title">
           <div className="drops-section__head">
-            <p className="drops-eyebrow">RELEASE STATUS</p>
-            <h2 id="current-drop-title">CURRENT DROP</h2>
+            <p className="drops-eyebrow">CURRENT FOCUS</p>
+            <h2 id="current-drop-title">DROP 001</h2>
           </div>
           <DropCard
             eyebrow="DROP 001"
-            title="DROP 001 - MEN & WOMEN"
-            status="POD LAUNCH / WAITLIST"
-            copy="Clean silhouettes, minimal branding, and comfortable pieces designed for training, movement, and casual wear. Drop 001 launches only when POD supplier, mockups, and pricing are confirmed."
+            title="COMFORTABLE DAILY TRAINING LAYERS"
+            status="WAITLIST OPENING"
+            copy="Clean silhouettes, minimal branding, and comfortable pieces designed for training, recovery, travel, and everyday wear."
             items={dropOneCategories}
             cta="View Drop 001"
             href="/drop-001"
@@ -102,52 +96,20 @@ export default function Drops() {
 
         <section className="drops-section drops-section--split" aria-labelledby="upcoming-drop-title">
           <div className="drops-section__head">
-            <p className="drops-eyebrow">SUPPLIER BUILT</p>
-            <h2 id="upcoming-drop-title">UPCOMING DROP</h2>
+            <p className="drops-eyebrow">COMING NEXT</p>
+            <h2 id="upcoming-drop-title">FUTURE AURA PIECES</h2>
           </div>
           <DropCard
-            eyebrow="DROP 002"
-            title="DROP 002 - SUPPLIER-BUILT GEAR"
-            status="IN DEVELOPMENT"
-            copy="Drop 002 is reserved for products that need samples, sizing checks, material approval, and supplier conversations before they can represent the AURA standard."
+            eyebrow="NEXT PHASE"
+            title="FOOTWEAR AND ACCESSORIES"
+            status="COMING SOON"
+            copy="The next phase expands the AURA uniform with footwear, accessories, carry pieces, and premium layers."
             items={upcomingCandidates}
-            cta="Join Drop 002 Waitlist"
+            cta="Join Waitlist"
             href="#waitlist"
             image={dropImages.drop002}
-            imageAlt="AURA supplier-built equipment preview"
+            imageAlt="AURA footwear preview"
           />
-        </section>
-
-        <section className="drops-section drops-pipeline" aria-labelledby="pipeline-title">
-          <div className="drops-section__head">
-            <p className="drops-eyebrow">ROADMAP</p>
-            <h2 id="pipeline-title">PRODUCT PIPELINE</h2>
-            <p>
-              The pipeline shows what is being prepared for POD launch and what still needs supplier approval before release.
-            </p>
-          </div>
-          <div className="drops-pipeline__grid">
-            {pipeline.map((item) => (
-              <article className="drops-pipeline__item" key={`${item.product}-${item.drop}`}>
-                <span>{item.drop}</span>
-                <h3>{item.product}</h3>
-                <dl>
-                  <div>
-                    <dt>Stage</dt>
-                    <dd>{item.stage}</dd>
-                  </div>
-                  <div>
-                    <dt>Status</dt>
-                    <dd>{item.status}</dd>
-                  </div>
-                </dl>
-              </article>
-            ))}
-          </div>
-          <div className="drops-actions drops-actions--pipeline">
-            <a className="drops-btn drops-btn--primary" href="/fight-club">JOIN WAITLIST</a>
-            <a className="drops-btn drops-btn--ghost" href="/drop-001">VIEW DROP 001</a>
-          </div>
         </section>
 
         <section className="drops-waitlist" id="waitlist" aria-labelledby="drops-waitlist-title">
@@ -155,7 +117,7 @@ export default function Drops() {
             <p className="drops-eyebrow">EARLY ACCESS</p>
             <h2 id="drops-waitlist-title">JOIN THE DROP LIST</h2>
             <p>
-              Get Drop 001 access first and follow Drop 002 as samples, suppliers, and production decisions are approved.
+              Get early access to Drop 001 and future AURA clothing, footwear, and accessory releases.
             </p>
           </div>
           <form className="drops-form">
@@ -172,7 +134,7 @@ export default function Drops() {
               <select name="interest" defaultValue="All Drops">
                 <option>Apparel</option>
                 <option>Footwear</option>
-                <option>Equipment</option>
+                <option>Accessories</option>
                 <option>All Drops</option>
               </select>
             </label>
@@ -183,13 +145,13 @@ export default function Drops() {
 
         <section className="drops-closing" aria-labelledby="drops-closing-title">
           <div className="drops-closing__media">
-            <img src={dropImages.closing} alt="AURA cream high-top footwear preview" loading="lazy" decoding="async" />
+            <img src={dropImages.closing} alt="AURA cream apparel preview" loading="lazy" decoding="async" />
           </div>
           <div className="drops-closing__copy">
             <p className="drops-eyebrow">AURA STANDARD</p>
-            <h2 id="drops-closing-title">RELEASE WHAT IS READY.</h2>
+            <h2 id="drops-closing-title">LIFE HAS ROUNDS.</h2>
             <p>
-              AURA launches with products we can deliver cleanly first. Supplier-built gear follows only after the fit, materials, and quality are right.
+              AURA is for people who train, work, move, recover, and keep going. Comfortable clothing first, with a theme that carries the mindset into everyday life.
             </p>
             <div className="drops-actions">
               <a className="drops-btn drops-btn--primary" href="/drop-001">View Drop 001</a>
