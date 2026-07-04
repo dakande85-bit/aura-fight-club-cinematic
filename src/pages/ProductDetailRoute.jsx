@@ -1,11 +1,17 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { getProduct } from '../data/products.js';
+import { getProduct, dropOneProducts } from '../data/products.js';
 import ProductDetail from './ProductDetail.jsx';
+
+function findProductBySlug(slug) {
+  const catalogueProduct = getProduct(slug);
+  if (catalogueProduct) return catalogueProduct;
+  return dropOneProducts.find((item) => item.slug === slug) ?? null;
+}
 
 export default function ProductDetailRoute() {
   const { slug } = useParams();
-  const navigate  = useNavigate();
-  const product   = getProduct(slug);
+  const navigate = useNavigate();
+  const product = findProductBySlug(slug);
 
   return (
     <ProductDetail
