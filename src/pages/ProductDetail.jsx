@@ -13,8 +13,10 @@ const categoryRoutes = {
   Equipment: '/equipment',
   'T-Shirt': '/apparel',
   Hoodie: '/apparel',
+  'Sleeveless Hoodie': '/apparel',
   Joggers: '/apparel',
   'Tank Top': '/apparel',
+  'Training Shorts': '/apparel',
   'Steel Water Bottle': '/equipment',
 };
 
@@ -37,8 +39,10 @@ function getCategoryRole(category) {
     Apparel: 'A comfortable training-to-lifestyle layer for the hours before, during, and after the work.',
     'T-Shirt': 'A clean everyday tee for training, recovery, travel, and casual wear.',
     Hoodie: 'A comfortable layer for warm-ups, rest days, travel, and daily life.',
+    'Sleeveless Hoodie': 'A sleeveless training layer for warm-ups, gym work, travel, and daily movement.',
     Joggers: 'Clean joggers for training, recovery, travel, and daily movement.',
     'Tank Top': 'A training tank for gym work, warm weather, and easy layering.',
+    'Training Shorts': 'Custom training shorts for movement, warm weather, gym work, and the daily training uniform.',
     'Steel Water Bottle': 'An everyday training bottle for the gym bag, roadwork, and daily routine.',
     Footwear: 'An upcoming movement piece for footwork, travel, and everyday styling.',
     Equipment: 'An accessory category for the daily routine: useful pieces that complete the AURA uniform.',
@@ -71,9 +75,11 @@ function getPublicDescription(product) {
   const name = String(product?.name || '').toLowerCase();
 
   if (category.includes('t-shirt')) return 'A clean everyday tee for training, recovery, travel, and casual wear.';
+  if (category.includes('sleeveless')) return 'A sleeveless AURA layer for warm-ups, gym work, travel, and daily movement.';
   if (category.includes('hoodie')) return 'A comfortable AURA layer for warm-ups, rest days, travel, and everyday life.';
   if (category.includes('jogger')) return 'Clean joggers for training, recovery, travel, and daily movement.';
   if (category.includes('tank')) return 'A training tank for gym work, warm weather, and easy layering.';
+  if (category.includes('short')) return 'Custom training shorts for movement, warm weather, and gym work.';
   if (category.includes('water') || name.includes('bottle')) return 'An everyday training bottle for the gym bag, roadwork, and daily routine.';
 
   return product?.shortDesc || product?.description || 'AURA training-to-lifestyle piece.';
@@ -145,8 +151,8 @@ export default function ProductDetail({ product, onBack }) {
               <div className="pd__purchase">
                 <p className="pd__waitlist-label">Order / {product.collection}</p>
                 <div className="pd__buy-actions">
-                  <Link className="pd__buy-btn pd__buy-btn--primary" to={cartHref}>Add to Bag</Link>
-                  <Link className="pd__buy-btn pd__buy-btn--ghost" to="/cart">View Bag</Link>
+                  <Link className="pd__buy-btn pd__buy-btn--primary" to={cartHref}>Add to Cart</Link>
+                  <Link className="pd__buy-btn pd__buy-btn--ghost" to="/cart">View Cart</Link>
                 </div>
               </div>
             ) : (
@@ -205,7 +211,7 @@ export default function ProductDetail({ product, onBack }) {
         <section className="pd-related" aria-label="Related navigation">
           <Link to={collectionPath}>{product.collection === 'Drop 001' ? 'Drop 001' : 'Drops'}</Link>
           <Link to={categoryPath}>{product.category === 'Equipment' ? 'Accessories' : product.category}</Link>
-          <Link to="/cart">Bag</Link>
+          <Link to="/cart">Cart</Link>
         </section>
       </main>
       <Footer />
