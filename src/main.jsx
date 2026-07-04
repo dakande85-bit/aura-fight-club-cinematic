@@ -17,6 +17,7 @@ import './styles/product-media-lock.css';
 import './styles/aura-public-stabilisation.css';
 import './styles/aura-public-organisation.css';
 import './styles/aura-cart-header-fix.css';
+import './styles/aura-home-category-fix.css';
 import './homepage-scroll-sync.js';
 import './homepage-logo-fix.js';
 import './aura-release-dom-fixes.js';
