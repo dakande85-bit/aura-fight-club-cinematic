@@ -105,9 +105,11 @@ export const products = [
 export const dropOneCategories = [
   'T-Shirts',
   'Hoodies',
+  'Sleeveless Hoodies',
   'Steel Water Bottles',
   'Joggers',
   'Tank Tops',
+  'Training Shorts',
 ];
 
 const MATERIAL_TBD = 'Material details will be confirmed once the final product base is selected.';
@@ -241,6 +243,38 @@ export const dropOneProducts = [
     launchChecklist: drop001Checklist({ mockupApproved: true, productDescriptionApproved: true }),
   },
   {
+    title: 'AURA Sleeveless Training Hoodie',
+    name: 'AURA Sleeveless Training Hoodie',
+    slug: 'aura-sleeveless-training-hoodie',
+    category: 'Sleeveless Hoodie',
+    audience: 'Men & Women',
+    drop: 'Drop 001',
+    collection: 'Drop 001',
+    status: DROP_001_STATUS,
+    fulfilment: DROP_001_FULFILMENT,
+    podCandidate: true,
+    priceEUR: null,
+    compareAtEUR: null,
+    shortDescription: 'Sleeveless layer for warm-ups, gym work, travel, and daily movement.',
+    shortDesc: 'Sleeveless layer for warm-ups, gym work, travel, and daily movement.',
+    longDescription: 'A custom sleeveless AURA training hoodie for warm-ups, gym work, travel, and daily movement.',
+    description: 'Sleeveless layer for warm-ups, gym work, travel, and daily movement.',
+    materialNote: MATERIAL_TBD,
+    imageStatus: 'Ready',
+    mockupNeeded: false,
+    primaryImage: IMG.sleeveless,
+    image: IMG.sleeveless,
+    imageAlt: 'AURA sleeveless training hoodie preview',
+    galleryImages: [IMG.sleeveless, IMG.sleevelessModel],
+    gallery: [
+      { src: IMG.sleeveless, alt: 'AURA Sleeveless Training Hoodie product preview' },
+      { src: IMG.sleevelessModel, alt: 'AURA Sleeveless Training Hoodie model preview' },
+    ],
+    ctaLabel: 'Add to Cart',
+    secondaryLabel: DROP_001_SECONDARY_LABEL,
+    launchChecklist: drop001Checklist({ mockupApproved: true, productDescriptionApproved: true }),
+  },
+  {
     title: 'AURA Steel Water Bottle',
     name: 'AURA Steel Water Bottle',
     slug: 'aura-steel-water-bottle',
@@ -327,6 +361,38 @@ export const dropOneProducts = [
     secondaryLabel: DROP_001_SECONDARY_LABEL,
     launchChecklist: drop001Checklist({ mockupApproved: true, productDescriptionApproved: true }),
   },
+  {
+    title: 'AURA Fight Club Training Shorts',
+    name: 'AURA Fight Club Training Shorts',
+    slug: 'aura-fight-club-training-shorts',
+    category: 'Training Shorts',
+    audience: 'Men & Women',
+    drop: 'Drop 001',
+    collection: 'Drop 001',
+    status: DROP_001_STATUS,
+    fulfilment: DROP_001_FULFILMENT,
+    podCandidate: true,
+    priceEUR: null,
+    compareAtEUR: null,
+    shortDescription: 'Custom training shorts for movement, warm weather, and gym work.',
+    shortDesc: 'Custom training shorts for movement, warm weather, and gym work.',
+    longDescription: 'Custom AURA training shorts for movement, warm-weather sessions, gym work, and the daily training uniform.',
+    description: 'Custom training shorts for movement, warm weather, and gym work.',
+    materialNote: MATERIAL_TBD,
+    imageStatus: 'Ready',
+    mockupNeeded: false,
+    primaryImage: IMG.creamUniformAlt,
+    image: IMG.creamUniformAlt,
+    imageAlt: 'AURA training shorts preview',
+    galleryImages: [IMG.creamUniformAlt, IMG.creamUniform],
+    gallery: [
+      { src: IMG.creamUniformAlt, alt: 'AURA Fight Club Training Shorts preview' },
+      { src: IMG.creamUniform, alt: 'AURA Fight Club Training Shorts full outfit preview' },
+    ],
+    ctaLabel: 'Add to Cart',
+    secondaryLabel: DROP_001_SECONDARY_LABEL,
+    launchChecklist: drop001Checklist({ mockupApproved: true, productDescriptionApproved: true }),
+  },
 ];
 
 export const drop001LaunchChecklist = dropOneProducts.map((product) => ({
@@ -339,15 +405,17 @@ export const drop001LaunchChecklist = dropOneProducts.map((product) => ({
 }));
 
 export const dropOneApparelProducts = dropOneProducts.filter((product) =>
-  ['T-Shirt', 'Hoodie', 'Joggers', 'Tank Top'].includes(product.category)
+  ['T-Shirt', 'Hoodie', 'Sleeveless Hoodie', 'Joggers', 'Tank Top', 'Training Shorts'].includes(product.category)
 );
 
 export const dropOnePipeline = [
   { product: 'T-Shirts', drop: 'Drop 001', stage: 'Available', status: 'Available to order' },
   { product: 'Hoodies', drop: 'Drop 001', stage: 'Available', status: 'Available to order' },
+  { product: 'Sleeveless Hoodie', drop: 'Drop 001', stage: 'Available', status: 'Available to order' },
   { product: 'Steel Water Bottle', drop: 'Drop 001', stage: 'Available', status: 'Available to order' },
   { product: 'Joggers', drop: 'Drop 001', stage: 'Available', status: 'Available to order' },
   { product: 'Tank Tops', drop: 'Drop 001', stage: 'Available', status: 'Available to order' },
+  { product: 'Training Shorts', drop: 'Drop 001', stage: 'Available', status: 'Available to order' },
 ];
 
 export const dropTwoPipeline = [
