@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { formatPriceEUR, getShopProduct, isShopProduct } from '../data/shopProducts.js';
 import '../styles/launch-product-card.css';
 
 function getDisplayCopy(product) {
@@ -33,8 +34,14 @@ export default function LaunchProductCard({ product, compact = false }) {
 
   const hasImage = Boolean(product.image);
   const cardClass = compact ? 'lpc lpc--compact' : 'lpc';
-  const statusLabel = 'Coming Soon';
-  const supportLabel = product.category ? `${product.category} / Waitlist` : 'Waitlist';
+  const shopProduct = getShopProduct(product.slug);
+  const canBuy = isShopProduct(product.slug);
+  const statusLabel = canBuy ? 'Available to Order' : 'Coming Soon';
+  const supportLabel = canBuy && shopProduct?.priceEUR
+    ? formatPriceEUR(shopProduct.priceEUR)
+    : product.category ? `${product.category} / Waitlist` : 'Waitlist';
+  const ctaLabel = canBuy ? 'Add to Cart' : 'Join Waitlist';
+  const ctaHref = canBuy ? `/cart?add=${encodeURIComponent(product.slug)}` : '/fight-club';
 
   return (
     <article className={cardClass}>
@@ -59,7 +66,7 @@ export default function LaunchProductCard({ product, compact = false }) {
           <span>{statusLabel}</span>
           <small>{supportLabel}</small>
         </div>
-        <Link className="lpc__cta" to="/fight-club">Join Waitlist</Link>
+        <Link className="lpc__cta" to={ctaHref}>{ctaLabel}</Link>
       </div>
     </article>
   );
