@@ -4,25 +4,28 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import { useProductMedia } from '../hooks/useProductMedia.js';
 import ProductMediaGallery from '../components/ProductMediaGallery.jsx';
+import { formatPriceEUR, getShopProduct, isShopProduct } from '../data/shopProducts.js';
 import '../styles/product-detail.css';
 
 const categoryRoutes = {
   Apparel: '/apparel',
   Footwear: '/footwear',
   Equipment: '/equipment',
+  'T-Shirt': '/apparel',
+  Hoodie: '/apparel',
+  Joggers: '/apparel',
+  'Tank Top': '/apparel',
+  'Steel Water Bottle': '/equipment',
 };
 
-function getStatusLabel(status) {
+function getStatusLabel(product, canBuy) {
+  if (canBuy) return 'Available to Order';
   return {
     waitlist: 'Waitlist Open',
     available: 'Available Now',
     'sold-out': 'Sold Out',
     'coming-soon': 'Coming Soon',
-  }[status] ?? 'Coming Soon';
-}
-
-function getActionLabel(status) {
-  return status === 'waitlist' ? 'Join Waitlist' : 'Notify Me';
+  }[product?.status] ?? 'Coming Soon';
 }
 
 function getCollectionRoute(product) {
@@ -31,33 +34,49 @@ function getCollectionRoute(product) {
 
 function getCategoryRole(category) {
   return {
-    Apparel: 'A training layer for the hours before, during, and after the work. It belongs in the AURA uniform because it keeps the look clean while the discipline stays loud in the routine.',
-    Footwear: 'A movement piece for footwork, stance, and the quiet repetition that builds confidence before the first bell. It carries the AURA system from gym floor to street.',
-    Equipment: 'A tool for the daily rounds: bag work, pads, drills, and the small rituals that make training feel intentional. It anchors the AURA uniform in the work itself.',
-  }[category] || 'A piece built to sit inside the AURA training and lifestyle system: composed, intentional, and ready for the unseen rounds.';
+    Apparel: 'A comfortable training-to-lifestyle layer for the hours before, during, and after the work.',
+    'T-Shirt': 'A clean everyday tee for training, recovery, travel, and casual wear.',
+    Hoodie: 'A comfortable layer for warm-ups, rest days, travel, and daily life.',
+    Joggers: 'Clean joggers for training, recovery, travel, and daily movement.',
+    'Tank Top': 'A training tank for gym work, warm weather, and easy layering.',
+    'Steel Water Bottle': 'An everyday training bottle for the gym bag, roadwork, and daily routine.',
+    Footwear: 'An upcoming movement piece for footwork, travel, and everyday styling.',
+    Equipment: 'An accessory category for the daily routine: useful pieces that complete the AURA uniform.',
+  }[category] || 'A piece built to sit inside the AURA training and lifestyle system.';
 }
 
-function getProductCards(product) {
+function getProductCards(product, shopProduct) {
   return [
     {
-      title: 'Fit / silhouette',
-      copy: product.category === 'Footwear'
-        ? 'Built around a fight-ready profile and a composed AURA stance.'
-        : 'Designed to sit clean in the AURA uniform without shouting for attention.',
+      title: 'Price',
+      copy: shopProduct?.priceEUR ? formatPriceEUR(shopProduct.priceEUR) : 'Coming soon',
     },
     {
-      title: 'Training use',
-      copy: product.shortDesc || 'Made for the discipline, repetition, and preparation before the session becomes visible.',
+      title: 'Sizes',
+      copy: shopProduct?.sizes?.join(', ') || 'To be confirmed',
     },
     {
-      title: 'Lifestyle use',
-      copy: 'Reserved enough to move outside the gym while still carrying the fight-club identity.',
+      title: 'Use',
+      copy: 'Built for training, recovery, travel, and everyday life.',
     },
     {
-      title: 'Brand identity',
-      copy: `${product.collection || 'AURA'}: presence first, attention second. The aura is earned before it is seen.`,
+      title: 'Identity',
+      copy: 'Clean, minimal AURA styling with a training-to-lifestyle purpose.',
     },
   ];
+}
+
+function getPublicDescription(product) {
+  const category = String(product?.category || '').toLowerCase();
+  const name = String(product?.name || '').toLowerCase();
+
+  if (category.includes('t-shirt')) return 'A clean everyday tee for training, recovery, travel, and casual wear.';
+  if (category.includes('hoodie')) return 'A comfortable AURA layer for warm-ups, rest days, travel, and everyday life.';
+  if (category.includes('jogger')) return 'Clean joggers for training, recovery, travel, and daily movement.';
+  if (category.includes('tank')) return 'A training tank for gym work, warm weather, and easy layering.';
+  if (category.includes('water') || name.includes('bottle')) return 'An everyday training bottle for the gym bag, roadwork, and daily routine.';
+
+  return product?.shortDesc || product?.description || 'AURA training-to-lifestyle piece.';
 }
 
 export default function ProductDetail({ product, onBack }) {
@@ -76,6 +95,8 @@ export default function ProductDetail({ product, onBack }) {
     );
   }
 
+  const shopProduct = getShopProduct(product.slug);
+  const canBuy = isShopProduct(product.slug);
   const gallery = product.gallery?.length
     ? product.gallery
     : media?.gallery?.length
@@ -84,13 +105,12 @@ export default function ProductDetail({ product, onBack }) {
         ? [{ src: product.image, alt: product.name }]
         : [];
 
-  const statusLabel = getStatusLabel(product.status);
-  const actionLabel = getActionLabel(product.status);
+  const statusLabel = getStatusLabel(product, canBuy);
   const categoryPath = categoryRoutes[product.category] || '/drop-001';
   const collectionPath = getCollectionRoute(product);
   const collectionLabel = product.collection === 'Drop 001' ? 'View Drop 001' : 'View Drops';
-  const relatedCategories = ['Apparel', 'Footwear', 'Equipment'].filter((category) => category !== product.category);
-  const detailCards = getProductCards(product);
+  const detailCards = getProductCards(product, shopProduct);
+  const cartHref = `/cart?add=${encodeURIComponent(product.slug)}`;
 
   return (
     <div className="pd">
@@ -107,7 +127,7 @@ export default function ProductDetail({ product, onBack }) {
               <ProductMediaGallery gallery={gallery} productName={product.name} />
             ) : (
               <div className="pd__gallery-empty">
-                <span>Media pending</span>
+                <span>Preview coming soon</span>
                 <strong>{product.name}</strong>
               </div>
             )}
@@ -118,36 +138,45 @@ export default function ProductDetail({ product, onBack }) {
             <h1 className="pd__name">{product.name}</h1>
             <div className="pd__commerce-row">
               <span className="pd__badge">{statusLabel}</span>
-              {product.price ? <span className="pd__price">{product.price}</span> : null}
+              {shopProduct?.priceEUR ? <span className="pd__price">{formatPriceEUR(shopProduct.priceEUR)}</span> : null}
             </div>
 
-            <div className="pd__waitlist">
-              <p className="pd__waitlist-label">{actionLabel} / {product.collection}</p>
-              {!submitted ? (
+            {canBuy ? (
+              <div className="pd__waitlist">
+                <p className="pd__waitlist-label">Order / {product.collection}</p>
                 <div className="pd__form">
-                  <input
-                    className="pd__email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    onKeyDown={(event) => event.key === 'Enter' && email && setSubmitted(true)}
-                    aria-label="Email address"
-                  />
-                  <button className="pd__submit" onClick={() => email && setSubmitted(true)}>
-                    {actionLabel}
-                  </button>
+                  <Link className="pd__submit" to={cartHref}>Add to Cart</Link>
+                  <Link className="pd__email pd__email--link" to="/cart">View Cart</Link>
                 </div>
-              ) : <p className="pd__confirm">YOU'RE ON THE LIST.</p>}
-            </div>
+              </div>
+            ) : (
+              <div className="pd__waitlist">
+                <p className="pd__waitlist-label">Future Release / Updates</p>
+                {!submitted ? (
+                  <div className="pd__form">
+                    <input
+                      className="pd__email"
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      onKeyDown={(event) => event.key === 'Enter' && email && setSubmitted(true)}
+                      aria-label="Email address"
+                    />
+                    <button className="pd__submit" onClick={() => email && setSubmitted(true)}>
+                      Notify Me
+                    </button>
+                  </div>
+                ) : <p className="pd__confirm">YOU'RE ON THE LIST.</p>}
+              </div>
+            )}
 
             <div className="pd__cta-row" aria-label="Related product links">
               <Link to={collectionPath}>{collectionLabel}</Link>
               <Link to={categoryPath}>{product.collection === 'Drop 001' ? 'Shop' : 'View'} {product.category}</Link>
             </div>
 
-            {product.shortDesc ? <p className="pd__short">{product.shortDesc}</p> : null}
-            {product.description ? <p className="pd__desc">{product.description}</p> : null}
+            <p className="pd__short">{getPublicDescription(product)}</p>
           </div>
         </section>
 
@@ -155,16 +184,13 @@ export default function ProductDetail({ product, onBack }) {
           <p className="pd__section-label">Product story</p>
           <h2 id="product-story-title">Built into the AURA uniform.</h2>
           <p>{getCategoryRole(product.category)}</p>
-          <p>
-            {product.name} is positioned as part of a premium boxing lifestyle system:
-            disciplined, quiet, and intentional enough for training, recovery, and the life around the rounds.
-          </p>
+          <p>{product.name} sits inside the AURA training-to-lifestyle system: comfort first, clean fit, and a theme that works beyond the gym.</p>
         </section>
 
         <section className="pd-detail-section" aria-labelledby="product-details-title">
           <div className="pd-section-head">
             <p className="pd__section-label">Product details</p>
-            <h2 id="product-details-title">Commercial, clean, fight-club ready.</h2>
+            <h2 id="product-details-title">Clean, wearable, and easy to understand.</h2>
           </div>
           <div className="pd-detail-grid">
             {detailCards.map((card) => (
@@ -174,22 +200,12 @@ export default function ProductDetail({ product, onBack }) {
               </article>
             ))}
           </div>
-          {product.details?.length > 0 && (
-            <div className="pd-spec-list">
-              <p className="pd__section-label">Available product notes</p>
-              <ul className="pd__details">
-                {product.details.map((detail) => <li key={detail}>{detail}</li>)}
-              </ul>
-            </div>
-          )}
         </section>
 
         <section className="pd-related" aria-label="Related navigation">
           <Link to={collectionPath}>{product.collection === 'Drop 001' ? 'Drop 001' : 'Drops'}</Link>
-          <Link to={categoryPath}>{product.category}</Link>
-          {relatedCategories.map((category) => (
-            <Link to={categoryRoutes[category]} key={category}>{category}</Link>
-          ))}
+          <Link to={categoryPath}>{product.category === 'Equipment' ? 'Accessories' : product.category}</Link>
+          <Link to="/cart">Cart</Link>
         </section>
       </main>
       <Footer />
