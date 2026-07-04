@@ -19,6 +19,11 @@ export const shopProducts = {
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colour: 'Black / Cream options',
   },
+  'aura-sleeveless-training-hoodie': {
+    priceEUR: 58,
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colour: 'Black',
+  },
   'aura-steel-water-bottle': {
     priceEUR: 28,
     sizes: ['One Size'],
@@ -31,6 +36,11 @@ export const shopProducts = {
   },
   'aura-training-tank-top': {
     priceEUR: 30,
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colour: 'Black / Cream options',
+  },
+  'aura-fight-club-training-shorts': {
+    priceEUR: 42,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colour: 'Black / Cream options',
   },
