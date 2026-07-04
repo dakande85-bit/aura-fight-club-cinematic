@@ -142,11 +142,11 @@ export default function ProductDetail({ product, onBack }) {
             </div>
 
             {canBuy ? (
-              <div className="pd__waitlist">
+              <div className="pd__purchase">
                 <p className="pd__waitlist-label">Order / {product.collection}</p>
-                <div className="pd__form">
-                  <Link className="pd__submit" to={cartHref}>Add to Cart</Link>
-                  <Link className="pd__email pd__email--link" to="/cart">View Cart</Link>
+                <div className="pd__buy-actions">
+                  <Link className="pd__buy-btn pd__buy-btn--primary" to={cartHref}>Add to Bag</Link>
+                  <Link className="pd__buy-btn pd__buy-btn--ghost" to="/cart">View Bag</Link>
                 </div>
               </div>
             ) : (
@@ -205,7 +205,7 @@ export default function ProductDetail({ product, onBack }) {
         <section className="pd-related" aria-label="Related navigation">
           <Link to={collectionPath}>{product.collection === 'Drop 001' ? 'Drop 001' : 'Drops'}</Link>
           <Link to={categoryPath}>{product.category === 'Equipment' ? 'Accessories' : product.category}</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart">Bag</Link>
         </section>
       </main>
       <Footer />
