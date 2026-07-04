@@ -49,7 +49,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <a className="header__cta header__cta--desktop" href="/cart">Bag</a>
+        <a className="header__cta header__cta--desktop" href="/cart">Cart</a>
 
         <button
           className={menuButtonClass}
@@ -74,7 +74,7 @@ export default function Header() {
           {navItems.map(item => (
             <a key={item.href} href={item.href} onClick={closeMenu}>{item.label}</a>
           ))}
-          <a className="header__mobile-cta" href="/cart" onClick={closeMenu}>Bag</a>
+          <a className="header__mobile-cta" href="/cart" onClick={closeMenu}>Cart</a>
         </nav>
       </aside>
 
