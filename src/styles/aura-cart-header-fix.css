@@ -1,0 +1,28 @@
+.header__cta--desktop {
+  min-width: 112px !important;
+  min-height: 46px !important;
+  border-radius: 999px !important;
+  border: 1px solid #d6b56d !important;
+  background: #d6b56d !important;
+  color: #050505 !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28) !important;
+  font-size: 0.72rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.2em !important;
+  text-align: center !important;
+}
+
+.header__cta--desktop:hover {
+  background: #f1cf7a !important;
+  border-color: #f1cf7a !important;
+  color: #050505 !important;
+}
+
+@media (max-width: 1100px) {
+  .header__cta--desktop {
+    min-width: 98px !important;
+    min-height: 42px !important;
+    font-size: 0.66rem !important;
+    letter-spacing: 0.16em !important;
+  }
+}
