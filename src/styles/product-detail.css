@@ -212,7 +212,8 @@
   font-size: 13px;
 }
 
-.pd__waitlist {
+.pd__waitlist,
+.pd__purchase {
   display: grid;
   gap: 11px;
   margin-top: 8px;
@@ -259,6 +260,42 @@
 
 .pd__submit:hover {
   background: #fff;
+}
+
+.pd__buy-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.pd__buy-btn {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(244, 241, 234, 0.18);
+  padding: 0 18px;
+  color: #f4f1ea;
+  font-family: 'Barlow', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.pd__buy-btn--primary {
+  border-color: #d6b56d;
+  background: #d6b56d;
+  color: #050505;
+}
+
+.pd__buy-btn--ghost {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.pd__buy-btn:hover {
+  filter: brightness(1.08);
 }
 
 .pd__confirm {
@@ -427,11 +464,14 @@
     padding: 19px;
   }
 
-  .pd__form {
+  .pd__form,
+  .pd__buy-actions {
+    grid-template-columns: 1fr;
     flex-direction: column;
   }
 
-  .pd__submit {
+  .pd__submit,
+  .pd__buy-btn {
     width: 100%;
   }
 
