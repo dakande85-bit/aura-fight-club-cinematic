@@ -4,6 +4,7 @@ import { useBrandLogo } from '../hooks/usePageMedia.js';
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Drop 001', href: '/drop-001' },
+  { label: 'Drops', href: '/drops' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
   { label: 'Accessories', href: '/equipment' },
