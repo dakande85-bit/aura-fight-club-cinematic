@@ -1,15 +1,11 @@
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import LaunchProductCard from '../components/LaunchProductCard.jsx';
+import DropCountdown from '../components/DropCountdown.jsx';
 import { dropOneCategories, dropOneProducts } from '../data/products.js';
+import { auraSets, dropTwoItems, dropTwoTargetDate } from '../data/dropRoadmap.js';
 import '../styles/drops.css';
-
-const upcomingCandidates = [
-  'Footwear',
-  'Training accessories',
-  'Everyday carry pieces',
-  'Premium tracksuit layers',
-];
+import '../styles/drops-roadmap.css';
 
 const dropImages = {
   hero: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.webp',
@@ -40,6 +36,44 @@ function DropCard({ eyebrow, title, status, copy, items, cta, href, image, image
   );
 }
 
+function SetCard({ set }) {
+  return (
+    <article className="sets-card">
+      <div className="sets-card__media">
+        <img src={set.image} alt={`${set.title} concept`} loading="lazy" decoding="async" />
+      </div>
+      <div className="sets-card__body">
+        <div className="sets-card__meta">
+          <span>{set.status}</span>
+          <small>{set.items.length} pieces</small>
+        </div>
+        <h3>{set.title}</h3>
+        <p>{set.copy}</p>
+        <ul>
+          {set.items.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+        <a href="#waitlist">Join Set Waitlist</a>
+      </div>
+    </article>
+  );
+}
+
+function FutureItemCard({ item }) {
+  return (
+    <article className="future-card">
+      <div className="future-card__media">
+        <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
+      </div>
+      <div className="future-card__body">
+        <span>{item.status}</span>
+        <h3>{item.title}</h3>
+        <p>{item.copy}</p>
+        <a href="#waitlist">Join Waitlist</a>
+      </div>
+    </article>
+  );
+}
+
 export default function Drops() {
   return (
     <div className="drops-page">
@@ -49,13 +83,14 @@ export default function Drops() {
           <div className="drops-hero__content">
             <p className="drops-eyebrow">AURA FIGHT CLUB</p>
             <h1>DROPS</h1>
-            <p className="drops-subtitle">TRAINING. LIFESTYLE. EVERYDAY PRESENCE.</p>
+            <p className="drops-subtitle">CURRENT DROP. FUTURE RELEASES. SETS.</p>
             <p className="drops-hero__copy">
-              AURA releases clothing and accessories in stages. Drop 001 begins with comfortable training-to-lifestyle essentials: pieces you can wear in the gym, after training, while travelling, and through daily life.
+              This is the AURA release hub: shop Drop 001, watch the Drop 002 countdown, join future product waitlists, and preview Sets — complete product combinations built around training, recovery, travel, and everyday life.
             </p>
             <div className="drops-actions">
-              <a className="drops-btn drops-btn--primary" href="/drop-001">VIEW DROP 001</a>
-              <a className="drops-btn drops-btn--ghost" href="#waitlist">JOIN WAITLIST</a>
+              <a className="drops-btn drops-btn--primary" href="/drop-001">SHOP DROP 001</a>
+              <a className="drops-btn drops-btn--ghost" href="#drop-002">DROP 002 COUNTDOWN</a>
+              <a className="drops-btn drops-btn--ghost" href="#sets">VIEW SETS</a>
             </div>
           </div>
           <div className="drops-hero__media">
@@ -75,14 +110,15 @@ export default function Drops() {
           <div className="drops-section__head">
             <p className="drops-eyebrow">CURRENT FOCUS</p>
             <h2 id="current-drop-title">DROP 001</h2>
+            <p>Available now as the first AURA training-to-lifestyle release.</p>
           </div>
           <DropCard
             eyebrow="DROP 001"
             title="COMFORTABLE DAILY TRAINING LAYERS"
-            status="WAITLIST OPENING"
+            status="AVAILABLE TO ORDER"
             copy="Clean silhouettes, minimal branding, and comfortable pieces designed for training, recovery, travel, and everyday wear."
             items={dropOneCategories}
-            cta="View Drop 001"
+            cta="Shop Drop 001"
             href="/drop-001"
             image={dropImages.drop001}
             imageAlt="Drop 001 cream AURA uniform on model"
@@ -94,22 +130,45 @@ export default function Drops() {
           </div>
         </section>
 
-        <section className="drops-section drops-section--split" aria-labelledby="upcoming-drop-title">
-          <div className="drops-section__head">
+        <section className="drop002-section" id="drop-002" aria-labelledby="drop002-title">
+          <div className="drop002-section__copy">
             <p className="drops-eyebrow">COMING NEXT</p>
-            <h2 id="upcoming-drop-title">FUTURE AURA PIECES</h2>
+            <h2 id="drop002-title">DROP 002</h2>
+            <p>
+              Drop 002 expands AURA beyond the first clothing release. The countdown is live and updates every second. This section becomes the place to build demand before products go live.
+            </p>
+            <div className="drops-actions">
+              <a className="drops-btn drops-btn--primary" href="#waitlist">Join Drop 002 Waitlist</a>
+              <a className="drops-btn drops-btn--ghost" href="#future-items">View Future Items</a>
+            </div>
           </div>
-          <DropCard
-            eyebrow="NEXT PHASE"
-            title="FOOTWEAR AND ACCESSORIES"
-            status="COMING SOON"
-            copy="The next phase expands the AURA uniform with footwear, accessories, carry pieces, and premium layers."
-            items={upcomingCandidates}
-            cta="Join Waitlist"
-            href="#waitlist"
-            image={dropImages.drop002}
-            imageAlt="AURA footwear preview"
-          />
+          <DropCountdown target={dropTwoTargetDate} />
+        </section>
+
+        <section className="sets-section" id="sets" aria-labelledby="sets-title">
+          <div className="sets-section__head">
+            <p className="drops-eyebrow">NEW CONCEPT</p>
+            <h2 id="sets-title">SETS</h2>
+            <p>
+              Sets are curated AURA combinations customers can buy together. They make the brand easier to understand: not just single products, but complete outfits for training, recovery, travel, and everyday movement.
+            </p>
+          </div>
+          <div className="sets-grid">
+            {auraSets.map((set) => <SetCard set={set} key={set.title} />)}
+          </div>
+        </section>
+
+        <section className="future-section" id="future-items" aria-labelledby="future-items-title">
+          <div className="future-section__head">
+            <p className="drops-eyebrow">WAITLIST ITEMS</p>
+            <h2 id="future-items-title">FUTURE DROPS</h2>
+            <p>
+              Use this area to show products that are not ready to sell yet but should collect interest: Drop 002 candidates, future accessories, footwear, tracksuits, and bigger AURA releases.
+            </p>
+          </div>
+          <div className="future-grid">
+            {dropTwoItems.map((item) => <FutureItemCard item={item} key={item.title} />)}
+          </div>
         </section>
 
         <section className="drops-waitlist" id="waitlist" aria-labelledby="drops-waitlist-title">
@@ -117,7 +176,7 @@ export default function Drops() {
             <p className="drops-eyebrow">EARLY ACCESS</p>
             <h2 id="drops-waitlist-title">JOIN THE DROP LIST</h2>
             <p>
-              Get early access to Drop 001 and future AURA clothing, footwear, and accessory releases.
+              Join for Drop 002, Sets, future footwear, accessories, tracksuit layers, and limited AURA product combinations.
             </p>
           </div>
           <form className="drops-form">
@@ -131,15 +190,17 @@ export default function Drops() {
             </label>
             <label>
               <span>Interested in</span>
-              <select name="interest" defaultValue="All Drops">
-                <option>Apparel</option>
+              <select name="interest" defaultValue="Drop 002">
+                <option>Drop 002</option>
+                <option>Sets</option>
                 <option>Footwear</option>
                 <option>Accessories</option>
-                <option>All Drops</option>
+                <option>Tracksuit layers</option>
+                <option>All future drops</option>
               </select>
             </label>
             <button type="button">JOIN WAITLIST</button>
-            <p>Waitlist opening soon.</p>
+            <p>Connected checkout/email capture can be added later. This page now has the structure ready.</p>
           </form>
         </section>
 
@@ -149,13 +210,13 @@ export default function Drops() {
           </div>
           <div className="drops-closing__copy">
             <p className="drops-eyebrow">AURA STANDARD</p>
-            <h2 id="drops-closing-title">LIFE HAS ROUNDS.</h2>
+            <h2 id="drops-closing-title">BUILD THE UNIFORM.</h2>
             <p>
-              AURA is for people who train, work, move, recover, and keep going. Comfortable clothing first, with a theme that carries the mindset into everyday life.
+              Drop 001 sells the first pieces. Drop 002 builds the next phase. Sets make AURA easier to buy as a complete lifestyle uniform.
             </p>
             <div className="drops-actions">
-              <a className="drops-btn drops-btn--primary" href="/drop-001">View Drop 001</a>
-              <a className="drops-btn drops-btn--ghost" href="/fight-club">Join Waitlist</a>
+              <a className="drops-btn drops-btn--primary" href="/drop-001">Shop Drop 001</a>
+              <a className="drops-btn drops-btn--ghost" href="#sets">View Sets</a>
             </div>
           </div>
         </section>
