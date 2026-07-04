@@ -19,6 +19,16 @@
     #11100f;
 }
 
+.lpc__media-link {
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.18s ease, filter 0.18s ease;
+}
+
+.lpc__media-link:hover {
+  filter: brightness(1.08);
+}
+
 .lpc__media img {
   display: block;
   width: 100%;
@@ -106,11 +116,26 @@
   text-transform: uppercase;
 }
 
+.lpc h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.lpc h2 a:hover {
+  color: #d6b56d;
+}
+
 .lpc p {
   margin: 0;
   color: rgba(244, 241, 234, 0.68);
   font-size: 0.96rem;
   line-height: 1.62;
+}
+
+.lpc__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .lpc__cta {
@@ -124,6 +149,11 @@
   color: #060504;
   padding: 0 18px;
   text-decoration: none;
+}
+
+.lpc__cta--ghost {
+  background: transparent;
+  color: #fff8ec;
 }
 
 .lpc--compact .lpc__media {
@@ -148,6 +178,7 @@
     padding: 18px;
   }
 
+  .lpc__actions,
   .lpc__cta {
     width: 100%;
   }
