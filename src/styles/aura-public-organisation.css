@@ -70,6 +70,26 @@
   color: rgba(214, 181, 109, 0.82) !important;
 }
 
+.lpc__media-link,
+.lpc h2 a,
+.pd__submit,
+.pd__email--link {
+  text-decoration: none !important;
+}
+
+.pd__email--link {
+  min-height: 52px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-left: 1px solid rgba(244, 241, 234, 0.14) !important;
+  color: #f4f1ea !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+}
+
 .col-page--equipment .col-eyebrow::after,
 .ph--equipment .ph__label::after {
   content: ' / ACCESSORIES';
@@ -107,5 +127,11 @@
     width: 100% !important;
     height: 100% !important;
     max-height: 520px !important;
+  }
+
+  .pd__email--link {
+    width: 100% !important;
+    border-left: 0 !important;
+    border-top: 1px solid rgba(244, 241, 234, 0.14) !important;
   }
 }
