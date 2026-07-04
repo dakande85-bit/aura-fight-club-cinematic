@@ -8,7 +8,7 @@ import '../styles/drop001.css';
 
 export default function Drop001() {
   const heroMedia = usePageHeroMedia('drop001');
-  const productCountLabel = `${dropOneProducts.length} pieces - clothing and accessories - waitlist opening`;
+  const productCountLabel = `${dropOneProducts.length} pieces - available to order`;
 
   return (
     <div className="d001">
@@ -24,8 +24,8 @@ export default function Drop001() {
         imageScale={heroMedia.imageScale}
         className="ph--drop001"
         ctas={[
-          { label: 'Join Waitlist', to: '/fight-club', variant: 'primary' },
-          { label: 'View Apparel', to: '/apparel', variant: 'ghost' },
+          { label: 'Shop Drop 001', to: '#drop-lineup', variant: 'primary', scroll: true },
+          { label: 'View Cart', to: '/cart', variant: 'ghost' },
         ]}
       />
 
@@ -33,7 +33,7 @@ export default function Drop001() {
         <p className="d001__meta">{productCountLabel}</p>
         <h2 className="d001__lineup-title">DROP 001 - EVERYDAY TRAINING LAYERS</h2>
         <p className="d001__lineup-copy">
-          AURA starts with wearable essentials before expanding into footwear and accessories. The focus is comfort, clean fit, and a strong club identity you can carry through the whole day.
+          AURA starts with wearable essentials before expanding into footwear and accessories. Choose a product below and add it to your cart.
         </p>
 
         <div className="d001__grid d001__grid--confirmed">
@@ -42,11 +42,11 @@ export default function Drop001() {
           ))}
         </div>
 
-        <section className="d001__waitlist" aria-labelledby="drop001-waitlist-title">
-          <p className="d001__meta">Early Access</p>
-          <h2 id="drop001-waitlist-title">JOIN THE DROP LIST.</h2>
-          <p>Be first in line when Drop 001 opens for early access.</p>
-          <a href="/fight-club">Join Waitlist</a>
+        <section className="d001__waitlist" aria-labelledby="drop001-order-title">
+          <p className="d001__meta">Checkout</p>
+          <h2 id="drop001-order-title">READY TO ORDER?</h2>
+          <p>Review your selected Drop 001 pieces and send the order request.</p>
+          <a href="/cart">View Cart</a>
         </section>
 
         <section className="d001__note" aria-label="Drop 001 scope">
