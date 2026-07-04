@@ -34,39 +34,42 @@ export default function LaunchProductCard({ product, compact = false }) {
 
   const hasImage = Boolean(product.image);
   const cardClass = compact ? 'lpc lpc--compact' : 'lpc';
+  const productHref = `/product/${encodeURIComponent(product.slug)}`;
   const shopProduct = getShopProduct(product.slug);
   const canBuy = isShopProduct(product.slug);
   const statusLabel = canBuy ? 'Available to Order' : 'Coming Soon';
   const supportLabel = canBuy && shopProduct?.priceEUR
     ? formatPriceEUR(shopProduct.priceEUR)
     : product.category ? `${product.category} / Waitlist` : 'Waitlist';
-  const ctaLabel = canBuy ? 'Add to Cart' : 'Join Waitlist';
-  const ctaHref = canBuy ? `/cart?add=${encodeURIComponent(product.slug)}` : '/fight-club';
+  const cartHref = canBuy ? `/cart?add=${encodeURIComponent(product.slug)}` : '/fight-club';
 
   return (
     <article className={cardClass}>
-      <div className="lpc__media">
+      <Link className="lpc__media lpc__media-link" to={productHref} aria-label={`View ${product.name}`}>
         {hasImage ? (
           <img src={product.image} alt={product.imageAlt || product.name} loading="lazy" decoding="async" />
         ) : (
-          <div className="lpc__placeholder" aria-label={`${product.name} preview artwork pending`}>
+          <div className="lpc__placeholder" aria-hidden="true">
             <strong>AURA</strong>
             <span>{product.category}</span>
           </div>
         )}
-      </div>
+      </Link>
       <div className="lpc__body">
         <div className="lpc__meta">
           <span>{product.category}</span>
           <span>{product.audience}</span>
         </div>
-        <h2>{product.name}</h2>
+        <h2><Link to={productHref}>{product.name}</Link></h2>
         <p>{getDisplayCopy(product)}</p>
         <div className="lpc__status">
           <span>{statusLabel}</span>
           <small>{supportLabel}</small>
         </div>
-        <Link className="lpc__cta" to={ctaHref}>{ctaLabel}</Link>
+        <div className="lpc__actions">
+          <Link className="lpc__cta lpc__cta--ghost" to={productHref}>View Product</Link>
+          <Link className="lpc__cta" to={cartHref}>{canBuy ? 'Add to Cart' : 'Join Waitlist'}</Link>
+        </div>
       </div>
     </article>
   );
