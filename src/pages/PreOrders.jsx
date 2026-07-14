@@ -3,6 +3,8 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import LaunchProductCard from '../components/LaunchProductCard.jsx';
 import { activePreorderProducts } from '../data/activeShopifyProducts.js';
+import { getPreorderProduct } from '../data/preorderProducts.js';
+import { applyProductOverride } from '../data/productOverrides.js';
 import '../styles/preorders.css';
 
 const processSteps = [
@@ -21,6 +23,12 @@ const processSteps = [
     title: 'Made for you',
     copy: 'The supplier produces your individual order. Estimated delivery is 5–7 weeks.',
   },
+];
+
+const sleevelessHoodie = applyProductOverride(getPreorderProduct('aura-sleeveless-training-hoodie'));
+const displayPreorderProducts = [
+  ...(sleevelessHoodie ? [sleevelessHoodie] : []),
+  ...activePreorderProducts.filter((product) => product.slug !== 'aura-sleeveless-training-hoodie'),
 ];
 
 export default function PreOrders() {
@@ -84,11 +92,11 @@ export default function PreOrders() {
               <p className="preorder-kicker">CURRENT PRE-ORDERS</p>
               <h2 id="preorder-products-title">MADE FOR THE FIGHTER.</h2>
             </div>
-            <p>{activePreorderProducts.length} active specialist products available individually.</p>
+            <p>{displayPreorderProducts.length} active specialist products available individually.</p>
           </div>
 
           <div className="preorder-products__grid">
-            {activePreorderProducts.map((product) => (
+            {displayPreorderProducts.map((product) => (
               <LaunchProductCard product={product} key={product.slug} />
             ))}
           </div>
