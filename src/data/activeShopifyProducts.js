@@ -15,6 +15,14 @@ const TEE_MEDIA = {
   lifestyle: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-boxing-essential-navy-lifestyle_42de233a-54b8-42c8-b330-a89fb1a6203f.png?v=1784052972',
 };
 
+const VARSITY_MEDIA = {
+  front: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-fight-club-varsity-bomber-front_423b6374-e987-4c50-bc11-29cbe39a7d51.png?v=1784072195',
+  back: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-fight-club-varsity-bomber-back_43f504b6-944d-41c9-bf56-f2852e57d718.png?v=1784072195',
+  modelFront: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-fight-club-varsity-bomber-model-front_2a5371d2-72b5-4190-aa4d-cd50d19dcb42.png?v=1784072195',
+  modelBack: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-fight-club-varsity-bomber-model-back_82bd3186-daca-42c1-9654-d1a68ffe48af.png?v=1784072195',
+  detail: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-fight-club-varsity-bomber-detail_a64b6f5e-79aa-4404-80e3-24c793f5abc4.png?v=1784072195',
+};
+
 const makeProduct = ({
   slug,
   title,
@@ -136,8 +144,17 @@ const varsityJacket = makeProduct({
   category: 'Varsity Bomber Jacket',
   description: 'Heavyweight varsity-style outer layer for training days, travel, fight nights and everyday wear.',
   materialNote: 'Structured heavyweight letterman jacket with ribbed trims, snap front and athletic unisex silhouette.',
-  image: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/unisex-heavyweight-letterman-jacket-jet-black-arctic-white-front-6a5614d394d3a.jpg?v=1784026343',
+  image: VARSITY_MEDIA.front,
+  hoverImage: VARSITY_MEDIA.modelBack,
+  imageStatus: 'Approved five-image Shopify gallery live',
   details: ['Black / White', 'Heavyweight', 'Sizes S-3XL'],
+  gallery: [
+    { src: VARSITY_MEDIA.front, alt: 'AURA Fight Club Varsity Bomber Jacket front product view' },
+    { src: VARSITY_MEDIA.back, alt: 'AURA Fight Club Varsity Bomber Jacket back product view with AURA Fight Club wordmark' },
+    { src: VARSITY_MEDIA.modelFront, alt: 'Model wearing the AURA Fight Club Varsity Bomber Jacket, front view' },
+    { src: VARSITY_MEDIA.modelBack, alt: 'Model wearing the AURA Fight Club Varsity Bomber Jacket, back view' },
+    { src: VARSITY_MEDIA.detail, alt: 'AURA Fight Club Varsity Bomber Jacket collar and chest logo detail' },
+  ],
 });
 
 const customGloves = makeProduct({
