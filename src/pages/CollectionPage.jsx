@@ -7,79 +7,20 @@ import ControlledCategoryHero from '../components/ControlledCategoryHero.jsx';
 import LaunchProductCard from '../components/LaunchProductCard.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import { useAllProductMedia } from '../hooks/useProductMedia.js';
-import { dropOneApparelProducts } from '../data/products.js';
-import { applyProductOverride } from '../data/productOverrides.js';
-import { makeDuffleProduct } from '../data/duffleProduct.js';
-import { makeWaterBottleProduct } from '../data/waterBottleProduct.js';
-import { makeNavyTrainingSetProduct } from '../data/navyTrainingSet.js';
+import {
+  activeApparelProducts,
+  activeEquipmentProducts,
+} from '../data/activeShopifyProducts.js';
 import '../styles/collection.css';
-
-const COMMERCE_EQUIPMENT_PRODUCTS = [
-  makeDuffleProduct('duffle-bag'),
-  makeWaterBottleProduct('aura-steel-water-bottle'),
-];
-
-const COMMERCE_APPAREL_PRODUCTS = [
-  makeNavyTrainingSetProduct(),
-];
-
-const HIDDEN_APPAREL_SLUGS = new Set([
-  'aura-sleeveless-training-hoodie',
-  'aura-fight-club-training-shorts',
-  // The navy hoodie and joggers are purchase choices inside the single set listing.
-  'aura-fight-club-hoodie',
-  'aura-fight-club-joggers',
-]);
-
-function isSameCommerceProduct(product, curatedProduct) {
-  const slug = String(product?.slug || '').toLowerCase();
-  const name = String(product?.name || product?.title || '').toLowerCase();
-
-  if (slug === curatedProduct.slug) return true;
-  if (curatedProduct.slug === 'duffle-bag') {
-    return slug.includes('duffle') || name.includes('duffle bag');
-  }
-  if (curatedProduct.slug === 'aura-steel-water-bottle') {
-    return slug.includes('water-bottle') || name.includes('water bottle');
-  }
-  if (curatedProduct.slug === 'aura-navy-training-set') {
-    return slug.includes('navy-training-set') || name.includes('navy training set');
-  }
-  return false;
-}
-
-function mergeEquipmentProducts(liveProducts = []) {
-  const remaining = liveProducts.filter((product) => (
-    !COMMERCE_EQUIPMENT_PRODUCTS.some((curatedProduct) => isSameCommerceProduct(product, curatedProduct))
-  ));
-
-  return [...COMMERCE_EQUIPMENT_PRODUCTS, ...remaining];
-}
-
-function mergeApparelProducts(apparelProducts = []) {
-  const remaining = apparelProducts.filter((product) => (
-    !HIDDEN_APPAREL_SLUGS.has(product.slug)
-    && !COMMERCE_APPAREL_PRODUCTS.some((curatedProduct) => isSameCommerceProduct(product, curatedProduct))
-  ));
-
-  return [...COMMERCE_APPAREL_PRODUCTS, ...remaining];
-}
 
 function getCategoryMeta(category, count) {
   const key = String(category || '').toLowerCase();
 
-  if (key === 'apparel') {
-    return `${count} faster-delivery core pieces`;
-  }
-
+  if (key === 'apparel') return `${count} active Shopify apparel products`;
+  if (key === 'equipment') return `${count} active Shopify training accessories`;
   if (key === 'footwear') {
     return count > 0 ? `${count} upcoming footwear previews` : 'Upcoming footwear previews';
   }
-
-  if (key === 'equipment') {
-    return count > 0 ? `${count} training accessories` : 'Accessories coming soon';
-  }
-
   return count > 0 ? `${count} pieces` : 'New pieces coming soon';
 }
 
@@ -88,14 +29,13 @@ export default function CollectionPage({ category, heading, subcopy }) {
   const { products, loading } = useLiveProducts({ category });
   const { mediaMap } = useAllProductMedia();
   const key = String(category || '').toLowerCase();
-  const isLaunchApparel = key === 'apparel';
-  const sourceProducts = isLaunchApparel
-    ? mergeApparelProducts(dropOneApparelProducts)
+  const isActiveCommerceCategory = key === 'apparel' || key === 'equipment';
+  const sourceProducts = key === 'apparel'
+    ? activeApparelProducts
     : key === 'equipment'
-      ? mergeEquipmentProducts(products || [])
+      ? activeEquipmentProducts
       : (products || []);
-  const safeProducts = sourceProducts.map(applyProductOverride);
-  const gridClass = safeProducts.length === 1 ? 'col-grid col-grid--single' : 'col-grid';
+  const gridClass = sourceProducts.length === 1 ? 'col-grid col-grid--single' : 'col-grid';
 
   return (
     <div className={'col-page col-page--' + key}>
@@ -110,11 +50,11 @@ export default function CollectionPage({ category, heading, subcopy }) {
         <h1 className="col-title">{heading}</h1>
         <p className="col-sub">{subcopy}</p>
         <div className="col-divider" />
-        {loading && !isLaunchApparel ? (
+        {loading && !isActiveCommerceCategory ? (
           <p className="col-meta">Loading...</p>
         ) : (
-          <p className={safeProducts.length > 0 ? 'col-meta' : 'col-meta col-meta--empty'}>
-            {getCategoryMeta(category, safeProducts.length)}
+          <p className={sourceProducts.length > 0 ? 'col-meta' : 'col-meta col-meta--empty'}>
+            {getCategoryMeta(category, sourceProducts.length)}
           </p>
         )}
       </div>
@@ -128,12 +68,12 @@ export default function CollectionPage({ category, heading, subcopy }) {
       <CategoryLineupIntro category={category} />
 
       <div className="col-grid-wrap">
-        {loading && !isLaunchApparel ? (
+        {loading && !isActiveCommerceCategory ? (
           <div className="col-loading">Loading collection...</div>
-        ) : safeProducts.length > 0 ? (
-          <div className={isLaunchApparel ? 'col-grid col-grid--concept' : gridClass}>
-            {safeProducts.map((product) => (
-              isLaunchApparel ? (
+        ) : sourceProducts.length > 0 ? (
+          <div className={isActiveCommerceCategory ? 'col-grid col-grid--concept' : gridClass}>
+            {sourceProducts.map((product) => (
+              isActiveCommerceCategory ? (
                 <LaunchProductCard product={product} key={product.slug} />
               ) : (
                 <ProductCard key={product.slug} product={product} media={mediaMap[product.slug]} deferMediaFetch />
@@ -152,7 +92,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
         <section className="col-empty" aria-label="Made-to-order collection">
           <p className="col-eyebrow">Slower delivery / made to order</p>
           <h2>Looking for specialist fight pieces?</h2>
-          <p>Custom gloves, ringwear, fight shorts, and selected outerwear are kept in a separate pre-order collection.</p>
+          <p>Custom gloves, women’s fightwear and selected training pieces are kept in the active pre-order collection.</p>
           <button className="col-empty-cta" onClick={() => navigate('/pre-orders')}>Explore Pre-Orders</button>
         </section>
       )}
