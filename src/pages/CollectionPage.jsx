@@ -23,6 +23,10 @@ const COMMERCE_APPAREL_PRODUCTS = [
   makeNavyTrainingSetProduct(),
 ];
 
+const MADE_TO_ORDER_SLUGS = new Set([
+  'aura-fight-club-training-shorts',
+]);
+
 function isSameCommerceProduct(product, curatedProduct) {
   const slug = String(product?.slug || '').toLowerCase();
   const name = String(product?.name || product?.title || '').toLowerCase();
@@ -50,7 +54,8 @@ function mergeEquipmentProducts(liveProducts = []) {
 
 function mergeApparelProducts(apparelProducts = []) {
   const remaining = apparelProducts.filter((product) => (
-    !COMMERCE_APPAREL_PRODUCTS.some((curatedProduct) => isSameCommerceProduct(product, curatedProduct))
+    !MADE_TO_ORDER_SLUGS.has(product.slug)
+    && !COMMERCE_APPAREL_PRODUCTS.some((curatedProduct) => isSameCommerceProduct(product, curatedProduct))
   ));
 
   return [...COMMERCE_APPAREL_PRODUCTS, ...remaining];
@@ -134,9 +139,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
         ) : (
           <div className="col-empty">
             <p className="col-empty-label">More pieces coming soon.</p>
-            <button className="col-empty-cta" onClick={() => navigate('/fight-club')}>
-              Join Waitlist
-            </button>
+            <button className="col-empty-cta" onClick={() => navigate('/fight-club')}>Join Waitlist</button>
           </div>
         )}
       </div>
