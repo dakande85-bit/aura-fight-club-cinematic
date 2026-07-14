@@ -1,0 +1,105 @@
+.home-preorder {
+  position: relative;
+  min-height: min(780px, 90svh);
+  display: grid;
+  align-items: end;
+  isolation: isolate;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(244, 240, 232, 0.08);
+}
+
+.home-preorder__media,
+.home-preorder__shade {
+  position: absolute;
+  inset: 0;
+}
+
+.home-preorder__media {
+  z-index: -2;
+  background: #0b0b0b;
+}
+
+.home-preorder__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  filter: brightness(0.7) contrast(1.08) saturate(0.88);
+}
+
+.home-preorder__shade {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0.62) 46%, rgba(5, 5, 5, 0.14) 78%),
+    linear-gradient(0deg, rgba(5, 5, 5, 0.96) 0%, transparent 40%);
+}
+
+.home-preorder__content {
+  width: min(1500px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: clamp(86px, 10vw, 150px) 0 clamp(66px, 7vw, 100px);
+}
+
+.home-preorder h2 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(4rem, 8vw, 9.2rem);
+  line-height: 0.84;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.home-preorder__content > p:not(.home-extra__kicker) {
+  max-width: 650px;
+  margin: 28px 0 0;
+  color: rgba(244, 240, 232, 0.74);
+  line-height: 1.72;
+  font-size: clamp(1rem, 1.45vw, 1.2rem);
+}
+
+.home-preorder__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.home-preorder__facts span {
+  padding: 10px 13px;
+  border: 1px solid rgba(244, 240, 232, 0.2);
+  background: rgba(5, 5, 5, 0.5);
+  color: rgba(244, 240, 232, 0.72);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .home-preorder {
+    min-height: 720px;
+  }
+
+  .home-preorder__media img {
+    object-position: 60% center;
+  }
+
+  .home-preorder__shade {
+    background: linear-gradient(0deg, rgba(5, 5, 5, 0.98) 0%, rgba(5, 5, 5, 0.58) 72%, rgba(5, 5, 5, 0.22) 100%);
+  }
+
+  .home-preorder__content {
+    width: calc(100% - 32px);
+    padding-bottom: 52px;
+  }
+
+  .home-preorder h2 {
+    font-size: clamp(3.3rem, 15vw, 5.8rem);
+    line-height: 0.88;
+  }
+
+  .home-preorder__facts {
+    display: grid;
+  }
+}
