@@ -16,11 +16,13 @@ export default function ProductDetailRoute() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const product = findProductBySlug(slug);
-  const backPath = product?.department === 'Equipment'
-    ? '/equipment'
-    : product?.department === 'Apparel'
-      ? '/apparel'
-      : product?.collection === 'Drop 001' ? '/drop-001' : '/drops';
+  const backPath = product?.collection === 'Pre-Order'
+    ? '/pre-orders'
+    : product?.department === 'Equipment'
+      ? '/equipment'
+      : product?.department === 'Apparel'
+        ? '/apparel'
+        : product?.collection === 'Drop 001' ? '/drop-001' : '/drops';
 
   return (
     <ProductDetail

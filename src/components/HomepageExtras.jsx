@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../styles/homepage-extras.css';
+import '../styles/homepage-preorders.css';
 
 const categories = [
   {
@@ -65,6 +66,26 @@ export default function HomepageExtras() {
               <small>View {category.title}</small>
             </Link>
           ))}
+        </div>
+      </div>
+
+      <div className="home-preorder" aria-labelledby="home-preorder-title">
+        <div className="home-preorder__media" aria-hidden="true">
+          <img src="/assets/products/aura-cream-boxing-gloves/card-hover-model.webp" alt="" loading="lazy" decoding="async" />
+        </div>
+        <div className="home-preorder__shade" />
+        <div className="home-preorder__content">
+          <p className="home-extra__kicker">MADE TO ORDER / SLOWER DELIVERY</p>
+          <h2 id="home-preorder-title">ORDER FIRST.<br />WE MAKE IT.</h2>
+          <p>
+            Specialist gloves, fightwear, and outerwear produced only after your order is confirmed. Popular products can later move into stocked ten-unit batches.
+          </p>
+          <div className="home-preorder__facts">
+            <span>No stock required</span>
+            <span>Estimated 5–7 weeks</span>
+            <span>Separate from POD</span>
+          </div>
+          <Link to="/pre-orders" className="home-extra__button home-extra__button--light">Explore Pre-Orders</Link>
         </div>
       </div>
 
