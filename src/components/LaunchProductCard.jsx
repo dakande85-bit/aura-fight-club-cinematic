@@ -80,7 +80,7 @@ export default function LaunchProductCard({ product, compact = false }) {
               <img
                 className="lpc__image lpc__image--hover"
                 src={product.hoverImage}
-                alt={`${product.name} worn by model`}
+                alt={product.hoverImageAlt || `${product.name} alternate view`}
                 loading="lazy"
                 decoding="async"
               />
