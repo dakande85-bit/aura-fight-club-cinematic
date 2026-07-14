@@ -8,6 +8,7 @@ import LaunchProductCard from '../components/LaunchProductCard.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import { useAllProductMedia } from '../hooks/useProductMedia.js';
 import { dropOneApparelProducts } from '../data/products.js';
+import { applyProductOverride } from '../data/productOverrides.js';
 import '../styles/collection.css';
 
 function getCategoryMeta(category, count) {
@@ -34,7 +35,8 @@ export default function CollectionPage({ category, heading, subcopy }) {
   const { mediaMap } = useAllProductMedia();
   const key = String(category || '').toLowerCase();
   const isLaunchApparel = key === 'apparel';
-  const safeProducts = isLaunchApparel ? dropOneApparelProducts : (products || []);
+  const sourceProducts = isLaunchApparel ? dropOneApparelProducts : (products || []);
+  const safeProducts = sourceProducts.map(applyProductOverride);
   const gridClass = safeProducts.length === 1 ? 'col-grid col-grid--single' : 'col-grid';
 
   return (
