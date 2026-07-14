@@ -1,3 +1,10 @@
+const DUFFLE_SHOP_PRODUCT = {
+  priceEUR: 70,
+  sizes: ['One Size'],
+  colours: ['White'],
+  colour: 'White',
+};
+
 export const shopProducts = {
   'aura-fight-club-t-shirt': {
     priceEUR: 35,
@@ -53,6 +60,9 @@ export const shopProducts = {
     colours: ['Black', 'Cream'],
     colour: 'Black / Cream options',
   },
+  'duffle-bag': DUFFLE_SHOP_PRODUCT,
+  'aura-fight-club-training-duffle-bag-white': DUFFLE_SHOP_PRODUCT,
+  'aura-training-duffle-bag-white': DUFFLE_SHOP_PRODUCT,
   'aura-custom-training-gloves': {
     priceEUR: 169,
     sizes: ['12 oz', '14 oz', '16 oz'],
