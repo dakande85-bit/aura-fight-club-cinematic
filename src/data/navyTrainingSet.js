@@ -1,7 +1,18 @@
 export const NAVY_TRAINING_MEDIA = {
-  hoodie: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/91761ddd-46bd-409a-814c-0564ac2013ba.webp?v=1784024205',
-  joggers: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/196e9d9b-62c7-4754-a165-8904d57e4dca.webp?v=1784029769',
+  front: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-navy-training-set-front.png?v=1784062035',
+  model: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-navy-training-set-model.png?v=1784062051',
+  back: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-navy-training-set-back.png?v=1784062066',
+  detail: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-navy-training-set-detail.png?v=1784062084',
+  lifestyle: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-navy-training-set-lifestyle.png?v=1784062100',
 };
+
+const NAVY_TRAINING_GALLERY = [
+  { src: NAVY_TRAINING_MEDIA.front, alt: 'AURA Fight Club Navy Training Set with hoodie and joggers, front product view' },
+  { src: NAVY_TRAINING_MEDIA.model, alt: 'Male model wearing the AURA Fight Club Navy Training Hoodie and Joggers' },
+  { src: NAVY_TRAINING_MEDIA.back, alt: 'AURA Fight Club Navy Training Hoodie and Joggers, back product view' },
+  { src: NAVY_TRAINING_MEDIA.detail, alt: 'Close-up of the AURA gold chest emblem, jogger branding, drawstrings and navy fabric' },
+  { src: NAVY_TRAINING_MEDIA.lifestyle, alt: 'Male athlete wearing the AURA Fight Club Navy Training Set in a boxing gym' },
+];
 
 export const NAVY_TRAINING_SET_SLUG = 'aura-navy-training-set';
 
@@ -32,16 +43,29 @@ const BASE_PRODUCT = {
   audience: 'Men & Women',
   fulfilment: 'AURA Checkout',
   podCandidate: true,
-  imageStatus: 'Supplier imagery — replacement pending',
-  mockupNeeded: true,
+  imageStatus: 'Ready',
+  mockupNeeded: false,
   ctaLabel: 'Add to Cart',
   secondaryLabel: 'Drop 001 / Available to Order',
   purchaseOptions: PURCHASE_OPTIONS,
 };
 
+function productMedia() {
+  return {
+    primaryImage: NAVY_TRAINING_MEDIA.front,
+    image: NAVY_TRAINING_MEDIA.front,
+    hoverImage: NAVY_TRAINING_MEDIA.model,
+    imageAlt: 'AURA Fight Club Navy Training Set with hoodie and joggers, front product view',
+    hoverImageAlt: 'Male model wearing the AURA Fight Club Navy Training Hoodie and Joggers',
+    galleryImages: NAVY_TRAINING_GALLERY.map((item) => item.src),
+    gallery: NAVY_TRAINING_GALLERY,
+  };
+}
+
 export function makeNavyTrainingSetProduct(slug = NAVY_TRAINING_SET_SLUG) {
   return {
     ...BASE_PRODUCT,
+    ...productMedia(),
     slug,
     title: 'AURA Fight Club Navy Training Set',
     name: 'AURA Fight Club Navy Training Set',
@@ -52,22 +76,13 @@ export function makeNavyTrainingSetProduct(slug = NAVY_TRAINING_SET_SLUG) {
     longDescription: 'Designed as one training-to-lifestyle uniform, the AURA Navy Training Set can be ordered together or purchased as separate hoodie and jogger pieces.',
     materialNote: 'Hoodie: Bella + Canvas 3719 sponge fleece. Joggers: SOL’S Jumbo 03810 organic cotton in conversion and recycled polyester. French navy colourway. Produced on demand.',
     details: ['Hoodie + Joggers', 'French Navy', 'Produced on demand'],
-    primaryImage: NAVY_TRAINING_MEDIA.hoodie,
-    image: NAVY_TRAINING_MEDIA.hoodie,
-    hoverImage: NAVY_TRAINING_MEDIA.joggers,
-    imageAlt: 'AURA Fight Club Navy Training Hoodie supplier product preview',
-    hoverImageAlt: 'AURA Fight Club Navy Training Joggers supplier product preview',
-    galleryImages: [NAVY_TRAINING_MEDIA.hoodie, NAVY_TRAINING_MEDIA.joggers],
-    gallery: [
-      { src: NAVY_TRAINING_MEDIA.hoodie, alt: 'AURA Fight Club Navy Training Hoodie supplier product preview' },
-      { src: NAVY_TRAINING_MEDIA.joggers, alt: 'AURA Fight Club Navy Training Joggers supplier product preview' },
-    ],
   };
 }
 
 export function makeNavyTrainingHoodieProduct(slug = 'aura-fight-club-hoodie') {
   return {
     ...BASE_PRODUCT,
+    ...productMedia(),
     slug,
     title: 'AURA Fight Club Navy Training Hoodie',
     name: 'AURA Fight Club Navy Training Hoodie',
@@ -78,19 +93,13 @@ export function makeNavyTrainingHoodieProduct(slug = 'aura-fight-club-hoodie') {
     longDescription: 'The upper half of the AURA Navy Training Set, built with soft sponge fleece, a drawstring hood and kangaroo pocket.',
     materialNote: 'Bella + Canvas 3719 unisex sponge-fleece pullover hoodie. French navy. Sizes S-L currently available through the connected Shopify product.',
     details: ['Bella + Canvas 3719', 'French Navy', 'Available separately'],
-    primaryImage: NAVY_TRAINING_MEDIA.hoodie,
-    image: NAVY_TRAINING_MEDIA.hoodie,
-    imageAlt: 'AURA Fight Club Navy Training Hoodie supplier product preview',
-    galleryImages: [NAVY_TRAINING_MEDIA.hoodie],
-    gallery: [
-      { src: NAVY_TRAINING_MEDIA.hoodie, alt: 'AURA Fight Club Navy Training Hoodie supplier product preview' },
-    ],
   };
 }
 
 export function makeNavyTrainingJoggersProduct(slug = 'aura-fight-club-joggers') {
   return {
     ...BASE_PRODUCT,
+    ...productMedia(),
     slug,
     title: 'AURA Fight Club Navy Training Joggers',
     name: 'AURA Fight Club Navy Training Joggers',
@@ -101,12 +110,5 @@ export function makeNavyTrainingJoggersProduct(slug = 'aura-fight-club-joggers')
     longDescription: 'The lower half of the AURA Navy Training Set, combining a brushed-fleece interior with an elasticated waist and cuffed ankles.',
     materialNote: 'SOL’S Jumbo 03810. Organic cotton in conversion and recycled polyester. French navy. The connected Shopify product currently requires final size confirmation.',
     details: ['SOL’S Jumbo 03810', 'French Navy', 'Available separately'],
-    primaryImage: NAVY_TRAINING_MEDIA.joggers,
-    image: NAVY_TRAINING_MEDIA.joggers,
-    imageAlt: 'AURA Fight Club Navy Training Joggers supplier product preview',
-    galleryImages: [NAVY_TRAINING_MEDIA.joggers],
-    gallery: [
-      { src: NAVY_TRAINING_MEDIA.joggers, alt: 'AURA Fight Club Navy Training Joggers supplier product preview' },
-    ],
   };
 }
