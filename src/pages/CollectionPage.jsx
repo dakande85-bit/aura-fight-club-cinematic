@@ -24,6 +24,7 @@ const COMMERCE_APPAREL_PRODUCTS = [
 ];
 
 const MADE_TO_ORDER_SLUGS = new Set([
+  'aura-sleeveless-training-hoodie',
   'aura-fight-club-training-shorts',
 ]);
 
