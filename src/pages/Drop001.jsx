@@ -4,11 +4,12 @@ import Footer from '../components/Footer.jsx';
 import LaunchProductCard from '../components/LaunchProductCard.jsx';
 import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import { dropOneProducts } from '../data/products.js';
+import { preorderProducts } from '../data/preorderProducts.js';
 import '../styles/drop001.css';
 
 export default function Drop001() {
   const heroMedia = usePageHeroMedia('drop001');
-  const productCountLabel = `${dropOneProducts.length} products - available to order`;
+  const productCountLabel = `${dropOneProducts.length} core products plus ${preorderProducts.length} made-to-order pre-orders`;
 
   return (
     <div className="d001">
@@ -17,7 +18,7 @@ export default function Drop001() {
       <PageHero
         label="DROP 001 / AURA FIGHT CLUB"
         headline={'TRAIN IN IT.\nLIVE IN IT.\nCARRY IT.'}
-        copy="The first AURA release now has nine training-to-lifestyle products: tees, hoodies, sleeveless layer, joggers, tank top, training shorts, and a steel water bottle. Built for the gym, recovery, travel, and everyday life."
+        copy="The first AURA release combines everyday training apparel with a made-to-order pre-order collection. Customers confirm the product first; production begins only after payment and specifications are approved."
         image={heroMedia.image}
         imagePosition={heroMedia.imagePosition}
         imageFit={heroMedia.imageFit}
@@ -31,9 +32,9 @@ export default function Drop001() {
 
       <div className="d001__grid-wrap" id="drop-lineup">
         <p className="d001__meta">{productCountLabel}</p>
-        <h2 className="d001__lineup-title">DROP 001 - NINE PRODUCT RELEASE</h2>
+        <h2 className="d001__lineup-title">DROP 001 - CORE COLLECTION</h2>
         <p className="d001__lineup-copy">
-          AURA starts with a fuller everyday training uniform: custom apparel pieces plus a practical bottle. Choose a product below and add it to your cart.
+          AURA starts with an everyday training uniform for the gym, recovery, travel, and daily life.
         </p>
 
         <div className="d001__grid d001__grid--confirmed">
@@ -42,16 +43,27 @@ export default function Drop001() {
           ))}
         </div>
 
+        <h2 className="d001__lineup-title">MADE-TO-ORDER PRE-ORDERS</h2>
+        <p className="d001__lineup-copy">
+          No stock is held. Select your size, colour, and personalisation; production begins after full payment and final confirmation. Estimated delivery is 5-7 weeks.
+        </p>
+
+        <div className="d001__grid d001__grid--confirmed">
+          {preorderProducts.map((product) => (
+            <LaunchProductCard product={product} key={product.slug} />
+          ))}
+        </div>
+
         <section className="d001__waitlist" aria-labelledby="drop001-order-title">
           <p className="d001__meta">Checkout</p>
           <h2 id="drop001-order-title">READY TO ORDER?</h2>
-          <p>Review your selected Drop 001 products and send the order request.</p>
+          <p>Review your selected AURA products and submit the order or pre-order request.</p>
           <a href="/cart">View Cart</a>
         </section>
 
         <section className="d001__note" aria-label="Drop 001 scope">
-          <p>Drop 001 now focuses on nine products: T-shirts, hoodies, sleeveless hoodie, joggers, tank top, training shorts, and a steel water bottle.</p>
-          <p>Footwear, gloves, wraps, and wider accessories move into Drop 002 and future Sets.</p>
+          <p>Core AURA products remain available to order. The ring gown, bomber jacket, heavyweight hoodie, performance fight shorts, and custom training gloves are made-to-order pre-orders.</p>
+          <p>Shipping is confirmed separately, and supplier production starts only after customer payment has cleared.</p>
         </section>
       </div>
 

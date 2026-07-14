@@ -10,6 +10,22 @@ function getDisplayCopy(product) {
     return 'A clean everyday tee for training, recovery, travel, and casual wear.';
   }
 
+  if (category.includes('ring gown')) {
+    return 'A personalised sleeveless ring gown for entrances, competition, and corner use.';
+  }
+
+  if (category.includes('bomber')) {
+    return 'A lightweight AURA bomber for warm-ups, travel, events, and everyday wear.';
+  }
+
+  if (category.includes('glove')) {
+    return 'Custom AURA training gloves produced after your pre-order is confirmed.';
+  }
+
+  if (category.includes('fight short')) {
+    return 'Ultra-light performance shorts for striking, grappling, conditioning, and gym work.';
+  }
+
   if (category.includes('hoodie')) {
     return 'A comfortable AURA layer for warm-ups, rest days, travel, and everyday life.';
   }
@@ -37,11 +53,15 @@ export default function LaunchProductCard({ product, compact = false }) {
   const productHref = `/product/${encodeURIComponent(product.slug)}`;
   const shopProduct = getShopProduct(product.slug);
   const canBuy = isShopProduct(product.slug);
-  const statusLabel = canBuy ? 'Available to Order' : 'Coming Soon';
+  const isPreorder = Boolean(shopProduct?.preorder || product.status === 'preorder');
+  const statusLabel = isPreorder ? 'Pre-Order' : canBuy ? 'Available to Order' : 'Coming Soon';
   const supportLabel = canBuy && shopProduct?.priceEUR
-    ? formatPriceEUR(shopProduct.priceEUR)
+    ? isPreorder
+      ? `${formatPriceEUR(shopProduct.priceEUR)} / Made to order`
+      : formatPriceEUR(shopProduct.priceEUR)
     : product.category ? `${product.category} / Waitlist` : 'Waitlist';
   const cartHref = canBuy ? `/cart?add=${encodeURIComponent(product.slug)}` : '/fight-club';
+  const ctaLabel = canBuy ? (isPreorder ? 'Pre-Order' : 'Add to Cart') : 'Join Waitlist';
 
   return (
     <article className={cardClass}>
@@ -68,7 +88,7 @@ export default function LaunchProductCard({ product, compact = false }) {
         </div>
         <div className="lpc__actions">
           <Link className="lpc__cta lpc__cta--ghost" to={productHref}>View Product</Link>
-          <Link className="lpc__cta" to={cartHref}>{canBuy ? 'Add to Cart' : 'Join Waitlist'}</Link>
+          <Link className="lpc__cta" to={cartHref}>{ctaLabel}</Link>
         </div>
       </div>
     </article>

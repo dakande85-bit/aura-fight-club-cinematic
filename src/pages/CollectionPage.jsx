@@ -8,13 +8,14 @@ import LaunchProductCard from '../components/LaunchProductCard.jsx';
 import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import { useAllProductMedia } from '../hooks/useProductMedia.js';
 import { dropOneApparelProducts } from '../data/products.js';
+import { preorderProducts } from '../data/preorderProducts.js';
 import '../styles/collection.css';
 
-function getCategoryMeta(category, count) {
+function getCategoryMeta(category, count, preorderCount) {
   const key = String(category || '').toLowerCase();
 
   if (key === 'apparel') {
-    return `${count} Drop 001 pieces - waitlist opening`;
+    return `${count} pieces - ${preorderCount} made-to-order pre-orders`;
   }
 
   if (key === 'footwear') {
@@ -22,7 +23,9 @@ function getCategoryMeta(category, count) {
   }
 
   if (key === 'equipment') {
-    return count > 0 ? `${count} accessory previews` : 'Accessories coming soon';
+    return preorderCount > 0
+      ? `${count} accessories - ${preorderCount} available for pre-order`
+      : count > 0 ? `${count} accessory previews` : 'Accessories coming soon';
   }
 
   return count > 0 ? `${count} pieces` : 'New pieces coming soon';
@@ -34,7 +37,11 @@ export default function CollectionPage({ category, heading, subcopy }) {
   const { mediaMap } = useAllProductMedia();
   const key = String(category || '').toLowerCase();
   const isLaunchApparel = key === 'apparel';
-  const safeProducts = isLaunchApparel ? dropOneApparelProducts : (products || []);
+  const preorderForCategory = preorderProducts.filter((product) =>
+    String(product.department || '').toLowerCase() === key
+  );
+  const baseProducts = isLaunchApparel ? dropOneApparelProducts : (products || []);
+  const safeProducts = [...baseProducts, ...preorderForCategory];
   const gridClass = safeProducts.length === 1 ? 'col-grid col-grid--single' : 'col-grid';
 
   return (
@@ -54,7 +61,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
           <p className="col-meta">Loading...</p>
         ) : (
           <p className={safeProducts.length > 0 ? 'col-meta' : 'col-meta col-meta--empty'}>
-            {getCategoryMeta(category, safeProducts.length)}
+            {getCategoryMeta(category, safeProducts.length, preorderForCategory.length)}
           </p>
         )}
       </div>
@@ -70,16 +77,14 @@ export default function CollectionPage({ category, heading, subcopy }) {
       <div className="col-grid-wrap">
         {loading && !isLaunchApparel ? (
           <div className="col-loading">Loading collection...</div>
-        ) : isLaunchApparel ? (
-          <div className="col-grid col-grid--concept">
-            {safeProducts.map((product) => (
-              <LaunchProductCard product={product} key={product.slug} />
-            ))}
-          </div>
         ) : safeProducts.length > 0 ? (
-          <div className={gridClass}>
+          <div className={isLaunchApparel ? 'col-grid col-grid--concept' : gridClass}>
             {safeProducts.map((product) => (
-              <ProductCard key={product.slug} product={product} media={mediaMap[product.slug]} deferMediaFetch />
+              isLaunchApparel || product.status === 'preorder' ? (
+                <LaunchProductCard product={product} key={product.slug} />
+              ) : (
+                <ProductCard key={product.slug} product={product} media={mediaMap[product.slug]} deferMediaFetch />
+              )
             ))}
           </div>
         ) : (

@@ -14,13 +14,18 @@ const categoryRoutes = {
   'T-Shirt': '/apparel',
   Hoodie: '/apparel',
   'Sleeveless Hoodie': '/apparel',
+  'Ring Gown': '/apparel',
+  'Bomber Jacket': '/apparel',
+  'Fight Shorts': '/apparel',
+  'Boxing Gloves': '/equipment',
   Joggers: '/apparel',
   'Tank Top': '/apparel',
   'Training Shorts': '/apparel',
   'Steel Water Bottle': '/equipment',
 };
 
-function getStatusLabel(product, canBuy) {
+function getStatusLabel(product, canBuy, shopProduct) {
+  if (shopProduct?.preorder || product?.status === 'preorder') return 'Pre-Order';
   if (canBuy) return 'Available to Order';
   return {
     waitlist: 'Waitlist Open',
@@ -31,6 +36,9 @@ function getStatusLabel(product, canBuy) {
 }
 
 function getCollectionRoute(product) {
+  if (product?.collection === 'Pre-Order') {
+    return product?.department === 'Equipment' ? '/equipment' : '/apparel';
+  }
   return product?.collection === 'Drop 001' ? '/drop-001' : '/drops';
 }
 
@@ -40,6 +48,10 @@ function getCategoryRole(category) {
     'T-Shirt': 'A clean everyday tee for training, recovery, travel, and casual wear.',
     Hoodie: 'A comfortable layer for warm-ups, rest days, travel, and daily life.',
     'Sleeveless Hoodie': 'A sleeveless training layer for warm-ups, gym work, travel, and daily movement.',
+    'Ring Gown': 'A personalised entrance and corner layer built for competition nights and fighter identity.',
+    'Bomber Jacket': 'A lightweight outer layer for warm-ups, events, travel, and everyday wear.',
+    'Fight Shorts': 'Ultra-light performance shorts for striking, grappling, conditioning, and unrestricted movement.',
+    'Boxing Gloves': 'Custom training equipment produced around the fighter’s selected weight and colourway.',
     Joggers: 'Clean joggers for training, recovery, travel, and daily movement.',
     'Tank Top': 'A training tank for gym work, warm weather, and easy layering.',
     'Training Shorts': 'Custom training shorts for movement, warm weather, gym work, and the daily training uniform.',
@@ -50,6 +62,8 @@ function getCategoryRole(category) {
 }
 
 function getProductCards(product, shopProduct) {
+  const isPreorder = Boolean(shopProduct?.preorder || product?.status === 'preorder');
+
   return [
     {
       title: 'Price',
@@ -60,12 +74,14 @@ function getProductCards(product, shopProduct) {
       copy: shopProduct?.sizes?.join(', ') || 'To be confirmed',
     },
     {
-      title: 'Use',
-      copy: 'Built for training, recovery, travel, and everyday life.',
+      title: isPreorder ? 'Delivery' : 'Use',
+      copy: isPreorder ? (shopProduct?.leadTime || 'Estimated 5-7 weeks') : 'Built for training, recovery, travel, and everyday life.',
     },
     {
-      title: 'Identity',
-      copy: 'Clean, minimal AURA styling with a training-to-lifestyle purpose.',
+      title: isPreorder ? 'Production' : 'Identity',
+      copy: isPreorder
+        ? 'Made after payment and final size, colour, and personalisation details are confirmed.'
+        : 'Clean, minimal AURA styling with a training-to-lifestyle purpose.',
     },
   ];
 }
@@ -75,6 +91,10 @@ function getPublicDescription(product) {
   const name = String(product?.name || '').toLowerCase();
 
   if (category.includes('t-shirt')) return 'A clean everyday tee for training, recovery, travel, and casual wear.';
+  if (category.includes('ring gown')) return 'A personalised sleeveless ring gown for entrances, competition, and corner use.';
+  if (category.includes('bomber')) return 'A lightweight AURA bomber for warm-ups, travel, events, and everyday wear.';
+  if (category.includes('glove')) return 'Custom AURA training gloves produced after your pre-order is confirmed.';
+  if (category.includes('fight short')) return 'Ultra-light performance shorts for striking, grappling, conditioning, and gym work.';
   if (category.includes('sleeveless')) return 'A sleeveless AURA layer for warm-ups, gym work, travel, and daily movement.';
   if (category.includes('hoodie')) return 'A comfortable AURA layer for warm-ups, rest days, travel, and everyday life.';
   if (category.includes('jogger')) return 'Clean joggers for training, recovery, travel, and daily movement.';
@@ -103,6 +123,7 @@ export default function ProductDetail({ product, onBack }) {
 
   const shopProduct = getShopProduct(product.slug);
   const canBuy = isShopProduct(product.slug);
+  const isPreorder = Boolean(shopProduct?.preorder || product.status === 'preorder');
   const gallery = product.gallery?.length
     ? product.gallery
     : media?.gallery?.length
@@ -111,10 +132,12 @@ export default function ProductDetail({ product, onBack }) {
         ? [{ src: product.image, alt: product.name }]
         : [];
 
-  const statusLabel = getStatusLabel(product, canBuy);
-  const categoryPath = categoryRoutes[product.category] || '/drop-001';
+  const statusLabel = getStatusLabel(product, canBuy, shopProduct);
+  const categoryPath = categoryRoutes[product.category] || (product.department === 'Equipment' ? '/equipment' : '/apparel');
   const collectionPath = getCollectionRoute(product);
-  const collectionLabel = product.collection === 'Drop 001' ? 'View Drop 001' : 'View Drops';
+  const collectionLabel = product.collection === 'Drop 001'
+    ? 'View Drop 001'
+    : product.collection === 'Pre-Order' ? 'View Pre-Orders' : 'View Drops';
   const detailCards = getProductCards(product, shopProduct);
   const cartHref = `/cart?add=${encodeURIComponent(product.slug)}`;
 
@@ -123,7 +146,7 @@ export default function ProductDetail({ product, onBack }) {
       <Header />
       <main>
         <nav className="pd-nav" aria-label="Product navigation">
-          {onBack && <button className="pd-back" onClick={onBack}>Back to Drops</button>}
+          {onBack && <button className="pd-back" onClick={onBack}>Back</button>}
           <span className="pd-nav-logo">AURA PRODUCT</span>
         </nav>
 
@@ -149,9 +172,16 @@ export default function ProductDetail({ product, onBack }) {
 
             {canBuy ? (
               <div className="pd__purchase">
-                <p className="pd__waitlist-label">Order / {product.collection}</p>
+                <p className="pd__waitlist-label">
+                  {isPreorder ? 'Pre-Order / Made to Order' : `Order / ${product.collection}`}
+                </p>
+                {isPreorder ? (
+                  <p className="pd__short">
+                    Production begins after payment and final specifications are confirmed. {shopProduct?.leadTime || 'Estimated delivery: 5-7 weeks.'}
+                  </p>
+                ) : null}
                 <div className="pd__buy-actions">
-                  <Link className="pd__buy-btn pd__buy-btn--primary" to={cartHref}>Add to Cart</Link>
+                  <Link className="pd__buy-btn pd__buy-btn--primary" to={cartHref}>{isPreorder ? 'Pre-Order Now' : 'Add to Cart'}</Link>
                   <Link className="pd__buy-btn pd__buy-btn--ghost" to="/cart">View Cart</Link>
                 </div>
               </div>
@@ -179,7 +209,7 @@ export default function ProductDetail({ product, onBack }) {
 
             <div className="pd__cta-row" aria-label="Related product links">
               <Link to={collectionPath}>{collectionLabel}</Link>
-              <Link to={categoryPath}>{product.collection === 'Drop 001' ? 'Shop' : 'View'} {product.category}</Link>
+              <Link to={categoryPath}>{product.collection === 'Drop 001' ? 'Shop' : 'View'} {product.department || product.category}</Link>
             </div>
 
             <p className="pd__short">{getPublicDescription(product)}</p>
@@ -190,13 +220,14 @@ export default function ProductDetail({ product, onBack }) {
           <p className="pd__section-label">Product story</p>
           <h2 id="product-story-title">Built into the AURA uniform.</h2>
           <p>{getCategoryRole(product.category)}</p>
-          <p>{product.name} sits inside the AURA training-to-lifestyle system: comfort first, clean fit, and a theme that works beyond the gym.</p>
+          <p>{product.name} sits inside the AURA training-to-lifestyle system: purposeful construction, clean identity, and a role beyond the gym.</p>
+          {product.materialNote ? <p>{product.materialNote}</p> : null}
         </section>
 
         <section className="pd-detail-section" aria-labelledby="product-details-title">
           <div className="pd-section-head">
             <p className="pd__section-label">Product details</p>
-            <h2 id="product-details-title">Clean, wearable, and easy to understand.</h2>
+            <h2 id="product-details-title">Clear specifications before production.</h2>
           </div>
           <div className="pd-detail-grid">
             {detailCards.map((card) => (
@@ -209,8 +240,8 @@ export default function ProductDetail({ product, onBack }) {
         </section>
 
         <section className="pd-related" aria-label="Related navigation">
-          <Link to={collectionPath}>{product.collection === 'Drop 001' ? 'Drop 001' : 'Drops'}</Link>
-          <Link to={categoryPath}>{product.category === 'Equipment' ? 'Accessories' : product.category}</Link>
+          <Link to={collectionPath}>{product.collection === 'Drop 001' ? 'Drop 001' : product.collection}</Link>
+          <Link to={categoryPath}>{product.department === 'Equipment' ? 'Equipment' : 'Apparel'}</Link>
           <Link to="/cart">Cart</Link>
         </section>
       </main>
