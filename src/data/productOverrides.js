@@ -1,3 +1,5 @@
+import { DUFFLE_SLUGS, makeDuffleProduct } from './duffleProduct.js';
+
 const ESSENTIAL_TEE_MEDIA = {
   front: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-boxing-essential-navy-front-v2_071fa5a7-76ef-482c-a14b-91590bdc6397.png?v=1784055124',
   model: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-boxing-essential-navy-model-hover_dc7a6fe0-bef6-4ebd-acb2-b044db599065.png?v=1784052972',
@@ -38,8 +40,26 @@ const PRODUCT_OVERRIDES = {
   },
 };
 
+function isDuffleSlug(slug) {
+  const key = String(slug || '').toLowerCase();
+  return DUFFLE_SLUGS.has(key) || (key.includes('duffle') && key.includes('white'));
+}
+
+function isWhiteDuffle(product) {
+  if (!product) return false;
+  if (isDuffleSlug(product.slug)) return true;
+  const name = String(product.name || product.title || '').toLowerCase();
+  return name.includes('duffle bag') && name.includes('white');
+}
+
+export function getStandaloneProductOverride(slug) {
+  if (isDuffleSlug(slug)) return makeDuffleProduct(slug);
+  return null;
+}
+
 export function applyProductOverride(product) {
   if (!product) return product;
+  if (isWhiteDuffle(product)) return { ...product, ...makeDuffleProduct(product.slug) };
   const override = PRODUCT_OVERRIDES[product.slug];
   return override ? { ...product, ...override } : product;
 }

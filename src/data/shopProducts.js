@@ -1,3 +1,18 @@
+const DUFFLE_SHOP_PRODUCT = {
+  priceEUR: 70,
+  sizes: ['One Size'],
+  colours: ['White'],
+  colour: 'White',
+};
+
+function isDuffleSlug(slug) {
+  const key = String(slug || '').toLowerCase();
+  return key === 'duffle-bag'
+    || key === 'aura-fight-club-training-duffle-bag-white'
+    || key === 'aura-training-duffle-bag-white'
+    || (key.includes('duffle') && key.includes('white'));
+}
+
 export const shopProducts = {
   'aura-fight-club-t-shirt': {
     priceEUR: 35,
@@ -53,6 +68,9 @@ export const shopProducts = {
     colours: ['Black', 'Cream'],
     colour: 'Black / Cream options',
   },
+  'duffle-bag': DUFFLE_SHOP_PRODUCT,
+  'aura-fight-club-training-duffle-bag-white': DUFFLE_SHOP_PRODUCT,
+  'aura-training-duffle-bag-white': DUFFLE_SHOP_PRODUCT,
   'aura-custom-training-gloves': {
     priceEUR: 169,
     sizes: ['12 oz', '14 oz', '16 oz'],
@@ -101,11 +119,11 @@ export const shopProducts = {
 };
 
 export function isShopProduct(slug) {
-  return Boolean(shopProducts[slug]);
+  return Boolean(shopProducts[slug] || isDuffleSlug(slug));
 }
 
 export function getShopProduct(slug) {
-  return shopProducts[slug] || null;
+  return shopProducts[slug] || (isDuffleSlug(slug) ? DUFFLE_SHOP_PRODUCT : null);
 }
 
 export function formatPriceEUR(value) {

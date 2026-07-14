@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProduct, dropOneProducts } from '../data/products.js';
 import { getPreorderProduct } from '../data/preorderProducts.js';
-import { applyProductOverride } from '../data/productOverrides.js';
+import { applyProductOverride, getStandaloneProductOverride } from '../data/productOverrides.js';
 import ProductDetail from './ProductDetail.jsx';
 
 function findProductBySlug(slug) {
@@ -12,7 +12,9 @@ function findProductBySlug(slug) {
   if (catalogueProduct) return applyProductOverride(catalogueProduct);
 
   const dropProduct = dropOneProducts.find((item) => item.slug === slug) ?? null;
-  return applyProductOverride(dropProduct);
+  if (dropProduct) return applyProductOverride(dropProduct);
+
+  return getStandaloneProductOverride(slug);
 }
 
 export default function ProductDetailRoute() {
