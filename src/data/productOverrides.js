@@ -51,6 +51,18 @@ const PRODUCT_OVERRIDES = {
       { src: ESSENTIAL_TEE_MEDIA.lifestyle, alt: 'Boxer wearing the AURA Boxing Essential navy T-shirt in a boxing gym' },
     ],
   },
+  'aura-discipline-hoodie': {
+    title: 'AURA Discipline Unisex Pullover Hoodie — Black',
+    name: 'AURA Discipline Unisex Pullover Hoodie — Black',
+    shortDescription: 'Black Bella + Canvas 3719 sponge-fleece hoodie with silver AURA Fight Club chest branding.',
+    shortDesc: 'Black Bella + Canvas 3719 sponge-fleece hoodie with silver AURA Fight Club chest branding.',
+    description: 'A clean black training-to-lifestyle hoodie for warm-ups, recovery, travel and everyday wear.',
+    longDescription: 'The AURA Discipline Unisex Pullover Hoodie combines a soft sponge-fleece feel with a regular unisex fit, adjustable hood, kangaroo pocket and understated silver AURA Fight Club identity.',
+    materialNote: 'Bella + Canvas 3719 unisex pullover hoodie. Soft sponge fleece, side-seamed construction, adjustable drawcord hood, front kangaroo pocket, ribbed cuffs and waistband. Black colourway, sizes S-2XL.',
+    details: ['Bella + Canvas 3719', 'Black', 'Sizes S-2XL'],
+    imageStatus: 'Ready — keep current campaign image as lead media',
+    mockupNeeded: false,
+  },
 };
 
 function isDuffleSlug(slug) {
