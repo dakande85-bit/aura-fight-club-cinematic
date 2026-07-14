@@ -1,10 +1,14 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProduct, dropOneProducts } from '../data/products.js';
 import { getPreorderProduct } from '../data/preorderProducts.js';
+import { getActiveShopifyProduct } from '../data/activeShopifyProducts.js';
 import { applyProductOverride, getStandaloneProductOverride } from '../data/productOverrides.js';
 import ProductDetail from './ProductDetail.jsx';
 
 function findProductBySlug(slug) {
+  const activeProduct = getActiveShopifyProduct(slug);
+  if (activeProduct) return activeProduct;
+
   const preorderProduct = getPreorderProduct(slug);
   if (preorderProduct) return applyProductOverride(preorderProduct);
 

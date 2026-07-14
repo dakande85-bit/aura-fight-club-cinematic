@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import LaunchProductCard from '../components/LaunchProductCard.jsx';
-import { preorderProducts } from '../data/preorderProducts.js';
+import { activePreorderProducts } from '../data/activeShopifyProducts.js';
 import '../styles/preorders.css';
 
 const processSteps = [
@@ -43,7 +43,7 @@ export default function PreOrders() {
             <p className="preorder-kicker">AURA / MADE TO ORDER</p>
             <h1>ORDER FIRST.<br />WE MAKE IT.</h1>
             <p className="preorder-hero__copy">
-              Limited AURA fight pieces produced only after an order is confirmed. No mass stock, no wasted inventory, and no compromise on identity.
+              Active AURA fight pieces produced only after an order is confirmed. No mass stock, no wasted inventory, and no compromise on identity.
             </p>
             <div className="preorder-hero__actions">
               <a href="#preorder-products" className="preorder-button preorder-button--light">View Pre-Orders</a>
@@ -84,11 +84,11 @@ export default function PreOrders() {
               <p className="preorder-kicker">CURRENT PRE-ORDERS</p>
               <h2 id="preorder-products-title">MADE FOR THE FIGHTER.</h2>
             </div>
-            <p>{preorderProducts.length} specialist products available individually.</p>
+            <p>{activePreorderProducts.length} active specialist products available individually.</p>
           </div>
 
           <div className="preorder-products__grid">
-            {preorderProducts.map((product) => (
+            {activePreorderProducts.map((product) => (
               <LaunchProductCard product={product} key={product.slug} />
             ))}
           </div>

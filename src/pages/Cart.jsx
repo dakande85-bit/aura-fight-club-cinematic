@@ -4,6 +4,7 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import { products, dropOneProducts } from '../data/products.js';
 import { preorderProducts } from '../data/preorderProducts.js';
+import { getActiveShopifyProduct } from '../data/activeShopifyProducts.js';
 import { formatPriceEUR, getShopProduct, isShopProduct } from '../data/shopProducts.js';
 import { getStandaloneProductOverride } from '../data/productOverrides.js';
 import '../styles/cart.css';
@@ -27,7 +28,8 @@ function saveCart(items) {
 }
 
 function getProduct(slug) {
-  return preorderProducts.find((product) => product.slug === slug)
+  return getActiveShopifyProduct(slug)
+    || preorderProducts.find((product) => product.slug === slug)
     || dropOneProducts.find((product) => product.slug === slug)
     || products.find((product) => product.slug === slug)
     || getStandaloneProductOverride(slug)
