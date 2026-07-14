@@ -7,7 +7,7 @@ function getDisplayCopy(product) {
   const name = String(product?.name || '').toLowerCase();
 
   if (category.includes('t-shirt')) {
-    return 'A clean everyday tee for training, recovery, travel, and casual wear.';
+    return product?.shortDesc || 'A clean everyday tee for training, recovery, travel, and casual wear.';
   }
 
   if (category.includes('ring gown')) {
@@ -49,6 +49,7 @@ export default function LaunchProductCard({ product, compact = false }) {
   if (!product) return null;
 
   const hasImage = Boolean(product.image);
+  const hasHoverImage = Boolean(product.hoverImage && product.hoverImage !== product.image);
   const cardClass = compact ? 'lpc lpc--compact' : 'lpc';
   const productHref = `/product/${encodeURIComponent(product.slug)}`;
   const shopProduct = getShopProduct(product.slug);
@@ -67,7 +68,24 @@ export default function LaunchProductCard({ product, compact = false }) {
     <article className={cardClass}>
       <Link className="lpc__media lpc__media-link" to={productHref} aria-label={`View ${product.name}`}>
         {hasImage ? (
-          <img src={product.image} alt={product.imageAlt || product.name} loading="lazy" decoding="async" />
+          <>
+            <img
+              className="lpc__image lpc__image--primary"
+              src={product.image}
+              alt={product.imageAlt || product.name}
+              loading="lazy"
+              decoding="async"
+            />
+            {hasHoverImage ? (
+              <img
+                className="lpc__image lpc__image--hover"
+                src={product.hoverImage}
+                alt={`${product.name} worn by model`}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : null}
+          </>
         ) : (
           <div className="lpc__placeholder" aria-hidden="true">
             <strong>AURA</strong>
