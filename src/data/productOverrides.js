@@ -18,6 +18,11 @@ const ESSENTIAL_TEE_MEDIA = {
   lifestyle: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-boxing-essential-navy-lifestyle_42de233a-54b8-42c8-b330-a89fb1a6203f.png?v=1784052972',
 };
 
+const SLEEVELESS_HOODIE_MEDIA = {
+  front: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-sleeveless-training-hoodie-black-front.png?v=1784072140',
+  back: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-sleeveless-training-hoodie-black-back.png?v=1784072154',
+};
+
 const PRODUCT_OVERRIDES = {
   'aura-fight-club-t-shirt': {
     title: 'AURA Boxing Essential Unisex T-Shirt',
@@ -62,6 +67,31 @@ const PRODUCT_OVERRIDES = {
     details: ['Bella + Canvas 3719', 'Black', 'Sizes S-2XL'],
     imageStatus: 'Ready — keep current campaign image as lead media',
     mockupNeeded: false,
+  },
+  'aura-sleeveless-training-hoodie': {
+    title: 'AURA Sleeveless Training Hoodie — Pre-Order',
+    name: 'AURA Sleeveless Training Hoodie — Pre-Order',
+    shortDescription: 'Black made-to-order sleeveless training hoodie with a small A chest mark and AURA Fight Club back branding.',
+    shortDesc: 'Black made-to-order sleeveless training hoodie with a small A chest mark and AURA Fight Club back branding.',
+    description: 'A streamlined sleeveless layer for boxing warm-ups, strength work, travel, and unrestricted movement.',
+    longDescription: 'The AURA Sleeveless Training Hoodie uses a clean black zip-front silhouette, open armholes, a compact A chest mark, and the AURA Fight Club wordmark across the back.',
+    materialNote: 'Black sleeveless hooded training layer with full front zip, open armholes, small A chest mark, and AURA Fight Club back branding. Made to order with an estimated 5–7 week delivery window.',
+    details: ['Black', 'Sizes S-XXL', 'Made to order / estimated 5–7 weeks'],
+    imageStatus: 'Ready',
+    mockupNeeded: false,
+    primaryImage: SLEEVELESS_HOODIE_MEDIA.front,
+    image: SLEEVELESS_HOODIE_MEDIA.front,
+    hoverImage: SLEEVELESS_HOODIE_MEDIA.back,
+    imageAlt: 'AURA Sleeveless Training Hoodie in black, front product view with small A chest logo',
+    hoverImageAlt: 'AURA Sleeveless Training Hoodie in black, back product view with AURA Fight Club branding',
+    galleryImages: [
+      SLEEVELESS_HOODIE_MEDIA.front,
+      SLEEVELESS_HOODIE_MEDIA.back,
+    ],
+    gallery: [
+      { src: SLEEVELESS_HOODIE_MEDIA.front, alt: 'AURA Sleeveless Training Hoodie in black, front product view with small A chest logo' },
+      { src: SLEEVELESS_HOODIE_MEDIA.back, alt: 'AURA Sleeveless Training Hoodie in black, back product view with AURA Fight Club branding' },
+    ],
   },
 };
 
