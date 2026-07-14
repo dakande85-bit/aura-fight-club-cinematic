@@ -5,12 +5,28 @@ const DUFFLE_SHOP_PRODUCT = {
   colour: 'White',
 };
 
+const WATER_BOTTLE_SHOP_PRODUCT = {
+  priceEUR: 30,
+  sizes: ['One Size'],
+  colours: ['White / Metallic Gold'],
+  colour: 'White / Metallic Gold',
+};
+
 function isDuffleSlug(slug) {
   const key = String(slug || '').toLowerCase();
   return key === 'duffle-bag'
     || key === 'aura-fight-club-training-duffle-bag-white'
     || key === 'aura-training-duffle-bag-white'
     || (key.includes('duffle') && key.includes('white'));
+}
+
+function isWaterBottleSlug(slug) {
+  const key = String(slug || '').toLowerCase();
+  return key === 'aura-steel-water-bottle'
+    || key === 'white-17oz-stainless-steel-water-bottle'
+    || key === 'aura-fight-club-steel-water-bottle-white'
+    || key === 'aura-fight-club-17oz-insulated-steel-water-bottle-white'
+    || (key.includes('water-bottle') && (key.includes('white') || key.includes('steel')));
 }
 
 export const shopProducts = {
@@ -44,12 +60,10 @@ export const shopProducts = {
     colours: ['Black'],
     colour: 'Black',
   },
-  'aura-steel-water-bottle': {
-    priceEUR: 28,
-    sizes: ['One Size'],
-    colours: ['Steel / Black'],
-    colour: 'Steel / Black',
-  },
+  'aura-steel-water-bottle': WATER_BOTTLE_SHOP_PRODUCT,
+  'white-17oz-stainless-steel-water-bottle': WATER_BOTTLE_SHOP_PRODUCT,
+  'aura-fight-club-steel-water-bottle-white': WATER_BOTTLE_SHOP_PRODUCT,
+  'aura-fight-club-17oz-insulated-steel-water-bottle-white': WATER_BOTTLE_SHOP_PRODUCT,
   'aura-fight-club-joggers': {
     priceEUR: 60,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
@@ -119,11 +133,14 @@ export const shopProducts = {
 };
 
 export function isShopProduct(slug) {
-  return Boolean(shopProducts[slug] || isDuffleSlug(slug));
+  return Boolean(shopProducts[slug] || isDuffleSlug(slug) || isWaterBottleSlug(slug));
 }
 
 export function getShopProduct(slug) {
-  return shopProducts[slug] || (isDuffleSlug(slug) ? DUFFLE_SHOP_PRODUCT : null);
+  if (shopProducts[slug]) return shopProducts[slug];
+  if (isDuffleSlug(slug)) return DUFFLE_SHOP_PRODUCT;
+  if (isWaterBottleSlug(slug)) return WATER_BOTTLE_SHOP_PRODUCT;
+  return null;
 }
 
 export function formatPriceEUR(value) {

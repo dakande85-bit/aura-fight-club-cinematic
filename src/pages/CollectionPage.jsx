@@ -9,7 +9,36 @@ import { useLiveProducts } from '../hooks/useLiveProducts.js';
 import { useAllProductMedia } from '../hooks/useProductMedia.js';
 import { dropOneApparelProducts } from '../data/products.js';
 import { applyProductOverride } from '../data/productOverrides.js';
+import { makeDuffleProduct } from '../data/duffleProduct.js';
+import { makeWaterBottleProduct } from '../data/waterBottleProduct.js';
 import '../styles/collection.css';
+
+const COMMERCE_EQUIPMENT_PRODUCTS = [
+  makeDuffleProduct('duffle-bag'),
+  makeWaterBottleProduct('aura-steel-water-bottle'),
+];
+
+function isSameCommerceProduct(product, curatedProduct) {
+  const slug = String(product?.slug || '').toLowerCase();
+  const name = String(product?.name || product?.title || '').toLowerCase();
+
+  if (slug === curatedProduct.slug) return true;
+  if (curatedProduct.slug === 'duffle-bag') {
+    return slug.includes('duffle') || name.includes('duffle bag');
+  }
+  if (curatedProduct.slug === 'aura-steel-water-bottle') {
+    return slug.includes('water-bottle') || name.includes('water bottle');
+  }
+  return false;
+}
+
+function mergeEquipmentProducts(liveProducts = []) {
+  const remaining = liveProducts.filter((product) => (
+    !COMMERCE_EQUIPMENT_PRODUCTS.some((curatedProduct) => isSameCommerceProduct(product, curatedProduct))
+  ));
+
+  return [...COMMERCE_EQUIPMENT_PRODUCTS, ...remaining];
+}
 
 function getCategoryMeta(category, count) {
   const key = String(category || '').toLowerCase();
@@ -23,7 +52,7 @@ function getCategoryMeta(category, count) {
   }
 
   if (key === 'equipment') {
-    return count > 0 ? `${count} accessory previews` : 'Accessories coming soon';
+    return count > 0 ? `${count} training accessories` : 'Accessories coming soon';
   }
 
   return count > 0 ? `${count} pieces` : 'New pieces coming soon';
@@ -35,7 +64,11 @@ export default function CollectionPage({ category, heading, subcopy }) {
   const { mediaMap } = useAllProductMedia();
   const key = String(category || '').toLowerCase();
   const isLaunchApparel = key === 'apparel';
-  const sourceProducts = isLaunchApparel ? dropOneApparelProducts : (products || []);
+  const sourceProducts = isLaunchApparel
+    ? dropOneApparelProducts
+    : key === 'equipment'
+      ? mergeEquipmentProducts(products || [])
+      : (products || []);
   const safeProducts = sourceProducts.map(applyProductOverride);
   const gridClass = safeProducts.length === 1 ? 'col-grid col-grid--single' : 'col-grid';
 

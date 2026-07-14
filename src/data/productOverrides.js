@@ -1,4 +1,5 @@
 import { DUFFLE_SLUGS, makeDuffleProduct } from './duffleProduct.js';
+import { WATER_BOTTLE_SLUGS, makeWaterBottleProduct } from './waterBottleProduct.js';
 
 const ESSENTIAL_TEE_MEDIA = {
   front: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-boxing-essential-navy-front-v2_071fa5a7-76ef-482c-a14b-91590bdc6397.png?v=1784055124',
@@ -46,6 +47,12 @@ function isDuffleSlug(slug) {
   return DUFFLE_SLUGS.has(key) || (key.includes('duffle') && key.includes('white'));
 }
 
+function isWaterBottleSlug(slug) {
+  const key = String(slug || '').toLowerCase();
+  return WATER_BOTTLE_SLUGS.has(key)
+    || (key.includes('water-bottle') && (key.includes('white') || key.includes('steel')));
+}
+
 function isWhiteDuffle(product) {
   if (!product) return false;
   if (isDuffleSlug(product.slug)) return true;
@@ -53,14 +60,23 @@ function isWhiteDuffle(product) {
   return name.includes('duffle bag') && name.includes('white');
 }
 
+function isWhiteWaterBottle(product) {
+  if (!product) return false;
+  if (isWaterBottleSlug(product.slug)) return true;
+  const name = String(product.name || product.title || '').toLowerCase();
+  return name.includes('water bottle') && (name.includes('white') || name.includes('steel'));
+}
+
 export function getStandaloneProductOverride(slug) {
   if (isDuffleSlug(slug)) return makeDuffleProduct(slug);
+  if (isWaterBottleSlug(slug)) return makeWaterBottleProduct(slug);
   return null;
 }
 
 export function applyProductOverride(product) {
   if (!product) return product;
   if (isWhiteDuffle(product)) return { ...product, ...makeDuffleProduct(product.slug) };
+  if (isWhiteWaterBottle(product)) return { ...product, ...makeWaterBottleProduct(product.slug) };
   const override = PRODUCT_OVERRIDES[product.slug];
   return override ? { ...product, ...override } : product;
 }
