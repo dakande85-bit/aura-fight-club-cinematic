@@ -5,6 +5,7 @@ import Footer from '../components/Footer.jsx';
 import { products, dropOneProducts } from '../data/products.js';
 import { preorderProducts } from '../data/preorderProducts.js';
 import { formatPriceEUR, getShopProduct, isShopProduct } from '../data/shopProducts.js';
+import { getStandaloneProductOverride } from '../data/productOverrides.js';
 import '../styles/cart.css';
 
 const CART_KEY = 'aura_cart_v1';
@@ -29,6 +30,7 @@ function getProduct(slug) {
   return preorderProducts.find((product) => product.slug === slug)
     || dropOneProducts.find((product) => product.slug === slug)
     || products.find((product) => product.slug === slug)
+    || getStandaloneProductOverride(slug)
     || null;
 }
 
