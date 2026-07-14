@@ -8,9 +8,14 @@ import { applyProductOverride } from '../data/productOverrides.js';
 import { makeNavyTrainingSetProduct } from '../data/navyTrainingSet.js';
 import '../styles/drop001.css';
 
+const MADE_TO_ORDER_SLUGS = new Set([
+  'aura-fight-club-training-shorts',
+]);
+
 export default function Drop001() {
   const heroMedia = usePageHeroMedia('drop001');
-  const displayProducts = [makeNavyTrainingSetProduct(), ...dropOneProducts].map(applyProductOverride);
+  const coreProducts = dropOneProducts.filter((product) => !MADE_TO_ORDER_SLUGS.has(product.slug));
+  const displayProducts = [makeNavyTrainingSetProduct(), ...coreProducts].map(applyProductOverride);
   const productCountLabel = `${displayProducts.length} faster-delivery core products`;
 
   return (
@@ -54,7 +59,7 @@ export default function Drop001() {
 
         <section className="d001__note" aria-label="Drop 001 scope">
           <p>Drop 001 contains the AURA print-on-demand range. It is kept separate so customers can clearly understand the different production and delivery times.</p>
-          <p>Gloves, the ring gown, bomber jacket, heavyweight hoodie, and performance fight shorts now live in the dedicated Pre-Order collection.</p>
+          <p>Gloves, the ring gown, bomber jacket, heavyweight hoodie, and training shorts now live in the dedicated Pre-Order collection.</p>
         </section>
       </div>
 
