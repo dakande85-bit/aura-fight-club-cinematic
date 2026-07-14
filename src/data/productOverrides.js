@@ -40,15 +40,20 @@ const PRODUCT_OVERRIDES = {
   },
 };
 
+function isDuffleSlug(slug) {
+  const key = String(slug || '').toLowerCase();
+  return DUFFLE_SLUGS.has(key) || (key.includes('duffle') && key.includes('white'));
+}
+
 function isWhiteDuffle(product) {
   if (!product) return false;
-  if (DUFFLE_SLUGS.has(product.slug)) return true;
+  if (isDuffleSlug(product.slug)) return true;
   const name = String(product.name || product.title || '').toLowerCase();
   return name.includes('duffle bag') && name.includes('white');
 }
 
 export function getStandaloneProductOverride(slug) {
-  if (DUFFLE_SLUGS.has(slug)) return makeDuffleProduct(slug);
+  if (isDuffleSlug(slug)) return makeDuffleProduct(slug);
   return null;
 }
 
