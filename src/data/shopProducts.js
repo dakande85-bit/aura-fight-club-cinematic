@@ -5,6 +5,14 @@ const DUFFLE_SHOP_PRODUCT = {
   colour: 'White',
 };
 
+function isDuffleSlug(slug) {
+  const key = String(slug || '').toLowerCase();
+  return key === 'duffle-bag'
+    || key === 'aura-fight-club-training-duffle-bag-white'
+    || key === 'aura-training-duffle-bag-white'
+    || (key.includes('duffle') && key.includes('white'));
+}
+
 export const shopProducts = {
   'aura-fight-club-t-shirt': {
     priceEUR: 35,
@@ -111,11 +119,11 @@ export const shopProducts = {
 };
 
 export function isShopProduct(slug) {
-  return Boolean(shopProducts[slug]);
+  return Boolean(shopProducts[slug] || isDuffleSlug(slug));
 }
 
 export function getShopProduct(slug) {
-  return shopProducts[slug] || null;
+  return shopProducts[slug] || (isDuffleSlug(slug) ? DUFFLE_SHOP_PRODUCT : null);
 }
 
 export function formatPriceEUR(value) {
