@@ -23,9 +23,12 @@ const COMMERCE_APPAREL_PRODUCTS = [
   makeNavyTrainingSetProduct(),
 ];
 
-const MADE_TO_ORDER_SLUGS = new Set([
+const HIDDEN_APPAREL_SLUGS = new Set([
   'aura-sleeveless-training-hoodie',
   'aura-fight-club-training-shorts',
+  // The navy hoodie and joggers are purchase choices inside the single set listing.
+  'aura-fight-club-hoodie',
+  'aura-fight-club-joggers',
 ]);
 
 function isSameCommerceProduct(product, curatedProduct) {
@@ -55,7 +58,7 @@ function mergeEquipmentProducts(liveProducts = []) {
 
 function mergeApparelProducts(apparelProducts = []) {
   const remaining = apparelProducts.filter((product) => (
-    !MADE_TO_ORDER_SLUGS.has(product.slug)
+    !HIDDEN_APPAREL_SLUGS.has(product.slug)
     && !COMMERCE_APPAREL_PRODUCTS.some((curatedProduct) => isSameCommerceProduct(product, curatedProduct))
   ));
 

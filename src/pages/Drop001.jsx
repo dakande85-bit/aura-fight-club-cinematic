@@ -8,14 +8,17 @@ import { applyProductOverride } from '../data/productOverrides.js';
 import { makeNavyTrainingSetProduct } from '../data/navyTrainingSet.js';
 import '../styles/drop001.css';
 
-const MADE_TO_ORDER_SLUGS = new Set([
+const HIDDEN_DROP_001_SLUGS = new Set([
   'aura-sleeveless-training-hoodie',
   'aura-fight-club-training-shorts',
+  // These remain available through the Full Set product's purchase choices.
+  'aura-fight-club-hoodie',
+  'aura-fight-club-joggers',
 ]);
 
 export default function Drop001() {
   const heroMedia = usePageHeroMedia('drop001');
-  const coreProducts = dropOneProducts.filter((product) => !MADE_TO_ORDER_SLUGS.has(product.slug));
+  const coreProducts = dropOneProducts.filter((product) => !HIDDEN_DROP_001_SLUGS.has(product.slug));
   const displayProducts = [makeNavyTrainingSetProduct(), ...coreProducts].map(applyProductOverride);
   const productCountLabel = `${displayProducts.length} faster-delivery core products`;
 
