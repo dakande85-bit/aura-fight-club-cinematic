@@ -88,10 +88,10 @@ export const shopProducts = {
   'aura-fight-club-navy-training-hoodie': NAVY_TRAINING_HOODIE_SHOP_PRODUCT,
   'unisex-pullover-hoodie-bella-canvas-3719-navy': NAVY_TRAINING_HOODIE_SHOP_PRODUCT,
   'aura-discipline-hoodie': {
-    priceEUR: 70,
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    colours: ['Black', 'Cream'],
-    colour: 'Black / Cream options',
+    priceEUR: 50,
+    sizes: ['S', 'M', 'L', 'XL', '2XL'],
+    colours: ['Black'],
+    colour: 'Black',
   },
   'aura-sleeveless-training-hoodie': {
     priceEUR: 58,
