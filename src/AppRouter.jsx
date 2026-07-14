@@ -5,6 +5,7 @@ import CinematicPage from './pages/CinematicPage.jsx';
 import CampaignPage from './pages/CampaignPage.jsx';
 import DropsPage from './pages/Drops.jsx';
 import Drop001Page from './pages/Drop001.jsx';
+import PreOrdersPage from './pages/PreOrders.jsx';
 import ProductDetailPage from './pages/ProductDetailRoute.jsx';
 import ApparelPage from './pages/Apparel.jsx';
 import FootwearPage from './pages/Footwear.jsx';
@@ -28,6 +29,8 @@ export default function AppRouter() {
         <Route path="/cinematic" element={<Navigate to="/who-we-are" replace />} />
         <Route path="/drops" element={<DropsPage />} />
         <Route path="/drop-001" element={<Drop001Page />} />
+        <Route path="/pre-orders" element={<PreOrdersPage />} />
+        <Route path="/made-to-order" element={<Navigate to="/pre-orders" replace />} />
         <Route path="/product/:slug" element={<ProductDetailPage />} />
         <Route path="/apparel" element={<ApparelPage />} />
         <Route path="/footwear" element={<FootwearPage />} />
