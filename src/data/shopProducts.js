@@ -1,9 +1,9 @@
 export const shopProducts = {
   'aura-fight-club-t-shirt': {
     priceEUR: 35,
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    colours: ['Black', 'Cream'],
-    colour: 'Black / Cream options',
+    sizes: ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL'],
+    colours: ['Navy', 'Black'],
+    colour: 'Navy / Black options',
   },
   'aura-shadow-boxer-t-shirt': {
     priceEUR: 35,
