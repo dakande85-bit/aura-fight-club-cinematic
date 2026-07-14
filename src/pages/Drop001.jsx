@@ -4,11 +4,13 @@ import Footer from '../components/Footer.jsx';
 import LaunchProductCard from '../components/LaunchProductCard.jsx';
 import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import { dropOneProducts } from '../data/products.js';
+import { applyProductOverride } from '../data/productOverrides.js';
 import '../styles/drop001.css';
 
 export default function Drop001() {
   const heroMedia = usePageHeroMedia('drop001');
-  const productCountLabel = `${dropOneProducts.length} faster-delivery core products`;
+  const displayProducts = dropOneProducts.map(applyProductOverride);
+  const productCountLabel = `${displayProducts.length} faster-delivery core products`;
 
   return (
     <div className="d001">
@@ -37,7 +39,7 @@ export default function Drop001() {
         </p>
 
         <div className="d001__grid d001__grid--confirmed">
-          {dropOneProducts.map((product) => (
+          {displayProducts.map((product) => (
             <LaunchProductCard product={product} key={product.slug} />
           ))}
         </div>

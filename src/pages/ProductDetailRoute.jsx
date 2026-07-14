@@ -1,15 +1,18 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProduct, dropOneProducts } from '../data/products.js';
 import { getPreorderProduct } from '../data/preorderProducts.js';
+import { applyProductOverride } from '../data/productOverrides.js';
 import ProductDetail from './ProductDetail.jsx';
 
 function findProductBySlug(slug) {
   const preorderProduct = getPreorderProduct(slug);
-  if (preorderProduct) return preorderProduct;
+  if (preorderProduct) return applyProductOverride(preorderProduct);
 
   const catalogueProduct = getProduct(slug);
-  if (catalogueProduct) return catalogueProduct;
-  return dropOneProducts.find((item) => item.slug === slug) ?? null;
+  if (catalogueProduct) return applyProductOverride(catalogueProduct);
+
+  const dropProduct = dropOneProducts.find((item) => item.slug === slug) ?? null;
+  return applyProductOverride(dropProduct);
 }
 
 export default function ProductDetailRoute() {
