@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
-import { dropOneProducts } from '../data/products.js';
+import { products, dropOneProducts } from '../data/products.js';
+import { preorderProducts } from '../data/preorderProducts.js';
 import { formatPriceEUR, getShopProduct, isShopProduct } from '../data/shopProducts.js';
 import '../styles/cart.css';
 
@@ -25,7 +26,10 @@ function saveCart(items) {
 }
 
 function getProduct(slug) {
-  return dropOneProducts.find((product) => product.slug === slug) || null;
+  return preorderProducts.find((product) => product.slug === slug)
+    || dropOneProducts.find((product) => product.slug === slug)
+    || products.find((product) => product.slug === slug)
+    || null;
 }
 
 function buildCartLine(slug) {
@@ -40,6 +44,10 @@ function buildCartLine(slug) {
     image: product.image,
     priceEUR: shop.priceEUR,
     size: shop.sizes?.[0] || 'One Size',
+    colour: shop.colours?.[0] || shop.colour || '',
+    personalisation: '',
+    preorder: Boolean(shop.preorder),
+    leadTime: shop.leadTime || '',
     quantity: 1,
   };
 }
@@ -56,7 +64,18 @@ function addToCart(items, slug) {
 
 function orderSummary(items) {
   return items
-    .map((item) => `${item.quantity} x ${item.name} - ${item.size} - ${formatPriceEUR(item.priceEUR)} each`)
+    .map((item) => {
+      const shop = getShopProduct(item.slug);
+      const fields = [
+        `${item.quantity} x ${item.name}`,
+        item.size,
+        item.colour || shop?.colour,
+        item.personalisation ? `Personalisation: ${item.personalisation}` : null,
+        item.preorder || shop?.preorder ? 'PRE-ORDER / MADE TO ORDER' : null,
+        `${formatPriceEUR(item.priceEUR)} each`,
+      ].filter(Boolean);
+      return fields.join(' - ');
+    })
     .join('\n');
 }
 
@@ -81,11 +100,12 @@ export default function Cart() {
     saveCart(items);
   }, [items]);
 
+  const hasPreorders = items.some((item) => item.preorder || getShopProduct(item.slug)?.preorder);
   const total = useMemo(() => items.reduce((sum, item) => sum + item.priceEUR * item.quantity, 0), [items]);
   const mailtoHref = useMemo(() => {
-    const subject = encodeURIComponent('AURA order request');
+    const subject = encodeURIComponent(hasPreorders ? 'AURA pre-order request' : 'AURA order request');
     const body = encodeURIComponent([
-      'AURA order request',
+      hasPreorders ? 'AURA PRE-ORDER REQUEST' : 'AURA ORDER REQUEST',
       '',
       `Name: ${customer.name}`,
       `Email: ${customer.email}`,
@@ -93,16 +113,23 @@ export default function Cart() {
       'Items:',
       orderSummary(items),
       '',
-      `Total: ${formatPriceEUR(total)}`,
+      `Total product value: ${formatPriceEUR(total)}`,
+      '',
+      hasPreorders ? 'I understand production begins only after full payment and final specifications are confirmed.' : '',
+      hasPreorders ? 'Estimated made-to-order delivery: 5-7 weeks after confirmation.' : '',
       '',
       `Notes: ${customer.notes}`,
-    ].join('\n'));
+    ].filter((line) => line !== '').join('\n'));
     return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-  }, [customer, items, total]);
+  }, [customer, hasPreorders, items, total]);
 
   function updateQuantity(slug, delta) {
     setItems((current) => current
       .map((item) => item.slug === slug ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item));
+  }
+
+  function updateLine(slug, field, value) {
+    setItems((current) => current.map((line) => line.slug === slug ? { ...line, [field]: value } : line));
   }
 
   function removeItem(slug) {
@@ -120,55 +147,89 @@ export default function Cart() {
       <main className="cart-main">
         <section className="cart-hero">
           <p className="cart-eyebrow">AURA Checkout</p>
-          <h1>Your Cart</h1>
-          <p>Drop 001 items are available to order. Review your items and send the order request.</p>
+          <h1>{hasPreorders ? 'Your Pre-Order' : 'Your Cart'}</h1>
+          <p>
+            {hasPreorders
+              ? 'Confirm your size, colour, and personalisation. Full payment is arranged before made-to-order production begins.'
+              : 'Review your items and send the order request.'}
+          </p>
         </section>
 
         {items.length === 0 ? (
           <section className="cart-empty">
             <h2>Your cart is empty.</h2>
-            <p>Add Drop 001 apparel or accessories to start an order.</p>
-            <Link to="/drop-001" className="cart-btn cart-btn--primary">Shop Drop 001</Link>
+            <p>Add AURA apparel, equipment, or made-to-order pre-orders to begin.</p>
+            <Link to="/apparel" className="cart-btn cart-btn--primary">Shop AURA</Link>
           </section>
         ) : (
           <section className="cart-layout">
             <div className="cart-items">
-              {items.map((item) => (
-                <article className="cart-item" key={item.slug}>
-                  <div className="cart-item__media">
-                    {item.image ? <img src={item.image} alt={item.name} loading="lazy" decoding="async" /> : <span>AURA</span>}
-                  </div>
-                  <div className="cart-item__body">
-                    <p>{item.category}</p>
-                    <h2>{item.name}</h2>
-                    <label>
-                      Size
-                      <select
-                        value={item.size}
-                        onChange={(event) => setItems((current) => current.map((line) => line.slug === item.slug ? { ...line, size: event.target.value } : line))}
-                      >
-                        {(getShopProduct(item.slug)?.sizes || ['One Size']).map((size) => <option key={size}>{size}</option>)}
-                      </select>
-                    </label>
-                    <div className="cart-item__controls">
-                      <button type="button" onClick={() => updateQuantity(item.slug, -1)}>-</button>
-                      <span>{item.quantity}</span>
-                      <button type="button" onClick={() => updateQuantity(item.slug, 1)}>+</button>
+              {items.map((item) => {
+                const shop = getShopProduct(item.slug);
+                const isPreorder = Boolean(item.preorder || shop?.preorder);
+                return (
+                  <article className="cart-item" key={item.slug}>
+                    <div className="cart-item__media">
+                      {item.image ? <img src={item.image} alt={item.name} loading="lazy" decoding="async" /> : <span>AURA</span>}
                     </div>
-                    <button className="cart-remove" type="button" onClick={() => removeItem(item.slug)}>Remove</button>
-                  </div>
-                  <strong>{formatPriceEUR(item.priceEUR * item.quantity)}</strong>
-                </article>
-              ))}
+                    <div className="cart-item__body">
+                      <p>{isPreorder ? 'PRE-ORDER / MADE TO ORDER' : item.category}</p>
+                      <h2>{item.name}</h2>
+                      <label>
+                        Size
+                        <select
+                          value={item.size}
+                          onChange={(event) => updateLine(item.slug, 'size', event.target.value)}
+                        >
+                          {(shop?.sizes || ['One Size']).map((size) => <option key={size}>{size}</option>)}
+                        </select>
+                      </label>
+                      {(shop?.colours?.length || item.colour) ? (
+                        <label>
+                          Colour
+                          <select
+                            value={item.colour || shop?.colours?.[0] || ''}
+                            onChange={(event) => updateLine(item.slug, 'colour', event.target.value)}
+                          >
+                            {(shop?.colours || [shop?.colour || item.colour]).filter(Boolean).map((colour) => <option key={colour}>{colour}</option>)}
+                          </select>
+                        </label>
+                      ) : null}
+                      {shop?.personalisation ? (
+                        <label>
+                          Fighter name / personalisation
+                          <input
+                            value={item.personalisation || ''}
+                            onChange={(event) => updateLine(item.slug, 'personalisation', event.target.value)}
+                            placeholder="Optional - confirm spelling carefully"
+                          />
+                        </label>
+                      ) : null}
+                      {isPreorder ? <p>{shop?.leadTime || 'Estimated delivery: 5-7 weeks'}</p> : null}
+                      <div className="cart-item__controls">
+                        <button type="button" onClick={() => updateQuantity(item.slug, -1)}>-</button>
+                        <span>{item.quantity}</span>
+                        <button type="button" onClick={() => updateQuantity(item.slug, 1)}>+</button>
+                      </div>
+                      <button className="cart-remove" type="button" onClick={() => removeItem(item.slug)}>Remove</button>
+                    </div>
+                    <strong>{formatPriceEUR(item.priceEUR * item.quantity)}</strong>
+                  </article>
+                );
+              })}
             </div>
 
             <aside className="cart-summary">
-              <p className="cart-eyebrow">Order Summary</p>
+              <p className="cart-eyebrow">{hasPreorders ? 'Pre-Order Summary' : 'Order Summary'}</p>
               <div className="cart-summary__row">
-                <span>Subtotal</span>
+                <span>Product total</span>
                 <strong>{formatPriceEUR(total)}</strong>
               </div>
-              <p className="cart-note">Shipping and final payment are confirmed after your order request is received.</p>
+              <p className="cart-note">
+                {hasPreorders
+                  ? 'Shipping is confirmed separately. Full payment must clear before the supplier order is placed and production begins.'
+                  : 'Shipping and final payment are confirmed after your order request is received.'}
+              </p>
 
               <label>
                 Name
@@ -180,11 +241,11 @@ export default function Cart() {
               </label>
               <label>
                 Notes
-                <textarea value={customer.notes} onChange={(event) => setCustomer({ ...customer, notes: event.target.value })} placeholder="Colour, delivery country, or anything else" />
+                <textarea value={customer.notes} onChange={(event) => setCustomer({ ...customer, notes: event.target.value })} placeholder="Delivery country, deadline, or anything else" />
               </label>
 
-              <a className="cart-btn cart-btn--primary" href={mailtoHref}>Place Order Request</a>
-              <Link className="cart-btn cart-btn--ghost" to="/drop-001">Continue Shopping</Link>
+              <a className="cart-btn cart-btn--primary" href={mailtoHref}>{hasPreorders ? 'Submit Pre-Order Request' : 'Place Order Request'}</a>
+              <Link className="cart-btn cart-btn--ghost" to="/apparel">Continue Shopping</Link>
               <button className="cart-clear" type="button" onClick={clearCart}>Clear Cart</button>
             </aside>
           </section>
