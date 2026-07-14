@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import { useBrandLogo } from '../hooks/usePageMedia.js';
 
 const navItems = [
-  { label: 'Home', href: '/' },
   { label: 'Drop 001', href: '/drop-001' },
-  { label: 'Pre-Orders', href: '/pre-orders' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
   { label: 'Accessories', href: '/equipment' },
-  { label: 'Story', href: '/who-we-are' },
+  { label: 'Our Story', href: '/who-we-are' },
 ];
 
 export default function Header() {
