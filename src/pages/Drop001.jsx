@@ -9,6 +9,7 @@ import { makeNavyTrainingSetProduct } from '../data/navyTrainingSet.js';
 import '../styles/drop001.css';
 
 const MADE_TO_ORDER_SLUGS = new Set([
+  'aura-sleeveless-training-hoodie',
   'aura-fight-club-training-shorts',
 ]);
 
@@ -59,7 +60,7 @@ export default function Drop001() {
 
         <section className="d001__note" aria-label="Drop 001 scope">
           <p>Drop 001 contains the AURA print-on-demand range. It is kept separate so customers can clearly understand the different production and delivery times.</p>
-          <p>Gloves, the ring gown, bomber jacket, heavyweight hoodie, and training shorts now live in the dedicated Pre-Order collection.</p>
+          <p>Gloves, the ring gown, bomber jacket, heavyweight hoodie, sleeveless training hoodie, and training shorts now live in the dedicated Pre-Order collection.</p>
         </section>
       </div>
 
