@@ -11,35 +11,39 @@ function getDisplayCopy(product) {
   }
 
   if (category.includes('ring gown')) {
-    return 'A personalised sleeveless ring gown for entrances, competition, and corner use.';
+    return product?.shortDesc || 'A personalised sleeveless ring gown for entrances, competition, and corner use.';
   }
 
   if (category.includes('bomber')) {
-    return 'A lightweight AURA bomber for warm-ups, travel, events, and everyday wear.';
+    return product?.shortDesc || 'A lightweight AURA bomber for warm-ups, travel, events, and everyday wear.';
   }
 
   if (category.includes('glove')) {
-    return 'Custom AURA training gloves produced after your pre-order is confirmed.';
+    return product?.shortDesc || 'Custom AURA training gloves produced after your pre-order is confirmed.';
   }
 
   if (category.includes('fight short')) {
-    return 'Ultra-light performance shorts for striking, grappling, conditioning, and gym work.';
+    return product?.shortDesc || 'Ultra-light performance shorts for striking, grappling, conditioning, and gym work.';
+  }
+
+  if (category.includes('training set')) {
+    return product?.shortDesc || 'A coordinated AURA training-to-lifestyle set.';
   }
 
   if (category.includes('hoodie')) {
-    return 'A comfortable AURA layer for warm-ups, rest days, travel, and everyday life.';
+    return product?.shortDesc || 'A comfortable AURA layer for warm-ups, rest days, travel, and everyday life.';
   }
 
   if (category.includes('jogger')) {
-    return 'Clean joggers for training, recovery, travel, and daily movement.';
+    return product?.shortDesc || 'Clean joggers for training, recovery, travel, and daily movement.';
   }
 
   if (category.includes('tank')) {
-    return 'A training tank for gym work, warm weather, and easy layering.';
+    return product?.shortDesc || 'A training tank for gym work, warm weather, and easy layering.';
   }
 
   if (category.includes('water') || name.includes('bottle')) {
-    return 'An everyday training bottle for the gym bag, roadwork, and daily routine.';
+    return product?.shortDesc || 'An everyday training bottle for the gym bag, roadwork, and daily routine.';
   }
 
   return product?.shortDesc || product?.description || 'AURA training-to-lifestyle piece.';

@@ -11,11 +11,16 @@ import { dropOneApparelProducts } from '../data/products.js';
 import { applyProductOverride } from '../data/productOverrides.js';
 import { makeDuffleProduct } from '../data/duffleProduct.js';
 import { makeWaterBottleProduct } from '../data/waterBottleProduct.js';
+import { makeNavyTrainingSetProduct } from '../data/navyTrainingSet.js';
 import '../styles/collection.css';
 
 const COMMERCE_EQUIPMENT_PRODUCTS = [
   makeDuffleProduct('duffle-bag'),
   makeWaterBottleProduct('aura-steel-water-bottle'),
+];
+
+const COMMERCE_APPAREL_PRODUCTS = [
+  makeNavyTrainingSetProduct(),
 ];
 
 function isSameCommerceProduct(product, curatedProduct) {
@@ -29,6 +34,9 @@ function isSameCommerceProduct(product, curatedProduct) {
   if (curatedProduct.slug === 'aura-steel-water-bottle') {
     return slug.includes('water-bottle') || name.includes('water bottle');
   }
+  if (curatedProduct.slug === 'aura-navy-training-set') {
+    return slug.includes('navy-training-set') || name.includes('navy training set');
+  }
   return false;
 }
 
@@ -38,6 +46,14 @@ function mergeEquipmentProducts(liveProducts = []) {
   ));
 
   return [...COMMERCE_EQUIPMENT_PRODUCTS, ...remaining];
+}
+
+function mergeApparelProducts(apparelProducts = []) {
+  const remaining = apparelProducts.filter((product) => (
+    !COMMERCE_APPAREL_PRODUCTS.some((curatedProduct) => isSameCommerceProduct(product, curatedProduct))
+  ));
+
+  return [...COMMERCE_APPAREL_PRODUCTS, ...remaining];
 }
 
 function getCategoryMeta(category, count) {
@@ -65,7 +81,7 @@ export default function CollectionPage({ category, heading, subcopy }) {
   const key = String(category || '').toLowerCase();
   const isLaunchApparel = key === 'apparel';
   const sourceProducts = isLaunchApparel
-    ? dropOneApparelProducts
+    ? mergeApparelProducts(dropOneApparelProducts)
     : key === 'equipment'
       ? mergeEquipmentProducts(products || [])
       : (products || []);

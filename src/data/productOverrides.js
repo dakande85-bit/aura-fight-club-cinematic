@@ -1,5 +1,13 @@
 import { DUFFLE_SLUGS, makeDuffleProduct } from './duffleProduct.js';
 import { WATER_BOTTLE_SLUGS, makeWaterBottleProduct } from './waterBottleProduct.js';
+import {
+  NAVY_TRAINING_SET_SLUG,
+  NAVY_TRAINING_HOODIE_SLUGS,
+  NAVY_TRAINING_JOGGERS_SLUGS,
+  makeNavyTrainingSetProduct,
+  makeNavyTrainingHoodieProduct,
+  makeNavyTrainingJoggersProduct,
+} from './navyTrainingSet.js';
 
 const ESSENTIAL_TEE_MEDIA = {
   front: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-boxing-essential-navy-front-v2_071fa5a7-76ef-482c-a14b-91590bdc6397.png?v=1784055124',
@@ -56,6 +64,18 @@ function isWaterBottleSlug(slug) {
     || (key.includes('water-bottle') && (key.includes('white') || key.includes('steel')));
 }
 
+function isNavyTrainingSetSlug(slug) {
+  return String(slug || '').toLowerCase() === NAVY_TRAINING_SET_SLUG;
+}
+
+function isNavyTrainingHoodieSlug(slug) {
+  return NAVY_TRAINING_HOODIE_SLUGS.has(String(slug || '').toLowerCase());
+}
+
+function isNavyTrainingJoggersSlug(slug) {
+  return NAVY_TRAINING_JOGGERS_SLUGS.has(String(slug || '').toLowerCase());
+}
+
 function isWhiteDuffle(product) {
   if (!product) return false;
   if (isDuffleSlug(product.slug)) return true;
@@ -70,9 +90,26 @@ function isWhiteWaterBottle(product) {
   return name.includes('water bottle') && (name.includes('white') || name.includes('steel'));
 }
 
+function isNavyTrainingHoodie(product) {
+  if (!product) return false;
+  if (isNavyTrainingHoodieSlug(product.slug)) return true;
+  const name = String(product.name || product.title || '').toLowerCase();
+  return name.includes('navy training hoodie');
+}
+
+function isNavyTrainingJoggers(product) {
+  if (!product) return false;
+  if (isNavyTrainingJoggersSlug(product.slug)) return true;
+  const name = String(product.name || product.title || '').toLowerCase();
+  return name.includes('navy training jogger');
+}
+
 export function getStandaloneProductOverride(slug) {
   if (isDuffleSlug(slug)) return makeDuffleProduct(slug);
   if (isWaterBottleSlug(slug)) return makeWaterBottleProduct(slug);
+  if (isNavyTrainingSetSlug(slug)) return makeNavyTrainingSetProduct(slug);
+  if (isNavyTrainingHoodieSlug(slug)) return makeNavyTrainingHoodieProduct(slug);
+  if (isNavyTrainingJoggersSlug(slug)) return makeNavyTrainingJoggersProduct(slug);
   return null;
 }
 
@@ -80,6 +117,8 @@ export function applyProductOverride(product) {
   if (!product) return product;
   if (isWhiteDuffle(product)) return { ...product, ...makeDuffleProduct(product.slug) };
   if (isWhiteWaterBottle(product)) return { ...product, ...makeWaterBottleProduct(product.slug) };
+  if (isNavyTrainingHoodie(product)) return { ...product, ...makeNavyTrainingHoodieProduct(product.slug) };
+  if (isNavyTrainingJoggers(product)) return { ...product, ...makeNavyTrainingJoggersProduct(product.slug) };
   const override = PRODUCT_OVERRIDES[product.slug];
   return override ? { ...product, ...override } : product;
 }

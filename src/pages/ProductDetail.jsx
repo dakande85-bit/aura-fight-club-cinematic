@@ -11,6 +11,7 @@ const categoryRoutes = {
   Apparel: '/apparel',
   Footwear: '/footwear',
   Equipment: '/equipment',
+  'Training Set': '/apparel',
   'T-Shirt': '/apparel',
   Hoodie: '/apparel',
   'Sleeveless Hoodie': '/apparel',
@@ -45,6 +46,7 @@ function getCollectionRoute(product) {
 function getCategoryRole(category) {
   return {
     Apparel: 'A comfortable training-to-lifestyle layer for the hours before, during, and after the work.',
+    'Training Set': 'A coordinated hoodie-and-jogger uniform for training, recovery, travel, and everyday wear.',
     'T-Shirt': 'A clean everyday tee for training, recovery, travel, and casual wear.',
     Hoodie: 'A comfortable layer for warm-ups, rest days, travel, and daily life.',
     'Sleeveless Hoodie': 'A sleeveless training layer for warm-ups, gym work, travel, and daily movement.',
@@ -90,17 +92,18 @@ function getPublicDescription(product) {
   const category = String(product?.category || '').toLowerCase();
   const name = String(product?.name || '').toLowerCase();
 
-  if (category.includes('t-shirt')) return 'A clean everyday tee for training, recovery, travel, and casual wear.';
-  if (category.includes('ring gown')) return 'A personalised sleeveless ring gown for entrances, competition, and corner use.';
-  if (category.includes('bomber')) return 'A lightweight AURA bomber for warm-ups, travel, events, and everyday wear.';
-  if (category.includes('glove')) return 'Custom AURA training gloves produced after your pre-order is confirmed.';
-  if (category.includes('fight short')) return 'Ultra-light performance shorts for striking, grappling, conditioning, and gym work.';
-  if (category.includes('sleeveless')) return 'A sleeveless AURA layer for warm-ups, gym work, travel, and daily movement.';
-  if (category.includes('hoodie')) return 'A comfortable AURA layer for warm-ups, rest days, travel, and everyday life.';
-  if (category.includes('jogger')) return 'Clean joggers for training, recovery, travel, and daily movement.';
-  if (category.includes('tank')) return 'A training tank for gym work, warm weather, and easy layering.';
-  if (category.includes('short')) return 'Custom training shorts for movement, warm weather, and gym work.';
-  if (category.includes('water') || name.includes('bottle')) return 'An everyday training bottle for the gym bag, roadwork, and daily routine.';
+  if (category.includes('training set')) return product?.shortDesc || 'A coordinated AURA training-to-lifestyle set.';
+  if (category.includes('t-shirt')) return product?.shortDesc || 'A clean everyday tee for training, recovery, travel, and casual wear.';
+  if (category.includes('ring gown')) return product?.shortDesc || 'A personalised sleeveless ring gown for entrances, competition, and corner use.';
+  if (category.includes('bomber')) return product?.shortDesc || 'A lightweight AURA bomber for warm-ups, travel, events, and everyday wear.';
+  if (category.includes('glove')) return product?.shortDesc || 'Custom AURA training gloves produced after your pre-order is confirmed.';
+  if (category.includes('fight short')) return product?.shortDesc || 'Ultra-light performance shorts for striking, grappling, conditioning, and gym work.';
+  if (category.includes('sleeveless')) return product?.shortDesc || 'A sleeveless AURA layer for warm-ups, gym work, travel, and daily movement.';
+  if (category.includes('hoodie')) return product?.shortDesc || 'A comfortable AURA layer for warm-ups, rest days, travel, and everyday life.';
+  if (category.includes('jogger')) return product?.shortDesc || 'Clean joggers for training, recovery, travel, and daily movement.';
+  if (category.includes('tank')) return product?.shortDesc || 'A training tank for gym work, warm weather, and easy layering.';
+  if (category.includes('short')) return product?.shortDesc || 'Custom training shorts for movement, warm weather, and gym work.';
+  if (category.includes('water') || name.includes('bottle')) return product?.shortDesc || 'An everyday training bottle for the gym bag, roadwork, and daily routine.';
 
   return product?.shortDesc || product?.description || 'AURA training-to-lifestyle piece.';
 }
@@ -140,6 +143,7 @@ export default function ProductDetail({ product, onBack }) {
     : product.collection === 'Pre-Order' ? 'View Pre-Orders' : 'View Drops';
   const detailCards = getProductCards(product, shopProduct);
   const cartHref = `/cart?add=${encodeURIComponent(product.slug)}`;
+  const purchaseOptions = Array.isArray(product.purchaseOptions) ? product.purchaseOptions : [];
 
   return (
     <div className="pd">
@@ -206,6 +210,24 @@ export default function ProductDetail({ product, onBack }) {
                 ) : <p className="pd__confirm">YOU'RE ON THE LIST.</p>}
               </div>
             )}
+
+            {purchaseOptions.length > 0 ? (
+              <div className="pd__purchase">
+                <p className="pd__waitlist-label">Buy as a set or separately</p>
+                <p className="pd__short">Choose the complete coordinated set, the hoodie only, or the joggers only.</p>
+                <div className="pd__buy-actions">
+                  {purchaseOptions.map((option) => (
+                    <Link
+                      key={option.slug}
+                      className={`pd__buy-btn ${option.slug === product.slug ? 'pd__buy-btn--primary' : 'pd__buy-btn--ghost'}`}
+                      to={`/cart?add=${encodeURIComponent(option.slug)}`}
+                    >
+                      {option.label} · {formatPriceEUR(option.priceEUR)}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
 
             <div className="pd__cta-row" aria-label="Related product links">
               <Link to={collectionPath}>{collectionLabel}</Link>

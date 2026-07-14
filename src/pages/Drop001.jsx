@@ -5,11 +5,12 @@ import LaunchProductCard from '../components/LaunchProductCard.jsx';
 import { usePageHeroMedia } from '../hooks/usePageMedia.js';
 import { dropOneProducts } from '../data/products.js';
 import { applyProductOverride } from '../data/productOverrides.js';
+import { makeNavyTrainingSetProduct } from '../data/navyTrainingSet.js';
 import '../styles/drop001.css';
 
 export default function Drop001() {
   const heroMedia = usePageHeroMedia('drop001');
-  const displayProducts = dropOneProducts.map(applyProductOverride);
+  const displayProducts = [makeNavyTrainingSetProduct(), ...dropOneProducts].map(applyProductOverride);
   const productCountLabel = `${displayProducts.length} faster-delivery core products`;
 
   return (
