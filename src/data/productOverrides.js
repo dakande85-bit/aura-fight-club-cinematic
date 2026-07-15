@@ -23,6 +23,13 @@ const SLEEVELESS_HOODIE_MEDIA = {
   back: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-sleeveless-training-hoodie-black-back.png?v=1784072154',
 };
 
+const BLACK_TANK_MEDIA = {
+  frontProduct: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-fight-club-training-tank-black-front-product.png?v=1784125865',
+  frontModel: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-fight-club-training-tank-black-front-model.png?v=1784125885',
+  backModel: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-fight-club-training-tank-black-back-model.png?v=1784125902',
+  backProduct: 'https://cdn.shopify.com/s/files/1/1029/3339/7846/files/aura-fight-club-training-tank-black-back-product.png?v=1784125923',
+};
+
 const PRODUCT_OVERRIDES = {
   'aura-fight-club-t-shirt': {
     title: 'AURA Boxing Essential Unisex T-Shirt',
@@ -67,6 +74,35 @@ const PRODUCT_OVERRIDES = {
     details: ['Bella + Canvas 3719', 'Black', 'Sizes S-2XL'],
     imageStatus: 'Ready — keep current campaign image as lead media',
     mockupNeeded: false,
+  },
+  'premium-unisex-tank-top-black': {
+    title: 'AURA Fight Club Training Tank — Black',
+    name: 'AURA Fight Club Training Tank — Black',
+    shortDescription: 'Lightweight black unisex training tank with a compact A chest mark and AURA Fight Club back branding.',
+    shortDesc: 'Lightweight black unisex training tank with a compact A chest mark and AURA Fight Club back branding.',
+    description: 'A clean training tank for boxing sessions, conditioning, gym work and warm-weather movement.',
+    longDescription: 'The AURA Fight Club Training Tank — Black combines a modern unisex athletic fit with a small A chest mark and AURA Fight Club identity across the back.',
+    materialNote: 'Premium combed and ring-spun cotton jersey with a rounded neckline, modern unisex fit, compact A chest mark and AURA Fight Club back branding.',
+    details: ['Black', 'Unisex', 'Sizes XS-2XL'],
+    imageStatus: 'Approved four-image Shopify gallery live',
+    mockupNeeded: false,
+    primaryImage: BLACK_TANK_MEDIA.frontProduct,
+    image: BLACK_TANK_MEDIA.frontProduct,
+    hoverImage: BLACK_TANK_MEDIA.frontModel,
+    imageAlt: 'AURA Fight Club Training Tank in black, front product view with small A chest logo',
+    hoverImageAlt: 'Male model wearing the AURA Fight Club Training Tank in black, front view',
+    galleryImages: [
+      BLACK_TANK_MEDIA.frontProduct,
+      BLACK_TANK_MEDIA.frontModel,
+      BLACK_TANK_MEDIA.backModel,
+      BLACK_TANK_MEDIA.backProduct,
+    ],
+    gallery: [
+      { src: BLACK_TANK_MEDIA.frontProduct, alt: 'AURA Fight Club Training Tank in black, front product view with small A chest logo' },
+      { src: BLACK_TANK_MEDIA.frontModel, alt: 'Male model wearing the AURA Fight Club Training Tank in black, front view' },
+      { src: BLACK_TANK_MEDIA.backModel, alt: 'Male model wearing the AURA Fight Club Training Tank in black, back view with AURA Fight Club branding' },
+      { src: BLACK_TANK_MEDIA.backProduct, alt: 'AURA Fight Club Training Tank in black, back product view with AURA Fight Club branding' },
+    ],
   },
   'aura-sleeveless-training-hoodie': {
     title: 'AURA Sleeveless Training Hoodie — Pre-Order',
