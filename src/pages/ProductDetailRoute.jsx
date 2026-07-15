@@ -7,7 +7,7 @@ import ProductDetail from './ProductDetail.jsx';
 
 function findProductBySlug(slug) {
   const activeProduct = getActiveShopifyProduct(slug);
-  if (activeProduct) return activeProduct;
+  if (activeProduct) return applyProductOverride(activeProduct);
 
   const preorderProduct = getPreorderProduct(slug);
   if (preorderProduct) return applyProductOverride(preorderProduct);
