@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { formatPriceEUR, getShopProduct, isShopProduct } from '../data/shopProducts.js';
+import { applyProductOverride } from '../data/productOverrides.js';
 import '../styles/launch-product-card.css';
 
 function getDisplayCopy(product) {
@@ -51,6 +52,7 @@ function getDisplayCopy(product) {
 
 export default function LaunchProductCard({ product, compact = false }) {
   if (!product) return null;
+  product = applyProductOverride(product);
 
   const hasImage = Boolean(product.image);
   const hasHoverImage = Boolean(product.hoverImage && product.hoverImage !== product.image);
