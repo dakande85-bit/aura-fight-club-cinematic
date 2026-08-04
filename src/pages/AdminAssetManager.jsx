@@ -11,10 +11,6 @@ const SLOT_TYPES = [
   'clean_product_shot','secondary_angle','detail_shot',
   'model_full_outfit','lifestyle_1','lifestyle_2','campaign_in_use',
 ];
-const SLOT_TYPES_BOOTS = [
-  'clean_product_shot','hero_product_dark','detail_side_angle',
-  'studio_angle','model_full_outfit','lifestyle_ring','campaign_in_use',
-];
 const BUCKET_MAP = {
   clean_product_shot:'aura-product-images', hero_product_dark:'aura-product-images',
   detail_side_angle:'aura-product-images',  secondary_angle:'aura-product-images',
@@ -360,7 +356,7 @@ export default function AdminAssetManager() {
 
   // Audit: check for duplicate approved rows (should always return empty after migration)
   const runAudit = useCallback(async () => {
-    const { data } = await supabase.rpc('run_media_audit');
+    await supabase.rpc('run_media_audit');
     // Fallback: manual query since rpc may not exist
     const { data: rows } = await supabase
       .from('aura_media')
