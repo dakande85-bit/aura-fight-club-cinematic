@@ -181,6 +181,11 @@
   transition: background 0.2s;
 }
 .ep__submit:hover { background: #fff; }
+.ep__waitlist-error {
+  margin: 0;
+  color: #ff9b86;
+  font-size: 12px;
+}
 
 .ep__confirm {
   font-size: 11px;

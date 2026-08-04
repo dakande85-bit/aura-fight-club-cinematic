@@ -649,6 +649,12 @@
   white-space: nowrap;
 }
 .fight-club-cta__submit:hover { background: #fff; }
+.fight-club-cta__error {
+  flex-basis: 100%;
+  margin: 0;
+  color: #ff9b86;
+  font-size: 12px;
+}
 .fight-club-cta__confirm {
   font-family: var(--f-body);
   font-size: 12px;

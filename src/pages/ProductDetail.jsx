@@ -1,13 +1,29 @@
 import { useState } from 'react';
 import Header from '../components/Header.jsx';
 import { useProductMedia } from '../hooks/useProductMedia.js';
+import { submitWaitlist } from '../lib/waitlist.js';
 import ProductMediaGallery from '../components/ProductMediaGallery.jsx';
 import '../styles/product-detail.css';
 
 export default function ProductDetail({ product, onBack }) {
   const [email,     setEmail]     = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [submitState, setSubmitState] = useState('idle');
+  const [submitError, setSubmitError] = useState('');
   const { media, loading } = useProductMedia(product?.slug);
+
+  async function handleWaitlistSubmit() {
+    setSubmitState('submitting');
+    setSubmitError('');
+    try {
+      await submitWaitlist({ email, productSlug: product.slug, source: 'product-detail', consent: true });
+      setSubmitted(true);
+      setSubmitState('idle');
+    } catch (error) {
+      setSubmitState('idle');
+      setSubmitError(error.message);
+    }
+  }
 
   if (!product) {
     return (
@@ -64,11 +80,12 @@ export default function ProductDetail({ product, onBack }) {
                 <div className="pd__form">
                   <input className="pd__email" type="email" placeholder="Enter your email"
                     value={email} onChange={e => setEmail(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && email && setSubmitted(true)}
+                    onKeyDown={e => e.key === 'Enter' && email && handleWaitlistSubmit()}
                     aria-label="Email address" />
-                  <button className="pd__submit" onClick={() => email && setSubmitted(true)}>
-                    Join Waitlist
+                  <button className="pd__submit" onClick={() => email && handleWaitlistSubmit()} disabled={submitState === 'submitting'}>
+                    {submitState === 'submitting' ? 'Joining...' : 'Join Waitlist'}
                   </button>
+                  {submitError && <p className="pd__waitlist-error">{submitError}</p>}
                 </div>
               ) : <p className="pd__confirm">YOU'RE ON THE LIST.</p>}
             </div>

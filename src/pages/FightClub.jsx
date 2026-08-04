@@ -2,12 +2,28 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
+import { submitWaitlist } from '../lib/waitlist.js';
 import '../styles/editorial-page.css';
 
 export default function FightClub() {
   const navigate  = useNavigate();
   const [email,     setEmail]     = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [submitState, setSubmitState] = useState('idle');
+  const [submitError, setSubmitError] = useState('');
+
+  async function handleWaitlistSubmit() {
+    setSubmitState('submitting');
+    setSubmitError('');
+    try {
+      await submitWaitlist({ email, productSlug: 'fight-club', source: 'fight-club', consent: true });
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(error.message);
+    } finally {
+      setSubmitState('idle');
+    }
+  }
 
   return (
     <div className="ep">
@@ -52,15 +68,17 @@ export default function FightClub() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && email && setSubmitted(true)}
+                onKeyDown={e => e.key === 'Enter' && email && handleWaitlistSubmit()}
                 aria-label="Email address"
               />
               <button
                 className="ep__submit"
-                onClick={() => email && setSubmitted(true)}
+                onClick={() => email && handleWaitlistSubmit()}
+                disabled={submitState === 'submitting'}
               >
-                Join Waitlist
+                {submitState === 'submitting' ? 'Joining...' : 'Join Waitlist'}
               </button>
+              {submitError && <p className="ep__waitlist-error">{submitError}</p>}
             </div>
           ) : (
             <p className="ep__confirm">YOU'RE ON THE LIST.</p>

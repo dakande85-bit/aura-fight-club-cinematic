@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import SectionLabel from './SectionLabel.jsx';
+import { submitWaitlist } from '../lib/waitlist.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,6 +10,8 @@ export default function FightClubCTA() {
   const sectionRef = useRef(null);
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState('');
+  const [submitState, setSubmitState] = useState('idle');
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -44,9 +47,19 @@ export default function FightClubCTA() {
     };
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email) return;
+    setSubmitState('submitting');
+    setSubmitError('');
+    try {
+      await submitWaitlist({ email, productSlug: 'fight-club', source: 'homepage-cta', consent: true });
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(error.message);
+    } finally {
+      setSubmitState('idle');
+    }
   };
 
   return (
@@ -80,9 +93,10 @@ export default function FightClubCTA() {
               required
               aria-label="Email address"
             />
-            <button type="submit" className="fight-club-cta__submit">
-              Join Waitlist
+            <button type="submit" className="fight-club-cta__submit" disabled={submitState === 'submitting'}>
+              {submitState === 'submitting' ? 'Joining...' : 'Join Waitlist'}
             </button>
+            {submitError && <p className="fight-club-cta__error">{submitError}</p>}
           </form>
         ) : (
           <p className="fight-club-cta__confirm visible">

@@ -13,6 +13,14 @@ const WORLD_LINKS = [
   { label: 'Fight Club', href: '/fight-club' },
 ];
 
+const LEGAL_LINKS = [
+  { label: 'Privacy', href: '/privacy' },
+  { label: 'Terms', href: '/terms' },
+  { label: 'Shipping', href: '/shipping' },
+  { label: 'Returns', href: '/returns' },
+  { label: 'Contact', href: '/contact' },
+];
+
 export default function Footer() {
   return (
     <footer className="aura-footer">
@@ -49,17 +57,17 @@ export default function Footer() {
             <p className="aura-footer__heading">Join</p>
             <Link to="/fight-club">Founding Circle</Link>
             <Link to="/drop-001">Drop Access</Link>
-            <a href="mailto:hello@aurafightclub.com">Contact</a>
+            <Link to="/contact">Contact</Link>
           </div>
         </nav>
       </div>
 
       <div className="aura-footer__legal">
-        <span>© {new Date().getFullYear()} AURA Fight Club</span>
+        <span>&copy; {new Date().getFullYear()} AURA Fight Club</span>
         <div>
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
-          <a href="mailto:hello@aurafightclub.com">Contact</a>
+          {LEGAL_LINKS.map(link => (
+            <Link key={link.href} to={link.href}>{link.label}</Link>
+          ))}
         </div>
       </div>
     </footer>
