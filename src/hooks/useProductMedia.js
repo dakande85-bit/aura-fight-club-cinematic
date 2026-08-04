@@ -23,7 +23,7 @@
  * Public RLS: only status='approved' rows are readable — draft/rejected stay admin-only.
  */
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase.js';
+import { isSupabaseConfigured, supabase } from '../lib/supabase.js';
 
 // Slot types whose images should use object-fit: cover (model/lifestyle shots)
 export const COVER_SLOT_TYPES = new Set([
@@ -87,6 +87,11 @@ export function useProductMedia(slug) {
 
   useEffect(() => {
     if (!slug) { setLoading(false); return; }
+    if (!isSupabaseConfigured) {
+      setMedia(null);
+      setLoading(false);
+      return;
+    }
     setLoading(true);
 
     supabase
@@ -110,6 +115,12 @@ export function useAllProductMedia() {
   const [loading,  setLoading]  = useState(true);
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setMediaMap({});
+      setLoading(false);
+      return;
+    }
+
     supabase
       .from('aura_media')
       .select('product_slug, slot_index, slot_type, file_url, alt_text, title')

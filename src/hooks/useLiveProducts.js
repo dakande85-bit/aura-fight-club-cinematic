@@ -12,7 +12,7 @@
  * it appears on public pages automatically — no code deploy needed.
  */
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase.js';
+import { isSupabaseConfigured, supabase } from '../lib/supabase.js';
 import { liveProducts as localFallback } from '../data/products.js';
 
 export function useLiveProducts({ collection, category } = {}) {
@@ -24,6 +24,10 @@ export function useLiveProducts({ collection, category } = {}) {
 
     async function fetch() {
       try {
+        if (!isSupabaseConfigured) {
+          throw new Error('Supabase is not configured');
+        }
+
         let query = supabase
           .from('aura_products')
           .select('slug, name, category, collection, availability, media_status, short_desc, description, details, price_gbp, sort_order')
