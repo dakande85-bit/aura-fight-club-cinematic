@@ -19,11 +19,17 @@ import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import AdminCinematic from './pages/AdminCinematic.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
 
+import { NewsPage, WatchPage, LifestylePage, ArticlePage } from './pages/EditorialPages.jsx';
+
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomeStaticHero />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/news/:slug" element={<ArticlePage />} />
+        <Route path="/watch" element={<WatchPage />} />
+        <Route path="/lifestyle" element={<LifestylePage />} />
         <Route path="/launch" element={<LaunchLandingPage />} />
         <Route path="/who-we-are" element={<CinematicPage />} />
         <Route path="/cinematic" element={<Navigate to="/who-we-are" replace />} />

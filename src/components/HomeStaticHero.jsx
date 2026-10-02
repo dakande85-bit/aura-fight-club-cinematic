@@ -1,36 +1,12 @@
 import Header from './Header.jsx';
-import PageHero from './PageHero.jsx';
-import HomepageExtras from './HomepageExtras.jsx';
 import Footer from './Footer.jsx';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { NewsSection, WatchSection, LifestyleSection } from './EditorialSections.jsx';
 import { homepageHeroMedia } from '../data/auraMediaManifest.js';
-
-const HERO_IMAGE = homepageHeroMedia.source;
-
+import '../styles/aura-editorial.css';
 export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' }) {
-  const showFullHome = showHeader && headingLevel === 'h1';
-
-  return (
-    <div className="home-static" aria-label="AURA homepage">
-      {showHeader && <Header />}
-      <PageHero
-        label="AURA FIGHT CLUB"
-        headline={'TRAIN IN IT.\nLIVE IN IT.\nCARRY IT.'}
-        copy={'Comfortable training-to-lifestyle clothing and accessories for the gym, recovery, travel, and everyday life.'}
-        image={HERO_IMAGE}
-        imageFit="contain"
-        imagePosition="center center"
-        imageAlt="AURA model in cream training kit"
-        imageWidth="1122"
-        imageHeight="1402"
-        className="ph--home"
-        headingLevel={headingLevel}
-        ctas={[
-          { label: 'Explore Drop 001', to: '/drop-001', variant: 'primary' },
-          { label: 'Our Story', to: '/who-we-are', variant: 'ghost' },
-        ]}
-      />
-      {showFullHome && <HomepageExtras />}
-      {showFullHome && <Footer />}
-    </div>
-  );
+ const full = showHeader && headingLevel === 'h1'; const Heading = headingLevel;
+ useEffect(() => { if(full) document.title = 'AURA Fight Club | Boxing News, Video & Lifestyle'; },[full]);
+ return <>{showHeader && <Header />}<main className="aura-editorial"><section className="aura-home-intro"><div><p className="aura-ed-kicker">AURA Fight Club / Boxing culture</p><Heading>THE FIGHT.<br />THE LIFE.</Heading><p>Boxing news, voices from fight week, and the style that lives beyond the ring.</p><div className="aura-home-actions"><Link to="/news">Fight News</Link><Link to="/lifestyle">Lifestyle</Link></div></div><img src={homepageHeroMedia.source} alt="AURA boxing lifestyle campaign" width="1122" height="1402" fetchPriority="high" /></section>{full && <><NewsSection /><WatchSection /><LifestyleSection /></>}</main>{full && <Footer />}</>;
 }
