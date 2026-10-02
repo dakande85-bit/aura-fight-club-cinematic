@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { articles, videos, newsReviewedAt } from '../data/editorial.js';
+import { videos } from '../data/editorial.js';
+import { useArticles } from '../hooks/useArticles.js';
 import { homepageHeroMedia } from '../data/auraMediaManifest.js';
 export function ExternalLink({ href, children, className = '' }) {
   return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}<span className="aura-external"> ↗</span></a>;
@@ -13,7 +14,7 @@ export function StoryImage({ article, linked = false, eager = false }) {
     : <img src={article.image.src} alt={article.image.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(true)} />;
   return <figure className="aura-story-image">
     {linked ? <Link to={`/news/${article.slug}`} aria-label={`Read: ${article.title}`}>{photo}</Link> : photo}
-    <figcaption><ExternalLink href={article.sourceUrl}>Image source: {article.image.credit}</ExternalLink></figcaption>
+    <figcaption>{article.image.caption && <span>{article.image.caption} </span>}<ExternalLink href={article.image.sourceUrl || article.sourceUrl}>Credit: {article.image.credit}</ExternalLink></figcaption>
   </figure>;
 }
 export function Video({ item }) {
@@ -24,10 +25,12 @@ export function Video({ item }) {
   </article>;
 }
 export function NewsSection({ full = false }) {
+ const {articles,reviewedAt}=useArticles();
+ const shown=full?articles:articles.filter(a=>a.featured).slice(0,5);
  return <section className="aura-ed-section" id="fight-news" aria-labelledby="fight-news-title">
    <div className="aura-ed-section-head"><div><p className="aura-ed-kicker">The fight desk</p><h2 id="fight-news-title">Fight news.</h2></div>{!full && <Link to="/news">All stories</Link>}</div>
-   <p className="aura-ed-note">Curated reporting · Sources reviewed {newsReviewedAt}</p>
-   <div className="aura-news-grid">{articles.map((article, i) => <article className={`aura-news-card ${i === 0 ? 'aura-news-card--lead' : ''}`} key={article.slug}>
+   <p className="aura-ed-note">Curated reporting · Research edition {reviewedAt} · Featured stories selected by AURA</p>
+   <div className="aura-news-grid">{shown.map((article, i) => <article className={`aura-news-card ${i === 0 ? 'aura-news-card--lead' : ''}`} key={article.slug}>
       <StoryImage article={article} linked /><p className="aura-ed-kicker">{article.category} · <time dateTime={article.date}>{new Date(article.date + 'T12:00:00Z').toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</time></p>
       <h3><Link to={`/news/${article.slug}`}>{article.title}</Link></h3><p>{article.summary}</p><div className="aura-news-links"><Link to={`/news/${article.slug}`}>Read story</Link><ExternalLink href={article.sourceUrl}>Original report</ExternalLink></div>
    </article>)}</div>

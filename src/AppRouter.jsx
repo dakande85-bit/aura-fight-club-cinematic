@@ -17,6 +17,7 @@ import AdminPageMedia from './pages/AdminPageMedia.jsx';
 import AdminLaunchChecklist from './pages/AdminLaunchChecklist.jsx';
 import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import AdminCinematic from './pages/AdminCinematic.jsx';
+import AdminArticles from './pages/AdminArticles.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
 
 import { NewsPage, WatchPage, LifestylePage, ArticlePage } from './pages/EditorialPages.jsx';
@@ -47,6 +48,7 @@ export default function AppRouter() {
         <Route path="/the-campaign" element={<CampaignPage />} />
         <Route path="/fight-club" element={<FightClubPage />} />
         <Route path="/fightclub" element={<FightClubPage />} />
+        <Route path="/admin/articles" element={<AdminArticles />} />
         <Route path="/admin" element={<AdminAssetManager />} />
         <Route path="/admin/page-media" element={<AdminPageMedia />} />
         <Route path="/admin/cinematic" element={<AdminCinematic />} />
