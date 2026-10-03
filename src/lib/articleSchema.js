@@ -11,7 +11,10 @@ export function validateArticle(input) {
  if(!body.length || body.length>100 || body.join('').length>30000) throw new Error('Add article text, up to 30,000 characters.');
  const image=input.image||{}; if(!image.alt?.trim() || !image.credit?.trim()) throw new Error('Add an accurate image description and credit.');
  const youtubeId=input.youtubeId||null;if(youtubeId && !/^[\w-]{11}$/.test(youtubeId)) throw new Error('Use a valid YouTube video ID.');
- return {slug,title:text('title',200),summary:text('summary',500),category:text('category',60),date,body,source:text('source',150),sourceUrl:httpsUrl(input.sourceUrl),featured:input.featured===true,priority:Math.max(0,Math.min(100,Number(input.priority)||0)),youtubeId,videoUrl:youtubeId?`https://www.youtube.com/watch?v=${youtubeId}`:httpsUrl(input.videoUrl,true),image:{src:httpsUrl(image.src),alt:String(image.alt).trim().slice(0,500),credit:String(image.credit).trim().slice(0,300),caption:String(image.caption||'').trim().slice(0,500),sourceUrl:httpsUrl(image.sourceUrl,true)}};
+ const articleType=input.articleType||'News';if(!['News','Analysis','Opinion'].includes(articleType)) throw new Error('Choose News, Analysis or Opinion.');
+ const sources=input.sources||[];if(!Array.isArray(sources)||sources.length>10) throw new Error('Add at most 10 additional sources.');
+ const checkedSources=sources.map(s=>{const name=String(s.name||'').trim();if(!name||name.length>150)throw new Error('Each source needs a name, up to 150 characters.');return {name,url:httpsUrl(s.url)};});
+ return {articleType,sources:checkedSources,slug,title:text('title',200),summary:text('summary',500),category:text('category',60),date,body,source:text('source',150),sourceUrl:httpsUrl(input.sourceUrl),featured:input.featured===true,priority:Math.max(0,Math.min(100,Number(input.priority)||0)),youtubeId,videoUrl:youtubeId?`https://www.youtube.com/watch?v=${youtubeId}`:httpsUrl(input.videoUrl,true),image:{src:httpsUrl(image.src),alt:String(image.alt).trim().slice(0,500),credit:String(image.credit).trim().slice(0,300),caption:String(image.caption||'').trim().slice(0,500),sourceUrl:httpsUrl(image.sourceUrl,true)}};
 }
 export function orderArticles(articles) {
  return [...articles].sort((a,b)=>Number(b.featured===true)-Number(a.featured===true) || (Number(b.priority)||0)-(Number(a.priority)||0) || b.date.localeCompare(a.date));

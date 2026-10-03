@@ -26,7 +26,7 @@ export function Video({ item }) {
 }
 export function NewsSection({ full = false }) {
  const {articles,reviewedAt}=useArticles();
- const shown=full?articles:articles.filter(a=>a.featured).slice(0,5);
+ const shown=full?articles:articles.filter(a=>a.featured).slice(0,6);
  return <section className="aura-ed-section" id="fight-news" aria-labelledby="fight-news-title">
    <div className="aura-ed-section-head"><div><p className="aura-ed-kicker">The fight desk</p><h2 id="fight-news-title">Fight news.</h2></div>{!full && <Link to="/news">All stories</Link>}</div>
    <p className="aura-ed-note">Curated reporting · Research edition {reviewedAt} · Featured stories selected by AURA</p>
