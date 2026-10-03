@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { articleReadingMinutes } from './ArticleBody.jsx';
 import { videos } from '../data/editorial.js';
 import { useArticles } from '../hooks/useArticles.js';
-import { homepageHeroMedia } from '../data/auraMediaManifest.js';
 export function ExternalLink({ href, children, className = '' }) {
   return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}<span className="aura-external"> ↗</span></a>;
 }
@@ -41,5 +40,9 @@ export function WatchSection() {
  return <section className="aura-ed-section" id="watch" aria-labelledby="watch-title"><div className="aura-ed-section-head"><div><p className="aura-ed-kicker">Inside fight week</p><h2 id="watch-title">Watch.</h2></div></div><div className="aura-watch-grid">{videos.map(item => <Video item={item} key={item.name} />)}</div></section>;
 }
 export function LifestyleSection() {
- return <section className="aura-ed-section aura-life" id="lifestyle" aria-labelledby="lifestyle-title"><div className="aura-life-image"><img src={homepageHeroMedia.source} alt="AURA boxing lifestyle campaign" loading="lazy" width="1122" height="1402" /></div><div className="aura-life-copy"><p className="aura-ed-kicker">AURA / Lifestyle</p><h2 id="lifestyle-title">Beyond<br />the bell.</h2><p>From the gym to the street. Apparel, footwear and accessories shaped by boxing culture.</p><div className="aura-life-links"><Link to="/apparel">Apparel</Link><Link to="/footwear">Footwear</Link><Link to="/equipment">Accessories</Link></div></div></section>;
+ const [imageFailed, setImageFailed] = useState(false);
+ return <section className="aura-ed-section aura-life" id="lifestyle" aria-labelledby="lifestyle-title">
+   <div className="aura-life-image">{!imageFailed && <img src="/assets/category-support/footwear-cream-high.webp" alt="AURA cream high-top footwear concept with black trim" loading="lazy" decoding="async" width="1254" height="1254" onError={() => setImageFailed(true)} />}</div>
+   <div className="aura-life-copy"><p className="aura-ed-kicker">AURA / Lifestyle</p><h2 id="lifestyle-title">Footwear.</h2><p>Boxing-inspired footwear concepts for movement and everyday style.</p><div className="aura-life-links"><Link to="/footwear">Explore footwear</Link></div></div>
+ </section>;
 }
