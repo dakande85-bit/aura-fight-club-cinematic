@@ -17,13 +17,23 @@ import AdminPageMedia from './pages/AdminPageMedia.jsx';
 import AdminLaunchChecklist from './pages/AdminLaunchChecklist.jsx';
 import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import AdminCinematic from './pages/AdminCinematic.jsx';
+import AdminArticles from './pages/AdminArticles.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
+
+import { NewsPage, WatchPage, LifestylePage, ArticlePage, CalendarPage, RankingsPage, FightPage } from './pages/EditorialPages.jsx';
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomeStaticHero />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/news/:slug" element={<ArticlePage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/rankings" element={<RankingsPage />} />
+        <Route path="/fights/:id" element={<FightPage />} />
+        <Route path="/watch" element={<WatchPage />} />
+        <Route path="/lifestyle" element={<LifestylePage />} />
         <Route path="/launch" element={<LaunchLandingPage />} />
         <Route path="/who-we-are" element={<CinematicPage />} />
         <Route path="/cinematic" element={<Navigate to="/who-we-are" replace />} />
@@ -41,6 +51,7 @@ export default function AppRouter() {
         <Route path="/the-campaign" element={<CampaignPage />} />
         <Route path="/fight-club" element={<FightClubPage />} />
         <Route path="/fightclub" element={<FightClubPage />} />
+        <Route path="/admin/articles" element={<AdminArticles />} />
         <Route path="/admin" element={<AdminAssetManager />} />
         <Route path="/admin/page-media" element={<AdminPageMedia />} />
         <Route path="/admin/cinematic" element={<AdminCinematic />} />

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import '../styles/footer.css';
 
 const SHOP_LINKS = [
-  { label: 'Drop 001', href: '/drop-001' },
   { label: 'Apparel', href: '/apparel' },
   { label: 'Footwear', href: '/footwear' },
   { label: 'Accessories', href: '/equipment' },
@@ -11,7 +10,9 @@ const SHOP_LINKS = [
 const WORLD_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Story', href: '/who-we-are' },
-  { label: 'Drops', href: '/drops' },
+  { label: 'Fight News', href: '/news' },
+  { label: 'Watch', href: '/watch' },
+  { label: 'Lifestyle', href: '/lifestyle' },
   { label: 'Waitlist', href: '/fight-club' },
 ];
 
@@ -25,7 +26,7 @@ export default function Footer() {
             <small>FIGHT CLUB</small>
           </Link>
           <p className="aura-footer__statement">
-            Comfortable training-to-lifestyle clothing for every part of the day.
+            Boxing news, fight-week video and life beyond the ring.
           </p>
           <Link to="/fight-club" className="aura-footer__cta">
             Join Waitlist
@@ -50,7 +51,7 @@ export default function Footer() {
           <div className="aura-footer__col">
             <p className="aura-footer__heading">Join</p>
             <Link to="/fight-club">Waitlist</Link>
-            <Link to="/drop-001">Drop Access</Link>
+            <Link to="/lifestyle">Lifestyle</Link>
             <a href="mailto:hello@aurafightclub.com">Contact</a>
           </div>
         </nav>

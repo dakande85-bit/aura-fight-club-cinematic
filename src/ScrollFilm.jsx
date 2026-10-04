@@ -338,12 +338,10 @@ function useAmbient(ref) {
 
 // ── CINEMATIC HEADER ──────────────────────────────────────────────────────────
 const NAV_LINKS = [
-  { label: 'Drop 001',     href: '/drop-001'  },
-  { label: 'Apparel',      href: '/apparel'   },
-  { label: 'Footwear',     href: '/footwear'  },
-  { label: 'Equipment',    href: '/equipment' },
-  { label: 'The Campaign', href: '/campaign'  },
-  { label: 'Fight Club',   href: '/fight-club'},
+  { label: 'Fight News', href: '/news' },
+  { label: 'Watch', href: '/watch' },
+  { label: 'Lifestyle', href: '/lifestyle' },
+  { label: 'Our Story', href: '/who-we-are' },
 ];
 
 function CinematicHeader() {
