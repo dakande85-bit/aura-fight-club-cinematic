@@ -11,6 +11,8 @@ const WORLD_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Story', href: '/who-we-are' },
   { label: 'Fight News', href: '/news' },
+  { label: 'Calendar', href: '/calendar' },
+  { label: 'Rankings', href: '/rankings' },
   { label: 'Watch', href: '/watch' },
   { label: 'Lifestyle', href: '/lifestyle' },
   { label: 'Waitlist', href: '/fight-club' },
