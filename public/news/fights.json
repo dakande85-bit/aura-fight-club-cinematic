@@ -1,0 +1,90 @@
+{
+  "checkedAt": "2026-10-04",
+  "fights": [
+    {
+      "id": "whittaker-wallace",
+      "name": "Ben Whittaker vs Conor Wallace",
+      "date": "2026-10-03",
+      "venue": "Utilita Arena, Birmingham, UK",
+      "division": "Light heavyweight",
+      "status": "Completed",
+      "stakes": "IBF final eliminator",
+      "result": "Whittaker won by unanimous decision: 117\u2013111, 116\u2013112, 115\u2013113.",
+      "source": "Bad Left Hook",
+      "sourceUrl": "https://www.badlefthook.com/live-boxing-updates/119250/ben-whittaker-vs-conor-wallace-live-blog-round-by-round-updates-results-boxing-news-2026",
+      "broadcast": "DAZN"
+    },
+    {
+      "id": "fundora-hadribeaj",
+      "name": "Sebastian Fundora vs Ermal Hadribeaj",
+      "date": "2026-10-17",
+      "venue": "Carson, California, USA",
+      "division": "Super welterweight",
+      "status": "Scheduled",
+      "stakes": "WBC world title",
+      "source": "WBC schedule",
+      "sourceUrl": "https://wbcboxing.com/en/events/",
+      "broadcast": ""
+    },
+    {
+      "id": "smith-puello",
+      "name": "Dalton Smith vs Alberto Puello",
+      "date": "2026-10-24",
+      "venue": "Utilita Arena, Sheffield, UK",
+      "division": "Super lightweight",
+      "status": "Scheduled",
+      "stakes": "WBC world title",
+      "source": "Matchroom Boxing",
+      "sourceUrl": "https://www.matchroomboxing.com/events/smith-vs-puello/",
+      "broadcast": ""
+    },
+    {
+      "id": "foster-navarrete",
+      "name": "O\u2019Shaquie Foster vs Emanuel Navarrete",
+      "date": "2026-10-24",
+      "venue": "San Antonio, Texas, USA",
+      "division": "Super featherweight",
+      "status": "Scheduled",
+      "stakes": "WBC world title",
+      "source": "WBC schedule",
+      "sourceUrl": "https://wbcboxing.com/en/events/",
+      "broadcast": ""
+    },
+    {
+      "id": "canelo-mbilli",
+      "name": "Canelo Alvarez vs Christian Mbilli",
+      "date": "2026-10-31",
+      "venue": "Riyadh, Saudi Arabia",
+      "division": "Super middleweight",
+      "status": "Scheduled",
+      "stakes": "WBC world title",
+      "source": "WBC schedule",
+      "sourceUrl": "https://wbcboxing.com/en/events/",
+      "broadcast": ""
+    },
+    {
+      "id": "pacheco-fulghum",
+      "name": "Diego Pacheco vs Darius Fulghum",
+      "date": "2026-11-14",
+      "venue": "Dignity Health Sports Park, Carson, USA",
+      "division": "Super middleweight",
+      "status": "Scheduled",
+      "stakes": "Super middleweight contest",
+      "source": "Matchroom Boxing",
+      "sourceUrl": "https://www.matchroomboxing.com/events/pacheco-vs-fulghum/",
+      "broadcast": ""
+    },
+    {
+      "id": "fury-joshua",
+      "name": "Tyson Fury vs Anthony Joshua",
+      "date": "2026-12-11",
+      "venue": "Principality Stadium, Cardiff, UK",
+      "division": "Heavyweight",
+      "status": "Scheduled",
+      "stakes": "Heavyweight main event",
+      "source": "Matchroom Boxing",
+      "sourceUrl": "https://www.matchroomboxing.com/events/fury-vs-joshua/",
+      "broadcast": "Netflix"
+    }
+  ]
+}

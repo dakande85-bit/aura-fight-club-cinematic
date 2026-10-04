@@ -17,3 +17,13 @@ Published story addresses remain fixed. Duplicate addresses are rejected unless 
 ## Initial research edition — 2 October 2026
 
 Featured coverage: Fury–Joshua launch (Netflix Tudum); Canelo–Mbilli date and venue (BoxingInsider); Bentley's reported Zuffa move (FIGHTMAG); Jones–Sanchez in Orlando (FIGHTMAG); Whittaker–Wallace fight week (Matchroom). Original-source dates and image captions distinguish current reporting from archive photographs. Bentley's move remains attributed and reported, rather than labelled confirmed. These are editorial selections based on current coverage, not a measured traffic ranking.
+
+## Publishing from the AURA chat
+
+The GitHub connection can publish approved article drafts directly to `public/news/articles.json` on `main`. Write or revise the piece in this project chat and ask to publish it. Validate the article schema, attach verified sources and an accurate credited image, assign `fightId` and `coverageStage` (Build-up or Reaction), commit the edition, and verify the Vercel deployment status. Main-branch publishing requires no browser editor password. Daily means a manual editorial workflow; no unattended schedule has been configured.
+
+The browser editor can import/export one article JSON object (or an object with an `article` property). Importing is a draft operation, never a public write. Its existing password-protected publishing still requires the hosting secrets above.
+
+## Fight desk data
+
+`public/news/fights.json` stores selected major events and completed results. Only sourced dates and outcomes belong here. `public/news/rankings.json` stores dated men's champions and top-five contender positions for heavyweight, light heavyweight and super middleweight. Each federation has its own publication period. The initial IBF snapshot is August 2026; do not label it an October list. Compiled rankings link to Box-Rank and each federation's official list. WBA entries are cross-checked with the official September rankings. Neither calendar nor rankings refresh automatically; edit the source files in the chat and publish the updated edition.

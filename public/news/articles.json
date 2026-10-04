@@ -1,6 +1,58 @@
 {
-  "reviewedAt": "2026-10-03",
+  "reviewedAt": "2026-10-04",
   "articles": [
+    {
+      "slug": "whittaker-wallace-reaction-late-scare",
+      "title": "Whittaker won the fight. The final round changed the conversation.",
+      "summary": "A unanimous decision moves Ben Whittaker forward, but Wallace’s late surge makes the next stage of his development a much harder question. AURA examines the result, the warning signs and what should come next.",
+      "date": "2026-10-04",
+      "category": "Fight reaction",
+      "articleType": "Analysis",
+      "coverageStage": "Reaction",
+      "fightId": "whittaker-wallace",
+      "featured": true,
+      "priority": 100,
+      "source": "Bad Left Hook",
+      "sourceUrl": "https://www.badlefthook.com/live-boxing-updates/119250/ben-whittaker-vs-conor-wallace-live-blog-round-by-round-updates-results-boxing-news-2026",
+      "sources": [
+        {
+          "name": "talkSPORT result and reaction",
+          "url": "https://talksport.com/boxing/4623098/ben-whittaker-badly-hurt-win-conor-wallace/"
+        }
+      ],
+      "youtubeId": null,
+      "videoUrl": "https://www.youtube.com/@MatchroomBoxing",
+      "image": {
+        "src": "https://platform.badlefthook.com/wp-content/uploads/sites/18/2026/10/gettyimages-2297888901.jpg?quality=90&strip=all&w=1200",
+        "alt": "Ben Whittaker wearing a blue top in the ring at the Conor Wallace event in Birmingham",
+        "credit": "PA Images via Getty Images, via Bad Left Hook",
+        "caption": "Event photograph from Whittaker–Wallace, Birmingham, 3 October 2026.",
+        "sourceUrl": "https://www.badlefthook.com/live-boxing-updates/119250/ben-whittaker-vs-conor-wallace-live-blog-round-by-round-updates-results-boxing-news-2026"
+      },
+      "body": [
+        "## The result, and the question it leaves",
+        "Ben Whittaker beat Conor Wallace by unanimous decision in Birmingham on 3 October. The official scores were 117–111, 116–112 and 115–113. Bad Left Hook’s live report describes a fighter banking the early rounds before Wallace made the finish uncomfortable, particularly in the twelfth. That distinction matters: the result is a win; the assessment of readiness is a separate conversation.",
+        "This is AURA’s analysis of the published fight reporting, rather than a ringside account or a claim to have reviewed every camera angle. The most useful response is neither to dismiss Whittaker’s talent nor to explain away the difficult ending. It is to ask what the fight exposed about converting control into dependable twelve-round performance.",
+        "## Winning rounds is only part of controlling a fight",
+        "A skilled range boxer can make an opponent reluctant to lead. Feints, changes of level and quick counters create a cost for stepping forward. Once that cost is established, the less comfortable fighter can start waiting for an opening that never arrives. That is the tactical value of speed: it affects decisions before a punch even lands.",
+        "The danger is confusing that hesitation with permanent safety. An opponent behind on the cards eventually has less to lose. The same man who spent rounds trying to avoid a counter may accept one if it gives him a chance to land something meaningful. A commanding points lead changes the risk calculation for both corners.",
+        "For Whittaker, the developmental lesson is about maintaining structure when the other fighter stops cooperating. Safe exits, a dependable guard after punching and purposeful clinching are less glamorous than an evasive flourish. They are also the tools that protect an advantage when the contest becomes untidy.",
+        "## Why the finish deserves attention",
+        "The late trouble should prompt specific questions, not an instant diagnosis. A difficult round can involve fatigue, concentration, an opponent’s adjustment or simply a damaging shot. Without the training data and a complete technical review, it would be careless to declare that one factor explains everything.",
+        "A corner reviewing this kind of ending should examine where the first clean shots arrived, whether the boxer’s feet were still under him, and whether his responses created space or merely postponed the next attack. Those are actionable questions. Saying a fighter needs to be tougher is not a coaching plan.",
+        "One useful measure is how quickly a boxer returns to ordinary decisions after being hurt. Can he close the guard, move off the line and take instruction? Can he tie up without leaving himself exposed? Can he recover his breathing while denying the opponent a free follow-up? Survival is a skill, but it should be rehearsed rather than improvised.",
+        "## Wallace changed the terms",
+        "Wallace’s contribution should not disappear behind the discussion of Whittaker. The reporting records a late push that made a previously comfortable-looking contest uncertain. There is a lesson for challengers here: losing the early tactical argument does not mean abandoning the fight.",
+        "The broader principle is to change the problem. Against a faster counterpuncher, chasing the head on predictable entries can keep producing the same answer. Sustained pressure, better positioning and a willingness to finish exchanges can force a different kind of contest. These are general tactical routes, not claims that every one was demonstrated in this bout.",
+        "There is also a limit to the comeback narrative. A dramatic final round does not erase all the rounds before it. The published scorecards favoured Whittaker, and the discussion of late danger should not be rewritten as an unsupported claim that Wallace officially won.",
+        "## What should happen next?",
+        "The bout was an IBF final eliminator, so title opportunities will shape the conversation. A win in an eliminator does not supply a confirmed date, opponent or agreement by itself. Those details belong in the calendar only once the relevant announcement can be sourced.",
+        "From a development perspective, the next camp should prioritise the least cinematic parts of boxing: keeping balance under pressure, defending after the last punch of a combination, managing pace and following a clear plan when tired. A boxer can preserve his individuality while making those habits more reliable.",
+        "A rematch could answer whether the difficult ending was an isolated episode or a repeatable vulnerability. Another demanding opponent could ask similar questions in a different way. Neither route is automatically correct; the decision should be judged against what the team needs to learn, not only how attractive the event looks.",
+        "## AURA verdict",
+        "Whittaker has a victory that advances his career and a performance that should sharpen the work ahead. Both can be true. The meaningful question is no longer whether he can look exceptional when he controls the terms. It is how consistently he can protect that control when a determined opponent changes them."
+      ]
+    },
     {
       "slug": "will-terence-crawford-return",
       "title": "Will Terence Crawford return?",
@@ -106,7 +158,9 @@
       "featured": true,
       "priority": 99,
       "youtubeId": null,
-      "videoUrl": ""
+      "videoUrl": "",
+      "fightId": "canelo-mbilli",
+      "coverageStage": "Build-up"
     },
     {
       "slug": "fury-joshua-fight-preview",
@@ -161,7 +215,9 @@
       "featured": true,
       "priority": 98,
       "youtubeId": "v_WSnGUbNm4",
-      "videoUrl": "https://www.youtube.com/watch?v=v_WSnGUbNm4"
+      "videoUrl": "https://www.youtube.com/watch?v=v_WSnGUbNm4",
+      "fightId": "fury-joshua",
+      "coverageStage": "Build-up"
     },
     {
       "slug": "fury-joshua-underwhelming-press-conference",
@@ -218,7 +274,9 @@
       "featured": true,
       "priority": 97,
       "youtubeId": "v_WSnGUbNm4",
-      "videoUrl": "https://www.youtube.com/watch?v=v_WSnGUbNm4"
+      "videoUrl": "https://www.youtube.com/watch?v=v_WSnGUbNm4",
+      "fightId": "fury-joshua",
+      "coverageStage": "Build-up"
     },
     {
       "slug": "dana-white-eddie-hearn-battle",
@@ -364,7 +422,9 @@
       "featured": false,
       "youtubeId": "v_WSnGUbNm4",
       "videoUrl": "https://www.youtube.com/watch?v=v_WSnGUbNm4",
-      "priority": 100
+      "priority": 100,
+      "fightId": "fury-joshua",
+      "coverageStage": "Build-up"
     },
     {
       "slug": "canelo-mbilli-october-date",
@@ -388,7 +448,9 @@
       "featured": false,
       "youtubeId": null,
       "videoUrl": "",
-      "priority": 90
+      "priority": 90,
+      "fightId": "canelo-mbilli",
+      "coverageStage": "Build-up"
     },
     {
       "slug": "bentley-reported-zuffa-move",
@@ -459,7 +521,9 @@
       "youtubeId": null,
       "videoUrl": "https://www.youtube.com/@MatchroomBoxing",
       "featured": false,
-      "priority": 80
+      "priority": 80,
+      "fightId": "whittaker-wallace",
+      "coverageStage": "Build-up"
     },
     {
       "slug": "birmingham-fight-week",
@@ -482,7 +546,9 @@
       "youtubeId": null,
       "videoUrl": "https://www.youtube.com/@MatchroomBoxing",
       "featured": false,
-      "priority": 0
+      "priority": 0,
+      "fightId": "whittaker-wallace",
+      "coverageStage": "Build-up"
     },
     {
       "slug": "monte-carlo-december",
@@ -507,5 +573,6 @@
       "featured": false,
       "priority": 0
     }
-  ]
+  ],
+  "updatedAt": "2026-10-04T06:00:00Z"
 }

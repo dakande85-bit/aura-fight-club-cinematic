@@ -20,7 +20,7 @@ import AdminCinematic from './pages/AdminCinematic.jsx';
 import AdminArticles from './pages/AdminArticles.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
 
-import { NewsPage, WatchPage, LifestylePage, ArticlePage } from './pages/EditorialPages.jsx';
+import { NewsPage, WatchPage, LifestylePage, ArticlePage, CalendarPage, RankingsPage, FightPage } from './pages/EditorialPages.jsx';
 
 export default function AppRouter() {
   return (
@@ -29,6 +29,9 @@ export default function AppRouter() {
         <Route path="/" element={<HomeStaticHero />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/news/:slug" element={<ArticlePage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/rankings" element={<RankingsPage />} />
+        <Route path="/fights/:id" element={<FightPage />} />
         <Route path="/watch" element={<WatchPage />} />
         <Route path="/lifestyle" element={<LifestylePage />} />
         <Route path="/launch" element={<LaunchLandingPage />} />

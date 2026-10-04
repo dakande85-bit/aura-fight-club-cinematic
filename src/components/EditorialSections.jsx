@@ -24,15 +24,18 @@ export function Video({ item }) {
     <span className="aura-ed-kicker">YouTube · Official channel</span><h3>{item.name}</h3><p>{item.description}</p><ExternalLink href={item.url}>Watch on YouTube</ExternalLink>
   </article>;
 }
-export function NewsSection({ full = false }) {
+export function NewsSection({ full = false, filters = false }) {
  const {articles,reviewedAt}=useArticles();
- const shown=full?articles:articles.filter(a=>a.featured).slice(0,6);
+ const [stage,setStage]=useState('All stories');
+ const selected=articles.filter(a=>stage==='All stories'||a.coverageStage===stage);
+ const shown=full?selected:selected.filter(a=>a.featured).slice(0,6);
  return <section className="aura-ed-section" id="fight-news" aria-labelledby="fight-news-title">
    <div className="aura-ed-section-head"><div><p className="aura-ed-kicker">The fight desk</p><h2 id="fight-news-title">Fight news.</h2></div>{!full && <Link to="/news">All stories</Link>}</div>
+   {filters && <div className="aura-desk-tabs" aria-label="Story coverage">{['All stories','Build-up','Reaction'].map(s=><button type="button" key={s} aria-pressed={stage===s} onClick={()=>setStage(s)}>{s}</button>)}</div>}
    <p className="aura-ed-note">Curated reporting · Research edition {reviewedAt} · Featured stories selected by AURA</p>
    <div className="aura-news-grid">{shown.map((article, i) => <article className={`aura-news-card ${i === 0 ? 'aura-news-card--lead' : ''}`} key={article.slug}>
       <StoryImage article={article} linked /><p className="aura-ed-kicker">{article.category} · <time dateTime={article.date}>{new Date(article.date + 'T12:00:00Z').toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</time> · {articleReadingMinutes(article.body)} min read</p>
-      <h3><Link to={`/news/${article.slug}`}>{article.title}</Link></h3><p>{article.summary}</p><div className="aura-news-links"><Link to={`/news/${article.slug}`}>Read story</Link><ExternalLink href={article.sourceUrl}>Original report</ExternalLink></div>
+      <h3><Link to={`/news/${article.slug}`}>{article.title}</Link></h3><p>{article.summary}</p><div className="aura-news-links">{article.fightId && <Link to={`/fights/${article.fightId}`}>{article.coverageStage || 'Fight coverage'}</Link>}<Link to={`/news/${article.slug}`}>Read story</Link><ExternalLink href={article.sourceUrl}>Original report</ExternalLink></div>
    </article>)}</div>
  </section>;
 }

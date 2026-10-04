@@ -1,0 +1,175 @@
+{
+  "checkedAt": "2026-10-04",
+  "organizations": {
+    "WBA": {
+      "period": "September 2026",
+      "url": "https://www.wbaboxing.com/wba-ranking"
+    },
+    "WBC": {
+      "period": "October 2026",
+      "url": "https://wbcboxing.com/en/ratings/male/heavyweight/"
+    },
+    "IBF": {
+      "period": "August 2026",
+      "url": "https://www.ibf-usba-boxing.com/ratings/"
+    },
+    "WBO": {
+      "period": "September 2026",
+      "url": "https://wboboxing.com/rankings/"
+    }
+  },
+  "divisions": [
+    {
+      "id": "heavyweight",
+      "name": "Heavyweight",
+      "sourceUrl": "https://box-rank.com/rankings/heavyweight",
+      "champions": {
+        "WBA": "Murat Gassiev",
+        "WBC": "Agit Kabayel",
+        "IBF": "Filip Hrgovic",
+        "WBO": "Daniel Dubois"
+      },
+      "interim": {},
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Jarrell Miller",
+          "WBC": "Tyson Fury",
+          "IBF": "Frank Sanchez",
+          "WBO": "Oleksandr Usyk"
+        },
+        {
+          "rank": 2,
+          "WBA": "Tyson Fury",
+          "WBC": "Anthony Joshua",
+          "IBF": "Vacant",
+          "WBO": "Tyson Fury"
+        },
+        {
+          "rank": 3,
+          "WBA": "Anthony Joshua",
+          "WBC": "Frank Sanchez",
+          "IBF": "Anthony Joshua",
+          "WBO": "Anthony Joshua"
+        },
+        {
+          "rank": 4,
+          "WBA": "Vartan Arutyunyan",
+          "WBC": "Deontay Wilder",
+          "IBF": "Bakhodir Jalolov",
+          "WBO": "Fabio Wardley"
+        },
+        {
+          "rank": 5,
+          "WBA": "Nelson Hysa",
+          "WBC": "Moses Itauma",
+          "IBF": "Tyson Fury",
+          "WBO": "Moses Itauma"
+        }
+      ]
+    },
+    {
+      "id": "light-heavyweight",
+      "name": "Light heavyweight",
+      "sourceUrl": "https://box-rank.com/rankings/light-heavyweight",
+      "champions": {
+        "WBA": "Dmitry Bivol (Super)",
+        "WBC": "David Benavidez",
+        "IBF": "Dmitry Bivol",
+        "WBO": "Dmitry Bivol"
+      },
+      "interim": {
+        "WBA": "Albert Ramirez",
+        "WBO": "Callum Smith"
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Sharabutdin Ataev",
+          "WBC": "Artur Beterbiev",
+          "IBF": "Vacant",
+          "WBO": "Radivoje Kalajdzic"
+        },
+        {
+          "rank": 2,
+          "WBA": "Arlen Lopez",
+          "WBC": "Ben Whittaker",
+          "IBF": "Conor Wallace",
+          "WBO": "Conor Wallace"
+        },
+        {
+          "rank": 3,
+          "WBA": "Najee Lopez",
+          "WBC": "Joshua Buatsi",
+          "IBF": "Ben Whittaker",
+          "WBO": "Ben Whittaker"
+        },
+        {
+          "rank": 4,
+          "WBA": "Radivoje Kalajdzic",
+          "WBC": "Radivoje Kalajdzic",
+          "IBF": "Imam Khataev",
+          "WBO": "Zak Chelli"
+        },
+        {
+          "rank": 5,
+          "WBA": "Atif Oberlton",
+          "WBC": "Imam Khataev",
+          "IBF": "Sharabutdin Ataev",
+          "WBO": "Ardian Krasniqi"
+        }
+      ]
+    },
+    {
+      "id": "super-middleweight",
+      "name": "Super middleweight",
+      "sourceUrl": "https://box-rank.com/rankings/super-middleweight",
+      "champions": {
+        "WBA": "Jaime Munguia",
+        "WBC": "Christian Mbilli",
+        "IBF": "Osleys Iglesias",
+        "WBO": "Vacant"
+      },
+      "interim": {
+        "WBC": "Lester Martinez"
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Bektemir Melikuziev",
+          "WBC": "Saul Alvarez",
+          "IBF": "Vacant",
+          "WBO": "Zhanibek Alimkhanuly"
+        },
+        {
+          "rank": 2,
+          "WBA": "Hamzah Sheeraz",
+          "WBC": "Jacob Bank",
+          "IBF": "Vacant",
+          "WBO": "Diego Pacheco"
+        },
+        {
+          "rank": 3,
+          "WBA": "Saul Alvarez",
+          "WBC": "Diego Pacheco",
+          "IBF": "Kevin Lele Sadjo",
+          "WBO": "Jacob Bank"
+        },
+        {
+          "rank": 4,
+          "WBA": "Armando Resendiz",
+          "WBC": "Hamzah Sheeraz",
+          "IBF": "Malik Zinad",
+          "WBO": "Kevin Lele Sadjo"
+        },
+        {
+          "rank": 5,
+          "WBA": "Jermall Charlo",
+          "WBC": "Kevin Lele Sadjo",
+          "IBF": "Oliver Zaren",
+          "WBO": "Armando Resendiz"
+        }
+      ]
+    }
+  ]
+}
