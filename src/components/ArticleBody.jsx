@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { AdSlot } from './Monetization.jsx';
 
 export function articleReadingMinutes(body = []) {
@@ -7,8 +8,8 @@ export function articleReadingMinutes(body = []) {
 
 export default function ArticleBody({body = [], monetized = false}) {
  const midpoint=Math.max(1,Math.floor(body.length/2));
- return <div className="aura-article-body">{body.map((text,index)=><span key={index}>
+ return <div className="aura-article-body">{body.map((text,index)=><Fragment key={index}>
    {text.startsWith('## ')?<h2>{text.slice(3)}</h2>:<p>{text}</p>}
    {monetized && index===midpoint && <AdSlot slot="article-mid" />}
- </span>)}</div>;
+ </Fragment>)}</div>;
 }
