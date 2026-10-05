@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useMonetization } from '../hooks/useMonetization.js';
 import '../styles/aura-monetization.css';
@@ -22,11 +23,27 @@ export function AffiliateDisclosure() {
   const config=useMonetization();
   return <p className="aura-affiliate-disclosure">{config.disclosure}</p>;
 }
+function AdsenseUnit({config,slot}) {
+  const pushed=useRef(false); const slotId=config.adsense?.slots?.[slot];
+  useEffect(()=>{
+    if(!config.adsense?.client||!slotId)return;
+    const id='aura-adsense-script';
+    if(!document.getElementById(id)){
+      const script=document.createElement('script');script.id=id;script.async=true;script.crossOrigin='anonymous';
+      script.src=`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(config.adsense.client)}`;
+      document.head.appendChild(script);
+    }
+    const timer=setTimeout(()=>{if(!pushed.current){try{(window.adsbygoogle=window.adsbygoogle||[]).push({});pushed.current=true;}catch{}}},50);
+    return()=>clearTimeout(timer);
+  },[config.adsense?.client,slotId]);
+  if(!slotId)return <div className="aura-ad-placeholder">AdSense ready — add slot ID for {slot} in Commercial Admin.</div>;
+  return <ins className="adsbygoogle" style={{display:'block'}} data-ad-client={config.adsense.client} data-ad-slot={slotId} data-ad-format="auto" data-full-width-responsive="true"/>;
+}
 export function AdSlot({slot='article-mid'}) {
   const config=useMonetization(); const item=config.adSlots?.[slot];
-  if(!item?.enabled) return null;
+  if(!item?.enabled||item.mode==='off') return null;
   if(item.mode==='adsense' && config.adsense?.enabled && config.adsense.client) {
-    return <aside className="aura-ad-slot" aria-label="Advertisement"><span>Advertisement</span><div className="aura-ad-placeholder">Ad network slot: {slot}</div></aside>;
+    return <aside className="aura-ad-slot" aria-label="Advertisement"><span>Advertisement</span><AdsenseUnit config={config} slot={slot}/></aside>;
   }
   return <aside className="aura-ad-slot aura-ad-slot--house" aria-label="AURA commercial partnership"><span>Partner</span><strong>{item.label}</strong><Link to="/advertise">Advertising & sponsorship</Link></aside>;
 }
