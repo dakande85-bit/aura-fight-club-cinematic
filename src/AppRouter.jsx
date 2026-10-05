@@ -19,7 +19,9 @@ import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import AdminCinematic from './pages/AdminCinematic.jsx';
 import AdminArticles from './pages/AdminArticles.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
-
+import AdminMonetization from './pages/AdminMonetization.jsx';
+import Advertise from './pages/Advertise.jsx';
+import CommercialPolicy from './pages/CommercialPolicy.jsx';
 import { NewsPage, WatchPage, LifestylePage, ArticlePage, CalendarPage, RankingsPage, FightPage } from './pages/EditorialPages.jsx';
 
 export default function AppRouter() {
@@ -34,6 +36,8 @@ export default function AppRouter() {
         <Route path="/fights/:id" element={<FightPage />} />
         <Route path="/watch" element={<WatchPage />} />
         <Route path="/lifestyle" element={<LifestylePage />} />
+        <Route path="/advertise" element={<Advertise />} />
+        <Route path="/commercial-policy" element={<CommercialPolicy />} />
         <Route path="/launch" element={<LaunchLandingPage />} />
         <Route path="/who-we-are" element={<CinematicPage />} />
         <Route path="/cinematic" element={<Navigate to="/who-we-are" replace />} />
@@ -52,6 +56,8 @@ export default function AppRouter() {
         <Route path="/fight-club" element={<FightClubPage />} />
         <Route path="/fightclub" element={<FightClubPage />} />
         <Route path="/admin/articles" element={<AdminArticles />} />
+        <Route path="/admin/monetisation" element={<AdminMonetization />} />
+        <Route path="/admin/monetization" element={<AdminMonetization />} />
         <Route path="/admin" element={<AdminAssetManager />} />
         <Route path="/admin/page-media" element={<AdminPageMedia />} />
         <Route path="/admin/cinematic" element={<AdminCinematic />} />
