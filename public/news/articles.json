@@ -1,6 +1,239 @@
 {
-  "reviewedAt": "2026-10-04",
+  "reviewedAt": "2026-10-05",
   "articles": [
+    {
+      "slug": "sebastian-fundora-towering-inferno-profile",
+      "title": "Sebastian Fundora: the Towering Inferno who fights against type",
+      "summary": "At 6ft 6in and 154 pounds, Sebastian Fundora should be a long-range puzzle. Instead, one of boxing’s strangest champions often chooses violence at close quarters.",
+      "date": "2026-10-05",
+      "category": "AURA Profile",
+      "articleType": "Analysis",
+      "featured": true,
+      "priority": 108,
+      "source": "World Boxing Council",
+      "sourceUrl": "https://wbcboxing.com/en/sebastian-fundora-to-defend-wbc-world-title-against-ermal-hadribeaj/",
+      "sources": [
+        {
+          "name": "Boxing Social — Fundora after Thurman",
+          "url": "https://boxing-social.com/news/sebastian-fundora-politics-charlo-pbc-future-after-thurman"
+        },
+        {
+          "name": "WBC — Fundora vs Hadribeaj",
+          "url": "https://wbcboxing.com/en/sebastian-fundora-to-defend-wbc-world-title-against-ermal-hadribeaj/"
+        }
+      ],
+      "image": {
+        "src": "https://media.dave.sport/boxingsocial/2026/03/Fundora-vs-Thurman-Fight-Night-11-scaled.jpg",
+        "alt": "Sebastian Fundora celebrates in the ring wearing the WBC super-welterweight title belt",
+        "credit": "Boxing Social / event photography",
+        "caption": "Sebastian Fundora after retaining the WBC super-welterweight title.",
+        "sourceUrl": "https://boxing-social.com/news/sebastian-fundora-politics-charlo-pbc-future-after-thurman"
+      },
+      "body": [
+        "## Boxing is not supposed to produce fighters shaped like this",
+        "Sebastian Fundora is 6ft 6in and competes at 154 pounds. That sentence alone explains why opponents have to prepare for something unusual. The obvious instruction for a boxer with that frame would be simple: stay tall, use the jab, make shorter men cross dangerous ground and punish them on the way in. Fundora can do that. The strange part is that he often chooses not to.",
+        "Fundora has built his reputation by turning an extraordinary physical advantage into a style that can look almost wilfully contradictory. He is comfortable at range, but he is also willing to stand close, trade hooks and uppercuts and make fights ugly. That is why the nickname ‘The Towering Inferno’ fits better than a conventional description of a tall boxer. The height is obvious. The inferno is the choice.",
+        "## The reach advantage he keeps giving back",
+        "For shorter opponents, the normal tactical problem is getting through the end of the jab. Against Fundora, that problem can suddenly disappear because he is prepared to meet them in the pocket. It looks reckless, but there is logic beneath it. His length does not vanish at close range. Long arms can create unusual uppercut and hook trajectories, while his height can make opponents punch upward for extended periods.",
+        "The cost is that inside exchanges also remove the safety his dimensions could provide. Fundora can be hit. He has been dropped. He has lost. His fights therefore carry an element many technically gifted champions try to eliminate: uncertainty.",
+        "That uncertainty is part of his appeal. Fundora does not ask the audience to admire geometry from a distance for twelve rounds. He regularly lets an opponent believe the fight is available to them.",
+        "## Tszyu changed the scale of the story",
+        "Fundora’s 2024 win over Tim Tszyu transformed him from an unusual contender into a world champion. The fight was chaotic, bloody and difficult to reduce to a clean tactical narrative. It also established that Fundora could operate under the pressure of a major championship contest and survive a fight that did not unfold neatly.",
+        "The WBC says he has since made three successful defences of the title, including a rematch with Tszyu. He now enters an October 17 defence against unbeaten Ermal Hadribeaj with a 24-1-1 record and 16 knockouts.",
+        "That record matters, but so does the way he has accumulated it. Fundora is not undefeated and therefore does not carry the fragile marketing burden of protecting a zero. He has already experienced a knockout defeat, rebuilt and reached championship level afterwards. That can free a fighter psychologically. The worst headline has already happened.",
+        "## Why his style is difficult to copy",
+        "A fighter’s physical dimensions can be imitated in sparring only approximately. Finding someone who is both exceptionally tall for the division and willing to fight inside is even harder. An opponent might recruit a rangy sparring partner to replicate the jab, then a pressure fighter to reproduce the close exchanges. Neither alone gives the complete picture.",
+        "Fundora also forces awkward changes in punching height. Straight shots rise toward his head. Body punches can leave a shorter fighter underneath long counters. Clinch positions feel different because shoulders, elbows and leverage arrive from unusual angles.",
+        "None of that makes him unbeatable. It makes preparation less familiar.",
+        "## The question at 154",
+        "The super-welterweight division is full of technically capable fighters. The challenge is identifying the style that can consistently punish Fundora for abandoning distance without being overwhelmed once the exchanges begin.",
+        "A disciplined boxer might try to make him pay every time he steps inside. A pressure fighter might welcome the invitation and attack the body. A puncher may simply accept the risk and bet that Fundora’s willingness to trade eventually creates one clean opportunity.",
+        "The problem is that Fundora has now seen several versions of those ideas. Experience is beginning to catch up with his physical advantages.",
+        "## AURA verdict",
+        "Fundora is interesting because he does not fight the way a textbook tells us a 6ft 6in super-welterweight should fight. If he simply stayed outside, he might be easier to explain. Instead he turns a rare body type into a deliberately chaotic style.",
+        "That contradiction is his identity. Boxing gave him the dimensions of a heavyweight, the weight limit of a super-welterweight and the instincts of a fighter who often wants to meet you in the middle. The result is one of the sport’s most distinctive champions."
+      ]
+    },
+    {
+      "slug": "boxing-saudi-money-what-happens-next",
+      "title": "Boxing won the lottery. What happens when the Saudi money stops?",
+      "summary": "Saudi-backed investment helped remove barriers that kept major fights apart. The uncomfortable question is whether boxing has now reset its economics around money that may not always be available.",
+      "date": "2026-10-05",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": true,
+      "priority": 107,
+      "source": "The Times",
+      "sourceUrl": "https://www.thetimes.com/sport/boxing/article/saudi-arabia-sport-bubble-burst-joshua-fury-05rcz368b",
+      "sources": [
+        {
+          "name": "Boxing News Power 50",
+          "url": "https://boxingnewsonline.net/features/boxing-news-power-50-25-1/"
+        },
+        {
+          "name": "Queensberry — 2024 review",
+          "url": "https://queensberry.co.uk/blogs/frank-warren-digest/2024-in-review"
+        }
+      ],
+      "image": {
+        "src": "https://www.matchroomboxing.com/app/uploads/2024/08/Website-30.jpg",
+        "alt": "Official Beterbiev versus Bivol event artwork for their 2024 Riyadh fight",
+        "credit": "Matchroom Boxing",
+        "caption": "Beterbiev–Bivol became one of the elite contests delivered during the Saudi-backed era.",
+        "sourceUrl": "https://www.matchroomboxing.com/events/beterbiev-vs-bivol/"
+      },
+      "body": [
+        "## The problem boxing always said it had",
+        "For decades, supporters were told some version of the same sentence: the fight is too difficult to make. Different promoters. Different broadcasters. Different advisers. Different financial expectations. Too much risk for one side and not enough reward for the other.",
+        "Saudi-backed boxing did not eliminate every political problem, but it changed the arithmetic. Fury fought Usyk. Beterbiev fought Bivol. Promotional rivals appeared on the same cards. Events were built around sporting ambition that conventional pay-per-view economics might have struggled to support at the same scale.",
+        "That deserves acknowledgement. But success creates its own dependency.",
+        "## The new price of a big fight",
+        "Once fighters, promoters and managers see what can be paid for a major event, that number enters future negotiations. A purse is not experienced in isolation. It becomes a reference point. If a boxer earned an exceptional amount for one difficult contest, the next opponent is unlikely to negotiate as though that night never happened.",
+        "This is where the Saudi era may have changed boxing more deeply than the individual fights themselves. It did not simply fund events. It may have reset expectations about what elite risk should cost.",
+        "That is manageable while a buyer exists with reasons to value the event beyond ordinary gate receipts and pay-per-view calculations. It becomes harder if that buyer becomes more selective.",
+        "## The warning signs are not the same as an exit",
+        "Recent reporting has raised questions about a broader shift toward financial sustainability in Saudi sport and about Turki Alalshikh’s own future involvement. That does not prove that investment in boxing is about to disappear. It does make sustainability a legitimate subject rather than a hypothetical one.",
+        "Boxing should distinguish between less spending and no spending. A more selective model could still stage major fights while demanding clearer commercial logic. The consequences would depend on which events continue to receive support and which are returned to conventional market economics.",
+        "## What Saudi backing actually solved",
+        "The most important achievement was not luxury production. It was alignment.",
+        "A promoter who normally competes with another promoter could participate in a shared card because the event itself offered enough value. Fighters could accept difficult opposition because the reward compensated for the risk. Broadcasters could attach themselves to occasions with obvious global relevance.",
+        "Money turned fragmented interests toward the same destination.",
+        "That is why the biggest legacy question is whether the cooperation survives if the exceptional incentives shrink.",
+        "## Could boxing go back?",
+        "Not easily. Once a market has experienced higher prices, lower prices feel like cuts even when they are commercially rational. Fighters may wait for better offers. Promoters may delay risky matchups. Broadcasters may become more cautious. The old politics can return quickly when every participant again has to protect a smaller pool of revenue.",
+        "There is also a fan problem. Audiences have now seen what happens when the sport behaves as though the best should fight the best. Returning to years of marination would feel even less acceptable than it did before.",
+        "That is why the current era creates pressure on boxing to learn rather than merely spend.",
+        "## The opportunity hidden inside the risk",
+        "If the sport uses this period to normalise cross-promotional deals, improve global distribution and build events around competitive quality, then the money may leave behind infrastructure and habits that remain valuable.",
+        "If it does not, the industry may discover that it rented cooperation rather than built it.",
+        "The ideal outcome is not permanent dependence on one source of capital. It is a healthier market in which promoters have learned that collaboration can be profitable, broadcasters understand the value of global events and fighters no longer need an unbeaten record protected for years before taking a genuine risk.",
+        "## AURA verdict",
+        "Saudi investment has been good at answering boxing’s oldest excuse: ‘we cannot make the fight.’ The next challenge is harder. Can boxing continue making those fights when the financial conditions are less extraordinary?",
+        "The sport won the lottery. The smartest thing it can do now is build something with the winnings."
+      ]
+    },
+    {
+      "slug": "the-promoter-is-dying-boxing-business",
+      "title": "The promoter is dying — or boxing is changing what a promoter is",
+      "summary": "Hearn, Warren and the classic promotional model are not disappearing. But capital, streaming platforms and new event operators are moving power around the sport.",
+      "date": "2026-10-05",
+      "category": "The Fight Game",
+      "articleType": "Analysis",
+      "featured": true,
+      "priority": 106,
+      "source": "MMA Fighting",
+      "sourceUrl": "https://www.mmafighting.com/ufc/513670/dana-white-reveals-ufcs-involvement-in-tyson-fury-vs-anthony-joshua-fight",
+      "sources": [
+        {
+          "name": "MMA Mania — Hearn and White meeting",
+          "url": "https://www.mmamania.com/boxing/476947/eddie-hearn-and-dana-white-will-attend-l-a-meeting-to-sort-joshua-vs-fury-impasse"
+        },
+        {
+          "name": "Boxing News Power 50",
+          "url": "https://boxingnewsonline.net/features/boxing-news-power-50-25-1/"
+        }
+      ],
+      "image": {
+        "src": "https://platform.mmafighting.com/wp-content/uploads/sites/109/2026/10/gettyimages-2297293209.jpg?quality=90&strip=all&w=1200",
+        "alt": "Dana White at a 2026 combat-sports event",
+        "credit": "Getty Images via MMA Fighting",
+        "caption": "Dana White’s move into boxing has intensified the argument over who controls the modern event.",
+        "sourceUrl": "https://www.mmafighting.com/ufc/513670/dana-white-reveals-ufcs-involvement-in-tyson-fury-vs-anthony-joshua-fight"
+      },
+      "body": [
+        "## The old job description",
+        "The traditional boxing promoter did almost everything that mattered outside the ropes. Sign the fighter. Build the local audience. Negotiate the television deal. Secure the venue. Sell the tickets. Control the press conference. Protect the relationship with sanctioning bodies. Then, when the fighter became valuable enough, negotiate with a rival promoter.",
+        "That model still exists. Eddie Hearn and Frank Warren remain major operators. But the structure around them is changing.",
+        "The clearest sign is Fury–Joshua. The fight involves established promoters, Saudi-linked backing, Netflix distribution and a public dispute over Dana White and UFC’s production or promotional role. It is not simply one promoter putting on one show.",
+        "## Capital has moved upstream",
+        "In the classic model, the promoter raised or risked the money and then tried to recover it through tickets, media rights and sponsorship. In the newer model, a powerful capital partner or platform can begin with the desired event and assemble the pieces underneath it.",
+        "That changes leverage.",
+        "If the person controlling the budget can bring rival promoters into the same room, the promoter becomes one important participant rather than the sole architect. The fighter relationship still matters. Local expertise still matters. But neither automatically guarantees control of the entire event.",
+        "## Streaming changed the broadcaster too",
+        "Television networks once needed regular boxing inventory. Promoters could build long relationships around that demand. Global streamers can think differently. They may value a small number of huge live events more than a weekly boxing schedule.",
+        "That favours event-led thinking. Instead of asking which promoter’s stable fills the next twelve dates, the platform can ask which single fight creates the biggest global moment.",
+        "The promoter then competes not only with another promoter, but with the possibility that the platform, financier and production partner can assemble an event around the fighters themselves.",
+        "## Dana White is the symbol, not the entire story",
+        "White attracts attention because UFC represents the opposite of boxing’s fragmentation: one dominant brand, central matchmaking, central rankings and a more controlled promotional ecosystem.",
+        "Zuffa Boxing’s arrival therefore carries an implicit argument. Boxing does not merely need another promoter; it may need a different operating system.",
+        "That is why the Hearn–White feud is more interesting than the insults. Hearn represents an exceptionally successful version of the traditional boxing promoter. White represents a model built around centralised control. Their disagreement is partly personal and partly structural.",
+        "## Why promoters still matter",
+        "It would be premature to declare the promoter obsolete. Fighters still need advocates who understand their market, career position and contractual value. Local promotion remains essential for building prospects. Relationships with venues, commissions, sponsors and media do not appear automatically because a large platform has money.",
+        "Promoters also carry something algorithms and capital cannot easily manufacture: trust with fighters. When Anthony Joshua publicly backs Eddie Hearn during a dispute, that relationship has commercial value.",
+        "The role is therefore more likely to evolve than disappear.",
+        "## From owner of the show to specialist partner",
+        "The future promoter may look less like the owner of every part of an event and more like a specialist within a larger coalition.",
+        "One party provides capital. Another owns the media platform. Another handles production. A promoter brings the fighter and market expertise. A sanctioning body supplies the title framework. A venue partner supplies the building and local operation.",
+        "That structure is messier than a single league, but it is already visible.",
+        "## AURA verdict",
+        "The promoter is not dying. The monopoly over promotion is.",
+        "The people who survive will be the ones comfortable sharing control when sharing control produces a bigger event. Hearn, Warren, White and the next generation are not competing for the same job description anymore.",
+        "They are competing to define what the job becomes."
+      ]
+    },
+    {
+      "slug": "boxing-belts-dont-tell-you-best-fighter",
+      "title": "The belts don’t tell you who the best fighter is anymore",
+      "summary": "Four major sanctioning bodies, separate rankings and secondary titles can leave casual fans asking a basic question boxing should answer easily: who is actually number one?",
+      "date": "2026-10-05",
+      "category": "AURA Explains",
+      "articleType": "Analysis",
+      "featured": true,
+      "priority": 105,
+      "source": "World Boxing Council",
+      "sourceUrl": "https://wbcboxing.com/",
+      "sources": [
+        {
+          "name": "Boxing OS — sanctioning bodies explained",
+          "url": "https://www.boxingatelier.com/magazine/boxing-sanctioning-bodies-explained"
+        },
+        {
+          "name": "Main Card Media — boxing’s alphabet structure",
+          "url": "https://maincardmedia.com/2026/09/01/boxings-alphabet-soup-wba-wbc-ibf-wbo-explained/"
+        }
+      ],
+      "image": {
+        "src": "https://www.matchroomboxing.com/app/uploads/2026/04/MAP13492-2048x1365.jpg",
+        "alt": "Jesse Bam Rodriguez stands in the ring holding multiple championship belts",
+        "credit": "Matchroom Boxing",
+        "caption": "Multiple belts can represent major achievement — and also illustrate how fragmented boxing’s championship system has become.",
+        "sourceUrl": "https://www.matchroomboxing.com/news/jesse-bam-rodriguez-pens-long-term-extension-with-eddie-hearn-and-matchroom/"
+      },
+      "body": [
+        "## One division, several answers",
+        "Ask a football fan who is top of the league and there is a table. Ask a tennis fan who is ranked number one and there is a recognised ranking. Ask a boxing fan who the champion is and the answer may require a paragraph.",
+        "The reason is structural. Professional boxing does not have one central championship authority. The WBA, WBC, IBF and WBO each sanction world titles and publish their own rankings. A single weight division can therefore have four recognised world champions before interim or secondary titles are even discussed.",
+        "That system creates opportunity. It also creates confusion.",
+        "## What the four belts actually mean",
+        "The four major organisations operate independently. Winning a WBC title does not make a fighter the WBA champion. Holding an IBF belt does not automatically place a boxer at number one in the WBO rankings. Each body has its own rules, mandatory challengers and ratings process.",
+        "When one fighter holds two or three of the major titles, boxing calls them unified. When one fighter holds all four in the four-belt era, that fighter is undisputed.",
+        "Undisputed is therefore unusually valuable because it temporarily solves the fragmentation. Four organisations have been forced into one answer.",
+        "## Then come the secondary belts",
+        "Interim titles can serve a legitimate administrative purpose when a full champion is unavailable. Other secondary labels have been used as pathways, commercial assets or status markers. The problem for the audience is that the word ‘champion’ can appear in contexts that do not mean the same thing.",
+        "A casual fan should not need an organisational chart to understand whether a fighter is the recognised world champion, an interim titleholder or a highly ranked contender.",
+        "Yet boxing often asks exactly that.",
+        "## Rankings do not solve it",
+        "Each sanctioning body also publishes different contender rankings. A boxer can be highly placed by one organisation and absent from another. Champions from rival organisations are often not treated as ordinary ranked contenders inside another body’s list.",
+        "That means the rankings are best understood as eligibility systems for each organisation’s titles, not as universal answers to the question of who the best fighters are.",
+        "Independent rankings such as The Ring and media pound-for-pound lists try to solve a different problem, but they introduce editorial judgement rather than formal championship authority.",
+        "## Why the mess survives",
+        "Belts have value to fighters. A recognised world title changes negotiating power, legacy and earning potential. Promoters can market title fights. Sanctioning bodies collect fees and maintain their own institutions. Broadcasters gain clear stakes for an event.",
+        "Everyone inside the system has a reason for at least part of the system to remain.",
+        "The person with the least incentive to tolerate confusion is the fan.",
+        "## The case for AURA Fight Rank",
+        "AURA’s answer should not be another sanctioning body. It should be a cleaner editorial layer on top of the existing sport.",
+        "One division. One ranking. Current champions clearly identified. Recent form, quality of opposition, activity and head-to-head results explained. No invented belt and no claim to replace the official organisations.",
+        "The purpose is orientation.",
+        "A fan should be able to open a heavyweight page and immediately understand who holds which recognised belt, who AURA considers the leading fighter in the division and why.",
+        "## Belts still matter",
+        "Criticising fragmentation does not mean titles are meaningless. Becoming a world champion remains extraordinarily difficult. Unifying titles remains significant precisely because each belt represents a separate path through elite opposition and boxing politics.",
+        "The mistake is using the existence of a belt as automatic proof that its holder is the single best fighter in the division.",
+        "Sometimes the champion and the best fighter are clearly the same person. Sometimes four organisations produce four different answers.",
+        "## AURA verdict",
+        "Boxing’s belts tell us who has won a championship recognised by a particular organisation. They do not always tell us, on their own, who is best.",
+        "That distinction is the reason AURA Fight Rank should exist: not to create a fifth alphabet body, but to make the first four easier to understand."
+      ]
+    },
     {
       "slug": "whittaker-wallace-reaction-late-scare",
       "title": "Whittaker won the fight. The final round changed the conversation.",
@@ -574,5 +807,5 @@
       "priority": 0
     }
   ],
-  "updatedAt": "2026-10-04T06:00:00Z"
+  "updatedAt": "2026-10-05T14:56:04.288Z"
 }
