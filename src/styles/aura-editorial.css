@@ -24,3 +24,33 @@
 @media(min-width:1101px){.header .header__nav a{font-size:14px!important;letter-spacing:.08em!important}.header .header__nav{gap:20px!important}}
 @media(min-width:901px) and (max-width:1100px){.header{display:flex!important}.header .header__nav,.header .header__cta--desktop{display:none!important}.header .header__menu-btn{display:flex!important;margin-left:auto!important}.header__mobile-menu{display:block!important}.header__mobile-menu:not(.header__mobile-menu--open){visibility:hidden!important;pointer-events:none!important}}
 @media(max-width:700px){.aura-ed-page{padding-top:24px}.aura-home-intro{padding-top:48px}}
+
+
+/* Rankings page: editorial P4P presentation */
+.aura-p4p{margin:0 0 76px;padding:0 0 64px;border-bottom:1px solid var(--aura-line)}
+.aura-p4p-head{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:30px}
+.aura-p4p-head h2,.aura-belt-rankings-head h2{font-size:clamp(3rem,6vw,6rem);margin:0}
+.aura-p4p-head>div>p:not(.aura-ed-kicker){margin-top:12px;color:#59615b;font-size:18px;line-height:1.55}
+.aura-p4p-head>a{font-weight:700;border-bottom:1px solid #a8936c;padding-bottom:5px;white-space:nowrap}
+.aura-p4p-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.aura-p4p-card{background:#fff;border:1px solid var(--aura-line);min-width:0;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.aura-p4p-card:hover{transform:translateY(-4px);border-color:#b69a63;box-shadow:0 16px 36px rgba(23,25,24,.08)}
+.aura-p4p-card--podium{border-top:3px solid #856122}
+.aura-p4p-image{position:relative;aspect-ratio:4/5;overflow:hidden;background:linear-gradient(145deg,#e8ece5,#d8ddd6)}
+.aura-p4p-image img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:saturate(.9) contrast(1.03)}
+.aura-p4p-image span{position:absolute;left:14px;bottom:10px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:clamp(3.3rem,5vw,5.4rem);font-weight:900;line-height:.8;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.42);letter-spacing:-.05em}
+.aura-p4p-copy{padding:20px 18px 22px}
+.aura-p4p-copy .aura-ed-kicker{margin-bottom:7px;font-size:12px}
+.aura-p4p-copy h3{font-size:clamp(1.55rem,2.1vw,2.25rem);margin:0 0 10px;text-wrap:balance}
+.aura-p4p-copy>p:last-child{font-weight:650;color:#4d554f}
+.aura-p4p-note{margin:18px 0 0}
+.aura-belt-rankings-head{margin:0 0 28px}
+.aura-belt-rankings-head .aura-ed-kicker{margin-bottom:6px}
+@media(max-width:1000px){.aura-p4p-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){
+ .aura-p4p{margin-bottom:48px;padding-bottom:44px}
+ .aura-p4p-head{align-items:start;flex-direction:column;margin-bottom:22px}
+ .aura-p4p-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:0 0 10px}
+ .aura-p4p-card{flex:0 0 76vw;max-width:310px;scroll-snap-align:start}
+ .aura-p4p-image{aspect-ratio:1/1.08}
+}
