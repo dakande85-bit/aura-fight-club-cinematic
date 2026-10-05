@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-05T10:45:00.000Z",
+  "updatedAt": "2026-10-05T14:25:00.000Z",
   "disclosure": "AURA Fight Club may earn a commission when you buy or subscribe through selected links. Editorial coverage is independent.",
   "partners": {
     "dazn": {
@@ -73,6 +73,16 @@
       "enabled": true,
       "mode": "house",
       "label": "Sponsor the AURA Fight Calendar"
+    },
+    "home-feed": {
+      "enabled": true,
+      "mode": "house",
+      "label": "Partner with AURA Fight Club"
+    },
+    "rankings": {
+      "enabled": true,
+      "mode": "house",
+      "label": "Sponsor the AURA Belt Rankings"
     }
   },
   "adsense": {
@@ -83,8 +93,10 @@
       "article-mid": "",
       "article-bottom": "",
       "fight-page": "",
-      "calendar": ""
+      "calendar": "",
+      "home-feed": "",
+      "rankings": ""
     }
   },
-  "contactEmail": "hello@aurafightclub.com"
+  "contactEmail": "partnerships@aurafightclub.com"
 }
