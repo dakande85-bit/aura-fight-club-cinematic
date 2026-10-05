@@ -63,8 +63,9 @@ export default function Footer() {
       <div className="aura-footer__legal">
         <span>© {new Date().getFullYear()} AURA</span>
         <div>
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/cookies">Cookies</Link>
+          <Link to="/terms">Terms</Link>
           <Link to="/commercial-policy">Advertising & Affiliates</Link>
           <a href="mailto:hello@aurafightclub.com">Contact</a>
         </div>
