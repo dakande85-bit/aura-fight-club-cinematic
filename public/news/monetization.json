@@ -49,16 +49,42 @@
     }
   },
   "adSlots": {
-    "article-top": {"enabled": true, "mode": "house", "label": "Partner with AURA Fight Club"},
-    "article-mid": {"enabled": true, "mode": "house", "label": "Reach boxing fans with AURA"},
-    "article-bottom": {"enabled": true, "mode": "house", "label": "Advertise with AURA Fight Club"},
-    "fight-page": {"enabled": true, "mode": "house", "label": "Fight night partnerships"},
-    "calendar": {"enabled": true, "mode": "house", "label": "Sponsor the AURA Fight Calendar"}
+    "article-top": {
+      "enabled": true,
+      "mode": "house",
+      "label": "Partner with AURA Fight Club"
+    },
+    "article-mid": {
+      "enabled": true,
+      "mode": "house",
+      "label": "Reach boxing fans with AURA"
+    },
+    "article-bottom": {
+      "enabled": true,
+      "mode": "house",
+      "label": "Advertise with AURA Fight Club"
+    },
+    "fight-page": {
+      "enabled": true,
+      "mode": "house",
+      "label": "Fight night partnerships"
+    },
+    "calendar": {
+      "enabled": true,
+      "mode": "house",
+      "label": "Sponsor the AURA Fight Calendar"
+    }
   },
   "adsense": {
     "enabled": false,
     "client": "",
-    "slots": {}
+    "slots": {
+      "article-top": "",
+      "article-mid": "",
+      "article-bottom": "",
+      "fight-page": "",
+      "calendar": ""
+    }
   },
   "contactEmail": "hello@aurafightclub.com"
 }
