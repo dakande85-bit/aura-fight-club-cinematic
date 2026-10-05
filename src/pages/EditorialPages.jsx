@@ -23,7 +23,7 @@ export function ArticlePage() {
 }
 
 export function CalendarPage() { return <Frame title="Fight Calendar"><FightCalendar /><AdSlot slot="calendar" /></Frame>; }
-export function RankingsPage() { return <Frame title="Belt Rankings"><div className="aura-ed-page-title"><p className="aura-ed-kicker">The title picture</p><h1>Belt rankings.</h1><p>Compare champions and contenders across the WBA, WBC, IBF and WBO.</p></div><BeltRankings /></Frame>; }
+export function RankingsPage() { return <Frame title="Belt Rankings"><div className="aura-ed-page-title"><p className="aura-ed-kicker">The title picture</p><h1>Belt rankings.</h1><p>Compare champions and contenders across the WBA, WBC, IBF and WBO.</p></div><BeltRankings /><AdSlot slot="rankings" /></Frame>; }
 export function FightPage() {
  const {id}=useParams(); const fight=fights.find(f=>f.id===id);
  if(!fight) return <Frame title="Fight not found"><div className="aura-ed-page-title"><h1>Fight not found.</h1><Link to="/calendar">View fight calendar</Link></div></Frame>;
