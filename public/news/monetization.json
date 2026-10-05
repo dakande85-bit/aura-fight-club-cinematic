@@ -1,0 +1,64 @@
+{
+  "updatedAt": "2026-10-05T10:45:00.000Z",
+  "disclosure": "AURA Fight Club may earn a commission when you buy or subscribe through selected links. Editorial coverage is independent.",
+  "partners": {
+    "dazn": {
+      "name": "DAZN",
+      "category": "Streaming",
+      "enabled": true,
+      "officialUrl": "https://www.dazn.com/",
+      "affiliateUrl": "",
+      "cta": "Watch on DAZN",
+      "note": "Subscription or PPV may be required. Availability and pricing vary by territory."
+    },
+    "ticketmaster": {
+      "name": "Ticketmaster",
+      "category": "Tickets",
+      "enabled": true,
+      "officialUrl": "https://www.ticketmaster.com/",
+      "affiliateUrl": "",
+      "cta": "Find tickets",
+      "note": "Ticket availability and seller terms apply."
+    },
+    "rdx": {
+      "name": "RDX Sports",
+      "category": "Equipment",
+      "enabled": true,
+      "officialUrl": "https://rdxsports.com/",
+      "affiliateUrl": "",
+      "cta": "Shop boxing equipment",
+      "note": ""
+    },
+    "boxraw": {
+      "name": "BOXRAW",
+      "category": "Lifestyle",
+      "enabled": true,
+      "officialUrl": "https://boxraw.com/",
+      "affiliateUrl": "",
+      "cta": "Shop boxing lifestyle",
+      "note": ""
+    },
+    "fightcamp": {
+      "name": "FightCamp",
+      "category": "Training",
+      "enabled": true,
+      "officialUrl": "https://joinfightcamp.com/",
+      "affiliateUrl": "",
+      "cta": "Explore FightCamp",
+      "note": ""
+    }
+  },
+  "adSlots": {
+    "article-top": {"enabled": true, "mode": "house", "label": "Partner with AURA Fight Club"},
+    "article-mid": {"enabled": true, "mode": "house", "label": "Reach boxing fans with AURA"},
+    "article-bottom": {"enabled": true, "mode": "house", "label": "Advertise with AURA Fight Club"},
+    "fight-page": {"enabled": true, "mode": "house", "label": "Fight night partnerships"},
+    "calendar": {"enabled": true, "mode": "house", "label": "Sponsor the AURA Fight Calendar"}
+  },
+  "adsense": {
+    "enabled": false,
+    "client": "",
+    "slots": {}
+  },
+  "contactEmail": "hello@aurafightclub.com"
+}
