@@ -15,6 +15,7 @@ const WORLD_LINKS = [
   { label: 'Rankings', href: '/rankings' },
   { label: 'Watch', href: '/watch' },
   { label: 'Lifestyle', href: '/lifestyle' },
+  { label: 'Advertise', href: '/advertise' },
   { label: 'Waitlist', href: '/fight-club' },
 ];
 
@@ -64,6 +65,7 @@ export default function Footer() {
         <div>
           <a href="#privacy">Privacy</a>
           <a href="#terms">Terms</a>
+          <Link to="/commercial-policy">Advertising & Affiliates</Link>
           <a href="mailto:hello@aurafightclub.com">Contact</a>
         </div>
       </div>
