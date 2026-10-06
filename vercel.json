@@ -2,8 +2,21 @@
   "redirects": [
     { "source": "/our-story", "destination": "/who-we-are", "permanent": true },
     { "source": "/cinematic", "destination": "/who-we-are", "permanent": true },
-    { "source": "/fightclub", "destination": "/fight-club", "permanent": true },
-    { "source": "/made-to-order", "destination": "/pre-orders", "permanent": true }
+    { "source": "/apparel", "destination": "/lifestyle", "permanent": true },
+    { "source": "/footwear", "destination": "/lifestyle", "permanent": true },
+    { "source": "/accessories", "destination": "/lifestyle", "permanent": true },
+    { "source": "/equipment", "destination": "/lifestyle", "permanent": true },
+    { "source": "/drops", "destination": "/lifestyle", "permanent": true },
+    { "source": "/drop-001", "destination": "/lifestyle", "permanent": true },
+    { "source": "/pre-orders", "destination": "/lifestyle", "permanent": true },
+    { "source": "/made-to-order", "destination": "/lifestyle", "permanent": true },
+    { "source": "/cart", "destination": "/lifestyle", "permanent": true },
+    { "source": "/product/:slug", "destination": "/lifestyle", "permanent": true },
+    { "source": "/products/:path*", "destination": "/lifestyle", "permanent": true },
+    { "source": "/collections/:path*", "destination": "/lifestyle", "permanent": true },
+    { "source": "/shop", "destination": "/lifestyle", "permanent": true },
+    { "source": "/shop/:path*", "destination": "/lifestyle", "permanent": true },
+    { "source": "/fightclub", "destination": "/fight-club", "permanent": true }
   ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
