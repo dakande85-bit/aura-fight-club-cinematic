@@ -46,11 +46,11 @@ function FighterPortrait({ name, className = '', eager = false, combatOnly = fal
  const isVacant = !name || name === '—' || /^vacant$/i.test(name);
  const cleanName = portraitSearchName(name || '');
  const cacheKey = `${combatOnly ? 'fight' : 'portrait'}:${cleanName}`;
- const [src, setSrc] = useState(() => combatOnly ? (portraitCache.get(cacheKey)?.url || '') : (portraitOverrides[cleanName] || portraitCache.get(cacheKey)?.url || ''));
+ const [src, setSrc] = useState(() => portraitOverrides[cleanName] || portraitCache.get(cacheKey)?.url || '');
 
  useEffect(() => {
   if (isVacant || !cleanName) return;
-  const override = !combatOnly ? portraitOverrides[cleanName] : '';
+  const override = portraitOverrides[cleanName] || '';
   if (override) {
    portraitCache.set(cacheKey, { status: 'ready', url: override });
    setSrc(override);
@@ -60,29 +60,23 @@ function FighterPortrait({ name, className = '', eager = false, combatOnly = fal
   const cached = portraitCache.get(cacheKey);
   if (cached?.url) { setSrc(cached.url); return; }
 
-  const query = encodeURIComponent(combatOnly ? `${cleanName} boxing fight ring` : `${cleanName} boxer`);
-  const url = combatOnly
-   ? `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${query}&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=520&format=json&origin=*`
-   : `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${query}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=420&format=json&origin=*`;
+  // Never guess a fight-action image from a generic Commons file search.
+  // For ranking tables, only explicitly verified overrides are allowed.
+  if (combatOnly) {
+   portraitCache.set(cacheKey, { status: 'missing' });
+   setSrc('');
+   return;
+  }
+
+  const query = encodeURIComponent(`${cleanName} boxer`);
+  const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${query}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=420&format=json&origin=*`;
   let cancelled = false;
   fetch(url)
    .then(response => response.ok ? response.json() : Promise.reject(new Error('fighter image lookup failed')))
    .then(data => {
     const pages = Object.values(data?.query?.pages || {});
     let imageUrl = '';
-    if (combatOnly) {
-     const fightTerms = /boxing|boxer|fight|bout|ring|versus|\bvs\b|championship/i;
-     const nonFightTerms = /press conference|weigh[- ]?in|portrait|headshot|arrival|red carpet|training camp|workout/i;
-     const match = pages.find(page => {
-      const info = page?.imageinfo?.[0];
-      const meta = info?.extmetadata || {};
-      const context = [page?.title, meta?.ImageDescription?.value, meta?.ObjectName?.value].filter(Boolean).join(' ').replace(/<[^>]+>/g, ' ');
-      return fightTerms.test(context) && !nonFightTerms.test(context);
-     });
-     imageUrl = match?.imageinfo?.[0]?.thumburl || match?.imageinfo?.[0]?.url || '';
-    } else {
-     imageUrl = pages[0]?.thumbnail?.source || '';
-    }
+    imageUrl = pages[0]?.thumbnail?.source || '';
     portraitCache.set(cacheKey, imageUrl ? { status: 'ready', url: imageUrl } : { status: 'missing' });
     if (!cancelled && imageUrl) setSrc(imageUrl);
    })
