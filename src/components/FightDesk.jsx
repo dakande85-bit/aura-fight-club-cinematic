@@ -42,39 +42,55 @@ function initialsFor(name) {
  return portraitSearchName(name).split(' ').filter(Boolean).slice(0, 2).map(part => part[0]).join('').toUpperCase();
 }
 
-function FighterPortrait({ name, className = '', eager = false }) {
+function FighterPortrait({ name, className = '', eager = false, combatOnly = false }) {
  const isVacant = !name || name === '—' || /^vacant$/i.test(name);
  const cleanName = portraitSearchName(name || '');
- const [src, setSrc] = useState(() => portraitOverrides[cleanName] || portraitCache.get(cleanName)?.url || '');
+ const cacheKey = `${combatOnly ? 'fight' : 'portrait'}:${cleanName}`;
+ const [src, setSrc] = useState(() => combatOnly ? (portraitCache.get(cacheKey)?.url || '') : (portraitOverrides[cleanName] || portraitCache.get(cacheKey)?.url || ''));
 
  useEffect(() => {
   if (isVacant || !cleanName) return;
-  const override = portraitOverrides[cleanName];
+  const override = !combatOnly ? portraitOverrides[cleanName] : '';
   if (override) {
-   portraitCache.set(cleanName, { status: 'ready', url: override });
+   portraitCache.set(cacheKey, { status: 'ready', url: override });
    setSrc(override);
    return;
   }
-  if (portraitCache.get(cleanName)?.status === 'missing') return;
-  const cached = portraitCache.get(cleanName);
+  if (portraitCache.get(cacheKey)?.status === 'missing') return;
+  const cached = portraitCache.get(cacheKey);
   if (cached?.url) { setSrc(cached.url); return; }
 
-  const query = encodeURIComponent(`${cleanName} boxer`);
-  const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${query}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=420&format=json&origin=*`;
+  const query = encodeURIComponent(combatOnly ? `${cleanName} boxing fight ring` : `${cleanName} boxer`);
+  const url = combatOnly
+   ? `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${query}&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=520&format=json&origin=*`
+   : `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${query}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=420&format=json&origin=*`;
   let cancelled = false;
   fetch(url)
-   .then(response => response.ok ? response.json() : Promise.reject(new Error('portrait lookup failed')))
+   .then(response => response.ok ? response.json() : Promise.reject(new Error('fighter image lookup failed')))
    .then(data => {
-    const page = Object.values(data?.query?.pages || {})[0];
-    const imageUrl = page?.thumbnail?.source || '';
-    portraitCache.set(cleanName, imageUrl ? { status: 'ready', url: imageUrl } : { status: 'missing' });
+    const pages = Object.values(data?.query?.pages || {});
+    let imageUrl = '';
+    if (combatOnly) {
+     const fightTerms = /boxing|boxer|fight|bout|ring|versus|\bvs\b|championship/i;
+     const nonFightTerms = /press conference|weigh[- ]?in|portrait|headshot|arrival|red carpet|training camp|workout/i;
+     const match = pages.find(page => {
+      const info = page?.imageinfo?.[0];
+      const meta = info?.extmetadata || {};
+      const context = [page?.title, meta?.ImageDescription?.value, meta?.ObjectName?.value].filter(Boolean).join(' ').replace(/<[^>]+>/g, ' ');
+      return fightTerms.test(context) && !nonFightTerms.test(context);
+     });
+     imageUrl = match?.imageinfo?.[0]?.thumburl || match?.imageinfo?.[0]?.url || '';
+    } else {
+     imageUrl = pages[0]?.thumbnail?.source || '';
+    }
+    portraitCache.set(cacheKey, imageUrl ? { status: 'ready', url: imageUrl } : { status: 'missing' });
     if (!cancelled && imageUrl) setSrc(imageUrl);
    })
    .catch(() => {
-    portraitCache.set(cleanName, { status: 'missing' });
+    portraitCache.set(cacheKey, { status: 'missing' });
    });
   return () => { cancelled = true; };
- }, [cleanName, isVacant]);
+ }, [cacheKey, cleanName, combatOnly, isVacant]);
 
  return <span className={`aura-fighter-portrait ${className} ${isVacant ? 'aura-fighter-portrait--vacant' : ''}`} aria-hidden="true">
   {src
@@ -86,7 +102,7 @@ function FighterPortrait({ name, className = '', eager = false }) {
 function FighterCell({ name, champion = false }) {
  const href=fighterHref(name);
  return <div className={`aura-ranked-fighter ${champion ? 'aura-ranked-fighter--champion' : ''}`}>
-  <FighterPortrait name={name} />
+  <FighterPortrait name={name} combatOnly />
   {href ? <Link to={href}>{name}</Link> : <span>{name || '—'}</span>}
  </div>;
 }
@@ -125,7 +141,7 @@ export function RingPoundForPound() {
   <div className="aura-p4p-grid">
    {ringPoundForPound.map(fighter => <article className={`aura-p4p-card ${fighter.rank <= 3 ? 'aura-p4p-card--podium' : ''}`} key={fighter.rank}>
     <div className="aura-p4p-image">
-     <FighterPortrait name={fighter.name} className="aura-fighter-portrait--p4p" eager={fighter.rank <= 2} />
+     <FighterPortrait name={fighter.name} className="aura-fighter-portrait--p4p" eager={fighter.rank <= 2} combatOnly />
      <span className="aura-p4p-rank" aria-hidden="true">{String(fighter.rank).padStart(2,'0')}</span>
     </div>
     <div className="aura-p4p-copy">
@@ -201,8 +217,9 @@ export function BeltRankings() {
  const d=rankingEdition.divisions.find(d=>d.id===selected);const organizations=Object.keys(rankingEdition.organizations).filter(o=>org==='All belts'||o===org);
  return <section className="aura-ed-section"><RingPoundForPound /><div className="aura-belt-rankings-head"><p className="aura-ed-kicker">Sanctioning bodies</p><h2>World title rankings.</h2><p className="aura-belt-intro">Recognise the belt first, then see who holds it and who is next in line.</p></div>
  <div className="aura-belt-key" aria-label="World championship sanctioning bodies">{Object.keys(rankingEdition.organizations).map(body=><button type="button" className={org===body?'is-active':''} key={body} onClick={()=>setOrg(org===body?'All belts':body)} aria-pressed={org===body}><BeltMark org={body}/><span><strong>{body}</strong><small>{rankingEdition.organizations[body].period}</small></span></button>)}</div>
+ <div className="aura-weight-class-grid" aria-label="Select weight class">{rankingEdition.divisions.map(division=><button type="button" key={division.id} className={selected===division.id?'is-active':''} onClick={()=>setSelected(division.id)} aria-pressed={selected===division.id}>{division.name}</button>)}</div>
  <div className="aura-desk-controls"><label>Weight class<select value={selected} onChange={e=>setSelected(e.target.value)}>{rankingEdition.divisions.map(d=><option key={d.id} value={d.id}>{d.name}</option>)}</select></label><label>Sanctioning body<select value={org} onChange={e=>setOrg(e.target.value)}><option>All belts</option>{Object.keys(rankingEdition.organizations).map(o=><option key={o}>{o}</option>)}</select></label></div>
- <p className="aura-ed-note">Men’s champions and top five contender positions · Checked {rankingEdition.checkedAt}. Lists have different publication dates and do not automatically change after a fight.</p>
+ <p className="aura-ed-note">All 17 standard men’s divisions · champions and top five contender positions · Checked {rankingEdition.checkedAt}. Fight-action imagery is prioritised; where no suitable licensed fight image is available, a neutral initials tile is shown instead of a casual portrait.</p>
  <div className="aura-rank-table-wrap" tabIndex="0" role="region" aria-label={`${d.name} belt rankings`}><table className="aura-rank-table"><caption>{d.name} — published belt rankings</caption><thead><tr><th scope="col">Position</th>{organizations.map(o=><th scope="col" key={o}><div className="aura-rank-belt-head"><BeltMark org={o}/><strong>{o}</strong><span>{rankingEdition.organizations[o].period}</span></div></th>)}</tr></thead><tbody><tr className="aura-rank-champion"><th scope="row">Champion</th>{organizations.map(o=><td key={o}><FighterCell name={d.champions[o]} champion /></td>)}</tr><tr><th scope="row">Interim</th>{organizations.map(o=><td key={o}><FighterCell name={d.interim[o]||'—'} /></td>)}</tr>{d.rows.map(r=><tr key={r.rank}><th scope="row">{r.rank}</th>{organizations.map(o=><td key={o}><FighterCell name={r[o]} /></td>)}</tr>)}</tbody></table></div>
  <div className="aura-ranking-sources"><p>Contender lists compiled by <ExternalLink href={d.sourceUrl}>Box-Rank</ExternalLink>; WBA entries and champions cross-checked against the WBA’s September list. “Vacant” preserves an unfilled position.</p><p>Complete official lists:</p><div className="aura-life-links">{Object.entries(rankingEdition.organizations).map(([o,s])=><ExternalLink key={o} href={s.url}>{o} rankings</ExternalLink>)}</div></div>
  </section>;
