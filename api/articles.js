@@ -32,6 +32,7 @@ export default async function handler(req,res) {
  const existing=edition.articles.some(a=>a.slug===article.slug);
  if(existing && body.mode!=='update')return send(res,409,{error:'That article address already exists. Choose it from Published articles to edit.'});
  if(!existing && body.mode==='update')return send(res,409,{error:'The original article no longer exists. Reload the edition.'});
+ if(existing) article={...article,updatedAt:new Intl.DateTimeFormat('en-CA',{timeZone:'Atlantic/Canary',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())};
  const articles=existing?edition.articles.map(a=>a.slug===article.slug?article:a):[article,...edition.articles];
  const next={reviewedAt:edition.reviewedAt,updatedAt:new Date().toISOString(),articles};
  const saved=await github(`/contents/${PATH}`,{method:'PUT',body:JSON.stringify({message:`${existing?'Update':'Publish'} boxing story: ${article.title}`,content:Buffer.from(JSON.stringify(next,null,2)+'\n').toString('base64'),sha:file.sha,branch})});
