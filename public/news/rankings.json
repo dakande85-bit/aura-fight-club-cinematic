@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-04",
+  "checkedAt": "2026-10-06",
   "organizations": {
     "WBA": {
       "period": "September 2026",
@@ -65,6 +65,55 @@
           "WBC": "Moses Itauma",
           "IBF": "Tyson Fury",
           "WBO": "Moses Itauma"
+        }
+      ]
+    },
+    {
+      "id": "cruiserweight",
+      "name": "Cruiserweight",
+      "sourceUrl": "https://box-rank.com/rankings/cruiserweight",
+      "champions": {
+        "WBA": "Jai Opetaia",
+        "WBC": "Michal Cieslak",
+        "IBF": "Vacant",
+        "WBO": "David Benavidez"
+      },
+      "interim": {},
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Leonardo Mosquea",
+          "WBC": "Chris Billam-Smith",
+          "IBF": "David Nyika",
+          "WBO": "Roman Fress"
+        },
+        {
+          "rank": 2,
+          "WBA": "Chris Billam-Smith",
+          "WBC": "Robin Sirwan Safar",
+          "IBF": "Viddal Riley",
+          "WBO": "Robin Sirwan Safar"
+        },
+        {
+          "rank": 3,
+          "WBA": "Lenar Perez",
+          "WBC": "Viddal Riley",
+          "IBF": "Jai Opetaia",
+          "WBO": "Gilberto Ramirez"
+        },
+        {
+          "rank": 4,
+          "WBA": "Muslim Gadzhimagomedov",
+          "WBC": "Norair Mikaeljan",
+          "IBF": "Chris Billam-Smith",
+          "WBO": "David Nyika"
+        },
+        {
+          "rank": 5,
+          "WBA": "Gilberto Ramirez",
+          "WBC": "Yuniel Dorticos",
+          "IBF": "Pat Brown",
+          "WBO": "Umar Salamov"
         }
       ]
     },
@@ -168,6 +217,658 @@
           "WBC": "Kevin Lele Sadjo",
           "IBF": "Oliver Zaren",
           "WBO": "Armando Resendiz"
+        }
+      ]
+    },
+    {
+      "id": "middleweight",
+      "name": "Middleweight",
+      "sourceUrl": "https://box-rank.com/rankings/middleweight",
+      "champions": {
+        "WBA": "Erislandy Lara",
+        "WBC": "Carlos Adames",
+        "IBF": "Aaron McKenna",
+        "WBO": "Denzel Bentley"
+      },
+      "interim": {
+        "WBC": "Jesus Alejandro Ramos Jr"
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Vadim Tukov",
+          "WBC": "Meiirim Nursultanov",
+          "IBF": "Amari Jones",
+          "WBO": "Yoenli Hernandez"
+        },
+        {
+          "rank": 2,
+          "WBA": "Shane Mosley Jr",
+          "WBC": "Yoenli Hernandez",
+          "IBF": "Vacant",
+          "WBO": "Vito Mielnicki Jr"
+        },
+        {
+          "rank": 3,
+          "WBA": "Tim Tszyu",
+          "WBC": "Tim Tszyu",
+          "IBF": "Jahi Tucker",
+          "WBO": "Tim Tszyu"
+        },
+        {
+          "rank": 4,
+          "WBA": "Andreas Katzourakis",
+          "WBC": "Fiodor Czerkaszyn",
+          "IBF": "Vadim Tukov",
+          "WBO": "Michael Zerafa"
+        },
+        {
+          "rank": 5,
+          "WBA": "Michael Zerafa",
+          "WBC": "Vito Mielnicki Jr",
+          "IBF": "George Liddard",
+          "WBO": "Fiodor Czerkaszyn"
+        }
+      ]
+    },
+    {
+      "id": "super-welterweight",
+      "name": "Super welterweight",
+      "sourceUrl": "https://box-rank.com/rankings/super-welterweight",
+      "champions": {
+        "WBA": "Jaron Ennis",
+        "WBC": "Sebastian Fundora",
+        "IBF": "Josh Kelly",
+        "WBO": "Jaron Ennis"
+      },
+      "interim": {
+        "WBC": "Vergil Ortiz Jr"
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Pavel Sosulin",
+          "WBC": "Ermal Hadribeaj",
+          "IBF": "Vacant",
+          "WBO": "Xander Zayas"
+        },
+        {
+          "rank": 2,
+          "WBA": "Yoenis Tellez",
+          "WBC": "Brandon Adams",
+          "IBF": "Vacant",
+          "WBO": "Bakhram Murtazaliev"
+        },
+        {
+          "rank": 3,
+          "WBA": "Ismael Flores",
+          "WBC": "Bakhram Murtazaliev",
+          "IBF": "Brandon Adams",
+          "WBO": "Abass Baraou"
+        },
+        {
+          "rank": 4,
+          "WBA": "Piergiulio Ruhe",
+          "WBC": "Xander Zayas",
+          "IBF": "Bakhram Murtazaliev",
+          "WBO": "Nikita Tszyu"
+        },
+        {
+          "rank": 5,
+          "WBA": "Abass Baraou",
+          "WBC": "Bakary Samake",
+          "IBF": "Nikita Tszyu",
+          "WBO": "Israil Madrimov"
+        }
+      ]
+    },
+    {
+      "id": "welterweight",
+      "name": "Welterweight",
+      "sourceUrl": "https://box-rank.com/rankings/welterweight",
+      "champions": {
+        "WBA": "Teofimo Lopez (Super)",
+        "WBC": "Ryan Garcia",
+        "IBF": "Liam Paro",
+        "WBO": "Devin Haney"
+      },
+      "interim": {},
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Raul Curiel",
+          "WBC": "Souleymane Cissokho",
+          "IBF": "Paddy Donovan",
+          "WBO": "Brian Norman Jr"
+        },
+        {
+          "rank": 2,
+          "WBA": "Rolando Romero",
+          "WBC": "Raul Curiel",
+          "IBF": "Vacant",
+          "WBO": "Richardson Hitchins"
+        },
+        {
+          "rank": 3,
+          "WBA": "Conah Walker",
+          "WBC": "Brian Norman Jr",
+          "IBF": "Richardson Hitchins",
+          "WBO": "Arnold Barboza Jr"
+        },
+        {
+          "rank": 4,
+          "WBA": "Richardson Hitchins",
+          "WBC": "Rolando Romero",
+          "IBF": "Keyshawn Davis",
+          "WBO": "Oscar Duarte"
+        },
+        {
+          "rank": 5,
+          "WBA": "Julian Rodriguez",
+          "WBC": "Richardson Hitchins",
+          "IBF": "Lewis Crocker",
+          "WBO": "Alexis Rocha"
+        }
+      ]
+    },
+    {
+      "id": "super-lightweight",
+      "name": "Super lightweight",
+      "sourceUrl": "https://box-rank.com/rankings/super-lightweight",
+      "champions": {
+        "WBA": "Gary Antuanne Russell",
+        "WBC": "Dalton Smith",
+        "IBF": "Vacant",
+        "WBO": "Shakur Stevenson"
+      },
+      "interim": {
+        "WBC": "Isaac Cruz"
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Khariton Agrba",
+          "WBC": "Alberto Puello",
+          "IBF": "Lindolfo Delgado",
+          "WBO": "Raymond Muratalla"
+        },
+        {
+          "rank": 2,
+          "WBA": "Kevin Hayler Brown",
+          "WBC": "Sandor Martin",
+          "IBF": "Vacant",
+          "WBO": "Emiliano Vargas"
+        },
+        {
+          "rank": 3,
+          "WBA": "Oscar Duarte",
+          "WBC": "Adam Azim",
+          "IBF": "Arthur Biyarslanov",
+          "WBO": "Ernesto Mercado"
+        },
+        {
+          "rank": 4,
+          "WBA": "Andy Hiraoka",
+          "WBC": "Arthur Biyarslanov",
+          "IBF": "Adam Azim",
+          "WBO": "Adam Azim"
+        },
+        {
+          "rank": 5,
+          "WBA": "Hovhannes Bachkov",
+          "WBC": "Raymond Muratalla",
+          "IBF": "Ernesto Mercado",
+          "WBO": "Yaser Al Ghena"
+        }
+      ]
+    },
+    {
+      "id": "lightweight",
+      "name": "Lightweight",
+      "sourceUrl": "https://box-rank.com/rankings/lightweight",
+      "champions": {
+        "WBA": "Vacant",
+        "WBC": "William Zepeda Segura",
+        "IBF": "Vacant",
+        "WBO": "Abdullah Mason"
+      },
+      "interim": {
+        "WBC": "Jadier Herrera"
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Floyd Schofield",
+          "WBC": "Andy Cruz",
+          "IBF": "Vacant",
+          "WBO": "Joe Cordina"
+        },
+        {
+          "rank": 2,
+          "WBA": "Lucas Bahdi",
+          "WBC": "Lamont Roach",
+          "IBF": "Artur Subkhankulov",
+          "WBO": "Sam Noakes"
+        },
+        {
+          "rank": 3,
+          "WBA": "Jose Valenzuela",
+          "WBC": "Sam Noakes",
+          "IBF": "Andy Cruz",
+          "WBO": "Joshua Pagan"
+        },
+        {
+          "rank": 4,
+          "WBA": "Armando Martinez Rabi",
+          "WBC": "Dzmitry Asanau",
+          "IBF": "Dzmitri Asanau",
+          "WBO": "Corey Marksman"
+        },
+        {
+          "rank": 5,
+          "WBA": "Eridson Garcia",
+          "WBC": "Justin Pauldo",
+          "IBF": "Alan Abel Chaves",
+          "WBO": "Eridson Garcia"
+        }
+      ]
+    },
+    {
+      "id": "super-featherweight",
+      "name": "Super featherweight",
+      "sourceUrl": "https://box-rank.com/rankings/super-featherweight",
+      "champions": {
+        "WBA": "Anthony Cacace (Super)",
+        "WBC": "O'Shaquie Foster",
+        "IBF": "Emanuel Navarrete",
+        "WBO": "Emanuel Navarrete"
+      },
+      "interim": {
+        "WBC": "Ryan Garner"
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Moussa Gholam",
+          "WBC": "Khalil El Hadri",
+          "IBF": "Vacant",
+          "WBO": "Charly Suarez"
+        },
+        {
+          "rank": 2,
+          "WBA": "James Dickens",
+          "WBC": "Moussa Gholam",
+          "IBF": "Vacant",
+          "WBO": "Liam Wilson"
+        },
+        {
+          "rank": 3,
+          "WBA": "Hayato Tsutsumi",
+          "WBC": "Gary Allen Russell Jr",
+          "IBF": "Sultan Zaurbek",
+          "WBO": "Kenichi Ogawa"
+        },
+        {
+          "rank": 4,
+          "WBA": "Masanori Rikiishi",
+          "WBC": "Raymond Ford",
+          "IBF": "Jackson Jon England",
+          "WBO": "Raymond Ford"
+        },
+        {
+          "rank": 5,
+          "WBA": "Liam Wilson",
+          "WBC": "Yamato Hata",
+          "IBF": "Henry Lebron",
+          "WBO": "Royston Barney-Smith"
+        }
+      ]
+    },
+    {
+      "id": "featherweight",
+      "name": "Featherweight",
+      "sourceUrl": "https://box-rank.com/rankings/featherweight",
+      "champions": {
+        "WBA": "Brandon Figueroa",
+        "WBC": "Bruce Carrington",
+        "IBF": "Angelo Leo",
+        "WBO": "Rafael Espinoza"
+      },
+      "interim": {},
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Mirco Cuello",
+          "WBC": "Cristobal Lorente",
+          "IBF": "Vacant",
+          "WBO": "Lorenzo Parra"
+        },
+        {
+          "rank": 2,
+          "WBA": "Mikito Nakano",
+          "WBC": "Alan Picasso Romero",
+          "IBF": "Omar Trinidad",
+          "WBO": "Ryota Muto"
+        },
+        {
+          "rank": 3,
+          "WBA": "Tomoki Kameda",
+          "WBC": "Sebastian Hernandez Reyes",
+          "IBF": "Luis Reynaldo Nunez",
+          "WBO": "Liam Davies"
+        },
+        {
+          "rank": 4,
+          "WBA": "Ivan Chirkov",
+          "WBC": "Omar Trinidad",
+          "IBF": "Toshiki Shimomachi",
+          "WBO": "Mikito Nakano"
+        },
+        {
+          "rank": 5,
+          "WBA": "Adrian Maximiliano Robledo",
+          "WBC": "Liam Davies",
+          "IBF": "Mikito Nakano",
+          "WBO": "Omar Trinidad"
+        }
+      ]
+    },
+    {
+      "id": "super-bantamweight",
+      "name": "Super bantamweight",
+      "sourceUrl": "https://box-rank.com/rankings/super-bantamweight",
+      "champions": {
+        "WBA": "Naoya Inoue",
+        "WBC": "Naoya Inoue",
+        "IBF": "Naoya Inoue",
+        "WBO": "Naoya Inoue"
+      },
+      "interim": {
+        "WBA": "Gary Antonio Russell"
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Mukhammad Shekhov",
+          "WBC": "Junto Nakatani",
+          "IBF": "Ryosuke Nishida",
+          "WBO": "Carl Jammes Martin"
+        },
+        {
+          "rank": 2,
+          "WBA": "Ramon Cardenas",
+          "WBC": "Ramon Cardenas",
+          "IBF": "Sam Goodman",
+          "WBO": "Junto Nakatani"
+        },
+        {
+          "rank": 3,
+          "WBA": "Murodjon Akhmadaliev",
+          "WBC": "Murodjon Akhmadaliev",
+          "IBF": "Bryan Mercado Vazquez",
+          "WBO": "Ramon Cardenas"
+        },
+        {
+          "rank": 4,
+          "WBA": "Victor Santillan",
+          "WBC": "Ryosuke Nishida",
+          "IBF": "Murodjon Akhmadaliev",
+          "WBO": "John Riel Casimero"
+        },
+        {
+          "rank": 5,
+          "WBA": "Junto Nakatani",
+          "WBC": "Kazuki Nakajima",
+          "IBF": "Junto Nakatani",
+          "WBO": "Mukhammad Shekhov"
+        }
+      ]
+    },
+    {
+      "id": "bantamweight",
+      "name": "Bantamweight",
+      "sourceUrl": "https://box-rank.com/rankings/bantamweight",
+      "champions": {
+        "WBA": "Jesse Rodriguez (Super)",
+        "WBC": "Takuma Inoue",
+        "IBF": "Jose Salas Reyes",
+        "WBO": "Christian Medina Jimenez"
+      },
+      "interim": {},
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Seiya Tsutsumi",
+          "WBC": "Andrew Cain",
+          "IBF": "Michael Angeletti",
+          "WBO": "Yoshiki Takei"
+        },
+        {
+          "rank": 2,
+          "WBA": "Jose Andres Teran",
+          "WBC": "Jason Moloney",
+          "IBF": "Vacant",
+          "WBO": "Jason Moloney"
+        },
+        {
+          "rank": 3,
+          "WBA": "Tenshin Nasukawa",
+          "WBC": "Tenshin Nasukawa",
+          "IBF": "Jason Moloney",
+          "WBO": "Andrew Cain"
+        },
+        {
+          "rank": 4,
+          "WBA": "Nonito Donaire",
+          "WBC": "Juan Francisco Estrada",
+          "IBF": "Emmanuel Rodriguez",
+          "WBO": "Tenshin Nasukawa"
+        },
+        {
+          "rank": 5,
+          "WBA": "Daigo Higa",
+          "WBC": "Alejandro Jair Gonzalez",
+          "IBF": "David Cuellar Contreras",
+          "WBO": "Emmanuel Rodriguez"
+        }
+      ]
+    },
+    {
+      "id": "super-flyweight",
+      "name": "Super flyweight",
+      "sourceUrl": "https://box-rank.com/rankings/super-flyweight",
+      "champions": {
+        "WBA": "David Jimenez",
+        "WBC": "Ricardo Malajika",
+        "IBF": "Andrew Moloney",
+        "WBO": "Kenshiro Teraji"
+      },
+      "interim": {},
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "John Ramirez",
+          "WBC": "Angel Ayala Lardizabal",
+          "IBF": "Sikho Nqothole",
+          "WBO": "Seigo Yuri Akui"
+        },
+        {
+          "rank": 2,
+          "WBA": "Seigo Yuri Akui",
+          "WBC": "Tomoya Tsuboi",
+          "IBF": "Vacant",
+          "WBO": "Ryusei Kawaura"
+        },
+        {
+          "rank": 3,
+          "WBA": "Tomoya Tsuboi",
+          "WBC": "Fernando Daniel Martinez",
+          "IBF": "Ryusei Kawaura",
+          "WBO": "Tomoya Tsuboi"
+        },
+        {
+          "rank": 4,
+          "WBA": "Roman Gonzalez",
+          "WBC": "Seigo Yuri Akui",
+          "IBF": "Kenta Nakagawa",
+          "WBO": "Olajuwon Acosta"
+        },
+        {
+          "rank": 5,
+          "WBA": "Jack Turner",
+          "WBC": "Pedro Guevara",
+          "IBF": "Angel Ayala Lardizabal",
+          "WBO": "John Ramirez"
+        }
+      ]
+    },
+    {
+      "id": "flyweight",
+      "name": "Flyweight",
+      "sourceUrl": "https://box-rank.com/rankings/flyweight",
+      "champions": {
+        "WBA": "Ricardo Rafael Sandoval",
+        "WBC": "Ricardo Rafael Sandoval",
+        "IBF": "Masamichi Yabuki",
+        "WBO": "Anthony Olascuaga"
+      },
+      "interim": {
+        "WBA": "Abraham R Perez",
+        "WBC": "Galal Yafai"
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Kyosuke Takami",
+          "WBC": "Francisco Rodriguez Jr",
+          "IBF": "Miel Fajardo",
+          "WBO": "Yoali Mejia Mosqueda"
+        },
+        {
+          "rank": 2,
+          "WBA": "Jonathan Gonzalez",
+          "WBC": "Thananchai Charunphak",
+          "IBF": "Vacant",
+          "WBO": "Yuberjen Martinez"
+        },
+        {
+          "rank": 3,
+          "WBA": "Samuel Carmona",
+          "WBC": "Yoali Mejia Mosqueda",
+          "IBF": "Joselito Velazquez Altamirano",
+          "WBO": "Joselito Velazquez Altamirano"
+        },
+        {
+          "rank": 4,
+          "WBA": "Yankiel Rivera Figueroa",
+          "WBC": "Joselito Velazquez Altamirano",
+          "IBF": "Kyosuke Takami",
+          "WBO": "Kosuke Tomioka"
+        },
+        {
+          "rank": 5,
+          "WBA": "Kosuke Tomioka",
+          "WBC": "Angelino Cordova",
+          "IBF": "Kosuke Tomioka",
+          "WBO": "Arvin Jhon Paciones"
+        }
+      ]
+    },
+    {
+      "id": "light-flyweight",
+      "name": "Light flyweight",
+      "sourceUrl": "https://box-rank.com/rankings/light-flyweight",
+      "champions": {
+        "WBA": "Daiya Kira",
+        "WBC": "Shokichi Iwata",
+        "IBF": "Thanongsak Simsri",
+        "WBO": "Rene Santiago"
+      },
+      "interim": {},
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Vacant",
+          "WBC": "Thammanoon Niyomtrong",
+          "IBF": "Vacant",
+          "WBO": "Regie Suganob"
+        },
+        {
+          "rank": 2,
+          "WBA": "Erick Rosa",
+          "WBC": "Regie Suganob",
+          "IBF": "Vacant",
+          "WBO": "Yuga Ozaki"
+        },
+        {
+          "rank": 3,
+          "WBA": "Aaron De La Cruz Escobedo",
+          "WBC": "Erick Rosa",
+          "IBF": "Regie Suganob",
+          "WBO": "Daniel Valladares"
+        },
+        {
+          "rank": 4,
+          "WBA": "Ronald Chacon",
+          "WBC": "Arvin Magramo",
+          "IBF": "Sivenathi Nontshinga",
+          "WBO": "Jesse Espinas"
+        },
+        {
+          "rank": 5,
+          "WBA": "Carlos Canizales",
+          "WBC": "Aaron De La Cruz Escobedo",
+          "IBF": "Erick Rosa",
+          "WBO": "Erik Badillo"
+        }
+      ]
+    },
+    {
+      "id": "minimumweight",
+      "name": "Minimumweight",
+      "sourceUrl": "https://box-rank.com/rankings/minimumweight",
+      "champions": {
+        "WBA": "Oscar Collazo (Super)",
+        "WBC": "Siyakholwa Kuse",
+        "IBF": "Pedro Taduran",
+        "WBO": "Oscar Collazo"
+      },
+      "interim": {},
+      "rows": [
+        {
+          "rank": 1,
+          "WBA": "Vacant",
+          "WBC": "Melvin Jerusalem",
+          "IBF": "Dianxing Zhu",
+          "WBO": "Vic Saludar"
+        },
+        {
+          "rank": 2,
+          "WBA": "Vic Saludar",
+          "WBC": "Joey Canoy",
+          "IBF": "Vacant",
+          "WBO": "Melvin Jerusalem"
+        },
+        {
+          "rank": 3,
+          "WBA": "Dianxing Zhu",
+          "WBC": "Beaven Sibanda",
+          "IBF": "Aaron De La Cruz Escobedo",
+          "WBO": "Ronald Chacon"
+        },
+        {
+          "rank": 4,
+          "WBA": "Katsuki Mori",
+          "WBC": "Joseph Sumabong",
+          "IBF": "Brandon Moreno",
+          "WBO": "Dianxing Zhu"
+        },
+        {
+          "rank": 5,
+          "WBA": "Joseph Sumabong",
+          "WBC": "Dianxing Zhu",
+          "IBF": "Christian Balunan",
+          "WBO": "Joseph Sumabong"
         }
       ]
     }
