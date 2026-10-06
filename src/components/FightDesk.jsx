@@ -5,6 +5,7 @@ import rankingEdition from '../../public/news/rankings.json';
 import { useArticles } from '../hooks/useArticles.js';
 import { ExternalLink } from './EditorialSections.jsx';
 import { AffiliateLink, AffiliateDisclosure } from './Monetization.jsx';
+import { fighterHref } from '../data/seoEntities.js';
 export const fights = fightEdition.fights;
 export const todayCanary = () => new Intl.DateTimeFormat('en-CA', {timeZone:'Atlantic/Canary',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 
@@ -83,9 +84,10 @@ function FighterPortrait({ name, className = '', eager = false }) {
 }
 
 function FighterCell({ name, champion = false }) {
+ const href=fighterHref(name);
  return <div className={`aura-ranked-fighter ${champion ? 'aura-ranked-fighter--champion' : ''}`}>
   <FighterPortrait name={name} />
-  <span>{name || '—'}</span>
+  {href ? <Link to={href}>{name}</Link> : <span>{name || '—'}</span>}
  </div>;
 }
 
@@ -128,7 +130,7 @@ export function RingPoundForPound() {
     </div>
     <div className="aura-p4p-copy">
      <p className="aura-ed-kicker">#{fighter.rank} · {fighter.division}</p>
-     <h3>{fighter.name}</h3>
+     <h3>{fighterHref(fighter.name) ? <Link to={fighterHref(fighter.name)}>{fighter.name}</Link> : fighter.name}</h3>
      <p>{fighter.record}</p>
     </div>
    </article>)}
