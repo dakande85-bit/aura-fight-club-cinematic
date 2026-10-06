@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /cart
+
+Sitemap: https://aurafightclub.com/sitemap.xml
+Sitemap: https://aurafightclub.com/news-sitemap.xml
