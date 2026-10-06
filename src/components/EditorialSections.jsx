@@ -51,9 +51,34 @@ export function WatchSection() {
  return <section className="aura-ed-section" id="watch" aria-labelledby="watch-title"><div className="aura-ed-section-head"><div><p className="aura-ed-kicker">Inside fight week</p><h2 id="watch-title">Watch.</h2></div></div><div className="aura-watch-grid">{videos.map(item => <Video item={item} key={item.name} />)}</div></section>;
 }
 export function LifestyleSection() {
- const [imageFailed, setImageFailed] = useState(false);
- return <section className="aura-ed-section aura-life" id="lifestyle" aria-labelledby="lifestyle-title">
-   <div className="aura-life-image">{!imageFailed && <img src="/assets/category-support/footwear-cream-high.webp" alt="AURA cream high-top footwear concept with black trim" loading="lazy" decoding="async" width="1254" height="1254" onError={() => setImageFailed(true)} />}</div>
-   <div className="aura-life-copy"><p className="aura-ed-kicker">AURA / Lifestyle</p><h2 id="lifestyle-title">Footwear.</h2><p>Boxing-inspired footwear concepts for movement and everyday style.</p><div className="aura-life-links"><Link to="/footwear">Explore footwear</Link></div></div>
+ const lifestyle = [
+   { src: '/assets/category-support/apparel-cream-jacket.webp', alt: 'AURA cream lifestyle jacket concept' },
+   { src: '/assets/aura-live/campaign/campaign-trackjacket.webp', alt: 'AURA black performance jacket concept' },
+   { src: '/assets/products/aura-cream-boxing-gloves/card-product.webp', alt: 'AURA cream boxing gloves concept' },
+   { src: '/assets/aura-live/products/shorts.webp', alt: 'AURA black fight shorts concept' },
+   { src: '/assets/category-support/footwear-cream-low.webp', alt: 'AURA cream and black low-top footwear concept' },
+   { src: '/assets/category-support/footwear-black-high.webp', alt: 'AURA black high-top fight footwear concept' },
+   { src: '/assets/category-support/footwear-cream-high.webp', alt: 'AURA cream high-top footwear concept' },
+   { src: '/assets/aura-live/products/gloves-cream.webp', alt: 'AURA cream fight glove concept' },
+   { src: '/assets/category-support/equipment-gloves-grip.webp', alt: 'AURA training glove concept' }
+ ];
+ return <section className="aura-ed-section aura-life aura-life--lookbook" id="lifestyle" aria-labelledby="lifestyle-title">
+   <header className="aura-life-intro">
+     <p className="aura-ed-kicker">AURA / Lifestyle</p>
+     <h1 id="lifestyle-title">Lifestyle.</h1>
+     <p className="aura-life-lead">AURA Fight Club is built for disciplined training, quiet confidence, and everyday combat lifestyle.</p>
+     <p>A growing design language across apparel, fight gear, travel pieces and footwear — concepts shaped by the gym, built to live beyond it.</p>
+   </header>
+   <div className="aura-life-grid">
+     {lifestyle.map((item, index) => <figure className={`aura-life-tile aura-life-tile--${index + 1}`} key={item.src}>
+       <img src={item.src} alt={item.alt} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" />
+     </figure>)}
+   </div>
+   <aside className="aura-life-private">
+     <p className="aura-ed-kicker">Private access</p>
+     <h2>Join the Fight Club.</h2>
+     <p>Get first access to exclusive designs, limited concepts, private drops and what AURA is building next.</p>
+     <Link to="/members" className="aura-life-cta">Join the Fight Club</Link>
+   </aside>
  </section>;
 }
