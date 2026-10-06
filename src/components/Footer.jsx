@@ -6,12 +6,17 @@ const BOXING_LINKS = [
   { label: 'Fight Calendar', href: '/calendar' },
   { label: 'Rankings', href: '/rankings' },
   { label: 'Watch', href: '/watch' },
+  { label: 'Fighters', href: '/fighters' },
+  { label: 'Topics', href: '/topics' },
+  { label: 'Guides', href: '/guides' },
 ];
 
 const AURA_LINKS = [
   { label: 'Lifestyle', href: '/lifestyle' },
   { label: 'Our Story', href: '/who-we-are' },
   { label: 'Members', href: '/members' },
+  { label: 'Editorial Policy', href: '/editorial-policy' },
+  { label: 'Corrections', href: '/corrections' },
 ];
 
 const CONNECT_LINKS = [
