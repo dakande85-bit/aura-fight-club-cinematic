@@ -1,4 +1,10 @@
 {
+  "redirects": [
+    { "source": "/our-story", "destination": "/who-we-are", "permanent": true },
+    { "source": "/cinematic", "destination": "/who-we-are", "permanent": true },
+    { "source": "/fightclub", "destination": "/fight-club", "permanent": true },
+    { "source": "/made-to-order", "destination": "/pre-orders", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
