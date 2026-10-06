@@ -3,100 +3,73 @@ import Footer from '../components/Footer.jsx';
 import '../styles/our-story.css';
 import '../styles/our-story-expanded.css';
 
-const standards = [
+const pillars = [
   {
-    title: 'Comfort',
-    copy: 'The first test is how it feels on the body. AURA pieces should be easy to train in, easy to travel in, and comfortable enough to keep on after the session.',
+    title: 'NEWS',
+    copy: 'Independent boxing news, analysis, rankings, fight build-up and reaction — with enough context to explain why the story matters.',
   },
   {
-    title: 'Fit',
-    copy: 'The silhouette must look clean without trying too hard. The goal is a composed athletic shape that works in the gym and outside it.',
+    title: 'YOUTUBE',
+    copy: 'Original video stories, interviews, breakdowns, documentaries and opinion built for people who want more than clips and headlines.',
   },
   {
-    title: 'Finish',
-    copy: 'Print placement, logo scale, fabric feel, stitching, trims, and colour balance all matter. AURA should feel considered, not like random merch.',
+    title: 'LIFESTYLE',
+    copy: 'The culture around the fight game: style, training, design and limited member-led concepts inspired by boxing without becoming generic merch.',
   },
   {
-    title: 'Use',
-    copy: 'Every product needs a clear role in the daily routine: training, recovery, travel, work, errands, or everyday movement.',
+    title: 'COMMUNITY',
+    copy: 'A place for boxing people to follow the sport, debate the big questions and become part of what AURA builds next.',
   },
 ];
 
-const lifestyleCards = [
+const platformCards = [
   {
-    title: 'Train',
-    copy: 'Clothing for the warm-up, the session, and the discipline around the work.',
+    title: 'Read',
+    copy: 'Breaking stories, credible reporting, strong opinion and deeper features across the global fight game.',
     image: '/assets/our-story/our-story-04-rhythm.webp',
-    alt: 'AURA training rhythm visual',
+    alt: 'AURA Fight Club editorial boxing visual',
   },
   {
-    title: 'Recover',
-    copy: 'Soft layers for rest days, post-training, travel, and the quieter hours after pressure.',
+    title: 'Watch',
+    copy: 'YouTube is where the stories expand: interviews, fight analysis, profiles, documentaries and original boxing formats.',
     image: '/assets/category-support/apparel-cream-jacket.webp',
-    alt: 'AURA cream lifestyle layer',
+    alt: 'AURA Fight Club video and culture visual',
   },
   {
-    title: 'Move',
-    copy: 'A clean everyday uniform for people moving through work, family, travel, and training.',
+    title: 'Live',
+    copy: 'AURA extends beyond the screen into the lifestyle, attitude and design language of boxing culture.',
     image: '/assets/our-story/our-story-09-arrival.webp',
-    alt: 'AURA everyday arrival visual',
-  },
-];
-
-const productGallery = [
-  {
-    title: 'Apparel',
-    copy: 'T-shirts, hoodies, joggers, and tanks built around comfort, clean fit, and daily wear.',
-    image: '/assets/aura-live/campaign/campaign-tee.webp',
-    alt: 'AURA t-shirt product visual',
-  },
-  {
-    title: 'Layers',
-    copy: 'Hoodies and jackets that work before training, after training, and on the road.',
-    image: '/assets/category-support/apparel-black-hoodie.webp',
-    alt: 'AURA black hoodie visual',
-  },
-  {
-    title: 'Movement',
-    copy: 'Future footwear and movement pieces extend the AURA uniform beyond the first clothing drop.',
-    image: '/assets/products/aura-cream-fight-boots/card-product.webp',
-    alt: 'AURA cream footwear preview',
-  },
-  {
-    title: 'Accessories',
-    copy: 'Bottles, bags, gloves, and carry pieces complete the training-to-lifestyle system.',
-    image: '/assets/products/aura-cream-boxing-gloves/card-product.webp',
-    alt: 'AURA cream accessory preview',
+    alt: 'AURA Fight Club lifestyle visual',
   },
 ];
 
 const journey = [
   {
     number: '01',
-    label: 'Purpose',
-    title: 'Made for the everyday fighter',
-    body: 'The everyday fighter is not only someone in a ring. It is the person who trains, works, handles pressure, recovers, provides, travels, learns, and still keeps moving. AURA is clothing for that rhythm.',
-    micro: 'Discipline without costume.',
+    label: 'The sport',
+    title: 'BOXING COMES FIRST',
+    body: 'AURA Fight Club starts with the sport itself. Fighters, fights, rankings, rivalries, prospects, promoters, business and the stories shaping boxing now. We want the site to be useful before it is fashionable.',
+    micro: 'Know the fight. Know the story.',
     image: '/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.webp',
-    alt: 'AURA cream uniform on model',
+    alt: 'AURA Fight Club visual',
   },
   {
     number: '02',
-    label: 'Lifestyle',
-    title: 'From training floor to daily life',
-    body: 'AURA should not feel trapped inside the gym. The clothes need to work during training, on the way home, in the airport, on errands, and through the normal day.',
-    micro: 'Train in it. Live in it.',
+    label: 'The stories',
+    title: 'MORE THAN THE HEADLINE',
+    body: 'The news feed tells you what happened. Our features, analysis and YouTube channel are built to go further — asking what it means, what comes next and what everyone else may be missing.',
+    micro: 'Context. Opinion. Film.',
     image: '/assets/products/aura-sleeveless-hoodie/card-hover-model.webp',
-    alt: 'AURA apparel on model',
+    alt: 'AURA Fight Club storytelling visual',
   },
   {
     number: '03',
-    label: 'Quality',
-    title: 'Not throwaway merch',
-    body: 'The standard is simple: better fit, better feel, better finish. The product should look premium, hold the brand identity, and still be useful enough to wear again and again.',
-    micro: 'Comfort, fit, finish, use.',
+    label: 'The culture',
+    title: 'BOXING DOES NOT END AT THE BELL',
+    body: 'Fight culture has always influenced music, fashion, photography, language and identity. AURA Lifestyle explores that world with a cleaner, more considered point of view and exclusive concepts for members.',
+    micro: 'Fight culture, without the costume.',
     image: '/assets/category-support/apparel-training-vest.webp',
-    alt: 'AURA training vest visual',
+    alt: 'AURA Fight Club culture visual',
   },
 ];
 
@@ -125,43 +98,43 @@ export function WhoWeAreSections({ title = 'WHO WE ARE' }) {
     <main id="who-we-are">
       <section className="os-hero" aria-labelledby="our-story-title">
         <div className="os-hero__content">
-          <p className="os-eyebrow">AURA / BRAND STORY</p>
+          <p className="os-eyebrow">AURA FIGHT CLUB / OUR STORY</p>
           <h1 id="our-story-title">{title}</h1>
-          <p className="os-hero__subtitle">THE EVERYDAY FIGHTER LIFESTYLE.</p>
+          <p className="os-hero__subtitle">BOXING. STORIES. FILM. CULTURE.</p>
           <p className="os-hero__copy">
-            AURA was created for people who want training clothes that feel comfortable, fit clean, and still work outside the gym. It is a uniform for the everyday fighter: the person who trains, works, travels, recovers, handles pressure, and keeps going.
+            AURA Fight Club is an independent boxing media and culture platform. We cover the sport through news, analysis and original stories, bring those stories to life on YouTube, and explore the lifestyle that exists around the fight game.
           </p>
-          <p className="os-hero__micro">Comfort first. Strong identity always.</p>
+          <p className="os-hero__micro">Built for people who follow boxing beyond fight night.</p>
         </div>
         <StoryImage
           src="/assets/aura-scroll/05_drop_001_tools_uniform/frame_09_cream_full_outfit_model.webp"
-          alt="AURA cream training-to-lifestyle outfit on model"
+          alt="AURA Fight Club hero visual"
           eager
         />
       </section>
 
       <section className="os-origin" aria-labelledby="origin-title">
         <div className="os-section-head">
-          <p className="os-eyebrow">ORIGIN</p>
-          <h2 id="origin-title">WHY AURA EXISTS</h2>
+          <p className="os-eyebrow">THE IDEA</p>
+          <h2 id="origin-title">NOT JUST ANOTHER BOXING SITE</h2>
         </div>
         <div className="os-origin__copy">
-          <p>Most training clothing falls into two weak places: it is either plain gym kit with no identity, or loud merchandise that does not feel premium enough for real daily wear.</p>
-          <p>AURA sits between training and lifestyle. The brand is built around comfortable pieces, clean silhouettes, minimal branding, and a fight-inspired mindset that can carry through the whole day.</p>
-          <p>The idea is not to dress like a fighter for attention. The idea is to dress with the discipline, confidence, and composure of someone who is always preparing for the next round of life.</p>
+          <p>Boxing coverage is often split between fast news, promotional content and social-media noise. AURA was built to connect the pieces.</p>
+          <p>We want one place where a fan can discover what is happening, understand the bigger story, watch original coverage and stay connected to the culture surrounding the sport.</p>
+          <p>That means serious boxing coverage first — then film, personality, design and lifestyle around it. The same audience should be able to move naturally from a breaking story to a long-form video to a piece of AURA culture without feeling like they have entered a different brand.</p>
         </div>
       </section>
 
-      <section className="os-lifestyle" aria-labelledby="lifestyle-title">
+      <section className="os-lifestyle" aria-labelledby="platform-title">
         <div className="os-lifestyle__intro">
-          <p className="os-eyebrow">LIFESTYLE</p>
-          <h2 id="lifestyle-title">EVERYDAY FIGHTER</h2>
+          <p className="os-eyebrow">THE PLATFORM</p>
+          <h2 id="platform-title">READ. WATCH. LIVE IT.</h2>
           <p>
-            The everyday fighter lifestyle is about training, recovery, travel, work, family, and pressure. AURA should feel natural in each setting, not like costume clothing that only works for one photo.
+            AURA Fight Club is built around three connected experiences. The website keeps you informed. YouTube takes you deeper. Lifestyle turns the identity of the fight game into something you can be part of.
           </p>
         </div>
         <div className="os-lifestyle-grid">
-          {lifestyleCards.map((card) => (
+          {platformCards.map((card) => (
             <article className="os-lifestyle-card" key={card.title}>
               <img src={card.image} alt={card.alt} loading="lazy" decoding="async" />
               <div>
@@ -173,20 +146,20 @@ export function WhoWeAreSections({ title = 'WHO WE ARE' }) {
         </div>
       </section>
 
-      <section className="os-quality" aria-labelledby="quality-title">
+      <section className="os-quality" aria-labelledby="pillars-title">
         <div className="os-quality__grid">
           <div>
-            <p className="os-eyebrow">PRODUCT STANDARD</p>
-            <h2 id="quality-title">QUALITY IS THE BRAND</h2>
+            <p className="os-eyebrow">WHAT WE DO</p>
+            <h2 id="pillars-title">ONE FIGHT CLUB. FOUR PILLARS.</h2>
           </div>
           <div className="os-quality__copy">
-            <p>AURA cannot just be a logo on clothing. The product has to earn the brand. That means the blank, fabric feel, print finish, sizing, shape, colour, and daily comfort all matter.</p>
-            <p>Every release should be judged by whether someone would actually wear it through a full day: training, recovery, travel, errands, and normal life. If the product is not comfortable, useful, and visually strong, it should not carry the AURA name.</p>
+            <p>AURA is not trying to be a promoter, a fan page or a clothing store pretending to be media. The core product is the boxing audience and the quality of what we give them.</p>
+            <p>Every part of the platform should strengthen the others: credible news builds trust, original video builds personality, lifestyle builds identity, and membership builds community.</p>
           </div>
         </div>
 
         <div className="os-standard-grid">
-          {standards.map((item, index) => (
+          {pillars.map((item, index) => (
             <article className="os-standard-card" key={item.title}>
               <span>{String(index + 1).padStart(2, '0')}</span>
               <div>
@@ -200,10 +173,10 @@ export function WhoWeAreSections({ title = 'WHO WE ARE' }) {
 
       <section className="os-journey" aria-labelledby="journey-title">
         <div className="os-journey__intro">
-          <p className="os-eyebrow">THE SYSTEM</p>
-          <h2 id="journey-title">TRAINING TO LIFESTYLE</h2>
+          <p className="os-eyebrow">OUR POINT OF VIEW</p>
+          <h2 id="journey-title">THE FIGHT GAME, IN FULL</h2>
           <p>
-            AURA begins with clothing but builds toward a full uniform: apparel, footwear, accessories, carry pieces, and training products that all share the same standard of comfort, fit, and composed identity.
+            We are interested in the whole ecosystem — what happens in the ring, what happens behind it, and the culture boxing creates outside it.
           </p>
         </div>
 
@@ -225,53 +198,29 @@ export function WhoWeAreSections({ title = 'WHO WE ARE' }) {
         </div>
       </section>
 
-      <section className="os-product-gallery" aria-labelledby="gallery-title">
-        <div className="os-product-gallery__intro">
-          <p className="os-eyebrow">THE UNIFORM</p>
-          <h2 id="gallery-title">PRODUCTS WITH PURPOSE</h2>
-          <p>
-            Every category has to support the same lifestyle: pieces that help someone feel comfortable, prepared, and put together before training, after training, and throughout the day.
-          </p>
-        </div>
-        <div className="os-gallery-grid">
-          {productGallery.map((item) => (
-            <article className="os-gallery-card" key={item.title}>
-              <div className="os-gallery-card__media">
-                <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
-              </div>
-              <div className="os-gallery-card__copy">
-                <span>{item.title}</span>
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section className="os-manifesto" aria-labelledby="manifesto-title">
-        <p className="os-eyebrow">DESIGN STANDARD</p>
-        <h2 id="manifesto-title">A UNIFORM FOR THE DAY</h2>
+        <p className="os-eyebrow">THE STANDARD</p>
+        <h2 id="manifesto-title">CREDIBLE ENOUGH FOR HARDCORE FANS. ACCESSIBLE ENOUGH FOR EVERYONE ELSE.</h2>
         <div className="os-manifesto__copy">
-          <p>AURA is not built to be loud. It is built to feel composed.</p>
-          <p>The clothing should be comfortable enough to train in, clean enough to travel in, and strong enough to carry identity without shouting.</p>
-          <p>Comfortable movement.</p>
-          <p>Clean silhouettes.</p>
-          <p>Premium finish.</p>
-          <p>Training-to-lifestyle versatility.</p>
-          <p>Accessories that complete the look.</p>
+          <p>We respect the intelligence of boxing fans.</p>
+          <p>We explain the sport without flattening it.</p>
+          <p>We separate reporting from opinion.</p>
+          <p>We look beyond the obvious headline.</p>
+          <p>We give emerging fighters the same curiosity we give established stars.</p>
+          <p>And we build everything — articles, video and lifestyle — with a strong visual identity.</p>
         </div>
       </section>
 
       <section className="os-closing" aria-labelledby="closing-title">
-        <p className="os-eyebrow">AURA</p>
-        <h2 id="closing-title">BUILT FOR THE WHOLE DAY.</h2>
+        <p className="os-eyebrow">AURA FIGHT CLUB</p>
+        <h2 id="closing-title">FOLLOW THE SPORT. UNDERSTAND THE STORY. JOIN THE CULTURE.</h2>
         <p>
-          AURA is for people who train, work, recover, travel, and keep going. Comfortable clothing first. Product quality always. Strong identity without noise.
+          Read the latest boxing coverage, watch AURA original content and explore the lifestyle side of the fight game. This is a fight club built for the audience.
         </p>
-        <div className="os-actions" aria-label="Story actions">
-          <a className="os-btn os-btn--shop" href="/drop-001">SHOP DROP 001</a>
-          <a className="os-btn os-btn--ghost" href="/apparel">VIEW APPAREL</a>
+        <div className="os-actions" aria-label="Explore AURA Fight Club">
+          <a className="os-btn os-btn--shop" href="/news">READ THE NEWS</a>
+          <a className="os-btn os-btn--ghost" href="/watch">WATCH AURA</a>
+          <a className="os-btn os-btn--ghost" href="/lifestyle">EXPLORE LIFESTYLE</a>
         </div>
       </section>
     </main>
