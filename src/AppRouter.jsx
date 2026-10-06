@@ -22,6 +22,7 @@ import AdminSuppliers from './pages/AdminSuppliers.jsx';
 import AdminMonetization from './pages/AdminMonetization.jsx';
 import Advertise from './pages/Advertise.jsx';
 import CommercialPolicy from './pages/CommercialPolicy.jsx';
+import MembersPage from './pages/Members.jsx';
 import { PrivacyPolicy, CookiePolicy, Terms } from './pages/LegalPages.jsx';
 import { NewsPage, WatchPage, LifestylePage, ArticlePage, CalendarPage, RankingsPage, FightPage } from './pages/EditorialPages.jsx';
 
@@ -37,6 +38,7 @@ export default function AppRouter() {
         <Route path="/fights/:id" element={<FightPage />} />
         <Route path="/watch" element={<WatchPage />} />
         <Route path="/lifestyle" element={<LifestylePage />} />
+        <Route path="/members" element={<MembersPage />} />
         <Route path="/advertise" element={<Advertise />} />
         <Route path="/commercial-policy" element={<CommercialPolicy />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
