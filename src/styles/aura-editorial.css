@@ -93,3 +93,69 @@
  .aura-ranked-fighter{min-width:165px;gap:10px}
  .aura-rank-table td,.aura-rank-table thead th:not(:first-child){min-width:200px}
 }
+
+
+/* Fight calendar: premium event cards + broadcaster conversion */
+.aura-calendar{padding-top:54px}
+.aura-calendar-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.65fr);gap:40px;align-items:stretch;margin-bottom:38px}
+.aura-calendar-hero__copy{padding:34px 0 28px}
+.aura-calendar-hero__copy h1,.aura-calendar-hero__copy h2{font-size:clamp(4rem,8vw,8.5rem);max-width:880px;margin:0 0 24px;line-height:.9}
+.aura-calendar-hero__copy>p:last-child{font-size:20px;line-height:1.55;color:#4d554f;max-width:740px}
+.aura-dazn-panel{background:#171918;color:#fff;padding:34px;border:1px solid #171918;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;min-height:330px;position:relative;overflow:hidden}
+.aura-dazn-panel:before{content:"";position:absolute;right:-70px;top:-90px;width:250px;height:250px;border:1px solid rgba(214,181,109,.35);transform:rotate(25deg)}
+.aura-dazn-panel__brand{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:900;font-style:italic;font-size:64px;line-height:.8;letter-spacing:-.05em;margin-bottom:auto}
+.aura-dazn-panel h2{font-size:42px;margin:4px 0 12px}
+.aura-dazn-panel>p:not(.aura-ed-kicker):not(.aura-affiliate-disclosure){color:#d6d9d5;line-height:1.55;margin-bottom:22px}
+.aura-dazn-panel .aura-affiliate-disclosure{color:#9fa59f;margin:18px 0 0;font-size:11px}
+.aura-calendar-cta{display:inline-flex;align-items:center;justify-content:center;background:#d6b56d!important;color:#171918!important;border:1px solid #d6b56d!important;padding:14px 20px!important;font-weight:900!important;text-transform:uppercase;letter-spacing:.04em;text-decoration:none!important}
+.aura-calendar-cta:hover{background:#fff!important;color:#171918!important}
+.aura-calendar-cta--small{padding:10px 14px!important;font-size:13px}
+.aura-fight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.aura-fight-card{background:#fff;border:1px solid var(--aura-line);overflow:hidden;min-width:0;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.aura-fight-card:hover{transform:translateY(-3px);border-color:#b69a63;box-shadow:0 18px 42px rgba(23,25,24,.08)}
+.aura-fight-card--featured{border-top:4px solid #856122}
+.aura-fight-card__visual{height:250px;background:radial-gradient(circle at 50% 120%,#7d6c4e 0,#252927 48%,#111 100%);display:grid;grid-template-columns:1fr 58px 1fr;align-items:end;position:relative;overflow:hidden;padding:20px 28px 0}
+.aura-fight-card__visual:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 56%,rgba(0,0,0,.35));pointer-events:none}
+.aura-fighter-portrait--calendar{width:100%;height:220px;border:0;border-radius:0;background:transparent;align-self:end;z-index:1}
+.aura-fighter-portrait--calendar img{object-fit:cover;object-position:center top;filter:saturate(.85) contrast(1.06)}
+.aura-fighter-portrait--calendar>span{align-self:center;color:#fff;font-size:48px;text-shadow:0 4px 20px #000}
+.aura-fight-card__vs{align-self:center;justify-self:center;z-index:2;color:#fff;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:30px;font-weight:900;border:1px solid rgba(255,255,255,.55);border-radius:50%;width:52px;height:52px;display:grid;place-items:center;background:rgba(0,0,0,.35)}
+.aura-fight-card__badge{position:absolute;left:18px;top:18px;z-index:3;background:#d6b56d;color:#171918;padding:7px 10px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.1em}
+.aura-fight-card__body{padding:26px}
+.aura-fight-card__meta{display:flex;justify-content:space-between;gap:14px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#856122;margin-bottom:12px}
+.aura-fight-card h3{font-size:clamp(2rem,3.3vw,3rem);margin:0 0 12px;line-height:.95}
+.aura-fight-card__blurb{font-size:16px!important;line-height:1.55!important;color:#59615b!important;margin-bottom:20px}
+.aura-fight-card dl{display:grid;gap:8px;margin:0 0 22px}
+.aura-fight-card dl>div{display:grid;grid-template-columns:85px 1fr;gap:12px;padding-top:8px;border-top:1px solid #eceeea}
+.aura-fight-card dt{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#787f79;font-weight:800}
+.aura-fight-card dd{margin:0;font-size:14px;line-height:1.45;font-weight:600}
+.aura-fight-card__actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.aura-fight-card__actions>a:not(.aura-calendar-cta){font-weight:750;border-bottom:1px solid #a8936c;padding-bottom:4px}
+.aura-calendar-bottom-cta{margin-top:34px;padding:30px 34px;background:#ebe7dd;border:1px solid #d8cfbc;display:flex;align-items:end;justify-content:space-between;gap:28px}
+.aura-calendar-bottom-cta h2{font-size:38px;margin:0 0 7px}
+.aura-calendar-bottom-cta p:not(.aura-ed-kicker){color:#59615b;max-width:700px;line-height:1.55}
+.aura-calendar--compact .aura-calendar-hero{display:block;margin-bottom:12px}
+.aura-calendar--compact .aura-calendar-hero__copy{padding:0}
+.aura-calendar--compact .aura-calendar-hero__copy h2{font-size:clamp(3rem,6vw,6rem)}
+.aura-calendar--compact .aura-fight-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.aura-calendar--compact .aura-fight-card__visual{height:180px;padding:16px 18px 0}
+.aura-calendar--compact .aura-fighter-portrait--calendar{height:160px}
+.aura-calendar--compact .aura-fight-card__body{padding:20px}
+@media(max-width:1000px){
+ .aura-calendar-hero{grid-template-columns:1fr}
+ .aura-dazn-panel{min-height:260px}
+ .aura-calendar--compact .aura-fight-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+ .aura-calendar{padding-top:34px}
+ .aura-calendar-hero__copy{padding-top:0}
+ .aura-calendar-hero__copy h1,.aura-calendar-hero__copy h2{font-size:clamp(3.5rem,18vw,5.8rem)}
+ .aura-dazn-panel{padding:26px;min-height:280px}
+ .aura-dazn-panel__brand{font-size:52px}
+ .aura-fight-grid,.aura-calendar--compact .aura-fight-grid{grid-template-columns:1fr}
+ .aura-fight-card__visual{height:220px;padding:18px 20px 0}
+ .aura-fighter-portrait--calendar{height:200px}
+ .aura-fight-card__body{padding:22px}
+ .aura-fight-card__meta{align-items:start;flex-direction:column;gap:4px}
+ .aura-calendar-bottom-cta{align-items:flex-start;flex-direction:column;padding:26px}
+}
