@@ -299,11 +299,11 @@
         "The hype is finished. Now the career gets interesting."
       ],
       "image": {
-        "src": "https://aurafightclub.com/assets/aura-live/hero/hero-fighter-stance.png",
-        "alt": "AURA Fight Club editorial boxing image used for the Moses Itauma analysis",
-        "credit": "AURA Fight Club",
-        "caption": "AURA editorial image. The analysis examines Moses Itauma’s development after his first professional defeat.",
-        "sourceUrl": "https://aurafightclub.com/"
+        "src": "https://cdn-img.boxingnewsonline.net/uploads/content/1788078418256414370/Boxing-News_20260830_092603_0000.jpg",
+        "alt": "Moses Itauma and Filip Hrgovic after their August 2026 heavyweight world-title fight",
+        "credit": "Getty Images via Boxing News",
+        "caption": "Moses Itauma’s first professional defeat to Filip Hrgovic is the central test examined in this AURA analysis.",
+        "sourceUrl": "https://boxingnewsonline.net/news/hrgovic-on-moses-itauma-ability/"
       }
     },
     {
@@ -1067,11 +1067,11 @@
       "source": "FIGHTMAG",
       "sourceUrl": "https://www.fightmag.com/denzel-bentley-to-vacate-wbo-title-set-to-return-at-zuffa-boxing-12/",
       "image": {
-        "src": "https://www.fightmag.com/wp-content/uploads/2026/09/zuffa-boxing-banner-3arena-dublin-696x464.jpg",
-        "alt": "Zuffa Boxing banner at the Dublin event on 8 August 2026",
-        "credit": "Ed Mulholland / Zuffa Boxing, via FIGHTMAG",
-        "caption": "Archive image: Zuffa Boxing banner in Dublin, 8 August 2026.",
-        "sourceUrl": "https://www.fightmag.com/denzel-bentley-to-vacate-wbo-title-set-to-return-at-zuffa-boxing-12/"
+        "src": "https://cdn-img.boxingnewsonline.net/uploads/denzel-bentley.webp",
+        "alt": "Denzel Bentley in the ring wearing boxing gloves and a championship belt",
+        "credit": "Boxing News",
+        "caption": "Denzel Bentley, the fighter at the centre of the reported Zuffa Boxing move.",
+        "sourceUrl": "https://boxingnewsonline.net/boxer/denzel-bentley/"
       },
       "category": "Headlines",
       "date": "2026-10-01",
@@ -1178,5 +1178,5 @@
       "priority": 0
     }
   ],
-  "updatedAt": "2026-10-06T06:18:35.093Z"
+  "updatedAt": "2026-10-06T06:28:42.846Z"
 }
