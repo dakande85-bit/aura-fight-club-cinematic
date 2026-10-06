@@ -26,6 +26,7 @@ import CommercialPolicy from './pages/CommercialPolicy.jsx';
 import MembersPage from './pages/Members.jsx';
 import { PrivacyPolicy, CookiePolicy, Terms } from './pages/LegalPages.jsx';
 import { NewsPage, WatchPage, LifestylePage, ArticlePage, CalendarPage, RankingsPage, FightPage } from './pages/EditorialPages.jsx';
+import { FightersIndexPage, FighterProfilePage, TopicsIndexPage, TopicPage, GuidesIndexPage, GuidePage, AuthorPage, EditorialPolicyPage, CorrectionsPolicyPage } from './pages/DiscoveryPages.jsx';
 
 export default function AppRouter() {
   return (
@@ -35,6 +36,15 @@ export default function AppRouter() {
         <Route path="/" element={<HomeStaticHero />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/news/:slug" element={<ArticlePage />} />
+        <Route path="/fighters" element={<FightersIndexPage />} />
+        <Route path="/fighters/:slug" element={<FighterProfilePage />} />
+        <Route path="/topics" element={<TopicsIndexPage />} />
+        <Route path="/topics/:slug" element={<TopicPage />} />
+        <Route path="/guides" element={<GuidesIndexPage />} />
+        <Route path="/guides/:slug" element={<GuidePage />} />
+        <Route path="/authors/dare-akande" element={<AuthorPage />} />
+        <Route path="/editorial-policy" element={<EditorialPolicyPage />} />
+        <Route path="/corrections" element={<CorrectionsPolicyPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/rankings" element={<RankingsPage />} />
         <Route path="/fights/:id" element={<FightPage />} />
