@@ -8,6 +8,7 @@ const navItems = [
   { label: 'Watch', href: '/watch' },
   { label: 'Lifestyle', href: '/lifestyle' },
   { label: 'Our Story', href: '/who-we-are' },
+  { label: 'Members', href: '/members' },
 ];
 
 export default function Header() {
@@ -49,7 +50,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <a className="header__cta header__cta--desktop" href="/cart">Cart</a>
+        <a className="header__cta header__cta--desktop" href="/members">Join Members</a>
 
         <button
           className={menuButtonClass}
@@ -74,7 +75,7 @@ export default function Header() {
           {navItems.map(item => (
             <a key={item.href} href={item.href} onClick={closeMenu}>{item.label}</a>
           ))}
-          <a className="header__mobile-cta" href="/cart" onClick={closeMenu}>Cart</a>
+          <a className="header__mobile-cta" href="/members" onClick={closeMenu}>Join Members</a>
         </nav>
       </aside>
 
