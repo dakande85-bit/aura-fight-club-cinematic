@@ -297,7 +297,14 @@
         "Hrgovic gave him more developmental information in nine rounds than another sequence of early knockouts could have supplied. The talent looked real. So did the gaps.",
         "Calling him a hype job at 21 misunderstands both the fight and the purpose of development.",
         "The hype is finished. Now the career gets interesting."
-      ]
+      ],
+      "image": {
+        "src": "https://aurafightclub.com/assets/aura-live/hero/hero-fighter-stance.png",
+        "alt": "AURA Fight Club editorial boxing image used for the Moses Itauma analysis",
+        "credit": "AURA Fight Club",
+        "caption": "AURA editorial image. The analysis examines Moses Itauma’s development after his first professional defeat.",
+        "sourceUrl": "https://aurafightclub.com/"
+      }
     },
     {
       "slug": "who-has-the-power-in-boxing",
@@ -1171,5 +1178,5 @@
       "priority": 0
     }
   ],
-  "updatedAt": "2026-10-05T15:49:26.282Z"
+  "updatedAt": "2026-10-06T06:18:35.093Z"
 }
