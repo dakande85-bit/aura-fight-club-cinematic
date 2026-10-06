@@ -76,6 +76,10 @@
 .aura-belt-key small{font-size:12px;color:#68706a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .aura-belt-mark{display:inline-flex;width:84px;max-width:100%;flex:0 0 auto}
 .aura-belt-mark svg{display:block;width:100%;height:auto;filter:drop-shadow(0 4px 5px rgba(0,0,0,.15))}
+.aura-weight-class-grid{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;padding:18px;background:#f2f1ec;border:1px solid var(--aura-line)}
+.aura-weight-class-grid button{appearance:none;border:1px solid #cfd3cc;background:#fff;color:#313632;padding:10px 13px;font:800 13px/1.1 'Barlow Condensed','Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.055em;cursor:pointer;transition:background .16s ease,color .16s ease,border-color .16s ease,transform .16s ease}
+.aura-weight-class-grid button:hover{transform:translateY(-1px);border-color:#a88645}
+.aura-weight-class-grid button.is-active{background:#171918;color:#fff;border-color:#171918}
 .aura-rank-belt-head{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:120px}
 .aura-rank-belt-head .aura-belt-mark{width:72px;margin-bottom:3px}
 .aura-rank-belt-head strong{font-size:18px}
@@ -89,6 +93,8 @@
  .aura-belt-key{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
  .aura-belt-key button{flex:0 0 210px;scroll-snap-align:start}
  .aura-belt-mark{width:72px}
+ .aura-weight-class-grid{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding:12px;margin-bottom:18px}
+ .aura-weight-class-grid button{flex:0 0 auto;scroll-snap-align:start}
  .aura-fighter-portrait{width:46px;height:46px;border-radius:12px}
  .aura-ranked-fighter{min-width:165px;gap:10px}
  .aura-rank-table td,.aura-rank-table thead th:not(:first-child){min-width:200px}
