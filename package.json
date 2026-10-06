@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prebuild": "node scripts/generate-sitemaps.mjs",
+    "seo:generate": "node scripts/generate-sitemaps.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
