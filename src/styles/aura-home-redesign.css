@@ -1,0 +1,65 @@
+:root{--afc-black:#080808;--afc-panel:#11110f;--afc-cream:#f4efe5;--afc-gold:#d6aa62;--afc-muted:#a9a69f;--afc-line:rgba(214,170,98,.26)}
+.afc-home-shell{background:var(--afc-black);color:#fff;min-height:100vh}
+.afc-home-shell .header{background:rgba(7,7,7,.92)!important;border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(18px);position:sticky;top:0;z-index:80}
+.afc-home-shell .header__nav a{color:#e9e6df}
+.afc-home-shell .header__cta{background:var(--afc-gold)!important;color:#0b0b0a!important;border-color:var(--afc-gold)!important}
+.afc-home{background:linear-gradient(180deg,#080808 0%,#0b0b0a 62%,#090909 100%);overflow:hidden}
+.afc-hero{min-height:860px;position:relative;padding:clamp(70px,8vw,130px) clamp(24px,5vw,76px) 36px;display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.94fr);align-items:center;border-bottom:1px solid var(--afc-line);isolation:isolate}
+.afc-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(214,170,98,.13),transparent 31%),linear-gradient(90deg,rgba(0,0,0,.94) 0%,rgba(0,0,0,.72) 45%,rgba(0,0,0,.1) 82%);z-index:-1}
+.afc-hero__noise{position:absolute;inset:0;opacity:.12;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E")}
+.afc-hero__copy{position:relative;z-index:2;max-width:790px;padding-bottom:170px}
+.afc-eyebrow{font-size:.76rem;letter-spacing:.24em;text-transform:uppercase;color:var(--afc-gold);font-weight:700;margin:0 0 18px}
+.afc-hero h1,.afc-hero h2{font-size:clamp(4.6rem,8.6vw,9rem);line-height:.82;letter-spacing:-.055em;margin:0;text-transform:uppercase;font-weight:950}
+.afc-hero h1 span,.afc-hero h2 span{color:var(--afc-gold)}
+.afc-hero__lede{font-size:clamp(1.05rem,1.65vw,1.38rem);line-height:1.55;color:#dedbd5;max-width:650px;margin:34px 0 30px}
+.afc-hero__actions{display:flex;gap:14px;flex-wrap:wrap}
+.afc-btn{display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:54px;padding:0 26px;border:1px solid var(--afc-gold);font-weight:800;text-transform:uppercase;letter-spacing:.05em;text-decoration:none!important;font-size:.86rem;transition:.25s ease}
+.afc-btn:hover{transform:translateY(-2px)}
+.afc-btn--gold{background:linear-gradient(135deg,#efd297,var(--afc-gold));color:#0a0907!important}
+.afc-btn--ghost{background:rgba(0,0,0,.18);color:#fff!important}
+.afc-hero__fighter{position:absolute;right:-1%;top:5%;width:min(55vw,810px);height:78%;z-index:0;display:flex;align-items:flex-end;justify-content:center;overflow:visible}
+.afc-hero__fighter::after{content:"";position:absolute;left:4%;right:-6%;bottom:-8%;height:24%;background:linear-gradient(to top,#080808 25%,transparent);z-index:2;pointer-events:none}
+.afc-hero__fighter img{height:100%;width:auto;max-width:100%;object-fit:cover;object-position:50% 28%;filter:contrast(1.08) saturate(.8) brightness(.82);mix-blend-mode:lighten;mask-image:linear-gradient(to bottom,transparent 0,#000 8%,#000 83%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 8%,#000 83%,transparent 100%)}
+.afc-hero__halo{position:absolute;width:76%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(214,170,98,.22),rgba(214,170,98,.05) 42%,transparent 70%);filter:blur(10px)}
+.afc-quick-grid{position:absolute;z-index:5;left:clamp(24px,5vw,76px);right:clamp(24px,5vw,76px);bottom:22px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.afc-quick-card{position:relative;display:grid;gap:9px;min-height:145px;padding:22px;border:1px solid rgba(255,255,255,.17);background:linear-gradient(145deg,rgba(16,16,15,.94),rgba(6,6,6,.82));color:#fff!important;text-decoration:none!important;backdrop-filter:blur(12px)}
+.afc-quick-card svg{color:var(--afc-gold)}
+.afc-quick-card strong{text-transform:uppercase;font-size:1rem;letter-spacing:.02em}
+.afc-quick-card span{color:#bdbab4;font-size:.86rem;line-height:1.45;max-width:210px}
+.afc-quick-card__arrow{position:absolute;right:20px;bottom:20px}
+.afc-members-strip{display:grid;grid-template-columns:1.4fr .6fr;gap:40px;align-items:center;padding:54px clamp(24px,5vw,76px);border-bottom:1px solid var(--afc-line);background:radial-gradient(circle at 10% 50%,rgba(214,170,98,.13),transparent 25%),linear-gradient(110deg,#0d0d0c,#14110d 55%,#090909)}
+.afc-members-strip h2,.afc-section-head h2,.afc-rankings-tease h2{font-size:clamp(2rem,3.2vw,4rem);line-height:.95;margin:0 0 14px;letter-spacing:-.035em;text-transform:uppercase}
+.afc-members-strip p:not(.afc-eyebrow){color:#c8c4bc;max-width:780px;line-height:1.6;margin:0}
+.afc-members-strip__benefits{display:flex;gap:20px;flex-wrap:wrap;margin-top:20px;color:#efe8db;font-size:.86rem}
+.afc-members-strip__benefits span{display:flex;align-items:center;gap:7px}
+.afc-members-strip__benefits svg{color:var(--afc-gold)}
+.afc-members-strip__actions{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.afc-text-link{color:#fff!important;text-decoration:none!important;display:inline-flex;align-items:center;gap:9px;font-weight:700}
+.afc-content-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,390px);gap:34px;padding:74px clamp(24px,5vw,76px)}
+.afc-section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:26px}
+.afc-section-head a{color:#d7d2ca!important;text-decoration:none!important;font-size:.82rem;display:inline-flex;align-items:center;gap:7px;text-transform:uppercase;font-weight:700}
+.afc-story-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.afc-story-card{border:1px solid rgba(255,255,255,.13);background:#0f0f0e;min-width:0}
+.afc-story-card__media{display:block;aspect-ratio:1.45/1;overflow:hidden;background:#151515}
+.afc-story-card__media img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.88) contrast(1.05);transition:transform .35s ease}
+.afc-story-card:hover img{transform:scale(1.025)}
+.afc-story-card__fallback{height:100%;display:grid;place-items:center;font-size:2rem;font-weight:900;color:var(--afc-gold);letter-spacing:.2em}
+.afc-story-card__body{padding:20px}
+.afc-story-card__body h3{font-size:clamp(1.15rem,1.7vw,1.55rem);line-height:1.12;margin:0 0 12px}
+.afc-story-card__body h3 a{color:#fff!important;text-decoration:none!important}
+.afc-story-card__body>p:last-child{color:#a9a69f;font-size:.9rem;line-height:1.5;margin:0}
+.afc-next-fights{min-width:0}
+.afc-fight-list{border-top:1px solid rgba(255,255,255,.14)}
+.afc-fight-row{display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:15px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.12);color:#fff!important;text-decoration:none!important}
+.afc-fight-row time{width:52px;height:56px;border:1px solid rgba(214,170,98,.5);display:grid;place-items:center;align-content:center}
+.afc-fight-row time b{font-size:1.05rem;line-height:1}
+.afc-fight-row time span{font-size:.7rem;color:var(--afc-gold);margin-top:4px}
+.afc-fight-row div{min-width:0;display:grid;gap:6px}
+.afc-fight-row strong{font-size:.96rem}
+.afc-fight-row div span{font-size:.77rem;color:#8f8b85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.afc-fight-row>svg{color:var(--afc-gold)}
+.afc-rankings-tease{margin:0 clamp(24px,5vw,76px) 82px;padding:50px;display:flex;justify-content:space-between;gap:30px;align-items:center;border:1px solid var(--afc-line);background:linear-gradient(135deg,#15130f,#0a0a09)}
+.afc-rankings-tease p:not(.afc-eyebrow){color:#aaa69d;margin:0;max-width:760px;line-height:1.55}
+.afc-home-shell .footer{border-top:1px solid rgba(214,170,98,.25)}
+@media(max-width:1050px){.afc-hero{grid-template-columns:1fr;min-height:900px;padding-top:80px}.afc-hero__copy{padding-bottom:250px;max-width:720px}.afc-hero__fighter{width:66vw;right:-8%;top:10%;height:70%}.afc-quick-grid{grid-template-columns:repeat(2,1fr)}.afc-content-grid{grid-template-columns:1fr}.afc-story-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.afc-hero{min-height:930px;padding:52px 20px 18px;display:block}.afc-hero::before{background:linear-gradient(180deg,#080808 0%,rgba(8,8,8,.92) 28%,rgba(8,8,8,.48) 60%,#080808 88%)}.afc-hero__copy{padding:0;position:relative;z-index:3}.afc-hero h1,.afc-hero h2{font-size:clamp(3.7rem,18vw,6rem)}.afc-hero__lede{font-size:1rem;max-width:92%;margin:24px 0}.afc-hero__fighter{top:330px;right:-22%;width:118vw;height:520px;opacity:.9}.afc-hero__fighter img{width:100%;height:100%;object-position:50% 20%;mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 72%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 72%,transparent 100%)}.afc-quick-grid{left:20px;right:20px;bottom:18px;grid-template-columns:repeat(2,1fr);gap:8px}.afc-quick-card{min-height:112px;padding:15px}.afc-quick-card span{display:none}.afc-quick-card__arrow{right:14px;bottom:14px}.afc-members-strip{grid-template-columns:1fr;padding:42px 20px}.afc-members-strip__actions{flex-direction:row;align-items:center;flex-wrap:wrap}.afc-content-grid{padding:54px 20px}.afc-story-grid{grid-template-columns:1fr}.afc-section-head{align-items:start}.afc-rankings-tease{margin:0 20px 58px;padding:30px 24px;display:grid}.afc-btn{min-height:50px;padding:0 20px}.afc-hero__actions{gap:10px}.afc-hero__actions .afc-btn{flex:1}.afc-home-shell .header__cta--desktop{display:none!important}}
