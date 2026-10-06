@@ -5,15 +5,7 @@ import HomeStaticHero from './components/HomeStaticHero.jsx';
 import LaunchLandingPage from './pages/LaunchLandingPage.jsx';
 import CinematicPage from './pages/CinematicPage.jsx';
 import CampaignPage from './pages/CampaignPage.jsx';
-import DropsPage from './pages/Drops.jsx';
-import Drop001Page from './pages/Drop001.jsx';
-import PreOrdersPage from './pages/PreOrders.jsx';
-import ProductDetailPage from './pages/ProductDetailRoute.jsx';
-import ApparelPage from './pages/Apparel.jsx';
-import FootwearPage from './pages/Footwear.jsx';
-import EquipmentPage from './pages/Equipment.jsx';
 import FightClubPage from './pages/FightClub.jsx';
-import CartPage from './pages/Cart.jsx';
 import AdminAssetManager from './pages/AdminAssetManager.jsx';
 import AdminPageMedia from './pages/AdminPageMedia.jsx';
 import AdminLaunchChecklist from './pages/AdminLaunchChecklist.jsx';
@@ -28,6 +20,19 @@ import MembersPage from './pages/Members.jsx';
 import { PrivacyPolicy, CookiePolicy, Terms } from './pages/LegalPages.jsx';
 import { NewsPage, WatchPage, LifestylePage, ArticlePage, CalendarPage, RankingsPage, FightPage } from './pages/EditorialPages.jsx';
 import { FightersIndexPage, FighterProfilePage, TopicsIndexPage, TopicPage, GuidesIndexPage, GuidePage, AuthorPage, EditorialPolicyPage, CorrectionsPolicyPage } from './pages/DiscoveryPages.jsx';
+
+const legacyLifestylePaths = [
+  '/shop',
+  '/apparel',
+  '/footwear',
+  '/accessories',
+  '/equipment',
+  '/drops',
+  '/drop-001',
+  '/pre-orders',
+  '/made-to-order',
+  '/cart',
+];
 
 export default function AppRouter() {
   return (
@@ -61,15 +66,15 @@ export default function AppRouter() {
         <Route path="/launch" element={<LaunchLandingPage />} />
         <Route path="/who-we-are" element={<CinematicPage />} />
         <Route path="/cinematic" element={<Navigate to="/who-we-are" replace />} />
-        <Route path="/drops" element={<DropsPage />} />
-        <Route path="/drop-001" element={<Drop001Page />} />
-        <Route path="/pre-orders" element={<PreOrdersPage />} />
-        <Route path="/made-to-order" element={<Navigate to="/pre-orders" replace />} />
-        <Route path="/product/:slug" element={<ProductDetailPage />} />
-        <Route path="/apparel" element={<ApparelPage />} />
-        <Route path="/footwear" element={<FootwearPage />} />
-        <Route path="/equipment" element={<EquipmentPage />} />
-        <Route path="/cart" element={<CartPage />} />
+
+        {legacyLifestylePaths.map((path) => (
+          <Route key={path} path={path} element={<Navigate to="/lifestyle" replace />} />
+        ))}
+        <Route path="/shop/*" element={<Navigate to="/lifestyle" replace />} />
+        <Route path="/collections/*" element={<Navigate to="/lifestyle" replace />} />
+        <Route path="/products/*" element={<Navigate to="/lifestyle" replace />} />
+        <Route path="/product/:slug" element={<Navigate to="/lifestyle" replace />} />
+
         <Route path="/our-story" element={<Navigate to="/who-we-are" replace />} />
         <Route path="/campaign" element={<CampaignPage />} />
         <Route path="/the-campaign" element={<CampaignPage />} />
