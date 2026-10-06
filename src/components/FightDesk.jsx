@@ -94,7 +94,7 @@ function FighterPortrait({ name, className = '', eager = false, combatOnly = fal
 
  return <span className={`aura-fighter-portrait ${className} ${isVacant ? 'aura-fighter-portrait--vacant' : ''}`} aria-hidden="true">
   {src
-   ? <img src={src} alt="" loading={eager ? 'eager' : 'lazy'} referrerPolicy="no-referrer" onError={() => { portraitCache.set(cleanName, { status: 'missing' }); setSrc(''); }} />
+   ? <img src={src} alt="" loading={eager ? 'eager' : 'lazy'} referrerPolicy="no-referrer" onError={() => { portraitCache.set(cacheKey, { status: 'missing' }); setSrc(''); }} />
    : <span>{isVacant ? '—' : initialsFor(name)}</span>}
  </span>;
 }
