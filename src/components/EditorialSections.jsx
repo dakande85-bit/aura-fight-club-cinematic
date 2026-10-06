@@ -8,13 +8,21 @@ export function ExternalLink({ href, children, className = '' }) {
 }
 export function StoryImage({ article, linked = false, eager = false }) {
   const [failed, setFailed] = useState(false);
-  if (!article.image) return null;
-  const photo = failed
-    ? <div className="aura-story-image-unavailable">Image unavailable. View the original report for the source image.</div>
-    : <img src={article.image.src} alt={article.image.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(true)} />;
+  const fallback = {
+    src: '/assets/aura-live/hero/hero-fighter-stance.png',
+    alt: 'AURA Fight Club boxing editorial image',
+    credit: 'AURA Fight Club'
+  };
+  const hasSource = Boolean(article.image?.src);
+  const image = hasSource && !failed ? article.image : fallback;
+  const photo = <img src={image.src} alt={image.alt || fallback.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(true)} />;
   return <figure className="aura-story-image">
     {linked ? <Link to={`/news/${article.slug}`} aria-label={`Read: ${article.title}`}>{photo}</Link> : photo}
-    <figcaption>{article.image.caption && <span>{article.image.caption} </span>}<ExternalLink href={article.image.sourceUrl || article.sourceUrl}>Credit: {article.image.credit}</ExternalLink></figcaption>
+    <figcaption>
+      {hasSource && !failed
+        ? <>{article.image.caption && <span>{article.image.caption} </span>}<ExternalLink href={article.image.sourceUrl || article.sourceUrl}>Credit: {article.image.credit}</ExternalLink></>
+        : <span>Editorial image · Credit: AURA Fight Club</span>}
+    </figcaption>
   </figure>;
 }
 export function Video({ item }) {
