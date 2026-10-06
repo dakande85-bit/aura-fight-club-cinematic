@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalSEO } from './components/SEO.jsx';
+import Analytics from './components/Analytics.jsx';
 import HomeStaticHero from './components/HomeStaticHero.jsx';
 import LaunchLandingPage from './pages/LaunchLandingPage.jsx';
 import CinematicPage from './pages/CinematicPage.jsx';
@@ -32,6 +33,7 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <GlobalSEO />
+      <Analytics />
       <Routes>
         <Route path="/" element={<HomeStaticHero />} />
         <Route path="/news" element={<NewsPage />} />
