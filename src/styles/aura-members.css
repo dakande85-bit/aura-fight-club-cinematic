@@ -1,0 +1,24 @@
+.afc-members-page{background:#080808;color:#fff;min-height:100vh}
+.afc-members-hero{min-height:690px;padding:120px clamp(24px,6vw,86px) 80px;display:grid;grid-template-columns:1.15fr .65fr;align-items:center;gap:70px;background:radial-gradient(circle at 76% 36%,rgba(214,170,98,.18),transparent 25%),linear-gradient(125deg,#090909,#11100d 58%,#080808)}
+.afc-members-hero h1{font-size:clamp(4.4rem,9vw,9.4rem);line-height:.82;letter-spacing:-.06em;margin:0;text-transform:uppercase;font-weight:950}
+.afc-members-hero h1 span{color:#d6aa62}
+.afc-members-hero>div>p:not(.afc-eyebrow){max-width:720px;color:#c7c3bb;font-size:1.12rem;line-height:1.65;margin:30px 0}
+.afc-members-hero__card{border:1px solid rgba(214,170,98,.36);background:linear-gradient(160deg,rgba(30,27,21,.96),rgba(11,11,10,.95));padding:36px;min-height:330px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.afc-members-hero__card>svg{color:#d6aa62;margin-bottom:auto}
+.afc-members-hero__card h2{font-size:2.3rem;line-height:1;margin:0 0 14px}
+.afc-members-hero__card p:last-child{color:#aaa69f;line-height:1.6}
+.afc-members-benefits{padding:80px clamp(24px,6vw,86px)}
+.afc-members-benefit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.afc-members-benefit-grid article{padding:28px;min-height:250px;border:1px solid rgba(255,255,255,.13);background:#0f0f0e}
+.afc-members-benefit-grid svg{color:#d6aa62}
+.afc-members-benefit-grid h3{text-transform:uppercase;font-size:1.2rem;margin:48px 0 12px}
+.afc-members-benefit-grid p{color:#aaa69f;line-height:1.55;margin:0}
+.afc-members-access{margin:0 clamp(24px,6vw,86px) 90px;padding:54px;display:grid;grid-template-columns:1.3fr .7fr;gap:60px;border:1px solid rgba(214,170,98,.28);background:linear-gradient(135deg,#14120f,#0b0b0a)}
+.afc-members-access h2{font-size:clamp(2rem,3.6vw,4.4rem);line-height:.95;margin:0 0 20px;letter-spacing:-.045em}
+.afc-members-access>div>p:not(.afc-eyebrow){color:#aaa69f;line-height:1.65}
+.afc-members-access__panel{border-left:1px solid rgba(214,170,98,.3);padding-left:38px}
+.afc-members-access__panel svg{color:#d6aa62}
+.afc-members-access__panel h3{text-transform:uppercase;font-size:1.25rem}
+.afc-members-access__panel a{color:#fff!important;text-decoration:none!important;display:inline-flex;align-items:center;gap:8px;font-weight:700}
+@media(max-width:900px){.afc-members-hero{grid-template-columns:1fr;padding-top:80px}.afc-members-benefit-grid{grid-template-columns:repeat(2,1fr)}.afc-members-access{grid-template-columns:1fr}.afc-members-access__panel{border-left:0;border-top:1px solid rgba(214,170,98,.3);padding:30px 0 0}}
+@media(max-width:620px){.afc-members-hero{padding:60px 20px}.afc-members-hero h1{font-size:4.5rem}.afc-members-benefits{padding:55px 20px}.afc-members-benefit-grid{grid-template-columns:1fr}.afc-members-access{margin:0 20px 60px;padding:30px 24px}}
