@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export const SITE_URL = 'https://aurafightclub.com';
+const GOOGLE_VERIFICATION = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION;
+const BING_VERIFICATION = import.meta.env.VITE_BING_SITE_VERIFICATION;
 const DEFAULT_IMAGE = `${SITE_URL}/assets/aura-live/hero/hero-fighter-stance.png`;
 
 const routeSeo = {
@@ -106,6 +108,8 @@ export function PageSEO({
     upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: title });
     upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: description });
     upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: image });
+    if (GOOGLE_VERIFICATION) upsertMeta('meta[name="google-site-verification"]', { name: 'google-site-verification', content: GOOGLE_VERIFICATION });
+    if (BING_VERIFICATION) upsertMeta('meta[name="msvalidate.01"]', { name: 'msvalidate.01', content: BING_VERIFICATION });
     setCanonical(canonical);
     setSchema(schema);
   }, [title, description, canonicalPath, image, type, noindex, schema, location.pathname]);
