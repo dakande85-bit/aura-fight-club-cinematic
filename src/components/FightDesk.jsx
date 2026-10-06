@@ -4,6 +4,7 @@ import fightEdition from '../../public/news/fights.json';
 import rankingEdition from '../../public/news/rankings.json';
 import { useArticles } from '../hooks/useArticles.js';
 import { ExternalLink } from './EditorialSections.jsx';
+import { AffiliateLink, AffiliateDisclosure } from './Monetization.jsx';
 export const fights = fightEdition.fights;
 export const todayCanary = () => new Intl.DateTimeFormat('en-CA', {timeZone:'Atlantic/Canary',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 
@@ -141,10 +142,51 @@ export function FightCalendar({ compact = false }) {
  const [view,setView]=useState('Upcoming'); const [division,setDivision]=useState('All divisions');
  const today=todayCanary();
  const shown=fights.filter(f=>(view==='Recent results'?f.status==='Completed':f.status!=='Completed'&&f.date>=today)&&(division==='All divisions'||f.division===division)).sort((a,b)=>view==='Recent results'?b.date.localeCompare(a.date):a.date.localeCompare(b.date));
- return <section className="aura-ed-section" aria-labelledby="calendar-title"><div className="aura-ed-section-head"><div><p className="aura-ed-kicker">Dates for the diary</p><Heading id="calendar-title">Fight calendar.</Heading></div>{compact&&<Link to="/calendar">Full calendar</Link>}</div>
- {!compact&&<div className="aura-desk-controls"><div className="aura-desk-tabs" aria-label="Calendar view">{['Upcoming','Recent results'].map(v=><button type="button" key={v} aria-pressed={view===v} onClick={()=>setView(v)}>{v}</button>)}</div><label>Weight class<select value={division} onChange={e=>setDivision(e.target.value)}><option>All divisions</option>{[...new Set(fights.map(f=>f.division))].sort().map(d=><option key={d}>{d}</option>)}</select></label></div>}
- <p className="aura-ed-note">Selected major fights · Dates checked {fightEdition.checkedAt}. Dates follow the venue’s local calendar; ring-walk times are not yet confirmed.</p>
- <div className="aura-fight-list">{(compact?shown.slice(0,3):shown).map(f=><article className="aura-fight-row" key={f.id}><time dateTime={f.date}>{dateLabel(f.date)}</time><div><p className="aura-ed-kicker">{f.division} · {f.status}</p><h3><Link to={`/fights/${f.id}`}>{f.name}</Link></h3><p>{f.venue}</p><p>{f.stakes}{f.broadcast&&` · ${f.broadcast}`}</p>{f.result&&<p className="aura-fight-result">{f.result}</p>}</div><div className="aura-fight-actions"><Link to={`/fights/${f.id}`}>Fight coverage</Link><ExternalLink href={f.sourceUrl}>Event source</ExternalLink></div></article>)}</div>{!shown.length&&<p role="status">No fights in this selection.</p>}
+ const daznCount=shown.filter(f=>(f.broadcast||'').toLowerCase().includes('dazn')).length;
+ return <section className={`aura-ed-section aura-calendar ${compact?'aura-calendar--compact':''}`} aria-labelledby="calendar-title">
+  <div className="aura-calendar-hero">
+   <div className="aura-calendar-hero__copy">
+    <p className="aura-ed-kicker">AURA Fight Calendar · 2026</p>
+    <Heading id="calendar-title">The fights that matter.</Heading>
+    <p>Major world-title fights, heavyweight nights and the cards boxing fans need in the diary — with direct watch links where a broadcaster is confirmed.</p>
+   </div>
+   {!compact&&<aside className="aura-dazn-panel">
+    <span className="aura-dazn-panel__brand">DAZN</span>
+    <p className="aura-ed-kicker">Watch the fight</p>
+    <h2>Boxing lives here.</h2>
+    <p>{daznCount} listed upcoming fights are scheduled for DAZN coverage. Subscription or PPV requirements vary by event and territory.</p>
+    <AffiliateLink partnerKey="dazn" placement="fight-calendar-hero" className="aura-calendar-cta">Get DAZN / Watch boxing</AffiliateLink>
+    <AffiliateDisclosure />
+   </aside>}
+  </div>
+  {compact&&<div className="aura-ed-section-head"><span/><Link to="/calendar">Full calendar</Link></div>}
+  {!compact&&<div className="aura-desk-controls"><div className="aura-desk-tabs" aria-label="Calendar view">{['Upcoming','Recent results'].map(v=><button type="button" key={v} aria-pressed={view===v} onClick={()=>setView(v)}>{v}</button>)}</div><label>Weight class<select value={division} onChange={e=>setDivision(e.target.value)}><option>All divisions</option>{[...new Set(fights.map(f=>f.division))].sort().map(d=><option key={d}>{d}</option>)}</select></label></div>}
+  <p className="aura-ed-note">Major scheduled fights · Dates checked {fightEdition.checkedAt}. Broadcast availability can vary by territory and late card changes are possible.</p>
+  <div className="aura-fight-grid">{(compact?shown.slice(0,3):shown).map((f,index)=>{
+   const names=f.fighters?.length===2?f.fighters:f.name.split(/\s+vs\.?\s+/i).slice(0,2);
+   const onDazn=(f.broadcast||'').toLowerCase().includes('dazn');
+   return <article className={`aura-fight-card ${f.featured?'aura-fight-card--featured':''}`} key={f.id}>
+    <div className="aura-fight-card__visual" aria-label={`${f.name} fighter portraits`}>
+     <FighterPortrait name={names[0]||f.name} className="aura-fighter-portrait--calendar" eager={index<2} />
+     <span className="aura-fight-card__vs">VS</span>
+     <FighterPortrait name={names[1]||''} className="aura-fighter-portrait--calendar" eager={index<2} />
+     {f.featured&&<span className="aura-fight-card__badge">Featured</span>}
+    </div>
+    <div className="aura-fight-card__body">
+     <div className="aura-fight-card__meta"><time dateTime={f.date}>{dateLabel(f.date)}</time><span>{f.division}</span></div>
+     <h3><Link to={`/fights/${f.id}`}>{f.name}</Link></h3>
+     {f.blurb&&<p className="aura-fight-card__blurb">{f.blurb}</p>}
+     <dl><div><dt>Venue</dt><dd>{f.venue}</dd></div><div><dt>Stakes</dt><dd>{f.stakes}</dd></div><div><dt>Broadcast</dt><dd>{f.broadcast||'TBC'}</dd></div></dl>
+     {f.result&&<p className="aura-fight-result">{f.result}</p>}
+     <div className="aura-fight-card__actions">
+      <Link to={`/fights/${f.id}`}>Fight coverage</Link>
+      {onDazn&&<AffiliateLink partnerKey="dazn" placement={`calendar:${f.id}`} className="aura-calendar-cta aura-calendar-cta--small">Watch on DAZN</AffiliateLink>}
+      {!onDazn&&<ExternalLink href={f.sourceUrl}>Event details</ExternalLink>}
+     </div>
+    </div>
+   </article>})}</div>
+  {!shown.length&&<p role="status">No fights in this selection.</p>}
+  {!compact&&<div className="aura-calendar-bottom-cta"><div><p className="aura-ed-kicker">Fight night access</p><h2>Don’t miss the bell.</h2><p>Use our DAZN link for eligible cards. Once the AURA affiliate tracking URL is added in Commercial Admin, the same buttons will automatically use that commissionable link.</p></div><AffiliateLink partnerKey="dazn" placement="fight-calendar-bottom" className="aura-calendar-cta">Subscribe to DAZN</AffiliateLink></div>}
  </section>;
 }
 export function FightCoverage({ fight }) {
