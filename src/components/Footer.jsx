@@ -1,22 +1,22 @@
 import { Link } from 'react-router-dom';
 import '../styles/footer.css';
 
-const SHOP_LINKS = [
-  { label: 'Apparel', href: '/apparel' },
-  { label: 'Footwear', href: '/footwear' },
-  { label: 'Accessories', href: '/equipment' },
-];
-
-const WORLD_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'Story', href: '/who-we-are' },
+const BOXING_LINKS = [
   { label: 'Fight News', href: '/news' },
-  { label: 'Calendar', href: '/calendar' },
+  { label: 'Fight Calendar', href: '/calendar' },
   { label: 'Rankings', href: '/rankings' },
   { label: 'Watch', href: '/watch' },
+];
+
+const AURA_LINKS = [
   { label: 'Lifestyle', href: '/lifestyle' },
+  { label: 'Our Story', href: '/who-we-are' },
+  { label: 'Members', href: '/members' },
+];
+
+const CONNECT_LINKS = [
   { label: 'Advertise', href: '/advertise' },
-  { label: 'Waitlist', href: '/fight-club' },
+  { label: 'Join Members', href: '/members' },
 ];
 
 export default function Footer() {
@@ -29,32 +29,33 @@ export default function Footer() {
             <small>FIGHT CLUB</small>
           </Link>
           <p className="aura-footer__statement">
-            Boxing news, fight-week video and life beyond the ring.
+            Boxing news, fight-week video, rankings, culture and life beyond the ring.
           </p>
-          <Link to="/fight-club" className="aura-footer__cta">
-            Join Waitlist
+          <Link to="/members" className="aura-footer__cta">
+            Join Members
           </Link>
         </div>
 
         <nav className="aura-footer__nav" aria-label="Footer navigation">
           <div className="aura-footer__col">
-            <p className="aura-footer__heading">Shop</p>
-            {SHOP_LINKS.map(link => (
+            <p className="aura-footer__heading">Boxing</p>
+            {BOXING_LINKS.map(link => (
               <Link key={link.href} to={link.href}>{link.label}</Link>
             ))}
           </div>
 
           <div className="aura-footer__col">
-            <p className="aura-footer__heading">Brand</p>
-            {WORLD_LINKS.map(link => (
+            <p className="aura-footer__heading">AURA</p>
+            {AURA_LINKS.map(link => (
               <Link key={link.href} to={link.href}>{link.label}</Link>
             ))}
           </div>
 
           <div className="aura-footer__col">
-            <p className="aura-footer__heading">Join</p>
-            <Link to="/fight-club">Waitlist</Link>
-            <Link to="/lifestyle">Lifestyle</Link>
+            <p className="aura-footer__heading">Connect</p>
+            {CONNECT_LINKS.map(link => (
+              <Link key={link.href} to={link.href}>{link.label}</Link>
+            ))}
             <a href="mailto:hello@aurafightclub.com">Contact</a>
           </div>
         </nav>
