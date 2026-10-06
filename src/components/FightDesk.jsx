@@ -20,6 +20,15 @@ const ringPoundForPound = [
  { rank: 10, name: 'Oscar Collazo', record: '15–0 (12 KO)', division: 'Minimumweight' },
 ];
 
+const portraitOverrides = {
+ 'Jesse Bam Rodriguez': 'https://wbaboxing.com/photos/boxers/jesse-rodriguez.jpg',
+ 'Junto Nakatani': 'https://u3ntmi187s.user-space.cdn.idcfcloud.net/contents/main_content2_00001_1.jpg',
+ 'Oscar Collazo': 'https://wbaboxing.com/photos/boxers/oscar-collazo.png',
+ 'Moses Itauma': 'https://queensberry.co.uk/cdn/shop/files/Moses_Itauma_1_25d630fc-05db-4e3d-9a7c-02d1455e78b3.png?v=1757674749',
+ 'Nelson Hysa': 'https://queensberry.co.uk/cdn/shop/files/Nelson_Hysa.png?v=1749635058',
+ 'Fabio Wardley': 'https://wbaboxing.com/photos/boxers/fabio-wardley.png',
+};
+
 const portraitCache = new Map();
 const portraitSearchName = name => name
  .replace(/\s*\([^)]*\)\s*/g, ' ')
@@ -34,10 +43,17 @@ function initialsFor(name) {
 function FighterPortrait({ name, className = '', eager = false }) {
  const isVacant = !name || name === '—' || /^vacant$/i.test(name);
  const cleanName = portraitSearchName(name || '');
- const [src, setSrc] = useState(() => portraitCache.get(cleanName)?.url || '');
+ const [src, setSrc] = useState(() => portraitOverrides[cleanName] || portraitCache.get(cleanName)?.url || '');
 
  useEffect(() => {
-  if (isVacant || !cleanName || portraitCache.get(cleanName)?.status === 'missing') return;
+  if (isVacant || !cleanName) return;
+  const override = portraitOverrides[cleanName];
+  if (override) {
+   portraitCache.set(cleanName, { status: 'ready', url: override });
+   setSrc(override);
+   return;
+  }
+  if (portraitCache.get(cleanName)?.status === 'missing') return;
   const cached = portraitCache.get(cleanName);
   if (cached?.url) { setSrc(cached.url); return; }
 
@@ -60,7 +76,7 @@ function FighterPortrait({ name, className = '', eager = false }) {
 
  return <span className={`aura-fighter-portrait ${className} ${isVacant ? 'aura-fighter-portrait--vacant' : ''}`} aria-hidden="true">
   {src
-   ? <img src={src} alt="" loading={eager ? 'eager' : 'lazy'} referrerPolicy="no-referrer" onError={event => { event.currentTarget.style.display='none'; }} />
+   ? <img src={src} alt="" loading={eager ? 'eager' : 'lazy'} referrerPolicy="no-referrer" onError={() => { portraitCache.set(cleanName, { status: 'missing' }); setSrc(''); }} />
    : <span>{isVacant ? '—' : initialsFor(name)}</span>}
  </span>;
 }
