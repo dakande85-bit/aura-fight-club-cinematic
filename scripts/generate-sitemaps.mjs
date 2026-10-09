@@ -26,7 +26,7 @@ const guideSlugs=pull('evergreenGuides');
 
 const today=isoDate(new Date());
 const staticPages=[
- '/', '/news','/calendar','/rankings','/watch','/lifestyle','/members','/who-we-are',
+ '/', '/news','/fight-hub','/film-room','/verdict','/rankings','/lifestyle','/members','/who-we-are',
  '/fighters','/topics','/guides','/authors/dare-akande','/editorial-policy','/corrections',
  '/advertise','/commercial-policy','/privacy','/cookies','/terms'
 ];
