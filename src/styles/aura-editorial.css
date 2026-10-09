@@ -223,3 +223,18 @@
  .aura-life-tile,.aura-life-tile--1{grid-column:1;aspect-ratio:1;min-height:0}
  .aura-life-private{margin-top:44px;padding:30px 24px}
 }
+
+/* Mobile corrections: no fake or blank fighter image canvases. */
+.aura-p4p-grid--compact{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;overflow:visible!important;gap:12px!important}
+.aura-p4p-grid--compact .aura-p4p-card{max-width:none!important;min-width:0!important;width:auto!important;flex:auto!important}
+.aura-p4p-grid--compact .aura-p4p-image{aspect-ratio:auto!important;height:90px!important;min-height:0!important;background:#f0f0ec!important}
+.aura-p4p-grid--compact .aura-p4p-image>.aura-fighter-portrait--p4p{font-size:28px!important}
+.aura-p4p-grid--compact .aura-p4p-copy{padding:12px!important}
+.aura-p4p-grid--compact .aura-p4p-copy h3{font-size:1.5rem!important}
+.aura-fight-card__visual{height:auto!important;min-height:92px!important;padding:15px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 42px minmax(0,1fr)!important;align-items:center!important;gap:8px!important}
+.aura-fight-card__fighter-name{font-family:'Barlow Condensed',Arial,sans-serif;font-size:clamp(18px,3.8vw,29px);line-height:1.05;color:#fff;text-align:center;word-break:normal;overflow-wrap:anywhere;text-transform:uppercase;z-index:1}
+.aura-fight-card__vs{font-size:20px!important;width:40px!important;height:40px!important}
+.aura-fight-card dl>div{grid-template-columns:minmax(78px,27%) minmax(0,1fr)!important}
+.aura-fight-card dt{overflow-wrap:anywhere!important}
+.aura-fight-card dd{min-width:0;overflow-wrap:anywhere}
+@media(max-width:700px){.aura-p4p-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))!important}.aura-fight-card__body{padding:18px!important}.aura-fight-card__meta{flex-wrap:wrap}}
