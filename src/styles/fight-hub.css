@@ -42,3 +42,36 @@
 .fh-event:hover{box-shadow:0 13px 36px rgba(20,25,30,.15)}
 .fh-event h2 a:hover{text-decoration:underline;text-decoration-color:#b49356}
 @media(min-width:900px){.fh-list>.fh-event:first-child{grid-column:span 2;display:grid;grid-template-columns:minmax(0,45%) minmax(0,1fr);column-gap:24px;align-items:start}.fh-list>.fh-event:first-child>.fh-event-image{grid-row:1 / span 9;min-height:440px;aspect-ratio:auto;margin:-27px 0 -27px -27px}.fh-list>.fh-event:first-child>.fh-event-image .aura-photo{height:100%;aspect-ratio:auto}.fh-list>.fh-event:first-child>.fh-event-top{padding-top:8px}}
+
+/* Fighter directory v2: photo-led magazine grid, not generic profile text blocks. */
+.aura-fighters-header,.aura-directory-controls,.aura-directory-count,.aura-fighter-directory,.aura-directory-empty{max-width:1240px;margin-left:auto!important;margin-right:auto!important}
+.aura-fighters-header{padding:32px 24px 25px;color:#f6f3ed}
+.aura-ed-page:has(.aura-fighters-header){background:#101318;color:#f6f3ed;min-height:100vh}
+.aura-fighters-header h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:clamp(58px,11vw,130px);letter-spacing:-.045em;line-height:.86;margin:8px 0 22px;color:#fff}
+.aura-fighters-header p:last-child{max-width:640px;font-size:clamp(16px,2vw,20px);color:#b9bdc0;line-height:1.55;margin:0}
+.aura-directory-controls{display:flex;align-items:end;gap:14px;padding:0 24px 20px;flex-wrap:wrap}
+.aura-directory-controls label{display:grid;gap:9px;color:#d3c3a4;font-weight:800;font-size:12px;letter-spacing:.09em;text-transform:uppercase;flex:1 1 200px;max-width:560px}
+.aura-directory-controls input,.aura-directory-controls select{appearance:none;background:#1e242a;border:1px solid #40464a;border-radius:2px;min-height:52px;color:white;padding:12px 15px;font:600 16px Arial,sans-serif;width:100%;box-sizing:border-box}
+.aura-directory-controls input:focus,.aura-directory-controls select:focus{outline:2px solid #d6aa62;outline-offset:2px}
+.aura-directory-count{padding:0 24px 19px;font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:#e8e5de}
+.aura-directory-count strong{color:#e4b967}
+.aura-directory-count span{font-size:11px;letter-spacing:normal;text-transform:none;color:#9ca3a8}
+.aura-fighter-directory{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:22px!important;padding:0 24px 68px!important;overflow:visible!important}
+.aura-fighter-tile{display:block;min-width:0;background:#171d23;color:#fff!important;text-decoration:none!important;border:1px solid #353b40;transition:transform .2s ease,border-color .2s ease}
+.aura-fighter-tile:hover{transform:translateY(-4px);border-color:#d6aa62}
+.aura-fighter-tile__photo{height:auto;aspect-ratio:4/3;background:#151b21;overflow:hidden}
+.aura-fighter-tile__photo .aura-photo{min-height:0;height:100%}
+.aura-fighter-tile__photo .aura-photo img{width:100%;height:100%;object-fit:cover;object-position:center 33%;transition:transform .35s ease}
+.aura-fighter-tile:hover img{transform:scale(1.045)}
+.aura-fighter-tile__photo .aura-photo__placeholder{min-height:0;height:100%;background:#1c2329!important}
+.aura-fighter-tile__photo .aura-photo__placeholder:before{display:none}
+.aura-fighter-tile__photo .aura-photo__placeholder:after{background:radial-gradient(circle at 70% 25%,rgba(215,175,108,.11),transparent 42%)}
+.aura-fighter-tile__photo .aura-photo__placeholder strong{font-size:clamp(24px,3vw,36px)}
+.aura-fighter-tile__info{padding:20px 21px 22px}
+.aura-fighter-tile__info>span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#d0ae75;font-weight:800}
+.aura-fighter-tile__info h2{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:clamp(26px,3vw,38px);margin:11px 0 8px;line-height:.98;color:#fff}
+.aura-fighter-tile__info p{font-size:14px;color:#b6bbc0;margin:0 0 19px}
+.aura-fighter-tile__info>strong{display:flex;justify-content:space-between;align-items:center;padding-top:15px;border-top:1px solid #40464d;font-size:11px;color:#e4c18a;letter-spacing:.13em}
+.aura-directory-empty{padding:24px}
+@media(max-width:850px){.aura-fighter-directory{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}}
+@media(max-width:540px){.aura-fighter-directory{grid-template-columns:minmax(0,1fr)!important;padding:0 16px 42px!important}.aura-fighters-header{padding:25px 16px}.aura-directory-controls{padding:0 16px 19px}.aura-directory-count{padding:0 16px 17px}.aura-fighter-tile__photo{aspect-ratio:16/11}.aura-fighter-tile__info{padding:16px 18px 20px}}
