@@ -87,3 +87,6 @@
  .afc-home .afc-members-strip--simple{margin:0 18px 42px;padding:25px;display:grid;grid-template-columns:1fr}
  .afc-home .afc-rankings-tease{margin:0 18px 48px}
 }
+
+.afc-load-more{display:block;margin:32px auto 0;padding:14px 26px;min-height:48px;border:1px solid #d6aa62;background:#16130e;color:#efd297;font:700 14px Arial,sans-serif;cursor:pointer}
+.afc-load-more:hover,.afc-load-more:focus-visible{background:#d6aa62;color:#090909}
