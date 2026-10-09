@@ -240,3 +240,12 @@
 @media(max-width:700px){.aura-p4p-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))!important}.aura-fight-card__body{padding:18px!important}.aura-fight-card__meta{flex-wrap:wrap}}
 
 .aura-fighter-search{max-width:760px;display:grid;gap:10px;margin:0 auto 22px;font-weight:800;color:inherit}.aura-fighter-search input{border:1px solid #b7b7b1;background:#fff;color:#181818;border-radius:3px;padding:15px 16px;font-size:16px;width:100%;box-sizing:border-box}
+
+/* Editorial channel discovery and incremental archive loading */
+.aura-editorial-channels{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;padding:4px 0 14px;margin-top:26px;margin-bottom:12px}
+.aura-editorial-channels button{white-space:nowrap;border-radius:999px;padding:11px 19px;font-size:14px;font-weight:700;letter-spacing:.015em}
+.aura-editorial-channels button:hover{border-color:#856122}
+.aura-news-more{display:flex;justify-content:center;margin:46px auto 0}
+.aura-news-more button{cursor:pointer;font:inherit;font-weight:800;letter-spacing:.035em;border:1px solid #171918;background:#171918;color:#fff;padding:16px 30px;border-radius:2px}
+.aura-news-more button:hover{background:#856122;border-color:#856122}
+@media(max-width:700px){.aura-editorial-channels{margin-right:-6.8%;padding-right:6.8%}.aura-editorial-channels button{min-height:44px}.aura-news-more button{width:100%}}
