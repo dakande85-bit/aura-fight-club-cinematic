@@ -200,7 +200,7 @@ export function FightCalendar({ compact = false }) {
 }
 export function FightCoverage({ fight }) {
  const {articles}=useArticles(); const [stage,setStage]=useState('All');
- const related=articles.filter(a=>a.fightId===fight.id&&(stage==='All'||a.coverageStage===stage));
+ const related=articles.filter(a=>{const connected=a.fightId===fight.id||(fight.fighters||[]).some(name=>name.split(' ').filter(word=>word.length>4).some(word=>a.title.toLowerCase().includes(word.toLowerCase())));return connected&&(stage==='All'||a.coverageStage===stage);}).slice(0,12);
  return <section className="aura-ed-section"><div className="aura-ed-section-head"><h2>Follow the fight.</h2></div><div className="aura-desk-tabs" aria-label="Coverage stage">{['All','Build-up','Reaction'].map(s=><button type="button" key={s} aria-pressed={stage===s} onClick={()=>setStage(s)}>{s}</button>)}</div><div className="aura-coverage-list">{related.map(a=><article key={a.slug}><p className="aura-ed-kicker">{a.coverageStage} · {dateLabel(a.date)} · {a.articleType}</p><h3><Link to={`/news/${a.slug}`}>{a.title}</Link></h3><p>{a.summary}</p><Link to={`/news/${a.slug}`}>Read article</Link></article>)}</div>{!related.length&&<p className="aura-ed-note">{stage==='Reaction'&&fight.status!=='Completed'?'Post-fight coverage will appear after the bout.':'Coverage will appear here as it is published.'}</p>}</section>;
 }
 export function BeltRankings() {
