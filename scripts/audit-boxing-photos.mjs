@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+const fighters=fs.readFileSync('src/data/boxingPhotography.js','utf8');
+const fights=JSON.parse(fs.readFileSync('public/news/fights.json','utf8')).fights;
+const names=fs.readFileSync('src/data/seoEntities.js','utf8');
+const eventSection=fighters.split('export const fightPhotography=')[1]?.split('export const mediaForFighter')[0]||'';
+const fighterSection=fighters.split('export const fighterPhotography=')[1]?.split('export const fightPhotography=')[0]||'';
+const sourced=fights.filter(f=>new RegExp("['\"]"+f.id+"['\"]\\s*:\\s*\\{").test(eventSection));
+const missing=fights.filter(f=>!sourced.includes(f));
+const fighterCount=(fighterSection.match(/: *\{src:/g)||[]).length;
+console.log('Fight photo registry audit');
+console.log('Event photographs mapped: '+sourced.length+'/'+fights.length);
+console.log('Fighter photographs mapped: '+fighterCount);
+console.log('Events requiring a reviewed image:');
+for(const f of missing)console.log(' - '+f.name+' ('+f.id+')');
+console.log('Note: image registry entries are not proof of licensing or remote-host availability. Manually verify before publication.');
