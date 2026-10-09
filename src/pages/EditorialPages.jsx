@@ -6,6 +6,7 @@ import { NewsSection, WatchSection, LifestyleSection, ExternalLink, Video, Story
 import ArticleBody, { articleReadingMinutes } from '../components/ArticleBody.jsx';
 import { useArticles } from '../hooks/useArticles.js';
 import '../styles/aura-editorial.css';
+import '../styles/fight-hub.css';
 import { FightCalendar, BeltRankings, FightCoverage, fights } from '../components/FightDesk.jsx';
 import { AdSlot, AffiliateLink, AffiliateDisclosure, GearCommerce, HowToWatch } from '../components/Monetization.jsx';
 import { PageSEO, SITE_URL } from '../components/SEO.jsx';
