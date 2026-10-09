@@ -4,3 +4,26 @@
 .fh-ranking-panel{max-width:1040px;margin:0 auto;background:#fff;border:1px solid #dfdbd0;padding:clamp(17px,4vw,36px)}.fh-ranking-title{display:flex;align-items:start;justify-content:space-between;flex-wrap:wrap;gap:15px;padding-bottom:20px;border-bottom:2px solid #d3bb84}.fh-ranking-title span{color:#98713c;font-size:13px;font-weight:800}.fh-ranking-title h2{font-size:clamp(27px,5vw,46px);margin:9px 0}.fh-ranking-title p{color:#646464}.fh-ranking-panel a{color:#825f28;font-weight:750}.fh-ranking-panel h3{margin:24px 0;font-size:22px}.fh-ranking-row{display:grid;grid-template-columns:60px 1fr;align-items:center;gap:10px;padding:16px 10px;border-bottom:1px solid #ebe7de;font-size:18px}.fh-ranking-row>strong{color:#8a6b39}.fh-ranking-note{font-size:13px;color:#777;line-height:1.6}.fh-profile-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.fh-profile-stats>div{display:grid;gap:7px;border:1px solid #dcd8cd;background:#f6f5f0;color:#161616;padding:16px}.fh-profile-stats span{font-size:12px;color:#686868;text-transform:uppercase}.fh-profile-stats strong{font-size:16px}@media(max-width:660px){.fh-profile-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .aura-event-video{max-width:800px}.aura-event-video iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#141414}.aura-event-video p{font-size:13px;line-height:1.5}
+
+/* Editorial image system: explicit fighter/event assets only. */
+.aura-photo{position:relative;width:100%;height:100%;min-height:180px;overflow:hidden;background:#131821;color:#fff}
+.aura-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 32%}
+.aura-photo__placeholder{height:100%;min-height:180px;padding:22px;display:flex;flex-direction:column;justify-content:flex-end;gap:9px;background:linear-gradient(145deg,#191e25 0%,#27303b 52%,#0b0e14 100%);color:#fff}
+.aura-photo__placeholder span{font-size:10px;letter-spacing:.22em;color:#d8b77e;font-weight:850}
+.aura-photo__placeholder strong{font-size:clamp(24px,3vw,35px);font-weight:950;line-height:1;text-transform:uppercase}
+.aura-photo__placeholder small{font-size:11px;color:#a8acb1}
+.aura-photo__credit{position:absolute;right:10px;bottom:9px;color:#fff;font-size:10px;padding:4px 7px;background:rgba(0,0,0,.7);max-width:80%;text-align:right}
+.fh-event-image>.aura-photo{aspect-ratio:16/9}
+.fh-event-image .aura-photo__placeholder{aspect-ratio:16/9}
+.fh-champion-feature{display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr);gap:24px;align-items:center}
+.fh-champion-feature>.aura-photo{aspect-ratio:5/4;max-height:350px}
+.fh-champion-feature .fh-ranking-title{border:0;padding:0}
+.aura-fighter-directory{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.aura-fighter-directory article{min-width:0}
+.aura-fighter-directory article>a:first-child{display:block;aspect-ratio:16/10;margin-bottom:12px;overflow:hidden}
+.aura-fighter-directory .aura-photo{aspect-ratio:16/10}
+.aura-fighter-directory .aura-photo__placeholder{aspect-ratio:16/10}
+.aura-profile-hero{display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr);gap:30px;align-items:center}
+.aura-profile-hero>.aura-photo{aspect-ratio:4/3;max-height:430px}
+@media(max-width:850px){.aura-fighter-directory{grid-template-columns:repeat(2,minmax(0,1fr))}.fh-champion-feature{grid-template-columns:1fr}.fh-champion-feature>.aura-photo{max-height:340px}}
+@media(max-width:640px){.aura-fighter-directory{grid-template-columns:1fr}.aura-profile-hero{grid-template-columns:1fr}.aura-profile-hero>.aura-photo{max-height:300px}}
