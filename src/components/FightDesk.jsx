@@ -134,10 +134,7 @@ export function RingPoundForPound() {
   </div>
   <div className="aura-p4p-grid aura-p4p-grid--compact">
    {ringPoundForPound.map(fighter => <article className={`aura-p4p-card ${fighter.rank <= 3 ? 'aura-p4p-card--podium' : ''}`} key={fighter.rank}>
-    <div className="aura-p4p-image">
-     <FighterPortrait name={fighter.name} className="aura-fighter-portrait--p4p" eager={fighter.rank <= 2} combatOnly />
-     <span className="aura-p4p-rank" aria-hidden="true">{String(fighter.rank).padStart(2,'0')}</span>
-    </div>
+    {portraitOverrides[portraitSearchName(fighter.name)] ? <div className="aura-p4p-image"><FighterPortrait name={fighter.name} className="aura-fighter-portrait--p4p" eager={fighter.rank <= 2} combatOnly /></div> : null}
     <div className="aura-p4p-copy">
      <p className="aura-ed-kicker">#{fighter.rank} · {fighter.division}</p>
      <h3>{fighterHref(fighter.name) ? <Link to={fighterHref(fighter.name)}>{fighter.name}</Link> : fighter.name}</h3>
