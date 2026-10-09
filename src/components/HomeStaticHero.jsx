@@ -18,7 +18,7 @@ const quickLinks = [
 export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' }) {
   const Heading = headingLevel;
   const { articles = [] } = useArticles();
-  const featured = articles.filter(article => article.featured).slice(0, 3);
+  const featured = articles.slice(0, 12);
   const today = todayCanary();
   const upcoming = fights
     .filter(fight => fight.status !== 'Completed' && fight.date >= today)
@@ -34,50 +34,10 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
       {showHeader && <Header />}
 
       <main className="afc-home">
-        <section className="afc-hero">
-          <div className="afc-hero__noise" aria-hidden="true" />
-          <div className="afc-hero__copy">
-            <p className="afc-eyebrow">Boxing culture · news · analysis · style</p>
-            <Heading>THE FIGHT.<br /><span>THE LIFE.</span></Heading>
-            <p className="afc-hero__lede">Boxing news, in-depth stories, fight week coverage and the culture that lives beyond the ring.</p>
-            <div className="afc-hero__actions">
-              <Link className="afc-btn afc-btn--gold" to="/news">Latest news <ArrowRight size={17} /></Link>
-              <Link className="afc-btn afc-btn--ghost" to="/calendar">Fight calendar <ArrowRight size={17} /></Link>
-            </div>
-          </div>
-
-          <div className="afc-hero__fighter" aria-label="AURA boxing campaign image">
-            <div className="afc-hero__halo" aria-hidden="true" />
-            <img src={homepageHeroMedia.source} alt="AURA boxer in the ring" width="1122" height="1402" fetchPriority="high" />
-          </div>
-
-          <div className="afc-quick-grid">
-            {quickLinks.map(({ label, text, href, icon: Icon }) => (
-              <Link to={href} className="afc-quick-card" key={href}>
-                <Icon size={24} strokeWidth={1.7} />
-                <strong>{label}</strong>
-                <span>{text}</span>
-                <ArrowRight className="afc-quick-card__arrow" size={18} />
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="afc-members-strip">
-          <div className="afc-members-strip__copy">
-            <p className="afc-eyebrow">AURA Fight Club membership</p>
-            <h2>GO BEYOND THE HEADLINES.</h2>
-            <p>Exclusive analysis, early fight previews, members-only features and a closer seat to the culture.</p>
-            <div className="afc-members-strip__benefits">
-              <span><LockKeyhole size={15} /> Exclusive articles</span>
-              <span><Crown size={15} /> Member drops</span>
-              <span><Trophy size={15} /> Fight breakdowns</span>
-            </div>
-          </div>
-          <div className="afc-members-strip__actions">
-            <Link className="afc-btn afc-btn--gold" to="/members">Join members</Link>
-            <Link className="afc-text-link" to="/members">See membership <ArrowRight size={16} /></Link>
-          </div>
+        <section className="afc-news-intro">
+          <p className="afc-eyebrow">AURA / FIGHT DESK</p>
+          <Heading>LATEST BOXING NEWS.</Heading>
+          <p>Original analysis, champion profiles and the stories shaping boxing. Latest publications first.</p>
         </section>
 
         <section className="afc-content-grid">
@@ -85,7 +45,7 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
             <div className="afc-section-head">
               <div>
                 <p className="afc-eyebrow">Fight desk</p>
-                <h2>TOP STORIES.</h2>
+                <h2>THE LATEST.</h2>
               </div>
               <Link to="/news">View all news <ArrowRight size={16} /></Link>
             </div>
@@ -101,7 +61,7 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
                     )}
                   </Link>
                   <div className="afc-story-card__body">
-                    <p className="afc-eyebrow">{article.category || 'Feature'}</p>
+                    <p className="afc-eyebrow"><time dateTime={article.date}>{new Date(article.date + 'T12:00:00Z').toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</time> · {article.category || 'Feature'}</p>
                     <h3><Link to={`/news/${article.slug}`}>{article.title}</Link></h3>
                     <p>{article.summary}</p>
                   </div>
@@ -135,6 +95,8 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
             </div>
           </aside>
         </section>
+
+        <section className="afc-members-strip afc-members-strip--simple"><div><p className="afc-eyebrow">AURA Fight Club membership</p><h2>BEYOND THE HEADLINES.</h2><p>Be first to hear about new coverage and exclusive AURA concepts.</p></div><Link className="afc-text-link" to="/members">Explore membership <ArrowRight size={16}/></Link></section>
 
         <section className="afc-rankings-tease">
           <div>
