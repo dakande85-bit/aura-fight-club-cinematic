@@ -7,6 +7,7 @@ import { homepageHeroMedia } from '../data/auraMediaManifest.js';
 import { useArticles } from '../hooks/useArticles.js';
 import { fights, todayCanary } from './FightDesk.jsx';
 import '../styles/aura-home-redesign.css';
+import {VerifiedPhoto} from './VerifiedPhoto.jsx';
 
 const quickLinks = [
   { label: 'Fight News', text: 'Latest headlines, analysis and long reads', href: '/news', icon: Newspaper },
@@ -19,7 +20,10 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
   const Heading = headingLevel;
   const { articles = [] } = useArticles();
   const [visibleCount,setVisibleCount]=useState(12);
-  const featured = articles.slice(0, visibleCount);
+  const [newsFilter,setNewsFilter]=useState('All');
+  const categories=['All',...new Set(articles.map(x=>x.category).filter(Boolean))];
+  const filteredArticles=newsFilter==='All'?articles:articles.filter(a=>a.category===newsFilter);
+  const featured = filteredArticles.slice(0, visibleCount);
   const today = todayCanary();
   const upcoming = fights
     .filter(fight => fight.status !== 'Completed' && fight.date >= today)
@@ -41,6 +45,8 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
           <p>Original analysis, champion profiles and the stories shaping boxing. Latest publications first.</p>
         </section>
 
+        <section className="afc-fight-week"><div><p className="afc-eyebrow">AURA / FIGHT NIGHT</p><h2>KNOW BEFORE THE BELL.</h2><p>The biggest upcoming bouts, verified viewing information, fighter records and event coverage in one place.</p><Link to="/fight-hub">Explore Fight Night →</Link></div>{upcoming[0]&&<Link className="afc-next-fight" to={`/fights/${upcoming[0].id}`}><VerifiedPhoto fightId={upcoming[0].id} label={upcoming[0].name}/><span>UP NEXT · {upcoming[0].date}</span><strong>{upcoming[0].name}</strong><small>{upcoming[0].broadcastStatus==='confirmed'?upcoming[0].broadcast:'Broadcaster not confirmed'} · Fight details →</small></Link>}</section>
+        <nav className="afc-discover-links" aria-label="Explore Aura boxing"><Link to="/fighters">FIGHTER INTELLIGENCE ↗</Link><Link to="/rankings">WORLD CHAMPIONS ↗</Link><Link to="/film-room">THE FILM ROOM ↗</Link><Link to="/verdict">THE VERDICT ↗</Link></nav>
         <section className="afc-content-grid">
           <div className="afc-stories">
             <div className="afc-section-head">
@@ -51,6 +57,7 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
               <Link to="/news">View all news <ArrowRight size={16} /></Link>
             </div>
 
+            <div className="afc-news-filters" aria-label="Filter boxing news">{categories.slice(0,9).map(category=><button type="button" key={category} aria-pressed={newsFilter===category} onClick={()=>{setNewsFilter(category);setVisibleCount(12)}}>{category}</button>)}</div>
             <div className="afc-story-grid">
               {featured.map((article, index) => (
                 <article className="afc-story-card" key={article.slug}>
@@ -69,7 +76,7 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
                 </article>
               ))}
             </div>
-            {visibleCount < articles.length && <button type="button" className="afc-load-more" onClick={()=>setVisibleCount(n=>n+12)}>Load more articles ({articles.length-visibleCount} remaining)</button>}
+            {visibleCount < filteredArticles.length && <button type="button" className="afc-load-more" onClick={()=>setVisibleCount(n=>n+12)}>Load more articles ({filteredArticles.length-visibleCount} remaining)</button>}
           </div>
 
         </section>
