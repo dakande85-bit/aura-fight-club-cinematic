@@ -1,4 +1,5 @@
 export const fighterPhotography={
+ 'david-benavidez':{"src":"https://commons.wikimedia.org/wiki/Special:FilePath/David%20Benavidez%202024.png","alt":"David Benavidez in 2024","credit":"MILLION DOLLAZ WORTH OF GAME / Wikimedia Commons","license":"CC BY-SA 4.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:David%20Benavidez%202024.png","focus":"center 25%","zoom":1},
  'terence-crawford':{"src":"https://commons.wikimedia.org/wiki/Special:FilePath/Terence%20Crawford%20during%20a%20podcast%20in%202023.png","alt":"Terence Crawford podcast appearance","credit":"Wikimedia Commons / Wikimedia Commons","license":"See source","sourceUrl":"https://commons.wikimedia.org/wiki/File:Terence%20Crawford%20during%20a%20podcast%20in%202023.png","focus":"center 25%","zoom":1},
  'dmitry-bivol':{"src":"https://commons.wikimedia.org/wiki/Special:FilePath/Dmitry%20Bivol%20in%202023.jpg","alt":"Dmitry Bivol in 2023","credit":"Wikimedia Commons / Wikimedia Commons","license":"See source","sourceUrl":"https://commons.wikimedia.org/wiki/File:Dmitry%20Bivol%20in%202023.jpg","focus":"center 25%","zoom":1},
  'shakur-stevenson':{"src":"https://commons.wikimedia.org/wiki/Special:FilePath/ShakurStevenson.jpg","alt":"Shakur Stevenson portrait","credit":"Wikimedia Commons / Wikimedia Commons","license":"See source","sourceUrl":"https://commons.wikimedia.org/wiki/File:ShakurStevenson.jpg","focus":"center 25%","zoom":1},
@@ -11,7 +12,7 @@ export const fighterPhotography={
  'canelo-alvarez':{"src":"https://commons.wikimedia.org/wiki/Special:FilePath/Visita%20del%20boxeador%20Sa%C3%BAl%20%E2%80%9CCanelo%E2%80%9D%20%C3%81lvarez%20a%20la%20Residencia%20Oficial%20de%20Los%20Pinos%20-%208693904793.jpg","alt":"Canelo Alvarez in 2013","credit":"Presidencia de México / Wikimedia Commons","license":"See source","sourceUrl":"https://commons.wikimedia.org/wiki/File:Visita%20del%20boxeador%20Sa%C3%BAl%20%E2%80%9CCanelo%E2%80%9D%20%C3%81lvarez%20a%20la%20Residencia%20Oficial%20de%20Los%20Pinos%20-%208693904793.jpg","focus":"center 25%","zoom":1},
  'fabio-wardley':null, // Multi-boxer promotional/photo source excluded from solo fighter directory
  'moses-itauma':null, // Multi-boxer promotional/photo source excluded from solo fighter directory
- 'devin-haney':null, // Multi-boxer promotional/photo source excluded from solo fighter directory
+ 'devin-haney':{"src":"https://commons.wikimedia.org/wiki/Special:FilePath/Devin%20Haney.jpg","alt":"Devin Haney in 2021","credit":"MILLION DOLLAZ WORTH OF GAME / Wikimedia Commons","license":"CC BY 3.0","sourceUrl":"https://commons.wikimedia.org/wiki/File:Devin%20Haney.jpg","focus":"center 25%","zoom":1},
 };
 export const fightPhotography={
  'schofield-bahdi':null,
