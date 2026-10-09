@@ -1,6 +1,417 @@
 {
-  "reviewedAt": "2026-10-06",
+  "reviewedAt": "2026-10-09",
   "articles": [
+    {
+      "slug": "osleys-iglesias-postfight-watch",
+      "title": "Iglesias vs Zaren: what the fight can tell us about the super-middleweight picture",
+      "summary": "A technical companion to our Osleys Iglesias profile, examining what to watch in his latest challenge.",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://as.com/us/masdeporte/osleys-iglesias-vs-oliver-zaren-a-que-hora-inicia-la-pelea-y-donde-ver-en-usa-la-funcion-de-box-2026-f202610-n/",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://as.com/us/masdeporte/osleys-iglesias-vs-oliver-zaren-a-que-hora-inicia-la-pelea-y-donde-ver-en-usa-la-funcion-de-box-2026-f202610-n/"
+        }
+      ],
+      "image": {
+        "src": "https://www.matchroomboxing.com/app/uploads/2026/04/MAP13492-2048x1365.jpg",
+        "alt": "Jesse Bam Rodriguez stands in the ring holding championship belts with his team",
+        "credit": "Matchroom Boxing",
+        "caption": "Jesse ‘Bam’ Rodriguez is already building the résumé of a generational star.",
+        "sourceUrl": "https://www.matchroomboxing.com/news/jesse-bam-rodriguez-pens-long-term-extension-with-eddie-hearn-and-matchroom/"
+      },
+      "body": [
+        "The October 8 clash between Osleys Iglesias and Oliver Zaren offers a technical test of two southpaws with unbeaten records entering the contest.",
+        "Iglesias's explosive punching has drawn attention, but the tactical story begins with lead-hand positioning and the way each fighter creates room for his back hand.",
+        "Zaren's opportunity lies in denying Iglesias stationary targets, recovering his stance after attacking and keeping the exchanges longer than the favourite prefers.",
+        "A post-fight analysis should examine the actual rounds and scorecards, not presume the result from the pre-fight betting picture.",
+        "AURA verdict: the value of this contest extends beyond a single result because it reveals how Iglesias performs when familiar southpaw advantages change."
+      ],
+      "seoTitle": "Iglesias vs Zaren: what the fight can tell us about the super-middlewe",
+      "metaDescription": "A technical companion to our Osleys Iglesias profile, examining what to watch in his latest challenge.",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
+    {
+      "slug": "fury-joshua-undercard-fights-rumours",
+      "title": "Fury vs Joshua undercard: which fights are realistic?",
+      "summary": "A guide to the names in discussion, the confirmed card and what remains speculative.",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://talksport.com/boxing/4620985/manny-pacquiao-tyson-fury-anthony-joshua-undercard/",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://talksport.com/boxing/4620985/manny-pacquiao-tyson-fury-anthony-joshua-undercard/"
+        }
+      ],
+      "image": {
+        "src": "https://www.fightmag.com/wp-content/uploads/2026/09/tyson-fury-vs-anthony-joshua-pose.jpg",
+        "alt": "Tyson Fury and Anthony Joshua posing together at their London launch press conference",
+        "credit": "Richard Pelham / Getty Images for Netflix, via FIGHTMAG",
+        "caption": "London launch, 30 September 2026; photograph from the event discussed.",
+        "sourceUrl": "https://www.fightmag.com/photos-tyson-fury-and-anthony-joshua-at-launch-press-conference/"
+      },
+      "body": [
+        "The Fury–Joshua event in Cardiff has prompted speculation about a blockbuster supporting card. Names have circulated quickly, but discussion is not the same thing as a signed contract.",
+        "Manny Pacquiao was linked with a potential appearance after his proposed Shakur Stevenson fight failed to materialise. Joe Cordina has been mentioned as an alternative, raising the appeal of a Welsh fighter on a Cardiff card.",
+        "Amir Khan and other recognisable names have also appeared in reporting, though availability, preparation and weight class make some pairings harder to arrange than headlines suggest.",
+        "The strongest undercard would combine competitive championship boxing with fighters who have a meaningful connection to the event. Merely assembling famous names is not a substitute for sensible matchmaking.",
+        "AURA verdict: we will distinguish official bout announcements from promoter suggestions and media speculation, and refresh the card as agreements become public."
+      ],
+      "seoTitle": "Fury vs Joshua undercard: which fights are realistic?",
+      "metaDescription": "A guide to the names in discussion, the confirmed card and what remains speculative.",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
+    {
+      "slug": "anthony-joshua-redemption-fury-legacy",
+      "title": "Anthony Joshua's chance of redemption against Tyson Fury",
+      "summary": "Can Joshua turn a long-awaited British heavyweight rivalry into the defining late chapter of his career?",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://www.reuters.com/sports/cardiff-stadium-application-seeks-1-am-slot-fury-v-joshua-ring-walks-2026-10-08/",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://www.reuters.com/sports/cardiff-stadium-application-seeks-1-am-slot-fury-v-joshua-ring-walks-2026-10-08/"
+        }
+      ],
+      "image": {
+        "src": "https://www.fightmag.com/wp-content/uploads/2026/09/tyson-fury-vs-anthony-joshua-faceoff-turki-alalshikh-696x494.jpg",
+        "alt": "Tyson Fury and Anthony Joshua face off at the London launch on 30 September 2026",
+        "credit": "Richard Pelham / Getty Images for Netflix, via FIGHTMAG",
+        "caption": "London launch press conference, 30 September 2026.",
+        "sourceUrl": "https://www.fightmag.com/photos-tyson-fury-and-anthony-joshua-at-launch-press-conference/"
+      },
+      "body": [
+        "Anthony Joshua's Olympic gold medal, unified world titles and enormous commercial impact have already secured his place in British boxing history. Yet the shadow of difficult defeats remains part of his public reputation.",
+        "A long-awaited fight with Tyson Fury would test Joshua in a different way. Fury's feints, unpredictable movement and ability to alter tempo could disrupt the rhythm Joshua prefers.",
+        "Joshua will need intelligent aggression: a reliable jab, accurate straight punches and disciplined exits rather than the temptation to force a spectacular finish at every opportunity.",
+        "The emotional stakes are substantial. A win would not rewrite defeats against Andy Ruiz Jr, Oleksandr Usyk or Daniel Dubois, but it would add a defining victory over the rival whose name has followed his throughout his career.",
+        "AURA verdict: redemption means proving adaptation, not simply landing one great punch. Fury presents the precise test Joshua needs to answer."
+      ],
+      "seoTitle": "Anthony Joshua's chance of redemption against Tyson Fury",
+      "metaDescription": "Can Joshua turn a long-awaited British heavyweight rivalry into the defining late chapter of his career?",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
+    {
+      "slug": "current-boxing-champions-fighting-styles",
+      "title": "Boxing styles explained: where do today's champions fit?",
+      "summary": "Out-boxers, boxer-punchers, pressure fighters and counterpunchers — how champions combine the categories.",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://www.ringmagazine.com/",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://www.ringmagazine.com/"
+        }
+      ],
+      "image": {
+        "src": "https://www.matchroomboxing.com/app/uploads/2026/04/MAP13492-2048x1365.jpg",
+        "alt": "Jesse Bam Rodriguez stands in the ring holding championship belts with his team",
+        "credit": "Matchroom Boxing",
+        "caption": "Jesse ‘Bam’ Rodriguez is already building the résumé of a generational star.",
+        "sourceUrl": "https://www.matchroomboxing.com/news/jesse-bam-rodriguez-pens-long-term-extension-with-eddie-hearn-and-matchroom/"
+      },
+      "body": [
+        "Boxing's familiar categories are useful starting points, but elite boxers rarely remain inside a single definition. The best fighters adapt according to distance, opponent and the changing tempo of a contest.",
+        "Shakur Stevenson exemplifies the defensive technician: he limits clean opportunities through distance, anticipation and accurate counters. That does not mean he simply runs or refuses to engage.",
+        "Dmitry Bivol is a disciplined boxer-puncher whose compact combinations and efficient footwork sustain pressure without sacrificing defensive shape.",
+        "Agit Kabayel offers a form of methodical pressure built around body attacks and ring cutting. Sebastian Fundora offers another: extraordinary height combined with unusually willing inside fighting.",
+        "Daniel Dubois represents the explosive heavyweight puncher, but even his hardest shots rely on a jab and correct positioning. Power is a technical outcome as well as a physical gift.",
+        "AURA verdict: styles make most sense as matchups. Who controls the feet, the lead hand and the space between exchanges matters more than a single label."
+      ],
+      "seoTitle": "Boxing styles explained: where do today's champions fit?",
+      "metaDescription": "Out-boxers, boxer-punchers, pressure fighters and counterpunchers — how champions combine the categories.",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
+    {
+      "slug": "filip-hrgovic-croatian-heavyweight-king-next",
+      "title": "Filip Hrgović: what next for Croatia's heavyweight champion?",
+      "summary": "Hrgović has reached a new career level. The next test is a sustainable reign against varied heavyweight styles.",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://www.dazn.com/en-US/news/boxing/boxing-schedule-fight-dates-tv-channel-and-live-stream-for-confirmed-cards/1l3zwnho1gotu17qp8l44fmww9",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://www.dazn.com/en-US/news/boxing/boxing-schedule-fight-dates-tv-channel-and-live-stream-for-confirmed-cards/1l3zwnho1gotu17qp8l44fmww9"
+        }
+      ],
+      "image": {
+        "src": "https://cdn-img.boxingnewsonline.net/uploads/content/1788078418256414370/Boxing-News_20260830_092603_0000.jpg",
+        "alt": "Moses Itauma and Filip Hrgovic after their August 2026 heavyweight world-title fight",
+        "credit": "Getty Images via Boxing News",
+        "caption": "Moses Itauma’s first professional defeat to Filip Hrgovic is the central test examined in this AURA analysis.",
+        "sourceUrl": "https://boxingnewsonline.net/news/hrgovic-on-moses-itauma-ability/"
+      },
+      "body": [
+        "Filip Hrgović's ascent to heavyweight championship status has changed the questions facing the Croatian. It is no longer only about securing a title opportunity, but about dealing with mandatory challengers and the pressure of defending it.",
+        "His contest with Moses Itauma demonstrated the importance of experience, controlled pacing and the ability to survive a dangerous opponent's strongest phases.",
+        "Hrgović's height, solid jab and deliberate straight punching create a difficult puzzle. Opponents who switch angles quickly or sustain body pressure can nevertheless test his balance and reactions.",
+        "A mandatory defence would protect the route to retaining his belt. A unification could raise his profile and create a much larger legacy opportunity, depending on rival champions' obligations.",
+        "AURA verdict: one breakthrough performance attracts recognition. Consistent results against elite opponents with contrasting styles are what turn a champion into a divisional ruler."
+      ],
+      "seoTitle": "Filip Hrgović: what next for Croatia's heavyweight champion?",
+      "metaDescription": "Hrgović has reached a new career level. The next test is a sustainable reign against varied heavyweight styles.",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
+    {
+      "slug": "gassiev-wba-championship-fury-joshua-confusion",
+      "title": "Murat Gassiev: the WBA belt confusion around Fury–Joshua",
+      "summary": "Why is Gassiev seeking clarity while another WBA heavyweight title contest is being discussed?",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://talksport.com/boxing/4628306/murat-gassiev-tyson-fury-anthony-joshua-wba-world-title/",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://talksport.com/boxing/4628306/murat-gassiev-tyson-fury-anthony-joshua-wba-world-title/"
+        }
+      ],
+      "image": {
+        "src": "https://www.matchroomboxing.com/app/uploads/2022/01/BAM-BANNER_.png",
+        "alt": "Jesse Bam Rodriguez portrait from his official Matchroom Boxing fighter profile",
+        "credit": "Matchroom Boxing",
+        "caption": "Jesse ‘Bam’ Rodriguez, one of boxing’s leading champions, pictured in his official Matchroom profile.",
+        "sourceUrl": "https://www.matchroomboxing.com/boxers/jesse-rodriguez/"
+      },
+      "body": [
+        "Murat Gassiev's WBA heavyweight championship status has become the focus of an increasingly confusing debate. Reports suggest that Fury–Joshua could contest a superior WBA title designation.",
+        "The WBA has historically distinguished between 'regular' and 'super' championship titles. That system can leave casual fans unable to identify one undisputed holder of its world championship.",
+        "Gassiev has expressed uncertainty about what the organisation intends to do, reportedly without definitive communication that would resolve the matter.",
+        "A major commercial event may justify significant exposure, but sporting legitimacy depends on explaining how an existing titleholder fits into the route to top honours.",
+        "AURA verdict: the title's exact current status must be confirmed by official WBA communication. Describing Gassiev as definitively demoted or stripped would get ahead of the verified decision."
+      ],
+      "seoTitle": "Murat Gassiev: the WBA belt confusion around Fury–Joshua",
+      "metaDescription": "Why is Gassiev seeking clarity while another WBA heavyweight title contest is being discussed?",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
+    {
+      "slug": "denzel-bentley-wbo-appeal-mosley-hernandez",
+      "title": "Denzel Bentley battles to keep his WBO belt",
+      "summary": "The WBO has ordered a mandatory defence against Yoenli Hernandez while Bentley seeks approval to fight Shane Mosley Jr.",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://www.skysports.com/boxing/news/13595880/denzel-bentley-is-fighting-to-keep-his-world-title-on-the-line-for-shane-mosley-jr-clash-with-ongoing-wbo-appeal",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://www.skysports.com/boxing/news/13595880/denzel-bentley-is-fighting-to-keep-his-world-title-on-the-line-for-shane-mosley-jr-clash-with-ongoing-wbo-appeal"
+        }
+      ],
+      "image": {
+        "src": "https://cdn-img.boxingnewsonline.net/uploads/denzel-bentley.webp",
+        "alt": "Denzel Bentley in the ring wearing boxing gloves and a championship belt",
+        "credit": "Boxing News",
+        "caption": "Denzel Bentley, the fighter at the centre of the reported Zuffa Boxing move.",
+        "sourceUrl": "https://boxingnewsonline.net/boxer/denzel-bentley/"
+      },
+      "body": [
+        "Denzel Bentley has lodged an appeal to retain his WBO middleweight title while preparing to face Shane Mosley Jr on November 7. The sanctioning organisation has instructed him to face mandatory challenger Yoenli Hernandez instead.",
+        "A mandatory position exists to ensure the next qualified challenger receives a fair opportunity. Without that protection, champions could repeatedly take commercially attractive voluntary defences.",
+        "Bentley's perspective is understandable: a title can offer its holder the chance to maximise income and exposure, and the selected opponent may represent a better opportunity at this moment.",
+        "Yet the opponent who earned mandatory status also has legitimate expectations. Resolving the case requires clear rules rather than an improvised compromise dictated by promotional pressure.",
+        "AURA verdict: until the appeal is decided, Bentley should not be described as stripped. The key issue is whether he can defend voluntarily without undermining Hernandez's claim."
+      ],
+      "seoTitle": "Denzel Bentley battles to keep his WBO belt",
+      "metaDescription": "The WBO has ordered a mandatory defence against Yoenli Hernandez while Bentley seeks approval to fight Shane Mosley Jr.",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
+    {
+      "slug": "hearn-dana-fury-joshua-production-fight",
+      "title": "Hearn vs Dana White: who really controls Fury–Joshua?",
+      "summary": "The heated Hearn–White row is a fight over contracts, production rights and promotional leverage.",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://www.mmafighting.com/boxing/514468/eddie-hearn-admits-he-doesnt-care-if-tko-produces-tyson-fury-vs-anthony-joshua-trashes-zuffa-boxings-abysmal-start",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://www.mmafighting.com/boxing/514468/eddie-hearn-admits-he-doesnt-care-if-tko-produces-tyson-fury-vs-anthony-joshua-trashes-zuffa-boxings-abysmal-start"
+        }
+      ],
+      "image": {
+        "src": "https://platform.mmafighting.com/wp-content/uploads/sites/109/2025/12/gettyimages-1239339979.jpg?crop=0.094428706326724%2C0%2C99.811142587347%2C100&quality=90&strip=all&w=2400",
+        "alt": "Dana White and Eddie Hearn seated together at a combat-sports event",
+        "credit": "Kieran Cleeves / PA Images via Getty Images, via MMA Fighting",
+        "caption": "Dana White and Eddie Hearn together before their promotional rivalry intensified.",
+        "sourceUrl": "https://www.mmafighting.com/boxing/513231/chael-sonnen-dana-white-vs-eddie-hearn-feud-much-hotter-than-tyson-fury-vs-anthony-joshua"
+      },
+      "body": [
+        "Eddie Hearn and Dana White have traded claims over TKO's role in the December Fury–Joshua event. The public disagreement has generated almost as much discussion as the fight itself.",
+        "Broadcast production and legal promotion are not necessarily the same function. A production partner may operate the television presentation without possessing unrestricted rights to promote a contest.",
+        "Hearn's reported willingness to discuss TKO handling production is conditional on appropriate agreement between the interested parties. That is materially different from conceding every claim made by White.",
+        "White has a commercial incentive to associate Zuffa with one of the sport's biggest events, while Hearn has a responsibility to protect contractual arrangements around Joshua.",
+        "AURA verdict: the dispute should be judged on confirmed agreements rather than social-media rhetoric. Fans deserve a properly delivered event, not a promotional feud that crowds out the athletes."
+      ],
+      "seoTitle": "Hearn vs Dana White: who really controls Fury–Joshua?",
+      "metaDescription": "The heated Hearn–White row is a fight over contracts, production rights and promotional leverage.",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
+    {
+      "slug": "dubois-wardley-rematch-technical-preview",
+      "title": "Dubois vs Wardley II: revenge or repeat?",
+      "summary": "A technical breakdown of the heavyweight rematch: Dubois's jab and straight punches against Wardley's unpredictable pressure.",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://www.dazn.com/en-US/news/boxing/boxing-schedule-fight-dates-tv-channel-and-live-stream-for-confirmed-cards/1l3zwnho1gotu17qp8l44fmww9",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://www.dazn.com/en-US/news/boxing/boxing-schedule-fight-dates-tv-channel-and-live-stream-for-confirmed-cards/1l3zwnho1gotu17qp8l44fmww9"
+        }
+      ],
+      "image": {
+        "src": "https://www.fightmag.com/wp-content/uploads/2026/09/tyson-fury-vs-anthony-joshua-faceoff-turki-alalshikh-696x494.jpg",
+        "alt": "Tyson Fury and Anthony Joshua face off at the London launch on 30 September 2026",
+        "credit": "Richard Pelham / Getty Images for Netflix, via FIGHTMAG",
+        "caption": "London launch press conference, 30 September 2026.",
+        "sourceUrl": "https://www.fightmag.com/photos-tyson-fury-and-anthony-joshua-at-launch-press-conference/"
+      },
+      "body": [
+        "Heavyweight rematches often come down to the adjustment neither fighter made in the first contest. Daniel Dubois will want to establish his jab and physical presence early, while Fabio Wardley must disrupt the pattern before standing in the firing line.",
+        "Dubois is at his most destructive when his feet are planted and the jab has already fixed an opponent in position. His right hand becomes particularly dangerous against a fighter backing straight out.",
+        "Wardley's route to success calls for lateral exits, feints and counters at changing rhythms rather than relying purely on his resilience. He must punish Dubois for setting his feet without becoming a stationary target himself.",
+        "The championship implications are significant, but neither boxer should overlook the immediate tactical contest. Experience from their earlier meeting gives each team information and creates fresh expectations.",
+        "AURA verdict: Dubois's structure makes him dangerous, yet Wardley's capacity to change the nature of a fight means a repeat cannot be assumed."
+      ],
+      "seoTitle": "Dubois vs Wardley II: revenge or repeat?",
+      "metaDescription": "A technical breakdown of the heavyweight rematch: Dubois's jab and straight punches against Wardley's unpredictable pressure.",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
+    {
+      "slug": "osleys-iglesias-champion-profile",
+      "title": "Osleys Iglesias: boxing's most dangerous unknown champion?",
+      "summary": "Osleys Iglesias has serious power, but the real threat lies in the southpaw timing and positional craft behind his knockouts.",
+      "date": "2026-10-09",
+      "updatedAt": "2026-10-09",
+      "category": "AURA Deep Dive",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 96,
+      "source": "Boxing reporting",
+      "sourceUrl": "https://as.com/us/masdeporte/osleys-iglesias-vs-oliver-zaren-a-que-hora-inicia-la-pelea-y-donde-ver-en-usa-la-funcion-de-box-2026-f202610-n/",
+      "sources": [
+        {
+          "name": "Reporting and background",
+          "url": "https://as.com/us/masdeporte/osleys-iglesias-vs-oliver-zaren-a-que-hora-inicia-la-pelea-y-donde-ver-en-usa-la-funcion-de-box-2026-f202610-n/"
+        }
+      ],
+      "image": {
+        "src": "https://www.matchroomboxing.com/app/uploads/2026/04/MAP13492-2048x1365.jpg",
+        "alt": "Jesse Bam Rodriguez stands in the ring holding championship belts with his team",
+        "credit": "Matchroom Boxing",
+        "caption": "Jesse ‘Bam’ Rodriguez is already building the résumé of a generational star.",
+        "sourceUrl": "https://www.matchroomboxing.com/news/jesse-bam-rodriguez-pens-long-term-extension-with-eddie-hearn-and-matchroom/"
+      },
+      "body": [
+        "Iglesias's astonishing stoppage record attracts headlines, yet his technical control deserves just as much attention. The Cuban southpaw uses lead-hand manipulation and deceptive pauses to create room for his power shots.",
+        "Against an orthodox boxer, outside-foot positioning can open the straight left. Against another southpaw, as in the scheduled Oliver Zaren challenge, the geometry changes and subtler angles become more important.",
+        "His most difficult test would be a resilient, technically disciplined opponent able to change levels, attack his body and force him to sustain a high work rate beyond short explosive sequences.",
+        "The question is whether his success will translate into a defining fight against the division's established elite. His ability to cut the ring and defend after throwing will matter as much as his punching power.",
+        "AURA verdict: Iglesias should be assessed as a complete technician with fight-ending power, not simply a knockout statistic. The October 8 result must be incorporated once officially verified."
+      ],
+      "seoTitle": "Osleys Iglesias: boxing's most dangerous unknown champion?",
+      "metaDescription": "Osleys Iglesias has serious power, but the real threat lies in the southpaw timing and positional craft behind his knockouts.",
+      "tags": [
+        "boxing",
+        "news",
+        "analysis"
+      ],
+      "coverageStage": ""
+    },
     {
       "slug": "why-japan-keeps-producing-elite-boxers",
       "title": "Why Japan keeps producing elite boxers — and what the rest of the sport can learn",
@@ -221,8 +632,12 @@
       "featured": true,
       "priority": 116,
       "source": "BoxingScene",
-      "sourceUrl": "https://www.boxingscene.com/articles/devin-haney-and-shakur-stevenson-in-advanced-discussions-for-showdown",
+      "sourceUrl": "https://talksport.com/boxing/4631610/shakur-stevenson-devin-haney-deal-fight/",
       "sources": [
+        {
+          "name": "Latest related reporting",
+          "url": "https://talksport.com/boxing/4631610/shakur-stevenson-devin-haney-deal-fight/"
+        },
         {
           "name": "BoxingScene — Haney and Stevenson in advanced discussions",
           "url": "https://www.boxingscene.com/articles/devin-haney-and-shakur-stevenson-in-advanced-discussions-for-showdown"
@@ -244,6 +659,12 @@
         "sourceUrl": "https://www.fightmag.com/boxing-david-benavidez-vs-anthony-yarde-results/"
       },
       "body": [
+        "## October 9 editorial update",
+        "Shakur Stevenson has publicly accepted the proposed 145lb catchweight in talks with Devin Haney. That is an important step, though a final signed agreement has not been announced.",
+        "The contest would pit two masters of distance management against one another. Stevenson's subtle counters and Haney's controlling jab could produce a fascinating match of positional discipline.",
+        "Weight and physical condition would be essential variables, especially when fighters move away from their habitual divisions.",
+        "AURA verdict: this is one of boxing's best potential technical fights. Until contracts are confirmed it remains a negotiation rather than an officially booked event.",
+        "## Full original analysis",
         "## A fight boxing has talked around is suddenly becoming real",
         "Shakur Stevenson and Devin Haney have spent years moving through neighbouring divisions, collecting belts and being measured against many of the same elite names. Now the two unbeaten Americans are reportedly in advanced discussions to finally meet.",
         "No deal is signed yet. That distinction matters. Boxing has a long history of turning negotiations into headlines before contracts exist. But the current talks are significant because both fighters are available, both carry major titles in adjacent divisions and both have reached the point where another routine defence would tell us less than this fight would.",
@@ -269,7 +690,8 @@
         "This is one of the best pure boxing matches available in the United States because neither man can rely on a simple physical or stylistic shortcut.",
         "At 147, Haney’s size makes the fight much closer than some Stevenson supporters will admit. At 144, the balance shifts toward Stevenson’s speed, timing and defensive control.",
         "The first battle is therefore happening before the opening bell. Agreeing the weight is not administrative detail. It may be the most important tactical decision either team makes."
-      ]
+      ],
+      "updatedAt": "2026-10-09"
     },
     {
       "slug": "who-is-the-future-of-boxing",
@@ -652,8 +1074,12 @@
       "featured": true,
       "priority": 108,
       "source": "World Boxing Council",
-      "sourceUrl": "https://wbcboxing.com/en/sebastian-fundora-to-defend-wbc-world-title-against-ermal-hadribeaj/",
+      "sourceUrl": "https://www.badlefthook.com/boxing-news/119379/jermall-charlo-injured-pulled-from-fundora-vs-hadribeaj-show",
       "sources": [
+        {
+          "name": "Latest related reporting",
+          "url": "https://www.badlefthook.com/boxing-news/119379/jermall-charlo-injured-pulled-from-fundora-vs-hadribeaj-show"
+        },
         {
           "name": "Boxing Social — Fundora after Thurman",
           "url": "https://boxing-social.com/news/sebastian-fundora-politics-charlo-pbc-future-after-thurman"
@@ -671,6 +1097,12 @@
         "sourceUrl": "https://boxing-social.com/news/sebastian-fundora-politics-charlo-pbc-future-after-thurman"
       },
       "body": [
+        "## October 9 editorial update",
+        "Fundora's unusual height is only half the story. His willingness to exchange at close range can negate the usual advantage of a long jab.",
+        "Opponents must keep angles on their exits, target the body and stop him from sustaining work once they reach the pocket.",
+        "The scheduled October 17 Ermal Hadribeaj challenge offers another measure of those tactics, with Fundora's ring positioning and defensive discipline under scrutiny.",
+        "AURA verdict: the best solution is to make Fundora reset rather than simply try to get inside his reach.",
+        "## Full original analysis",
         "## Boxing is not supposed to produce fighters shaped like this",
         "Sebastian Fundora is 6ft 6in and competes at 154 pounds. That sentence alone explains why opponents have to prepare for something unusual. The obvious instruction for a boxer with that frame would be simple: stay tall, use the jab, make shorter men cross dangerous ground and punish them on the way in. Fundora can do that. The strange part is that he often chooses not to.",
         "Fundora has built his reputation by turning an extraordinary physical advantage into a style that can look almost wilfully contradictory. He is comfortable at range, but he is also willing to stand close, trade hooks and uppercuts and make fights ugly. That is why the nickname ‘The Towering Inferno’ fits better than a conventional description of a tall boxer. The height is obvious. The inferno is the choice.",
@@ -693,7 +1125,8 @@
         "## AURA verdict",
         "Fundora is interesting because he does not fight the way a textbook tells us a 6ft 6in super-welterweight should fight. If he simply stayed outside, he might be easier to explain. Instead he turns a rare body type into a deliberately chaotic style.",
         "That contradiction is his identity. Boxing gave him the dimensions of a heavyweight, the weight limit of a super-welterweight and the instincts of a fighter who often wants to meet you in the middle. The result is one of the sport’s most distinctive champions."
-      ]
+      ],
+      "updatedAt": "2026-10-09"
     },
     {
       "slug": "boxing-saudi-money-what-happens-next",
@@ -763,8 +1196,12 @@
       "featured": true,
       "priority": 106,
       "source": "MMA Fighting",
-      "sourceUrl": "https://www.mmafighting.com/ufc/513670/dana-white-reveals-ufcs-involvement-in-tyson-fury-vs-anthony-joshua-fight",
+      "sourceUrl": "https://www.mmafighting.com/boxing/514468/eddie-hearn-admits-he-doesnt-care-if-tko-produces-tyson-fury-vs-anthony-joshua-trashes-zuffa-boxings-abysmal-start",
       "sources": [
+        {
+          "name": "Latest related reporting",
+          "url": "https://www.mmafighting.com/boxing/514468/eddie-hearn-admits-he-doesnt-care-if-tko-produces-tyson-fury-vs-anthony-joshua-trashes-zuffa-boxings-abysmal-start"
+        },
         {
           "name": "MMA Mania — Hearn and White meeting",
           "url": "https://www.mmamania.com/boxing/476947/eddie-hearn-and-dana-white-will-attend-l-a-meeting-to-sort-joshua-vs-fury-impasse"
@@ -782,6 +1219,12 @@
         "sourceUrl": "https://www.mmafighting.com/ufc/513670/dana-white-reveals-ufcs-involvement-in-tyson-fury-vs-anthony-joshua-fight"
       },
       "body": [
+        "## October 9 editorial update",
+        "Streaming platforms and major promoters increasingly compete to own the audience relationship as much as the fight itself.",
+        "The DAZN and Netflix distribution models, together with Zuffa's ambitions, raise questions about who controls fighter exposure and broadcast presentation.",
+        "The Hearn–White fight over production and promotional roles illustrates why contractual control has become so visible to fans.",
+        "AURA verdict: boxing benefits from investment only when it leads to better matchmaking, credible coverage and a clearer product for supporters.",
+        "## Full original analysis",
         "## The old job description",
         "The traditional boxing promoter did almost everything that mattered outside the ropes. Sign the fighter. Build the local audience. Negotiate the television deal. Secure the venue. Sell the tickets. Control the press conference. Protect the relationship with sanctioning bodies. Then, when the fighter became valuable enough, negotiate with a rival promoter.",
         "That model still exists. Eddie Hearn and Frank Warren remain major operators. But the structure around them is changing.",
@@ -810,7 +1253,8 @@
         "The promoter is not dying. The monopoly over promotion is.",
         "The people who survive will be the ones comfortable sharing control when sharing control produces a bigger event. Hearn, Warren, White and the next generation are not competing for the same job description anymore.",
         "They are competing to define what the job becomes."
-      ]
+      ],
+      "updatedAt": "2026-10-09"
     },
     {
       "slug": "boxing-belts-dont-tell-you-best-fighter",
@@ -887,8 +1331,12 @@
       "featured": true,
       "priority": 100,
       "source": "Bad Left Hook",
-      "sourceUrl": "https://www.badlefthook.com/live-boxing-updates/119250/ben-whittaker-vs-conor-wallace-live-blog-round-by-round-updates-results-boxing-news-2026",
+      "sourceUrl": "https://www.skysports.com/boxing/news/13594856/ben-whittaker-clings-on-to-outpoint-conor-wallace-as-he-endures-final-round-fright-to-claim-unanimous-decision-win",
       "sources": [
+        {
+          "name": "Latest related reporting",
+          "url": "https://www.skysports.com/boxing/news/13594856/ben-whittaker-clings-on-to-outpoint-conor-wallace-as-he-endures-final-round-fright-to-claim-unanimous-decision-win"
+        },
         {
           "name": "talkSPORT result and reaction",
           "url": "https://talksport.com/boxing/4623098/ben-whittaker-badly-hurt-win-conor-wallace/"
@@ -904,6 +1352,12 @@
         "sourceUrl": "https://www.badlefthook.com/live-boxing-updates/119250/ben-whittaker-vs-conor-wallace-live-blog-round-by-round-updates-results-boxing-news-2026"
       },
       "body": [
+        "## October 9 editorial update",
+        "Ben Whittaker's unanimous points win over Conor Wallace on October 3 did not feel routine by the final bell. The early rounds showed his superior range control and varied offence.",
+        "Wallace's late rally exposed the danger of reduced concentration and gave Whittaker uncomfortable moments in the championship rounds.",
+        "Whittaker remains an exceptionally gifted technician, but elite opponents will punish missed defensive assignments and late fatigue more decisively.",
+        "AURA verdict: world-championship potential remains clear, but the Wallace scare provided an urgent development plan for his team.",
+        "## Full original analysis",
         "## The result, and the question it leaves",
         "Ben Whittaker beat Conor Wallace by unanimous decision in Birmingham on 3 October. The official scores were 117–111, 116–112 and 115–113. Bad Left Hook’s live report describes a fighter banking the early rounds before Wallace made the finish uncomfortable, particularly in the twelfth. That distinction matters: the result is a win; the assessment of readiness is a separate conversation.",
         "This is AURA’s analysis of the published fight reporting, rather than a ringside account or a claim to have reviewed every camera angle. The most useful response is neither to dismiss Whittaker’s talent nor to explain away the difficult ending. It is to ask what the fight exposed about converting control into dependable twelve-round performance.",
@@ -925,7 +1379,8 @@
         "A rematch could answer whether the difficult ending was an isolated episode or a repeatable vulnerability. Another demanding opponent could ask similar questions in a different way. Neither route is automatically correct; the decision should be judged against what the team needs to learn, not only how attractive the event looks.",
         "## AURA verdict",
         "Whittaker has a victory that advances his career and a performance that should sharpen the work ahead. Both can be true. The meaningful question is no longer whether he can look exceptional when he controls the terms. It is how consistently he can protect that control when a determined opponent changes them."
-      ]
+      ],
+      "updatedAt": "2026-10-09"
     },
     {
       "slug": "will-terence-crawford-return",
