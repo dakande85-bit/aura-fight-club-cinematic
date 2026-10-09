@@ -7,6 +7,7 @@ const BOXING_LINKS = [
   { label: 'Rankings', href: '/rankings' },
   { label: 'Fighters', href: '/fighters' },
   { label: 'The Verdict', href: '/verdict' },
+  { label: 'Film Room', href: '/film-room' },
   { label: 'Topics', href: '/topics' },
   { label: 'Guides', href: '/guides' },
 ];
