@@ -6,6 +6,7 @@ const BOXING_LINKS = [
   { label: 'Fight Hub', href: '/fight-hub' },
   { label: 'Rankings', href: '/rankings' },
   { label: 'Fighters', href: '/fighters' },
+  { label: 'The Verdict', href: '/verdict' },
   { label: 'Topics', href: '/topics' },
   { label: 'Guides', href: '/guides' },
 ];
