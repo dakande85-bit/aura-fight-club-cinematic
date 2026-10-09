@@ -1,7 +1,7 @@
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CalendarDays, Trophy, Play, Newspaper, ArrowRight, LockKeyhole, Crown } from 'lucide-react';
 import { homepageHeroMedia } from '../data/auraMediaManifest.js';
 import { useArticles } from '../hooks/useArticles.js';
@@ -18,7 +18,8 @@ const quickLinks = [
 export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' }) {
   const Heading = headingLevel;
   const { articles = [] } = useArticles();
-  const featured = articles.slice(0, 12);
+  const [visibleCount,setVisibleCount]=useState(12);
+  const featured = articles.slice(0, visibleCount);
   const today = todayCanary();
   const upcoming = fights
     .filter(fight => fight.status !== 'Completed' && fight.date >= today)
@@ -68,6 +69,7 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
                 </article>
               ))}
             </div>
+            {visibleCount < articles.length && <button type="button" className="afc-load-more" onClick={()=>setVisibleCount(n=>n+12)}>Load more articles ({articles.length-visibleCount} remaining)</button>}
           </div>
 
         </section>
