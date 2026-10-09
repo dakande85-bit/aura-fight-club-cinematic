@@ -8,8 +8,8 @@ import { fighters, topics, evergreenGuides, author } from '../data/seoEntities.j
 import { useArticles } from '../hooks/useArticles.js';
 import fightEdition from '../../public/news/fights.json';
 import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
-import '../styles/fight-hub.css';
 import '../styles/aura-editorial.css';
+import '../styles/fight-hub.css';
 
 const clean = value => String(value || '').toLowerCase();
 
@@ -27,10 +27,17 @@ function ArticleLinks({items}) {
 
 export function FightersIndexPage(){
  const [query,setQuery]=useState('');
- const matches=fighters.filter(f=>(f.name+' '+f.division+' '+(f.nationality||'')).toLowerCase().includes(query.toLowerCase()));
+ const [division,setDivision]=useState('All divisions');
+ const matches=fighters.filter(f=>(division==='All divisions'||f.division===division)&& (f.name+' '+f.division+' '+(f.nationality||'')).toLowerCase().includes(query.toLowerCase()));
  return <Shell seo={{title:'Boxing Fighters & Profiles | AURA Fight Club',description:'Explore AURA Fight Club fighter profiles, records, divisions, latest coverage and boxing analysis.',canonicalPath:'/fighters'}} crumbs={[{label:'Home',to:'/'},{label:'Fighters',to:'/fighters'}]}>
-  <div className="aura-ed-page-title"><p className="aura-ed-kicker">AURA fighter index</p><h1>Fighters.</h1><p>Permanent profiles connecting rankings, fight pages and editorial coverage around the boxers shaping the sport.</p></div>
-  <label className="aura-fighter-search">Find a fighter <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by name, division or nationality" /></label><p className="aura-ed-note">{matches.length} profiles · Records are editorial snapshots, not live statistics.</p><div className="aura-coverage-list aura-fighter-directory">{matches.map(f=><article key={f.slug}><Link to={`/fighters/${f.slug}`}><VerifiedPhoto fighterSlug={f.slug} label={f.name}/></Link><p className="aura-ed-kicker">{f.division}{f.nationality?` · ${f.nationality}`:''}</p><h2><Link to={`/fighters/${f.slug}`}>{f.name}</Link></h2>{f.record&&<p>{f.record}</p>}<p>{f.summary}</p></article>)}</div>
+  <div className="aura-fighters-header"><p className="aura-ed-kicker">THE AURA INDEX / BOXING INTELLIGENCE</p><h1>THE FIGHTERS.</h1><p>Discover the champions, contenders and prospects shaping boxing. Profiles, records, upcoming matchups and independent analysis.</p></div>
+  <div className="aura-directory-controls"><label>Search fighters<input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search boxer or country…" type="search" /></label><label>Division<select value={division} onChange={e=>setDivision(e.target.value)}><option>All divisions</option>{[...new Set(fighters.map(f=>f.division))].sort().map(d=><option key={d}>{d}</option>)}</select></label></div>
+  <div className="aura-directory-count"><strong>{matches.length}</strong> fighters <span>• Photo sources are identified; records are dated editorial snapshots.</span></div>
+  <div className="aura-fighter-directory">{matches.map(f=><Link to={`/fighters/${f.slug}`} className="aura-fighter-tile" key={f.slug}>
+    <div className="aura-fighter-tile__photo"><VerifiedPhoto fighterSlug={f.slug} label={f.name}/></div>
+    <div className="aura-fighter-tile__info"><span>{f.division} {f.nationality?`· ${f.nationality}`:''}</span><h2>{f.name}</h2><p>{f.record||'Record under verification'}</p><strong>VIEW PROFILE <span aria-hidden="true">↗</span></strong></div>
+  </Link>)}</div>
+  {!matches.length&&<p className="aura-directory-empty">No fighters match this search. Try a different name or weight class.</p>}
  </Shell>;
 }
 
