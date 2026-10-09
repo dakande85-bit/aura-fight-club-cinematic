@@ -8,8 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prebuild": "node scripts/generate-sitemaps.mjs",
-    "seo:generate": "node scripts/generate-sitemaps.mjs"
+    "prebuild": "npm run data:check && node scripts/generate-sitemaps.mjs",
+    "seo:generate": "node scripts/generate-sitemaps.mjs",
+    "data:check": "node scripts/check-fight-data.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
