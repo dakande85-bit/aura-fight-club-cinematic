@@ -63,3 +63,27 @@
 .afc-home-shell .footer{border-top:1px solid rgba(214,170,98,.25)}
 @media(max-width:1050px){.afc-hero{grid-template-columns:1fr;min-height:900px;padding-top:80px}.afc-hero__copy{padding-bottom:250px;max-width:720px}.afc-hero__fighter{width:66vw;right:-8%;top:10%;height:70%}.afc-quick-grid{grid-template-columns:repeat(2,1fr)}.afc-content-grid{grid-template-columns:1fr}.afc-story-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:720px){.afc-hero{min-height:930px;padding:52px 20px 18px;display:block}.afc-hero::before{background:linear-gradient(180deg,#080808 0%,rgba(8,8,8,.92) 28%,rgba(8,8,8,.48) 60%,#080808 88%)}.afc-hero__copy{padding:0;position:relative;z-index:3}.afc-hero h1,.afc-hero h2{font-size:clamp(3.7rem,18vw,6rem)}.afc-hero__lede{font-size:1rem;max-width:92%;margin:24px 0}.afc-hero__fighter{top:330px;right:-22%;width:118vw;height:520px;opacity:.9}.afc-hero__fighter img{width:100%;height:100%;object-position:50% 20%;mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 72%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 72%,transparent 100%)}.afc-quick-grid{left:20px;right:20px;bottom:18px;grid-template-columns:repeat(2,1fr);gap:8px}.afc-quick-card{min-height:112px;padding:15px}.afc-quick-card span{display:none}.afc-quick-card__arrow{right:14px;bottom:14px}.afc-members-strip{grid-template-columns:1fr;padding:42px 20px}.afc-members-strip__actions{flex-direction:row;align-items:center;flex-wrap:wrap}.afc-content-grid{padding:54px 20px}.afc-story-grid{grid-template-columns:1fr}.afc-section-head{align-items:start}.afc-rankings-tease{margin:0 20px 58px;padding:30px 24px;display:grid}.afc-btn{min-height:50px;padding:0 20px}.afc-hero__actions{gap:10px}.afc-hero__actions .afc-btn{flex:1}.afc-home-shell .header__cta--desktop{display:none!important}}
+
+
+/* News-first homepage: remove promotional overlay layout from the published front page. */
+.afc-news-intro{max-width:1440px;margin:0 auto;padding:clamp(38px,5vw,72px) clamp(20px,5vw,76px) 24px;border-bottom:1px solid var(--afc-line)}
+.afc-news-intro h1,.afc-news-intro h2{font-size:clamp(2.6rem,6vw,5.6rem);line-height:1;letter-spacing:-.045em;margin:0 0 16px;font-weight:900;color:#f5f2ed}
+.afc-news-intro>p:last-child{max-width:720px;color:#bcb8b2;font-size:1rem;line-height:1.6;margin:0}
+.afc-home .afc-content-grid{max-width:1440px;margin:0 auto;padding-top:32px;grid-template-columns:minmax(0,1fr)}
+.afc-home .afc-story-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.afc-home .afc-story-card__media{aspect-ratio:16/10}
+.afc-home .afc-story-card__body{padding:19px}
+.afc-home .afc-story-card__body .afc-eyebrow{letter-spacing:.07em;font-size:.76rem;line-height:1.5;margin-bottom:11px}
+.afc-home .afc-next-fights{border-top:1px solid var(--afc-line);padding-top:30px}
+.afc-home .afc-members-strip--simple{max-width:1440px;margin:0 auto 60px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+@media(max-width:1050px){.afc-home .afc-story-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){
+ .afc-news-intro{padding:30px 20px 24px}
+ .afc-news-intro h1,.afc-news-intro h2{font-size:clamp(2.65rem,11vw,4.5rem)}
+ .afc-home .afc-content-grid{padding:24px 18px 34px;display:flex;flex-direction:column;gap:42px}
+ .afc-home .afc-story-grid{grid-template-columns:minmax(0,1fr);gap:22px}
+ .afc-home .afc-story-card__media{aspect-ratio:16/10}
+ .afc-home .afc-story-card__body{padding:18px}
+ .afc-home .afc-members-strip--simple{margin:0 18px 42px;padding:25px;display:grid;grid-template-columns:1fr}
+ .afc-home .afc-rankings-tease{margin:0 18px 48px}
+}
