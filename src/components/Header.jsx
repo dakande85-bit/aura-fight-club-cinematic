@@ -6,10 +6,9 @@ const navItems = [
   { label: 'Fight Hub', href: '/fight-hub' },
   { label: 'Rankings', href: '/rankings' },
   { label: 'Fighters', href: '/fighters' },
+  { label: 'Film Room', href: '/film-room' },
   { label: 'The Verdict', href: '/verdict' },
-  { label: 'Lifestyle', href: '/lifestyle' },
-  { label: 'Our Story', href: '/who-we-are' },
-  { label: 'Members', href: '/members' },
+  { label: 'The Club', href: '/members' },
 ];
 
 export default function Header() {
