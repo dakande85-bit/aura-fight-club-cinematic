@@ -70,42 +70,8 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
             </div>
           </div>
 
-          <aside className="afc-next-fights">
-            <div className="afc-section-head">
-              <div>
-                <p className="afc-eyebrow">On deck</p>
-                <h2>NEXT FIGHTS.</h2>
-              </div>
-              <Link to="/calendar">Calendar <ArrowRight size={16} /></Link>
-            </div>
-            <div className="afc-fight-list">
-              {upcoming.map(fight => (
-                <Link className="afc-fight-row" to={`/fights/${fight.id}`} key={fight.id}>
-                  <time dateTime={fight.date}>
-                    <b>{new Date(fight.date + 'T12:00:00Z').toLocaleDateString('en-GB', { day: '2-digit' })}</b>
-                    <span>{new Date(fight.date + 'T12:00:00Z').toLocaleDateString('en-GB', { month: 'short' }).toUpperCase()}</span>
-                  </time>
-                  <div>
-                    <strong>{fight.name}</strong>
-                    <span>{fight.venue}</span>
-                  </div>
-                  <ArrowRight size={16} />
-                </Link>
-              ))}
-            </div>
-          </aside>
         </section>
 
-        <section className="afc-members-strip afc-members-strip--simple"><div><p className="afc-eyebrow">AURA Fight Club membership</p><h2>BEYOND THE HEADLINES.</h2><p>Be first to hear about new coverage and exclusive AURA concepts.</p></div><Link className="afc-text-link" to="/members">Explore membership <ArrowRight size={16}/></Link></section>
-
-        <section className="afc-rankings-tease">
-          <div>
-            <p className="afc-eyebrow">Champions & rankings</p>
-            <h2>WHO OWNS THE DIVISIONS?</h2>
-            <p>Follow the champions, mandatory challengers and the pound-for-pound conversation in one place.</p>
-          </div>
-          <Link className="afc-btn afc-btn--ghost" to="/rankings">View full rankings <ArrowRight size={17} /></Link>
-        </section>
       </main>
 
       <Footer />
