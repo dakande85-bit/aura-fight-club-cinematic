@@ -3,6 +3,7 @@ import { GlobalSEO } from './components/SEO.jsx';
 import Analytics from './components/Analytics.jsx';
 import HomeStaticHero from './components/HomeStaticHero.jsx';
 import FightHub from './pages/FightHub.jsx';
+import VerdictPage from './pages/VerdictPage.jsx';
 import ChampionsPage from './pages/ChampionsPage.jsx';
 import LaunchLandingPage from './pages/LaunchLandingPage.jsx';
 import CinematicPage from './pages/CinematicPage.jsx';
@@ -55,6 +56,7 @@ export default function AppRouter() {
         <Route path="/editorial-policy" element={<EditorialPolicyPage />} />
         <Route path="/corrections" element={<CorrectionsPolicyPage />} />
         <Route path="/fight-hub" element={<FightHub />} />
+        <Route path="/verdict" element={<VerdictPage />} />
         <Route path="/calendar" element={<FightHub />} />
         <Route path="/rankings" element={<ChampionsPage />} />
         <Route path="/fights/:id" element={<FightPage />} />
