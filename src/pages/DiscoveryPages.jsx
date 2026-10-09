@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import {useState} from 'react';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import { PageSEO, SITE_URL } from '../components/SEO.jsx';
@@ -23,9 +24,11 @@ function ArticleLinks({items}) {
 }
 
 export function FightersIndexPage(){
+ const [query,setQuery]=useState('');
+ const matches=fighters.filter(f=>(f.name+' '+f.division+' '+(f.nationality||'')).toLowerCase().includes(query.toLowerCase()));
  return <Shell seo={{title:'Boxing Fighters & Profiles | AURA Fight Club',description:'Explore AURA Fight Club fighter profiles, records, divisions, latest coverage and boxing analysis.',canonicalPath:'/fighters'}} crumbs={[{label:'Home',to:'/'},{label:'Fighters',to:'/fighters'}]}>
   <div className="aura-ed-page-title"><p className="aura-ed-kicker">AURA fighter index</p><h1>Fighters.</h1><p>Permanent profiles connecting rankings, fight pages and editorial coverage around the boxers shaping the sport.</p></div>
-  <div className="aura-coverage-list">{fighters.map(f=><article key={f.slug}><p className="aura-ed-kicker">{f.division}{f.nationality?` · ${f.nationality}`:''}</p><h2><Link to={`/fighters/${f.slug}`}>{f.name}</Link></h2>{f.record&&<p>{f.record}</p>}<p>{f.summary}</p></article>)}</div>
+  <label className="aura-fighter-search">Find a fighter <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by name, division or nationality" /></label><p className="aura-ed-note">{matches.length} profiles · Records are editorial snapshots, not live statistics.</p><div className="aura-coverage-list">{matches.map(f=><article key={f.slug}><p className="aura-ed-kicker">{f.division}{f.nationality?` · ${f.nationality}`:''}</p><h2><Link to={`/fighters/${f.slug}`}>{f.name}</Link></h2>{f.record&&<p>{f.record}</p>}<p>{f.summary}</p></article>)}</div>
  </Shell>;
 }
 
@@ -38,9 +41,9 @@ export function FighterProfilePage(){
  const crumbs=[{label:'Home',to:'/'},{label:'Fighters',to:'/fighters'},{label:fighter.name,to:`/fighters/${fighter.slug}`}];
  return <Shell seo={{title:`${fighter.name} — Record, Division, News & Analysis | AURA Fight Club`,description:`${fighter.name}: ${fighter.summary} Latest AURA Fight Club news, rankings and fight coverage.`,canonicalPath:`/fighters/${fighter.slug}`,schema:personSchema}} crumbs={crumbs}>
   <div className="aura-ed-page-title"><p className="aura-ed-kicker">{fighter.division}{fighter.nationality?` · ${fighter.nationality}`:''}</p><h1>{fighter.name}</h1>{fighter.record&&<p className="aura-article-deck">{fighter.record}</p>}<p>{fighter.summary}</p></div>
-  {fights.length>0&&<section className="aura-ed-section"><div className="aura-ed-section-head"><h2>Fight record on AURA.</h2></div><div className="aura-coverage-list">{fights.map(f=><article key={f.id}><p className="aura-ed-kicker">{f.date} · {f.division}</p><h3><Link to={`/fights/${f.id}`}>{f.name}</Link></h3><p>{f.stakes}</p></article>)}</div></section>}
+  {fights.length>0&&<section className="aura-ed-section"><div className="aura-ed-section-head"><h2>Fight record on AURA.</h2></div><div className="aura-coverage-list">{fights.map(f=><article key={f.id}><p className="aura-ed-kicker">{f.date} · {f.division}</p><h3><Link to={`/fights/${f.id}`}>{f.name}</Link></h3><p>{f.stakes}</p><p>Broadcaster: {f.broadcastStatus==='confirmed'?f.broadcast:'Not confirmed'} · Ring walk: {f.schedule?.ringWalkStatus==='confirmed'?'Confirmed':'Not confirmed'}</p><a href={f.sourceUrl} rel="noreferrer" target="_blank">Check official event information ↗</a></article>)}</div></section>}
   <section className="aura-ed-section"><div className="aura-ed-section-head"><h2>Latest coverage.</h2></div><ArticleLinks items={related}/></section>
-  <p className="aura-ed-note">Profile data is editorially maintained and should be refreshed after confirmed fights, division changes and title changes.</p>
+  <p className="aura-ed-note"><strong>Accuracy notice:</strong> Fighter records and divisions are editorial snapshots, not a live BoxRec feed. Unverified measurements, bout results and title changes are deliberately omitted. Confirm current records against official fight results before relying on them.</p>
  </Shell>;
 }
 
