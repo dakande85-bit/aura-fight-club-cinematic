@@ -132,7 +132,7 @@ export function RingPoundForPound() {
    </div>
    <ExternalLink href="https://www.ringmagazine.com/?lang=en">Official Ring rankings</ExternalLink>
   </div>
-  <div className="aura-p4p-grid">
+  <div className="aura-p4p-grid aura-p4p-grid--compact">
    {ringPoundForPound.map(fighter => <article className={`aura-p4p-card ${fighter.rank <= 3 ? 'aura-p4p-card--podium' : ''}`} key={fighter.rank}>
     <div className="aura-p4p-image">
      <FighterPortrait name={fighter.name} className="aura-fighter-portrait--p4p" eager={fighter.rank <= 2} combatOnly />
@@ -179,9 +179,9 @@ export function FightCalendar({ compact = false }) {
    const onDazn=(f.broadcast||'').toLowerCase().includes('dazn');
    return <article className={`aura-fight-card ${f.featured?'aura-fight-card--featured':''}`} key={f.id}>
     <div className="aura-fight-card__visual" aria-label={`${f.name} fighter portraits`}>
-     <FighterPortrait name={names[0]||f.name} className="aura-fighter-portrait--calendar" eager={index<2} />
+     <strong className="aura-fight-card__fighter-name">{names[0]||f.name}</strong>
      <span className="aura-fight-card__vs">VS</span>
-     <FighterPortrait name={names[1]||''} className="aura-fighter-portrait--calendar" eager={index<2} />
+     <strong className="aura-fight-card__fighter-name">{names[1]||''}</strong>
      {f.featured&&<span className="aura-fight-card__badge">Featured</span>}
     </div>
     <div className="aura-fight-card__body">
