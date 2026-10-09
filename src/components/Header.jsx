@@ -3,9 +3,9 @@ import { useBrandLogo } from '../hooks/usePageMedia.js';
 
 const navItems = [
   { label: 'Fight News', href: '/news' },
-  { label: 'Calendar', href: '/calendar' },
+  { label: 'Fight Hub', href: '/fight-hub' },
   { label: 'Rankings', href: '/rankings' },
-  { label: 'Watch', href: '/watch' },
+  { label: 'Fighters', href: '/fighters' },
   { label: 'Lifestyle', href: '/lifestyle' },
   { label: 'Our Story', href: '/who-we-are' },
   { label: 'Members', href: '/members' },
