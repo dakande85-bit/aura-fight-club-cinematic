@@ -35,16 +35,33 @@ export function Video({ item }) {
 export function NewsSection({ full = false, filters = false }) {
  const {articles,reviewedAt}=useArticles();
  const [stage,setStage]=useState('All stories');
- const selected=articles.filter(a=>stage==='All stories'||a.coverageStage===stage);
- const shown=full?selected:selected.slice(0,6);
+ const [section,setSection]=useState('All');
+ const [visibleCount,setVisibleCount]=useState(12);
+ const editorialSections = ['All','Breaking','The Fight Lab','Beyond the Ropes','Boxing Exposed','Future Kings','The Archives','Fight Culture'];
+ const classify = (a) => {
+   const text = [a.articleType,a.category,...(a.tags||[])].join(' ').toLowerCase();
+   if (/history|historic|classic|legend|archive|retro/.test(text)) return 'The Archives';
+   if (/lifestyle|fashion|culture|streetwear|music/.test(text)) return 'Fight Culture';
+   if (/prospect|rising|future|next generation/.test(text)) return 'Future Kings';
+   if (/business|politic|promot|controvers|judg|sanction|money/.test(text)) return 'Boxing Exposed';
+   if (/profile|feature|interview|human|deep dive|untold/.test(text) && !/analysis|preview|tactic/.test(text)) return 'Beyond the Ropes';
+   if (/analysis|preview|prediction|tactic|breakdown|fight lab/.test(text)) return 'The Fight Lab';
+   return 'Breaking';
+ };
+ const selected=articles.filter(a=>(stage==='All stories'||a.coverageStage===stage)&&(section==='All'||classify(a)===section));
+ const shown=full?selected.slice(0,visibleCount):selected.slice(0,6);
+ const changeSection=(value)=>{setSection(value);setVisibleCount(12);};
  return <section className="aura-ed-section" id="fight-news" aria-labelledby="fight-news-title">
    <div className="aura-ed-section-head"><div><p className="aura-ed-kicker">The fight desk</p><h2 id="fight-news-title">Fight news.</h2></div>{!full && <Link to="/news">All stories</Link>}</div>
+   {filters && <div className="aura-desk-tabs aura-editorial-channels" aria-label="Editorial sections">{editorialSections.map(s=><button type="button" key={s} aria-pressed={section===s} onClick={()=>changeSection(s)}>{s}</button>)}</div>}
    {filters && <div className="aura-desk-tabs" aria-label="Story coverage">{['All stories','Build-up','Reaction'].map(s=><button type="button" key={s} aria-pressed={stage===s} onClick={()=>setStage(s)}>{s}</button>)}</div>}
    <p className="aura-ed-note">Latest boxing coverage · Newest stories first · Updated {reviewedAt}</p>
    <div className="aura-news-grid">{shown.map((article, i) => <article className={`aura-news-card ${i === 0 ? 'aura-news-card--lead' : ''}`} key={article.slug}>
       <StoryImage article={article} linked /><p className="aura-ed-kicker"><strong>Published <time dateTime={article.date}>{new Date(article.date + 'T12:00:00Z').toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</time></strong> · {article.category} · {articleReadingMinutes(article.body)} min read</p>
       <h3><Link to={`/news/${article.slug}`}>{article.title}</Link></h3><p>{article.summary}</p><div className="aura-news-links">{article.fightId && <Link to={`/fights/${article.fightId}`}>{article.coverageStage || 'Fight coverage'}</Link>}<Link to={`/news/${article.slug}`}>Read story</Link><ExternalLink href={article.sourceUrl}>Original report</ExternalLink></div>
    </article>)}</div>
+   {selected.length===0 && <p className="aura-ed-note" role="status">No published stories in this section yet. Explore another editorial section.</p>}
+   {full && shown.length<selected.length && <div className="aura-news-more"><button type="button" className="aura-life-cta" onClick={()=>setVisibleCount(n=>n+12)}>Load more stories ({selected.length-shown.length} remaining)</button></div>}
  </section>;
 }
 export function WatchSection() {
