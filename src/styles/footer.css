@@ -161,3 +161,6 @@
     flex-direction: column;
   }
 }
+
+/* Compact, structured mobile footer */
+@media(max-width:900px){.aura-footer{padding:38px 20px 24px!important}.aura-footer__inner{gap:28px!important}.aura-footer__nav{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:25px 18px!important}.aura-footer__col{gap:9px!important;min-width:0}.aura-footer__col a{font-size:.7rem!important;line-height:1.5!important;letter-spacing:.05em!important;overflow-wrap:anywhere}.aura-footer__heading{margin-bottom:5px!important}.aura-footer__legal{margin-top:34px!important;gap:12px!important}.aura-footer__legal div{flex-wrap:wrap!important;gap:10px 16px!important}.aura-footer__cta{min-height:40px!important}}
