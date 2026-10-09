@@ -17,7 +17,17 @@
       "sourceUrl": "https://www.goldenboy.com/the-event/schofield-vs-bahdi/",
       "broadcast": "DAZN",
       "featured": true,
-      "blurb": "Two unbeaten lightweights collide for the vacant WBA crown in Chicago."
+      "blurb": "Two unbeaten lightweights collide for the vacant WBA crown in Chicago.",
+      "broadcastStatus": "confirmed",
+      "broadcastTerritory": "DAZN; verify availability in your country",
+      "schedule": {
+        "timeZone": "America/Chicago",
+        "broadcastStartUTC": "2026-10-11T00:00:00Z",
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Golden Boy lists DAZN broadcast from 7:00 pm Chicago time; first fight begins 3:30 pm Chicago time."
+      },
+      "watchUrl": "https://www.goldenboy.com/the-event/schofield-vs-bahdi/fight-week-schedule/"
     },
     {
       "id": "dubois-wardley-2",
@@ -35,7 +45,16 @@
       "sourceUrl": "https://www.ringmagazine.com/events/dubois-vs-wardley-ii-7HVg5exI2jkpqLW3hn9fVB",
       "broadcast": "DAZN",
       "featured": true,
-      "blurb": "The heavyweight rematch returns to London after their brutal first meeting."
+      "blurb": "The heavyweight rematch returns to London after their brutal first meeting.",
+      "broadcastStatus": "confirmed",
+      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "schedule": {
+        "timeZone": "Europe/London",
+        "broadcastStartUTC": null,
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
+      }
     },
     {
       "id": "fundora-hadribeaj",
@@ -53,7 +72,16 @@
       "sourceUrl": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
       "broadcast": "TNT",
       "featured": false,
-      "blurb": "Fundora makes another WBC defence against the unbeaten mandatory challenger."
+      "blurb": "Fundora makes another WBC defence against the unbeaten mandatory challenger.",
+      "broadcastStatus": "unverified",
+      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "schedule": {
+        "timeZone": "Europe/London",
+        "broadcastStartUTC": null,
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
+      }
     },
     {
       "id": "smith-puello",
@@ -71,7 +99,16 @@
       "sourceUrl": "https://www.ringmagazine.com/events/smith-vs-puello-5PKFh31zcfE3LyViSLNmJK",
       "broadcast": "DAZN",
       "featured": false,
-      "blurb": "Smith defends his world title at home against the dangerous former champion."
+      "blurb": "Smith defends his world title at home against the dangerous former champion.",
+      "broadcastStatus": "unverified",
+      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "schedule": {
+        "timeZone": "Europe/London",
+        "broadcastStartUTC": null,
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
+      }
     },
     {
       "id": "foster-navarrete",
@@ -89,7 +126,16 @@
       "sourceUrl": "https://www.ringmagazine.com/news/navarrete-foster-agree-to-oct-24-title-unification-3GSrEyJTBFjyh4Mf8WLgbG",
       "broadcast": "DAZN",
       "featured": true,
-      "blurb": "The division's top two collide in a high-level 130 lb unification."
+      "blurb": "The division's top two collide in a high-level 130 lb unification.",
+      "broadcastStatus": "unverified",
+      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "schedule": {
+        "timeZone": "Europe/London",
+        "broadcastStartUTC": null,
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
+      }
     },
     {
       "id": "canelo-mbilli",
@@ -107,7 +153,16 @@
       "sourceUrl": "https://www.ringmagazine.com/news/5sfn9dNL3anidcXu6lwavf",
       "broadcast": "DAZN Ultimate / DAZN PPV",
       "featured": true,
-      "blurb": "Canelo returns against the unbeaten, high-pressure WBC champion in Riyadh."
+      "blurb": "Canelo returns against the unbeaten, high-pressure WBC champion in Riyadh.",
+      "broadcastStatus": "unverified",
+      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "schedule": {
+        "timeZone": "Europe/London",
+        "broadcastStartUTC": null,
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
+      }
     },
     {
       "id": "billam-smith-clarke",
@@ -125,7 +180,16 @@
       "sourceUrl": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
       "broadcast": "Paramount+",
       "featured": false,
-      "blurb": "An important British cruiserweight contest."
+      "blurb": "An important British cruiserweight contest.",
+      "broadcastStatus": "unverified",
+      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "schedule": {
+        "timeZone": "Europe/London",
+        "broadcastStartUTC": null,
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
+      }
     },
     {
       "id": "kabayel-hysa",
@@ -143,7 +207,16 @@
       "sourceUrl": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
       "broadcast": "DAZN",
       "featured": true,
-      "blurb": "Kabayel defends his heavyweight championship against Nelson Hysa."
+      "blurb": "Kabayel defends his heavyweight championship against Nelson Hysa.",
+      "broadcastStatus": "unverified",
+      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "schedule": {
+        "timeZone": "Europe/London",
+        "broadcastStartUTC": null,
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
+      }
     },
     {
       "id": "fury-joshua",
@@ -157,11 +230,21 @@
       "division": "Heavyweight",
       "status": "Scheduled",
       "stakes": "Heavyweight super-fight",
-      "source": "The Ring",
-      "sourceUrl": "https://www.ringmagazine.com/news/12-11-2BCXRzSPHUJro4WhlSnJzH",
+      "source": "Netflix",
+      "sourceUrl": "https://www.netflix.com/tudum/features/tyson-fury-anthony-joshua-live-on-netflix",
       "broadcast": "Netflix",
       "featured": true,
-      "blurb": "The long-awaited all-British heavyweight blockbuster finally lands in Cardiff."
+      "blurb": "The long-awaited all-British heavyweight blockbuster finally lands in Cardiff.",
+      "broadcastStatus": "confirmed",
+      "broadcastTerritory": "Worldwide; included in Netflix membership",
+      "schedule": {
+        "timeZone": "Europe/London",
+        "broadcastStartUTC": null,
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "A 01:00 local ring walk on 12 December has been proposed in a venue application, not confirmed as the final time."
+      },
+      "watchUrl": "https://www.netflix.com/tudum/features/tyson-fury-anthony-joshua-live-on-netflix"
     }
   ]
 }
