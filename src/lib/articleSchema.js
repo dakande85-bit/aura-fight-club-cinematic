@@ -23,5 +23,5 @@ export function validateArticle(input) {
  return {coverageStage,fightId,articleType,sources:checkedSources,slug,title:text('title',200),summary:text('summary',500),seoTitle,metaDescription,tags,fighterSlugs,updatedAt:String(input.updatedAt||'').slice(0,10),category:text('category',60),date,body,source:text('source',150),sourceUrl:httpsUrl(input.sourceUrl),featured:input.featured===true,priority:Math.max(0,Math.min(100,Number(input.priority)||0)),youtubeId,videoUrl:youtubeId?`https://www.youtube.com/watch?v=${youtubeId}`:httpsUrl(input.videoUrl,true),image:{src:httpsUrl(image.src),alt:String(image.alt).trim().slice(0,500),credit:String(image.credit).trim().slice(0,300),caption:String(image.caption||'').trim().slice(0,500),sourceUrl:httpsUrl(image.sourceUrl,true)}};
 }
 export function orderArticles(articles) {
- return [...articles].sort((a,b)=>Number(b.featured===true)-Number(a.featured===true) || (Number(b.priority)||0)-(Number(a.priority)||0) || b.date.localeCompare(a.date));
+ return [...articles].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')) || String(b.publishedAt||'').localeCompare(String(a.publishedAt||'')) || String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')) || String(a.slug||'').localeCompare(String(b.slug||'')));
 }
