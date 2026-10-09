@@ -27,3 +27,18 @@
 .aura-profile-hero>.aura-photo{aspect-ratio:4/3;max-height:430px}
 @media(max-width:850px){.aura-fighter-directory{grid-template-columns:repeat(2,minmax(0,1fr))}.fh-champion-feature{grid-template-columns:1fr}.fh-champion-feature>.aura-photo{max-height:340px}}
 @media(max-width:640px){.aura-fighter-directory{grid-template-columns:1fr}.aura-profile-hero{grid-template-columns:1fr}.aura-profile-hero>.aura-photo{max-height:300px}}
+
+/* Consistent editorial visual while photographic rights or hotlink access are unresolved. */
+.aura-photo__placeholder{position:relative;isolation:isolate;overflow:hidden;background:#101820!important}
+.aura-photo__placeholder:before{content:"";position:absolute;inset:0;z-index:-2;background:url('/assets/our-story/our-story-02-shadow-boxing.webp') center 45%/cover no-repeat;opacity:.65;filter:grayscale(1)}
+.aura-photo__placeholder:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(5,10,17,.97) 0%,rgba(6,11,17,.55) 65%,rgba(6,11,17,.24) 100%)}
+.aura-photo__placeholder strong{max-width:90%;text-wrap:balance;text-shadow:0 1px 8px #000;font-size:clamp(21px,3vw,34px)}
+.aura-fighter-directory article{border:1px solid rgba(214,170,98,.22);background:#14181b;padding:0 0 20px}
+.aura-fighter-directory article>.aura-ed-kicker,.aura-fighter-directory article>h2,.aura-fighter-directory article>p:not(.aura-ed-kicker){margin-left:18px;margin-right:18px}
+.aura-fighter-directory article>a:first-child{margin-bottom:18px}
+.aura-fighter-directory article h2{font-size:clamp(26px,3vw,36px);line-height:1.05}
+.aura-fighter-directory article p{line-height:1.5}
+.fh-event{box-shadow:0 8px 30px rgba(20,25,30,.07);transition:box-shadow .2s ease,transform .2s ease}
+.fh-event:hover{box-shadow:0 13px 36px rgba(20,25,30,.15)}
+.fh-event h2 a:hover{text-decoration:underline;text-decoration-color:#b49356}
+@media(min-width:900px){.fh-list>.fh-event:first-child{grid-column:span 2;display:grid;grid-template-columns:minmax(0,45%) minmax(0,1fr);column-gap:24px;align-items:start}.fh-list>.fh-event:first-child>.fh-event-image{grid-row:1 / span 9;min-height:440px;aspect-ratio:auto;margin:-27px 0 -27px -27px}.fh-list>.fh-event:first-child>.fh-event-image .aura-photo{height:100%;aspect-ratio:auto}.fh-list>.fh-event:first-child>.fh-event-top{padding-top:8px}}
