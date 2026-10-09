@@ -3,9 +3,8 @@ import '../styles/footer.css';
 
 const BOXING_LINKS = [
   { label: 'Fight News', href: '/news' },
-  { label: 'Fight Calendar', href: '/calendar' },
+  { label: 'Fight Hub', href: '/fight-hub' },
   { label: 'Rankings', href: '/rankings' },
-  { label: 'Watch', href: '/watch' },
   { label: 'Fighters', href: '/fighters' },
   { label: 'Topics', href: '/topics' },
   { label: 'Guides', href: '/guides' },
