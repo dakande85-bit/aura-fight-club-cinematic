@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalSEO } from './components/SEO.jsx';
 import Analytics from './components/Analytics.jsx';
 import HomeStaticHero from './components/HomeStaticHero.jsx';
+import FightHub from './pages/FightHub.jsx';
 import LaunchLandingPage from './pages/LaunchLandingPage.jsx';
 import CinematicPage from './pages/CinematicPage.jsx';
 import CampaignPage from './pages/CampaignPage.jsx';
@@ -52,7 +53,8 @@ export default function AppRouter() {
         <Route path="/authors/dare-akande" element={<AuthorPage />} />
         <Route path="/editorial-policy" element={<EditorialPolicyPage />} />
         <Route path="/corrections" element={<CorrectionsPolicyPage />} />
-        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/fight-hub" element={<FightHub />} />
+        <Route path="/calendar" element={<FightHub />} />
         <Route path="/rankings" element={<RankingsPage />} />
         <Route path="/fights/:id" element={<FightPage />} />
         <Route path="/watch" element={<WatchPage />} />
