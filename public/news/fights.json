@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-06",
+  "checkedAt": "2026-10-09",
   "fights": [
     {
       "id": "schofield-bahdi",
@@ -45,13 +45,13 @@
         "Ermal Hadribeaj"
       ],
       "date": "2026-10-17",
-      "venue": "The Cosmopolitan, Las Vegas, Nevada, USA",
+      "venue": "Carson, California, USA",
       "division": "Super welterweight",
       "status": "Scheduled",
       "stakes": "WBC super welterweight world title",
-      "source": "The Ring",
-      "sourceUrl": "https://www.ringmagazine.com/news/35dFvmGZKh0Hf4J3zh3HzS",
-      "broadcast": "DAZN / TNT",
+      "source": "CBS Sports",
+      "sourceUrl": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
+      "broadcast": "TNT",
       "featured": false,
       "blurb": "Fundora makes another WBC defence against the unbeaten mandatory challenger."
     },
@@ -110,58 +110,40 @@
       "blurb": "Canelo returns against the unbeaten, high-pressure WBC champion in Riyadh."
     },
     {
-      "id": "buatsi-hutchinson",
-      "name": "Joshua Buatsi vs Willy Hutchinson",
+      "id": "billam-smith-clarke",
+      "name": "Chris Billam-Smith vs Cheavon Clarke",
       "fighters": [
-        "Joshua Buatsi",
-        "Willy Hutchinson"
+        "Chris Billam-Smith",
+        "Cheavon Clarke"
       ],
       "date": "2026-11-07",
-      "venue": "UK — venue listed on event schedule",
-      "division": "Light heavyweight",
+      "venue": "London, UK",
+      "division": "Cruiserweight",
       "status": "Scheduled",
-      "stakes": "Major light-heavyweight rematch",
-      "source": "The Ring",
-      "sourceUrl": "https://www.ringmagazine.com/",
-      "broadcast": "DAZN",
+      "stakes": "Cruiserweight contest",
+      "source": "CBS Sports",
+      "sourceUrl": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
+      "broadcast": "Paramount+",
       "featured": false,
-      "blurb": "A major British light-heavyweight rematch with divisional stakes."
+      "blurb": "An important British cruiserweight contest."
     },
     {
-      "id": "baumgardner-turhan",
-      "name": "Alycia Baumgardner vs Elif Nur Turhan",
+      "id": "kabayel-hysa",
+      "name": "Agit Kabayel vs Nelson Hysa",
       "fighters": [
-        "Alycia Baumgardner",
-        "Elif Nur Turhan"
+        "Agit Kabayel",
+        "Nelson Hysa"
       ],
-      "date": "2026-11-08",
-      "venue": "Event venue to be confirmed",
-      "division": "Super featherweight",
+      "date": "2026-11-28",
+      "venue": "Düsseldorf, Germany",
+      "division": "Heavyweight",
       "status": "Scheduled",
-      "stakes": "Super featherweight championship fight",
-      "source": "The Ring",
-      "sourceUrl": "https://www.ringmagazine.com/",
+      "stakes": "WBC heavyweight world title",
+      "source": "CBS Sports",
+      "sourceUrl": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
       "broadcast": "DAZN",
-      "featured": false,
-      "blurb": "Baumgardner returns in another major championship assignment."
-    },
-    {
-      "id": "pacheco-fulghum",
-      "name": "Diego Pacheco vs Darius Fulghum",
-      "fighters": [
-        "Diego Pacheco",
-        "Darius Fulghum"
-      ],
-      "date": "2026-11-14",
-      "venue": "Dignity Health Sports Park, Carson, California, USA",
-      "division": "Super middleweight",
-      "status": "Scheduled",
-      "stakes": "Super middleweight contender fight",
-      "source": "Matchroom Boxing",
-      "sourceUrl": "https://www.matchroomboxing.com/events/pacheco-vs-fulghum/",
-      "broadcast": "DAZN",
-      "featured": false,
-      "blurb": "Two ambitious super-middleweights meet in a key contender fight."
+      "featured": true,
+      "blurb": "Kabayel defends his heavyweight championship against Nelson Hysa."
     },
     {
       "id": "fury-joshua",
@@ -180,24 +162,6 @@
       "broadcast": "Netflix",
       "featured": true,
       "blurb": "The long-awaited all-British heavyweight blockbuster finally lands in Cardiff."
-    },
-    {
-      "id": "cacace-ball",
-      "name": "Anthony Cacace vs Nick Ball",
-      "fighters": [
-        "Anthony Cacace",
-        "Nick Ball"
-      ],
-      "date": "2026-12-19",
-      "venue": "UK — venue listed on event schedule",
-      "division": "Featherweight",
-      "status": "Scheduled",
-      "stakes": "Major all-British world-level fight",
-      "source": "The Ring",
-      "sourceUrl": "https://www.ringmagazine.com/",
-      "broadcast": "DAZN",
-      "featured": false,
-      "blurb": "A sharp all-British clash closes the major 2026 calendar."
     }
   ]
 }
