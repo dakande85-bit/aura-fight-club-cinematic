@@ -8,7 +8,7 @@ export function VerifiedPhoto({fighterSlug,fightId,className='',label=''}) {
  const title=label||'Boxing coverage';
  return <div className={`aura-photo ${className}`}>
   {media?.src&&!failed
-   ? <img key={media.src} src={media.src} alt={media.alt} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={()=>setFailed(true)}/>
+   ? <img key={media.src} src={media.src} alt={media.alt} style={{objectPosition:media.focus||"center 30%","--aura-zoom":media.zoom||1,transformOrigin:media.focus||"center"}} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={()=>setFailed(true)}/>
    : <div className="aura-photo__placeholder" role="img" aria-label={`${title}: verified photograph unavailable`}><span>AURA / BOXING</span><strong>{title}</strong><small>Editorial design · fighter photograph pending</small></div>}
   {media?.src&&!failed&&<small className="aura-photo__credit">{media.archive?'Archive photograph · ':''}{media.credit}</small>}
  </div>;
