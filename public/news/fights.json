@@ -76,7 +76,7 @@
       "broadcastStatus": "unverified",
       "broadcastTerritory": "Check the broadcaster's regional schedule.",
       "schedule": {
-        "timeZone": "Europe/London",
+        "timeZone": "America/Los_Angeles",
         "broadcastStartUTC": null,
         "ringWalkUTC": null,
         "ringWalkStatus": "unconfirmed",
@@ -130,7 +130,7 @@
       "broadcastStatus": "unverified",
       "broadcastTerritory": "Check the broadcaster's regional schedule.",
       "schedule": {
-        "timeZone": "Europe/London",
+        "timeZone": "America/Chicago",
         "broadcastStartUTC": null,
         "ringWalkUTC": null,
         "ringWalkStatus": "unconfirmed",
@@ -157,7 +157,7 @@
       "broadcastStatus": "unverified",
       "broadcastTerritory": "Check the broadcaster's regional schedule.",
       "schedule": {
-        "timeZone": "Europe/London",
+        "timeZone": "Asia/Riyadh",
         "broadcastStartUTC": null,
         "ringWalkUTC": null,
         "ringWalkStatus": "unconfirmed",
@@ -211,7 +211,7 @@
       "broadcastStatus": "unverified",
       "broadcastTerritory": "Check the broadcaster's regional schedule.",
       "schedule": {
-        "timeZone": "Europe/London",
+        "timeZone": "Europe/Berlin",
         "broadcastStartUTC": null,
         "ringWalkUTC": null,
         "ringWalkStatus": "unconfirmed",
