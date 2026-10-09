@@ -9,8 +9,8 @@
       "updatedAt": "2026-10-09",
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
-      "featured": false,
-      "priority": 96,
+      "featured": true,
+      "priority": 235,
       "source": "Boxing reporting",
       "sourceUrl": "https://talksport.com/boxing/4620985/manny-pacquiao-tyson-fury-anthony-joshua-undercard/",
       "sources": [
@@ -51,7 +51,7 @@
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
       "featured": false,
-      "priority": 96,
+      "priority": 232,
       "source": "Boxing reporting",
       "sourceUrl": "https://www.reuters.com/sports/cardiff-stadium-application-seeks-1-am-slot-fury-v-joshua-ring-walks-2026-10-08/",
       "sources": [
@@ -92,7 +92,7 @@
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
       "featured": false,
-      "priority": 96,
+      "priority": 230,
       "source": "Boxing reporting",
       "sourceUrl": "https://www.ringmagazine.com/",
       "sources": [
@@ -134,7 +134,7 @@
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
       "featured": false,
-      "priority": 96,
+      "priority": 233,
       "source": "Boxing reporting",
       "sourceUrl": "https://www.dazn.com/en-US/news/boxing/boxing-schedule-fight-dates-tv-channel-and-live-stream-for-confirmed-cards/1l3zwnho1gotu17qp8l44fmww9",
       "sources": [
@@ -174,8 +174,8 @@
       "updatedAt": "2026-10-09",
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
-      "featured": false,
-      "priority": 96,
+      "featured": true,
+      "priority": 237,
       "source": "Boxing reporting",
       "sourceUrl": "https://talksport.com/boxing/4628306/murat-gassiev-tyson-fury-anthony-joshua-wba-world-title/",
       "sources": [
@@ -215,8 +215,8 @@
       "updatedAt": "2026-10-09",
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
-      "featured": false,
-      "priority": 96,
+      "featured": true,
+      "priority": 238,
       "source": "Boxing reporting",
       "sourceUrl": "https://www.skysports.com/boxing/news/13595880/denzel-bentley-is-fighting-to-keep-his-world-title-on-the-line-for-shane-mosley-jr-clash-with-ongoing-wbo-appeal",
       "sources": [
@@ -256,8 +256,8 @@
       "updatedAt": "2026-10-09",
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
-      "featured": false,
-      "priority": 96,
+      "featured": true,
+      "priority": 239,
       "source": "Boxing reporting",
       "sourceUrl": "https://www.mmafighting.com/boxing/514468/eddie-hearn-admits-he-doesnt-care-if-tko-produces-tyson-fury-vs-anthony-joshua-trashes-zuffa-boxings-abysmal-start",
       "sources": [
@@ -298,7 +298,7 @@
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
       "featured": false,
-      "priority": 96,
+      "priority": 234,
       "source": "Boxing reporting",
       "sourceUrl": "https://www.dazn.com/en-US/news/boxing/boxing-schedule-fight-dates-tv-channel-and-live-stream-for-confirmed-cards/1l3zwnho1gotu17qp8l44fmww9",
       "sources": [
@@ -339,7 +339,7 @@
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
       "featured": false,
-      "priority": 96,
+      "priority": 229,
       "source": "Boxing reporting",
       "sourceUrl": "https://as.com/us/masdeporte/osleys-iglesias-vs-oliver-zaren-a-que-hora-inicia-la-pelea-y-donde-ver-en-usa-la-funcion-de-box-2026-f202610-n/",
       "sources": [
@@ -589,7 +589,7 @@
       "category": "Fight analysis",
       "articleType": "Analysis",
       "featured": true,
-      "priority": 116,
+      "priority": 240,
       "source": "BoxingScene",
       "sourceUrl": "https://talksport.com/boxing/4631610/shakur-stevenson-devin-haney-deal-fight/",
       "sources": [
@@ -1030,8 +1030,8 @@
       "date": "2026-10-05",
       "category": "AURA Profile",
       "articleType": "Analysis",
-      "featured": true,
-      "priority": 108,
+      "featured": false,
+      "priority": 231,
       "source": "World Boxing Council",
       "sourceUrl": "https://www.badlefthook.com/boxing-news/119379/jermall-charlo-injured-pulled-from-fundora-vs-hadribeaj-show",
       "sources": [
@@ -1152,8 +1152,8 @@
       "date": "2026-10-05",
       "category": "The Fight Game",
       "articleType": "Analysis",
-      "featured": true,
-      "priority": 106,
+      "featured": false,
+      "priority": 228,
       "source": "MMA Fighting",
       "sourceUrl": "https://www.mmafighting.com/boxing/514468/eddie-hearn-admits-he-doesnt-care-if-tko-produces-tyson-fury-vs-anthony-joshua-trashes-zuffa-boxings-abysmal-start",
       "sources": [
@@ -1288,7 +1288,7 @@
       "coverageStage": "Reaction",
       "fightId": "whittaker-wallace",
       "featured": true,
-      "priority": 100,
+      "priority": 236,
       "source": "Bad Left Hook",
       "sourceUrl": "https://www.skysports.com/boxing/news/13594856/ben-whittaker-clings-on-to-outpoint-conor-wallace-as-he-endures-final-round-fright-to-claim-unanimous-decision-win",
       "sources": [
