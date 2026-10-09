@@ -96,3 +96,15 @@
 .aura-profile-fights article a{color:#755322;font-weight:800}
 .aura-profile-fights article p{line-height:1.55}
 @media(max-width:650px){.aura-profile-fights{grid-template-columns:1fr}.aura-profile-trust{gap:8px 16px}}
+
+/* Fighter card framing: treat portraits as art-directed assets, not large uncropped event photographs. */
+.aura-fighter-tile__photo{aspect-ratio:4/3!important;overflow:hidden;position:relative}
+.aura-fighter-tile__photo .aura-photo{height:100%;width:100%}
+.aura-fighter-tile__photo .aura-photo img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(var(--aura-zoom,1));transition:transform .25s ease}
+.aura-fighter-tile:hover .aura-photo img{transform:scale(calc(var(--aura-zoom,1) * 1.025))}
+.aura-fighter-tile__photo .aura-photo__credit{font-size:9px;right:8px;bottom:8px;padding:3px 5px}
+.aura-fighter-tile__info{min-height:155px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px}
+.aura-fighter-tile__info h2{margin:3px 0 4px}
+.aura-fighter-tile__info p{margin:0 0 12px}
+.aura-fighter-tile__info>strong{margin-top:auto}
+@media(max-width:540px){.aura-fighter-tile__photo{aspect-ratio:4/3!important}}
