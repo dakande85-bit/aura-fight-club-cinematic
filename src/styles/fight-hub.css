@@ -150,3 +150,13 @@
 .aura-fighter-tile__info>strong{font-size:10px!important;margin-top:auto!important}
 .aura-compare-cta{display:block!important;margin-bottom:3px!important}
 }
+
+/* v3: image-first roster, portrait framing for official promotional cutouts. */
+.aura-fighter-tile__photo .aura-photo{isolation:isolate;background:#0d1720}
+.aura-fighter-tile__photo .aura-photo img[src*="queensberry.co.uk/cdn/shop/files/"]{object-fit:cover!important;object-position:center 49%!important;transform:none!important;background:#123047}
+.aura-fighter-tile__photo .aura-photo__placeholder{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;background:linear-gradient(135deg,#293643,#11171d)!important;padding:12px!important}
+.aura-fighter-tile__photo .aura-photo__placeholder:before{display:none!important}
+.aura-fighter-tile__photo .aura-photo__placeholder>strong{display:none!important}
+.aura-fighter-tile__photo .aura-photo__placeholder>small{display:none!important}
+.aura-fighter-tile__photo .aura-photo__placeholder>span{font-size:clamp(12px,2vw,18px)!important;letter-spacing:.12em!important;line-height:1.2!important;color:#d2b581!important;text-align:center!important;white-space:normal!important}
+@media(max-width:620px){.aura-fighter-tile__photo .aura-photo__placeholder{padding:6px!important}.aura-fighter-tile__photo .aura-photo__placeholder>span{font-size:10px!important;letter-spacing:.04em!important}}
