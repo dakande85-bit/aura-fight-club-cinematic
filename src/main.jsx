@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { Analytics } from '@vercel/analytics/react';
 import AppRouter from './AppRouter.jsx';
 import './data/shopifyCatalogRuntimeSync.js';
 import './styles/global.css';
@@ -27,5 +28,6 @@ import './aura-release-dom-fixes.js';
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AppRouter />
+    <Analytics />
   </React.StrictMode>
 );
