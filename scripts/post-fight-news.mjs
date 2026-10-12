@@ -24,7 +24,7 @@ async function ask(prompt,web=false){
  if(web){body.tools=[{type:'web_search',search_context_size:'high'}];body.include=['web_search_call.action.sources'];}
  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),115000);
  try{const response=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{Authorization:'Bearer '+process.env.OPENAI_API_KEY,'Content-Type':'application/json'},body:JSON.stringify(body),signal:controller.signal});
- const data=await response.json();if(!response.ok)throw Error('Model API error '+response.status+': '+JSON.stringify(data.error).slice(0,250));return data;
+ const data=await response.json();if(!response.ok)throw Error('Model API error '+response.status+': '+JSON.stringify(data.error).slice(0,250));if(data.usage)console.log('AURA API usage: model='+body.model+' input_tokens='+(data.usage.input_tokens||0)+' output_tokens='+(data.usage.output_tokens||0)+' web_search_requested='+web+'; provider billing may include additional tool costs.');return data;
  }finally{clearTimeout(timer)}
 }
 function eventFor(f){return calendar.fights.find(e=>samePair(...(e.fighters||[]),f.fighterA,f.fighterB))}
