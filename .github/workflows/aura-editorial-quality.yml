@@ -1,0 +1,33 @@
+name: AURA article quality and site build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/news/articles.json'
+      - 'scripts/audit-newsroom.mjs'
+      - 'src/lib/articleSchema.js'
+      - '.github/workflows/aura-editorial-quality.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Check article-depth and evidence changes
+        run: node scripts/audit-newsroom.mjs --changed --strict
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build public site
+        run: npm run build
