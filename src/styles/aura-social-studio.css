@@ -1,0 +1,27 @@
+.aura-social-studio{min-height:100vh;background:#0b1015;color:#f7f6f2;padding:clamp(92px,11vw,150px) clamp(18px,5vw,90px) 100px;font-family:inherit}
+.aura-social-studio__intro,.aura-social-studio__how,.aura-social-studio__queue{width:100%;max-width:1420px;margin:0 auto 42px}
+.aura-social-studio__eyebrow,.aura-social-studio__state{font-size:12px;letter-spacing:.16em;color:#d7b578;font-weight:800}
+.aura-social-studio h1{font-size:clamp(42px,6vw,91px);max-width:1050px;line-height:1.02;font-weight:950;letter-spacing:-.04em;margin:18px 0 22px;text-transform:uppercase}
+.aura-social-studio__intro>p:not(.aura-social-studio__eyebrow){font-size:clamp(16px,1.6vw,21px);line-height:1.65;color:#bcc6d0;max-width:1000px}
+.aura-social-studio__actions,.aura-social-studio__buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.aura-social-studio__actions a{border:1px solid #5e5f58;color:#e9e6d9;text-decoration:none;padding:14px 18px;border-radius:4px;font-size:14px;font-weight:750}
+.aura-social-studio__actions a:first-child{background:#d7b578;border-color:#d7b578;color:#111}
+.aura-social-studio__how{padding:25px clamp(20px,3vw,45px);background:#151d25;border:1px solid #313942;border-radius:8px}
+.aura-social-studio h2{font-size:clamp(23px,2.8vw,32px);margin:0 0 18px}
+.aura-social-studio__how ol{padding-left:23px;color:#dee4e9;line-height:1.75}
+.aura-social-studio__how li{padding:4px 0 4px 7px}
+.aura-social-studio__how p,.aura-social-studio__queue-head p{color:#b4bfc8;line-height:1.6}
+.aura-social-studio__queue-head{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;margin-bottom:28px}
+.aura-social-studio__queue-head label{color:#ddd;font-size:14px;display:grid;gap:8px}
+.aura-social-studio__queue-head input{min-width:min(330px,80vw);background:#1c252e;color:white;border:1px solid #55606a;padding:12px;border-radius:5px}
+.aura-social-studio__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));align-items:start;gap:24px}
+.aura-social-studio__card{background:#141c24;border:1px solid #333f49;border-radius:9px;overflow:hidden;min-width:0}
+.aura-social-studio__card>img{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;background:linear-gradient(145deg,#212f3d,#090e12)}
+.aura-social-studio__card-body{padding:20px}
+.aura-social-studio__card h3{font-size:19px;line-height:1.35;margin:12px 0;min-height:3em}
+.aura-social-studio__buttons{margin-top:16px}
+.aura-social-studio__buttons button,.aura-social-studio__buttons a{background:transparent;border:1px solid #5e6c75;color:#fafafa;font:inherit;font-size:12px;font-weight:700;border-radius:4px;cursor:pointer;padding:11px;text-decoration:none}
+.aura-social-studio__buttons button:focus-visible,.aura-social-studio__buttons a:focus-visible{outline:2px solid #d7b578}
+.aura-social-studio__check{display:flex;gap:10px;align-items:center;color:#cad3d7;font-size:13px;margin:20px 0 0}
+.aura-social-studio__check input{accent-color:#d7b578;width:16px;height:16px}
+@media(min-width:1200px){.aura-social-studio__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
