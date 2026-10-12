@@ -160,3 +160,11 @@
 .aura-fighter-tile__photo .aura-photo__placeholder>small{display:none!important}
 .aura-fighter-tile__photo .aura-photo__placeholder>span{font-size:clamp(12px,2vw,18px)!important;letter-spacing:.12em!important;line-height:1.2!important;color:#d2b581!important;text-align:center!important;white-space:normal!important}
 @media(max-width:620px){.aura-fighter-tile__photo .aura-photo__placeholder{padding:6px!important}.aura-fighter-tile__photo .aura-photo__placeholder>span{font-size:10px!important;letter-spacing:.04em!important}}
+
+/* Verified championship results: readable on mobile and desktop */
+.fh-result{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;margin:1rem 0;padding:1rem 1.15rem;background:linear-gradient(120deg,#1a242c,#0a1118);border-left:3px solid #d6b16b;border-radius:2px;color:#f5f0e8}
+.fh-result span{width:100%;color:#d6b16b;font-size:.7rem;font-weight:800;letter-spacing:.14em}
+.fh-result strong{font-size:1rem;line-height:1.4}
+.fh-result small{color:#bcc6cb;font-size:.82rem}
+.fh-result a{color:#d6b16b;text-decoration:underline;text-underline-offset:3px;font-size:.82rem}
+@media(max-width:600px){.fh-result{display:block}.fh-result>*{display:block;margin:.35rem 0}}
