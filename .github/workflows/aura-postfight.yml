@@ -1,6 +1,11 @@
 name: AURA automatic post-fight reactions
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aura-postfight.yml'
+      - 'scripts/check-openai-access.mjs'
   schedule:
     - cron: '17 9,12,18 * * *'
       timezone: 'Atlantic/Canary'
@@ -45,7 +50,11 @@ jobs:
             echo "::error::OPENAI_API_KEY is missing. Add it under Settings > Secrets and variables > Actions."
             exit 1
           fi
+      - name: Verify configured OpenAI key and model (push-only smoke test)
+        if: ${{ github.event_name == 'push' }}
+        run: node scripts/check-openai-access.mjs
       - name: Discover and verify completed world-title fights
+        if: ${{ github.event_name != 'push' }}
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             node scripts/post-fight-news.mjs --dry-run
@@ -53,7 +62,7 @@ jobs:
             node scripts/post-fight-news.mjs
           fi
       - name: Validate updated fight data and regenerate news SEO
-        if: ${{ inputs.dry_run != true }}
+        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
         run: |
           node scripts/check-fight-data.mjs
           node scripts/generate-sitemaps.mjs
