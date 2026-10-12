@@ -12,8 +12,15 @@ export function validateArticle(input) {
  const image=input.image||{}; if(!image.alt?.trim() || !image.credit?.trim()) throw new Error('Add an accurate image description and credit.');
  const youtubeId=input.youtubeId||null;if(youtubeId && !/^[\w-]{11}$/.test(youtubeId)) throw new Error('Use a valid YouTube video ID.');
  const articleType=input.articleType||'News';if(!['News','Analysis','Opinion'].includes(articleType)) throw new Error('Choose News, Analysis or Opinion.');
+ const contentWords=body.filter(p=>!p.startsWith('## ')).join(' ').split(/\s+/).filter(Boolean).length;
+ const requiredWords=/post-fight|reaction/i.test(input.category||'')||input.coverageStage==='Reaction'?550:articleType==='Analysis'||/deep dive|prediction|fight lab/i.test(input.category||'')?475:300;
+ if(contentWords<requiredWords)throw new Error('This story is too thin ('+contentWords+' words). Minimum '+requiredWords+' words of sourced, substantive writing are required for '+articleType+'.');
+ if(contentWords>=475&&body.filter(p=>p.startsWith('## ')).length<2)throw new Error('Long analysis needs two specific section headings.');
+ if(body.some(p=>/^(aura verdict|the aura verdict)\s*:/i.test(p)||/^## (the )?aura verdict/i.test(p)))throw new Error('Replace templated AURA verdict language with a specific editorial conclusion.');
  const sources=input.sources||[];if(!Array.isArray(sources)||sources.length>10) throw new Error('Add at most 10 additional sources.');
  const checkedSources=sources.map(s=>{const name=String(s.name||'').trim();if(!name||name.length>150)throw new Error('Each source needs a name, up to 150 characters.');return {name,url:httpsUrl(s.url)};});
+ const sourceHosts=new Set([input.sourceUrl,...checkedSources.map(s=>s.url)].filter(Boolean).map(url=>{try{return new URL(url).hostname.replace(/^www\./,'')}catch{return ''}}).filter(Boolean));
+ if(sourceHosts.size<2)throw new Error('Provide reporting from at least two independent source domains. A second URL from the same publisher does not count.');
  const seoTitle=String(input.seoTitle||'').trim().slice(0,70);
  const metaDescription=String(input.metaDescription||'').trim().slice(0,170);
  const tags=Array.isArray(input.tags)?input.tags.map(v=>String(v).trim()).filter(Boolean).slice(0,12):[];
