@@ -15,7 +15,11 @@ export function StoryImage({ article, linked = false, eager = false }) {
   };
   const hasSource = Boolean(article.image?.src);
   const image = hasSource && !failed ? article.image : fallback;
-  const photo = <img src={image.src} alt={image.alt || fallback.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(true)} />;
+  const photo = failed
+    ? <div className="aura-story-image__fallback" role="img" aria-label={`AURA editorial title illustration: ${article.title}`}>
+        <span>AURA / BOXING</span><strong>{article.title}</strong><small>Editorial story · Image unavailable</small>
+      </div>
+    : <img src={image.src} alt={image.alt || fallback.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(true)} />;
   return <figure className="aura-story-image">
     {linked ? <Link to={`/news/${article.slug}`} aria-label={`Read: ${article.title}`}>{photo}</Link> : photo}
     <figcaption>
