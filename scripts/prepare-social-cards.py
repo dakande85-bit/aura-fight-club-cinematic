@@ -56,7 +56,7 @@ def lines_to_fit(draw, text, body_font, maxwidth, maxlines):
 
 
 def story_hash(article):
-    key = json.dumps([article.get("title"), article.get("summary"), article.get("body"), article.get("image",{}).get("src")], ensure_ascii=False, sort_keys=True)
+    key = json.dumps(["platform-safe-v2", article.get("title"), article.get("summary"), article.get("body"), article.get("image",{}).get("src")], ensure_ascii=False, sort_keys=True)
     return hashlib.sha256(key.encode()).hexdigest()[:14]
 
 
@@ -71,7 +71,7 @@ def make_card(article, dest):
         d.line([(420 + k, 410), (965 + k, 0)], fill=(69, 65, 54), width=3)
     gold = (216, 177, 103)
     d.rectangle([0, 0, W, 15], fill=gold)
-    d.text((72, 100), "AURA  /  FIGHT CLUB", fill=(249, 247, 242), font=font(47, True))
+    d.text((72, 100), "BOXING  /  FIGHT DESK", fill=(249, 247, 242), font=font(47, True))
     d.text((72, 194), (article.get("category") or "FIGHT DESK").upper()[:34], fill=gold, font=font(26, True))
     d.line([(72, 282), (1008, 282)], fill=(95, 94, 85), width=2)
     headline = article["title"]
@@ -121,7 +121,7 @@ def main():
             "suggested_caption": a["title"] + " — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
             "status": "draft_not_posted",
             "platforms": ["TikTok", "Instagram", "YouTube"],
-            "requires": ["platform account connected", "publishing permission granted", "platform/content-policy review", "image and source rights checked"],
+            "requires": ["platform account connected", "publishing permission granted", "platform/content-policy review", "image and source rights checked", "TikTok content sharing rules: no external promotional branding"],
         }
         generated += 1
     results = sorted(stored.values(), key=lambda x: (x.get("generated_on",""),x.get("slug","")), reverse=True)[:200]
