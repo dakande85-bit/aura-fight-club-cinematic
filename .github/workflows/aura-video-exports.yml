@@ -1,0 +1,56 @@
+name: AURA vertical news video exports
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/news/articles.json'
+      - 'scripts/render-social-videos.py'
+      - '.github/workflows/aura-video-exports.yml'
+  workflow_dispatch:
+    inputs:
+      story_slug:
+        description: 'Specific article slug, or blank for newest stories'
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aura-video-exports
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout verified stories
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare free video encoding tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python -m pip install 'Pillow>=11,<13'
+      - name: Render 9x16 MP4 news briefings, no login or AI API
+        env:
+          STORY_SLUG: ${{ inputs.story_slug }}
+        run: |
+          if [ -n "$STORY_SLUG" ]; then
+            python scripts/render-social-videos.py --slug "$STORY_SLUG"
+          else
+            python scripts/render-social-videos.py --limit 3
+          fi
+      - name: Downloadable TikTok/Shorts videos for manual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: aura-vertical-news-clips
+          path: social-exports/
+          retention-days: 14
+          if-no-files-found: error
