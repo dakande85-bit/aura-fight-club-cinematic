@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import {useLocation} from 'react-router-dom';
+import {spanishArticles} from '../i18n/esArticles.js';
 import { useBrandLogo } from '../hooks/usePageMedia.js';
 
 const navItems = [
@@ -13,6 +15,10 @@ const navItems = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const {pathname} = useLocation();
+  const translatedRoutes = new Set(['/','/news','/fight-hub','/calendar','/rankings','/fighters','/lifestyle','/who-we-are','/members']);
+  const hasSpanish = translatedRoutes.has(pathname) || (pathname.startsWith('/news/') && Boolean(spanishArticles[pathname.split('/')[2]]));
+  const spanishHref = hasSpanish ? '/es' + (pathname === '/' ? '' : pathname) : '/es';
   const logoSrc = useBrandLogo();
   const closeMenu = () => setOpen(false);
 
@@ -50,6 +56,7 @@ export default function Header() {
           ))}
         </nav>
 
+        <a className="aura-language-link" href={spanishHref} lang="es" hrefLang="es" aria-label="Ver sitio en español">ES <span aria-hidden="true">↗</span></a>
         <a className="header__cta header__cta--desktop" href="/members">Join Members</a>
 
         <button
