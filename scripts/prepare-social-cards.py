@@ -34,7 +34,7 @@ def font(size, bold=False):
 
 
 def lines_to_fit(draw, text, body_font, maxwidth, maxlines):
-    words = re.sub(r"\\s+", " ", str(text)).strip().split(" ")
+    words = re.sub(r"\s+", " ", str(text)).strip().split(" ")
     lines, current = [], ""
     for word in words:
         next_line = (current + " " + word).strip()
@@ -125,7 +125,7 @@ def main():
         }
         generated += 1
     results = sorted(stored.values(), key=lambda x: (x.get("generated_on",""),x.get("slug","")), reverse=True)[:200]
-    MANIFEST.write_text(json.dumps({"version":1,"note":"Draft assets only; no TikTok or YouTube publishing performed.","items":results}, ensure_ascii=False, indent=2)+"\\n", encoding="utf-8")
+    MANIFEST.write_text(json.dumps({"version":1,"note":"Draft assets only; no TikTok or YouTube publishing performed.","items":results}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     print(f"Generated {generated} social image drafts; {len(results)} queued/archived. No social API called.")
 
 
