@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {spanishArticleSlugs} from '../src/i18n/esArticles.js';
 
 const ROOT=process.cwd();
 const PUBLIC=path.join(ROOT,'public');
@@ -69,9 +70,27 @@ const groups={
 for(const [file,items] of Object.entries(groups)) fs.writeFileSync(path.join(PUBLIC,file),urlset(items));
 fs.writeFileSync(path.join(PUBLIC,'news-sitemap.xml'),newsXml);
 
+// Only publish complete Spanish pages and articles: never index English fallbacks as Spanish.
+const spanishOriginalPaths=[
+ '/', '/news', '/fight-hub', '/rankings', '/fighters', '/lifestyle', '/who-we-are', '/members',
+ ...spanishArticleSlugs.filter(slug=>articles.some(a=>a.slug===slug)).map(slug=>'/news/'+slug)
+];
+const spanishXml=`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${spanishOriginalPaths.map(page=>{
+ const es='/es'+(page==='/'?'':page);
+ return `  <url><loc>${esc(SITE+es)}</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="${esc(SITE+es)}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="${esc(SITE+page)}"/>
+  </url>`;
+}).join('\\n')}
+</urlset>
+`;
+fs.writeFileSync(path.join(PUBLIC,'sitemap-spanish.xml'),spanishXml);
+
 const sitemapIndex=`<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[...Object.keys(groups),'news-sitemap.xml'].map(file=>`  <sitemap><loc>${SITE}/${file}</loc><lastmod>${today}</lastmod></sitemap>`).join('\n')}
+${[...Object.keys(groups),'news-sitemap.xml','sitemap-spanish.xml'].map(file=>`  <sitemap><loc>${SITE}/${file}</loc><lastmod>${today}</lastmod></sitemap>`).join('\n')}
 </sitemapindex>
 `;
 fs.writeFileSync(path.join(PUBLIC,'sitemap.xml'),sitemapIndex);
