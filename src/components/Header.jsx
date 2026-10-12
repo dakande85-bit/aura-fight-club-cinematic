@@ -83,6 +83,7 @@ export default function Header() {
             <a key={item.href} href={item.href} onClick={closeMenu}>{item.label}</a>
           ))}
           <a className="header__mobile-cta" href="/members" onClick={closeMenu}>Join Members</a>
+          <a className="header__mobile-lang" href={spanishHref} lang="es" hrefLang="es" onClick={closeMenu}>Español / ES</a>
         </nav>
       </aside>
 
