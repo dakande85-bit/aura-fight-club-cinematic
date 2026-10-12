@@ -1,7 +1,7 @@
 import generatedTranslations from '../../public/news/articles.es.json';
 // Editor-reviewed starter translations. Names, claims, sources and dates are inherited from the English edition.
 // Additional articles are only listed as Spanish when a complete translation is available.
-const reviewedSpanishArticles = {
+export const reviewedSpanishArticles = {
   'fury-joshua-undercard-fights-rumours': {
     title: 'Fury vs. Joshua: ¿qué combates son viables para la velada?',
     summary: 'Analizamos los nombres que suenan, los combates confirmados y lo que sigue siendo especulación.',
