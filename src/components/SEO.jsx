@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import {spanishArticles} from '../i18n/esArticles.js';
 
 export const SITE_URL = 'https://aurafightclub.com';
 const GOOGLE_VERIFICATION = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION;
@@ -68,6 +69,22 @@ function setCanonical(url) {
   el.href = url;
 }
 
+const localizedStaticPaths = new Set(['/', '/news', '/fight-hub', '/calendar', '/rankings', '/fighters', '/lifestyle', '/who-we-are', '/members']);
+function updateLanguageAlternates(pathname) {
+  document.head.querySelectorAll('link[data-aura-hreflang]').forEach(node => node.remove());
+  const spanish = pathname === '/es' || pathname.startsWith('/es/');
+  const english = spanish ? pathname.slice(3) || '/' : pathname;
+  const translated = localizedStaticPaths.has(english) || (english.startsWith('/news/') && Boolean(spanishArticles[english.slice('/news/'.length)]));
+  if (!translated) return;
+  const routes = [{lang:'en',href:SITE_URL+english},{lang:'es',href:SITE_URL+'/es'+(english==='/'?'':english)}];
+  routes.forEach(({lang,href})=>{
+    const node = document.createElement('link');
+    node.rel='alternate';node.hreflang=lang;node.href=href;
+    node.dataset.auraHreflang='true';
+    document.head.appendChild(node);
+  });
+}
+
 function setSchema(schema) {
   let el = document.getElementById('aura-page-schema');
   if (!schema) {
@@ -96,6 +113,8 @@ export function PageSEO({
   useEffect(() => {
     const canonical = `${SITE_URL}${canonicalPath || location.pathname}`;
     document.title = title;
+    document.documentElement.lang = location.pathname === '/es' || location.pathname.startsWith('/es/') ? 'es' : 'en';
+    updateLanguageAlternates(location.pathname);
     upsertMeta('meta[name="description"]', { name: 'description', content: description });
     upsertMeta('meta[name="robots"]', { name: 'robots', content: noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' });
     upsertMeta('meta[property="og:title"]', { property: 'og:title', content: title });
@@ -118,6 +137,7 @@ export function PageSEO({
 
 export function GlobalSEO() {
   const location = useLocation();
+  const isSpanish = location.pathname === '/es' || location.pathname.startsWith('/es/');
   const isAdmin = location.pathname.startsWith('/admin') || location.pathname === '/cart';
   const isArticle = location.pathname.startsWith('/news/');
   const data = routeSeo[location.pathname] || (isArticle ? {
@@ -150,5 +170,6 @@ export function GlobalSEO() {
     ],
   } : undefined;
 
+  if (isSpanish) return null; // The Spanish route owns its localized metadata and canonical.
   return <PageSEO {...data} noindex={isAdmin} schema={baseSchema} />;
 }
