@@ -281,3 +281,10 @@
   color: #a9b2ba;
   font-size: 13px;
 }
+
+/* Keep full article titles in SEO breadcrumbs, but don't let their visible label clutter the header. */
+.aura-article .aura-breadcrumbs ol{display:flex;align-items:center;flex-wrap:nowrap;gap:12px;overflow:hidden;max-width:100%;padding:0;margin:0 0 24px;list-style:none}
+.aura-article .aura-breadcrumbs li{min-width:0;color:#acaeaf;font-size:12px;white-space:nowrap}
+.aura-article .aura-breadcrumbs li+li::before{content:"/";color:#8c7a58;margin-right:12px}
+.aura-article .aura-breadcrumbs li:last-child{max-width:min(34ch,37vw);overflow:hidden;text-overflow:ellipsis}
+.aura-article .aura-breadcrumbs a{color:#e7d6aa;text-decoration:none}
