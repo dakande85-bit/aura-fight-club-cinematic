@@ -70,6 +70,7 @@ export default function Footer() {
       <div className="aura-footer__legal">
         <span>© {new Date().getFullYear()} AURA</span>
         <div>
+          <Link to="/es" lang="es" hrefLang="es">Español / ES</Link>
           <Link to="/privacy">Privacy</Link>
           <Link to="/cookies">Cookies</Link>
           <Link to="/terms">Terms</Link>
