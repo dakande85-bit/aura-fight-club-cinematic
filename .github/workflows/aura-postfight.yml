@@ -7,7 +7,7 @@ on:
       - '.github/workflows/aura-postfight.yml'
       - 'scripts/check-openai-access.mjs'
   schedule:
-    - cron: '17 9,12,18 * * *'
+    - cron: '17 9,18 * * *'
       timezone: 'Atlantic/Canary'
   workflow_dispatch:
     inputs:
@@ -66,6 +66,9 @@ jobs:
         run: |
           node scripts/check-fight-data.mjs
           node scripts/generate-sitemaps.mjs
+      - name: Reject short or weakly sourced generated reactions
+        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
+        run: node scripts/audit-newsroom.mjs --changed --strict
       - name: Commit and publish independently verified reactions
         if: ${{ inputs.dry_run != true }}
         run: |
