@@ -1,6 +1,7 @@
+import generatedTranslations from '../../public/news/articles.es.json';
 // Editor-reviewed starter translations. Names, claims, sources and dates are inherited from the English edition.
 // Additional articles are only listed as Spanish when a complete translation is available.
-export const spanishArticles = {
+const reviewedSpanishArticles = {
   'fury-joshua-undercard-fights-rumours': {
     title: 'Fury vs. Joshua: ¿qué combates son viables para la velada?',
     summary: 'Analizamos los nombres que suenan, los combates confirmados y lo que sigue siendo especulación.',
@@ -102,4 +103,6 @@ export const spanishArticles = {
     ]
   }
 };
+// Human-edited translations take priority over machine-generated versions.
+export const spanishArticles = {...(generatedTranslations.articles || {}), ...reviewedSpanishArticles};
 export const spanishArticleSlugs = Object.keys(spanishArticles);
