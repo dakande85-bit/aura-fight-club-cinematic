@@ -37,9 +37,10 @@ export function NewsSection({ full = false, filters = false }) {
  const [stage,setStage]=useState('All stories');
  const [section,setSection]=useState('All');
  const [visibleCount,setVisibleCount]=useState(12);
- const editorialSections = ['All','Breaking','The Fight Lab','Beyond the Ropes','Boxing Exposed','Future Kings','The Archives','Fight Culture'];
+ const editorialSections = ['All','Breaking','Fight Reactions','The Fight Lab','Beyond the Ropes','Boxing Exposed','Future Kings','The Archives','Fight Culture'];
  const classify = (a) => {
    const text = [a.articleType,a.category,...(a.tags||[])].join(' ').toLowerCase();
+   if (a.coverageStage === 'Reaction' || /post-fight|reaction/.test(text)) return 'Fight Reactions';
    if (/history|historic|classic|legend|archive|retro/.test(text)) return 'The Archives';
    if (/lifestyle|fashion|culture|streetwear|music/.test(text)) return 'Fight Culture';
    if (/prospect|rising|future|next generation/.test(text)) return 'Future Kings';
