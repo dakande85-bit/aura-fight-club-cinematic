@@ -1,0 +1,5 @@
+/* Accessible, minimal language toggle on the existing English site */
+.header .aura-language-link{display:inline-flex;align-items:center;gap:5px;flex-shrink:0;padding:10px 12px;border:1px solid rgba(218,190,131,.6);color:#e1bb76;font-size:12px;font-weight:800;letter-spacing:.08em;text-decoration:none;position:relative;z-index:11}
+.header .aura-language-link:hover{background:#d2af6a;color:#171512}
+.header__mobile-nav .header__mobile-lang{display:block;color:#d2af6a;font-weight:800;border-top:1px solid #615036}
+@media(max-width:500px){.header .aura-language-link{padding:8px 10px;font-size:12px}}
