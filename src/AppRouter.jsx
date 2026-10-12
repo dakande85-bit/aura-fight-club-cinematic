@@ -18,6 +18,7 @@ import AdminLaunchChecklist from './pages/AdminLaunchChecklist.jsx';
 import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import AdminCinematic from './pages/AdminCinematic.jsx';
 import AdminArticles from './pages/AdminArticles.jsx';
+import AdminSocial from './pages/AdminSocial.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
 import AdminMonetization from './pages/AdminMonetization.jsx';
 import Advertise from './pages/Advertise.jsx';
@@ -93,6 +94,7 @@ export default function AppRouter() {
         <Route path="/fight-club" element={<FightClubPage />} />
         <Route path="/fightclub" element={<FightClubPage />} />
         <Route path="/admin/articles" element={<AdminArticles />} />
+        <Route path="/admin/social" element={<AdminSocial />} />
         <Route path="/admin/monetisation" element={<AdminMonetization />} />
         <Route path="/admin/monetization" element={<AdminMonetization />} />
         <Route path="/admin" element={<AdminAssetManager />} />
