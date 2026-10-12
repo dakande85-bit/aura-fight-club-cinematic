@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import {spanishArticleSlugs} from '../src/i18n/esArticles.js';
 
 const ROOT=process.cwd();
 const PUBLIC=path.join(ROOT,'public');
@@ -16,6 +15,10 @@ const readText=file=>fs.readFileSync(path.join(ROOT,file),'utf8');
 const articles=readJson('articles.json').articles || [];
 const fights=readJson('fights.json').fights || [];
 const entities=readText('src/data/seoEntities.js');
+const spanishArticlesSource=readText('src/i18n/esArticles.js');
+const reviewedSpanishSlugs=[...spanishArticlesSource.matchAll(/^  '([^']+)': \{/gm)].map(match=>match[1]);
+const generatedSpanishSlugs=Object.keys(JSON.parse(readText('public/news/articles.es.json')).articles||{});
+const spanishArticleSlugs=[...new Set([...reviewedSpanishSlugs,...generatedSpanishSlugs])];
 const pull=(name)=>{
  const block=entities.match(new RegExp(`export const ${name} = \\[([\\s\\S]*?)\\n\\];`));
  if(!block) return [];
