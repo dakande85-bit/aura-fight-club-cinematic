@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalSEO } from './components/SEO.jsx';
+import SpanishSite from './pages/SpanishSite.jsx';
 import Analytics from './components/Analytics.jsx';
 import HomeStaticHero from './components/HomeStaticHero.jsx';
 import FightHub from './pages/FightHub.jsx';
@@ -46,6 +47,8 @@ export default function AppRouter() {
       <Analytics />
       <Routes>
         <Route path="/" element={<HomeStaticHero />} />
+        <Route path="/es" element={<SpanishSite />} />
+        <Route path="/es/*" element={<SpanishSite />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/news/:slug" element={<ArticlePage />} />
         <Route path="/fighters" element={<FightersIndexPage />} />
