@@ -38,7 +38,7 @@ function check(f,seen){
  if(!f.date||f.date<earliest||f.date>now)return 'outside last five days';
  if(!/^(UD|SD|MD|PTS|KO|TKO|RTD|DQ)$/i.test(f.method||''))return 'missing finishing method';
  if(!Array.isArray(f.belts)||!f.belts.some(x=>/WBA|WBC|IBF|WBO/i.test(x)))return 'not a major championship';
- if(!Array.isArray(f.facts)||f.facts.length<2)return 'unsupported details';
+ if(!Array.isArray(f.facts)||f.facts.length<4)return 'insufficient verified fight-specific details';
  const sources=(f.sources||[]).filter(s=>s.name&&goodUrl(s.url)&&seen.has(urlKey(s.url)));
  if(new Set(sources.map(s=>host(s.url))).size<2)return 'two independent web-search sources required';
  if(covered(f))return 'already covered';
@@ -61,9 +61,11 @@ function artwork(f){
 }
 async function writeStory(f,id,filename){
  const facts={fighterA:f.fighterA,fighterB:f.fighterB,winner:f.winner,loser:f.loser,method:f.method,round:f.round,date:f.date,belts:f.belts,facts:f.facts};
- const prompt='Write original UK-English analysis of this professional boxing result. Use ONLY these verified facts: '+JSON.stringify(facts)+'. Return JSON {"title":"Include BOTH fighters surnames with thoughtful reaction angle", "summary":"max 240 chars", "body":["## Title", "substantial paragraph", ...]}. Provide 8 to 14 paragraphs, 550 to 750 words; explain implications as opinion, not fabricated blow-by-blow; never invent quotes, rankings, punch stats, judging scores or unannounced matchups.';
+ const prompt='You are AURA Fight Club, an exacting UK boxing ringside analyst. This article must sound knowledgeable, not like generic AI filler. Use ONLY these verified facts: '+JSON.stringify(facts)+'. Return JSON {"title":"Both fighters surnames and a distinctive reported angle", "summary":"max 240 chars", "body":["opening with a concrete fight-specific observation", "## Technical section", "substantial paragraph", ...]}. Write 650 to 850 words in 10 to 16 paragraphs with at least two informative ## subheadings. Include at least three specific fight details provided in facts, explain how a boxer won rounds or created the reported stoppage only if the evidence supports it, describe technical mechanisms as interpretation, compare each fighter\'s options and identify future tactical questions. End with a distinct argument, never a templated AURA verdict. Do not manufacture punch stats, scorecards, round-by-round actions, boxer quotes, opponents, broadcast times, source interviews, or predictions. If the evidence does not contain enough observed details, return {"error":"insufficient fight-specific detail"} instead of an article.';
  const drafted=parse(await ask(prompt));
- if(typeof drafted.title!=='string'||!Array.isArray(drafted.body)||drafted.body.length<7)throw Error('Incomplete generated article');
+ if(typeof drafted.title!=='string'||!Array.isArray(drafted.body)||drafted.body.length<11)throw Error('Incomplete generated article');
+ const draftedWords=drafted.body.filter(t=>!String(t).startsWith('## ')).join(' ').trim().split(/\s+/).filter(Boolean).length;
+ if(draftedWords<550||drafted.body.filter(t=>String(t).startsWith('## ')).length<2)throw Error('Thin or unstructured fight analysis: '+draftedWords+' words');
  const title=drafted.title.slice(0,180),summary=String(drafted.summary||'').slice(0,450);
  if(![surname(f.fighterA),surname(f.fighterB)].every(n=>normal(title).includes(normal(n))))throw Error('Headline does not identify both boxers');
  const source=f.sources[0],fightSlug=id+'-reaction-'+f.date;
@@ -77,7 +79,7 @@ function markComplete(f,id){
 }
 async function main(){
  const candidates=calendar.fights.filter(f=>f.date>=earliest&&f.date<=now).map(f=>({name:f.name,date:f.date,stakes:f.stakes,status:f.status}));
- const search='Today is '+now+' in Atlantic/Canary. Search the web for RESULTS of all professional FULL WBA/WBC/IBF/WBO boxing world championship fights held between '+earliest+' and '+now+' including undercard title bouts. Also verify results of calendar candidates: '+JSON.stringify(candidates)+'. No future fights. Confirm the RESULT in two independent credible reporting outlets per fight, and use URLs genuinely visited through web search. Respond in JSON {"fights":[{"fighterA":"...","fighterB":"...","winner":"...","loser":"...","date":"YYYY-MM-DD","method":"UD|SD|MD|PTS|KO|TKO|RTD|DQ","round":12,"belts":["WBA"],"worldTitle":true,"confirmed":true,"facts":["verified detail","another verified detail"],"sources":[{"name":"source one","url":"https://..."},{"name":"source two","url":"https://..."}],"venue":"...","division":"..."}]}. If uncertain omit the bout. Up to 12 fights.';
+ const search='Today is '+now+' in Atlantic/Canary. Search the web for RESULTS of all professional FULL WBA/WBC/IBF/WBO boxing world championship fights held between '+earliest+' and '+now+' including undercard title bouts. Also verify results of calendar candidates: '+JSON.stringify(candidates)+'. No future fights. Confirm the RESULT in two independent credible reporting outlets per fight, and use URLs genuinely visited through web search. Respond in JSON {"fights":[{"fighterA":"...","fighterB":"...","winner":"...","loser":"...","date":"YYYY-MM-DD","method":"UD|SD|MD|PTS|KO|TKO|RTD|DQ","round":12,"belts":["WBA"],"worldTitle":true,"confirmed":true,"facts":["reported moment/round one","reported punch/style observation","reported tactical pattern","reported sequence supported by sources"],"sources":[{"name":"source one","url":"https://..."},{"name":"source two","url":"https://..."}],"venue":"...","division":"..."}]}. If uncertain omit the bout. Up to 12 fights.';
  const research=await ask(search,true),data=parse(research),seen=citations(research);
  if(!Array.isArray(data.fights))throw Error('Research response lacked fights[]');
  console.log('Discovered '+data.fights.length+' candidate fights; '+seen.size+' referenced URLs.');
