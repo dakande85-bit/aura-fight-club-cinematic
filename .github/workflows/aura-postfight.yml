@@ -67,6 +67,6 @@ jobs:
             echo "No new verified championship results. Nothing to publish."
             exit 0
           fi
-          git commit -m "news: publish verified post-fight reactions [skip ci]"
+          git commit -m "news: publish verified post-fight reactions"
           git push origin HEAD:main
           echo "New stories committed. Check production deployment status."
