@@ -24,6 +24,7 @@ import './styles/aura-mobile-audit.css';
 import './homepage-scroll-sync.js';
 import './homepage-logo-fix.js';
 import './aura-release-dom-fixes.js';
+import './styles/aura-language-entry.css';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
