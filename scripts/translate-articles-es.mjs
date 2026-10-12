@@ -1,11 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
-import {reviewedSpanishArticles} from '../src/i18n/esArticles.js';
 
 const root=process.cwd();
 const inputFile=path.join(root,'public/news/articles.json');
 const outputFile=path.join(root,'public/news/articles.es.json');
+const reviewedSource=fs.readFileSync(path.join(root,'src/i18n/esArticles.js'),'utf8');
+const reviewedSlugs=new Set([...reviewedSource.matchAll(/^  '([^']+)': \{/gm)].map(match=>match[1]));
 const key=process.env.GOOGLE_TRANSLATE_API_KEY;
 if(!key){
   console.log('GOOGLE_TRANSLATE_API_KEY missing: no automatic Spanish translations generated.');
@@ -47,7 +48,7 @@ async function translateTexts(texts){
 let processed=0;
 for(const article of input.articles||[]){
   // Reviewed stories remain editorially controlled even when the English source changes.
-  if(reviewedSpanishArticles[article.slug])continue;
+  if(reviewedSlugs.has(article.slug))continue;
   const sourceHash=hash(article);
   if(translations[article.slug]?.sourceHash===sourceHash)continue;
   if(!Array.isArray(article.body)||!article.body.every(x=>typeof x==='string'))continue;
