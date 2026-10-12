@@ -1,0 +1,47 @@
+name: AURA social content drafts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/news/articles.json'
+      - 'scripts/prepare-social-cards.py'
+      - '.github/workflows/aura-social-drafts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aura-social-card-drafts
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image rendering library
+        run: python -m pip install 'Pillow>=11,<13'
+      - name: Generate photo-safe original editorial cards and draft captions
+        run: python scripts/prepare-social-cards.py
+        env:
+          AURA_SOCIAL_BATCH: '12'
+      - name: Save draft cards and queue without posting externally
+        run: |
+          git config user.name "aura-newsroom-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/news/social/ public/news/social-queue.json
+          if git diff --cached --quiet; then
+            echo "No new social drafts."
+            exit 0
+          fi
+          git commit -m "social: prepare editorial cards and captions (not posted)"
+          git push origin HEAD:main
