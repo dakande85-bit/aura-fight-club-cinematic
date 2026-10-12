@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-09",
+  "checkedAt": "2026-10-12",
   "fights": [
     {
       "id": "schofield-bahdi",
@@ -11,7 +11,7 @@
       "date": "2026-10-10",
       "venue": "Wintrust Arena, Chicago, Illinois, USA",
       "division": "Lightweight",
-      "status": "Scheduled",
+      "status": "Completed",
       "stakes": "Vacant WBA lightweight world title",
       "source": "Golden Boy Promotions",
       "sourceUrl": "https://www.goldenboy.com/the-event/schofield-vs-bahdi/",
@@ -27,7 +27,25 @@
         "ringWalkStatus": "unconfirmed",
         "timingNote": "Golden Boy lists DAZN broadcast from 7:00 pm Chicago time; first fight begins 3:30 pm Chicago time."
       },
-      "watchUrl": "https://www.goldenboy.com/the-event/schofield-vs-bahdi/fight-week-schedule/"
+      "watchUrl": "https://www.goldenboy.com/the-event/schofield-vs-bahdi/fight-week-schedule/",
+      "result": {
+        "winner": "Floyd Schofield",
+        "loser": "Lucas Bahdi",
+        "method": "Unanimous decision",
+        "round": 12,
+        "scorecards": [
+          "115-111",
+          "116-110",
+          "119-108"
+        ],
+        "titleOutcome": "Floyd Schofield wins the vacant WBA lightweight world title",
+        "verifiedAt": "2026-10-12",
+        "sources": [
+          "https://sports.yahoo.com/boxing/live/floyd-schofield-vs-lucas-bahdi-live-results-round-by-round-updates-ring-walks-for-todays-wba-title-fight-170000573.html",
+          "https://bleacherreport.com/liveblogs/25508567/floyd-schofield-vs-lucas-bahdi-live-updates-highlights-and-results"
+        ]
+      },
+      "updatedAt": "2026-10-12"
     },
     {
       "id": "dubois-wardley-2",
@@ -245,6 +263,48 @@
         "timingNote": "A 01:00 local ring walk on 12 December has been proposed in a venue application, not confirmed as the final time."
       },
       "watchUrl": "https://www.netflix.com/tudum/features/tyson-fury-anthony-joshua-live-on-netflix"
+    },
+    {
+      "id": "sandoval-mendoza",
+      "name": "Ricardo Sandoval vs Sergio Mendoza",
+      "fighters": [
+        "Ricardo Sandoval",
+        "Sergio Mendoza"
+      ],
+      "date": "2026-10-10",
+      "venue": "Wintrust Arena, Chicago, Illinois, USA",
+      "division": "Flyweight",
+      "status": "Completed",
+      "stakes": "WBA and WBC flyweight world titles",
+      "source": "Uncrowned / Yahoo Sports",
+      "sourceUrl": "https://sports.yahoo.com/boxing/live/floyd-schofield-vs-lucas-bahdi-live-results-round-by-round-updates-ring-walks-for-todays-wba-title-fight-170000573.html",
+      "broadcast": "DAZN",
+      "broadcastStatus": "confirmed",
+      "broadcastTerritory": "Original event broadcast; availability varies by region",
+      "watchUrl": "https://www.goldenboy.com/the-event/schofield-vs-bahdi/",
+      "featured": true,
+      "blurb": "Sergio Mendoza stopped unified champion Sandoval in the fifth round in a major world-title upset.",
+      "updatedAt": "2026-10-12",
+      "schedule": {
+        "timeZone": "America/Chicago",
+        "broadcastStartUTC": "2026-10-11T00:00:00Z",
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Completed bout; historical ring-walk time not independently confirmed."
+      },
+      "result": {
+        "winner": "Sergio Mendoza",
+        "loser": "Ricardo Sandoval",
+        "method": "TKO",
+        "round": 5,
+        "time": "1:46",
+        "titleOutcome": "Sergio Mendoza wins the WBA and WBC flyweight world titles",
+        "verifiedAt": "2026-10-12",
+        "sources": [
+          "https://talksport.com/boxing/4636868/sergio-mendoza-ricardo-sandoval-upset-ko-fight-result/",
+          "https://www.badlefthook.com/live-boxing-updates/119418/floyd-schofield-vs-lucas-bahdi-live-blog-results-round-by-round-boxing-news-2026"
+        ]
+      }
     }
   ]
 }
