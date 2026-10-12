@@ -1,84 +1,20 @@
-name: AURA automatic post-fight reactions
+# Paused at the owner's request on 12 October 2026.
+# News articles are now researched and written in ChatGPT, reviewed, and committed
+# to public/news/articles.json via GitHub. No OpenAI API key or paid news runs required.
+name: AURA post-fight AI publisher (paused)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/aura-postfight.yml'
-      - 'scripts/check-openai-access.mjs'
-  schedule:
-    - cron: '17 9,18 * * *'
-      timezone: 'Atlantic/Canary'
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: 'Research only: do not publish'
-        type: boolean
-        required: false
-        default: false
 
 permissions:
-  contents: write
-
-concurrency:
-  group: aura-post-fight-news
-  cancel-in-progress: false
+  contents: read
 
 jobs:
-  publish:
+  paused:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-    env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      AURA_AI_MODEL: ${{ vars.AURA_AI_MODEL || 'gpt-5-mini' }}
-      AURA_MAX_ARTICLES: '4'
     steps:
-      - name: Checkout newsroom and fight data
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-          fetch-depth: 0
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Check publisher syntax
-        run: node --check scripts/post-fight-news.mjs
-      - name: Confirm research API access
+      - name: Manual editorial publishing only
         run: |
-          if [ -z "$OPENAI_API_KEY" ]; then
-            echo "::error::OPENAI_API_KEY is missing. Add it under Settings > Secrets and variables > Actions."
-            exit 1
-          fi
-      - name: Verify configured OpenAI key and model (push-only smoke test)
-        if: ${{ github.event_name == 'push' }}
-        run: node scripts/check-openai-access.mjs
-      - name: Discover and verify completed world-title fights
-        if: ${{ github.event_name != 'push' }}
-        run: |
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            node scripts/post-fight-news.mjs --dry-run
-          else
-            node scripts/post-fight-news.mjs
-          fi
-      - name: Validate updated fight data and regenerate news SEO
-        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
-        run: |
-          node scripts/check-fight-data.mjs
-          node scripts/generate-sitemaps.mjs
-      - name: Reject short or weakly sourced generated reactions
-        if: ${{ github.event_name != 'push' && inputs.dry_run != true }}
-        run: node scripts/audit-newsroom.mjs --changed --strict
-      - name: Commit and publish independently verified reactions
-        if: ${{ inputs.dry_run != true }}
-        run: |
-          git config user.name "aura-newsroom-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/news/articles.json public/news/fights.json public/news/media/ public/*sitemap*.xml public/robots.txt
-          if git diff --cached --quiet; then
-            echo "No new verified championship results. Nothing to publish."
-            exit 0
-          fi
-          git commit -m "news: publish verified post-fight reactions"
-          git push origin HEAD:main
-          echo "New stories committed. Check production deployment status."
+          echo "Automatic AI-generated publishing is paused."
+          echo "Prepare verified stories in ChatGPT and commit them via GitHub."
+          echo "Use the quality check workflow to validate copy and the social workflow for assets."
