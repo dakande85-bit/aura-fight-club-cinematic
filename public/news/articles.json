@@ -1,6 +1,120 @@
 {
-  "reviewedAt": "2026-10-09",
+  "reviewedAt": "2026-10-12",
   "articles": [
+    {
+      "slug": "schofield-bahdi-result-reaction-world-champion-2026",
+      "title": "Schofield Is World Champion — But Bahdi's Knockdown Leaves a Bigger Question",
+      "summary": "Floyd Schofield earned the vacant WBA lightweight crown in Chicago. The decision was clear, but a late knockdown means the debate over his readiness for the division's elite is only beginning.",
+      "date": "2026-10-12",
+      "updatedAt": "2026-10-12",
+      "category": "Post-fight reaction",
+      "articleType": "Analysis",
+      "featured": true,
+      "priority": 100,
+      "fightId": "schofield-bahdi",
+      "coverageStage": "Reaction",
+      "source": "Uncrowned / Yahoo Sports",
+      "sourceUrl": "https://sports.yahoo.com/boxing/live/floyd-schofield-vs-lucas-bahdi-live-results-round-by-round-updates-ring-walks-for-todays-wba-title-fight-170000573.html",
+      "sources": [
+        {
+          "name": "Bleacher Report — official scores and knockdowns",
+          "url": "https://bleacherreport.com/liveblogs/25508567/floyd-schofield-vs-lucas-bahdi-live-updates-highlights-and-results"
+        },
+        {
+          "name": "Bad Left Hook — live fight reporting",
+          "url": "https://www.badlefthook.com/live-boxing-updates/119418/floyd-schofield-vs-lucas-bahdi-live-blog-results-round-by-round-boxing-news-2026"
+        }
+      ],
+      "image": {
+        "src": "https://aurafightclub.com/news/media/schofield-bahdi-2026.svg",
+        "alt": "Original AURA Fight Club result graphic: Floyd Schofield defeats Lucas Bahdi by unanimous decision for the WBA lightweight championship on 10 October 2026",
+        "credit": "AURA Fight Club · original editorial artwork",
+        "caption": "Result graphic, not a ringside photograph. Schofield claimed the vacant WBA lightweight title in Chicago.",
+        "sourceUrl": "https://www.goldenboy.com/the-event/schofield-vs-bahdi/"
+      },
+      "seoTitle": "Schofield vs Bahdi Reaction: Champion, But What Next? | AURA",
+      "metaDescription": "Floyd Schofield beat Lucas Bahdi on points for the WBA lightweight title. Our analysis of the knockdowns, scorecards and next test.",
+      "tags": [
+        "boxing",
+        "post-fight reaction",
+        "Floyd Schofield",
+        "Lucas Bahdi",
+        "WBA",
+        "lightweight"
+      ],
+      "body": [
+        "## The result: a new champion, with a warning attached",
+        "Floyd 'Kid Austin' Schofield left the Wintrust Arena in Chicago with the vacant WBA lightweight world title on Saturday 10 October. He beat previously unbeaten Lucas Bahdi by unanimous decision after twelve rounds, with judges returning 115–111, 116–110 and 119–108. Those scorecards make the result clear. They do not mean the fight passed without alarm.",
+        "Both fighters suffered knockdowns. Schofield found himself on the canvas late and still reached the final bell with enough of his earlier work banked to secure the verdict. That distinction matters: champions are judged on the ability to win, but also on how their game holds up when an opponent changes the script.",
+        "## What the knockdown tells us — and what it doesn't",
+        "It would be lazy to turn a single knockdown into a definitive claim that Schofield has a suspect chin. Elite fighters are hit, and even world champions make defensive errors. More revealing is the question of why Bahdi was still able to create an opening so late, when the man ahead on the cards would ideally be managing risk.",
+        "Schofield deserves credit for finishing and getting the decision. The performance also offers future opponents a reason to believe he can be reached. A sharper, more sustained threat at lightweight would ask whether his defensive discipline survives repeated exchanges rather than one isolated moment.",
+        "## A championship belt changes the matchmaking",
+        "Winning a world title can accelerate a fighter's career faster than any promotional campaign. Schofield now enters conversations involving the strongest names around 135 pounds, but the right next fight is not automatically the loudest one. His team must balance the momentum of a title win against the value of another high-level assignment that tests his ring management.",
+        "Bahdi should not disappear from that discussion. He contributed to an absorbing contest and forced an unbeaten favourite to answer a difficult question under championship pressure. A defeat on the scorecards need not close his route back to contention.",
+        "## The AURA verdict",
+        "Schofield won the belt; that is an achievement nobody can discount. But he did not close the argument about where he stands among the division's best. The most interesting part of his championship story begins now: can he keep the attacking ambition that brought him here while removing the openings that Bahdi exposed?",
+        "Result information is independently cross-checked with the listed reporting. This is AURA editorial analysis, not an official punch-statistical breakdown."
+      ]
+    },
+    {
+      "slug": "sergio-mendoza-ricardo-sandoval-upset-reaction-2026",
+      "title": "The Upset Nobody Saw Coming: How Sergio Mendoza Took Sandoval's Two World Titles",
+      "summary": "Sergio Mendoza stepped into a daunting title assignment and stopped unified flyweight champion Ricardo Sandoval in round five. The result is bigger than an upset — it resets the 112-pound conversation.",
+      "date": "2026-10-12",
+      "updatedAt": "2026-10-12",
+      "category": "Post-fight reaction",
+      "articleType": "Analysis",
+      "featured": true,
+      "priority": 99,
+      "fightId": "sandoval-mendoza",
+      "coverageStage": "Reaction",
+      "source": "Bad Left Hook",
+      "sourceUrl": "https://www.badlefthook.com/live-boxing-updates/119418/floyd-schofield-vs-lucas-bahdi-live-blog-results-round-by-round-boxing-news-2026",
+      "sources": [
+        {
+          "name": "talkSPORT — replacement and title result",
+          "url": "https://talksport.com/boxing/4636868/sergio-mendoza-ricardo-sandoval-upset-ko-fight-result/"
+        },
+        {
+          "name": "Uncrowned / Yahoo Sports — verified co-feature result",
+          "url": "https://sports.yahoo.com/boxing/live/floyd-schofield-vs-lucas-bahdi-live-results-round-by-round-updates-ring-walks-for-todays-wba-title-fight-170000573.html"
+        }
+      ],
+      "image": {
+        "src": "https://aurafightclub.com/news/media/mendoza-sandoval-2026.svg",
+        "alt": "Original AURA Fight Club result graphic: Sergio Mendoza defeats Ricardo Sandoval by fifth-round stoppage to win the WBA and WBC flyweight titles on 10 October 2026",
+        "credit": "AURA Fight Club · original editorial artwork",
+        "caption": "Original result artwork, not a ringside photograph. Mendoza became unified flyweight champion.",
+        "sourceUrl": "https://talksport.com/boxing/4636868/sergio-mendoza-ricardo-sandoval-upset-ko-fight-result/"
+      },
+      "seoTitle": "Sergio Mendoza Shocks Ricardo Sandoval: Fight Reaction | AURA",
+      "metaDescription": "Sergio Mendoza stopped Ricardo Sandoval in round five to win the WBA and WBC flyweight titles. Why this short-notice victory matters.",
+      "tags": [
+        "boxing",
+        "post-fight reaction",
+        "Sergio Mendoza",
+        "Ricardo Sandoval",
+        "flyweight",
+        "WBC",
+        "WBA",
+        "upset"
+      ],
+      "body": [
+        "## A result that stole the championship spotlight",
+        "The billed main event in Chicago produced a new lightweight champion. The co-feature produced the shock of the night. Sergio Mendoza stopped Ricardo Sandoval in the fifth round on Saturday 10 October to take both the WBA and WBC flyweight world titles from the unified champion.",
+        "The finish was not a disputed decision or a last-second technicality. Reports describe Mendoza putting Sandoval down twice in the second round before the referee ended the contest in round five. The official result is a fifth-round TKO; the result itself was independently reported across several outlets.",
+        "## The danger of the late replacement",
+        "Mendoza entered as a late replacement after Oscar Collazo withdrew from the planned contest. On paper that is the kind of disruption many expect a champion to manage. In the ring, a replacement can bring a very different rhythm, pressure profile and psychological freedom from the opponent originally studied.",
+        "That is an explanation of the matchup challenge, not an excuse for Sandoval. A unified champion is expected to adapt under pressure, and this fight showed how quickly those expectations can unravel after early knockdowns.",
+        "## Why the stoppage changes the division",
+        "Flyweight sometimes struggles for attention beside the sport's heavier headline acts. A fighter winning two championship belts in one short-notice assignment should change that. Mendoza has moved from outsider to a central figure at 112 pounds, and the next round of rankings and mandatory decisions will now orbit around him.",
+        "Sandoval, meanwhile, faces the uncomfortable reset reserved for champions who lose decisively. How he addresses the damage sustained and whether he pursues a rematch are open questions, not announced developments. Any next-fight talk should stay hypothetical until the relevant camps or sanctioning bodies confirm it.",
+        "## The AURA verdict",
+        "This is the kind of boxing story a result line cannot capture. Mendoza was not supposed to become the defining image of the evening. He converted an opportunity with real violence and composure, and in doing so forced the flyweight division to redraw its expectations. That deserves its own headline, not a footnote under the main event.",
+        "AURA reaction is editorial interpretation. The winner, round, titles and knockdowns are based on the attributed result reporting listed below."
+      ]
+    },
     {
       "slug": "fury-joshua-undercard-fights-rumours",
       "title": "Fury vs Joshua undercard: which fights are realistic?",
@@ -1862,5 +1976,5 @@
       "priority": 0
     }
   ],
-  "updatedAt": "2026-10-06T06:35:54.379Z"
+  "updatedAt": "2026-10-12T04:46:40.948Z"
 }
