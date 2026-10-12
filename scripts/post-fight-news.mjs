@@ -8,6 +8,7 @@ const now=new Intl.DateTimeFormat('en-CA',{timeZone:'Atlantic/Canary',year:'nume
 const earliest=new Date(Date.parse(now+'T12:00:00Z')-5*86400000).toISOString().slice(0,10);
 const edition=JSON.parse(fs.readFileSync('public/news/articles.json','utf8'));
 const calendar=JSON.parse(fs.readFileSync('public/news/fights.json','utf8'));
+const watchlist=JSON.parse(fs.readFileSync('public/news/reaction-watchlist.json','utf8')).fighters;
 const slug=s=>String(s).normalize('NFKD').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const surname=s=>String(s).trim().split(/\s+/).at(-1);
 const normal=s=>String(s).toLowerCase().replace(/[^a-z]/g,'');
@@ -33,11 +34,12 @@ function covered(f){
  return edition.articles.some(a=>a.coverageStage==='Reaction'&&(e&&a.fightId===e.id||last.every(n=>(a.title+' '+a.slug).toLowerCase().includes(n))));
 }
 function check(f,seen){
- if(f.confirmed!==true||f.worldTitle!==true)return 'unconfirmed or not a full world title';
+ const watched=watchlist.some(name=>normal(name)===normal(f.fighterA)||normal(name)===normal(f.fighterB));
+ if(f.confirmed!==true||(f.worldTitle!==true&&!watched&&!eventFor(f)))return 'unconfirmed or not a title/curated major fight';
  if(!f.fighterA||!f.fighterB||!f.winner||!f.loser||!samePair(f.fighterA,f.fighterB,f.winner,f.loser)||normal(f.winner)===normal(f.loser))return 'invalid competitors or winner';
  if(!f.date||f.date<earliest||f.date>now)return 'outside last five days';
  if(!/^(UD|SD|MD|PTS|KO|TKO|RTD|DQ)$/i.test(f.method||''))return 'missing finishing method';
- if(!Array.isArray(f.belts)||!f.belts.some(x=>/WBA|WBC|IBF|WBO/i.test(x)))return 'not a major championship';
+ if(!Array.isArray(f.belts)||(f.worldTitle===true&&!f.belts.some(x=>/WBA|WBC|IBF|WBO/i.test(x))))return 'invalid reported title status';
  if(!Array.isArray(f.facts)||f.facts.length<4)return 'insufficient verified fight-specific details';
  const sources=(f.sources||[]).filter(s=>s.name&&goodUrl(s.url)&&seen.has(urlKey(s.url)));
  if(new Set(sources.map(s=>host(s.url))).size<2)return 'two independent web-search sources required';
@@ -46,14 +48,14 @@ function check(f,seen){
 }
 function xml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function artwork(f){
- const a=xml(f.winner.toUpperCase()),b=xml(f.loser.toUpperCase()),belts=xml(f.belts.join(' / '));
+ const a=xml(f.winner.toUpperCase()),b=xml(f.loser.toUpperCase()),belts=xml(f.worldTitle?f.belts.join(' / ')+' CHAMPIONSHIP':'FEATURED PROFESSIONAL BOUT');
  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Original boxer result graphic, not a photograph">'+
  '<defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#1a2836"/><stop offset="1" stop-color="#06090c"/></linearGradient><pattern id="p" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" stroke="#ffffff" stroke-opacity=".07" fill="none"/></pattern></defs>'+
  '<rect width="1280" height="720" fill="url(#g)"/><rect width="1280" height="720" fill="url(#p)"/><path d="M930 0 1250 0 900 720 580 720Z" fill="#d6b16b" opacity=".12"/>'+
  '<path d="M0 0H1280" stroke="#d6b16b" stroke-width="12"/>'+
  '<g font-family="Arial,Helvetica,sans-serif" font-weight="900"><text x="65" y="98" fill="#fff" font-size="31" letter-spacing="9">AURA / FIGHT CLUB</text>'+
  '<text x="65" y="170" fill="#d6b16b" font-size="25" letter-spacing="3">POST-FIGHT REACTION</text>'+
- '<text x="65" y="235" fill="#abb2be" font-size="23">'+belts+' CHAMPIONSHIP</text>'+
+ '<text x="65" y="235" fill="#abb2be" font-size="23">'+belts+'</text>'+
  '<text x="65" y="340" fill="#fff" font-size="67">'+a+'</text><text x="65" y="400" fill="#d6b16b" font-size="26" letter-spacing="5">DEFEATS</text>'+
  '<text x="65" y="495" fill="#fff" font-size="67">'+b+'</text>'+
  '<text x="65" y="580" fill="#c0cbd2" font-size="27">'+xml(f.method+' · '+(f.round||'?')+' ROUNDS')+'</text>'+
@@ -73,13 +75,13 @@ async function writeStory(f,id,filename){
 }
 function markComplete(f,id){
  const existing=eventFor(f);
- const result={winner:f.winner,loser:f.loser,method:f.method,round:f.round||null,titleOutcome:f.winner+' won the '+f.belts.join(' and ')+' world titles',sources:f.sources.map(s=>s.url),verifiedAt:now};
+ const result={winner:f.winner,loser:f.loser,method:f.method,round:f.round||null,titleOutcome:f.worldTitle?f.winner+' won the '+f.belts.join(' and ')+' world title(s)':f.winner+' defeated '+f.loser,sources:f.sources.map(s=>s.url),verifiedAt:now};
  if(existing){existing.status='Completed';existing.result=result;existing.updatedAt=now;return}
- calendar.fights.push({id,name:f.fighterA+' vs '+f.fighterB,fighters:[f.fighterA,f.fighterB],date:f.date,venue:f.venue||'Venue not verified',division:f.division||'Unconfirmed',status:'Completed',stakes:f.belts.join(' / ')+' championship',source:f.sources[0].name,sourceUrl:f.sources[0].url,broadcast:'Broadcast unavailable',broadcastStatus:'unverified',updatedAt:now,schedule:{timeZone:'UTC',ringWalkStatus:'unconfirmed',timingNote:'Completed contest. Start time not independently confirmed.'},result});
+ calendar.fights.push({id,name:f.fighterA+' vs '+f.fighterB,fighters:[f.fighterA,f.fighterB],date:f.date,venue:f.venue||'Venue not verified',division:f.division||'Unconfirmed',status:'Completed',stakes:f.worldTitle?f.belts.join(' / ')+' championship':'Featured professional boxing result',source:f.sources[0].name,sourceUrl:f.sources[0].url,broadcast:'Broadcast unavailable',broadcastStatus:'unverified',updatedAt:now,schedule:{timeZone:'UTC',ringWalkStatus:'unconfirmed',timingNote:'Completed contest. Start time not independently confirmed.'},result});
 }
 async function main(){
  const candidates=calendar.fights.filter(f=>f.date>=earliest&&f.date<=now).map(f=>({name:f.name,date:f.date,stakes:f.stakes,status:f.status}));
- const search='Today is '+now+' in Atlantic/Canary. Search the web for RESULTS of all professional FULL WBA/WBC/IBF/WBO boxing world championship fights held between '+earliest+' and '+now+' including undercard title bouts. Also verify results of calendar candidates: '+JSON.stringify(candidates)+'. No future fights. Confirm the RESULT in two independent credible reporting outlets per fight, and use URLs genuinely visited through web search. Respond in JSON {"fights":[{"fighterA":"...","fighterB":"...","winner":"...","loser":"...","date":"YYYY-MM-DD","method":"UD|SD|MD|PTS|KO|TKO|RTD|DQ","round":12,"belts":["WBA"],"worldTitle":true,"confirmed":true,"facts":["reported moment/round one","reported punch/style observation","reported tactical pattern","reported sequence supported by sources"],"sources":[{"name":"source one","url":"https://..."},{"name":"source two","url":"https://..."}],"venue":"...","division":"..."}]}. If uncertain omit the bout. Up to 12 fights.';
+ const search='Today is '+now+' in Atlantic/Canary. Search the web for RESULTS of professional FULL WBA/WBC/IBF/WBO boxing world championship fights AND other notable professional main events involving named fighters from this curated list: '+JSON.stringify(watchlist)+'. Focus on fights held between '+earliest+' and '+now+' including undercard title bouts and notable televised main events. Also verify results of calendar candidates: '+JSON.stringify(candidates)+'. No future fights. Confirm the RESULT in two independent credible reporting outlets per fight, and use URLs genuinely visited through web search. Respond in JSON {"fights":[{"fighterA":"...","fighterB":"...","winner":"...","loser":"...","date":"YYYY-MM-DD","method":"UD|SD|MD|PTS|KO|TKO|RTD|DQ","round":12,"belts":["WBA"],"worldTitle":true,"confirmed":true,"facts":["reported moment/round one","reported punch/style observation","reported tactical pattern","reported sequence supported by sources"],"sources":[{"name":"source one","url":"https://..."},{"name":"source two","url":"https://..."}],"venue":"...","division":"..."}]}. For non-title main events set worldTitle:false and belts:[], only when a fighter on the curated watchlist is involved. If uncertain omit the bout. Up to 12 fights.';
  const research=await ask(search,true),data=parse(research),seen=citations(research);
  if(!Array.isArray(data.fights))throw Error('Research response lacked fights[]');
  console.log('Discovered '+data.fights.length+' candidate fights; '+seen.size+' referenced URLs.');
