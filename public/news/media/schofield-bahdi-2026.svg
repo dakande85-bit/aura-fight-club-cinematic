@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+<title id="title">FLOYD SCHOFIELD defeats LUCAS BAHDI</title>
+<desc id="desc">AURA Fight Club original illustrated boxing result graphic. Not a photograph.</desc>
+<defs>
+<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111820"/><stop offset="1" stop-color="#03070a"/></linearGradient>
+<linearGradient id="light" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#d3ad63" stop-opacity=".24"/><stop offset="1" stop-color="#d3ad63" stop-opacity="0"/></linearGradient>
+<pattern id="lines" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0V34" stroke="#ffffff" stroke-opacity=".055" fill="none"/></pattern>
+</defs>
+<rect width="1280" height="720" fill="url(#bg)"/><rect width="1280" height="720" fill="url(#lines)"/>
+<path d="M790 0 1170 0 650 720 270 720Z" fill="url(#light)"/>
+<g fill="none" stroke="#d3ad63" opacity=".27" stroke-width="3">
+<path d="M1040 20 760 710M1160 20 880 710M1280 20 1000 710"/>
+<path d="M820 430H1280M860 475H1280M900 520H1280"/>
+</g>
+<path d="M0 0H1280" stroke="#d3ad63" stroke-width="11"/>
+<text x="72" y="108" font-family="Arial,Helvetica,sans-serif" fill="#f4f0e9" font-size="30" font-weight="800" letter-spacing="10">AURA / FIGHT CLUB</text>
+<text x="72" y="182" font-family="Arial,Helvetica,sans-serif" fill="#d3ad63" font-size="22" font-weight="700" letter-spacing="4">POST-FIGHT REACTION</text>
+<text x="72" y="231" font-family="Arial,Helvetica,sans-serif" fill="#9aa7b2" font-size="19" letter-spacing="3">LIGHTWEIGHT · WBA WORLD TITLE</text>
+<text x="70" y="331" font-family="Arial,Helvetica,sans-serif" fill="#ffffff" font-size="63" font-weight="900" letter-spacing="-1">FLOYD SCHOFIELD</text>
+<text x="73" y="381" font-family="Arial,Helvetica,sans-serif" fill="#d3ad63" font-size="25" font-weight="800" letter-spacing="4">DEFEATS</text>
+<text x="70" y="466" font-family="Arial,Helvetica,sans-serif" fill="#ffffff" font-size="63" font-weight="900" letter-spacing="-1">LUCAS BAHDI</text>
+<rect x="72" y="516" width="620" height="3" fill="#d3ad63" opacity=".9"/>
+<text x="72" y="557" font-family="Arial,Helvetica,sans-serif" fill="#c4c8c9" font-size="22" font-weight="700" letter-spacing="1">UNANIMOUS DECISION · 12 ROUNDS</text>
+<text x="72" y="630" font-family="Arial,Helvetica,sans-serif" fill="#d3ad63" font-size="24" font-weight="900" letter-spacing="5">NEW WORLD CHAMPION</text>
+<text x="72" y="685" font-family="Arial,Helvetica,sans-serif" fill="#8a969f" font-size="17" letter-spacing="3">CHICAGO  /  10 OCTOBER 2026</text>
+</svg>
