@@ -5,16 +5,17 @@ import { execFileSync } from 'node:child_process';
 // Grandfather old copy for reporting, but enforce editorial quality on every new/changed story.
 const edition=JSON.parse(fs.readFileSync('public/news/articles.json','utf8'));
 const flags=new Set(process.argv.slice(2));
+const editorialSignature=a=>JSON.stringify({title:a.title,summary:a.summary,body:a.body,category:a.category,articleType:a.articleType,source:a.source,sourceUrl:a.sourceUrl,sources:a.sources});
 let previous=new Map();
 if(flags.has('--changed')){
- try{const before=JSON.parse(execFileSync('git',['show','HEAD^:public/news/articles.json'],{encoding:'utf8'}));previous=new Map(before.articles.map(a=>[a.slug,JSON.stringify(a)]));}
+ try{const before=JSON.parse(execFileSync('git',['show','HEAD^:public/news/articles.json'],{encoding:'utf8'}));previous=new Map(before.articles.map(a=>[a.slug,editorialSignature(a)]));}
  catch{console.warn('Previous edition unavailable; auditing all stories.');}
 }
 const words=a=>(a.body||[]).filter(x=>!String(x).startsWith('## ')).join(' ').trim().split(/\s+/).filter(Boolean).length;
 const minimum=a=>/reaction|post-fight/i.test(a.category||'')||a.coverageStage==='Reaction'?550:a.articleType==='Analysis'||/deep dive|prediction|fight lab/i.test(a.category||'')?475:300;
 const issues=[];let checked=0;
 for(const a of edition.articles){
- if(flags.has('--changed')&&previous.get(a.slug)===JSON.stringify(a))continue;
+ if(flags.has('--changed')&&previous.get(a.slug)===editorialSignature(a))continue;
  checked++;const errors=[];const count=words(a);
  if(count<minimum(a))errors.push(count+' words; minimum '+minimum(a));
  const urls=[a.sourceUrl,...(a.sources||[]).map(x=>x.url)].filter(Boolean);
