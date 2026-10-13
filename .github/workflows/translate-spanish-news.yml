@@ -6,6 +6,13 @@ on:
       - public/news/articles.json
       - scripts/translate-articles-es.mjs
   workflow_dispatch:
+
+# A newer article batch supersedes the previous translation run. This avoids
+# overlapping translation calls and competing commits to the same cache.
+concurrency:
+  group: aura-spanish-news-translations
+  cancel-in-progress: true
+
 permissions:
   contents: write
 jobs:
