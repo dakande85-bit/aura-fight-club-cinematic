@@ -29,5 +29,11 @@ jobs:
           node-version: '22'
       - name: Check article-depth and evidence changes
         run: node scripts/audit-newsroom.mjs --changed --strict
-      # Building the entire site again for every JSON news edit is expensive.
-      # Deployment previews / local npm run build perform full compilation.
+      # Full builds remain available via the manual Run workflow action,
+      # without rerunning npm install for every routine editorial JSON update.
+      - name: Install dependencies for full release build
+        if: github.event_name == 'workflow_dispatch'
+        run: npm install --no-package-lock --no-audit --no-fund
+      - name: Verify the complete production site
+        if: github.event_name == 'workflow_dispatch'
+        run: npm run build
