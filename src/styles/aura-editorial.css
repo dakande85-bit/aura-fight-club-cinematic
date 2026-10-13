@@ -288,3 +288,9 @@
 .aura-article .aura-breadcrumbs li+li::before{content:"/";color:#8c7a58;margin-right:12px}
 .aura-article .aura-breadcrumbs li:last-child{max-width:min(34ch,37vw);overflow:hidden;text-overflow:ellipsis}
 .aura-article .aura-breadcrumbs a{color:#e7d6aa;text-decoration:none}
+
+/* Real editorial photos lead; fill the news-card frame without letterboxing. */
+.aura-news-card .aura-story-image img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:center 35%;background:#171a1b}
+.aura-article .aura-story-image img{display:block;width:100%;max-height:650px;object-fit:contain;background:#171a1b}
+.aura-story-image>a{display:block;min-width:0}
+@media(max-width:700px){.aura-news-card .aura-story-image img{aspect-ratio:16/10}}
