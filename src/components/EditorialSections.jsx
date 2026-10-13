@@ -7,25 +7,33 @@ export function ExternalLink({ href, children, className = '' }) {
   return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}<span className="aura-external"> ↗</span></a>;
 }
 export function StoryImage({ article, linked = false, eager = false }) {
-  const [failed, setFailed] = useState(false);
-  const fallback = {
-    src: '/assets/aura-live/hero/hero-fighter-stance.png',
-    alt: 'AURA Fight Club boxing editorial image',
-    credit: 'AURA Fight Club'
-  };
-  const hasSource = Boolean(article.image?.src);
-  const image = hasSource && !failed ? article.image : fallback;
-  const photo = failed
-    ? <div className="aura-story-image__fallback" role="img" aria-label={`AURA editorial title illustration: ${article.title}`}>
-        <span>AURA / BOXING</span><strong>{article.title}</strong><small>Editorial story · Image unavailable</small>
-      </div>
-    : <img src={image.src} alt={image.alt || fallback.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(true)} />;
+  // Use a properly attributed fighter photo first, a locally hosted story-specific
+  // illustration second, then a clear title treatment rather than a broken image.
+  const [imageAttempt, setImageAttempt] = useState(0);
+  const candidates = [article.image?.src, article.image?.fallbackSrc].filter(Boolean);
+  const currentSrc = candidates[imageAttempt];
+  const isOriginal = imageAttempt === 0 && Boolean(article.image?.src);
+  const photo = currentSrc ? (
+    <img
+      key={currentSrc}
+      src={currentSrc}
+      alt={isOriginal ? article.image.alt : `AURA editorial illustration for ${article.title}; not a photograph`}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      referrerPolicy="no-referrer"
+      onError={() => setImageAttempt(previous => previous + 1)}
+    />
+  ) : (
+    <div className="aura-story-image__fallback" role="img" aria-label={`Editorial title illustration: ${article.title}`}>
+      <span>AURA / BOXING</span><strong>{article.title}</strong><small>Image temporarily unavailable</small>
+    </div>
+  );
   return <figure className="aura-story-image">
     {linked ? <Link to={`/news/${article.slug}`} aria-label={`Read: ${article.title}`}>{photo}</Link> : photo}
     <figcaption>
-      {hasSource && !failed
-        ? <>{article.image.caption && <span>{article.image.caption} </span>}<ExternalLink href={article.image.sourceUrl || article.sourceUrl}>Credit: {article.image.credit}</ExternalLink></>
-        : <span>Editorial image · Credit: AURA Fight Club</span>}
+      {isOriginal
+        ? <>{article.image.caption && <span>{article.image.caption} </span>}{article.image.credit && <ExternalLink href={article.image.sourceUrl || article.sourceUrl}>Image source: {article.image.credit}</ExternalLink>}</>
+        : <span>{currentSrc ? 'Original AURA story illustration (photo temporarily unavailable)' : 'Original AURA editorial story treatment'}</span>}
     </figcaption>
   </figure>;
 }
