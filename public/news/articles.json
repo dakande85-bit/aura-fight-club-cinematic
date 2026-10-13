@@ -44,7 +44,8 @@
         "alt": "Hamzah Sheeraz stands in the boxing ring wearing green shorts and white gloves",
         "credit": "The Ring — Hamzah Sheeraz archive photograph",
         "caption": "Hamzah Sheeraz pictured in the ring in an earlier appearance. Archive photograph, not an image of the October 2026 title decision.",
-        "sourceUrl": "https://www.ringmagazine.com/news/wbo-calls-for-hamzah-sheeraz-diego-pacheco-purse-bids-3ngeNMPmEAwt9UKqPKg8ga"
+        "sourceUrl": "https://www.ringmagazine.com/news/wbo-calls-for-hamzah-sheeraz-diego-pacheco-purse-bids-3ngeNMPmEAwt9UKqPKg8ga",
+        "fallbackSrc": "/news/media/sheeraz-wbo-title-vacancy.svg"
       },
       "tags": [
         "Hamzah Sheeraz",
@@ -117,7 +118,8 @@
         "alt": "Floyd Schofield in the boxing ring raising both fists with a championship belt over his shoulder",
         "credit": "World Boxing Association — Floyd Schofield boxer profile photograph",
         "caption": "Floyd Schofield pictured with a championship belt. Archive portrait; not from the October 10 Schofield–Bahdi fight.",
-        "sourceUrl": "https://www.wbaboxing.com/wba-boxer-profile?id=13079"
+        "sourceUrl": "https://www.wbaboxing.com/wba-boxer-profile?id=13079",
+        "fallbackSrc": "/news/media/schofield-bahdi-2026.svg"
       },
       "seoTitle": "Schofield beat Bahdi. The scorecards don't tell the full story.",
       "metaDescription": "Floyd Schofield is WBA lightweight champion, but Lucas Bahdi made him pay for lapses. Round-three damage, a disputed ninth-round knockdown and a brutal eleventh deserve c",
@@ -183,7 +185,8 @@
         "alt": "Mexican boxer Sergio Yoreme Mendoza holds a turquoise WBC regional boxing championship belt in an archive portrait",
         "credit": "BoxingScene — Sergio Mendoza boxer photograph",
         "caption": "Sergio Mendoza with an earlier WBC regional title. Archive portrait, not a photo from his October 10 victory over Ricardo Sandoval.",
-        "sourceUrl": "https://www.boxingscene.com/articles/the-best-active-mexican-boxers-yet-to-win-a-world-title"
+        "sourceUrl": "https://www.boxingscene.com/articles/the-best-active-mexican-boxers-yet-to-win-a-world-title",
+        "fallbackSrc": "/news/media/mendoza-sandoval-2026.svg"
       },
       "seoTitle": "Mendoza didn't steal two belts. He broke Sandoval's rhythm.",
       "metaDescription": "Sergio Mendoza's fifth-round stoppage of Ricardo Sandoval was no lucky punch. The knockdowns, southpaw angles and late-replacement problem explain a flyweight upset worth",
