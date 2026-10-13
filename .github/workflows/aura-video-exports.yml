@@ -1,12 +1,8 @@
 name: AURA vertical news video exports
 
+# Full FFmpeg rendering is expensive and the resulting clips require
+# editorial approval. Generate only when explicitly requested.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'public/news/articles.json'
-      - 'scripts/render-social-videos.py'
-      - '.github/workflows/aura-video-exports.yml'
   workflow_dispatch:
     inputs:
       story_slug:

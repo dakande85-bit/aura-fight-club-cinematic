@@ -1,12 +1,14 @@
 name: AURA social content drafts
 
+# Keep automatic article-to-draft generation: it saves editorial work and
+# does not post content externally. Only article/script changes should trigger.
+
 on:
   push:
     branches: [main]
     paths:
       - 'public/news/articles.json'
       - 'scripts/prepare-social-cards.py'
-      - '.github/workflows/aura-social-drafts.yml'
   workflow_dispatch:
 
 permissions:

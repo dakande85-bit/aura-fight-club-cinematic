@@ -1,4 +1,4 @@
-name: AURA article quality and site build
+name: AURA fast article quality audit
 
 on:
   push:
@@ -7,8 +7,11 @@ on:
       - 'public/news/articles.json'
       - 'scripts/audit-newsroom.mjs'
       - 'src/lib/articleSchema.js'
-      - '.github/workflows/aura-editorial-quality.yml'
   workflow_dispatch:
+
+concurrency:
+  group: aura-editorial-audit-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -26,7 +29,5 @@ jobs:
           node-version: '22'
       - name: Check article-depth and evidence changes
         run: node scripts/audit-newsroom.mjs --changed --strict
-      - name: Install dependencies
-        run: npm install --no-package-lock --no-audit --no-fund
-      - name: Build public site
-        run: npm run build
+      # Building the entire site again for every JSON news edit is expensive.
+      # Deployment previews / local npm run build perform full compilation.
