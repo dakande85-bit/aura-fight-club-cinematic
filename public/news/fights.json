@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-12",
+  "checkedAt": "2026-10-14",
   "fights": [
     {
       "id": "schofield-bahdi",
@@ -59,20 +59,22 @@
       "division": "Heavyweight",
       "status": "Scheduled",
       "stakes": "WBO heavyweight world title",
-      "source": "The Ring",
-      "sourceUrl": "https://www.ringmagazine.com/events/dubois-vs-wardley-ii-7HVg5exI2jkpqLW3hn9fVB",
-      "broadcast": "DAZN",
+      "source": "Sky Sports / DAZN",
+      "sourceUrl": "https://www.skysports.com/boxing/news/12183/13578815/daniel-dubois-vs-fabio-wardley-rematch-announced-to-take-place-in-october-with-the-o2-in-london-set-to-host-heavyweight-showdown",
+      "broadcast": "DAZN PPV",
       "featured": true,
       "blurb": "The heavyweight rematch returns to London after their brutal first meeting.",
       "broadcastStatus": "confirmed",
-      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "broadcastTerritory": "United Kingdom — DAZN pay-per-view; check local subscription and territory",
       "schedule": {
         "timeZone": "Europe/London",
         "broadcastStartUTC": null,
         "ringWalkUTC": null,
         "ringWalkStatus": "unconfirmed",
-        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
-      }
+        "timingNote": "The 17 October London event is on DAZN PPV. Ring-walk estimates vary; exact ring walk is not confirmed, so consult DAZN on fight day."
+      },
+      "watchUrl": "https://www.dazn.com/en-GB/news/boxing/dubois-vs-wardley-rematch-how-to-watch-fight-time-ringwalks-prediction-undercard-news-odds/17a10otjxtgcu18nni6kptycja",
+      "updatedAt": "2026-10-14"
     },
     {
       "id": "fundora-hadribeaj",
@@ -82,24 +84,26 @@
         "Ermal Hadribeaj"
       ],
       "date": "2026-10-17",
-      "venue": "Carson, California, USA",
+      "venue": "The Chelsea at The Cosmopolitan of Las Vegas, Las Vegas, Nevada, USA",
       "division": "Super welterweight",
       "status": "Scheduled",
       "stakes": "WBC super welterweight world title",
-      "source": "CBS Sports",
-      "sourceUrl": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
-      "broadcast": "TNT",
+      "source": "Premier Boxing Champions",
+      "sourceUrl": "https://www.premierboxingchampions.com/sebastian-fundora-vs-ermal-hadribeaj",
+      "broadcast": "DAZN / TNT",
       "featured": false,
       "blurb": "Fundora makes another WBC defence against the unbeaten mandatory challenger.",
-      "broadcastStatus": "unverified",
-      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "broadcastStatus": "confirmed",
+      "broadcastTerritory": "United States — DAZN, TNT and truTV; check regional availability",
       "schedule": {
         "timeZone": "America/Los_Angeles",
-        "broadcastStartUTC": null,
+        "broadcastStartUTC": "2026-10-18T00:00:00Z",
         "ringWalkUTC": null,
         "ringWalkStatus": "unconfirmed",
-        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
-      }
+        "timingNote": "PBC confirms 5:00 pm Las Vegas / 8:00 pm Eastern US start; this is the broadcast start, not Fundora's ring walk."
+      },
+      "watchUrl": "https://www.premierboxingchampions.com/sebastian-fundora-vs-ermal-hadribeaj",
+      "updatedAt": "2026-10-14"
     },
     {
       "id": "smith-puello",
@@ -305,6 +309,35 @@
           "https://www.badlefthook.com/live-boxing-updates/119418/floyd-schofield-vs-lucas-bahdi-live-blog-results-round-by-round-boxing-news-2026"
         ]
       }
+    },
+    {
+      "id": "figueroa-kameda",
+      "name": "Brandon Figueroa vs Tomoki Kameda",
+      "fighters": [
+        "Brandon Figueroa",
+        "Tomoki Kameda"
+      ],
+      "date": "2026-10-17",
+      "venue": "The Chelsea at The Cosmopolitan of Las Vegas, Las Vegas, Nevada, USA",
+      "division": "Featherweight",
+      "status": "Scheduled",
+      "stakes": "WBA featherweight world title",
+      "source": "Premier Boxing Champions",
+      "sourceUrl": "https://www.premierboxingchampions.com/bouts/483574",
+      "broadcast": "DAZN / TNT",
+      "broadcastStatus": "confirmed",
+      "broadcastTerritory": "United States — DAZN, TNT and truTV; check regional availability",
+      "watchUrl": "https://www.premierboxingchampions.com/bouts/483574",
+      "featured": false,
+      "blurb": "Brandon Figueroa makes the first defence of his WBA featherweight belt against experienced former champion Tomoki Kameda.",
+      "schedule": {
+        "timeZone": "America/Los_Angeles",
+        "broadcastStartUTC": "2026-10-18T00:00:00Z",
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "Part of the Fundora–Hadribeaj event; 5pm PT/8pm ET is the US broadcast start, not this specific fight's ring walk."
+      },
+      "updatedAt": "2026-10-14"
     }
   ]
 }
