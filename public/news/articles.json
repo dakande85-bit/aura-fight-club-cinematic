@@ -887,7 +887,7 @@
       "image": {
         "src": "https://images.ctfassets.net/lg76kxmf55ue/2UVF4dh5iG3lSByLctmLRd/db19c0c66d2c1d7895709cabcf3b586e/Iglesias_action2_0dff546c7b.jpg",
         "alt": "Osleys Iglesias in the ring against Vladimir Shishkin in a 2025 world-title eliminator; not an image of Oliver Zaren.",
-        "credit": "The Ring — licensed editorial archive photography",
+        "credit": "The Ring — archive boxing photograph (permission to republish not independently established)",
         "caption": "Archive action image: Iglesias against Vladimir Shishkin, September 2025. This is not the Zaren bout.",
         "sourceUrl": "https://www.ringmagazine.com/news/osleys-iglesias-stops-vladimir-shishkin-in-8-wins-ibf-168-pound-title-eliminator-6rK4YRioJ7Vb4pfQnPZ0kK"
       },
@@ -2247,11 +2247,12 @@
       "source": "Netflix Tudum",
       "sourceUrl": "https://www.netflix.com/tudum/features/tyson-fury-anthony-joshua-live-on-netflix",
       "image": {
-        "src": "https://www.fightmag.com/wp-content/uploads/2026/09/tyson-fury-vs-anthony-joshua-pose.jpg",
-        "alt": "Tyson Fury and Anthony Joshua pose together at the September 2026 London launch of their December heavyweight bout.",
-        "credit": "Richard Pelham / Getty Images for Netflix, via FIGHTMAG",
-        "caption": "London launch pose from September 2026; this is an authentic archival promotional photograph.",
-        "sourceUrl": "https://www.fightmag.com/photos-tyson-fury-and-anthony-joshua-at-launch-press-conference/"
+        "src": "https://ufight.gr/images/AdrenalineMuayThai/fury-joshua-3.jpg",
+        "alt": "Anthony Joshua at the Fury-Joshua press conference in London in September 2026; Tyson Fury is not visible in this photograph.",
+        "credit": "uFight.gr — September 2026 press conference photograph",
+        "caption": "Anthony Joshua at the September 2026 launch. This is an archive press-conference image, not a fight photograph.",
+        "sourceUrl": "https://ufight.gr/boxing/27089-anthony-joshua-tyson-fury-gia-mena-einai-enas-akomi-antipalos",
+        "fallbackSrc": "/news/media/joshua-legacy-analysis.svg"
       },
       "category": "Headlines",
       "date": "2026-10-01",
