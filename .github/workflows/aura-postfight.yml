@@ -3,8 +3,15 @@
 # to public/news/articles.json via GitHub. No OpenAI API key or paid news runs required.
 name: AURA post-fight AI publisher (paused)
 
+# Manual-only: disabled scheduled API-driven publishing, October 2026.
 on:
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Manual research preview — requires separately configured API key'
+        type: boolean
+        required: false
+        default: true
 
 permissions:
   contents: read
