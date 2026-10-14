@@ -1,0 +1,106 @@
+
+.afc-fi{--gold:#d9ae69;--ink:#090d12;--muted:#afb9bf;background:#0a0e13;color:#f4f0e8;padding-bottom:90px}
+.afc-fi *{box-sizing:border-box}
+.afc-fi a{color:inherit;text-underline-offset:4px}
+.afc-fi-hero{position:relative;min-height:590px;overflow:hidden;isolation:isolate;background:radial-gradient(circle at 83% 40%,#34485b,#0a1018 65%)}
+.afc-fi-hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#080d12 4%,rgba(8,13,18,.96) 37%,rgba(8,13,18,.48) 72%,rgba(8,13,18,.25)),linear-gradient(0deg,#070c11,transparent 28%)}
+.afc-fi-hero__art{position:absolute;inset:0 0 0 37%;z-index:-2;opacity:.88}
+.afc-fi-hero__art .aura-photo{width:100%;height:100%}
+.afc-fi-hero__art .aura-photo img{height:100%;object-fit:cover;object-position:center 34%;transform:none!important}
+.afc-fi-hero__art .aura-photo__credit{bottom:24px;right:24px}
+.afc-fi-hero__inner{max-width:1440px;margin:auto;padding:100px clamp(22px,6vw,95px) 115px;position:relative;z-index:2}
+.afc-fi-eyebrow{display:block;font-size:11px;font-weight:900;letter-spacing:.17em;color:var(--gold);text-transform:uppercase}
+.afc-fi-eyebrow span{padding:0 7px;color:#8c98a2}
+.afc-fi-hero__badge{display:inline-block;border:1px solid #8e7249;color:#e5cfaa;padding:11px 18px;margin-top:28px;font-size:12px;text-transform:uppercase;letter-spacing:.075em;font-weight:850}
+.afc-fi-hero h1{display:grid;gap:7px;max-width:850px;line-height:.85;margin:35px 0 22px;text-transform:uppercase;font-size:clamp(52px,8.1vw,120px);font-family:'Barlow Condensed','Arial Narrow',Impact,Arial,sans-serif;font-weight:950;letter-spacing:-.045em;text-shadow:0 2px 30px #03050866}
+.afc-fi-hero h1 em{font-size:.34em;color:var(--gold);font-style:normal;letter-spacing:.1em;line-height:1.15}
+.afc-fi-hero__dek{max-width:600px;color:#d4d9db;font-size:clamp(18px,2vw,23px);line-height:1.4}
+.afc-fi-hero__meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px 20px;color:#d1d0ca;font-size:12px;font-weight:850;letter-spacing:.06em;text-transform:uppercase}
+.afc-fi-hero__meta span:not(:first-child){border-left:1px solid #77694f;padding-left:20px}
+.afc-fi-hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.afc-fi-btn{display:inline-flex!important;align-items:center;justify-content:center;min-height:51px;padding:15px 23px;font-weight:850;letter-spacing:.025em;font-size:13px;text-align:center;text-decoration:none!important;border:1px solid var(--gold)}
+.afc-fi-btn--gold{background:var(--gold);color:#111414!important}
+.afc-fi-btn--outline{background:#11192065;color:#eee9df!important}
+.afc-fi-hero__credit{position:absolute;bottom:16px;right:26px;z-index:3;color:#d9d1c4;font-size:10px;max-width:390px;text-align:right;opacity:.8}
+.afc-fi-factstrip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:#151c24;border-top:1px solid #57472e;border-bottom:1px solid #32353a;max-width:100%}
+.afc-fi-factstrip>div{padding:26px clamp(12px,3vw,48px);border-right:1px solid #303942;min-width:0}
+.afc-fi-factstrip span{display:block;color:#bba77f;font-size:10px;font-weight:900;letter-spacing:.13em}
+.afc-fi-factstrip strong{font-size:clamp(15px,1.8vw,22px);line-height:1.27;display:block;margin-top:9px;overflow-wrap:anywhere}
+.afc-fi-layout{max-width:1360px;display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:clamp(30px,4vw,65px);margin:auto;padding:0 clamp(18px,4vw,55px)}
+.afc-fi-main,.afc-fi-sidebar{min-width:0}
+.afc-fi-section{padding:62px 0;border-bottom:1px solid #313c43}
+.afc-fi-section h2,.afc-fi-next h2{font-size:clamp(32px,4.2vw,58px);letter-spacing:-.037em;line-height:1.04;margin:13px 0 26px;font-weight:950}
+.afc-fi-section>p{color:#c5cbd0;line-height:1.78;font-size:16px;max-width:850px}
+.afc-fi-section .afc-fi-lead{font-size:clamp(19px,2.1vw,25px);line-height:1.59;color:#f0ebe2;font-weight:500}
+.afc-fi-editorial{background:#17212b;padding:25px 30px;border-left:3px solid var(--gold);font-size:17px!important;line-height:1.6!important;color:#e6ddca!important}
+.afc-fi-faceoff{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.afc-fi-boxer{min-width:0;background:#141c25;position:relative;border:1px solid #32404a;overflow:hidden}
+.afc-fi-boxer__image{height:clamp(215px,32vw,380px)}
+.afc-fi-boxer__image .aura-photo{min-height:0;height:100%;background:#111a23}
+.afc-fi-boxer__image .aura-photo img{width:100%;height:100%;object-fit:contain!important;object-position:center center!important;transform:none!important;background:radial-gradient(ellipse at center,#31404d,#0f151d)}
+.afc-fi-boxer__name{padding:17px 21px 23px}
+.afc-fi-boxer__name span{color:var(--gold);font-size:10px;letter-spacing:.12em;font-weight:900}
+.afc-fi-boxer__name h3{font-size:clamp(23px,3vw,37px);line-height:1.07;text-transform:uppercase;letter-spacing:-.025em;margin:9px 0}
+.afc-fi-boxer__name small{color:#d9d5cc;font-weight:800;font-size:16px}
+.afc-fi-tale{background:#111920;margin-top:15px;border:1px solid #323d46}
+.afc-fi-tale__row{display:grid;grid-template-columns:minmax(0,1fr) 160px minmax(0,1fr);border-bottom:1px solid #27343f;align-items:center;gap:10px;min-height:59px;padding:10px 20px}
+.afc-fi-tale__row:last-child{border:0}
+.afc-fi-tale__row>span{color:#c3ad80;font-size:11px;font-weight:900;letter-spacing:.06em;text-align:center;text-transform:uppercase}
+.afc-fi-tale__row>strong{font-size:15px;font-weight:850;overflow-wrap:anywhere}
+.afc-fi-tale__row>strong:last-child{text-align:right}
+.afc-fi-tale-links{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:18px}
+.afc-fi-tale-links a{font-size:12px;color:#e1ba76;font-weight:800}
+.afc-fi-caption{color:#9da8ac!important;font-size:12px!important;line-height:1.6!important;margin-top:16px}
+.afc-fi-timeline,.afc-fi-keys{display:grid;gap:0;margin:28px 0}
+.afc-fi-timeline article,.afc-fi-keys article{display:grid;grid-template-columns:75px minmax(0,1fr);gap:22px;position:relative;padding:26px 0;border-bottom:1px solid #35404b}
+.afc-fi-timeline article>span,.afc-fi-keys article>span{font-weight:950;font-family:Impact,'Arial Narrow',sans-serif;font-size:43px;color:var(--gold);line-height:1}
+.afc-fi-timeline h3,.afc-fi-keys h3{margin:0 0 8px;font-size:21px}
+.afc-fi-timeline p,.afc-fi-keys p{line-height:1.67;color:#c5ccd0;font-size:15px;margin:0}
+.afc-fi-history>a{font-size:12px;font-weight:850;color:var(--gold)}
+.afc-fi-card-list{border:1px solid #34404c;margin:22px 0}
+.afc-fi-card-list__row{display:grid;grid-template-columns:65px minmax(0,1fr);padding:17px 20px;border-bottom:1px solid #34404c;align-items:start}
+.afc-fi-card-list__row:last-child{border:0}
+.afc-fi-card-list__row>span{font-size:25px;color:#d1ad73;font-weight:950}
+.afc-fi-card-list__row strong{font-size:17px}
+.afc-fi-card-list__row small{display:block;font-size:12px;color:#aeb7bd;margin-top:7px}
+.afc-fi-video{position:relative;aspect-ratio:16/9;background:#070b0f}
+.afc-fi-video iframe{width:100%;height:100%;border:0}
+.afc-fi-story-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.afc-fi-story-grid article{background:#121a22;border:1px solid #35404a;min-width:0;overflow:hidden}
+.afc-fi-story-cover{height:200px;display:block;background:#141a21}
+.afc-fi-story-cover img,.afc-fi-story-cover .aura-story-thumbnail__placeholder{width:100%;height:100%;object-fit:contain;background:#0a0d12}
+.afc-fi-story-grid article>div{padding:17px}
+.afc-fi-story-grid h3{font-size:21px;line-height:1.18;margin:12px 0 10px}
+.afc-fi-story-grid h3 a{text-decoration:none}
+.afc-fi-story-grid p{color:#aeb8bb;font-size:13px;line-height:1.53}
+.afc-fi-story-grid article>div>a{color:var(--gold);font-weight:850;font-size:12px}
+.afc-fi-sidebar{padding-top:62px}
+.afc-fi-watch{padding:29px 23px;background:#17212b;border-top:4px solid var(--gold);border-left:1px solid #394651;border-right:1px solid #394651;border-bottom:1px solid #394651}
+.afc-fi-watch h2{font-size:35px;line-height:1.05;letter-spacing:-.035em;margin:14px 0 25px}
+.afc-fi-watch dl{margin:0 0 25px}
+.afc-fi-watch dl>div{display:grid;gap:7px;border-bottom:1px solid #34404a;padding:14px 0}
+.afc-fi-watch dt{font-size:11px;color:#baac90;text-transform:uppercase;letter-spacing:.08em;font-weight:900}
+.afc-fi-watch dd{font-size:16px;font-weight:750;margin:0;line-height:1.4}
+.afc-fi-watch .afc-fi-btn{width:100%}
+.afc-fi-watch>p{color:#adb8c0;font-size:12px;line-height:1.58;margin:18px 0 0}
+.afc-fi-pick,.afc-fi-sources{border:1px solid #34404a;padding:25px;margin-top:20px;background:#111a22}
+.afc-fi-pick h3,.afc-fi-sources h3{font-size:24px;margin:12px 0 9px}
+.afc-fi-pick p,.afc-fi-sources p{color:#b1bbbf;font-size:13px;line-height:1.55}
+.afc-fi-pick>div{display:grid;gap:9px;margin:17px 0}
+.afc-fi-pick button{border:1px solid #77684c;color:#f5e0b6;background:#1f2831;padding:13px;text-align:left;cursor:pointer;font-weight:850}
+.afc-fi-pick button[aria-pressed=true]{background:var(--gold);color:#131517}
+.afc-fi-pick small{color:var(--gold)}
+.afc-fi-sources ul{padding-left:18px}
+.afc-fi-sources li{padding:8px 0;color:#cbd4d7;font-size:13px;line-height:1.5}
+.afc-fi-next{max-width:1360px;margin:65px auto 0;padding:0 clamp(18px,4vw,55px)}
+.afc-fi-next>div:last-child{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.afc-fi-next__card{background:#17202a;border:1px solid #3b4650;display:grid;overflow:hidden;gap:6px;text-decoration:none;padding-bottom:20px}
+.afc-fi-next__card .aura-photo{height:160px;min-height:0}
+.afc-fi-next__card .aura-photo img{object-fit:contain!important;background:#0f161d}
+.afc-fi-next__card>span,.afc-fi-next__card>strong,.afc-fi-next__card>small{padding:0 18px}
+.afc-fi-next__card>span{margin-top:12px;font-size:11px;text-transform:uppercase;color:var(--gold);font-weight:800}
+.afc-fi-next__card>strong{font-size:22px;line-height:1.2}
+.afc-fi-next__card>small{font-size:12px;color:#d5ad67}
+@media(max-width:1120px){.afc-fi-layout{grid-template-columns:minmax(0,1fr) 300px;gap:25px}.afc-fi-tale__row{grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr)}}
+@media(max-width:820px){.afc-fi-layout{grid-template-columns:1fr}.afc-fi-sidebar{padding-top:18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.afc-fi-sources{grid-column:1/-1;margin-top:0}.afc-fi-pick{margin-top:0}.afc-fi-hero{min-height:540px}.afc-fi-hero__art{inset:0 0 0 22%}.afc-fi-next>div:last-child{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.afc-fi-hero{min-height:530px}.afc-fi-hero__art{inset:10% 0 0 0;opacity:.43}.afc-fi-hero:before{background:linear-gradient(90deg,#080d12dd,#080d1288),linear-gradient(0deg,#070c11 2%,transparent 55%)}.afc-fi-hero__inner{padding:72px 20px 105px}.afc-fi-hero h1{font-size:clamp(52px,13vw,84px);margin:27px 0 18px}.afc-fi-hero__badge{font-size:10px}.afc-fi-hero__meta{gap:12px 0;display:grid}.afc-fi-hero__meta span:not(:first-child){border:0;padding-left:0}.afc-fi-hero__credit{font-size:9px;left:20px;right:20px;text-align:left}.afc-fi-factstrip{grid-template-columns:repeat(2,minmax(0,1fr))}.afc-fi-factstrip>div{padding:19px}.afc-fi-section{padding:42px 0}.afc-fi-faceoff{gap:8px}.afc-fi-boxer__image{height:190px}.afc-fi-boxer__name{padding:12px}.afc-fi-boxer__name span{font-size:9px}.afc-fi-boxer__name h3{font-size:21px}.afc-fi-tale__row{padding:10px;grid-template-columns:minmax(0,1fr) 95px minmax(0,1fr);gap:5px;min-height:53px}.afc-fi-tale__row>strong{font-size:12px}.afc-fi-tale__row>span{font-size:9px}.afc-fi-timeline article,.afc-fi-keys article{grid-template-columns:53px minmax(0,1fr);gap:13px}.afc-fi-timeline article>span,.afc-fi-keys article>span{font-size:33px}.afc-fi-story-grid{grid-template-columns:1fr}.afc-fi-sidebar{display:block}.afc-fi-sources,.afc-fi-pick{margin-top:18px}.afc-fi-next>div:last-child{grid-template-columns:1fr}.afc-fi-next__card .aura-photo{height:210px}}
