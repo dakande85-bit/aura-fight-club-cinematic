@@ -69,7 +69,7 @@ export default function AppRouter() {
         <Route path="/rankings" element={<ChampionsPage />} />
         <Route path="/fights/:id" element={<FightPage />} />
         <Route path="/watch" element={<WatchPage />} />
-        <Route path="/lifestyle" element={<LifestylePage />} />
+        <Route path="/lifestyle" element={<Navigate to="/members" replace />} />
         <Route path="/members" element={<MembersPage />} />
         <Route path="/advertise" element={<Advertise />} />
         <Route path="/commercial-policy" element={<CommercialPolicy />} />
@@ -81,12 +81,12 @@ export default function AppRouter() {
         <Route path="/cinematic" element={<Navigate to="/who-we-are" replace />} />
 
         {legacyLifestylePaths.map((path) => (
-          <Route key={path} path={path} element={<Navigate to="/lifestyle" replace />} />
+          <Route key={path} path={path} element={<Navigate to="/members" replace />} />
         ))}
-        <Route path="/shop/*" element={<Navigate to="/lifestyle" replace />} />
-        <Route path="/collections/*" element={<Navigate to="/lifestyle" replace />} />
-        <Route path="/products/*" element={<Navigate to="/lifestyle" replace />} />
-        <Route path="/product/:slug" element={<Navigate to="/lifestyle" replace />} />
+        <Route path="/shop/*" element={<Navigate to="/members" replace />} />
+        <Route path="/collections/*" element={<Navigate to="/members" replace />} />
+        <Route path="/products/*" element={<Navigate to="/members" replace />} />
+        <Route path="/product/:slug" element={<Navigate to="/members" replace />} />
 
         <Route path="/our-story" element={<Navigate to="/who-we-are" replace />} />
         <Route path="/campaign" element={<CampaignPage />} />

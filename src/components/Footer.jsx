@@ -2,27 +2,23 @@ import { Link } from 'react-router-dom';
 import '../styles/footer.css';
 
 const BOXING_LINKS = [
-  { label: 'Fight News', href: '/news' },
-  { label: 'Fight Hub', href: '/fight-hub' },
-  { label: 'Rankings', href: '/rankings' },
-  { label: 'Fighters', href: '/fighters' },
-  { label: 'The Verdict', href: '/verdict' },
-  { label: 'Film Room', href: '/film-room' },
-  { label: 'Topics', href: '/topics' },
-  { label: 'Guides', href: '/guides' },
+  {label:'Fight News',href:'/news'},
+  {label:'Fighter Intelligence',href:'/fighters'},
+  {label:'Fight Analysis',href:'/film-room'},
+  {label:'Predictions',href:'/verdict'},
+  {label:'Guides',href:'/guides'},
 ];
 
 const AURA_LINKS = [
-  { label: 'Lifestyle', href: '/lifestyle' },
-  { label: 'Our Story', href: '/who-we-are' },
-  { label: 'Members', href: '/members' },
-  { label: 'Editorial Policy', href: '/editorial-policy' },
-  { label: 'Corrections', href: '/corrections' },
+ {label:'The Club / Fight Culture',href:'/members'},
+ {label:'Our Story',href:'/who-we-are'},
+ {label:'Editorial Policy',href:'/editorial-policy'},
+ {label:'Corrections',href:'/corrections'},
 ];
 
 const CONNECT_LINKS = [
   { label: 'Advertise', href: '/advertise' },
-  { label: 'Join Members', href: '/members' },
+  { label: 'Explore The Club', href: '/members' },
 ];
 
 export default function Footer() {
@@ -38,7 +34,7 @@ export default function Footer() {
             Boxing news, fight-week video, rankings, culture and life beyond the ring.
           </p>
           <Link to="/members" className="aura-footer__cta">
-            Join Members
+            Explore The Club
           </Link>
         </div>
 

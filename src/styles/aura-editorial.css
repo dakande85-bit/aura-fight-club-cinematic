@@ -299,3 +299,17 @@
 .aura-news-card .aura-story-image img.aura-editorial-poster{object-fit:contain;background:#101a22}
 .aura-news-card .aura-story-image img.aura-editorial-photo{object-fit:cover}
 @media(max-width:700px){.aura-news-card .aura-story-image img.aura-editorial-poster{object-fit:contain}}
+
+/* Oct 2026 Fight Desk masthead — no unused app graphic, fewer competing controls. */
+.aura-news-masthead{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 40%;overflow:hidden;min-height:410px;background:#0f1213;color:#f5f0e7}
+.aura-news-masthead__copy{padding:clamp(40px,6vw,84px);z-index:2}
+.aura-news-masthead h1{font-family:Georgia,'Times New Roman',serif!important;text-transform:none!important;font-size:clamp(3rem,6.5vw,7rem)!important;font-weight:700!important;letter-spacing:-.05em!important;line-height:1!important;margin:10px 0 25px}
+.aura-news-masthead h1 span{color:#d3ad63}
+.aura-news-masthead__copy>p:not(.aura-ed-kicker){font-size:clamp(17px,2vw,22px);color:#d6d0c5;line-height:1.55;max-width:660px}
+.aura-news-masthead__copy>a{display:inline-block;color:#f0cb88;border-bottom:1px solid #b9975c;text-decoration:none;margin-top:24px;padding-bottom:9px;font-weight:750}
+.aura-news-masthead__image{background:linear-gradient(90deg,#0f1213,transparent 50%),url('/assets/our-story/our-story-02-shadow-boxing.webp') center 37%/cover no-repeat}
+.aura-culture-page{padding-top:0!important}.aura-club-header{background:#0c0d0f;color:#f3eee5;padding:clamp(70px,8vw,125px) clamp(22px,7vw,100px) 75px}
+.aura-club-header h1{font-size:clamp(4.5rem,11vw,11rem);line-height:.85;font-weight:900;letter-spacing:-.07em;margin:25px 0}.aura-club-header h1 span{color:#d3ad63}
+.aura-club-header>p:not(.aura-ed-kicker){font-size:clamp(18px,2vw,24px);line-height:1.55;max-width:750px;color:#c9c1b4}
+.aura-club-header>div{display:flex;flex-wrap:wrap;gap:24px;margin-top:35px}.aura-club-header a{color:#d9b775;border-bottom:1px solid #d9b775;padding-bottom:8px;font-weight:750}
+@media(max-width:760px){.aura-news-masthead{grid-template-columns:1fr;min-height:0}.aura-news-masthead__copy{padding:40px 24px 58px}.aura-news-masthead__image{position:absolute;inset:0;opacity:.22;background-image:linear-gradient(90deg,#0f1213,transparent),url('/assets/our-story/our-story-02-shadow-boxing.webp')}.aura-club-header{padding:70px 24px 50px}}
