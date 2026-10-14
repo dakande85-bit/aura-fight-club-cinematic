@@ -344,6 +344,34 @@
         "timingNote": "Part of the Fundora–Hadribeaj event; 5pm PT/8pm ET is the US broadcast start, not this specific fight's ring walk."
       },
       "updatedAt": "2026-10-14"
+    },
+    {
+      "id": "bivol-callum-smith",
+      "name": "Dmitry Bivol vs Callum Smith",
+      "fighters": [
+        "Dmitry Bivol",
+        "Callum Smith"
+      ],
+      "date": "2026-12-12",
+      "venue": "UMMC Arena, Yekaterinburg, Russia",
+      "division": "Light heavyweight",
+      "status": "Scheduled",
+      "stakes": "WBA, WBO and IBF light heavyweight world-title defence",
+      "source": "Matchroom Boxing",
+      "sourceUrl": "https://www.matchroomboxing.com/events/",
+      "broadcast": "DAZN (reported)",
+      "broadcastStatus": "unverified",
+      "broadcastTerritory": "Broadcast territories awaiting independent confirmation",
+      "featured": true,
+      "blurb": "Bivol defends three world titles against the WBO mandatory challenger.",
+      "schedule": {
+        "timeZone": "Asia/Yekaterinburg",
+        "broadcastStartUTC": null,
+        "ringWalkUTC": null,
+        "ringWalkStatus": "unconfirmed",
+        "timingNote": "No independently confirmed card-start or ring-walk time."
+      },
+      "updatedAt": "2026-10-14"
     }
   ]
 }
