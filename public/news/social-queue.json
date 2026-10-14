@@ -3,6 +3,28 @@
   "note": "Draft assets only; no TikTok or YouTube publishing performed.",
   "items": [
     {
+      "slug": "will-terence-crawford-return",
+      "article_url": "https://www.aurafightclub.com/news/will-terence-crawford-return",
+      "image_url": "https://www.aurafightclub.com/news/social/will-terence-crawford-return.jpg",
+      "fingerprint": "3920671cc676a8",
+      "generated_on": "2026-10-14",
+      "headline": "Will Terence Crawford return?",
+      "suggested_caption": "Will Terence Crawford return? — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
+      "status": "draft_not_posted",
+      "platforms": [
+        "TikTok",
+        "Instagram",
+        "YouTube"
+      ],
+      "requires": [
+        "platform account connected",
+        "publishing permission granted",
+        "platform/content-policy review",
+        "image and source rights checked",
+        "TikTok content sharing rules: no external promotional branding"
+      ]
+    },
+    {
       "slug": "vergil-ortiz-keith-thurman-boots-ennis-question",
       "article_url": "https://www.aurafightclub.com/news/vergil-ortiz-keith-thurman-boots-ennis-question",
       "image_url": "https://www.aurafightclub.com/news/social/vergil-ortiz-keith-thurman-boots-ennis-question.jpg",
@@ -138,7 +160,7 @@
       "slug": "fury-joshua-undercard-fights-rumours",
       "article_url": "https://www.aurafightclub.com/news/fury-joshua-undercard-fights-rumours",
       "image_url": "https://www.aurafightclub.com/news/social/fury-joshua-undercard-fights-rumours.jpg",
-      "fingerprint": "8e36440c0d8f72",
+      "fingerprint": "0cac4685072fb5",
       "generated_on": "2026-10-14",
       "headline": "Wilder vs Opetaia: a terrifying puncher's chance or a southpaw masterclass?",
       "suggested_caption": "Wilder vs Opetaia: a terrifying puncher's chance or a southpaw masterclass? — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
@@ -226,7 +248,7 @@
       "slug": "dubois-wardley-rematch-technical-preview",
       "article_url": "https://www.aurafightclub.com/news/dubois-wardley-rematch-technical-preview",
       "image_url": "https://www.aurafightclub.com/news/social/dubois-wardley-rematch-technical-preview.jpg",
-      "fingerprint": "e56d502f3c251d",
+      "fingerprint": "e5c6b69daf2a4c",
       "generated_on": "2026-10-14",
       "headline": "Dubois vs Wardley II: our prediction, the rematch adjustments and the danger of round one",
       "suggested_caption": "Dubois vs Wardley II: our prediction, the rematch adjustments and the danger of round one — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
@@ -428,28 +450,6 @@
       "generated_on": "2026-10-13",
       "headline": "Why would a world champion give up his belt? The Sheeraz case exposes boxing's real power struggle",
       "suggested_caption": "Why would a world champion give up his belt? The Sheeraz case exposes boxing's real power struggle — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
-      "status": "draft_not_posted",
-      "platforms": [
-        "TikTok",
-        "Instagram",
-        "YouTube"
-      ],
-      "requires": [
-        "platform account connected",
-        "publishing permission granted",
-        "platform/content-policy review",
-        "image and source rights checked",
-        "TikTok content sharing rules: no external promotional branding"
-      ]
-    },
-    {
-      "slug": "will-terence-crawford-return",
-      "article_url": "https://www.aurafightclub.com/news/will-terence-crawford-return",
-      "image_url": "https://www.aurafightclub.com/news/social/will-terence-crawford-return.jpg",
-      "fingerprint": "52cc83600a94e7",
-      "generated_on": "2026-10-12",
-      "headline": "Will Terence Crawford return?",
-      "suggested_caption": "Will Terence Crawford return? — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
       "status": "draft_not_posted",
       "platforms": [
         "TikTok",
