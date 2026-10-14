@@ -3,6 +3,50 @@
   "note": "Draft assets only; no TikTok or YouTube publishing performed.",
   "items": [
     {
+      "slug": "osleys-iglesias-champion-profile",
+      "article_url": "https://www.aurafightclub.com/news/osleys-iglesias-champion-profile",
+      "image_url": "https://www.aurafightclub.com/news/social/osleys-iglesias-champion-profile.jpg",
+      "fingerprint": "3b22a5ff33b652",
+      "generated_on": "2026-10-14",
+      "headline": "Iglesias stopped Zaren after six. Why the next test must be bigger",
+      "suggested_caption": "Iglesias stopped Zaren after six. Why the next test must be bigger — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
+      "status": "draft_not_posted",
+      "platforms": [
+        "TikTok",
+        "Instagram",
+        "YouTube"
+      ],
+      "requires": [
+        "platform account connected",
+        "publishing permission granted",
+        "platform/content-policy review",
+        "image and source rights checked",
+        "TikTok content sharing rules: no external promotional branding"
+      ]
+    },
+    {
+      "slug": "gassiev-wba-championship-fury-joshua-confusion",
+      "article_url": "https://www.aurafightclub.com/news/gassiev-wba-championship-fury-joshua-confusion",
+      "image_url": "https://www.aurafightclub.com/news/social/gassiev-wba-championship-fury-joshua-confusion.jpg",
+      "fingerprint": "277859ecc91ea0",
+      "generated_on": "2026-10-14",
+      "headline": "If Gassiev holds the WBA heavyweight belt, why is Fury–Joshua being discussed for it?",
+      "suggested_caption": "If Gassiev holds the WBA heavyweight belt, why is Fury–Joshua being discussed for it? — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
+      "status": "draft_not_posted",
+      "platforms": [
+        "TikTok",
+        "Instagram",
+        "YouTube"
+      ],
+      "requires": [
+        "platform account connected",
+        "publishing permission granted",
+        "platform/content-policy review",
+        "image and source rights checked",
+        "TikTok content sharing rules: no external promotional branding"
+      ]
+    },
+    {
       "slug": "fury-joshua-undercard-fights-rumours",
       "article_url": "https://www.aurafightclub.com/news/fury-joshua-undercard-fights-rumours",
       "image_url": "https://www.aurafightclub.com/news/social/fury-joshua-undercard-fights-rumours.jpg",
@@ -76,6 +120,50 @@
       "generated_on": "2026-10-14",
       "headline": "Dubois vs Wardley II: our prediction, the rematch adjustments and the danger of round one",
       "suggested_caption": "Dubois vs Wardley II: our prediction, the rematch adjustments and the danger of round one — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
+      "status": "draft_not_posted",
+      "platforms": [
+        "TikTok",
+        "Instagram",
+        "YouTube"
+      ],
+      "requires": [
+        "platform account connected",
+        "publishing permission granted",
+        "platform/content-policy review",
+        "image and source rights checked",
+        "TikTok content sharing rules: no external promotional branding"
+      ]
+    },
+    {
+      "slug": "current-boxing-champions-fighting-styles",
+      "article_url": "https://www.aurafightclub.com/news/current-boxing-champions-fighting-styles",
+      "image_url": "https://www.aurafightclub.com/news/social/current-boxing-champions-fighting-styles.jpg",
+      "fingerprint": "9395ed61a1df3f",
+      "generated_on": "2026-10-14",
+      "headline": "Five boxing styles that decide elite fights — and why the labels mislead",
+      "suggested_caption": "Five boxing styles that decide elite fights — and why the labels mislead — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
+      "status": "draft_not_posted",
+      "platforms": [
+        "TikTok",
+        "Instagram",
+        "YouTube"
+      ],
+      "requires": [
+        "platform account connected",
+        "publishing permission granted",
+        "platform/content-policy review",
+        "image and source rights checked",
+        "TikTok content sharing rules: no external promotional branding"
+      ]
+    },
+    {
+      "slug": "anthony-joshua-redemption-fury-legacy",
+      "article_url": "https://www.aurafightclub.com/news/anthony-joshua-redemption-fury-legacy",
+      "image_url": "https://www.aurafightclub.com/news/social/anthony-joshua-redemption-fury-legacy.jpg",
+      "fingerprint": "4c29c5a78e97e8",
+      "generated_on": "2026-10-14",
+      "headline": "Joshua vs Fury: redemption is not one knockout — it's twelve rounds of control",
+      "suggested_caption": "Joshua vs Fury: redemption is not one knockout — it's twelve rounds of control — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
       "status": "draft_not_posted",
       "platforms": [
         "TikTok",
@@ -377,28 +465,6 @@
       ]
     },
     {
-      "slug": "osleys-iglesias-champion-profile",
-      "article_url": "https://www.aurafightclub.com/news/osleys-iglesias-champion-profile",
-      "image_url": "https://www.aurafightclub.com/news/social/osleys-iglesias-champion-profile.jpg",
-      "fingerprint": "178ed2f4644e47",
-      "generated_on": "2026-10-12",
-      "headline": "Osleys Iglesias: boxing's most dangerous unknown champion?",
-      "suggested_caption": "Osleys Iglesias: boxing's most dangerous unknown champion? — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
-      "status": "draft_not_posted",
-      "platforms": [
-        "TikTok",
-        "Instagram",
-        "YouTube"
-      ],
-      "requires": [
-        "platform account connected",
-        "publishing permission granted",
-        "platform/content-policy review",
-        "image and source rights checked",
-        "TikTok content sharing rules: no external promotional branding"
-      ]
-    },
-    {
       "slug": "omari-jones-orlando-october-2",
       "article_url": "https://www.aurafightclub.com/news/omari-jones-orlando-october-2",
       "image_url": "https://www.aurafightclub.com/news/social/omari-jones-orlando-october-2.jpg",
@@ -494,28 +560,6 @@
       "generated_on": "2026-10-12",
       "headline": "Dana White, Eddie Hearn and Fury–Joshua: who actually controls the show?",
       "suggested_caption": "Dana White, Eddie Hearn and Fury–Joshua: who actually controls the show? — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
-      "status": "draft_not_posted",
-      "platforms": [
-        "TikTok",
-        "Instagram",
-        "YouTube"
-      ],
-      "requires": [
-        "platform account connected",
-        "publishing permission granted",
-        "platform/content-policy review",
-        "image and source rights checked",
-        "TikTok content sharing rules: no external promotional branding"
-      ]
-    },
-    {
-      "slug": "gassiev-wba-championship-fury-joshua-confusion",
-      "article_url": "https://www.aurafightclub.com/news/gassiev-wba-championship-fury-joshua-confusion",
-      "image_url": "https://www.aurafightclub.com/news/social/gassiev-wba-championship-fury-joshua-confusion.jpg",
-      "fingerprint": "e14e741be25525",
-      "generated_on": "2026-10-12",
-      "headline": "Murat Gassiev: the WBA belt confusion around Fury–Joshua",
-      "suggested_caption": "Murat Gassiev: the WBA belt confusion around Fury–Joshua — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
       "status": "draft_not_posted",
       "platforms": [
         "TikTok",
@@ -685,28 +729,6 @@
       ]
     },
     {
-      "slug": "current-boxing-champions-fighting-styles",
-      "article_url": "https://www.aurafightclub.com/news/current-boxing-champions-fighting-styles",
-      "image_url": "https://www.aurafightclub.com/news/social/current-boxing-champions-fighting-styles.jpg",
-      "fingerprint": "d2817adf68b41f",
-      "generated_on": "2026-10-12",
-      "headline": "Boxing styles explained: where do today's champions fit?",
-      "suggested_caption": "Boxing styles explained: where do today's champions fit? — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
-      "status": "draft_not_posted",
-      "platforms": [
-        "TikTok",
-        "Instagram",
-        "YouTube"
-      ],
-      "requires": [
-        "platform account connected",
-        "publishing permission granted",
-        "platform/content-policy review",
-        "image and source rights checked",
-        "TikTok content sharing rules: no external promotional branding"
-      ]
-    },
-    {
       "slug": "canelo-mbilli-prediction-analysis",
       "article_url": "https://www.aurafightclub.com/news/canelo-mbilli-prediction-analysis",
       "image_url": "https://www.aurafightclub.com/news/social/canelo-mbilli-prediction-analysis.jpg",
@@ -824,28 +846,6 @@
       "generated_on": "2026-10-12",
       "headline": "Bentley reportedly heading to Zuffa",
       "suggested_caption": "Bentley reportedly heading to Zuffa — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
-      "status": "draft_not_posted",
-      "platforms": [
-        "TikTok",
-        "Instagram",
-        "YouTube"
-      ],
-      "requires": [
-        "platform account connected",
-        "publishing permission granted",
-        "platform/content-policy review",
-        "image and source rights checked",
-        "TikTok content sharing rules: no external promotional branding"
-      ]
-    },
-    {
-      "slug": "anthony-joshua-redemption-fury-legacy",
-      "article_url": "https://www.aurafightclub.com/news/anthony-joshua-redemption-fury-legacy",
-      "image_url": "https://www.aurafightclub.com/news/social/anthony-joshua-redemption-fury-legacy.jpg",
-      "fingerprint": "4d8694daf6e7a5",
-      "generated_on": "2026-10-12",
-      "headline": "Anthony Joshua's chance of redemption against Tyson Fury",
-      "suggested_caption": "Anthony Joshua's chance of redemption against Tyson Fury — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
       "status": "draft_not_posted",
       "platforms": [
         "TikTok",
