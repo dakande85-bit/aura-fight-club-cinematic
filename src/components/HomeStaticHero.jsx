@@ -1,4 +1,5 @@
 import Header from './Header.jsx';
+import {StoryThumbnail} from './EditorialSections.jsx';
 import Footer from './Footer.jsx';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -58,11 +59,7 @@ export default function HomeStaticHero({ showHeader = true, headingLevel = 'h1' 
               {featured.map((article, index) => (
                 <article className="afc-story-card" key={article.slug}>
                   <Link to={`/news/${article.slug}`} className="afc-story-card__media">
-                    {article.image?.src ? (
-                      <img src={article.image.src} alt={article.image.alt || article.title} loading={index === 0 ? 'eager' : 'lazy'} referrerPolicy="no-referrer" onError={event=>{const el=event.currentTarget;if(!el.dataset.fallback){el.dataset.fallback='1';el.src=article.image?.fallbackSrc||'/assets/our-story/our-story-02-shadow-boxing.webp';}else el.style.visibility='hidden';}} />
-                    ) : (
-                      <div className="afc-story-card__fallback">AURA</div>
-                    )}
+                    <StoryThumbnail article={article} eager={index===0} />
                   </Link>
                   <div className="afc-story-card__body">
                     <p className="afc-eyebrow"><time dateTime={article.date}>{new Date(article.date + 'T12:00:00Z').toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</time> · {article.category || 'Feature'}</p>

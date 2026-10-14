@@ -6,6 +6,20 @@ import { useArticles } from '../hooks/useArticles.js';
 export function ExternalLink({ href, children, className = '' }) {
   return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}<span className="aura-external"> ↗</span></a>;
 }
+/** Photo first, local story illustration second, readable headline if both fail. */
+export function StoryThumbnail({article,eager=false}) {
+ const primary=article.image?.src||'';
+ const [imageState,setImageState]=useState({primary,attempt:0});
+ const attempt=imageState.primary===primary?imageState.attempt:0;
+ const options=[primary,article.image?.fallbackSrc].filter(Boolean);
+ const src=options[attempt];
+ if(!src)return <div className="aura-story-thumbnail__placeholder" role="img" aria-label={`Editorial image unavailable for ${article.title}`}><span>AURA / THE FIGHT DESK</span><strong>{article.title}</strong></div>;
+ const first=attempt===0;
+ const alt=first?(article.image?.alt||article.title):`Original AURA editorial illustration for ${article.title}`;
+ const poster=/poster|promotional artwork|event artwork|editorial illustration|graphic/i.test(alt);
+ return <img key={src} src={src} alt={alt} className={poster?'aura-story-thumbnail__poster':'aura-story-thumbnail__photo'} loading={eager?'eager':'lazy'} decoding="async" referrerPolicy="no-referrer" onError={()=>setImageState({primary,attempt:attempt+1})}/>;
+}
+
 export function StoryImage({ article, linked = false, eager = false }) {
   // Use a properly attributed fighter photo first, a locally hosted story-specific
   // illustration second, then a clear title treatment rather than a broken image.

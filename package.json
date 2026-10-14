@@ -8,10 +8,11 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prebuild": "npm run data:check && npm run news:audit && node scripts/generate-sitemaps.mjs",
+    "prebuild": "npm run data:check && npm run news:audit && npm run media:audit && node scripts/generate-sitemaps.mjs",
     "seo:generate": "node scripts/generate-sitemaps.mjs",
     "data:check": "node scripts/check-fight-data.mjs",
-    "news:audit": "node scripts/audit-editorial.mjs"
+    "news:audit": "node scripts/audit-editorial.mjs",
+    "media:audit": "node scripts/audit-fighter-media.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
