@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
+    <loc>https://aurafightclub.com/news/jermall-charlo-injury-resendiz-replacement-fundora-card-2026</loc>
+    <news:news>
+      <news:publication><news:name>AURA Fight Club</news:name><news:language>en</news:language></news:publication>
+      <news:publication_date>2026-10-14</news:publication_date>
+      <news:title>Charlo is out again. The replacement bout exposes boxing&apos;s fragile comeback plans.</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://aurafightclub.com/news/navarrete-foster-three-belt-unification-october-2026-prediction</loc>
+    <news:news>
+      <news:publication><news:name>AURA Fight Club</news:name><news:language>en</news:language></news:publication>
+      <news:publication_date>2026-10-14</news:publication_date>
+      <news:title>Navarrete&apos;s chaos vs Foster&apos;s discipline: who wins the three-belt puzzle?</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://aurafightclub.com/news/figueroa-kameda-featherweight-championship-preview-2026</loc>
+    <news:news>
+      <news:publication><news:name>AURA Fight Club</news:name><news:language>en</news:language></news:publication>
+      <news:publication_date>2026-10-14</news:publication_date>
+      <news:title>Don&apos;t overlook Figueroa vs Kameda: the quieter world-title fight with serious risk</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://aurafightclub.com/news/fundora-hadribeaj-prediction-boots-ennis-next-2026</loc>
+    <news:news>
+      <news:publication><news:name>AURA Fight Club</news:name><news:language>en</news:language></news:publication>
+      <news:publication_date>2026-10-14</news:publication_date>
+      <news:title>Fundora&apos;s biggest threat is the fight after Hadribeaj — but first he has to earn it</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://aurafightclub.com/news/hamzah-sheeraz-vacates-world-title-why-champions-walk-away</loc>
+    <news:news>
+      <news:publication><news:name>AURA Fight Club</news:name><news:language>en</news:language></news:publication>
+      <news:publication_date>2026-10-12</news:publication_date>
+      <news:title>Why would a world champion give up his belt? The Sheeraz case exposes boxing&apos;s real power struggle</news:title>
+    </news:news>
+  </url>
+  <url>
     <loc>https://aurafightclub.com/news/schofield-bahdi-result-reaction-world-champion-2026</loc>
     <news:news>
       <news:publication><news:name>AURA Fight Club</news:name><news:language>en</news:language></news:publication>
       <news:publication_date>2026-10-12</news:publication_date>
-      <news:title>Schofield Is World Champion — But Bahdi&apos;s Knockdown Leaves a Bigger Question</news:title>
+      <news:title>Schofield beat Bahdi. The scorecards don&apos;t tell the full story.</news:title>
     </news:news>
   </url>
   <url>
@@ -13,7 +53,23 @@
     <news:news>
       <news:publication><news:name>AURA Fight Club</news:name><news:language>en</news:language></news:publication>
       <news:publication_date>2026-10-12</news:publication_date>
-      <news:title>The Upset Nobody Saw Coming: How Sergio Mendoza Took Sandoval&apos;s Two World Titles</news:title>
+      <news:title>Mendoza didn&apos;t steal two belts. He broke Sandoval&apos;s rhythm.</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://aurafightclub.com/news/fury-joshua-undercard-fights-rumours</loc>
+    <news:news>
+      <news:publication><news:name>AURA Fight Club</news:name><news:language>en</news:language></news:publication>
+      <news:publication_date>2026-10-14</news:publication_date>
+      <news:title>Wilder vs Opetaia: a terrifying puncher&apos;s chance or a southpaw masterclass?</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://aurafightclub.com/news/dubois-wardley-rematch-technical-preview</loc>
+    <news:news>
+      <news:publication><news:name>AURA Fight Club</news:name><news:language>en</news:language></news:publication>
+      <news:publication_date>2026-10-14</news:publication_date>
+      <news:title>Dubois vs Wardley II: our prediction, the rematch adjustments and the danger of round one</news:title>
     </news:news>
   </url>
 </urlset>
