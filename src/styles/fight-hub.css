@@ -168,3 +168,46 @@
 .fh-result small{color:#bcc6cb;font-size:.82rem}
 .fh-result a{color:#d6b16b;text-decoration:underline;text-underline-offset:3px;font-size:.82rem}
 @media(max-width:600px){.fh-result{display:block}.fh-result>*{display:block;margin:.35rem 0}}
+
+/* October 2026 — curated fighter groups, uncropped photos, article-led analysis and fight predictions. */
+.aura-fighter-index-actions{display:flex;flex-wrap:wrap;gap:20px;margin-top:24px}.aura-fighter-index-actions a{color:#eac485;font-weight:800;text-decoration:none;border-bottom:1px solid #bd935b;padding:10px 0}
+.aura-intelligence-group{max-width:1320px;margin:0 auto;padding:42px 22px 16px}
+.aura-intelligence-group__head{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;border-bottom:1px solid #4e4b42;margin-bottom:23px;padding-bottom:18px}
+.aura-intelligence-group__head h2{font-size:clamp(32px,4vw,56px);line-height:1;text-transform:uppercase;color:#fff}
+.aura-intelligence-group__head p:not(.aura-ed-kicker){font-size:15px;color:#c1c1bd;max-width:650px;line-height:1.5;margin-top:9px}
+.aura-intelligence-group__head small{color:#d7b678;white-space:nowrap}
+.aura-intelligence-group .aura-fighter-directory{margin:0;padding:0!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+.aura-intelligence-group .aura-fighter-tile{min-width:0}
+.aura-intelligence-group .aura-fighter-tile__info p{font-size:12px;line-height:1.45;color:#c4c6c6}
+.aura-intelligence-group .aura-fighter-tile__photo img,.aura-profile-hero>.aura-photo img,.fh-compare-fighter .aura-photo img{object-fit:contain!important;object-position:center center!important;transform:none!important;background:#12171b}
+.aura-intelligence-group .aura-fighter-tile__photo{background:#12171b}
+.aura-fighter-disclaimer{max-width:1250px;margin:35px auto;padding:0 24px}
+.aura-directory-controls>span{font-size:12px;color:#bcbdba;line-height:1.4}
+.aura-analysis-page .fh-intro,.aura-verdict-page .fh-intro{max-width:1230px}
+.aura-analysis-cta{display:inline-block;margin-top:14px;color:#9d702e;font-weight:800;border-bottom:1px solid #9d702e;padding-bottom:6px}
+.aura-analysis-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:1240px;margin:0 auto}
+.aura-analysis-card{min-width:0;background:#fff;border:1px solid #dedbd4;padding:14px 14px 26px}
+.aura-analysis-card .aura-story-image{margin:0 0 18px}.aura-analysis-card .aura-story-image figcaption{font-size:10px}
+.aura-analysis-card .aura-story-image img{aspect-ratio:16/10;object-fit:contain;background:#101418}
+.aura-analysis-card h2{font-size:clamp(22px,2vw,30px);line-height:1.13;margin:10px 0 12px}
+.aura-analysis-card h2 a,.aura-analysis-card>a{color:#101820;text-decoration:none}
+.aura-analysis-card>p:not(.fh-kicker){font-size:14px;line-height:1.6;color:#565656}
+.aura-analysis-card>a{display:inline-block;margin-top:14px;font-weight:800;border-bottom:1px solid #ab915d;padding-bottom:5px}
+.aura-verdict-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:1240px;margin:0 auto}
+.aura-verdict-card{min-width:0;padding:24px;background:#fff;border:1px solid #d9d6cd}
+.aura-verdict-card h2{font-size:clamp(24px,3vw,35px);line-height:1.1;margin:19px 0 10px}
+.aura-verdict-card h2 a{color:#131514;text-decoration:none}
+.aura-verdict-card>p:not(.fh-kicker){color:#565656;font-size:14px;line-height:1.5}
+.aura-verdict-faceoff{display:flex;position:relative;gap:10px;min-height:150px}
+.aura-verdict-faceoff__side{flex:1;min-width:0;position:relative;height:180px;background:#131820;overflow:hidden}
+.aura-verdict-faceoff__side .aura-photo{height:100%;min-height:0}
+.aura-verdict-faceoff__side img{object-fit:contain!important;object-position:center center!important}
+.aura-verdict-faceoff__side strong{position:absolute;bottom:0;left:0;right:0;padding:15px 8px 8px;color:#fff;background:linear-gradient(transparent,#080b0f);text-align:center;font-size:13px}
+.aura-verdict-vs{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);z-index:2;background:#d6b56d;color:#101010;padding:9px;font-size:16px;font-weight:950}
+.aura-verdict-preview{padding:14px;border-left:3px solid #b38c4f;background:#f3f0e8;margin:14px 0}
+.aura-verdict-preview span{font-size:10px;font-weight:900;color:#805c28;display:block;margin-bottom:6px}
+.aura-verdict-preview a{font-weight:850;color:#1f211d;text-decoration:none}
+.aura-verdict-awaiting{font-size:12px!important;color:#737373!important}
+.aura-verdict-details{display:block;color:#916326;font-weight:800;border-top:1px solid #d9d5cb;margin-top:17px;padding-top:16px;text-decoration:none}
+@media(max-width:850px){.aura-analysis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.aura-intelligence-group .aura-fighter-directory{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:620px){.aura-analysis-grid,.aura-verdict-grid{grid-template-columns:1fr}.aura-intelligence-group{padding:35px 15px 8px}.aura-intelligence-group .aura-fighter-directory{grid-template-columns:1fr!important}.aura-intelligence-group__head{align-items:flex-start;flex-direction:column}.aura-intelligence-group .aura-fighter-tile__photo{min-height:0!important}.aura-verdict-faceoff__side{height:145px}}

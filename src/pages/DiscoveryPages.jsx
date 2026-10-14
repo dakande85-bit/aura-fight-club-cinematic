@@ -27,17 +27,32 @@ function ArticleLinks({items}) {
 
 export function FightersIndexPage(){
  const [query,setQuery]=useState('');
- const [division,setDivision]=useState('All divisions');
- const matches=fighters.filter(f=>(division==='All divisions'||f.division===division)&& (f.name+' '+f.division+' '+(f.nationality||'')).toLowerCase().includes(query.toLowerCase()));
- return <Shell seo={{title:'Boxing Fighters & Profiles | AURA Fight Club',description:'Explore AURA Fight Club fighter profiles, records, divisions, latest coverage and boxing analysis.',canonicalPath:'/fighters'}} crumbs={[{label:'Home',to:'/'},{label:'Fighters',to:'/fighters'}]}>
-  <div className="aura-fighters-header"><p className="aura-ed-kicker">THE AURA INDEX / BOXING INTELLIGENCE</p><h1>THE FIGHTERS.</h1><p>Discover the champions, contenders and prospects shaping boxing. Profiles, records, upcoming matchups and independent analysis.</p></div>
-  <div className="aura-directory-controls"><label>Search fighters<input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search boxer or country…" type="search" /></label><label>Division<select value={division} onChange={e=>setDivision(e.target.value)}><option>All divisions</option>{[...new Set(fighters.map(f=>f.division))].sort().map(d=><option key={d}>{d}</option>)}</select></label></div>
-  <div className="aura-directory-count"><Link to="/fighters/compare" className="aura-compare-cta">Compare two fighters ↗</Link> <strong>{matches.length}</strong> fighters <span>• Photo sources are identified; records are dated editorial snapshots.</span></div>
-  <div className="aura-fighter-directory">{matches.map(f=><Link to={`/fighters/${f.slug}`} className="aura-fighter-tile" key={f.slug}>
-    <div className="aura-fighter-tile__photo"><VerifiedPhoto fighterSlug={f.slug} label={f.name}/></div>
-    <div className="aura-fighter-tile__info"><span>{f.division} {f.nationality?`· ${f.nationality}`:''}</span><h2>{f.name}</h2><p>{f.record||'Record under verification'}</p><strong>VIEW PROFILE <span aria-hidden="true">↗</span></strong></div>
-  </Link>)}</div>
-  {!matches.length&&<p className="aura-directory-empty">No fighters match this search. Try a different name or weight class.</p>}
+ const groups=[
+  {title:'The elite',subtitle:'Pound-for-pound excellence and fighters operating at the highest level.',slugs:['naoya-inoue','oleksandr-usyk','shakur-stevenson','jesse-bam-rodriguez','david-benavidez','dmitry-bivol','jaron-ennis','junto-nakatani','devin-haney','canelo-alvarez','jai-opetaia','vergil-ortiz','sebastian-fundora','oscar-collazo']},
+  {title:'Future stars',subtitle:'Prospects and emerging names worth knowing before everyone else does.',slugs:['moses-itauma','abdullah-mason','floyd-schofield','ben-whittaker','hamza-uddin','xander-zayas','dalton-smith','keyshawn-davis']},
+  {title:'Fighters to watch',subtitle:'Exciting champions, dangerous contenders and the matchups we want to see.',slugs:['isaac-cruz','osleys-iglesias','rafael-espinoza','oshaquie-foster','emanuel-navarrete','christian-mbilli','tim-tszyu','callum-smith','erislandy-lara','artur-beterbiev','anthony-joshua','tyson-fury','fabio-wardley']},
+  {title:'Modern greats',subtitle:'Retired legends preserved as career archives, not listed as active champions.',slugs:['terence-crawford']}
+ ];
+ const q=query.trim().toLowerCase();
+ const count=groups.reduce((n,g)=>n+g.slugs.filter(slug=>{const f=fighters.find(x=>x.slug===slug);return f&&(!q||f.name.toLowerCase().includes(q))}).length,0);
+ return <Shell seo={{title:'Fighter Intelligence, Boxing Prospects & Head-to-Head | AURA Fight Club',description:'Discover outstanding active fighters, exciting boxing prospects and side-by-side fighter comparisons.',canonicalPath:'/fighters'}} crumbs={[{label:'Home',to:'/'},{label:'Fighter Intelligence',to:'/fighters'}]}>
+  <header className="aura-fighters-header"><p className="aura-ed-kicker">AURA / FIGHTER INTELLIGENCE</p><h1>THE FIGHTERS.</h1><p>The elite. The ones to watch. The next generation. A curated guide to boxing's most compelling names.</p>
+   <div className="aura-fighter-index-actions"><Link className="aura-compare-cta" to="/fighters/compare">Compare two fighters ↗</Link><Link to="/verdict">Explore upcoming fights ↗</Link></div>
+  </header>
+  <div className="aura-directory-controls"><label>Find a fighter<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by fighter name" /></label><span>{count} selected profiles · Records are dated editorial snapshots</span></div>
+  {groups.map(group=>{
+   const selected=group.slugs.map(slug=>fighters.find(f=>f.slug===slug)).filter(f=>f&&(!q||f.name.toLowerCase().includes(q)));
+   if(!selected.length)return null;
+   return <section key={group.title} className="aura-intelligence-group">
+    <div className="aura-intelligence-group__head"><div><p className="aura-ed-kicker">AURA / THE FIGHTERS</p><h2>{group.title}</h2><p>{group.subtitle}</p></div><small>{selected.length} fighters</small></div>
+    <div className="aura-fighter-directory">{selected.map(f=><Link to={`/fighters/${f.slug}`} className="aura-fighter-tile" key={f.slug}>
+     <div className="aura-fighter-tile__photo"><VerifiedPhoto fighterSlug={f.slug} label={f.name}/></div>
+     <div className="aura-fighter-tile__info"><span>{f.division}{f.careerStatus?' · Retired':''}</span><h3>{f.name}</h3><p>{f.summary}</p><strong>VIEW INTELLIGENCE ↗</strong></div>
+    </Link>)}</div>
+   </section>;
+  })}
+  {!count&&<p className="aura-directory-empty">No matching fighter in our curated index yet.</p>}
+  <p className="aura-ed-note aura-fighter-disclaimer">Our editorial selection is not an official ranking. Records are supplied only where independently checked; photo placeholders are clearly identified.</p>
  </Shell>;
 }
 
@@ -55,7 +70,7 @@ export function FighterProfilePage(){
  const personSchema={'@type':'Person','@id':`${SITE_URL}/fighters/${fighter.slug}#person`,name:fighter.name,nationality:fighter.nationality||undefined,description:fighter.summary,url:`${SITE_URL}/fighters/${fighter.slug}`,jobTitle:'Professional boxer'};
  const crumbs=[{label:'Home',to:'/'},{label:'Fighters',to:'/fighters'},{label:fighter.name,to:`/fighters/${fighter.slug}`}];
  return <Shell seo={{title:`${fighter.name} — Record, Division, News & Analysis | AURA Fight Club`,description:`${fighter.name}: ${fighter.summary} Latest AURA Fight Club news, rankings and fight coverage.`,canonicalPath:`/fighters/${fighter.slug}`,schema:personSchema}} crumbs={crumbs}>
-  <p className="aura-compare-profile-link"><Link to="/fighters/compare">Compare fighters side by side ↗</Link></p><div className="aura-ed-page-title aura-profile-hero"><VerifiedPhoto fighterSlug={fighter.slug} label={fighter.name}/><div><p className="aura-ed-kicker">{fighter.division}{fighter.nationality?` · ${fighter.nationality}`:''}</p><h1>{fighter.name}</h1>{fighter.record&&<p className="aura-article-deck">{fighter.record}</p>}<p>{fighter.summary}</p><div className="aura-profile-actions"><Link to="/fighters/compare">Head-to-head comparison ↗</Link><Link to="/fight-hub">Upcoming events ↗</Link></div></div></div>
+  <p className="aura-compare-profile-link"><Link to="/fighters/compare">Compare fighters side by side ↗</Link></p><div className="aura-ed-page-title aura-profile-hero"><VerifiedPhoto fighterSlug={fighter.slug} label={fighter.name}/><div><p className="aura-ed-kicker">{fighter.division}{fighter.nationality?` · ${fighter.nationality}`:''}</p><h1>{fighter.name}</h1>{fighter.record&&<p className="aura-article-deck">{fighter.record}</p>}<p>{fighter.summary}</p><div className="aura-profile-actions"><Link to="/fighters/compare">Head-to-head comparison ↗</Link><Link to="/verdict">Upcoming predictions ↗</Link></div></div></div>
   <section className="aura-ed-section"><div className="aura-ed-section-head"><h2>Fighter intelligence.</h2></div><div className="aura-profile-trust"><strong>{verifiedFields}/5</strong><span>Stat fields currently populated</span><span>{recordKnown?"Record displayed as an editorial snapshot":"Professional record awaiting confirmation"}{fighter.recordCheckedAt?` · Reviewed ${fighter.recordCheckedAt}`:""}</span></div><div className="fh-profile-stats">{[['Record',fighter.record],['Division',fighter.division],['Country',fighter.nationality],['Stance',fighter.stance],['Height',fighter.height],['Reach',fighter.reach],['Date of birth',fighter.birthDate]].map(([label,value])=><div key={label}><span>{label}</span><strong>{value||'Not verified'}</strong></div>)}</div><p className="aura-ed-note">Data is displayed only when an editorial source has been reviewed. Profiles are not connected to BoxRec's live database.</p>{sourceUrl&&<p className="aura-ed-note"><a href={sourceUrl} rel="noreferrer" target="_blank">View original promoter/source statistics ↗</a> · Source figures can change between bouts.</p>}</section>
   <section className="aura-ed-section"><div className="aura-ed-section-head"><h2>Next scheduled appearance.</h2></div>{forthcoming.length?<div className="aura-profile-fights">{forthcoming.map(f=><article key={f.id}><p className="aura-ed-kicker">{f.date} · {f.division}</p><h3><Link to={`/fights/${f.id}`}>{f.name}</Link></h3><p>{f.venue}</p><p><strong>Broadcaster:</strong> {f.broadcastStatus==='confirmed'?f.broadcast:'Not independently confirmed'} · <strong>Ring walk:</strong> {f.schedule?.ringWalkStatus==='confirmed'?'Official schedule published':'Not confirmed'}</p><Link to={`/fights/${f.id}`}>Full fight details →</Link></article>)}</div>:<p className="aura-ed-note">No future bout listed in the current AURA schedule. That does not establish that the fighter has no fight booked.</p>}</section>
   {pastListings.length>0&&<section className="aura-ed-section"><div className="aura-ed-section-head"><h2>Earlier event listings.</h2></div><div className="aura-profile-fights">{pastListings.map(f=><article key={f.id}><p className="aura-ed-kicker">{f.date} · {f.status==='Completed'?'Result reported':'Archived schedule entry'}</p><h3><Link to={`/fights/${f.id}`}>{f.name}</Link></h3><p>{f.result||'Result has not been confirmed in this database.'}</p></article>)}</div><p className="aura-ed-note">This is not the fighter's complete bout history.</p></section>}
