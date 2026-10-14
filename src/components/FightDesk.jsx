@@ -23,13 +23,20 @@ const ringPoundForPound = [
 ];
 
 const portraitOverrides = {
- 'Jesse Bam Rodriguez': 'https://wbaboxing.com/photos/boxers/jesse-rodriguez.jpg',
- 'Junto Nakatani': 'https://u3ntmi187s.user-space.cdn.idcfcloud.net/contents/main_content2_00001_1.jpg',
- 'Oscar Collazo': 'https://wbaboxing.com/photos/boxers/oscar-collazo.png',
+ 'Naoya Inoue': 'https://commons.wikimedia.org/wiki/Special:FilePath/Naoya%20Inoue%2020260502.png',
+ 'Oleksandr Usyk': 'https://commons.wikimedia.org/wiki/Special:FilePath/Oleksandr%20Usyk.jpg',
+ 'Shakur Stevenson': 'https://commons.wikimedia.org/wiki/Special:FilePath/ShakurStevenson.jpg',
+ 'Jesse Bam Rodriguez': 'https://www.matchroomboxing.com/app/uploads/2026/04/MAP13492-2048x1365.jpg',
+ 'David Benavidez': 'https://commons.wikimedia.org/wiki/Special:FilePath/David%20Benavidez%202024.png',
+ 'Dmitry Bivol': 'https://commons.wikimedia.org/wiki/Special:FilePath/Dmitry%20Bivol%20in%202023.jpg',
+ 'Junto Nakatani': 'https://featured.japan-forward.com/sportslook/wp-content/uploads/sites/6/2024/10/boxing1-1016-1-1024x852.jpg',
+ 'Devin Haney': 'https://commons.wikimedia.org/wiki/Special:FilePath/Devin%20Haney.jpg',
+ 'Jaron Boots Ennis': 'https://images.ctfassets.net/lg76kxmf55ue/6wqmQEsHrdwzzK4YYmTaKo/50155e216bd1397ed34475cdcb464011/081_A8711_85852c9f09.jpg',
+ 'Oscar Collazo': 'https://s.yimg.com/ny/api/res/1.2/LoYQjy0nMKmawuVdxAEO8g--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTU0MDtjZj13ZWJw/https%3A/s.yimg.com/os/creatr-uploaded-images/2026-03/3aa4d6c0-202b-11f1-94ef-b9c91e78c791',
  'Moses Itauma': 'https://queensberry.co.uk/cdn/shop/files/Moses_Itauma_1_25d630fc-05db-4e3d-9a7c-02d1455e78b3.png?v=1757674749',
- 'Nelson Hysa': 'https://queensberry.co.uk/cdn/shop/files/Nelson_Hysa.png?v=1749635058',
- 'Fabio Wardley': 'https://wbaboxing.com/photos/boxers/fabio-wardley.png',
-};
+ 'Nelson Hysa': 'https://athlonsports.com/.image/c_fill%2Cg_faces%3Acenter/MjE1NTAyMzQyODE5MTYxNjE5/nelson-hysa.jpg',
+ 'Fabio Wardley': 'https://queensberry.co.uk/cdn/shop/files/Fabio_Wardley_1.png?v=1757927815'
+}
 
 const portraitCache = new Map();
 const portraitSearchName = name => name
@@ -186,7 +193,7 @@ export function FightCalendar({ compact = false }) {
      <h3><Link to={`/fights/${f.id}`}>{f.name}</Link></h3>
      {f.blurb&&<p className="aura-fight-card__blurb">{f.blurb}</p>}
      <dl><div><dt>Venue</dt><dd>{f.venue}</dd></div><div><dt>Stakes</dt><dd>{f.stakes}</dd></div><div><dt>Broadcast</dt><dd>{f.broadcast||'TBC'}</dd></div></dl>
-     {f.result&&<p className="aura-fight-result">{f.result}</p>}
+     {f.result&&<p className="aura-fight-result">{typeof f.result==='string'?f.result:`${f.result.winner} defeated ${f.result.loser} · ${f.result.method||'Result confirmed'}${f.result.round?' · Round '+f.result.round:''}`}</p>}
      <div className="aura-fight-card__actions">
       <Link to={`/fights/${f.id}`}>Fight coverage</Link>
       {onDazn&&<AffiliateLink partnerKey="dazn" placement={`calendar:${f.id}`} className="aura-calendar-cta aura-calendar-cta--small">Watch on DAZN</AffiliateLink>}
