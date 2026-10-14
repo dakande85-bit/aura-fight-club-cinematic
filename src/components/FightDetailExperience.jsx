@@ -99,10 +99,11 @@ export default function FightDetailExperience({fight}){
     <h1 id="afc-fi-title"><span>{names[0]}</span><em>VS</em><span>{names[1]}</span></h1>
     <p className="afc-fi-hero__dek">{data.headline||fight.blurb||'Everything to know about this boxing event.'}</p>
     <div className="afc-fi-hero__meta"><span>{fightDate}</span><span>{fight.venue}</span><span>{fight.broadcastStatus==='confirmed'?fight.broadcast:'Viewing details pending'}</span></div>
-    <div className="afc-fi-hero__actions"><a href="#afc-fi-watch" className="afc-fi-btn afc-fi-btn--gold">How to watch ↓</a><a href="#afc-fi-preview" className="afc-fi-btn afc-fi-btn--outline">Fight breakdown ↓</a></div>
+    <div className="afc-fi-hero__actions"><a href="#afc-fi-watch" className="afc-fi-btn afc-fi-btn--gold">{status?'Event archive ↓':'How to watch ↓'}</a><a href="#afc-fi-preview" className="afc-fi-btn afc-fi-btn--outline">Fight breakdown ↓</a></div>
    </div>
    <div className="afc-fi-hero__credit">{fight.id==='dubois-wardley-2'?'In-ring archive from the first bout, May 2026. Not a photograph of the rematch.':'Event image; archive photographs may depict an earlier fight.'}</div>
   </section>
+  {status&&fight.result&&<section className="afc-fi-result" aria-label="Confirmed fight result"><span>OFFICIAL RESULT</span><strong>{fight.result.winner} defeats {fight.result.loser}</strong><p>{fight.result.method}{fight.result.round?' · Round '+fight.result.round:''}{fight.result.time?' · '+fight.result.time:''}{fight.result.titleOutcome?' · '+fight.result.titleOutcome:''}</p></section>}
   <section className="afc-fi-factstrip" aria-label="At a glance">
    <div><span>THE DATE</span><strong>{new Date(fight.date+'T12:00:00Z').toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</strong></div>
    <div><span>THE VENUE</span><strong>{fight.venue.split(',')[0]}</strong></div>
@@ -110,7 +111,7 @@ export default function FightDetailExperience({fight}){
    <div><span>VIEWING</span><strong>{fight.broadcastStatus==='confirmed'?fight.broadcast:'Confirmation pending'}</strong></div>
   </section>
   <div className="afc-fi-layout">
-   <main className="afc-fi-main">
+   <div className="afc-fi-main">
     <section className="afc-fi-section" id="afc-fi-preview"><span className="afc-fi-eyebrow">{data.strap||'THE BIG FIGHT'}</span><h2>{data.headline||'The fight in focus.'}</h2><p className="afc-fi-lead">{data.intro||fight.blurb||'Read the confirmed facts, the latest AURA reporting and the tactical questions surrounding this contest.'}</p>
      {data.verdict&&<p className="afc-fi-editorial">{data.verdict}</p>}
     </section>
@@ -139,7 +140,7 @@ export default function FightDetailExperience({fight}){
     <section className="afc-fi-section"><span className="afc-fi-eyebrow">EDITORIAL COVERAGE</span><h2>More than the headline.</h2>
      {linked.length?<div className="afc-fi-story-grid">{linked.map(a=><article key={a.slug}><Link to={`/news/${a.slug}`} className="afc-fi-story-cover"><StoryThumbnail article={a}/></Link><div><span className="afc-fi-eyebrow">{a.category}</span><h3><Link to={`/news/${a.slug}`}>{a.title}</Link></h3><p>{a.summary}</p><Link to={`/news/${a.slug}`}>Read the analysis ↗</Link></div></article>)}</div>:<p>Our editorial desk will link independently researched pre-fight and post-fight coverage here as it is published.</p>}
     </section>
-   </main>
+   </div>
    <aside className="afc-fi-sidebar" aria-label="Fight-night information">
     <section className="afc-fi-watch" id="afc-fi-watch"><span className="afc-fi-eyebrow">FIGHT NIGHT GUIDE</span><h2>Where to watch.</h2>
      <dl><div><dt>Fight night</dt><dd>{fightDate}</dd></div><div><dt>Venue</dt><dd>{fight.venue}</dd></div><div><dt>Broadcaster</dt><dd>{fight.broadcastStatus==='confirmed'?fight.broadcast:'Not confirmed'}</dd></div><div><dt>Coverage starts · Tenerife</dt><dd>{time?time+' (local)':'Not confirmed'}</dd></div>{fight.id==='dubois-wardley-2'&&<div><dt>Arena doors · London</dt><dd>16:00 BST · confirmed by The O2</dd></div>}<div><dt>Main-event ring walks</dt><dd>{officialRing?officialRing+' (confirmed)':fight.id==='dubois-wardley-2'?'Around 22:30 BST · estimate only':'Not confirmed'}</dd></div><div><dt>Viewing territories</dt><dd>{fight.broadcastTerritory||'Regional rights may vary'}</dd></div></dl>
