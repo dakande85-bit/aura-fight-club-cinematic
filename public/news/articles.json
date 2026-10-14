@@ -2383,7 +2383,7 @@
         "sourceUrl": "https://ufight.gr/boxing/27089-anthony-joshua-tyson-fury-gia-mena-einai-enas-akomi-antipalos",
         "fallbackSrc": "/news/media/joshua-legacy-analysis.svg"
       },
-      "category": "Headlines",
+      "category": "Archive Brief",
       "date": "2026-10-01",
       "featured": false,
       "youtubeId": "v_WSnGUbNm4",
@@ -2391,7 +2391,11 @@
       "priority": 100,
       "fightId": "fury-joshua",
       "coverageStage": "Build-up",
-      "updatedAt": "2026-10-14"
+      "updatedAt": "2026-10-14",
+      "tags": [
+        "archive",
+        "news brief"
+      ]
     },
     {
       "slug": "canelo-mbilli-october-date",
@@ -2410,14 +2414,17 @@
         "caption": "Canelo Alvarez and Christian Mbilli promotional artwork for their October 31 Riyadh clash.",
         "sourceUrl": "https://www.boxingscene.com/fighters/christian-mbilli"
       },
-      "category": "Headlines",
+      "category": "News Brief",
       "date": "2026-09-29",
       "featured": false,
       "youtubeId": null,
       "videoUrl": "",
       "priority": 90,
       "fightId": "canelo-mbilli",
-      "coverageStage": "Build-up"
+      "coverageStage": "Build-up",
+      "tags": [
+        "news brief"
+      ]
     },
     {
       "slug": "bentley-reported-zuffa-move",
@@ -2436,12 +2443,15 @@
         "caption": "Original story-specific AURA editorial artwork, not a ringside photograph.",
         "sourceUrl": "https://www.fightmag.com/denzel-bentley-to-vacate-wbo-title-set-to-return-at-zuffa-boxing-12/"
       },
-      "category": "Headlines",
+      "category": "News Brief",
       "date": "2026-10-01",
       "featured": false,
       "youtubeId": null,
       "videoUrl": "",
-      "priority": 70
+      "priority": 70,
+      "tags": [
+        "news brief"
+      ]
     },
     {
       "slug": "omari-jones-orlando-october-2",
@@ -2460,12 +2470,16 @@
         "caption": "Archive image: Jones versus Diego Osuna Zuniga, 30 May 2026.",
         "sourceUrl": "https://www.fightmag.com/project-series-2-jones-vs-sanchez-set-for-october-in-orlando/"
       },
-      "category": "Headlines",
+      "category": "Archive Brief",
       "date": "2026-10-02",
       "featured": false,
       "youtubeId": null,
       "videoUrl": "",
-      "priority": 60
+      "priority": 60,
+      "tags": [
+        "archive",
+        "news brief"
+      ]
     },
     {
       "slug": "whittaker-wallace-final-eliminator",
@@ -2473,9 +2487,10 @@
         "src": "https://www.matchroomboxing.com/app/uploads/2026/10/Screenshot-2026-10-01-at-22.28.26.png",
         "alt": "Image accompanying Matchroom’s Whittaker and Wallace press-conference report",
         "credit": "Matchroom Boxing",
-        "verifiedAt": "2026-10-02"
+        "verifiedAt": "2026-10-02",
+        "sourceUrl": "https://www.matchroomboxing.com/news/ben-whittaker-has-heated-exchange-with-rival-conor-wallace-ahead-of-their-ibf-light-heavyweight-title-final-eliminator/"
       },
-      "category": "Fight week",
+      "category": "Archive Brief",
       "date": "2026-10-01",
       "title": "Whittaker and Wallace face off ahead of Birmingham eliminator",
       "summary": "The light-heavyweights meet on 3 October, with an IBF title opportunity at stake.",
@@ -2490,7 +2505,12 @@
       "featured": false,
       "priority": 80,
       "fightId": "whittaker-wallace",
-      "coverageStage": "Build-up"
+      "coverageStage": "Build-up",
+      "updatedAt": "2026-10-14",
+      "tags": [
+        "archive",
+        "news brief"
+      ]
     },
     {
       "slug": "birmingham-fight-week",
@@ -2498,9 +2518,10 @@
         "src": "https://www.matchroomboxing.com/app/uploads/2026/07/whittakerwallace.jpg",
         "alt": "Official Whittaker versus Wallace event artwork from Matchroom Boxing",
         "credit": "Matchroom Boxing",
-        "verifiedAt": "2026-10-02"
+        "verifiedAt": "2026-10-02",
+        "sourceUrl": "https://www.matchroomboxing.com/news/birmingham-fight-week-schedule-ben-whittaker-vs-conor-wallace-this-saturday-october-3-live-worldwide-on-dazn/"
       },
-      "category": "Fight week",
+      "category": "Archive Brief",
       "date": "2026-09-28",
       "title": "Birmingham fight week: the official schedule",
       "summary": "Matchroom has published the schedule around Whittaker versus Wallace.",
@@ -2515,7 +2536,12 @@
       "featured": false,
       "priority": 0,
       "fightId": "whittaker-wallace",
-      "coverageStage": "Build-up"
+      "coverageStage": "Build-up",
+      "updatedAt": "2026-10-14",
+      "tags": [
+        "archive",
+        "news brief"
+      ]
     },
     {
       "slug": "monte-carlo-december",
@@ -2523,9 +2549,10 @@
         "src": "https://www.matchroomboxing.com/app/uploads/2026/09/081A9494-1.jpg",
         "alt": "Image accompanying Matchroom’s Monte-Carlo Showdown VII announcement",
         "credit": "Matchroom Boxing",
-        "verifiedAt": "2026-10-02"
+        "verifiedAt": "2026-10-02",
+        "sourceUrl": "https://www.matchroomboxing.com/news/monte-carlo-showdown-vii-date-confirmed/"
       },
-      "category": "Announcements",
+      "category": "News Brief",
       "date": "2026-09-11",
       "title": "Monte-Carlo Showdown returns on 12 December",
       "summary": "The seventh edition is scheduled for the Salle des Étoiles.",
@@ -2538,7 +2565,11 @@
       "youtubeId": null,
       "videoUrl": "https://www.youtube.com/@MatchroomBoxing",
       "featured": false,
-      "priority": 0
+      "priority": 0,
+      "updatedAt": "2026-10-14",
+      "tags": [
+        "news brief"
+      ]
     }
   ],
   "updatedAt": "2026-10-12T22:31:51.062Z"
