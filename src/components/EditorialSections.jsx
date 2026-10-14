@@ -13,11 +13,14 @@ export function StoryImage({ article, linked = false, eager = false }) {
   const candidates = [article.image?.src, article.image?.fallbackSrc].filter(Boolean);
   const currentSrc = candidates[imageAttempt];
   const isOriginal = imageAttempt === 0 && Boolean(article.image?.src);
+  const isPoster = /(?:poster|promotional artwork|event artwork|original editorial illustration|graphic)/i.test(isOriginal ? article.image?.alt || '' : 'graphic');
   const photo = currentSrc ? (
     <img
       key={currentSrc}
       src={currentSrc}
       alt={isOriginal ? article.image.alt : `AURA editorial illustration for ${article.title}; not a photograph`}
+      className={isPoster ? 'aura-editorial-poster' : 'aura-editorial-photo'}
+      style={{objectPosition: article.image?.focus || 'center 34%'}}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
       referrerPolicy="no-referrer"
