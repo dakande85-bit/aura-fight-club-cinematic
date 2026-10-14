@@ -162,11 +162,13 @@
         }
       ],
       "image": {
-        "src": "https://www.aurafightclub.com/news/media/aura-kabayel-hysa-preview.svg",
-        "alt": "Original AURA boxing event artwork for Agit Kabayel vs Nelson Hysa; this is not a fighter photograph",
-        "credit": "AURA Fight Club — original editorial design",
-        "caption": "Bespoke AURA prediction illustration, not a photograph.",
-        "sourceUrl": "https://www.aurafightclub.com/news/media/aura-kabayel-hysa-preview.svg"
+        "src": "https://static.independent.co.uk/2026/01/07/11/39/Agit-Kabayel.jpeg",
+        "alt": "Agit Kabayel celebrates in the boxing ring in white trunks and red gloves after an earlier heavyweight fight",
+        "credit": "The Independent — Kabayel boxing archive",
+        "caption": "Agit Kabayel in a previous heavyweight appearance. Nelson Hysa is not shown.",
+        "sourceUrl": "https://www.independent.co.uk/sport/boxing/kabayel-knyba-uk-time-card-tv-channel-b2895986.html",
+        "fallbackSrc": "/news/media/aura-kabayel-hysa-preview.svg",
+        "focus": "center 30%"
       },
       "seoTitle": "Kabayel vs Hysa Prediction: Power vs Body Work | AURA",
       "metaDescription": "Agit Kabayel vs Nelson Hysa prediction: WBC heavyweight title, body-punching pressure and knockout threat in Düsseldorf.",
