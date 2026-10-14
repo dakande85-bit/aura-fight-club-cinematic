@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-10-12",
+  "reviewedAt": "2026-10-14",
   "articles": [
     {
       "slug": "hamzah-sheeraz-vacates-world-title-why-champions-walk-away",
@@ -224,57 +224,69 @@
     },
     {
       "slug": "fury-joshua-undercard-fights-rumours",
-      "title": "Wilder vs Opetaia on Fury–Joshua? The rumour is serious — but the fight isn't signed.",
-      "summary": "Reports of Deontay Wilder facing Jai Opetaia on the Fury–Joshua undercard would create a fascinating size-versus-skill fight. Here's what's reported, what remains open and why the weight matters.",
-      "date": "2026-10-09",
-      "updatedAt": "2026-10-12",
-      "category": "AURA Deep Dive",
+      "title": "Wilder vs Opetaia: a terrifying puncher's chance or a southpaw masterclass?",
+      "summary": "Reports link Deontay Wilder and Jai Opetaia to the Fury–Joshua card, but no fight is signed. Here is the technical argument, the heavyweight size problem and what each man risks.",
+      "date": "2026-10-14",
+      "updatedAt": "2026-10-14",
+      "category": "Fight Lab · Reported Talks",
       "articleType": "Analysis",
       "featured": true,
-      "priority": 235,
+      "priority": 99,
       "source": "talkSPORT — Wilder–Opetaia undercard talks",
       "sourceUrl": "https://talksport.com/boxing/4633895/deontay-wilder-tyson-fury-anthony-joshua-undercard-jai-opetaia/",
       "sources": [
         {
-          "name": "news.com.au — Australian reporting on potential move to heavyweight",
+          "name": "Australian reporting — Opetaia-Wilder talks",
           "url": "https://www.news.com.au/sport/boxing/aussie-jai-opetaia-in-talks-for-huge-boxing-showdown-on-anthony-joshua-vs-tyson-fury-card/news-story/3574f4ac4a3e50681976dae8f71f2a20"
         },
         {
-          "name": "The Sun — reports bout considered, not finalised",
+          "name": "The Sun — bout considered for Cardiff, not announced",
           "url": "https://www.thesun.ie/sport/17737889/deontay-wilder-jai-opetaia-anthony-joshua-tyson-fury-card/"
+        },
+        {
+          "name": "Wikimedia Commons — licensed Wilder photograph",
+          "url": "https://commons.wikimedia.org/wiki/File:Deontay_Wilder_2018_(cropped).jpg"
         }
       ],
       "image": {
-        "src": "https://www.aurafightclub.com/news/media/wilder-opetaia-undercard-rumour.svg",
-        "alt": "AURA boxing rumours illustration about Wilder and Opetaia; unconfirmed contest, not fighter photographs",
-        "credit": "AURA Fight Club — original editorial design",
-        "caption": "Original story-specific AURA editorial artwork, not a ringside photograph.",
-        "sourceUrl": "https://talksport.com/boxing/4633895/deontay-wilder-tyson-fury-anthony-joshua-undercard-jai-opetaia/"
+        "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Deontay%20Wilder%202018%20(cropped).jpg",
+        "fallbackSrc": "/news/media/wilder-opetaia-undercard-rumour.svg",
+        "alt": "Deontay Wilder at a 2018 boxing event; archive photograph, not an image of a bout with Jai Opetaia.",
+        "credit": "Zach Catanzareti Photo / Wikimedia Commons · CC BY-SA 2.0",
+        "caption": "Archive portrait of Wilder from 2018. The proposed Opetaia contest is unconfirmed; this is not a face-off photo.",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Deontay_Wilder_2018_(cropped).jpg"
       },
       "body": [
-        "One potential undercard fight could be more intriguing tactically than most chief-support bouts: Deontay Wilder against Jai Opetaia. It is being reported as a negotiation for the Tyson Fury–Anthony Joshua event in Cardiff, not as a signed or officially announced contest. That difference belongs in the headline, not hidden in the final paragraph.",
-        "talkSPORT and Australian reporting have linked the former heavyweight champion with Opetaia, the elite cruiserweight, for the December show. Neither a weight agreement nor an official bout announcement has been established by the sources cited here. Until the camps or organisers confirm the contracts, a fight calendar should continue to treat it as a rumour.",
-        "## Why the matchup is compelling",
-        "Wilder is the unusual heavyweight whose fight-changing ability has often outstripped the rest of his toolkit. His long right hand remains a reason every opponent has to manage range carefully, even if his recent form has made the danger harder to quantify.",
-        "Opetaia’s attraction is different: a southpaw with quick combinations, sharp changes of angle and the willingness to set a punishing pace. He is a specialist cruiserweight, not simply a smaller heavyweight. His mobility could pose Wilder problems that a conventional slower heavyweight would not.",
-        "## The weight question changes everything",
-        "Moving from cruiserweight to heavyweight can help a skilled boxer by creating an unexpected speed advantage; it also takes away the certainty that exchanges will feel the same when a naturally larger puncher connects. Until the contracted division and weigh-in conditions are confirmed, any prediction should state its assumptions.",
-        "Wilder would have reach and heavyweight experience, while Opetaia would look to control the entry angle and avoid standing directly in the lane of that straight right. A bout at heavyweight is not the same physical equation as two men meeting at the cruiserweight limit.",
-        "## Where the fight would be won",
-        "From Wilder’s perspective, the most important question is whether he can make Opetaia enter on a predictable path. The right hand is more threatening when the opponent moves straight back or exits without changing the angle. He would need more than waiting for one opening; he would need to interrupt Opetaia’s rhythm before the Australian built a lead.",
-        "For Opetaia the task would be to turn speed into safe scoring, then leave before Wilder can set and throw. He could not assume that because he is technically sharper in combinations, trading combinations with a heavyweight puncher is sensible. Range discipline and his reactions after the first exchange would matter as much as his southpaw attack.",
-        "## What would it mean for each career?",
-        "Wilder could rehabilitate his standing with a meaningful win over a highly regarded active champion. A poor performance would fuel doubts about whether his name now carries more value than his current form.",
-        "For Opetaia, defeating an established heavyweight would bring attention beyond the cruiserweight division. But a loss to a much larger opponent should not automatically erase his standing at 200 pounds. The business reward is obvious; the competitive risk needs to be stated as clearly.",
-        "## The evidence line",
-        "There have been reports of talks. There is no verified contract, official date for this specific bout, or announced ruleset in the sources used for this piece. AURA will update the article if any of that changes. For now, the interesting story is what this proposed pairing would test — not a premature claim that it is definitely happening."
+        "## A rumour worth analysing, not advertising as a signed fight",
+        "The name is Jai Opetaia, not Oppenheimer, and reports of a proposed fight with Deontay Wilder have put the Australian cruiserweight into the heavyweight conversation. The pairing has been linked to the Fury–Joshua event in Cardiff in December. As of 14 October, the reporting supports discussions — not a formally confirmed fight, a settled weight clause or an announced supporting-card slot. That line matters. AURA will not turn a promoter's possibility into an official fixture.",
+        "Yet this is much more interesting than an ordinary celebrity undercard. Wilder is a former WBC heavyweight champion whose destructive right hand has historically changed fights even when he was losing rounds. Opetaia is an elite southpaw who gets his work done with pace, angles and combinations. If they meet at heavyweight, their paths to victory could hardly be more different.",
+        "## Southpaw against orthodox: the rear-hand duel",
+        "Against an orthodox Wilder, southpaw Opetaia will want to keep moving outside the American's lead foot and jab from a position that makes Wilder turn before setting his right. That geometry could create the lane for the Australian's straight left. But the lead-foot battle is not a magic formula. When Opetaia steps across the line without first controlling Wilder's lead hand, he can also drift into the very long right hand he is trying to avoid.",
+        "Wilder's simplest approach might be to punish the path out of range, not the initial entry. Opetaia may win a burst with two or three clean shots and then need to leave. Wilder would want to make that exit predictable: touch the lead hand, deny the outside pivot and fire as the southpaw turns his head or shoulders back towards the centre. It only needs to work once to matter.",
+        "## The cruiser's extra speed can become a trap",
+        "At 200 pounds, Opetaia's ability to accelerate between punches is a weapon; at heavyweight he would be meeting a naturally larger fighter who has spent his career punching heavyweight opponents. We cannot assume the Australian will have identical speed after any change in weight, just as we cannot assume Wilder will simply absorb an active cruiserweight's straight-left combinations.",
+        "The tempting prediction is that the technically cleaner southpaw wins every minute until he gets caught. That is a cliché, not serious analysis. Opetaia's problem is more specific: can he build a high scoring volume while keeping the last punch of each exchange from becoming Wilder's right hand? If the answer is yes, his speed and discipline could make the older heavyweight chase a fight he is losing. If the answer is no, the technical advantage may not last long.",
+        "## The Wilder we remember is not necessarily the Wilder now",
+        "Wilder's past knockout reputation is not proof that his timing, legs and ability to initiate are unchanged. Recent performances have generated debate over whether he can still set his feet quickly enough to release his best punch against a moving opponent. AURA's analysis must distinguish a puncher's historic ceiling from his most recent evidence.",
+        "That distinction also affects Opetaia. Beating a big name whose best years may be behind him would be commercially meaningful without necessarily proving the Australian can beat every top-ten heavyweight. Conversely, one powerful heavyweight punch landing against Opetaia would not invalidate everything he has achieved at cruiserweight.",
+        "## Would Wilder even gain by taking it?",
+        "Wilder's upside is obvious: beat an undefeated high-profile champion and abruptly reshape the story of his late career. But there is a reputational downside if Opetaia circles him, makes him reset repeatedly and outboxes him over long periods. The result would fuel questions that heavyweight matchmaking has often postponed.",
+        "Opetaia's risk is more tangible. A first heavyweight adventure against one of the division's hardest historic punchers is not a gentle introduction. It could create a headline and a payday, but it does little for a long-term cruiserweight unification unless the relevant contracts and championship obligations are aligned. None of those future fights should be portrayed as signed.",
+        "## AURA's conditional pick: skill on points, provided the weight and rules allow it",
+        "If the contest happens at a conventional heavyweight limit without unusual contractual conditions, we tentatively favour Opetaia to win rounds through angles, higher activity and the sharper combination work. This is deliberately a conditional boxing prediction, not a claimed betting probability. Wilder remains the more dangerous single-shot threat. Our pick changes if the Australian cannot exit safely after the straight left or struggles with the physical size difference.",
+        "The strongest version of this story is not a fabricated 'fight confirmed' headline. It is the open question: does the cruellest right hand of a generation still arrive fast enough to stop one of the best southpaws in boxing? First let the contracts exist; then let the argument begin."
       ],
-      "seoTitle": "Wilder vs Opetaia on Fury–Joshua? The rumour is serious — but the figh",
-      "metaDescription": "Reports of Deontay Wilder facing Jai Opetaia on the Fury–Joshua undercard would create a fascinating size-versus-skill fight. Here's what's reported, what remains open an",
+      "seoTitle": "Wilder vs Opetaia: Fight Talks, Analysis and Verdict | AURA",
+      "metaDescription": "Wilder vs Jai Opetaia is reported to be in talks, not confirmed. Tactical breakdown of southpaw movement, heavyweight power and Cardiff rumours.",
       "tags": [
+        "Deontay Wilder",
+        "Jai Opetaia",
         "boxing",
-        "news",
-        "analysis"
+        "reported talks",
+        "heavyweight",
+        "cruiserweight",
+        "Tyson Fury",
+        "Anthony Joshua"
       ],
       "coverageStage": ""
     },
@@ -586,32 +598,36 @@
     },
     {
       "slug": "dubois-wardley-rematch-technical-preview",
-      "title": "Dubois dropped twice. Wardley stopped in eleven. What changes in the rematch?",
-      "summary": "Daniel Dubois survived two knockdowns before stopping Fabio Wardley in round eleven. Their October 17 rematch asks whether Wardley can protect an early lead or Dubois can impose his jab sooner.",
-      "date": "2026-10-09",
-      "updatedAt": "2026-10-12",
-      "category": "The Fight Lab",
+      "title": "Dubois vs Wardley II: our prediction, the rematch adjustments and the danger of round one",
+      "summary": "Wardley floored Dubois twice but lost in eleven. Our detailed prediction examines the jab, the exits, the damaged momentum and which heavyweight actually learned more.",
+      "date": "2026-10-14",
+      "updatedAt": "2026-10-14",
+      "category": "Fight Lab · Prediction",
       "articleType": "Analysis",
-      "featured": false,
-      "priority": 234,
+      "featured": true,
+      "priority": 100,
       "source": "The Ring — Dubois vs Wardley II event details",
       "sourceUrl": "https://www.ringmagazine.com/events/7HVg5exI2jkpqLW3hn9fVB",
       "sources": [
         {
-          "name": "RTÉ Sport — original fight reporting",
-          "url": "https://www.rte.ie/sport/boxing/2026/0509/1572571-dubois-stops-wardley-in-ferocious-heavyweight-clash/"
+          "name": "Sky Sports — May stoppage and confirmed rematch",
+          "url": "https://www.skysports.com/boxing/news/12183/13578815/daniel-dubois-vs-fabio-wardley-rematch-announced-to-take-place-in-october-with-the-o2-in-london-set-to-host-heavyweight-showdown"
         },
         {
-          "name": "DAZN Boxing — fighters face off before the October rematch",
-          "url": "https://www.youtube.com/watch?v=2W33Uyr3KBc"
+          "name": "DAZN — date, PPV and latest fight-week guide",
+          "url": "https://www.dazn.com/en-GB/news/boxing/dubois-vs-wardley-rematch-how-to-watch-fight-time-ringwalks-prediction-undercard-news-odds/17a10otjxtgcu18nni6kptycja"
         },
         {
-          "name": "talkSPORT — rematch preparation and broadcast information",
-          "url": "https://talksport.com/boxing/4638768/daniel-dubois-fabio-wardley-start-time-where-to-watch-rematch/"
+          "name": "talkSPORT — Wardley questions Dubois's preparation claim",
+          "url": "https://talksport.com/boxing/4641624/fabio-wardley-daniel-dubois-face-off/"
         },
         {
-          "name": "WBO — official scheduled heavyweight championship listing",
-          "url": "https://wboboxing.com/"
+          "name": "Bad Left Hook — Wardley seeks to correct May mistakes",
+          "url": "https://www.badlefthook.com/boxing-news/119499/fabio-wardley-looks-forward-to-avenging-loss-to-daniel-dubois-in-weekend-rematch-boxing-news-2026"
+        },
+        {
+          "name": "talkSPORT — confirmed supporting card",
+          "url": "https://talksport.com/boxing/4639730/daniel-dubois-fabio-wardley-undercard-bakhodir-jalolov/"
         }
       ],
       "image": {
@@ -622,31 +638,39 @@
         "sourceUrl": "https://www.rte.ie/sport/boxing/2026/0509/1572571-dubois-stops-wardley-in-ferocious-heavyweight-clash/"
       },
       "body": [
-        "Fabio Wardley put Daniel Dubois on the floor twice and still lost his heavyweight title. Dubois absorbed the early damage, stayed in the contest and finally stopped Wardley in the eleventh round of their May meeting. That makes Saturday's rematch at London's O2 more than a routine second instalment. The first fight supplied each team with proof that its man can hurt the other — and proof that the same plan can also fail.",
-        "Dubois now holds the WBO heavyweight championship. Wardley has exercised his contractual right to a rematch. DAZN is the listed broadcaster for 17 October, although advertised ring-walk estimates must not be presented as confirmed start times. The essential sporting question is what changes when two heavyweights have already spent nearly an entire championship fight exposing each other's mistakes.",
-        "## Wardley proved the power was real",
-        "Knocking Dubois down twice matters beyond the highlight reel. Wardley was not merely dangerous on paper; he found openings against an established heavyweight puncher and turned them into the kind of scoring moments that can change a championship. His attack presents an awkward problem precisely because it can arrive outside the neat patterns a textbook opponent might offer.",
-        "But the eleven-round ending also exposed the cost of failing to control what happens after those moments. A knockdown is a swing in one round, not immunity from the following ten. Once the initial damage had been done, Wardley still needed to manage distance, pace and defensive reactions while Dubois recovered his organisation.",
-        "## Dubois's jab is only useful if the feet follow",
-        "Dubois is most difficult to fight when his jab does two jobs: disrupting the opponent's entry and measuring the range for his heavier right hand. A stationary jab thrown from too far away offers a hungry counterpuncher a predictable starting point. A jab attached to a balanced step can stop an opponent from planting his feet to punch.",
-        "In the rematch the important measure is not simply whether Dubois jabs more often. It is whether the lead hand makes Wardley reset. If Wardley has to start a new entry every time, Dubois can spend more of the contest in his preferred geometry rather than trading with an opponent who thrives on sudden changes of momentum.",
-        "That also means Dubois should not chase an early stoppage because he achieved a late one previously. Reaching for the right hand from the wrong range can give Wardley the very openings he exploited in May. The champion's best work is disciplined, repeatable pressure, not an attempt to win every exchange with one punch.",
-        "## Wardley's adjustment cannot be 'be more aggressive'",
-        "Wardley does not need encouragement to fight. He needs to decide what happens after he lands. Does he move his head and feet before Dubois can answer? Does he step around the champion's lead shoulder, or retreat straight back along the same line? Those are the moments in which a dangerous challenger either keeps his advantage or hands control away.",
-        "A sensible plan would mix the timing of attacks rather than showing Dubois the same entry repeatedly. Feints, changes of height and the occasional delayed counter can make the jab less comfortable. Yet feinting without punching does not win rounds. Wardley must still bank clean work while protecting the space in which Dubois likes to set his feet.",
-        "## The halfway point could decide it",
-        "Heavyweight fights are often discussed as if either man can finish matters whenever he chooses. The first meeting shows why that is an oversimplification. Wardley had the early successes but did not win. Dubois recovered and found enough sustained offence to force a stoppage late.",
-        "If Wardley is ahead after four, watch whether he can maintain concentration without becoming overly passive. If Dubois is behind, watch whether he makes specific technical changes rather than simply walking through more punishment. At this level, the ability to modify the plan between rounds may be as decisive as the initial game plan itself.",
-        "## Our early pick and the warning",
-        "Dubois has earned a narrow preference because he has already shown he can survive Wardley's biggest moments and impose himself over the longer course. That is not a forecast of an effortless repeat. His biggest vulnerability was visible enough for Wardley to exploit twice. If the challenger can protect the lead he creates and avoid the exchanges that wore him down, he has a plausible route to reclaiming the belt.",
-        "The cleanest way to judge the rematch will be who controls the exits after exchanges. Dubois needs to land and keep Wardley from responding immediately. Wardley needs to land and avoid being rooted in front of the champion's return fire. Two huge punchers meeting again is a compelling promotion; those small positional decisions are why this should be a serious tactical contest."
+        "## Two knockdowns, one stoppage and an unfinished argument",
+        "Fabio Wardley has already demonstrated that he can hurt Daniel Dubois. In Manchester on 9 May 2026 he floored the bigger-name puncher in the opening seconds and dropped him again in the third. Yet Dubois eventually became the WBO heavyweight champion, turning the fight into a punishing eleventh-round stoppage. The result was decisive; the route to it was anything but comfortable for the winner. Five months later, they are meeting again at The O2 in London on Saturday 17 October, with Dubois defending the belt he took from Wardley.",
+        "That first fight is a better guide to their physical threat than to what happens next. Both camps now know their opponent's best weapon can reach them. The question is not who hits hard. It is which heavyweight can control the moments between the exchanges, stop the other resetting, and avoid giving away the fight after winning individual rounds.",
+        "## Tactical key one: the first jab, then the second step",
+        "Dubois's strongest sustainable path is to make the jab a positional weapon rather than a scoreboard gesture. If the jab makes Wardley halt his feet and stand square, the right hand becomes more dangerous. But if Dubois paws with his lead hand and steps in without covering the return, Wardley has already shown he can beat him to the punch with a disruptive overhand right. The champion needs a disciplined lead shoulder, a small exit angle after combination punching and enough patience to win minutes rather than hunt one dramatic shot.",
+        "Wardley's counter-question is how to make Dubois abandon that structure. His unconventional rhythm and explosive right hand can break a polished sequence. The challenger need not throw more punches than Dubois to win the early phase; he needs to time a few moments when Dubois commits his feet. What Wardley cannot afford is to admire the damage, wait directly in front of Dubois, then take the heavier return fire.",
+        "## Tactical key two: Wardley must defend the success he creates",
+        "The brutal paradox of May was that Wardley's greatest successes did not keep him safe. He found two knockdowns, yet he could not prevent a prolonged reversal. That points to a rematch plan built around exits after landing, controlling the centre without standing stationary and using the clinch judiciously when Dubois gets his offence moving. A lead of two rounds is not worth much if a fighter must absorb ten more rounds of unbroken punishment to protect it.",
+        "A smarter Wardley could throw in short bursts, take a half-step away from Dubois's right-hand lane and change levels on re-entry. That would force Dubois to repeatedly solve new angles. Yet there is a trade-off: too much movement may also suppress Wardley's own chance to punch. His chances improve if he treats power as an opportunity created by timing, rather than an instruction to load up whenever Dubois approaches.",
+        "## Tactical key three: what happened after the fourth?",
+        "Dubois's recovery in May was not an automatic consequence of being the naturally heavier puncher. He found his rhythm after a horrible start, began imposing sustained offence and steadily increased the physical cost to Wardley. That offers an unusually concrete rematch clue. Wardley must have an answer for the fourth-to-eighth-round phase, when the fight can stop being about a single knockdown and become an argument about stamina, defence and repeated clean punching.",
+        "That middle stretch is where we would expect the champion to press his advantage, especially if Wardley's head remains in front of him after combinations. Dubois cannot rely on Wardley tiring at the same rate a second time; rematches are not video replays. But making the challenger fight consistently at Dubois's preferred tempo remains an obvious route towards taking the final rounds out of reach.",
+        "## Has the psychological advantage actually changed?",
+        "Dangerous heavyweights rarely sound short of confidence during fight week. Dubois has spoken about being less prepared for the first meeting; Wardley publicly challenged that explanation. Those claims are promotional and personal accounts, not something independently established by a medical or conditioning report. The verifiable evidence is what happened in the ring: Dubois was dropped twice and still stopped Wardley, and Wardley was good enough to make the eventual winner's opening rounds very difficult.",
+        "Wardley has said he sought the rematch to correct his mistakes. That willingness matters, but only if it produces changes that survive hard contact. A rival already knows he can hurt Dubois; Dubois knows he can finish Wardley. Neither camp needs another motivational speech. They need a cleaner version of the same tactical contest.",
+        "## AURA prediction: Dubois by late stoppage — with a real early danger",
+        "Our pick is Daniel Dubois by stoppage between rounds eight and eleven. The logic is cumulative: a more reliably repeatable jab, heavier sustained work as the rounds pass, and direct evidence he can reorganise after Wardley's best success. The pick is not based on assuming Dubois is invulnerable. He was vulnerable twice in May, and one mistimed advance could turn this prediction upside down.",
+        "The clearest upset scenario is Wardley scoring early without surrendering his defensive shape afterwards. If he can stay behind a compact guard after the overhand right, change the angle of his retreat and force Dubois to restart his attack again and again, a decision win or a second knockdown sequence becomes possible. We would watch rounds three to six closely: if Dubois is collecting predictable exits and a steady jab, the champion is on course. If Wardley is still creating fresh angles, he is far more than a puncher's chance.",
+        "## Where to watch — and a reason to stay for the undercard",
+        "The rematch takes place at The O2 in London on Saturday 17 October 2026 and is listed for DAZN pay-per-view in the UK. Broadcast windows are published, but estimated ring walks can change with the supporting bouts; readers should check DAZN's official event guide on fight day rather than treating a prediction as an agreed bell time. Supporting bouts reported for the card include Louie O'Doherty against Michael Gomez Jr and Bakhodir Jalolov against Solomon Dacres.",
+        "**AURA verdict:** The champion has the stronger late-fight case. The challenger has proved he can create the early crisis. The difference between another thriller and a tactical reversal is not the first knockdown. It is the first minute after it."
       ],
-      "seoTitle": "Dubois dropped twice. Wardley stopped in eleven. What changes in the r",
-      "metaDescription": "Daniel Dubois survived two knockdowns before stopping Fabio Wardley in round eleven. Their October 17 rematch asks whether Wardley can protect an early lead or Dubois can",
+      "seoTitle": "Dubois vs Wardley 2 Prediction: The Tactical Verdict | AURA",
+      "metaDescription": "Daniel Dubois vs Fabio Wardley 2 prediction for 17 October: tactical keys, first-fight lessons, knockout risks and DAZN viewing details.",
       "tags": [
         "boxing",
-        "news",
-        "analysis"
+        "Daniel Dubois",
+        "Fabio Wardley",
+        "WBO heavyweight",
+        "fight prediction",
+        "tactical analysis",
+        "October 17",
+        "heavyweights"
       ],
       "coverageStage": "Build-up",
       "fightId": "dubois-wardley-2"
