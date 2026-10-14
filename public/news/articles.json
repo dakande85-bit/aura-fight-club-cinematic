@@ -1087,11 +1087,11 @@
         }
       ],
       "image": {
-        "src": "https://images.ctfassets.net/lg76kxmf55ue/20NLuUhjVvI2vbidXEbes1/b8f8826d6940ab517e3b25b76044c97c/erickson_lubin_b4e8408ed9.jpg?w=1920&q=80&fm=webp",
-        "alt": "Vergil Ortiz Jr. and Erickson Lubin stand at a weigh-in with a WBC belt between them",
-        "credit": "The Ring",
-        "caption": "Ortiz remains one of the most dangerous fighters around 154–160 pounds, but the route back to Boots Ennis is becoming less direct.",
-        "sourceUrl": "https://www.ringmagazine.com/news/patrick-connor-vergil-ortiz-vs-erickson-lubin-represents-a-classic-crossroads-bout-at-154-5TRJYTE2fQlmwBtNX20iJr"
+        "src": "https://photo.boxingscene.com/uploads/VergilOrtizTKO2EricksonLubin110825.webp",
+        "alt": "Vergil Ortiz Jr. (left) and Erickson Lubin (right) exchange punches in their November 2025 boxing match.",
+        "credit": "BoxingScene — November 2025 action photography",
+        "caption": "Vergil Ortiz Jr. lands during his bout with Erickson Lubin in November 2025. This photograph is not of Keith Thurman or Boots Ennis.",
+        "sourceUrl": "https://www.boxingscene.com/articles/lights-out-vergil-ortiz-jnr-stops-erickson-lubin-in-two"
       },
       "body": [
         "## The fight fans want keeps finding another obstacle",
@@ -1124,7 +1124,8 @@
         "Ortiz–Thurman is not bad matchmaking. It is understandable matchmaking.",
         "But the Ennis fight should remain the priority because it has something Thurman cannot provide: two unbeaten elite fighters near their primes, with power, speed and genuine uncertainty on both sides.",
         "Boxing should be very careful with the phrase ‘we can make it later’. Later is where too many great fights go to disappear."
-      ]
+      ],
+      "updatedAt": "2026-10-14"
     },
     {
       "slug": "shakur-stevenson-devin-haney-advanced-talks",
@@ -1495,12 +1496,14 @@
         "The hype is finished. Now the career gets interesting."
       ],
       "image": {
-        "src": "https://www.aurafightclub.com/news/media/itauma-next-chapter-analysis.svg",
-        "alt": "Original AURA editorial illustration for analysis of Moses Itauma after defeat; not a fighter photograph",
-        "credit": "AURA Fight Club — original editorial design",
-        "caption": "Original story-specific AURA editorial artwork, not a ringside photograph.",
-        "sourceUrl": "https://www.mmafighting.com/boxing/507772/moses-itauma-vs-filip-hrgovic-full-fight-video-highlights-boxing"
-      }
+        "src": "https://queensberry.co.uk/cdn/shop/files/Moses_Itauma_1_25d630fc-05db-4e3d-9a7c-02d1455e78b3.png?v=1757674749",
+        "alt": "Moses Itauma in his official Queensberry Promotions boxing portrait; not a photograph from the Hrgovic title fight.",
+        "credit": "Queensberry Promotions — official fighter portrait",
+        "caption": "Moses Itauma: official promotional portrait. The Hrgovic fight is discussed in the article; this is an archive portrait.",
+        "sourceUrl": "https://queensberry.co.uk/pages/moses-itauma",
+        "fallbackSrc": "/news/media/itauma-next-chapter-analysis.svg"
+      },
+      "updatedAt": "2026-10-14"
     },
     {
       "slug": "who-has-the-power-in-boxing",
@@ -2244,11 +2247,11 @@
       "source": "Netflix Tudum",
       "sourceUrl": "https://www.netflix.com/tudum/features/tyson-fury-anthony-joshua-live-on-netflix",
       "image": {
-        "src": "https://global.ariseplay.com/amg/www.arise.tv/uploads/2021/01/Anthony-Joshua-vs-Tyson-Fury.jpg",
-        "alt": "Anthony Joshua and Tyson Fury promotional face-off artwork",
-        "credit": "DAZN artwork via Arise News",
-        "caption": "Anthony Joshua and Tyson Fury in promotional artwork for the long-awaited all-British heavyweight showdown.",
-        "sourceUrl": "https://www.arise.tv/fury-joshua-to-earn-record-british-paydays-for-december-11-cardiff-clash-says-warren/"
+        "src": "https://www.fightmag.com/wp-content/uploads/2026/09/tyson-fury-vs-anthony-joshua-pose.jpg",
+        "alt": "Tyson Fury and Anthony Joshua pose together at the September 2026 London launch of their December heavyweight bout.",
+        "credit": "Richard Pelham / Getty Images for Netflix, via FIGHTMAG",
+        "caption": "London launch pose from September 2026; this is an authentic archival promotional photograph.",
+        "sourceUrl": "https://www.fightmag.com/photos-tyson-fury-and-anthony-joshua-at-launch-press-conference/"
       },
       "category": "Headlines",
       "date": "2026-10-01",
@@ -2257,7 +2260,8 @@
       "videoUrl": "https://www.youtube.com/watch?v=v_WSnGUbNm4",
       "priority": 100,
       "fightId": "fury-joshua",
-      "coverageStage": "Build-up"
+      "coverageStage": "Build-up",
+      "updatedAt": "2026-10-14"
     },
     {
       "slug": "canelo-mbilli-october-date",
