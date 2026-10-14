@@ -111,7 +111,7 @@ export function LifestyleSection() {
      <p className="aura-ed-kicker">Private access</p>
      <h2>Join the Fight Club.</h2>
      <p>Get first access to exclusive designs, limited concepts, private drops and what AURA is building next.</p>
-     <Link to="/members" className="aura-life-cta">Join the Fight Club</Link>
+     <a href="mailto:hello@aurafightclub.com?subject=AURA%20design%20enquiry" className="aura-life-cta">Enquire about future designs</a>
    </aside>
  </section>;
 }

@@ -5,21 +5,30 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import {PageSEO} from '../components/SEO.jsx';
 import {useArticles} from '../hooks/useArticles.js';
+import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
+import {getFighterByName} from '../data/seoEntities.js';
 import '../styles/fight-hub.css';
-
-const editorialPicks=[
- {fightId:'canelo-mbilli',slug:'canelo-mbilli-prediction-analysis',name:'Canelo Álvarez vs Christian Mbilli',date:'31 October 2026',pick:'AURA leans Canelo by close decision',method:'Timing and cleaner counters versus Mbilli’s sustained pressure',watch:'Mbilli’s balance and output after the first counter',disclaimer:'Conditional pre-fight prediction, not a reported result.'},
- {fightId:'fury-joshua',slug:'fury-joshua-fight-preview',name:'Tyson Fury vs Anthony Joshua',date:'11 December 2026',pick:'AURA leans Fury, narrowly',method:'Tempo disruption and positioning versus Joshua’s organised jab and power',watch:'Whether Joshua can cut off the ring without reaching',disclaimer:'Conditional pre-fight prediction, not a reported result.'}
-];
-const questions=[
- {title:'Can Anthony Joshua rewrite his legacy against Tyson Fury?',slug:'anthony-joshua-redemption-fury-legacy'},
- {title:'Could Ben Whittaker handle an elite light-heavyweight?',slug:'whittaker-wallace-reaction-late-scare'},
- {title:'Does boxing need a new championship structure?',slug:'gassiev-wba-championship-fury-joshua-confusion'},
- {title:'Which fighting style rules boxing today?',slug:'current-boxing-champions-fighting-styles'}
-];
+const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Atlantic/Canary',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 export default function VerdictPage(){
- const {articles}=useArticles();
+ const {articles=[]}=useArticles();
  const [picks,setPicks]=useState(()=>{try{return JSON.parse(localStorage.getItem('aura-predictions')||'{}')}catch{return {}}});
  const selectPick=(id,name)=>setPicks(current=>{const next={...current,[id]:name};try{localStorage.setItem('aura-predictions',JSON.stringify(next))}catch{}return next});
- return <><PageSEO title="The Verdict — Boxing Debates and Opinions | AURA Fight Club" description="Independent boxing debate, tactical questions and editorial verdicts from Aura Fight Club." canonicalPath="/verdict"/><Header/><main className="fh-page"><header className="fh-intro"><p className="fh-kicker">AURA / The Verdict</p><h1>THE QUESTIONS BOXING FANS ASK.</h1><p>Independent opinion, arguments and the stories behind boxing's biggest debates.</p></header><section className="fh-predictions" aria-labelledby="aura-picks-heading"><h2 id="aura-picks-heading">AURA PREDICTIONS &amp; FIGHT INTELLIGENCE</h2><p>Our editorial picks explain the boxing, not just the favourite. Every call includes the technical route to victory, the opponent's counterargument, and what could invalidate our pick. Picks are opinion, never guaranteed outcomes.</p><div className="fh-prediction-grid">{editorialPicks.filter(p=>edition.fights.some(f=>f.id===p.fightId&&f.status!=='Completed')).map(p=><article key={p.fightId}><p>{p.date} · Pre-fight analysis</p><h3>{p.name}</h3><p><strong>{p.pick}</strong></p><p>{p.method}</p><p><strong>What to watch:</strong> {p.watch}</p><small>{p.disclaimer}</small><p><Link to={`/news/${p.slug}`}>Read the full tactical prediction →</Link></p></article>)}</div></section><section className="fh-predictions"><h2>WHO WINS?</h2><p>Make your predictions for upcoming fights. Picks are saved on this device only; no fabricated community totals.</p><div className="fh-prediction-grid">{edition.fights.filter(f=>f.status!=="Completed"&&f.date>=new Date().toISOString().slice(0,10)).slice(0,6).map(f=><article key={f.id}><p>{f.date} · {f.division}</p><h3><Link to={`/fights/${f.id}`}>{f.name}</Link></h3><div className="fh-pick-options">{f.fighters.map(name=><button type="button" key={name} aria-pressed={picks[f.id]===name} onClick={()=>selectPick(f.id,name)}>{name}</button>)}</div>{picks[f.id]&&<small>Your prediction: {picks[f.id]}</small>}</article>)}</div></section><div className="fh-list">{questions.map(q=>{const article=articles.find(a=>a.slug===q.slug);return <article className="fh-event" key={q.slug}><p className="fh-kicker">AURA debate</p><h2>{q.title}</h2><p>{article?.summary||'Explore the arguments and analysis behind the question.'}</p><Link to={`/news/${q.slug}`}>Read the analysis →</Link></article>})}</div><p className="fh-disclaimer">Predictions currently remain on the reader's device. Shared vote percentages and leaderboards require a moderated server-side voting system.</p></main><Footer/></>;
+ const upcoming=edition.fights.filter(f=>f.status!=='Completed'&&f.date>=today()).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,10);
+ return <><PageSEO title="Fight Predictions & Previews | AURA Fight Club" canonicalPath="/verdict" description="Upcoming boxing fights, tactical predictions, verified broadcast information and your own predictions."/><Header/>
+ <main className="fh-page aura-verdict-page">
+ <header className="fh-intro"><p className="fh-kicker">AURA / FIGHT PREDICTIONS</p><h1>BEFORE THE BELL.</h1><p>Who wins — and why? Upcoming matchups, technical keys, tactical previews and your fight-night predictions.</p><small>Predictions are opinions, not betting advice. Your picks stay on this device; no artificial voting totals.</small></header>
+ <div className="aura-verdict-grid">{upcoming.map(f=>{
+ const preview=articles.find(a=>a.fightId===f.id&&/prediction|preview|build-up|analysis/i.test([a.title,a.category,a.coverageStage].join(' ')));
+ const names=(f.fighters||[]).slice(0,2);
+ return <article className="aura-verdict-card" key={f.id}>
+  <p className="fh-kicker">{f.date} · {f.division}</p>
+  <div className="aura-verdict-faceoff">{names.map(name=>{const fighter=getFighterByName(name);return <div key={name} className="aura-verdict-faceoff__side"><VerifiedPhoto fighterSlug={fighter?.slug} label={name}/><strong>{name}</strong></div>})}{names.length===2&&<span className="aura-verdict-vs">VS</span>}</div>
+  <h2><Link to={`/fights/${f.id}`}>{f.name}</Link></h2><p>{f.venue} · <strong>{f.broadcastStatus==='confirmed'?f.broadcast:'Broadcaster not confirmed'}</strong></p>
+  {preview?<div className="aura-verdict-preview"><span>THE TACTICAL PREVIEW</span><Link to={`/news/${preview.slug}`}>{preview.title} →</Link></div>:<p className="aura-verdict-awaiting">Detailed preview coming when independently researched.</p>}
+  {names.length===2&&<div className="fh-pick-options">{names.map(name=><button key={name} type="button" aria-pressed={picks[f.id]===name} onClick={()=>selectPick(f.id,name)}>{name}</button>)}</div>}
+  {picks[f.id]&&<small>Your pick: {picks[f.id]}</small>}
+  <Link className="aura-verdict-details" to={`/fights/${f.id}`}>Fight details and verified start times →</Link>
+ </article>})}</div>
+ {!upcoming.length&&<p>No upcoming confirmed events are currently listed.</p>}
+ </main><Footer/></>;
 }
