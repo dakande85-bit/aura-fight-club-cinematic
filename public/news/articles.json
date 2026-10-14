@@ -766,12 +766,12 @@
         }
       ],
       "image": {
-        "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Deontay%20Wilder%202018%20(cropped).jpg",
+        "src": "https://imgsrv2.voi.id/UGx9gYna9bxVykqRaSO_BF1cimXQsYfFluQ8E38bcag/auto/1200/675/sm/1/bG9jYWw6Ly8vcHVibGlzaGVycy81NjgxNzAvMjAyNjA0MDUxMzQ1LW1haW4uY3JvcHBlZF8xNzc1MzcxNTIwLmpwZw.jpg",
         "fallbackSrc": "/news/media/wilder-opetaia-undercard-rumour.svg",
-        "alt": "Deontay Wilder at a 2018 boxing event; archive photograph, not an image of a bout with Jai Opetaia.",
-        "credit": "Zach Catanzareti Photo / Wikimedia Commons · CC BY-SA 2.0",
-        "caption": "Archive portrait of Wilder from 2018. The proposed Opetaia contest is unconfirmed; this is not a face-off photo.",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Deontay_Wilder_2018_(cropped).jpg"
+        "alt": "Deontay Wilder in boxing gloves in his 2026 fight with Derek Chisora",
+        "credit": "VOI — Wilder vs Chisora archival photograph",
+        "caption": "Archive boxing action from Wilder–Chisora, not the proposed Wilder–Opetaia bout.",
+        "sourceUrl": "https://voi.id/en/sports/568170"
       },
       "body": [
         "## A rumour worth analysing, not advertising as a signed fight",
@@ -1204,11 +1204,11 @@
         }
       ],
       "image": {
-        "src": "https://www.rte.ie/images/00245710-800.jpg",
-        "alt": "Daniel Dubois and Fabio Wardley exchange in their May 2026 heavyweight title fight",
-        "credit": "RTÉ Sport — fight photograph",
-        "caption": "Daniel Dubois and Fabio Wardley in their first heavyweight title meeting, May 2026. Archive photograph.",
-        "sourceUrl": "https://www.rte.ie/sport/boxing/2026/0509/1572571-dubois-stops-wardley-in-ferocious-heavyweight-clash/"
+        "src": "https://photo.boxingscene.com/uploads/DanielDubois-TKO-FabioWardley-05092026-03.webp",
+        "alt": "Daniel Dubois and Fabio Wardley boxing during their first fight",
+        "credit": "BoxingScene — fight-night photograph",
+        "caption": "In-ring action from the first Dubois–Wardley fight; not the scheduled rematch.",
+        "sourceUrl": "https://www.boxingscene.com/articles/daniel-dubois-ready-to-go-fabio-wardley-warned"
       },
       "body": [
         "## Two knockdowns, one stoppage and an unfinished argument",
@@ -2287,11 +2287,11 @@
       "source": "Boxing News",
       "sourceUrl": "https://boxingnewsonline.net/news/crawford-on-calls-to-end-retirement/",
       "image": {
-        "src": "https://cdn-img.boxingnewsonline.net/uploads/content/1789486130761762544/Terence-Crawford.jpg",
-        "alt": "Terence Crawford wearing a grey shirt with one hand beside his ear",
-        "credit": "Getty, via Boxing News",
-        "caption": "Source portrait; not a photograph of an announced comeback.",
-        "sourceUrl": "https://boxingnewsonline.net/news/crawford-on-calls-to-end-retirement/"
+        "src": "https://www.thefightcity.com/wp-content/uploads/2023/07/111-Crawford-and-Spence.jpg",
+        "alt": "Terence Crawford in boxing action against Errol Spence in 2023",
+        "credit": "The Fight City — boxing archive",
+        "caption": "Crawford vs Spence in 2023; archive fight photograph.",
+        "sourceUrl": "https://www.thefightcity.com/spence-vs-crawford-virtuoso-performance-boxing/"
       },
       "body": [
         "Terence Crawford has reached the part of a great fighter’s career where staying away can make almost as much noise as fighting. Every mention of his name becomes a possible opponent announcement. Every exchange with an active boxer becomes a comeback clue. The question is whether any of that excitement reflects what Crawford actually wants.",
