@@ -3,6 +3,50 @@
   "note": "Draft assets only; no TikTok or YouTube publishing performed.",
   "items": [
     {
+      "slug": "fury-joshua-undercard-fights-rumours",
+      "article_url": "https://www.aurafightclub.com/news/fury-joshua-undercard-fights-rumours",
+      "image_url": "https://www.aurafightclub.com/news/social/fury-joshua-undercard-fights-rumours.jpg",
+      "fingerprint": "8e36440c0d8f72",
+      "generated_on": "2026-10-14",
+      "headline": "Wilder vs Opetaia: a terrifying puncher's chance or a southpaw masterclass?",
+      "suggested_caption": "Wilder vs Opetaia: a terrifying puncher's chance or a southpaw masterclass? — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
+      "status": "draft_not_posted",
+      "platforms": [
+        "TikTok",
+        "Instagram",
+        "YouTube"
+      ],
+      "requires": [
+        "platform account connected",
+        "publishing permission granted",
+        "platform/content-policy review",
+        "image and source rights checked",
+        "TikTok content sharing rules: no external promotional branding"
+      ]
+    },
+    {
+      "slug": "dubois-wardley-rematch-technical-preview",
+      "article_url": "https://www.aurafightclub.com/news/dubois-wardley-rematch-technical-preview",
+      "image_url": "https://www.aurafightclub.com/news/social/dubois-wardley-rematch-technical-preview.jpg",
+      "fingerprint": "7d25df0a2952a1",
+      "generated_on": "2026-10-14",
+      "headline": "Dubois vs Wardley II: our prediction, the rematch adjustments and the danger of round one",
+      "suggested_caption": "Dubois vs Wardley II: our prediction, the rematch adjustments and the danger of round one — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
+      "status": "draft_not_posted",
+      "platforms": [
+        "TikTok",
+        "Instagram",
+        "YouTube"
+      ],
+      "requires": [
+        "platform account connected",
+        "publishing permission granted",
+        "platform/content-policy review",
+        "image and source rights checked",
+        "TikTok content sharing rules: no external promotional branding"
+      ]
+    },
+    {
       "slug": "sergio-mendoza-ricardo-sandoval-upset-reaction-2026",
       "article_url": "https://www.aurafightclub.com/news/sergio-mendoza-ricardo-sandoval-upset-reaction-2026",
       "image_url": "https://www.aurafightclub.com/news/social/sergio-mendoza-ricardo-sandoval-upset-reaction-2026.jpg",
@@ -465,28 +509,6 @@
       ]
     },
     {
-      "slug": "fury-joshua-undercard-fights-rumours",
-      "article_url": "https://www.aurafightclub.com/news/fury-joshua-undercard-fights-rumours",
-      "image_url": "https://www.aurafightclub.com/news/social/fury-joshua-undercard-fights-rumours.jpg",
-      "fingerprint": "8c4bb8addf0f1d",
-      "generated_on": "2026-10-12",
-      "headline": "Wilder vs Opetaia on Fury–Joshua? The rumour is serious — but the fight isn't signed.",
-      "suggested_caption": "Wilder vs Opetaia on Fury–Joshua? The rumour is serious — but the fight isn't signed. — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
-      "status": "draft_not_posted",
-      "platforms": [
-        "TikTok",
-        "Instagram",
-        "YouTube"
-      ],
-      "requires": [
-        "platform account connected",
-        "publishing permission granted",
-        "platform/content-policy review",
-        "image and source rights checked",
-        "TikTok content sharing rules: no external promotional branding"
-      ]
-    },
-    {
       "slug": "fury-joshua-fight-preview",
       "article_url": "https://www.aurafightclub.com/news/fury-joshua-fight-preview",
       "image_url": "https://www.aurafightclub.com/news/social/fury-joshua-fight-preview.jpg",
@@ -560,28 +582,6 @@
       "generated_on": "2026-10-12",
       "headline": "The fights Saudi money made possible",
       "suggested_caption": "The fights Saudi money made possible — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
-      "status": "draft_not_posted",
-      "platforms": [
-        "TikTok",
-        "Instagram",
-        "YouTube"
-      ],
-      "requires": [
-        "platform account connected",
-        "publishing permission granted",
-        "platform/content-policy review",
-        "image and source rights checked",
-        "TikTok content sharing rules: no external promotional branding"
-      ]
-    },
-    {
-      "slug": "dubois-wardley-rematch-technical-preview",
-      "article_url": "https://www.aurafightclub.com/news/dubois-wardley-rematch-technical-preview",
-      "image_url": "https://www.aurafightclub.com/news/social/dubois-wardley-rematch-technical-preview.jpg",
-      "fingerprint": "5f1ff82ac694c9",
-      "generated_on": "2026-10-12",
-      "headline": "Dubois dropped twice. Wardley stopped in eleven. What changes in the rematch?",
-      "suggested_caption": "Dubois dropped twice. Wardley stopped in eleven. What changes in the rematch? — AURA Fight Club. Full breakdown on our website (profile link where available). #Boxing #BoxingNews",
       "status": "draft_not_posted",
       "platforms": [
         "TikTok",
