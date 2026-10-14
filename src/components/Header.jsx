@@ -4,13 +4,11 @@ import {spanishArticles} from '../i18n/esArticles.js';
 import { useBrandLogo } from '../hooks/usePageMedia.js';
 
 const navItems = [
-  { label: 'Fight News', href: '/news' },
-  { label: 'Fight Hub', href: '/fight-hub' },
-  { label: 'Rankings', href: '/rankings' },
-  { label: 'Fighters', href: '/fighters' },
-  { label: 'Film Room', href: '/film-room' },
-  { label: 'The Verdict', href: '/verdict' },
-  { label: 'The Club', href: '/members' },
+  {label:'Fight News',href:'/news'},
+  {label:'Fighter Intelligence',href:'/fighters'},
+  {label:'Fight Analysis',href:'/film-room'},
+  {label:'Predictions',href:'/verdict'},
+  {label:'The Club',href:'/members'},
 ];
 
 export default function Header() {
