@@ -423,38 +423,57 @@
     },
     {
       "slug": "anthony-joshua-redemption-fury-legacy",
-      "title": "Anthony Joshua's chance of redemption against Tyson Fury",
-      "summary": "Can Joshua turn a long-awaited British heavyweight rivalry into the defining late chapter of his career?",
+      "title": "Joshua vs Fury: redemption is not one knockout — it's twelve rounds of control",
+      "summary": "Anthony Joshua needs more than a late-career statement punch against Tyson Fury. We examine the jab, feints, concentration and what the 2026 Cardiff fight would actually prove.",
       "date": "2026-10-09",
-      "updatedAt": "2026-10-09",
+      "updatedAt": "2026-10-14",
       "category": "AURA Deep Dive",
       "articleType": "Analysis",
       "featured": false,
-      "priority": 232,
+      "priority": 78,
       "source": "Boxing reporting",
       "sourceUrl": "https://www.reuters.com/sports/cardiff-stadium-application-seeks-1-am-slot-fury-v-joshua-ring-walks-2026-10-08/",
       "sources": [
         {
-          "name": "Reporting and background",
+          "name": "Netflix — official fight and broadcast",
+          "url": "https://www.netflix.com/tudum/features/tyson-fury-anthony-joshua-live-on-netflix"
+        },
+        {
+          "name": "Reuters — Cardiff stadium and proposed late ring walks",
           "url": "https://www.reuters.com/sports/cardiff-stadium-application-seeks-1-am-slot-fury-v-joshua-ring-walks-2026-10-08/"
+        },
+        {
+          "name": "The Guardian — confirmed December venue",
+          "url": "https://www.theguardian.com/sport/2026/sep/24/tyson-fury-anthony-joshua-cardiff-principality-stadium-december-boxing"
         }
       ],
       "image": {
-        "src": "https://www.aurafightclub.com/news/media/joshua-legacy-analysis.svg",
-        "alt": "Original AURA graphic for Anthony Joshua legacy analysis; not a fighter photograph",
-        "credit": "AURA Fight Club — original editorial design",
-        "caption": "Original story-specific AURA editorial artwork, not a ringside photograph.",
-        "sourceUrl": "https://www.reuters.com/sports/cardiff-stadium-application-seeks-1-am-slot-fury-v-joshua-ring-walks-2026-10-08/"
+        "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Anthony%20Joshua.jpg",
+        "fallbackSrc": "/news/media/joshua-legacy-analysis.svg",
+        "alt": "Anthony Joshua at a 2012 London Olympic victory parade, an archival portrait; Tyson Fury is not pictured.",
+        "credit": "Bill / Wikimedia Commons — CC BY 2.0",
+        "caption": "Archive photograph of Anthony Joshua; does not depict the Fury fight.",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anthony_Joshua.jpg"
       },
       "body": [
-        "Anthony Joshua's Olympic gold medal, unified world titles and enormous commercial impact have already secured his place in British boxing history. Yet the shadow of difficult defeats remains part of his public reputation.",
-        "A long-awaited fight with Tyson Fury would test Joshua in a different way. Fury's feints, unpredictable movement and ability to alter tempo could disrupt the rhythm Joshua prefers.",
-        "Joshua will need intelligent aggression: a reliable jab, accurate straight punches and disciplined exits rather than the temptation to force a spectacular finish at every opportunity.",
-        "The emotional stakes are substantial. A win would not rewrite defeats against Andy Ruiz Jr, Oleksandr Usyk or Daniel Dubois, but it would add a defining victory over the rival whose name has followed his throughout his career.",
-        "AURA verdict: redemption means proving adaptation, not simply landing one great punch. Fury presents the precise test Joshua needs to answer."
+        "## The test is not whether Joshua can still punch",
+        "Anthony Joshua has already secured an Olympic gold medal, heavyweight world titles and a commercial legacy few British boxers can match. The December showdown with Tyson Fury at Cardiff's Principality Stadium offers a different kind of opportunity. One victory cannot undo defeats to Andy Ruiz Jr, Oleksandr Usyk or Daniel Dubois. It can, however, show whether Joshua has learned to solve a fighter whose rhythm and movement are unlike those of most heavyweights.",
+        "Fury and Joshua are due to meet on 11 December in an event carried by Netflix. A proposal for ring walks after midnight has been submitted to Cardiff authorities; this should not be confused with a confirmed bell time. The date and opponent are fixed enough for serious study. The exact contest tempo, of course, will not be known until the first exchange.",
+        "## Fury's feint is the first punch",
+        "Fury can make an opponent spend precious reactions before throwing anything. A twitch of the lead shoulder can draw a parry, a half-step can invite a jab, and an awkward pause may leave the other boxer impatient enough to come forward without a safe exit. Joshua cannot afford to answer every false attack with a full-body commitment.",
+        "Joshua's jab must serve as a rangefinder and an interruption rather than a request for permission. When he touches Fury's lead glove or chest and steps with balance, he can limit how long Fury has to organise the next feint. But chasing the head while Fury is moving will create long empty spaces in which Joshua can be countered.",
+        "## Why the clinch will matter",
+        "A discussion of Fury's height and reach is incomplete without the clinch. Fury can use his frame to interrupt a shorter burst and make an opponent restart. Joshua needs to recognise when to fight for inside position and when to release rather than wasting energy wrestling. A clean one-two followed by a controlled pivot is worth far more than throwing an impressive combination and then allowing Fury to tie up the final punch.",
+        "Joshua also cannot wait for a referee to manufacture distance. Elite heavyweight fights are often won by the man who decides where an exchange ends. That means knowing when the feet should move and maintaining guard discipline even after an apparent scoring moment.",
+        "## Joshua's strongest route is patient pressure",
+        "Fury is more troublesome when he controls the pace with his feet. Joshua should therefore contest the centre of the ring without becoming desperate. Small forward steps, lead-hand feints of his own and measured body work could force Fury to move more often than he wishes. The important difference is between cutting off the ring and following a moving target around it.",
+        "Joshua's recent bouts have also shown both vulnerability and the ability to recover from trouble. Neither proves he has a fragile chin or an indestructible one. Punch resistance is not a fixed number divorced from posture, the shot's angle and whether a fighter sees it coming.",
+        "## AURA's pre-fight view",
+        "Fury has the stylistic advantage in long periods of open space, where his rhythm changes can make Joshua hesitate. Joshua has a live route through a disciplined jab, body attacks and sustained pressure that keeps Fury from dictating the full contest. This is not a prediction of a comfortable night for either man.",
+        "If Joshua wins by meeting those demands for twelve rounds, it will say more about his development than a one-punch finish against a badly positioned opponent. Redemption is a powerful headline. Technical adaptation is the performance that makes the headline credible."
       ],
-      "seoTitle": "Anthony Joshua's chance of redemption against Tyson Fury",
-      "metaDescription": "Can Joshua turn a long-awaited British heavyweight rivalry into the defining late chapter of his career?",
+      "seoTitle": "Joshua vs Fury: The Tactical Redemption Test | AURA",
+      "metaDescription": "Why Anthony Joshua must manage Fury's feints, clinches and tempo in Cardiff. A technical study of Britain's defining heavyweight rivalry.",
       "tags": [
         "boxing",
         "news",
@@ -464,20 +483,28 @@
     },
     {
       "slug": "current-boxing-champions-fighting-styles",
-      "title": "Boxing styles explained: where do today's champions fit?",
-      "summary": "Out-boxers, boxer-punchers, pressure fighters and counterpunchers — how champions combine the categories.",
+      "title": "Five boxing styles that decide elite fights — and why the labels mislead",
+      "summary": "Out-boxer, pressure fighter, counterpuncher, boxer-puncher or switch-hitter? We explain the footwork and tactical choices behind these terms using today's leading boxers.",
       "date": "2026-10-09",
-      "updatedAt": "2026-10-09",
-      "category": "AURA Deep Dive",
+      "updatedAt": "2026-10-14",
+      "category": "The Fight Lab",
       "articleType": "Analysis",
       "featured": false,
-      "priority": 230,
+      "priority": 75,
       "source": "Boxing reporting",
       "sourceUrl": "https://www.ringmagazine.com/",
       "sources": [
         {
-          "name": "Reporting and background",
+          "name": "The Ring — official boxing rankings and division context",
           "url": "https://www.ringmagazine.com/"
+        },
+        {
+          "name": "PBC — Fundora style and fight record",
+          "url": "https://www.premierboxingchampions.com/sebastian-fundora"
+        },
+        {
+          "name": "Sky Sports — Dubois–Wardley fight dynamics",
+          "url": "https://www.skysports.com/boxing/news/12183/13578815/daniel-dubois-vs-fabio-wardley-rematch-announced-to-take-place-in-october-with-the-o2-in-london-set-to-host-heavyweight-showdown"
         }
       ],
       "image": {
@@ -488,15 +515,28 @@
         "sourceUrl": "https://www.ringmagazine.com/"
       },
       "body": [
-        "Boxing's familiar categories are useful starting points, but elite boxers rarely remain inside a single definition. The best fighters adapt according to distance, opponent and the changing tempo of a contest.",
-        "Shakur Stevenson exemplifies the defensive technician: he limits clean opportunities through distance, anticipation and accurate counters. That does not mean he simply runs or refuses to engage.",
-        "Dmitry Bivol is a disciplined boxer-puncher whose compact combinations and efficient footwork sustain pressure without sacrificing defensive shape.",
-        "Agit Kabayel offers a form of methodical pressure built around body attacks and ring cutting. Sebastian Fundora offers another: extraordinary height combined with unusually willing inside fighting.",
-        "Daniel Dubois represents the explosive heavyweight puncher, but even his hardest shots rely on a jab and correct positioning. Power is a technical outcome as well as a physical gift.",
-        "AURA verdict: styles make most sense as matchups. Who controls the feet, the lead hand and the space between exchanges matters more than a single label."
+        "## Stop calling every fighter a puncher or a runner",
+        "Boxing styles are useful shorthand, but they become misleading when they are treated as rigid categories. A world-class fighter may out-box on the outside, exchange as a boxer-puncher at mid-range and counterpunch when an opponent finally forces an entry. The more valuable question is what a boxer does to control distance, win the lead-hand battle and decide where an exchange ends.",
+        "## 1. The out-boxer: control distance without wasting ground",
+        "Shakur Stevenson is a useful example of the defensive technician. His craft is often reduced to making opponents miss. The more important skill is that his feet and lead hand make attacks begin from poor positions. If an opponent must overextend just to reach him, even a perfectly thrown punch arrives late. This is active range control, not simply moving backwards.",
+        "An out-boxer who never scores will not win rounds reliably. The defence has to create clean opportunities to reply. Watch the first half-step after a blocked jab: the best technicians have already moved into the countering lane while the opponent is still recovering.",
+        "## 2. The boxer-puncher: win the position before the exchange",
+        "Dmitry Bivol represents a disciplined form of boxer-punching. The combinations attract attention, yet the footwork that preserves his balance between them is the decisive detail. After an accurate three-punch sequence, he is often positioned to prevent the immediate answer rather than standing still to admire the work.",
+        "The danger for a boxer-puncher is trying to force the same three shots regardless of where the rival's feet are. When the lead foot is out of place, even superb hands can leave the body exposed to a simple counter.",
+        "## 3. The pressure fighter: close the doors",
+        "Agit Kabayel's methodical pressure shows that forward motion need not resemble charging. His body work and ring cutting can remove an opponent's easy exits. Sebastian Fundora demonstrates a different form of pressure: unusual height but a willingness to stand closer and use repeated punches rather than rely on long-range point scoring.",
+        "Pressure is effective when an opponent cannot safely leave the exchange. Marching forward while eating jabs is not, by itself, ring generalship. Real ring-cutting means anticipating the opponent's preferred step and being there before he arrives.",
+        "## 4. The counterpuncher: punish the decision to attack",
+        "A counterpuncher looks for predictable entry mechanics: a jab that falls short, a shoulder that commits before the fist moves, or a habitual retreat in a straight line. The punch can be short and still decisive because the attacking boxer is moving into it.",
+        "Counterpunchers must not become so selective that they surrender whole rounds. When a rival refuses to lead, the technician must be able to initiate without giving away the defence that defines the style.",
+        "## 5. The power puncher: the punch is the end of the chain",
+        "Daniel Dubois has heavyweight power, but his most reliable finishes are prepared with a jab and balanced steps. Deontay Wilder historically produced spectacular results with the right hand, yet even his best shot needed the correct lane to travel through. Calling someone a puncher does not explain how he creates that lane.",
+        "The distinction becomes visible when the opponent survives the first shot. A complete power fighter can reset, reclaim the centre and build another clean attack rather than lunging after a hurt rival.",
+        "## What makes a style transferable to championship level?",
+        "The strongest fighters can change the plan without changing the fundamental balance of their body. Look beyond knockouts and flashy defensive clips. Ask who controlled the first move, who controlled the feet after the exchange and who had to restart the attack. Those are the small decisions behind boxing's most familiar style labels."
       ],
-      "seoTitle": "Boxing styles explained: where do today's champions fit?",
-      "metaDescription": "Out-boxers, boxer-punchers, pressure fighters and counterpunchers — how champions combine the categories.",
+      "seoTitle": "Boxing Styles Explained: What Makes a Champion? | AURA",
+      "metaDescription": "Understand the five major boxing styles through Shakur Stevenson, Dmitry Bivol, Sebastian Fundora, Daniel Dubois and today's contenders.",
       "tags": [
         "boxing",
         "news",
@@ -562,20 +602,28 @@
     },
     {
       "slug": "gassiev-wba-championship-fury-joshua-confusion",
-      "title": "Murat Gassiev: the WBA belt confusion around Fury–Joshua",
-      "summary": "Why is Gassiev seeking clarity while another WBA heavyweight title contest is being discussed?",
+      "title": "If Gassiev holds the WBA heavyweight belt, why is Fury–Joshua being discussed for it?",
+      "summary": "Murat Gassiev's current heavyweight designation and talk around Fury–Joshua expose boxing's most confusing title problem: recognition, mandatory routes and commercial power.",
       "date": "2026-10-09",
-      "updatedAt": "2026-10-09",
-      "category": "AURA Deep Dive",
+      "updatedAt": "2026-10-14",
+      "category": "Boxing Exposed",
       "articleType": "Analysis",
-      "featured": true,
-      "priority": 237,
+      "featured": false,
+      "priority": 73,
       "source": "Boxing reporting",
       "sourceUrl": "https://talksport.com/boxing/4628306/murat-gassiev-tyson-fury-anthony-joshua-wba-world-title/",
       "sources": [
         {
-          "name": "Reporting and background",
+          "name": "talkSPORT — reported Gassiev belt dispute",
           "url": "https://talksport.com/boxing/4628306/murat-gassiev-tyson-fury-anthony-joshua-wba-world-title/"
+        },
+        {
+          "name": "WBA — official championship and organisational updates",
+          "url": "https://www.wbaboxing.com/"
+        },
+        {
+          "name": "Netflix — official Fury–Joshua details",
+          "url": "https://www.netflix.com/tudum/features/tyson-fury-anthony-joshua-live-on-netflix"
         }
       ],
       "image": {
@@ -586,14 +634,22 @@
         "sourceUrl": "https://www.sfgate.com/sports/article/gassiev-marks-first-wba-heavyweight-title-defense-22341724.php"
       },
       "body": [
-        "Murat Gassiev's WBA heavyweight championship status has become the focus of an increasingly confusing debate. Reports suggest that Fury–Joshua could contest a superior WBA title designation.",
-        "The WBA has historically distinguished between 'regular' and 'super' championship titles. That system can leave casual fans unable to identify one undisputed holder of its world championship.",
-        "Gassiev has expressed uncertainty about what the organisation intends to do, reportedly without definitive communication that would resolve the matter.",
-        "A major commercial event may justify significant exposure, but sporting legitimacy depends on explaining how an existing titleholder fits into the route to top honours.",
-        "AURA verdict: the title's exact current status must be confirmed by official WBA communication. Describing Gassiev as definitively demoted or stripped would get ahead of the verified decision."
+        "## A championship should not need a legal briefing",
+        "Murat Gassiev has become part of the discussion surrounding Fury–Joshua without being booked to fight either man. Reports suggest the WBA heavyweight title situation has raised questions over whether the organisation could attach a higher designation to December's commercial blockbuster. The point is not to declare Gassiev stripped, demoted or officially displaced. None of those steps should be stated without the WBA's own decision.",
+        "The story matters because a world-title belt should identify the boxer who has won and defended a recognised championship. When an organisation operates more than one designation at the same weight, including 'Regular' and 'Super' statuses, a casual fan can struggle to know whose claim is meant to be definitive.",
+        "## The title is not the same thing as the best fighter",
+        "Every sanctioning organisation has ranking systems, mandatory challengers, negotiated exceptions and contractual obligations. Those systems can keep a title moving even when the two most acclaimed boxers are not meeting. But commercial events place a different pressure on the alphabet bodies: a recognised belt displayed in a massive promotion is a valuable asset.",
+        "The danger is reputational. If viewers believe a belt can be upgraded or reassigned for marketing reasons with little transparent sporting process, its power as evidence of merit weakens. That is precisely the concern raised when an existing champion hears discussion of another contest being linked to what the public thinks is the same title.",
+        "## What must be independently established",
+        "Three facts should be separated: the designation Gassiev currently holds; what the WBA has actually approved for Fury–Joshua; and whether a formal written resolution has been issued. Reporting about future plans is not a sanctioning-body resolution. A promotional press conference is not the official title record.",
+        "The WBA may explain a regulatory route through mandatories, vacancies or champion status. Until that explanation is published, it is more responsible to describe the uncertainty than to invent an outcome.",
+        "## Why the commercial fight makes the problem worse",
+        "Fury–Joshua does not need a belt to attract audiences. Their rivalry has carried commercial significance for years. Adding a championship designation could create promotional value, but it also risks making Gassiev's position look negotiable outside the ring. The boxer's own comments that he has not been given clarity are part of the reporting, not proof that a particular ruling is inevitable.",
+        "## AURA verdict",
+        "The issue is transparency, not whether Fury and Joshua deserve attention. Both are established heavyweights with global followings. The WBA should provide a publicly intelligible account of its champion, its mandatory route and any proposed exceptions. Boxing cannot expect fans to respect championship lineage while making them guess what the belt means."
       ],
-      "seoTitle": "Murat Gassiev: the WBA belt confusion around Fury–Joshua",
-      "metaDescription": "Why is Gassiev seeking clarity while another WBA heavyweight title contest is being discussed?",
+      "seoTitle": "Gassiev and the WBA Heavyweight Belt Confusion | AURA",
+      "metaDescription": "Why Gassiev's WBA title designation and Fury–Joshua rumours reveal the commercial politics behind boxing's heavyweight championship belts.",
       "tags": [
         "boxing",
         "news",
@@ -808,44 +864,57 @@
     },
     {
       "slug": "osleys-iglesias-champion-profile",
-      "title": "Osleys Iglesias: boxing's most dangerous unknown champion?",
-      "summary": "Osleys Iglesias has serious power, but the real threat lies in the southpaw timing and positional craft behind his knockouts.",
+      "title": "Iglesias stopped Zaren after six. Why the next test must be bigger",
+      "summary": "The Cuban IBF champion retained his title when Oliver Zaren's corner called time before round seven. The stoppage raises a stronger question: who can make Iglesias box under pressure for twelve?",
       "date": "2026-10-09",
-      "updatedAt": "2026-10-09",
-      "category": "AURA Deep Dive",
+      "updatedAt": "2026-10-14",
+      "category": "Post-fight reaction",
       "articleType": "Analysis",
       "featured": false,
-      "priority": 229,
-      "source": "Boxing reporting",
-      "sourceUrl": "https://as.com/us/masdeporte/osleys-iglesias-vs-oliver-zaren-a-que-hora-inicia-la-pelea-y-donde-ver-en-usa-la-funcion-de-box-2026-f202610-n/",
+      "priority": 85,
+      "source": "AS USA",
+      "sourceUrl": "https://as.com/us/masdeporte/osleys-iglesias-derrota-a-oliver-zaren-por-nocaut-tecnico-f202610-n/",
       "sources": [
         {
-          "name": "Reporting and background",
-          "url": "https://as.com/us/masdeporte/osleys-iglesias-vs-oliver-zaren-a-que-hora-inicia-la-pelea-y-donde-ver-en-usa-la-funcion-de-box-2026-f202610-n/"
+          "name": "AS USA — verified result and corner stoppage",
+          "url": "https://as.com/us/masdeporte/osleys-iglesias-derrota-a-oliver-zaren-por-nocaut-tecnico-f202610-n/"
+        },
+        {
+          "name": "The Ring — opponent records and pre-fight context",
+          "url": "https://www.ringmagazine.com/news/VxAqTbFGKirVrSQgmiY6K"
         }
       ],
       "image": {
-        "src": "https://images.ctfassets.net/lg76kxmf55ue/jPGStLrRCQfJT4Lf35Uw7/e2198944be374ad230f004994d63d00d/Iglesias_e01e8d9825.jpeg?fm=webp&q=80&w=1920",
-        "alt": "Osleys Iglesias pictured with his championship belt during a press conference alongside Vladimir Shishkin",
-        "credit": "The Ring — archival press conference photograph",
-        "caption": "Osleys Iglesias pictured at a previous press conference with Vladimir Shishkin. Archive photo.",
-        "sourceUrl": "https://www.ringmagazine.com/news/osleys-iglesias-embraces-difficult-test-vs-vladimir-shishkin-6Xiww6sZIbPQvglXrsuKhW"
+        "src": "https://images.ctfassets.net/lg76kxmf55ue/2UVF4dh5iG3lSByLctmLRd/db19c0c66d2c1d7895709cabcf3b586e/Iglesias_action2_0dff546c7b.jpg",
+        "alt": "Osleys Iglesias in the ring against Vladimir Shishkin in a 2025 world-title eliminator; not an image of Oliver Zaren.",
+        "credit": "The Ring — licensed editorial archive photography",
+        "caption": "Archive action image: Iglesias against Vladimir Shishkin, September 2025. This is not the Zaren bout.",
+        "sourceUrl": "https://www.ringmagazine.com/news/osleys-iglesias-stops-vladimir-shishkin-in-8-wins-ibf-168-pound-title-eliminator-6rK4YRioJ7Vb4pfQnPZ0kK"
       },
       "body": [
-        "Iglesias's astonishing stoppage record attracts headlines, yet his technical control deserves just as much attention. The Cuban southpaw uses lead-hand manipulation and deceptive pauses to create room for his power shots.",
-        "Against an orthodox boxer, outside-foot positioning can open the straight left. Against another southpaw, as in the scheduled Oliver Zaren challenge, the geometry changes and subtler angles become more important.",
-        "His most difficult test would be a resilient, technically disciplined opponent able to change levels, attack his body and force him to sustain a high work rate beyond short explosive sequences.",
-        "The question is whether his success will translate into a defining fight against the division's established elite. His ability to cut the ring and defend after throwing will matter as much as his punching power.",
-        "AURA verdict: Iglesias should be assessed as a complete technician with fight-ending power, not simply a knockout statistic. The October 8 result must be incorporated once officially verified."
+        "## The result was decisive. The next question is more difficult",
+        "Osleys Iglesias retained the IBF super-middleweight world title on 8 October in Quebec when Oliver Zaren's corner stopped their contest before the start of round seven. Accounts of the fight describe the Cuban champion steadily increasing the pressure and opening damage around Zaren's eye during the sixth. His team decided there was no benefit in sending him back out. A corner retirement is not a flash knockout, but it can be the clearest expression of sustained dominance.",
+        "Iglesias arrived with one of the division's most imposing knockout records. The most revealing element of his rise, however, is not the simple arithmetic of stoppages; it is the way he makes opponents work at a pace they do not choose. A fighter who can strike hard after feinting, pause without surrendering distance and defend after his own attack gives an opponent fewer clean opportunities to reset.",
+        "## A southpaw who controls the tempo",
+        "The Cuban's southpaw stance creates an inviting route to the straight left against conventional orthodox opponents. But a stance alone wins nothing. Iglesias wants his lead hand to occupy the guard and his feet to define the angle, so his heavier punch arrives when the defender is turning or frozen. His restraint between attacks is what makes the next burst difficult to anticipate.",
+        "Zaren was unbeaten before this assignment, and reports indicate he tried to survive the champion's strongest moments by taking hold and slowing the exchanges. That can buy a few seconds; it does not change the basic terms of the fight unless the challenger also answers with his own scoring punches. Once Iglesias could re-establish range, the cost accumulated.",
+        "## Power is only half of the examination",
+        "A good technician can expose a puncher who needs both feet planted. Iglesias has looked more sophisticated than that. The test for his future challengers is whether they can make him miss twice in the same exchange and then score before he regains his shape. Constant lateral changes, touching the body on entry and stepping out past the lead shoulder may prove more valuable than spending ten rounds behind a motionless high guard.",
+        "The opposing temptation is to retreat until there is no ring left. Against a patient, aggressive southpaw, moving straight back buys little if he can keep extending the jab and closing the distance. The most credible strategy would combine controlled movement with intermittent hard counters that make Iglesias respect the cost of coming forward.",
+        "## Which rival would answer the real question?",
+        "At 168 pounds, the headline names are experienced fighters who can work at several distances and test a champion's defensive recovery. A bout against a technically disciplined elite rival would tell us more about Iglesias than another mismatch arranged to add to a stoppage streak. That is an editorial preference, not an assertion any future contract is signed.",
+        "Iglesias should be judged by ring position, the quality of his jab and his decisions when a challenger refuses to panic. Stoppages are excellent theatre; twelve rounds against someone who continually alters the puzzle are often the proof of long-term greatness.",
+        "## AURA verdict",
+        "The Zaren fight is a significant title defence, not just another entry in a knockout column. Iglesias imposed physical and tactical pressure until the challenger could not continue. His next stage is about the calibre and styles of opposition. The sport will learn more from a difficult challenge than another stoppage whose outcome feels decided beforehand."
       ],
-      "seoTitle": "Osleys Iglesias: boxing's most dangerous unknown champion?",
-      "metaDescription": "Osleys Iglesias has serious power, but the real threat lies in the southpaw timing and positional craft behind his knockouts.",
+      "seoTitle": "Iglesias vs Zaren: What the Stoppage Revealed | AURA",
+      "metaDescription": "Osleys Iglesias retained his IBF super-middleweight title over Oliver Zaren after six rounds. Detailed reaction to his controlled power and what comes next.",
       "tags": [
         "boxing",
         "news",
         "analysis"
       ],
-      "coverageStage": ""
+      "coverageStage": "Reaction"
     },
     {
       "slug": "why-japan-keeps-producing-elite-boxers",
