@@ -211,3 +211,9 @@
 .aura-verdict-details{display:block;color:#916326;font-weight:800;border-top:1px solid #d9d5cb;margin-top:17px;padding-top:16px;text-decoration:none}
 @media(max-width:850px){.aura-analysis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.aura-intelligence-group .aura-fighter-directory{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:620px){.aura-analysis-grid,.aura-verdict-grid{grid-template-columns:1fr}.aura-intelligence-group{padding:35px 15px 8px}.aura-intelligence-group .aura-fighter-directory{grid-template-columns:1fr!important}.aura-intelligence-group__head{align-items:flex-start;flex-direction:column}.aura-intelligence-group .aura-fighter-tile__photo{min-height:0!important}.aura-verdict-faceoff__side{height:145px}}
+
+/* Grouped fighter index uses its own compact heading hierarchy. */
+.aura-intelligence-group .aura-fighter-tile__info h3{font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:clamp(20px,2.5vw,31px);line-height:1.08;color:#f4f1ea;font-weight:900;text-transform:uppercase;letter-spacing:-.015em;margin:5px 0 7px}
+.aura-intelligence-group .aura-fighter-tile__info{align-self:stretch}
+.aura-intelligence-group .aura-fighter-tile__info>strong{font-size:11px;font-weight:800;letter-spacing:.08em;color:#dab578}
+.aura-intelligence-group .aura-fighter-tile__photo .aura-photo__credit{z-index:2}
