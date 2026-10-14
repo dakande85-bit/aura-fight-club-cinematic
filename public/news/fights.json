@@ -117,20 +117,22 @@
       "division": "Super lightweight",
       "status": "Scheduled",
       "stakes": "WBC super lightweight world title",
-      "source": "The Ring",
-      "sourceUrl": "https://www.ringmagazine.com/events/smith-vs-puello-5PKFh31zcfE3LyViSLNmJK",
+      "source": "Matchroom Boxing",
+      "sourceUrl": "https://www.matchroomboxing.com/events/smith-vs-puello/",
       "broadcast": "DAZN",
       "featured": false,
       "blurb": "Smith defends his world title at home against the dangerous former champion.",
-      "broadcastStatus": "unverified",
-      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "broadcastStatus": "confirmed",
+      "broadcastTerritory": "DAZN; local viewing rights vary",
       "schedule": {
         "timeZone": "Europe/London",
         "broadcastStartUTC": null,
         "ringWalkUTC": null,
         "ringWalkStatus": "unconfirmed",
-        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
-      }
+        "timingNote": "Event is confirmed for 24 October. Exact ring walk is not independently verified."
+      },
+      "watchUrl": "https://www.matchroomboxing.com/events/smith-vs-puello/",
+      "updatedAt": "2026-10-14"
     },
     {
       "id": "foster-navarrete",
@@ -140,24 +142,26 @@
         "O'Shaquie Foster"
       ],
       "date": "2026-10-24",
-      "venue": "Alamodome, San Antonio, Texas, USA",
+      "venue": "Frost Bank Center, San Antonio, Texas, USA",
       "division": "Super featherweight",
       "status": "Scheduled",
-      "stakes": "World-title unification at 130 lb",
-      "source": "The Ring",
-      "sourceUrl": "https://www.ringmagazine.com/news/navarrete-foster-agree-to-oct-24-title-unification-3GSrEyJTBFjyh4Mf8WLgbG",
+      "stakes": "WBO, IBF and WBC super featherweight world-title unification",
+      "source": "Top Rank",
+      "sourceUrl": "https://toprank.com/news/tickets-on-sale-now-for-emanuel-navarrete-oshaquie-foster-three-belt-unification-showdown-at-frost-bank-center-in-san-antonio",
       "broadcast": "DAZN",
       "featured": true,
       "blurb": "The division's top two collide in a high-level 130 lb unification.",
-      "broadcastStatus": "unverified",
-      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "broadcastStatus": "confirmed",
+      "broadcastTerritory": "DAZN live stream; check territory",
       "schedule": {
         "timeZone": "America/Chicago",
-        "broadcastStartUTC": null,
+        "broadcastStartUTC": "2026-10-25T00:00:00Z",
         "ringWalkUTC": null,
         "ringWalkStatus": "unconfirmed",
-        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
-      }
+        "timingNote": "Top Rank lists 8pm Eastern / 5pm Pacific streaming start (7pm local CDT); ring walks depend on the undercard."
+      },
+      "watchUrl": "https://toprank.com/news/emanuel-navarrete-oshaquie-foster-unification-showdown-set-for-oct-24-at-frost-bank-center-in-san-antonio-live-on-dazn",
+      "updatedAt": "2026-10-14"
     },
     {
       "id": "canelo-mbilli",
@@ -194,24 +198,26 @@
         "Cheavon Clarke"
       ],
       "date": "2026-11-07",
-      "venue": "London, UK",
+      "venue": "Copper Box Arena, London, UK",
       "division": "Cruiserweight",
       "status": "Scheduled",
       "stakes": "Cruiserweight contest",
-      "source": "CBS Sports",
-      "sourceUrl": "https://www.cbssports.com/boxing/news/boxing-schedule-for-2026-dates-location-fights-canelo-alvarez-sebastian-fundora/",
-      "broadcast": "Paramount+",
+      "source": "Sky Sports",
+      "sourceUrl": "https://www.skysports.com/boxing/news/13591784/chris-billam-smith-will-fight-cheavon-clarke-on-november-7-at-copper-box-arena-in-london-live-on-sky-sports",
+      "broadcast": "Sky Sports (UK) / Paramount+ (US and Canada)",
       "featured": false,
       "blurb": "An important British cruiserweight contest.",
-      "broadcastStatus": "unverified",
-      "broadcastTerritory": "Check the broadcaster's regional schedule.",
+      "broadcastStatus": "confirmed",
+      "broadcastTerritory": "Sky Sports UK/Ireland; Paramount+ US/Canada. Verify other countries.",
       "schedule": {
         "timeZone": "Europe/London",
         "broadcastStartUTC": null,
         "ringWalkUTC": null,
         "ringWalkStatus": "unconfirmed",
-        "timingNote": "Start time and ring walk not independently confirmed; do not mistake a schedule estimate for an official time."
-      }
+        "timingNote": "UK coverage on Sky Sports. Main event start time has not been independently confirmed."
+      },
+      "watchUrl": "https://www.skysports.com/boxing/news/13591784/chris-billam-smith-will-fight-cheavon-clarke-on-november-7-at-copper-box-arena-in-london-live-on-sky-sports",
+      "updatedAt": "2026-10-14"
     },
     {
       "id": "kabayel-hysa",
