@@ -294,3 +294,8 @@
 .aura-article .aura-story-image img{display:block;width:100%;max-height:650px;object-fit:contain;background:#171a1b}
 .aura-story-image>a{display:block;min-width:0}
 @media(max-width:700px){.aura-news-card .aura-story-image img{aspect-ratio:16/10}}
+
+/* Keep complete event artwork legible; real ring photos use editorial crops. */
+.aura-news-card .aura-story-image img.aura-editorial-poster{object-fit:contain;background:#101a22}
+.aura-news-card .aura-story-image img.aura-editorial-photo{object-fit:cover}
+@media(max-width:700px){.aura-news-card .aura-story-image img.aura-editorial-poster{object-fit:contain}}
