@@ -102,11 +102,13 @@
         }
       ],
       "image": {
-        "src": "https://www.aurafightclub.com/news/media/aura-billam-smith-clarke-preview.svg",
-        "alt": "Original AURA boxing event artwork for Chris Billam-Smith vs Cheavon Clarke; this is not a fighter photograph",
-        "credit": "AURA Fight Club — original editorial design",
-        "caption": "Bespoke AURA prediction illustration, not a photograph.",
-        "sourceUrl": "https://www.aurafightclub.com/news/media/aura-billam-smith-clarke-preview.svg"
+        "src": "https://ichef.bbci.co.uk/ace/standard/3840/cpsprodpb/8b1e/live/a1053d40-61eb-11f1-bead-6f9a1eff93f6.jpg",
+        "alt": "Chris Billam-Smith throwing a punch in the ring against Ryan Rozicki in June 2026",
+        "credit": "BBC Sport — Billam-Smith fight archive",
+        "caption": "Chris Billam-Smith in his June 2026 bout with Ryan Rozicki; Cheavon Clarke is not depicted.",
+        "sourceUrl": "https://www.bbc.co.uk/sport/boxing/articles/cwy0xq34ekro",
+        "fallbackSrc": "/news/media/aura-billam-smith-clarke-preview.svg",
+        "focus": "center 22%"
       },
       "seoTitle": "Billam-Smith vs Clarke Prediction: Amateur Ghosts | AURA",
       "metaDescription": "Billam-Smith vs Cheavon Clarke prediction for 7 November: amateur rivalry, pressure, counterpunching and cruiserweight experience.",
@@ -223,11 +225,13 @@
         }
       ],
       "image": {
-        "src": "https://www.aurafightclub.com/news/media/aura-bivol-callum-smith-preview.svg",
-        "alt": "Original AURA boxing event artwork for Dmitry Bivol vs Callum Smith; this is not a fighter photograph",
-        "credit": "AURA Fight Club — original editorial design",
-        "caption": "Bespoke AURA prediction illustration, not a photograph.",
-        "sourceUrl": "https://www.aurafightclub.com/news/media/aura-bivol-callum-smith-preview.svg"
+        "src": "https://cdn-img.boxingnewsonline.net/uploads/content/1789554332788602948/Dmitry-Bivol-and-Callum-Smith.jpg",
+        "alt": "Dmitry Bivol and Callum Smith in boxing attire in a photo montage accompanying coverage of their planned fight",
+        "credit": "Boxing News — Bivol and Callum Smith feature photograph",
+        "caption": "Boxing images of Dmitry Bivol and Callum Smith used in a pre-fight editorial montage. Not a photograph of their forthcoming contest.",
+        "sourceUrl": "https://boxingnewsonline.net/news/world-champ-wants-opetaia-and-benavidez/",
+        "fallbackSrc": "/news/media/aura-bivol-callum-smith-preview.svg",
+        "focus": "center 32%"
       },
       "seoTitle": "Bivol vs Callum Smith Prediction: Distance Decides | AURA",
       "metaDescription": "Bivol vs Callum Smith preview and early prediction for 12 December 2026: light-heavyweight belts, timing and ring control.",
@@ -480,11 +484,13 @@
         }
       ],
       "image": {
-        "src": "https://cmg-cmg-tv-10030-prod.cdn.arcpublishing.com/resizer/v2/JSR4XM663E7IZPGIXRP6LVAV74.jpg?auth=fad093a1360e83841f74111edcb289d3a14cc215821539d9f06e088391cfcf9d&height=2201&smart=true&width=3913",
-        "alt": "Sebastian Fundora celebrates in the ring after stopping Keith Thurman in March 2026; historical photograph, not a picture of Hadribeaj.",
-        "credit": "Associated Press / Cox Media Group archive",
-        "caption": "Sebastian Fundora after his March 2026 victory over Keith Thurman. Archive action photo; Hadribeaj is not shown.",
-        "sourceUrl": "https://www.wsoctv.com/news/fundora-retains-wbc/P7LP42PDOIZBPBW6DS5MO2J7FE/"
+        "src": "https://images.ctfassets.net/lg76kxmf55ue/52l5G5T7742Um1p9L34v9s/139c50c1febc41dbb8cfbacb25dd2e4d/fundora_booker_fight_7_ea9bb3c1c0.jpg?fm=webp&q=80&w=1920",
+        "alt": "Sebastian Fundora attacks Chordale Booker inside a boxing ring, an archive action photograph",
+        "credit": "The Ring / Ryan Hafey — archive boxing action",
+        "caption": "Sebastian Fundora boxing Chordale Booker in a previous bout. This is not a photograph of the scheduled Hadribeaj fight.",
+        "sourceUrl": "https://www.ringmagazine.com/news/photos-sebastian-fundora-batters-stops-chordale-booker-in-four-rounds-2ewlHe0jqbqHF3IvhZPbDe",
+        "fallbackSrc": "/news/media/aura-fundora-hadribeaj-illustration.svg",
+        "focus": "center 33%"
       },
       "seoTitle": "Fundora vs Hadribeaj Prediction: Who Controls the Southpaws? | AURA",
       "metaDescription": "Sebastian Fundora vs Ermal Hadribeaj on October 17 in Las Vegas: our tactical prediction, start time and why Boots Ennis is next in the debate.",
@@ -1134,11 +1140,13 @@
         }
       ],
       "image": {
-        "src": "https://www.aurafightclub.com/news/media/hearn-white-boxing-power.svg",
-        "alt": "Original AURA editorial graphic about the Hearn–White Fury–Joshua commercial dispute; not a photograph",
-        "credit": "AURA Fight Club — original editorial design",
-        "caption": "Original story-specific AURA editorial artwork, not a ringside photograph.",
-        "sourceUrl": "https://www.mmafighting.com/boxing/514468/eddie-hearn-admits-he-doesnt-care-if-tko-produces-tyson-fury-vs-anthony-joshua-trashes-zuffa-boxings-abysmal-start"
+        "src": "https://s.yimg.com/ny/api/res/1.2/_M2MTKcIZUB4DM3Etj2AwQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03OTg7Y2Y9d2VicA--/https%3A/s.yimg.com/os/creatr-uploaded-images/2025-04/ea56bcd0-255b-11f0-bfbe-a8dbb75199b2",
+        "alt": "Eddie Hearn and Dana White talking together while seated at a boxing event",
+        "credit": "Yahoo Sports / Getty Images — promoters at ringside",
+        "caption": "Eddie Hearn and Dana White pictured together at a ringside event; archival photograph.",
+        "sourceUrl": "https://sports.yahoo.com/boxing/article/eddie-hearn-has-no-fear-of-tkos-potential-boxing-takeover-those-guys-wont-be-able-to-lace-my-boots-004557854.html",
+        "fallbackSrc": "/news/media/hearn-white-boxing-power.svg",
+        "focus": "center 35%"
       },
       "body": [
         "Is Dana White promoting Tyson Fury against Anthony Joshua, producing it, or simply helping sell the occasion? The question sounds petty until you realise those are three different jobs. Much of the argument with Eddie Hearn has survived because the public language keeps blurring their boundaries.",
@@ -1985,11 +1993,13 @@
         }
       ],
       "image": {
-        "src": "https://media.dave.sport/boxingsocial/2026/03/Fundora-vs-Thurman-Fight-Night-11-scaled.jpg",
-        "alt": "Sebastian Fundora celebrates in the ring wearing the WBC super-welterweight title belt",
-        "credit": "Boxing Social / event photography",
-        "caption": "Sebastian Fundora after retaining the WBC super-welterweight title.",
-        "sourceUrl": "https://boxing-social.com/news/sebastian-fundora-politics-charlo-pbc-future-after-thurman"
+        "src": "https://cloudfront-us-east-1.images.arcpublishing.com/gmg/WPPPA3ROHZCRLGVAYYSXYN32NA.jpg",
+        "alt": "Sebastian Fundora in boxing trunks and gloves with Keith Thurman after their bout in the ring",
+        "credit": "Associated Press / WSLS — archival boxing photograph",
+        "caption": "Sebastian Fundora and Keith Thurman after their March 2026 fight; an archival ringside photograph.",
+        "sourceUrl": "https://www.wsls.com/news/2026/03/29/fundora-retains-wbc-super-welterweight-title-with-6th-round-ko-of-thurman/",
+        "fallbackSrc": "/news/media/aura-fundora-profile-illustration.svg",
+        "focus": "center 30%"
       },
       "body": [
         "## October 9 editorial update",
@@ -2696,11 +2706,13 @@
       "source": "FIGHTMAG",
       "sourceUrl": "https://www.fightmag.com/denzel-bentley-to-vacate-wbo-title-set-to-return-at-zuffa-boxing-12/",
       "image": {
-        "src": "https://www.aurafightclub.com/news/media/bentley-zuffa-reported.svg",
-        "alt": "Original AURA editorial graphic about reported Bentley and Zuffa plans; not a fighter photograph",
-        "credit": "AURA Fight Club — original editorial design",
-        "caption": "Original story-specific AURA editorial artwork, not a ringside photograph.",
-        "sourceUrl": "https://www.fightmag.com/denzel-bentley-to-vacate-wbo-title-set-to-return-at-zuffa-boxing-12/"
+        "src": "https://i.eurosport.com/2024/12/07/image-f19ed463-caf1-4b6b-986e-6652cd7b2845-85-2560-1440.jpeg",
+        "alt": "Denzel Bentley in the boxing ring wearing gloves with championship belts after victory over Brad Pauls",
+        "credit": "TNT Sports / Eurosport — boxing archive photograph",
+        "caption": "Denzel Bentley celebrating an earlier championship victory. Archive photo; unrelated to any Zuffa contract announcement.",
+        "sourceUrl": "https://www.tntsports.co.uk/boxing/magnificent-7-boxing-bentley-defeats-pauls-in-middleweight-title-thriller-at-ovo-arena-wembley_sto20060970/story.shtml",
+        "fallbackSrc": "/news/media/bentley-zuffa-reported.svg",
+        "focus": "center 28%"
       },
       "category": "News Brief",
       "date": "2026-10-01",

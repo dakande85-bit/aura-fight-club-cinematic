@@ -17,7 +17,7 @@ export function StoryThumbnail({article,eager=false}) {
  const first=attempt===0;
  const alt=first?(article.image?.alt||article.title):`Original AURA editorial illustration for ${article.title}`;
  const poster=/poster|promotional artwork|event artwork|editorial illustration|graphic/i.test(alt);
- return <img key={src} src={src} alt={alt} className={poster?'aura-story-thumbnail__poster':'aura-story-thumbnail__photo'} loading={eager?'eager':'lazy'} decoding="async" referrerPolicy="no-referrer" onError={()=>setImageState({primary,attempt:attempt+1})}/>;
+ return <img key={src} src={src} alt={alt} className={poster?'aura-story-thumbnail__poster':'aura-story-thumbnail__photo'} style={{objectPosition:article.image?.focus||'center 30%'}} loading={eager?'eager':'lazy'} decoding="async" referrerPolicy="no-referrer" onError={()=>setImageState({primary,attempt:attempt+1})}/>;
 }
 
 export function StoryImage({ article, linked = false, eager = false }) {
