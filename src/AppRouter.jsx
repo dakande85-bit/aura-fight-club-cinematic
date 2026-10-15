@@ -19,6 +19,7 @@ import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import AdminCinematic from './pages/AdminCinematic.jsx';
 import AdminArticles from './pages/AdminArticles.jsx';
 import AdminSocial from './pages/AdminSocial.jsx';
+import VideoCreator from './pages/VideoCreator.jsx';
 import TikTokLanding from './pages/TikTokLanding.jsx';
 import AdminAnalytics from './pages/AdminAnalytics.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
@@ -101,6 +102,7 @@ export default function AppRouter() {
         <Route path="/fightclub" element={<FightClubPage />} />
         <Route path="/admin/articles" element={<AdminArticles />} />
         <Route path="/admin/social" element={<AdminSocial />} />
+        <Route path="/admin/videos" element={<VideoCreator />} />
         <Route path="/admin/analytics" element={<AdminAnalytics />} />
         <Route path="/admin/monetisation" element={<AdminMonetization />} />
         <Route path="/admin/monetization" element={<AdminMonetization />} />
