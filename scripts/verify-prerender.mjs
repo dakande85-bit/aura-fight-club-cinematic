@@ -13,7 +13,7 @@ assert.ok(html.includes('name="description"'),'Article metadata missing');
 assert.ok(html.includes('application/ld+json'),'Article structured data missing');
 assert.ok(html.includes('https://aurafightclub.com/news/'+sample.slug),'Article canonical missing');
 assert.ok(html.includes('NewsArticle'),'Article schema type missing');
-assert.ok(html.includes('<h1>'+sample.title.replace(/&/g,'&amp;').replace(/</g,'&lt;')),'Article preview missing');
+assert.ok(html.includes('<h1>'+sample.title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;')),'Article preview missing');
 assert.equal((html.match(/rel="canonical"/g)||[]).length,1,'Duplicate canonical tags');
 const titleMatches=(html.match(/<title>/g)||[]).length;
 assert.equal(titleMatches,1,'Duplicate page titles');
