@@ -1,7 +1,7 @@
 {
   "version": 1,
   "reviewedAt": "2026-10-15",
-  "note": "Editorial review required before publishing. Unbranded original graphics; no unlicensed fight photography.",
+  "note": "Five-frame TikTok editorial carousels with AI-generated illustrative covers, original analysis slides and disclosure; manual accuracy review before publishing.",
   "packs": [
     {
       "id": "dubois-wardley-ii",
@@ -39,7 +39,10 @@
           "body": "Make your pick in the comments. For the full tactical prediction, follow the link in the AURA Fight Club profile.",
           "type": "cta"
         }
-      ]
+      ],
+      "metricoolDraftUuid": "-3805576481422227210",
+      "editorialStatus": "draft_review_required",
+      "coverDisclosure": "AI-generated editorial illustration, not an authentic fight photograph."
     },
     {
       "id": "fundora-hadribeaj",
@@ -77,7 +80,10 @@
           "body": "Tell us your pick. Read the independent pre-fight breakdown at AURA Fight Club — link in bio.",
           "type": "cta"
         }
-      ]
+      ],
+      "metricoolDraftUuid": "2237435188402929847",
+      "editorialStatus": "draft_review_required",
+      "coverDisclosure": "AI-generated editorial illustration, not an authentic fight photograph."
     },
     {
       "id": "october-17-boxing-three-fights",
@@ -115,7 +121,10 @@
           "body": "Dubois–Wardley, Fundora–Hadribeaj or Figueroa–Kameda? Vote below, then read the full AURA previews — link in bio.",
           "type": "cta"
         }
-      ]
+      ],
+      "metricoolDraftUuid": "-8545143740629302483",
+      "editorialStatus": "draft_review_required",
+      "coverDisclosure": "AI-generated editorial illustration, not an authentic fight photograph."
     }
   ]
 }
