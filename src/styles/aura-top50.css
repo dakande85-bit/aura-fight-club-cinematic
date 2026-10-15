@@ -46,3 +46,26 @@
 .aura-50__row .aura-50__record--none{color:#a6a198}
 @media(max-width:850px){.aura-50__row summary{grid-template-columns:32px 55px minmax(0,1fr) 20px;gap:10px}.aura-50__portrait{height:55px;width:55px}.aura-50__division,.aura-50__record,.aura-50__expand{display:none}.aura-50__detail{padding:17px}.aura-50__head{grid-template-columns:1fr}.aura-50__stamp{justify-self:start}}
 @media(max-width:460px){.aura-50{padding:0 14px}.aura-50__row summary{gap:8px}.aura-50__identity strong{font-size:14px}.aura-50__rank{font-size:23px}}
+
+/* Profile-level scouting and sourced fight-form presentation */
+.aura-profile-rank{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;margin:6px 0 14px;color:#e8c88e!important;background:rgba(213,180,123,.11);border:1px solid rgba(213,180,123,.45);font-size:12px;font-weight:760;letter-spacing:.09em;text-transform:uppercase;text-decoration:none!important}
+.aura-profile-assessment{padding-top:30px!important;padding-bottom:36px!important;background:linear-gradient(145deg,rgba(187,142,72,.08),transparent 48%)}
+.aura-profile-assessment .aura-ed-section-head{display:flex;justify-content:space-between;gap:15px;align-items:baseline;flex-wrap:wrap}
+.aura-profile-assessment .aura-ed-section-head a{font-size:12px;color:#dfbe83}
+.aura-profile-scouting{max-width:920px;font-size:clamp(16px,2.2vw,22px);line-height:1.65;letter-spacing:-.01em;color:#f3eee4}
+.aura-profile-form-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:27px 0 13px;border-bottom:1px solid rgba(216,178,119,.28);padding-bottom:12px}
+.aura-profile-form-head h3{margin:0;font-size:20px}
+.aura-profile-form-head span{font-size:11px;letter-spacing:.05em;color:#d5b47b}
+.aura-profile-recent-bouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:9px}
+.aura-profile-recent-bout{display:flex;gap:10px;align-items:center;min-width:0;padding:14px 12px;background:rgba(21,24,27,.7);border:1px solid rgba(203,184,153,.22)}
+.aura-profile-recent-bout div{flex:1;min-width:0}
+.aura-profile-recent-bout strong{display:block;font-size:13px;white-space:normal;line-height:1.25}
+.aura-profile-recent-bout small{display:block;margin-top:6px;color:#c6beb0;font-size:11px}
+.aura-profile-recent-bout a{font-size:10px;white-space:nowrap;color:#d5b47b;text-decoration:underline}
+.aura-profile-result{flex-shrink:0;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#313438;border:1px solid #848487;font-size:14px;font-weight:850;color:white}
+.aura-profile-result--w,.aura-form-first--w{border-color:#679b81;color:#b5e8ca}
+.aura-profile-result--l,.aura-form-first--l{border-color:#bf7772;color:#f2b9b3}
+.aura-profile-result--d,.aura-form-first--d{border-color:#b5a077;color:#e1c78f}
+.aura-profile-asof{display:block;margin-top:16px;font-size:11px;color:#aca79d}
+.aura-form-first{font-size:15px;padding:3px 6px;border:1px solid currentColor;border-radius:3px;margin-right:5px}
+@media(max-width:520px){.aura-profile-recent-bouts{grid-template-columns:1fr}.aura-profile-recent-bout{padding:12px}.aura-profile-recent-bout strong{font-size:12px}.aura-profile-recent-bout a{font-size:9px}}
