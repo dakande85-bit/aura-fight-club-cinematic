@@ -25,7 +25,15 @@ function ArticleLinks({items}) {
  return <div className="aura-coverage-list">{items.map(item=><article key={item.slug}><p className="aura-ed-kicker">{item.category} · {item.date}</p><h3><Link to={`/news/${item.slug}`}>{item.title}</Link></h3><p>{item.summary}</p><Link to={`/news/${item.slug}`}>Read article</Link></article>)}</div>;
 }
 
-export function FightersIndexPage(){
+export function FightersIndexPage({locale='en'}){
+ const isEs=locale==='es'; const base=isEs?'/es/fighters':'/fighters';
+ const translate=(en,es)=>isEs?es:en;
+ const groupTranslations={
+ 'The elite':['La élite','Los mejores del mundo libra por libra y los que compiten al máximo nivel.'],
+ 'Future stars':['Estrellas del futuro','Jóvenes talentos que están llamando a la puerta de la élite.'],
+ 'Fighters to watch':['Boxeadores a seguir','Campeones, aspirantes peligrosos y enfrentamientos que queremos ver.'],
+ 'Modern greats':['Grandes figuras','Leyendas retiradas que se conservan como archivos históricos.']
+ };
  const [query,setQuery]=useState('');
  const groups=[
   {title:'The elite',subtitle:'Pound-for-pound excellence and fighters operating at the highest level.',slugs:['naoya-inoue','oleksandr-usyk','shakur-stevenson','jesse-bam-rodriguez','david-benavidez','dmitry-bivol','jaron-ennis','junto-nakatani','devin-haney','canelo-alvarez','jai-opetaia','vergil-ortiz','sebastian-fundora','oscar-collazo']},
@@ -35,24 +43,24 @@ export function FightersIndexPage(){
  ];
  const q=query.trim().toLowerCase();
  const count=groups.reduce((n,g)=>n+g.slugs.filter(slug=>{const f=fighters.find(x=>x.slug===slug);return f&&(!q||f.name.toLowerCase().includes(q))}).length,0);
- return <Shell seo={{title:'Fighter Intelligence, Boxing Prospects & Head-to-Head | AURA Fight Club',description:'Discover outstanding active fighters, exciting boxing prospects and side-by-side fighter comparisons.',canonicalPath:'/fighters'}} crumbs={[{label:'Home',to:'/'},{label:'Fighter Intelligence',to:'/fighters'}]}>
-  <header className="aura-fighters-header"><p className="aura-ed-kicker">AURA / FIGHTER INTELLIGENCE</p><h1>THE FIGHTERS.</h1><p>The elite. The ones to watch. The next generation. A curated guide to boxing's most compelling names.</p>
-   <div className="aura-fighter-index-actions"><Link className="aura-compare-cta" to="/fighters/compare">Compare two fighters ↗</Link><Link to="/verdict">Explore upcoming fights ↗</Link></div>
+ return <Shell seo={{title:isEs?'Boxeadores — perfiles y comparaciones | AURA Fight Club':'Fighter Intelligence, Boxing Prospects & Head-to-Head | AURA Fight Club',description:'Discover outstanding active fighters, exciting boxing prospects and side-by-side fighter comparisons.',canonicalPath:base}} crumbs={[{label:translate('Home','Inicio'),to:isEs?'/es':'/'},{label:translate('Fighter Intelligence','Boxeadores'),to:base}]}>
+  <header className="aura-fighters-header"><p className="aura-ed-kicker">{translate('AURA / FIGHTER INTELLIGENCE','AURA / LOS BOXEADORES')}</p><h1>{translate('THE FIGHTERS.','LOS BOXEADORES.')}</h1><p>{translate("The elite. The ones to watch. The next generation. A curated guide to boxing's most compelling names.","La élite, los nombres a seguir y la próxima generación del boxeo.")}</p>
+   <div className="aura-fighter-index-actions"><Link className="aura-compare-cta" to={base+'/compare'}>{translate('Compare two fighters ↗','Comparar dos boxeadores ↗')}</Link><Link to="/verdict">{translate('Explore upcoming fights ↗','Próximos combates (EN) ↗')}</Link></div>
   </header>
-  <div className="aura-directory-controls"><label>Find a fighter<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by fighter name" /></label><span>{count} selected profiles · Records are dated editorial snapshots</span></div>
+  <div className="aura-directory-controls"><label>{translate('Find a fighter','Buscar boxeador')}<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder={translate('Search by fighter name','Busca por nombre')} /></label><span>{count} {translate('selected profiles · Records are dated editorial snapshots','perfiles · Récords con fecha de revisión')}</span></div>
   {groups.map(group=>{
    const selected=group.slugs.map(slug=>fighters.find(f=>f.slug===slug)).filter(f=>f&&(!q||f.name.toLowerCase().includes(q)));
    if(!selected.length)return null;
    return <section key={group.title} className="aura-intelligence-group">
-    <div className="aura-intelligence-group__head"><div><p className="aura-ed-kicker">AURA / THE FIGHTERS</p><h2>{group.title}</h2><p>{group.subtitle}</p></div><small>{selected.length} fighters</small></div>
-    <div className="aura-fighter-directory">{selected.map(f=><Link to={`/fighters/${f.slug}`} className="aura-fighter-tile" key={f.slug}>
+    <div className="aura-intelligence-group__head"><div><p className="aura-ed-kicker">{translate('AURA / THE FIGHTERS','AURA / LOS BOXEADORES')}</p><h2>{isEs?groupTranslations[group.title]?.[0]||group.title:group.title}</h2><p>{isEs?groupTranslations[group.title]?.[1]||group.subtitle:group.subtitle}</p></div><small>{selected.length} {translate('fighters','boxeadores')}</small></div>
+    <div className="aura-fighter-directory">{selected.map(f=><Link to={base+"/"+f.slug} className="aura-fighter-tile" key={f.slug}>
      <div className="aura-fighter-tile__photo"><VerifiedPhoto fighterSlug={f.slug} label={f.name}/></div>
-     <div className="aura-fighter-tile__info"><span>{f.division}{f.careerStatus?' · Retired':''}</span><h3>{f.name}</h3><p>{f.summary}</p><strong>VIEW INTELLIGENCE ↗</strong></div>
+     <div className="aura-fighter-tile__info"><span>{f.division}{f.careerStatus?' · Retired':''}</span><h3>{f.name}</h3><p>{f.summary}</p><strong>{translate('VIEW INTELLIGENCE ↗','VER PERFIL ↗')}</strong></div>
     </Link>)}</div>
    </section>;
   })}
-  {!count&&<p className="aura-directory-empty">No matching fighter in our curated index yet.</p>}
-  <p className="aura-ed-note aura-fighter-disclaimer">Our editorial selection is not an official ranking. Records are supplied only where independently checked; photo placeholders are clearly identified.</p>
+  {!count&&<p className="aura-directory-empty">{translate('No matching fighter in our curated index yet.','No se ha encontrado ningún boxeador.')}</p>}
+  <p className="aura-ed-note aura-fighter-disclaimer">{translate('Our editorial selection is not an official ranking. Records are supplied only where independently checked; photo placeholders are clearly identified.','Esta selección editorial no es una clasificación oficial. Los récords se muestran cuando han sido contrastados y se indican las imágenes pendientes.')}</p>
  </Shell>;
 }
 
