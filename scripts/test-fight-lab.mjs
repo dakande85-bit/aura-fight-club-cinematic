@@ -4,7 +4,6 @@ import {
  inchesFromText, parseCareerRecord, compareBoxingProfiles, indicatorPosition
 } from '../src/data/fightLabMetrics.js';
 
-const n=(f,metric)=>metric==='power'?f.stats?.finish:metric==='form'?f.stats?.winshare:f.reachIn;
 let checks=0;
 const equal=(actual,expected,message)=>{assert.equal(actual,expected,message);checks++};
 const close=(actual,expected,message)=>{assert.ok(Math.abs(actual-expected)<1e-7,message+' got '+actual);checks++};
