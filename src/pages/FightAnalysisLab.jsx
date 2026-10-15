@@ -7,7 +7,7 @@ import {PageSEO} from '../components/SEO.jsx';
 import {useArticles} from '../hooks/useArticles.js';
 import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
 import {getFighterByName} from '../data/seoEntities.js';
-import {fightLabScouting, punchDataContract} from '../data/fightLabScouting.js';
+import {fightLabScouting, punchDataContract, verifiedRecentFights} from '../data/fightLabScouting.js';
 import edition from '../../public/news/fights.json';
 import '../styles/fight-hub.css';
 import '../styles/aura-fight-lab.css';
@@ -81,15 +81,46 @@ function CompareBars({fighters,metric}){
   <p className="afl-chart-note">{def.description}</p>
  </div>;
 }
-function PunchTelemetry({fighters}){
- const ready=punchDataContract.licensedForDisplay&&punchDataContract.provider;
+function RecentForm({fighters}){
+ return <section className="afl-panel afl-recent"><div className="afl-panel-heading"><div><p className="afl-eyebrow">02 / Verified form book</p><h2>Previous opponents & results</h2></div><CheckCircle2 size={21}/></div>
+  <p className="afl-chart-note">Verified recent bouts only; not a complete last-five feed yet. Missing entries are not assumed wins or losses.</p>
+  <div className="afl-recent-grid">{fighters.map(f=>{
+   const items=verifiedRecentFights[f.name]||[];
+   return <div className="afl-recent-fighter" key={f.name}><h3>{f.name}</h3>{items.length?items.map((x,i)=><a key={i} href={x.source} target="_blank" rel="noopener noreferrer" className="afl-form-fight"><b className={x.result==='W'?'won':'lost'}>{x.result}</b><span><strong>{x.opponent}</strong><small>{x.date} · {x.method}</small></span><ExternalLink size={13}/></a>):<p>No results yet reviewed for this fighter.</p>}<small>{items.length} of last 5 verified and indexed</small></div>
+  })}</div>
+ </section>;
+}
+const aggregate=(rounds,key)=>{
+ if(!Array.isArray(rounds)||!rounds.length)return null;
+ const vals=rounds.map(r=>r[key]);
+ return vals.every(n=>Number.isFinite(n)&&n>=0)?vals.reduce((s,n)=>s+n,0)/vals.length:null;
+};
+function PunchTelemetry({fight,fighters}){
+ const entries=punchDataContract.fights?.[fight.id]?.fighters||{};
+ const safe=fighters.map(f=>entries[f.name]||null);
+ const ready=Boolean(punchDataContract.licensedForDisplay&&punchDataContract.provider&&safe.every(x=>x?.sourceUrl&&Number(x.sampleFights)>0&&Array.isArray(x.rounds)&&x.rounds.length));
+ const outputs=ready?safe.map(x=>({
+  jabs:aggregate(x.rounds,'jabsThrown'),jabsLanded:aggregate(x.rounds,'jabsLanded'),
+  power:aggregate(x.rounds,'powerLanded'),powerThrown:aggregate(x.rounds,'powerThrown'),
+  total:aggregate(x.rounds,'jabsThrown')+aggregate(x.rounds,'powerThrown'),
+  totalLanded:aggregate(x.rounds,'jabsLanded')+aggregate(x.rounds,'powerLanded')
+ })):null;
+ const valid=ready&&outputs.every(x=>Object.values(x).every(n=>n!=null&&Number.isFinite(n)&&n>=0)&&x.total>=x.totalLanded);
+ const measures=[
+  {title:'Jabs thrown / round',key:'jabs',unit:''},
+  {title:'Jabs landed / round',key:'jabsLanded',unit:''},
+  {title:'Power landed / round',key:'power',unit:''},
+  {title:'Total thrown / round',key:'total',unit:''},
+  {title:'Total landed / round',key:'totalLanded',unit:''},
+  {title:'Total connect rate',key:'connect',unit:'%'}
+ ];
+ const values=valid?outputs.map(x=>({...x,connect:x.total?100*x.totalLanded/x.total:0})):null;
  return <section className="afl-panel afl-telemetry">
-  <div className="afl-panel-heading"><div><p className="afl-eyebrow">Round-by-round / punch telemetry</p><h2>Punch output & efficiency</h2></div><DataLabel present={Boolean(ready)} label={ready?'Licensed feed connected':'Feed awaiting licence'}/></div>
-  <div className="afl-telemetry-grid">{['Jabs thrown / round','Jabs landed / round','Power shots landed / round','Total connect %','Opponent shots landed / round','Late-round output'].map(label=><div className="afl-telemetry-cell" key={label}>
-   <span>{label}</span><strong>—</strong><small>Verified data unavailable</small>
-  </div>)}</div>
-  <div className="afl-empty-graph"><div className="afl-empty-graph__lines" aria-hidden="true"/><div><Database size={26}/><strong>No invented punch statistics</strong><p>The graph will display reported per-round series when a commercial CompuBox or equivalent feed is licensed, validated and linked to the correct bout.</p></div></div>
-  <p className="afl-fineprint">Punch statistics are observer-coded estimates, not official scoring. No API key is stored in the browser. <a href="https://api2.compuboxdata.com/reports/79" target="_blank" rel="noopener noreferrer">Explore the source’s reports <ExternalLink size={12}/></a></p>
+  <div className="afl-panel-heading"><div><p className="afl-eyebrow">03 / Licensed punch telemetry</p><h2>Punch output & efficiency</h2></div><DataLabel present={Boolean(valid)} label={valid?'Licensed feed active':'Feed awaiting licence'}/></div>
+  <div className="afl-telemetry-grid">{measures.map(m=><div className="afl-telemetry-cell" key={m.title}><span>{m.title}</span><strong>{values?values.map(x=>fmt(x[m.key],1)).join(' / '):'—'}</strong><small>{values?fighters.map(f=>f.name.split(' ').at(-1)).join(' / '):'Verified data unavailable'}</small></div>)}</div>
+  {valid?<><div className="afl-punch-chart"><h3>Round-averaged output (tracked rounds)</h3>{['total','totalLanded','jabs','jabsLanded'].map(key=><div key={key} className="afl-punch-row"><span>{measures.find(x=>x.key===key)?.title||key}</span><div className="afl-punch-row__bars">{values.map((v,i)=><div key={i} title={fighters[i].name+': '+fmt(v[key],1)} style={{width:Math.max(2,v[key]/Math.max(...values.map(x=>x[key]),1)*100)+'%'}} className={'afl-fill afl-fill--'+i}/>)}</div></div>)}</div><div className="afl-source-pills">{safe.map((x,i)=><a href={x.sourceUrl} key={fighters[i].name} rel="noopener noreferrer" target="_blank">{fighters[i].name}: {x.sampleFights} tracked bouts ↗</a>)}</div></>
+  :<div className="afl-empty-graph"><div className="afl-empty-graph__lines" aria-hidden="true"/><div><Database size={26}/><strong>No invented punch statistics</strong><p>The live chart will populate from validated licensed round-by-round punch records. KO-round frequency and opponent-adjusted data also require sufficient verified fight histories.</p></div></div>}
+  <p className="afl-fineprint">Punch statistics are observer-coded estimates, not official scoring. Commercial rights and source identity are validated before display. <a href="https://api2.compuboxdata.com/reports/79" target="_blank" rel="noopener noreferrer">Provider information <ExternalLink size={12}/></a></p>
  </section>;
 }
 function Scouting({fight,profiles}){
@@ -132,8 +163,9 @@ export default function VerdictPage(){
    <div className="afl-signal-strip"><div><Gauge size={18}/><span>{profiles.filter(x=>x.parsed).length}/2 records available</span></div><div><Activity size={18}/><span>{profiles.filter(x=>metricValue(x,'reach')!=null).length}/2 reach figures</span></div><div><Database size={18}/><span>Punch feed: {punchDataContract.licensedForDisplay?'Connected':'Not licensed'}</span></div><div><CheckCircle2 size={18}/><span>Source review {edition.checkedAt}</span></div></div>
    <div className="afl-layout"><div className="afl-main-col">
     <section className="afl-panel afl-comparison"><div className="afl-panel-heading"><div><p className="afl-eyebrow">01 / Verified metrics</p><h2>The numbers behind the matchup</h2></div><BarChart3 size={22}/></div><div className="afl-metric-tabs" role="group" aria-label="Select comparison metric">{Object.entries(metrics).map(([key,value])=><button key={key} type="button" aria-pressed={metric===key} onClick={()=>setMetric(key)}>{value.label}</button>)}</div><CompareBars fighters={profiles} metric={metric}/><div className="afl-career-grid">{profiles.map(x=><div key={x.name}><span>{x.name}</span><strong>{x.parsed?x.parsed.kos:'—'} <small>KO wins</small></strong><p>{x.parsed?x.parsed.wins+' wins · '+x.parsed.losses+' losses · '+x.parsed.draws+' draws':'Verified career breakdown unavailable'}</p>{x.sources[0]&&<a href={x.sources[0]} target="_blank" rel="noopener noreferrer">Profile source <ExternalLink size={12}/></a>}</div>)}</div></section>
+    <RecentForm fighters={profiles}/>
     <Scouting fight={fight} profiles={profiles}/>
-    <PunchTelemetry fighters={profiles}/>
+    <PunchTelemetry fight={fight} fighters={profiles}/>
    </div><aside className="afl-aside"><Scenario key={fight.id} profiles={profiles}/>
     <section className="afl-panel afl-reader"><p className="afl-eyebrow">YOUR CORNER</p><h2>Make the call.</h2><p>Who wins? Save a personal pick before fight night.</p><div className="afl-pick-buttons">{profiles.map(f=><button key={f.name} aria-pressed={pick===f.name} onClick={()=>choose(f.name)}>{f.name}</button>)}</div><small>{pick?'Your pick: '+pick+' · saved to this device':'No selection made. Reader picks are private and not presented as crowd odds.'}</small></section>
     <section className="afl-panel afl-previews"><p className="afl-eyebrow">DEEPER READING</p><h2>Beyond the dataset</h2>{preview?<><h3>{preview.title}</h3><p>{preview.summary}</p><Link to={'/news/'+preview.slug}>Read AURA analysis <ArrowRight size={15}/></Link></>:<p>Editorial preview not yet cleared for this matchup.</p>}<Link to={'/fights/'+fight.id}>Event details & broadcast <ArrowRight size={15}/></Link>{profiles.every(x=>x.slug)&&<Link to={'/fighters/compare?left='+profiles[0].slug+'&right='+profiles[1].slug}>Compare full fighter profiles <ArrowRight size={15}/></Link>}</section>
