@@ -157,7 +157,14 @@ export default function AdminSocial(){
       <p className="aura-social-studio__state">FIVE SLIDES · 1080 × 1920</p>
       <h3>{pack.id.replaceAll('-',' ').toUpperCase()}</h3>
       <p>{pack.caption}</p>
+      <div className="aura-social-studio__curated-gallery" aria-label={'Review the five slides for '+pack.id.replaceAll('-',' ')}>
+       {pack.media.map((imageUrl,i)=><a key={imageUrl} href={imageUrl} target="_blank" rel="noopener noreferrer" aria-label={'Open high-resolution slide '+(i+1)+' of five'}>
+        <img src={imageUrl} alt={'Slide '+(i+1)+' of five'} loading="lazy"/><span>{String(i+1).padStart(2,'0')}</span>
+       </a>)}
+      </div>
+      <p className="aura-social-studio__disclosure">{pack.coverDisclosure||'AI-generated editorial illustration — not an official fight photograph.'}</p>
       <div className="aura-social-studio__curated-actions">
+       {pack.metricoolPlannerUrl&&<a className="aura-social-studio__review-link" href={pack.metricoolPlannerUrl} target="_blank" rel="noopener noreferrer">Review TikTok draft in Metricool ↗</a>}
        <button type="button" disabled={exporting} onClick={()=>downloadCurated(pack)}>Download 5-slide ZIP</button>
        <button type="button" onClick={()=>copy(pack.caption,'Editorial caption')}>Copy caption</button>
        <Link to={'/news/'+pack.relatedArticle}>Read source ↗</Link>
