@@ -1,0 +1,33 @@
+name: AURA lookbook asset importer
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/aura-lookbook-import.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Save all approved original AURA imagery locally
+        run: node scripts/import-aura-lookbook.mjs
+      - name: Commit permanent lifestyle images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/assets/lookbook-2026/
+          if ! git diff --cached --quiet; then
+            git commit -m "Add original AURA lifestyle campaign photography"
+            git push origin HEAD:main
+          else
+            echo "All lifestyle images are already present."
+          fi
