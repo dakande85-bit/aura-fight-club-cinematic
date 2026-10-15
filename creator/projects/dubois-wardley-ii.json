@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "id": "dubois-wardley-ii",
+  "title": "Dubois vs Wardley II | The adjustment nobody can ignore",
+  "sourceArticle": "https://www.aurafightclub.com/news/dubois-wardley-rematch-technical-preview",
+  "editorialStatus": "requires_editor_review_before_publish",
+  "visualsGuidance": "Generic illustrative stock/video must be labelled; do not suggest illustrative scenes show this fight.",
+  "assets": {
+    "cover": {
+      "path": "public/news/tiktok/dubois-wardley-ii/01.jpg",
+      "licence": "AURA AI-generated editorial illustration",
+      "approved": true,
+      "illustrative": true,
+      "attribution": "AI-generated editorial illustration"
+    },
+    "archive": {
+      "path": "public/news/tiktok/source-media/dubois-walkout-2025.jpg",
+      "licence": "CC BY 4.0",
+      "approved": true,
+      "illustrative": false,
+      "attribution": "ARCHIVE 2025: Editor083 / Commons CC BY 4.0"
+    },
+    "diagram": {
+      "path": "public/news/tiktok/dubois-wardley-ii/03.jpg",
+      "licence": "AURA original fight-lab analysis graphic",
+      "approved": true,
+      "illustrative": true,
+      "attribution": "Illustrative boxing analysis graphic"
+    },
+    "context": {
+      "path": "public/news/tiktok/dubois-wardley-ii/02.jpg",
+      "licence": "AURA editorial graphic with credited archive photography",
+      "approved": true,
+      "illustrative": true,
+      "attribution": "Boxing illustration / archive 2025"
+    },
+    "adjustment": {
+      "path": "public/news/tiktok/dubois-wardley-ii/04.jpg",
+      "licence": "AURA original editorial graphic",
+      "approved": true,
+      "illustrative": true,
+      "attribution": "Illustrative boxing analysis graphic"
+    },
+    "question": {
+      "path": "public/news/tiktok/dubois-wardley-ii/05.jpg",
+      "licence": "AURA original editorial graphic",
+      "approved": true,
+      "illustrative": true,
+      "attribution": "Illustrative boxing analysis graphic"
+    }
+  },
+  "short": {
+    "title": "DUBOIS VS WARDLEY II — THE FIRST 60 SECONDS",
+    "previewSeconds": 24,
+    "voiceoverScript": "Wardley put Dubois down twice, but Dubois came back to stop him. Here's what actually matters in the rematch. Wardley must pressure without standing in the line of fire. Dubois needs the jab and his exits early, not just the big right hand. Who's making the better adjustment? The full breakdown is on Aura Fight Club.",
+    "beats": [
+      {
+        "asset": "cover",
+        "label": "THE HOOK",
+        "headline": "TWO KNOCKDOWNS. ONE COMEBACK.",
+        "deck": "The rematch isn't just about power.",
+        "weight": 1
+      },
+      {
+        "asset": "archive",
+        "label": "WHAT HAPPENED",
+        "headline": "DUBOIS FOUND A WAY BACK",
+        "deck": "A dramatic first meeting changes the tactics.",
+        "weight": 1
+      },
+      {
+        "asset": "context",
+        "label": "THE PROBLEM",
+        "headline": "PRESSURE VS POSITION",
+        "deck": "Can Wardley rush without being countered?",
+        "weight": 1
+      },
+      {
+        "asset": "diagram",
+        "label": "THE FIGHT LAB",
+        "headline": "THE JAB CREATES THE EXIT",
+        "deck": "Range, angles and recovery.",
+        "weight": 1
+      },
+      {
+        "asset": "archive",
+        "label": "THE ADJUSTMENT",
+        "headline": "DON'T STAND IN FRONT",
+        "deck": "The first exchange will tell us something.",
+        "weight": 1
+      },
+      {
+        "asset": "adjustment",
+        "label": "TACTICAL CHESS",
+        "headline": "WHO CONTROLS THE FEET?",
+        "deck": "Control the space, then throw the big shot.",
+        "weight": 1
+      },
+      {
+        "asset": "question",
+        "label": "THE VERDICT",
+        "headline": "DUBOIS OR WARDLEY?",
+        "deck": "Your pick — full analysis via link in bio.",
+        "weight": 0.8
+      }
+    ]
+  },
+  "youtube": {
+    "title": "Dubois vs Wardley II: What must change in the rematch?",
+    "previewSeconds": 110,
+    "voiceoverScript": "INTRO: Everyone remembers the knockdowns, but the lesson from the first Dubois-Wardley fight is more interesting than the highlight reel. We need to talk about pressure, distance and defensive discipline.\n\nTHE FIRST FIGHT: Explain the sequence accurately using the published fight article. Keep narration in your own words and cite event sources.\n\nWARDLEY: When he pushes into punching range, what stops him from staying directly in front of Dubois? Discuss his foot position, the danger of closing distance in straight lines, and how he might create safer entries.\n\nDUBOIS: Focus on the double jab, establishing the line early and exiting on an angle, rather than lingering after single power punches.\n\nTHE KEY EXCHANGES: Compare the pressure and counter-punching incentives, using an original tactical ring diagram. Don't imply generic stock footage is a real exchange.\n\nVERDICT: Deliver your own prediction, acknowledge the paths to victory for either man and end with a question that fans can debate.\n\nOUTRO: Invite viewers to find supporting sources and the full article on Aura Fight Club.",
+    "beats": [
+      {
+        "asset": "cover",
+        "label": "INTRO / THE REMATCH",
+        "headline": "THE REMATCH IS ABOUT ADJUSTMENTS",
+        "deck": "The result was spectacular. The tactical lesson matters more.",
+        "weight": 1
+      },
+      {
+        "asset": "archive",
+        "label": "THE FIRST FIGHT",
+        "headline": "TWO KNOCKDOWNS CHANGED THE MOMENTUM",
+        "deck": "Separate the highlights from the tactical pattern.",
+        "weight": 1
+      },
+      {
+        "asset": "context",
+        "label": "FIGHT LAB / ROUND REVIEW",
+        "headline": "THE DANGER OF STAYING IN FRONT",
+        "deck": "Where the openings appear in an exchange.",
+        "weight": 1
+      },
+      {
+        "asset": "diagram",
+        "label": "BOXING IQ",
+        "headline": "DISTANCE IS AN ACTIVE DECISION",
+        "deck": "Who controls where the next exchange begins?",
+        "weight": 1
+      },
+      {
+        "asset": "adjustment",
+        "label": "WARDLEY'S ROUTE",
+        "headline": "PRESSURE WITHOUT THE COUNTER",
+        "deck": "Better entries and a quicker return to defence.",
+        "weight": 1
+      },
+      {
+        "asset": "archive",
+        "label": "DUBOIS'S ROUTE",
+        "headline": "THE DOUBLE JAB CHANGES THE RANGE",
+        "deck": "Establish first contact, then exit on angles.",
+        "weight": 1
+      },
+      {
+        "asset": "diagram",
+        "label": "RING GEOGRAPHY",
+        "headline": "CONTROL THE SPACE BETWEEN THEM",
+        "deck": "An illustration, not recorded fight action.",
+        "weight": 1
+      },
+      {
+        "asset": "context",
+        "label": "FIGHT LAB",
+        "headline": "WHAT HAPPENS AFTER THE FIRST SHOT?",
+        "deck": "Good defence is the second movement.",
+        "weight": 1
+      },
+      {
+        "asset": "adjustment",
+        "label": "STRATEGIC COMPARISON",
+        "headline": "ONE ADJUSTMENT CAN SWING THE FIGHT",
+        "deck": "A small positional decision can matter enormously.",
+        "weight": 1
+      },
+      {
+        "asset": "archive",
+        "label": "THE PREDICTION",
+        "headline": "THE KEY BATTLE IS EARLY CONTROL",
+        "deck": "What you believe each man must do to win.",
+        "weight": 1
+      },
+      {
+        "asset": "question",
+        "label": "JOIN THE DEBATE",
+        "headline": "WHO WINS THE REMATCH?",
+        "deck": "Full independently researched article on Aura Fight Club.",
+        "weight": 1
+      }
+    ]
+  }
+}
