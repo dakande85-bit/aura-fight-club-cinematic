@@ -26,7 +26,11 @@ jobs:
           node-version: '22'
       - name: Install project dependencies
         run: npm install --no-package-lock --no-audit --no-fund
-      - name: Render 15 original JPEGs without APIs or external photography
+      - name: Download and verify explicitly CC-licensed real fighter photographs
+        run: node scripts/fetch-tiktok-photo-sources.mjs
+      - name: Render 15 fighter-photo and analysis JPEGs
+        env:
+          REQUIRE_CURATED_PHOTOS: '1'
         run: npm run social:cards
       - name: Commit publicly accessible media only on this feature branch
         run: |
