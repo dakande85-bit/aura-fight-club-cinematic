@@ -1,0 +1,30 @@
+name: Fighter pages and Spanish layout build
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/pages/DiscoveryPages.jsx'
+      - 'src/pages/FighterComparePage.jsx'
+      - 'src/pages/SpanishSite.jsx'
+      - 'src/data/seoEntities.js'
+      - 'src/components/Header.jsx'
+      - 'src/styles/fight-hub.css'
+      - 'src/AppRouter.jsx'
+      - '.github/workflows/aura-fighter-pages-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
