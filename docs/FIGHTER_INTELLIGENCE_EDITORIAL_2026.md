@@ -19,3 +19,15 @@ This is an **opinionated, separately published editorial order**, **not** the of
 
 ## Named question
 The user mentioned **"Kerman ..."** as a possible emerging fighter. Do not assign this to Kerman Lejarraga (older former European champion) or Curmel Moton without confirmation; meanwhile Curmel Moton is included on merit as a rising prospect.
+
+## Development continuation — 15 October 2026
+
+**Code on draft PR #21; not published.** All 50 positions now resolve to a dedicated AURA fighter profile. The top-50 row and profile page link to one another and display a dated scouting verdict, available source-linked bout results, and photo credits. Top-50 placement is **editorial opinion**, not a verbatim Ring / BoxRec list.
+
+**New coverage:** Gilberto Ramirez, Hamzah Sheeraz, Agit Kabayel, Teofimo Lopez, Richardson Hitchins, Lester Martinez, Raymond Ford, Carlos Adames, Nick Ball, Brandon Figueroa, Stephen Fulton, Kenshiro Teraji, Anthony Olascuaga, Chris Billam-Smith, Bakhram Murtazaliev, Joseph Parker and Alberto Puello. Later added Raymond Muratalla (IBF lightweight champion) to the active Top 50 based on title wins over Andy Cruz and Robson Conceicao; Moses Itauma remains in Future Stars, not the active pound-for-pound top 50.
+
+**Rank-to-profile corrections:** Hitchins is at welterweight (vacated junior-welterweight belt April 2026); Fulton at lightweight following 2026 weight problems; Kenshiro Teraji at junior bantamweight; Nick Ball is a former champion after defeat to Brandon Figueroa. Fabio Wardley vs Daniel Dubois result dated May 9, 2026. Only manually evidenced and independently source-linked fight outcomes are shown in AURA's partial five-fight ledgers.
+
+**Modern Greats expanded to nine:** Crawford, Lomachenko, Spence, Pacquiao, Joshua, Fury, Wilder, Josh Taylor, Lara. Retirees have a retired status; veterans are not falsely labelled retired.
+
+**Open editorial and release blockers:** Portrait URLs have metadata, but visual/browser and copyright/licensing clearance for externally hosted publisher photography remains outstanding. Structural audit/CI must pass on current branch. Full five-result history for all 50 is not yet complete, and some career records are deliberately blank rather than unverified. This branch is separate from the production `main` branch. Do not merge until visual inspection, permission confirmation, and current-source review.
