@@ -80,6 +80,14 @@ assert.match(brief,/NOT win odds/);checks++;
 const noPadded= createDecisionBrief({fight:{name:'A v B'},fighters:[{name:'Red Corner'}],pick:'Unknown',model:null});
 assert.match(noPadded,/My pick: Undecided/);checks++;
 assert.match(noPadded,/insufficient common data/);checks++;
+const citedBrief=createDecisionBrief({fight:{name:'C v D',sourceUrl:'https://promoter.example/fight'},fighters:[
+ {name:'C',sources:['https://commission.example/fighter','https://commission.example/fighter']},
+ {name:'D',sources:[]}
+]});
+assert.match(citedBrief,/https:\/\/promoter\.example\/fight/);checks++;
+assert.match(citedBrief,/https:\/\/commission\.example\/fighter/);checks++;
+equal((citedBrief.match(/https:\/\/commission\.example\/fighter/g)||[]).length,1,'source URLs are deduplicated');
+
 
 const eventData=JSON.parse(readFileSync(new URL('../public/news/fights.json',import.meta.url),'utf8'));
 for(const event of eventData.fights){
