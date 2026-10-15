@@ -24,6 +24,7 @@ export default function AdminSocial(){
  const [slug,setSlug]=useState('');
  const [search,setSearch]=useState('');
  const [angle,setAngle]=useState('question');
+ const [captionDraft,setCaptionDraft]=useState('');
  const [slideNumber,setSlideNumber]=useState(0);
  const [imageFile,setImageFile]=useState(null);
  const [clearedRights,setClearedRights]=useState(false);
@@ -54,6 +55,7 @@ export default function AdminSocial(){
  const slides=useMemo(()=>storySlides(active),[active]);
  const caption=useMemo(()=>suggestedCaption(active,angle),[active,angle]);
  const tracked=useMemo(()=>active?articleUrl(active.slug,'tiktok_'+active.slug):'',[active]);
+ useEffect(()=>setCaptionDraft(caption),[caption]);
  const prepared=useMemo(()=>queue.items.find(x=>x.slug===active?.slug),[queue.items,active]);
 
  useEffect(()=>setSlideNumber(0),[active?.slug]);
@@ -105,7 +107,7 @@ export default function AdminSocial(){
    for(let i=0;i<slides.length;i++){
     zip.file(String(i+1).padStart(2,'0')+'-'+active.slug+'.png',await canvasPng(renderCanvas(i)));
    }
-   zip.file('caption.txt',caption+'\n\nTracked article: '+tracked+'\nProfile link: '+tikTokBioUrl+'\n');
+   zip.file('caption.txt',captionDraft+'\n\nTracked article: '+tracked+'\nProfile link: '+tikTokBioUrl+'\n');
    zip.file('PUBLISHING-CHECKLIST.txt','AURA Fight Club — TikTok photo post\n\n1. Confirm the source article is up to date and all claims are accurate.\n2. Verify the rights to any user-uploaded photo.\n3. Upload the numbered PNGs as a TikTok photo carousel.\n4. Review caption, choose native music, select post settings and publish manually.\n5. Point your eligible TikTok profile website link to the AURA TikTok landing page.\n6. Record the TikTok post URL and review GA4 traffic by utm_source=tiktok.\n\nThis export does not connect to or post on TikTok.\n');
    downloadBlob(await zip.generateAsync({type:'blob'}),'aura-tiktok-'+active.slug+'.zip');
    setStatus('Photo carousel downloaded as a ZIP. Review and upload in TikTok.');
@@ -165,9 +167,9 @@ export default function AdminSocial(){
     </div>
     <a className="aura-social-studio__upload-link" href={tiktokUpload} target="_blank" rel="noopener noreferrer">Open TikTok upload ↗</a>
     <label className="aura-social-studio__field">Editable caption for TikTok
-     <textarea rows="8" readOnly value={caption}/>
+     <textarea rows="8" value={captionDraft} onChange={e=>setCaptionDraft(e.target.value)} aria-label="TikTok caption text"/>
     </label>
-    <button type="button" className="aura-social-studio__minor-btn" onClick={()=>copy(caption,'Caption')}>Copy TikTok caption</button>
+    <button type="button" className="aura-social-studio__minor-btn" onClick={()=>copy(captionDraft,'Caption')}>Copy TikTok caption</button>
     <div className="aura-social-studio__links">
      <label className="aura-social-studio__field">Tracked article link
       <input readOnly value={tracked}/>
