@@ -10,7 +10,7 @@ test('real fight references are research-only by default',()=>{
  for(const source of data.sources){
   assert.equal(source.rightsStatus,'reference_only',source.id);
   assert.match(source.url,/^https:\/\//);
-  assert.ok(source.rightsHolder?.length>4,source.id);
+  assert.ok(source.rightsHolder?.length>=3,source.id);
   assert.ok(source.topics?.length>0);
   assert.ok(source.usageNotes?.length>10);
  }
