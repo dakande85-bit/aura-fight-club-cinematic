@@ -12,6 +12,16 @@
         "/news/tiktok/dubois-wardley-ii/03.jpg",
         "/news/tiktok/dubois-wardley-ii/04.jpg",
         "/news/tiktok/dubois-wardley-ii/05.jpg"
+      ],
+      "photoCredits": [
+        {
+          "fighter": "Daniel Dubois",
+          "creator": "Editor083 (crop: Hullian111)",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout_(cropped).jpg",
+          "archiveDate": "2025-07-19"
+        }
       ]
     },
     {
@@ -24,6 +34,16 @@
         "/news/tiktok/fundora-hadribeaj/03.jpg",
         "/news/tiktok/fundora-hadribeaj/04.jpg",
         "/news/tiktok/fundora-hadribeaj/05.jpg"
+      ],
+      "photoCredits": [
+        {
+          "fighter": "Ermal Hadribeaj",
+          "creator": "Donato2024",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Ermal_HAdribeaj.jpg",
+          "archiveDate": "2023-07-24"
+        }
       ]
     },
     {
@@ -36,6 +56,24 @@
         "/news/tiktok/october-17-boxing-three-fights/03.jpg",
         "/news/tiktok/october-17-boxing-three-fights/04.jpg",
         "/news/tiktok/october-17-boxing-three-fights/05.jpg"
+      ],
+      "photoCredits": [
+        {
+          "fighter": "Daniel Dubois",
+          "creator": "Editor083 (crop: Hullian111)",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout_(cropped).jpg",
+          "archiveDate": "2025-07-19"
+        },
+        {
+          "fighter": "Ermal Hadribeaj",
+          "creator": "Donato2024",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Ermal_HAdribeaj.jpg",
+          "archiveDate": "2023-07-24"
+        }
       ]
     }
   ]
