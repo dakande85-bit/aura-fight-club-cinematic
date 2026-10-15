@@ -2,9 +2,18 @@
 
 ## Branch and routes
 - Work is isolated from production until review.
-- `/verdict` is now served by `src/pages/FightAnalysisLab.jsx`; the prior page remains in the repo for rollback.
+- `/verdict` is served by `src/pages/FightDecisionCockpit.jsx` on this review branch. The previous prototype `src/pages/FightAnalysisLab.jsx` and the older `src/pages/VerdictPage.jsx` remain available as rollback options.
 - Header label becomes "Analysis Lab". Existing fight schedule and event pages are unchanged.
 - Source of confirmed fixtures: `public/news/fights.json`. No placeholder fixtures are introduced.
+
+## Visual revision v3 — October 15
+- TacticalBlueprint (`src/components/TacticalBlueprint.jsx` + `src/styles/tactical-blueprint.css`) renders a responsive top-down illustrated ring. Selecting one of three verified editorial factors updates the ring geometry, selected question, tactical readout and watch list. Ring geometry is a schematic, never purported to be movement-tracking data.
+- Reader can toggle between fighters and inspect weapon/opportunity/vulnerability on demand. Detailed stats are initially collapsed, not stacked above the analysis.
+- The stage has two first-screen entry buttons to jump to analysis or the reader verdict; fixed navigation is header-safe on desktop and mobile.
+- Relative metric differences are shown in a labelled split comparison; orientation corrected so the left fighter's advantage appears on the left, and nothing is called win probability.
+- Contextual metric help is accessible by tap/keyboard through `details`. Profile source links are exposed inside the comparison tray.
+- The fight selector distinguishes fully sourced scouting from profile-only bouts. Missing tactical writeups never show invented analysis.
+- Betting affiliate configuration is inert and separated from the research experience.
 
 ## What is verifiably functional now
 1. Switch between confirmed upcoming events, with fighter profile data resolved from `src/data/seoEntities.js`.
@@ -73,7 +82,7 @@ The *numbers above are STRUCTURE-ONLY EXAMPLES*, not fight data; DO NOT publish 
 - Editorial forecasts are commentary, never guaranteed profit or gambling advice.
 
 ## Before merge
-- Run `npm run lint` and `npm run build` in GitHub/preview, inspect console and accessibility.
+- Run `npm run lint` and `npm run build` in GitHub/preview, inspect console and accessibility. Existing GitHub Actions build steps run `npm run build` but do not replace a browser-based visual QA pass.
 - Verify `/verdict` in wide/compact mobile widths, dropdown transitions, image onerror fallback, metric tabs, sensitivity sliders, reader pick persistence, sources, locale handling and no horizontal overflow.
 - Review records against live commissions for same-day updates.
 - Roll back by restoring `src/AppRouter.jsx` import and route to original `VerdictPage`.
