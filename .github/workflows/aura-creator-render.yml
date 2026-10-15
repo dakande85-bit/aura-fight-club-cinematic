@@ -1,0 +1,125 @@
+name: AURA Creator — narrate and render
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: Project ID (e.g. dubois-wardley-ii)
+        required: true
+        default: dubois-wardley-ii
+        type: string
+      format:
+        description: Video output
+        required: true
+        default: both
+        type: choice
+        options:
+          - short
+          - youtube
+          - both
+      voiceover_short:
+        description: Optional repo path creator/voiceovers/short.m4a
+        required: false
+        default: ''
+        type: string
+      voiceover_youtube:
+        description: Optional repo path creator/voiceovers/analysis.m4a
+        required: false
+        default: ''
+        type: string
+  push:
+    branches:
+      - feature/aura-video-creator-mvp
+    paths:
+      - scripts/render-creator-video.py
+      - creator/projects/**
+      - .github/workflows/aura-creator-render.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install requirements
+        run: python -m pip install 'Pillow>=11,<13'
+      - name: Validate storyboard and rights manifest
+        run: python scripts/render-creator-video.py --project creator/projects/dubois-wardley-ii.json --format both --dry-run
+
+  render-preview:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install media utilities
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python -m pip install 'Pillow>=11,<13'
+      - name: Render reduced-resolution clips to test real MP4s
+        run: python scripts/render-creator-video.py --format both --project creator/projects/dubois-wardley-ii.json --size-test --max-seconds 4
+      - name: Validate MP4 streams
+        run: |
+          for file in creator-exports/*.mp4; do
+            ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,width,height -of json "$file"
+          done
+      - name: Preserve preview videos
+        uses: actions/upload-artifact@v4
+        with:
+          name: aura-creator-smoke-test
+          path: creator-exports/
+          retention-days: 7
+          if-no-files-found: error
+
+  render:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg and image renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python -m pip install 'Pillow>=11,<13'
+      - name: Validate audio and project locations
+        env:
+          PROJECT: ${{ inputs.project }}
+          SHORT_PATH: ${{ inputs.voiceover_short }}
+          LONG_PATH: ${{ inputs.voiceover_youtube }}
+        run: |
+          python - <<'PY'
+          import os,pathlib,re
+          root=pathlib.Path.cwd().resolve()
+          project=os.getenv('PROJECT','')
+          if not re.fullmatch(r'[a-z0-9][a-z0-9-]{1,90}',project):
+              raise SystemExit('Invalid project ID')
+          for key in ('SHORT_PATH','LONG_PATH'):
+              val=os.getenv(key,'')
+              if not val: continue
+              if not re.fullmatch(r'creator/voiceovers/[a-zA-Z0-9][a-zA-Z0-9_.-]{0,120}\.(m4a|mp3|wav|ogg|webm)',val):
+                  raise SystemExit('Invalid voiceover path: '+key)
+              if not (root/val).is_file(): raise SystemExit('Audio not found in repository: '+val)
+          PY
+      - name: Produce MP4s ready for editorial review
+        env:
+          PROJECT: ${{ inputs.project }}
+          FORMAT: ${{ inputs.format }}
+          SHORT_PATH: ${{ inputs.voiceover_short }}
+          LONG_PATH: ${{ inputs.voiceover_youtube }}
+        run: |
+          args=(--project "creator/projects/$PROJECT.json" --format "$FORMAT")
+          if [ -n "$SHORT_PATH" ]; then args+=(--voiceover-short "$SHORT_PATH"); fi
+          if [ -n "$LONG_PATH" ]; then args+=(--voiceover-youtube "$LONG_PATH"); fi
+          python scripts/render-creator-video.py "${args[@]}"
+      - name: Download Shorts, YouTube analysis and shot manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: aura-creator-review-exports
+          path: creator-exports/
+          retention-days: 14
+          if-no-files-found: error
