@@ -39,7 +39,7 @@ export default function AdminSocial(){
    <p>Review original portrait news artwork, copy a verified article headline and caption, and download ready-made MP4 clips. Publishing is manual: no TikTok login, no generative news API, no automatic posting.</p>
    <div className="aura-social-studio__actions">
     <a href={workflow} target="_blank" rel="noopener noreferrer">Get the latest MP4 video exports ↗</a>
-    <Link to="/admin/articles">Edit articles</Link>
+    <Link to="/admin/articles">Edit articles</Link><Link to="/admin/analytics">Audience analytics</Link>
     <Link to="/news">Live Fight Desk</Link>
    </div>
   </header>
