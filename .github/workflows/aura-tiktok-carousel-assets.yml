@@ -49,5 +49,16 @@ jobs:
             echo "No new carousel images to commit."
           else
             git commit -m "Generate AURA TikTok editorial carousel JPEGs"
-            git push origin HEAD:feature/tiktok-news-studio-oct15
+            # Content editors can push while rendering is in progress.
+            # Rebase this generated-assets commit onto the latest remote before pushing.
+            for attempt in 1 2 3; do
+              git fetch origin feature/tiktok-news-studio-oct15
+              git rebase origin/feature/tiktok-news-studio-oct15
+              if git push origin HEAD:feature/tiktok-news-studio-oct15; then
+                exit 0
+              fi
+              echo "Concurrent update; retrying commit publication ($attempt/3)"
+            done
+            echo "Could not safely publish generated assets after three retries."
+            exit 1
           fi
