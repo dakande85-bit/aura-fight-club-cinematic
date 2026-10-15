@@ -5,3 +5,18 @@
 .aura-commerce-strip{max-width:1440px;margin:0 auto;padding:52px 6%;border-top:1px solid #d9dcd7}.aura-commerce-strip>div{display:flex;gap:12px;flex-wrap:wrap}.aura-commerce-strip a{background:#171918;color:#fff}
 .aura-advertise{max-width:1200px;margin:auto;padding:60px 6% 100px}.aura-advertise h1{font-size:clamp(4rem,9vw,8rem);margin:0 0 22px}.aura-advertise h2{font-size:clamp(2rem,4vw,3.8rem);margin:50px 0 18px}.aura-advertise p,.aura-advertise li{font-size:18px;line-height:1.65;max-width:780px}.aura-advertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}.aura-advertise-card{border:1px solid #d9dcd7;background:#fff;padding:26px}.aura-advertise-card h3{font-size:26px}.aura-advertise-cta{display:inline-block;margin-top:28px;padding:14px 20px;background:#171918;color:#fff!important;font-weight:800}
 @media(max-width:700px){.aura-ad-slot{align-items:flex-start;flex-direction:column}.aura-watch-box{margin:0 6% 40px;padding:24px}.aura-watch-box__grid,.aura-advertise-grid{grid-template-columns:1fr}}
+
+/* Affiliate-ready display inventory. Unapproved placements remain clearly marked house ads. */
+.aura-ad-slot{position:relative;overflow:hidden;isolation:isolate;min-height:156px;border:1px solid #404b46;background:#18211f;color:#f4f1e8;padding:28px clamp(20px,4vw,54px);gap:36px}
+.aura-ad-slot::before{content:"";position:absolute;inset:0 0 0 auto;width:46%;pointer-events:none;background:repeating-linear-gradient(145deg,transparent 0 26px,rgba(199,175,111,.075) 27px 28px);z-index:-1}
+.aura-ad-slot__copy{max-width:660px}
+.aura-ad-slot__eyebrow,.aura-ad-slot>span{display:block;color:#d6b56d;font-weight:800;letter-spacing:.19em;font-size:10px;text-transform:uppercase;margin-bottom:14px}
+.aura-ad-slot .aura-ad-slot__copy strong{font-family:'Barlow Condensed','Arial Narrow',sans-serif;display:block;font-size:clamp(1.7rem,3.2vw,2.75rem);line-height:1.04;letter-spacing:.012em;text-transform:uppercase;color:#f4f1e8}
+.aura-ad-slot__copy p{color:#bbc4be;font-size:13px;line-height:1.5;margin:12px 0 0;max-width:540px}
+.aura-ad-slot__house-link,.aura-ad-slot__action>a{display:inline-flex;align-items:center;justify-content:center;gap:24px;flex:none;padding:14px 20px;background:#d6b56d;color:#161b18!important;font-size:12px;font-weight:900;text-decoration:none;border:0!important;white-space:nowrap}
+.aura-ad-slot__action{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.aura-ad-slot__action small{max-width:240px;text-align:right;font-size:10px;line-height:1.5;color:#b8c0ba}
+.aura-ad-slot--affiliate{background:linear-gradient(115deg,#111a18,#28322b)}
+.aura-ad-slot--adsense{background:#fff;color:#222;display:block;min-height:100px}
+.aura-ad-slot--adsense::before{display:none}
+@media(max-width:700px){.aura-ad-slot{gap:24px;min-height:unset;margin:20px 5%;padding:24px}.aura-ad-slot__house-link,.aura-ad-slot__action>a{width:100%;white-space:normal}.aura-ad-slot__action{width:100%;align-items:stretch}.aura-ad-slot__action small{text-align:left;max-width:none}.aura-ad-slot__copy p{font-size:12px}}
