@@ -13,6 +13,7 @@ import {getFighterByName} from '../data/seoEntities.js';
 import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
 import {fightLabScouting, verifiedRecentFights, punchDataContract} from '../data/fightLabScouting.js';
 import edition from '../../public/news/fights.json';
+import '../styles/fight-hub.css';
 import '../styles/fight-decision-cockpit.css';
 
 const dateNow=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Atlantic/Canary',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
