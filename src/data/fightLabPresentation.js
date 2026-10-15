@@ -48,6 +48,8 @@ export function createDecisionBrief({
  }else{
   lines.push('Career profile comparison: insufficient common data to rank');
  }
+ const references=[...new Set([fight?.sourceUrl,...(fighters||[]).flatMap(f=>f.sources||[])].filter(url=>typeof url==='string'&&/^https:\/\//.test(url)))].slice(0,6);
+ if(references.length)lines.push('Sources to review:\n'+references.map(url=>'• '+url).join('\n'));
  lines.push('AURA commentary is not a calibrated win prediction. Verify each fighter record and source independently.');
  return lines.join('\n\n');
 }
