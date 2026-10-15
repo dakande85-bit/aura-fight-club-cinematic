@@ -57,9 +57,9 @@ export const verifiedRecentFights = {
     {date:'2026-05-09',opponent:'Daniel Dubois',result:'L',method:'TKO 11',source:'https://www.reuters.com/sports/dubois-stops-wardley-11-rounds-take-wbo-heavyweight-title-2026-05-09/'}
   ],
   'Ermal Hadribeaj': [
-    {date:'2026-05-23',opponent:'Bakary Samake',result:'W',method:'Decision',source:'https://www.ringmagazine.com/fighters/ermal-hadribeaj-70SNbkWZvHnLYdyr7ZQktd'}
+    {date:'2026-05-23',opponent:'Bakary Samake',result:'W',method:'UD 12',source:'https://www.ringmagazine.com/news/hadribeaj-on-path-to-fight-fundora-after-beating-samake-5YssaDQDBeTNAHl3PWdFvs'}
   ],
   'Sebastian Fundora': [
-    {date:'2026-03-28',opponent:'Keith Thurman',result:'W',method:'Win',source:'https://wbcboxing.com/boxeador/sebastian-fundora/'}
+    {date:'2026-03-28',opponent:'Keith Thurman',result:'W',method:'TKO 6',source:'https://www.premierboxingchampions.com/events/249677'}
   ]
 };
