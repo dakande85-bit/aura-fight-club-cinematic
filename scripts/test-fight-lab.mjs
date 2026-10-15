@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs';
 import {
  inchesFromText, parseCareerRecord, compareBoxingProfiles, indicatorPosition
 } from '../src/data/fightLabMetrics.js';
+import {getCalendarDate,upcomingFightCards,getDocumentedResults,createDecisionBrief} from '../src/data/fightLabPresentation.js';
 
 let checks=0;
 const equal=(actual,expected,message)=>{assert.equal(actual,expected,message);checks++};
@@ -42,6 +43,43 @@ equal(indicatorPosition(.2),30,'red-corner advantage shifts left');
 equal(indicatorPosition(-.2),70,'blue-corner advantage shifts right');
 equal(indicatorPosition(2),10,'pointer clamped to the track');
 equal(indicatorPosition(-2),90,'pointer clamped symmetrically');
+
+
+equal(getCalendarDate(new Date('2026-10-15T22:30:00Z'),'Atlantic/Canary'),'2026-10-15','Canary calendar before local midnight');
+equal(getCalendarDate(new Date('2026-10-15T23:30:00Z'),'Atlantic/Canary'),'2026-10-16','Canary local date after midnight (DST)');
+equal(getCalendarDate(new Date('2026-01-01T01:30:00Z'),'America/Los_Angeles'),'2025-12-31','other timezone crossover');
+const fixtures=[
+ {id:'old',date:'2026-10-14',status:'Scheduled',fighters:['A','B']},
+ {id:'today',date:'2026-10-15',status:'Scheduled',fighters:['A','B']},
+ {id:'cancelled',date:'2026-10-17',status:'Cancelled',fighters:['A','B']},
+ {id:'future',date:'2026-10-18',status:'Scheduled',fighters:['C','D']},
+ {id:'completed',date:'2026-10-20',status:'Completed',fighters:['X','Y']},
+ {id:'incomplete',date:'2026-10-21',status:'Scheduled',fighters:['X']}
+];
+equal(upcomingFightCards(fixtures,'2026-10-15').map(x=>x.id).join(','),'today,future','only actual scheduled two-fighter fixtures appear');
+const snapshots={
+ 'Red Corner':[
+  {date:'2026-10-19',opponent:'Future',result:'W',source:'https://boxing.test/future'},
+  {date:'2026-05-09',opponent:'Previous',result:'W',source:'https://boxing.test/prior'},
+  {date:'2026-05-15',opponent:'Unsourced',result:'L'},
+  {date:'2026-10-15',opponent:'Same Day',result:'W',source:'https://boxing.test/sameday'},
+  {date:'2025-10-01',opponent:'Older',result:'L',source:'https://boxing.test/older'}
+ ]
+};
+equal(getDocumentedResults('Red Corner',snapshots,'2026-10-15').length,2,'future, same-day and unsourced bouts excluded');
+equal(getDocumentedResults('Red Corner',snapshots,'2026-10-15')[0].opponent,'Previous','latest reviewed result first');
+equal(getDocumentedResults('Blue Corner',snapshots,'2026-10-15').length,0,'missing fighter data displays no assumptions');
+const brief=createDecisionBrief({
+ fight:{name:'A v B'},fighters:[{name:'Red Corner'},{name:'Blue Corner'}],
+ pick:'Red Corner',confidence:'medium',reason:' The jab can matter.  ',
+ selectedQuestions:['Which fighter finds the jab?'],model:both
+});
+assert.match(brief,/My pick: Red Corner/);checks++;
+assert.match(brief,/Questions I am watching/);checks++;
+assert.match(brief,/NOT win odds/);checks++;
+const noPadded= createDecisionBrief({fight:{name:'A v B'},fighters:[{name:'Red Corner'}],pick:'Unknown',model:null});
+assert.match(noPadded,/My pick: Undecided/);checks++;
+assert.match(noPadded,/insufficient common data/);checks++;
 
 const eventData=JSON.parse(readFileSync(new URL('../public/news/fights.json',import.meta.url),'utf8'));
 for(const event of eventData.fights){
