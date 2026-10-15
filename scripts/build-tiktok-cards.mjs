@@ -122,6 +122,10 @@ async function main() {
    media.push('/news/tiktok/'+pack.id+'/'+name);
   }
   out.packs.push({id:pack.id,relatedArticle:pack.relatedArticle,caption:pack.caption,media,
+   metricoolPlannerUrl: pack.metricoolDraftUuid
+     ? 'https://app.metricool.com/planner/calendar?blogId=7438814&openWithPostUuid='+encodeURIComponent(pack.metricoolDraftUuid) : null,
+   editorialStatus:pack.editorialStatus||'draft_review_required',
+   coverDisclosure:pack.coverDisclosure||'AI-generated editorial illustration',
    photoCredits: licenceData.sources.filter(p=>Object.values(licenceData.slidePhotos?.[pack.id]||{}).includes(p.id))
     .map(p=>({fighter:p.fighter,creator:p.creator,license:p.license,licenseUrl:p.licenseUrl,sourcePage:p.sourcePage,archiveDate:p.date}))
   });
