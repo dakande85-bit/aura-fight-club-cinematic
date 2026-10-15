@@ -7,13 +7,19 @@ const diagrams=[
  {label:'Angle changes',region:'MID-RANGE',left:[282,146],right:[425,242],path:'M303 143 Q408 109 423 215',focus:[368,193],radius:82},
  {label:'Pocket exchanges',region:'INSIDE',left:[306,195],right:[372,209],path:'M310 193 Q337 157 366 206',focus:[341,196],radius:59}
 ];
+const modesByFight={
+ 'dubois-wardley-2':[2,0,1],
+ 'fundora-hadribeaj':[0,2,1]
+};
 const surname=name=>String(name||'Fighter').split(' ').slice(-1)[0].toUpperCase();
-export default function TacticalBlueprint({fighters=[],active=0,onSelect=()=>{}}){
- const current=diagrams[active]||diagrams[0];
+export default function TacticalBlueprint({fighters=[],fightId='',scenes=[],active=0,onSelect=()=>{}}){
+ const mapping=modesByFight[fightId]||[0,1,2];
+ const current=diagrams[mapping[active]]||diagrams[0];
+ const focusLabel=scenes[active]?.name||current.label;
  return <div className="fdc-blueprint">
   <div className="fdc-blueprint-topline"><span><i/> AURA / RING BLUEPRINT</span><span>VIEW {String(active+1).padStart(2,'0')} OF 03</span></div>
   <div className="fdc-blueprint-canvas">
-   <svg viewBox="0 0 680 390" role="img" aria-label={'Illustrative tactical ring schematic: '+current.label+'. These are conceptual positions, not measured fighter movements.'} preserveAspectRatio="xMidYMid meet">
+   <svg viewBox="0 0 680 390" role="img" aria-label={'Illustrative tactical ring schematic: '+focusLabel+'. These are conceptual positions, not measured fighter movements.'} preserveAspectRatio="xMidYMid meet">
     <defs>
      <radialGradient id="aura-floor" cx="50%" cy="50%" r="67%"><stop offset="0%" stopColor="#213440"/><stop offset="100%" stopColor="#0b171f"/></radialGradient>
      <radialGradient id="aura-hotspot"><stop offset="0%" stopColor="#d8b887" stopOpacity=".22"/><stop offset="100%" stopColor="#d8b887" stopOpacity="0"/></radialGradient>
@@ -47,7 +53,7 @@ export default function TacticalBlueprint({fighters=[],active=0,onSelect=()=>{}}
    <div className="fdc-blueprint-watermark" aria-hidden="true"><span>AURA</span><strong>STRATEGY / 01</strong></div>
   </div>
   <div className="fdc-blueprint-controls" role="group" aria-label="Illustrative tactical zone">
-   {diagrams.map((item,i)=><button type="button" key={item.label} aria-pressed={active===i} onClick={()=>onSelect(i)}><span>{String(i+1).padStart(2,'0')}</span><strong>{item.label}</strong></button>)}
+   {diagrams.map((item,i)=><button type="button" key={i} aria-pressed={active===i} onClick={()=>onSelect(i)}><span>{String(i+1).padStart(2,'0')}</span><strong>{scenes[i]?.name||item.label}</strong></button>)}
   </div>
   <p className="fdc-blueprint-note">CONCEPTUAL DIAGRAM <span>·</span> Not fighter-tracking data or a recorded exchange</p>
  </div>;
