@@ -1,6 +1,8 @@
 import {useEffect} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import {PageSEO, SITE_URL} from '../components/SEO.jsx';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
 import articlesData from '../../public/news/articles.json';
 import fightsData from '../../public/news/fights.json';
 import rankingsData from '../../public/news/rankings.json';
@@ -8,11 +10,6 @@ import {fighters} from '../data/seoEntities.js';
 import {spanishArticles} from '../i18n/esArticles.js';
 import '../styles/aura-spanish.css';
 
-const NAV = [
-  ['Portada','/es'], ['Noticias','/es/news'], ['Combates','/es/fight-hub'],
-  ['Clasificaciones','/es/rankings'], ['Boxeadores','/es/fighters'],
-  ['Estilo de vida','/es/lifestyle'], ['Quiénes somos','/es/who-we-are'], ['Socios','/es/members']
-];
 const ALL = articlesData.articles || [];
 const COVERAGE = ALL.filter(article => spanishArticles[article.slug]);
 const EVENTS = fightsData.fights || [];
@@ -112,14 +109,7 @@ export default function SpanishSite() {
  useEffect(()=>{document.documentElement.lang='es';window.scrollTo(0,0);},[path]);
  const originalPath=path==='/'?'/':path;
  const isArticle=path.startsWith('/news/');
- return <div className="aura-es">
-    <div className="aura-es-strip"><span>INDEPENDIENTE. INFORMADO. SIN RODEOS.</span><span>EDICIÓN EN ESPAÑOL</span></div>
-    <header className="aura-es-header"><Link className="aura-es-logo" to="/es" aria-label="AURA inicio"><strong>AURA</strong><span>FIGHT CLUB</span></Link>
-      <nav className="aura-es-nav" aria-label="Navegación principal">{NAV.slice(1,6).map(([label,href])=><Link key={href} className={(location.pathname===href?'active':'')} to={href}>{label}</Link>)}</nav>
-      <div className="aura-es-switch"><a href={originalPath} lang="en" aria-label="Read this page in English">EN</a><span aria-hidden="true">/</span><strong lang="es" aria-current="true">ES</strong></div>
-      <details className="aura-es-mobile"><summary aria-label="Abrir menú">☰ Menú</summary><nav>{NAV.map(([label,href])=><Link key={href} to={href}>{label}</Link>)}<a href={originalPath}>English / EN</a></nav></details>
-    </header>
+ return <><Header/><div className="aura-es">
     <main id="contenido" className="aura-es-main">{path==='/'?<Homepage/>:path==='/news'?<News/>:isArticle?<Article slug={path.slice('/news/'.length)}/>:path==='/fight-hub'||path==='/calendar'?<FightHub/>:path==='/rankings'?<Rankings/>:path==='/fighters'?<Fighters/>:['/lifestyle','/who-we-are','/members'].includes(path)?<TextPage page={path}/>:<><Metadata title="Página no disponible en español" description="Consulta la página original en inglés." path={'/es'+path} noindex/><div className="aura-es-container aura-es-reading"><h1>Página pendiente de traducción.</h1><p>Esta sección sigue disponible en inglés.</p><a className="aura-es-button" href={originalPath}>Ver la página en inglés ↗</a></div></>}</main>
-    <footer className="aura-es-footer"><div><Link to="/es" className="aura-es-logo"><strong>AURA</strong><span>FIGHT CLUB</span></Link><p>Noticias, análisis, cultura y estilo de vida del boxeo.</p></div><nav>{NAV.map(([label,href])=><Link key={href} to={href}>{label}</Link>)}</nav><small>© {new Date().getFullYear()} AURA Fight Club · <a href="/privacy">Privacidad (EN)</a> · <a href="mailto:hello@aurafightclub.com">Contacto</a></small></footer>
-  </div>;
+  </div><Footer/></>;
 }
