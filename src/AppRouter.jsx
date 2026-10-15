@@ -6,7 +6,7 @@ import HomeStaticHero from './components/HomeStaticHero.jsx';
 import FightHub from './pages/FightHub.jsx';
 import FighterComparePage from './pages/FighterComparePage.jsx';
 import FilmRoom from './pages/FilmRoom.jsx';
-import FightAnalysisLab from './pages/FightAnalysisLab.jsx';
+import FightDecisionCockpit from './pages/FightDecisionCockpit.jsx';
 import ChampionsPage from './pages/ChampionsPage.jsx';
 import LaunchLandingPage from './pages/LaunchLandingPage.jsx';
 import CinematicPage from './pages/CinematicPage.jsx';
@@ -70,7 +70,7 @@ export default function AppRouter() {
         <Route path="/corrections" element={<CorrectionsPolicyPage />} />
         <Route path="/fight-hub" element={<FightHub />} />
         <Route path="/film-room" element={<FilmRoom />} />
-        <Route path="/verdict" element={<FightAnalysisLab />} />
+        <Route path="/verdict" element={<FightDecisionCockpit />} />
         <Route path="/calendar" element={<FightHub />} />
         <Route path="/rankings" element={<ChampionsPage />} />
         <Route path="/fights/:id" element={<FightPage />} />
