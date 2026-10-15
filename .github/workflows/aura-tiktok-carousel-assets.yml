@@ -5,6 +5,10 @@ on:
       - feature/tiktok-news-studio-oct15
     paths:
       - .github/workflows/aura-tiktok-carousel-assets.yml
+      - scripts/build-tiktok-cards.mjs
+      - scripts/fetch-tiktok-photo-sources.mjs
+      - data/tiktok-photo-licences.json
+      - data/tiktok-editorial-packs.json
   workflow_dispatch:
 permissions:
   contents: write
