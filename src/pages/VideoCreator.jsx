@@ -4,6 +4,7 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import project from '../../creator/projects/dubois-wardley-ii.json';
 import stockLibrary from '../../creator/stock-library.json';
+import FootageResearch from '../components/FootageResearch.jsx';
 import '../styles/aura-video-creator.css';
 
 const repo='https://github.com/dakande85-bit/aura-fight-club-cinematic';
@@ -140,6 +141,7 @@ export default function VideoCreator(){
     </article>)}
    </div>
   </section>
+  <FootageResearch storyId={project.id} format={kind} beats={beats} articleUrl={project.sourceArticle}/>
   <aside className="aura-video-creator__roadmap"><strong>FUTURE STAGE</strong><p>Private audio uploads, licensed stock-video picker, precise speech-aligned subtitles, editable shot timings and YouTube/TikTok publishing after approval.</p></aside>
  </main><Footer/></>;
 }
