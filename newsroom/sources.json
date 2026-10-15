@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "region": "GB",
+  "searches": [
+    {
+      "name": "Boxing / all outlets",
+      "query": "boxing when:7d"
+    },
+    {
+      "name": "talkSPORT Boxing",
+      "query": "boxing site:talksport.com when:7d"
+    },
+    {
+      "name": "The Ring",
+      "query": "boxing site:ringmagazine.com when:7d"
+    },
+    {
+      "name": "DAZN",
+      "query": "boxing site:dazn.com when:7d"
+    },
+    {
+      "name": "BoxingScene",
+      "query": "boxing site:boxingscene.com when:7d"
+    },
+    {
+      "name": "Sky Sports Boxing",
+      "query": "boxing site:skysports.com when:7d"
+    },
+    {
+      "name": "Promoters / official",
+      "query": "(Matchroom OR Queensberry OR Top Rank OR Premier Boxing Champions) boxing when:7d"
+    },
+    {
+      "name": "Governing bodies",
+      "query": "(WBC OR WBA OR IBF OR WBO) boxing when:7d"
+    },
+    {
+      "name": "Interviews / controversy",
+      "query": "boxing (interview OR responds OR dispute OR reaction) when:7d"
+    },
+    {
+      "name": "UK prospects",
+      "query": "(Itauma OR Whittaker OR Yarde OR Benn OR Dubois OR Wardley) boxing when:7d"
+    }
+  ],
+  "watch_terms": [
+    "Daniel Dubois",
+    "Fabio Wardley",
+    "Sebastian Fundora",
+    "Moses Itauma",
+    "Tyson Fury",
+    "Anthony Joshua",
+    "Oleksandr Usyk",
+    "Artur Beterbiev",
+    "Dmitry Bivol",
+    "David Benavidez",
+    "Canelo Alvarez",
+    "Terence Crawford",
+    "Devin Haney",
+    "Shakur Stevenson",
+    "Jaron Ennis",
+    "Jesse Rodriguez",
+    "Junto Nakatani",
+    "Naoya Inoue",
+    "Ryan Garcia",
+    "Conor Benn",
+    "Ben Whittaker",
+    "Deontay Wilder",
+    "Eddie Hearn",
+    "Dana White",
+    "Frank Warren",
+    "Turki Alalshikh",
+    "Boxing",
+    "WBC",
+    "WBA",
+    "IBF",
+    "WBO"
+  ],
+  "authorisation_note": "Discovery only. Do not auto-generate or publish articles; source claims and images require separate verification and editor sign-off."
+}
