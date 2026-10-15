@@ -1,9 +1,5 @@
 name: AURA lookbook asset importer
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'data/aura-lookbook-import.json'
   workflow_dispatch:
 permissions:
   contents: write
