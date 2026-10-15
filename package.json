@@ -13,7 +13,8 @@
     "data:check": "node scripts/check-fight-data.mjs",
     "news:audit": "node scripts/audit-editorial.mjs",
     "media:audit": "node scripts/audit-fighter-media.mjs",
-    "lifestyle:audit": "node scripts/audit-lookbook.mjs"
+    "lifestyle:audit": "node scripts/audit-lookbook.mjs",
+    "postbuild": "node scripts/prerender-seo.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
