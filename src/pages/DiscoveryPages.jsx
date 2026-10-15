@@ -47,16 +47,19 @@ function AuraTop50({base,isEs,query=''}) {
       <span className="aura-50__identity"><strong>{profile?<Link to={base+'/'+profile.slug} onClick={e=>e.stopPropagation()}>{item.name}</Link>:item.name}</strong><small>{item.division}</small></span>
       <span className="aura-50__division">{item.division}</span>
       <span className={'aura-50__record'+(!profile?.record?' aura-50__record--none':'')}>{profile?.record||'—'}<small>{t('Career record snapshot','Récord no actualizado')}</small></span>
-      <span className="aura-50__expand">{t('Last five ↗','Últimos 5 ↗')}</span>
+      <span className="aura-50__expand">{t('Fight form ↗','Forma reciente ↗')}</span>
       <span className="aura-50__chevron" aria-hidden="true">+</span>
      </summary>
      <div className="aura-50__detail">
       <p><strong>{t('AURA assessment:','Análisis de AURA:')}</strong> {item.reason}</p>
-      <div className="aura-50__form">{Array.from({length:5},(_,i)=>{
-       const bout=item.recentBouts?.[i];
-       return bout?<div className="aura-50__bout" key={i}><b>{bout.result} · {bout.opponent}</b><time dateTime={bout.date}>{bout.date}</time><small>{bout.method}</small><a href={bout.sourceUrl} target="_blank" rel="noreferrer">{t('Verify source ↗','Fuente ↗')}</a></div>
-       :<div className="aura-50__bout aura-50__bout--pending" key={i}><b>—</b><small>{t('Bout not yet verified','Combate pendiente de verificar')}</small></div>;
-      })}</div>
+      <div className="aura-50__form">
+       {(item.recentBouts||[]).map((bout,i)=><div className="aura-50__bout" key={i}>
+        <b>{bout.result} · {bout.opponent}</b><time dateTime={bout.date}>{bout.date}</time><small>{bout.method}</small>
+        <a href={bout.sourceUrl} target="_blank" rel="noreferrer">{t('Verify source ↗','Fuente ↗')}</a>
+       </div>)}
+       {!item.recentBouts?.length&&<div className="aura-50__form-status">{t('Detailed bout history in verification. Scouting assessment above reflects AURA editorial analysis; this is not an implied unbeaten streak.','El historial de combates está en verificación. El análisis anterior representa el criterio editorial, no una racha inferida.')}</div>}
+      </div>
+      {Boolean(item.recentBouts?.length&&item.recentBouts.length<5)&&<p className="aura-50__form-hint">{t('Only verified bouts are shown; remaining recent fights are being checked, not presumed wins.','Solo mostramos combates verificados; los resultados restantes están pendientes de comprobación.')}</p>}
       {!profile&&<p style={{marginTop:'12px',fontSize:'12px'}}>{t('Detailed profile, verified record and licensed portrait in editorial review.','Perfil detallado, récord y fotografía sujetos a revisión editorial.')}</p>}
      </div>
     </details>
