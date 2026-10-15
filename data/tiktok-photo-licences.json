@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "editorialPolicy": "Only verified files with explicit reuse permissions may be embedded. Getty/PBC/magazine images are not automatically licensed for independent TikTok republishing. Archive dates must not be presented as current event images.",
+  "sources": [
+    {
+      "id": "dubois-walkout-2025",
+      "filename": "Daniel_Dubois_walkout_(cropped).jpg",
+      "localFile": "dubois-walkout-2025.jpg",
+      "fighter": "Daniel Dubois",
+      "date": "2025-07-19",
+      "creator": "Editor083 (crop: Hullian111)",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout_(cropped).jpg",
+      "displayCredit": "PHOTO: EDITOR083 / WIKIMEDIA COMMONS · CC BY 4.0 · 2025"
+    },
+    {
+      "id": "hadribeaj-press-2023",
+      "filename": "Ermal_HAdribeaj.jpg",
+      "localFile": "hadribeaj-press-2023.jpg",
+      "fighter": "Ermal Hadribeaj",
+      "date": "2023-07-24",
+      "creator": "Donato2024",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Ermal_HAdribeaj.jpg",
+      "displayCredit": "PHOTO: DONATO2024 / COMMONS · CC BY-SA 4.0 · 2023"
+    }
+  ],
+  "slidePhotos": {
+    "dubois-wardley-ii": {
+      "0": "dubois-walkout-2025",
+      "1": "dubois-walkout-2025"
+    },
+    "fundora-hadribeaj": {
+      "0": "hadribeaj-press-2023",
+      "1": "hadribeaj-press-2023"
+    },
+    "october-17-boxing-three-fights": {
+      "0": "dubois-walkout-2025",
+      "1": "dubois-walkout-2025",
+      "2": "hadribeaj-press-2023"
+    }
+  }
+}
