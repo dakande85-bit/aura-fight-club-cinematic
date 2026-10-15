@@ -1,7 +1,7 @@
 import {useMemo, useState} from 'react';
 import {Link, useSearchParams} from 'react-router-dom';
 import {
-  Activity, ArrowRight, ArrowUpRight, BookmarkCheck,
+  Activity, ArrowRight, ArrowUpRight, BarChart3, BookmarkCheck,
   Check, ChevronDown, CircleHelp, ClipboardCheck, Compass, Database,
   ExternalLink, Info, LockKeyhole, RotateCcw, ScanLine, ShieldCheck,
   SlidersHorizontal, Target, Zap
@@ -11,10 +11,12 @@ import Footer from '../components/Footer.jsx';
 import {PageSEO} from '../components/SEO.jsx';
 import {getFighterByName} from '../data/seoEntities.js';
 import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
+import TacticalBlueprint from '../components/TacticalBlueprint.jsx';
 import {fightLabScouting, verifiedRecentFights, punchDataContract} from '../data/fightLabScouting.js';
 import edition from '../../public/news/fights.json';
 import '../styles/fight-hub.css';
 import '../styles/fight-decision-cockpit.css';
+import '../styles/tactical-blueprint.css';
 
 const dateNow=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Atlantic/Canary',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const upcoming=edition.fights.filter(f=>f.status!=='Completed'&&f.date>=dateNow()&&f.fighters?.length===2).sort((a,b)=>a.date.localeCompare(b.date));
@@ -99,16 +101,17 @@ function BriefMetric({title,left,right,format,explain}){
 function FightStage({fight,fighters,scouting,goToModel}){
  const [detail,setDetail]=useState('tactical');
  const [expanded,setExpanded]=useState(false);
+ const [showStats,setShowStats]=useState(false);
  const info=sourceCoverage(fighters,scouting);
- return <div className="fdc-stage">
+ return <div className={'fdc-stage'+(showStats?'':' fdc-stage--compact')}>
   <div className="fdc-stage-art" aria-label={fight.name}>
    <Portrait fighter={fighters[0]} position="left"/>
    <div className="fdc-vs"><span>THE MATCHUP</span><strong>VS</strong><small>{fight.division}</small></div>
    <Portrait fighter={fighters[1]} position="right"/>
   </div>
-  <div className="fdc-stage-dock"><div><span className="fdc-kicker">SCOUTED EVENT</span><strong>{new Date(fight.date+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})} <span className="fdc-muted">· {fight.venue}</span></strong></div><div><span className="fdc-kicker">PROFILE COVERAGE</span><strong>{info.verified}/{info.total} available fields <button type="button" onClick={()=>setExpanded(x=>!x)} aria-expanded={expanded} aria-label="Explain evidence coverage"><Info size={13}/></button></strong></div><button className="fdc-dock-action" type="button" onClick={goToModel}>Stress-test the matchup <ArrowRight size={15}/></button></div>
+  <div className="fdc-stage-dock"><div><span className="fdc-kicker">SCOUTED EVENT</span><strong>{new Date(fight.date+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})} <span className="fdc-muted">· {fight.venue}</span></strong></div><div><span className="fdc-kicker">PROFILE COVERAGE</span><strong>{info.verified}/{info.total} available fields <button type="button" onClick={()=>setExpanded(x=>!x)} aria-expanded={expanded} aria-label="Explain evidence coverage"><Info size={13}/></button></strong></div><button type="button" className="fdc-telemetry-toggle" aria-controls="fdc-quick-stats" aria-expanded={showStats} onClick={()=>setShowStats(x=>!x)}><BarChart3 size={14}/>{showStats?'Hide career metrics':'Compare career metrics'} <ChevronDown size={14}/></button><button className="fdc-dock-action" type="button" onClick={goToModel}>Stress-test the matchup <ArrowRight size={15}/></button></div>
   {expanded&&<p className="fdc-coverage-note">Coverage counts published professional records, reach, height and stance for both fighters, plus an editorial scouting brief. It does not measure prediction accuracy or statistical confidence.</p>}
-  <div className="fdc-mini-grid">
+  <div className="fdc-mini-grid" id="fdc-quick-stats" hidden={!showStats}>
    <BriefMetric title="KO WIN SHARE" left={fighters[0].stats?.finish} right={fighters[1].stats?.finish} format={pct} explain={lensMeta.power.description}/>
    <BriefMetric title="REACH" left={fighters[0].reachIn} right={fighters[1].reachIn} format={n=>n+' in'} explain={lensMeta.range.description}/>
    <BriefMetric title="CAREER WIN SHARE" left={fighters[0].stats?.winshare} right={fighters[1].stats?.winshare} format={pct} explain={lensMeta.form.description}/>
@@ -119,20 +122,43 @@ function FightStage({fight,fighters,scouting,goToModel}){
 function ResearchView({fight,fighters,scouting,onNext}){
  const [selected,setSelected]=useState(0);
  const [angle,setAngle]=useState('weapon');
+ const [activeFighter,setActiveFighter]=useState(0);
  const questions=scouting?.keys||[];
- const captions={weapon:'Primary weapon',opportunity:'Route to victory',danger:'What could go wrong'};
+ const captions={weapon:'Signature weapon',opportunity:'Path to victory',danger:'Key vulnerability'};
  const secondary=simulations[fight.id]||[];
  const tactic=secondary[selected]||null;
+ const chooseFactor=i=>{setSelected(i);setAngle('weapon')};
  return <div className="fdc-panel fdc-research">
-  <div className="fdc-panel-title"><div><p className="fdc-kicker">01 / READ THE MATCHUP</p><h2>What actually decides this fight?</h2></div><span className="fdc-panel-side"><Compass size={16}/> SCOUTING ROOM</span></div>
-  {scouting?<><div className="fdc-intel-layout">
-    <div className="fdc-factor-list">{questions.map((q,i)=><button className={selected===i?'selected':''} type="button" key={i} onClick={()=>{setSelected(i);setAngle('weapon')}}><span>0{i+1}</span><strong>{secondary[i]?.name||'Fight factor '+(i+1)}</strong><small>{q}</small><ArrowUpRight size={15}/></button>)}</div>
-    <div className="fdc-focus-card" key={selected}><span className="fdc-focus-index">SELECTED FACTOR / 0{selected+1}</span><h3>{tactic?.lead||questions[selected]}</h3><p>{tactic?.body||questions[selected]}</p><div className="fdc-watchline"><Target size={17}/><span>{tactic?.trigger||'Watch this exchange as the fight develops.'}</span></div><div className="fdc-fighter-toggle"><span>Explore a fighter's tools:</span>{['weapon','opportunity','danger'].map(k=><button className={angle===k?'active':''} type="button" key={k} onClick={()=>setAngle(k)}>{captions[k]}</button>)}</div><div className="fdc-scout-opposition">{fighters.map(f=><div key={f.name}><strong>{f.name}</strong><p>{scouting.fighters[f.name]?.[angle]||'Needs editorial review'}</p></div>)}</div></div>
-   </div><details className="fdc-citations"><summary>Read the evidence and original sources <ChevronDown size={16}/></summary>{scouting.evidence.map((e,i)=><p key={i}><strong>{e.label}:</strong> {e.detail} <a href={e.url} target="_blank" rel="noopener noreferrer">Check source <ExternalLink size={12}/></a></p>)}</details></>:<div className="fdc-lab-empty"><Database size={25}/><h3>Technical preview awaiting source review</h3><p>We would rather leave a matchup unrated than manufacture a breakdown from a fighter’s record.</p></div>}
-  <div className="fdc-form-ribbon"><span><Activity size={15}/> RECENT RESULT SNAPSHOT</span>{fighters.map(f=><div key={f.name}><strong>{f.name}</strong>{verifiedRecentFights[f.name]?.length?<a href={verifiedRecentFights[f.name][0].source} target="_blank" rel="noopener noreferrer">{verifiedRecentFights[f.name][0].result} against {verifiedRecentFights[f.name][0].opponent} ↗</a>:<small>Last-five form awaiting verification</small>}</div>)}</div>
-  <div className="fdc-panel-bottom"><span>Observation first. Projection second.</span><button onClick={onNext} type="button">Next: test your assumptions <ArrowRight size={16}/></button></div>
+  <div className="fdc-panel-title"><div><p className="fdc-kicker">01 / READ THE MATCHUP</p><h2>See the fight before it happens.</h2></div><span className="fdc-panel-side"><Compass size={16}/> INTERACTIVE SCOUTING ROOM</span></div>
+  <p className="fdc-scout-mission">Select a <strong>tactical factor</strong> to explore the ring, the key exchanges and the vulnerabilities on either side. The blueprint is an illustration, not tracking data.</p>
+  {scouting?<><div className="fdc-scout-lab">
+    <TacticalBlueprint fighters={fighters} active={selected} onSelect={chooseFactor}/>
+    <div className="fdc-factor-list">{questions.map((q,i)=><button className={selected===i?'selected':''} aria-pressed={selected===i} type="button" key={i} onClick={()=>chooseFactor(i)}><span>0{i+1}</span><strong>{secondary[i]?.name||'Fight factor '+(i+1)}</strong><small>{q}</small><ArrowUpRight size={15}/></button>)}</div>
+   </div>
+   <div className="fdc-scout-story">
+    <div className="fdc-scout-readout" key={selected}>
+      <p className="fdc-kicker">TACTICAL READOUT / 0{selected+1}</p>
+      <h3>{tactic?.lead||questions[selected]}</h3>
+      <p>{tactic?.body||questions[selected]}</p>
+      <div className="fdc-watchline"><Target size={17}/><span><strong>WHAT TO WATCH:</strong> {tactic?.trigger||'Watch how each fighter handles this key exchange.'}</span></div>
+    </div>
+    <div className="fdc-scout-console">
+      <div className="fdc-scout-console-header"><span>FIGHTER INTELLIGENCE</span><small>SELECT A CORNER</small></div>
+      <div className="fdc-corner-switch" role="group" aria-label="Select fighter to analyse">{fighters.map((f,i)=><button key={f.name} type="button" aria-pressed={activeFighter===i} onClick={()=>setActiveFighter(i)}><strong>{f.name}</strong>{i===activeFighter&&<Check size={14}/>}</button>)}</div>
+      <div className="fdc-fighter-toggle" role="group" aria-label="Technical scouting angle">{['weapon','opportunity','danger'].map(key=><button key={key} type="button" aria-pressed={angle===key} className={angle===key?'active':''} onClick={()=>setAngle(key)}>{captions[key]}</button>)}</div>
+      <div className="fdc-scout-discovery" role="status" aria-live="polite" key={activeFighter+'-'+angle}>
+        <span>{fighters[activeFighter]?.name} / {captions[angle].toUpperCase()}</span>
+        <p>{scouting.fighters[fighters[activeFighter]?.name]?.[angle]||'This specific tactical claim is awaiting editorial verification.'}</p>
+      </div>
+    </div>
+   </div>
+   <details className="fdc-citations"><summary>Evidence behind the tactical readout <ChevronDown size={16}/></summary>{scouting.evidence.map((e,i)=><p key={i}><strong>{e.label}:</strong> {e.detail} <a href={e.url} target="_blank" rel="noopener noreferrer">Source <ExternalLink size={12}/></a></p>)}</details>
+   </>:<div className="fdc-lab-empty"><Database size={25}/><h3>Technical preview awaiting source review</h3><p>We would rather leave a matchup unrated than manufacture a breakdown from a fighter’s record.</p></div>}
+  <div className="fdc-form-ribbon"><span><Activity size={15}/> VERIFIED RESULT SNAPSHOT</span>{fighters.map(f=><div key={f.name}><strong>{f.name}</strong>{verifiedRecentFights[f.name]?.length?<a href={verifiedRecentFights[f.name][0].source} target="_blank" rel="noopener noreferrer">{verifiedRecentFights[f.name][0].result} against {verifiedRecentFights[f.name][0].opponent} ↗</a>:<small>Recent results awaiting verification</small>}</div>)}</div>
+  <div className="fdc-panel-bottom"><span>Explore the evidence. Then test your thesis.</span><button onClick={onNext} type="button">Stress-test the matchup <ArrowRight size={16}/></button></div>
  </div>;
 }
+
 function ModelView({fight,fighters,scouting,onNext}){
  const [weights,setWeights]=useState({power:40,form:25,range:35});
  const [selectedScenario,setSelectedScenario]=useState(0);
