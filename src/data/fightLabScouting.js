@@ -51,3 +51,19 @@ export const punchDataContract = {
 // { fighters: { [name]: { sampleFights, rounds: [{round, jabsThrown,
 //   jabsLanded, powerThrown, powerLanded}], sourceUrl, reviewedAt } } }
 // Never imply punch averages or stoppage-round probabilities from the win/loss record.
+
+/** Explicitly sourced previous results. Entries are intentionally NOT padded to five. */
+export const verifiedRecentFights = {
+  'Daniel Dubois': [
+    {date:'2026-05-09',opponent:'Fabio Wardley',result:'W',method:'TKO 11',source:'https://www.reuters.com/sports/dubois-stops-wardley-11-rounds-take-wbo-heavyweight-title-2026-05-09/'}
+  ],
+  'Fabio Wardley': [
+    {date:'2026-05-09',opponent:'Daniel Dubois',result:'L',method:'TKO 11',source:'https://www.reuters.com/sports/dubois-stops-wardley-11-rounds-take-wbo-heavyweight-title-2026-05-09/'}
+  ],
+  'Ermal Hadribeaj': [
+    {date:'2026-05-23',opponent:'Bakary Samake',result:'W',method:'Decision',source:'https://www.ringmagazine.com/fighters/ermal-hadribeaj-70SNbkWZvHnLYdyr7ZQktd'}
+  ],
+  'Sebastian Fundora': [
+    {date:'2026-03-28',opponent:'Keith Thurman',result:'W',method:'Win',source:'https://wbcboxing.com/boxeador/sebastian-fundora/'}
+  ]
+};
