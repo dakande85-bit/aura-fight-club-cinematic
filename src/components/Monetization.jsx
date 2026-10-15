@@ -40,12 +40,31 @@ function AdsenseUnit({config,slot}) {
   return <ins className="adsbygoogle" style={{display:'block'}} data-ad-client={config.adsense.client} data-ad-slot={slotId} data-ad-format="auto" data-full-width-responsive="true"/>;
 }
 export function AdSlot({slot='article-mid'}) {
-  const config=useMonetization(); const item=config.adSlots?.[slot];
+  const config=useMonetization();
+  const item=config.adSlots?.[slot];
   if(!item?.enabled||item.mode==='off') return null;
-  if(item.mode==='adsense' && config.adsense?.enabled && config.adsense.client) {
-    return <aside className="aura-ad-slot" aria-label="Advertisement"><span>Advertisement</span><AdsenseUnit config={config} slot={slot}/></aside>;
+  const partner=config.partners?.[item.partnerKey];
+  const verifiedLink=item.mode==='affiliate' && partner?.enabled && Boolean(partner?.affiliateUrl?.trim());
+  const activeAdsense=item.mode==='adsense' && config.adsense?.enabled && Boolean(config.adsense.client) && Boolean(config.adsense.slots?.[slot]);
+  if(activeAdsense) {
+    return <aside className="aura-ad-slot aura-ad-slot--adsense" aria-label="Advertisement"><span className="aura-ad-slot__eyebrow">Advertisement</span><AdsenseUnit config={config} slot={slot}/></aside>;
   }
-  return <aside className="aura-ad-slot aura-ad-slot--house" aria-label="AURA commercial partnership"><span>Partner</span><strong>{item.label}</strong><Link to="/advertise">Advertising & sponsorship</Link></aside>;
+  if(verifiedLink) {
+    return <aside className="aura-ad-slot aura-ad-slot--affiliate" aria-label="Affiliate advertisement">
+      <div className="aura-ad-slot__copy"><span className="aura-ad-slot__eyebrow">Affiliate advertisement · {partner.name}</span>
+        <strong>{item.headline||partner.name}</strong><p>{item.body||partner.note}</p>
+      </div>
+      <div className="aura-ad-slot__action"><a href={partner.affiliateUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" onClick={()=>recordClick(item.partnerKey,'ad:'+slot)}>{item.cta||partner.cta||'Explore partner' } <span aria-hidden="true">↗</span></a><small>We may earn a commission at no additional cost to you.</small></div>
+    </aside>;
+  }
+  // Never imply a brand is a paying sponsor or send untracked traffic as an affiliate ad.
+  return <aside className="aura-ad-slot aura-ad-slot--house" aria-label="Available advertising placement">
+    <div className="aura-ad-slot__copy"><span className="aura-ad-slot__eyebrow">AURA / Commercial opportunities</span>
+      <strong>{item.label||'Own this moment in boxing.'}</strong>
+      <p>Premium placements across independent boxing coverage, fight nights and culture.</p>
+    </div>
+    <Link className="aura-ad-slot__house-link" to="/advertise">Sponsor this space <span aria-hidden="true">↗</span></Link>
+  </aside>;
 }
 export function HowToWatch({fight}) {
   const config=useMonetization();

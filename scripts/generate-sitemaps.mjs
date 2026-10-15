@@ -30,8 +30,8 @@ const guideSlugs=pull('evergreenGuides');
 
 const today=isoDate(new Date());
 const staticPages=[
- '/', '/news','/fight-hub','/film-room','/verdict','/rankings','/lifestyle','/members','/who-we-are',
- '/fighters','/topics','/guides','/authors/dare-akande','/editorial-policy','/corrections',
+ '/', '/news','/fight-hub','/film-room','/verdict','/rankings','/members','/who-we-are',
+ '/fighters','/topics','/authors/dare-akande','/editorial-policy','/corrections',
  '/advertise','/commercial-policy','/privacy','/cookies','/terms'
 ];
 
@@ -65,8 +65,7 @@ const groups={
  'sitemap-fights.xml':fights.map(f=>({path:`/fights/${f.id}`,lastmod:f.updatedAt||f.date||today})),
  'sitemap-fighters.xml':fighterSlugs.map(slug=>({path:`/fighters/${slug}`,lastmod:today})),
  'sitemap-topics.xml':[
-  ...topicSlugs.map(slug=>({path:`/topics/${slug}`,lastmod:today})),
-  ...guideSlugs.map(slug=>({path:`/guides/${slug}`,lastmod:today}))
+  ...topicSlugs.map(slug=>({path:`/topics/${slug}`,lastmod:today}))
  ]
 };
 
@@ -75,7 +74,7 @@ fs.writeFileSync(path.join(PUBLIC,'news-sitemap.xml'),newsXml);
 
 // Only publish complete Spanish pages and articles: never index English fallbacks as Spanish.
 const spanishOriginalPaths=[
- '/', '/news', '/fight-hub', '/rankings', '/fighters', '/lifestyle', '/who-we-are', '/members',
+ '/', '/news', '/fight-hub', '/rankings', '/fighters', '/who-we-are', '/members',
  ...spanishArticleSlugs.filter(slug=>articles.some(a=>a.slug===slug)).map(slug=>'/news/'+slug)
 ];
 const spanishXml=`<?xml version="1.0" encoding="UTF-8"?>

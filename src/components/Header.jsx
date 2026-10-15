@@ -13,12 +13,28 @@ const navItems = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const {pathname} = useLocation();
+  const {pathname,search} = useLocation();
+  const isSpanish = pathname === '/es' || pathname.startsWith('/es/');
+  const englishPath = isSpanish ? (pathname.replace(/^\/es(?=\/|$)/, '') || '/') : pathname;
+  const localNav = isSpanish ? [
+    {label:'Noticias',href:'/es/news'},
+    {label:'Boxeadores',href:'/es/fighters'},
+    {label:'Análisis (EN)',href:'/film-room'},
+    {label:'Pronósticos (EN)',href:'/verdict'},
+    {label:'El Club',href:'/es/members'}
+  ] : navItems;
   const translatedRoutes = new Set(['/','/news','/fight-hub','/calendar','/rankings','/fighters','/lifestyle','/who-we-are','/members']);
-  const hasSpanish = translatedRoutes.has(pathname) || (pathname.startsWith('/news/') && Boolean(spanishArticles[pathname.split('/')[2]]));
-  const spanishHref = hasSpanish ? '/es' + (pathname === '/' ? '' : pathname) : '/es';
+  const hasSpanish = translatedRoutes.has(pathname)
+    || pathname==='/fighters/compare'
+    || (pathname.startsWith('/fighters/') && !pathname.endsWith('/compare'))
+    || (pathname.startsWith('/news/') && Boolean(spanishArticles[pathname.split('/')[2]]));
+  const spanishHref = isSpanish ? englishPath + search : hasSpanish ? '/es' + (pathname === '/' ? '' : pathname) + search : '/es';
   const logoSrc = useBrandLogo();
   const closeMenu = () => setOpen(false);
+
+  useEffect(() => {
+    document.documentElement.lang = isSpanish ? 'es' : 'en';
+  }, [isSpanish]);
 
   useEffect(() => {
     document.body.classList.toggle('aura-menu-open', open);
@@ -44,18 +60,18 @@ export default function Header() {
   return (
     <>
       <header className="header" role="banner">
-        <a className="header__logo aura-logo-lockup" href="/" aria-label="AURA home" onClick={closeMenu}>
+        <a className="header__logo aura-logo-lockup" href={isSpanish?"/es":"/"} aria-label="AURA home" onClick={closeMenu}>
           <img className="aura-logo-lockup__image" src={logoSrc} alt="AURA" width="1200" height="1200" decoding="async" fetchPriority="high" />
         </a>
 
-        <nav className="header__nav" aria-label="Main navigation">
-          {navItems.map(item => (
+        <nav className="header__nav" aria-label={isSpanish?"Navegación principal":"Main navigation"}>
+          {localNav.map(item => (
             <a key={item.href} href={item.href}>{item.label}</a>
           ))}
         </nav>
 
-        <a className="aura-language-link" href={spanishHref} lang="es" hrefLang="es" aria-label="Ver sitio en español">ES <span aria-hidden="true">↗</span></a>
-        <a className="header__cta header__cta--desktop" href="/members">Join Members</a>
+        <a className="aura-language-link" href={spanishHref} lang={isSpanish?'en':'es'} hrefLang={isSpanish?'en':'es'} aria-label={isSpanish?'View site in English':'Ver sitio en español'}>{isSpanish?'EN':'ES'} <span aria-hidden="true">↗</span></a>
+        <a className="header__cta header__cta--desktop" href={isSpanish?'/es/members':'/members'}>{isSpanish?'Únete al club':'Join Members'}</a>
 
         <button
           className={menuButtonClass}
@@ -76,12 +92,12 @@ export default function Header() {
         className={mobileMenuClass}
         aria-hidden={!open}
       >
-        <nav className="header__mobile-nav" aria-label="Mobile navigation">
-          {navItems.map(item => (
+        <nav className="header__mobile-nav" aria-label={isSpanish?"Navegación móvil":"Mobile navigation"}>
+          {localNav.map(item => (
             <a key={item.href} href={item.href} onClick={closeMenu}>{item.label}</a>
           ))}
-          <a className="header__mobile-cta" href="/members" onClick={closeMenu}>Join Members</a>
-          <a className="header__mobile-lang" href={spanishHref} lang="es" hrefLang="es" onClick={closeMenu}>Español / ES</a>
+          <a className="header__mobile-cta" href={isSpanish?'/es/members':'/members'} onClick={closeMenu}>{isSpanish?'Únete al club':'Join Members'}</a>
+          <a className="header__mobile-lang" href={spanishHref} lang={isSpanish?'en':'es'} hrefLang={isSpanish?'en':'es'} onClick={closeMenu}>{isSpanish?'English / EN':'Español / ES'}</a>
         </nav>
       </aside>
 

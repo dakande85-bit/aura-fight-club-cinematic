@@ -14,6 +14,8 @@
     "news:audit": "node scripts/audit-editorial.mjs",
     "media:audit": "node scripts/audit-fighter-media.mjs",
     "lifestyle:audit": "node scripts/audit-lookbook.mjs",
+    "postbuild": "node scripts/prerender-seo.mjs && node scripts/verify-prerender.mjs",
+    "test:seo": "node scripts/verify-prerender.mjs",
     "social:cards": "node scripts/build-tiktok-cards.mjs"
   },
   "dependencies": {

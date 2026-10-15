@@ -20,6 +20,7 @@ import AdminCinematic from './pages/AdminCinematic.jsx';
 import AdminArticles from './pages/AdminArticles.jsx';
 import AdminSocial from './pages/AdminSocial.jsx';
 import TikTokLanding from './pages/TikTokLanding.jsx';
+import AdminAnalytics from './pages/AdminAnalytics.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
 import AdminMonetization from './pages/AdminMonetization.jsx';
 import Advertise from './pages/Advertise.jsx';
@@ -50,6 +51,9 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<HomeStaticHero />} />
         <Route path="/es" element={<SpanishSite />} />
+        <Route path="/es/fighters" element={<FightersIndexPage locale="es" />} />
+        <Route path="/es/fighters/compare" element={<FighterComparePage locale="es" />} />
+        <Route path="/es/fighters/:slug" element={<FighterProfilePage locale="es" />} />
         <Route path="/es/*" element={<SpanishSite />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/tiktok" element={<TikTokLanding />} />
@@ -97,6 +101,7 @@ export default function AppRouter() {
         <Route path="/fightclub" element={<FightClubPage />} />
         <Route path="/admin/articles" element={<AdminArticles />} />
         <Route path="/admin/social" element={<AdminSocial />} />
+        <Route path="/admin/analytics" element={<AdminAnalytics />} />
         <Route path="/admin/monetisation" element={<AdminMonetization />} />
         <Route path="/admin/monetization" element={<AdminMonetization />} />
         <Route path="/admin" element={<AdminAssetManager />} />
