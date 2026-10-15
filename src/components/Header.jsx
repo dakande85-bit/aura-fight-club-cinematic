@@ -7,7 +7,7 @@ const navItems = [
   {label:'Fight News',href:'/news'},
   {label:'Fighter Intelligence',href:'/fighters'},
   {label:'Fight Analysis',href:'/film-room'},
-  {label:'Predictions',href:'/verdict'},
+  {label:'Analysis Lab',href:'/verdict'},
   {label:'The Club',href:'/members'},
 ];
 
@@ -20,7 +20,7 @@ export default function Header() {
     {label:'Noticias',href:'/es/news'},
     {label:'Boxeadores',href:'/es/fighters'},
     {label:'Análisis (EN)',href:'/film-room'},
-    {label:'Pronósticos (EN)',href:'/verdict'},
+    {label:'Laboratorio (EN)',href:'/verdict'},
     {label:'El Club',href:'/es/members'}
   ] : navItems;
   const translatedRoutes = new Set(['/','/news','/fight-hub','/calendar','/rankings','/fighters','/lifestyle','/who-we-are','/members']);

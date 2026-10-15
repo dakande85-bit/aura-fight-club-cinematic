@@ -1,0 +1,42 @@
+name: Fight Lab interaction and evidence QA
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/pages/FightDecisionCockpit.jsx'
+      - 'src/components/FightResearchExtras.jsx'
+      - 'src/components/TacticalBlueprint.jsx'
+      - 'src/components/VerifiedFormTimeline.jsx'
+      - 'src/components/FightSourceLedger.jsx'
+      - 'src/data/fightLabMetrics.js'
+      - 'src/data/fightLabPresentation.js'
+      - 'src/data/fightLabScouting.js'
+      - 'src/data/licensedPunchStats.json'
+      - 'src/styles/fight-research-extras.css'
+      - 'src/styles/fight-lab-evidence.css'
+      - 'src/styles/fight-decision-cockpit.css'
+      - 'src/styles/tactical-blueprint.css'
+      - 'public/news/fights.json'
+      - 'public/news/betting-partners.json'
+      - 'scripts/test-fight-lab.mjs'
+      - '.github/workflows/fight-lab-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Fight Lab measurements, interaction models, and commercial defaults
+        run: node scripts/test-fight-lab.mjs
+      - name: Install dependencies
+        run: npm install --no-package-lock --no-audit --no-fund
+      - name: Validate production build
+        run: npm run build

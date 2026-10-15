@@ -1,0 +1,64 @@
+/* Fight Lab v4 — private, evidence-led research notebook and official media. */
+.fdc-pin-action{margin-top:15px;display:inline-flex;align-items:center;justify-content:center;gap:10px;color:#e6c89d;background:#16272b;border:1px solid #9c7c53;font-size:11px;font-weight:850;letter-spacing:.035em;padding:12px 16px;transition:background .2s,transform .2s}
+.fdc-pin-action:hover{background:#273d40;transform:translateY(-1px)}
+.fdc-pin-action--active{color:#c8e4d7;border-color:#7caa91;background:#264136}
+.fdc-pin-action--active:hover{background:#325545}
+.fdc-notebook{background:linear-gradient(120deg,#1c2b34,#15252e);border:1px solid #5d6c65;padding:20px 22px 22px;margin:0 0 17px;position:relative;overflow:hidden}
+.fdc-notebook:before{content:'';position:absolute;right:0;top:0;width:190px;height:160px;background:radial-gradient(circle at top right,#d2a66d18,transparent 73%);pointer-events:none}
+.fdc-notebook-header{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.fdc-notebook-header h3{font:900 clamp(20px,2.3vw,30px)/1.1 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;color:#f6e3c4}
+.fdc-notebook-count{font:900 10px monospace;letter-spacing:.11em;padding:9px 10px;background:#324037;color:#eacaa0;white-space:nowrap;border:1px solid #746a55}
+.fdc-notebook-guidance{margin:13px 0;color:#a7bbc3;line-height:1.65;font-size:11px}
+.fdc-notebook-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.fdc-notebook-item{background:#12222b;border:1px solid #435965;display:flex;align-items:start;gap:9px;min-width:0;padding:13px}
+.fdc-notebook-item>span{color:#dbb17d;font:900 17px 'Barlow Condensed',Impact,sans-serif}
+.fdc-notebook-item>p{flex:1;min-width:0;margin:2px 0 0;font-size:11px;line-height:1.65;color:#d8e2e0}
+.fdc-notebook-item>button{padding:4px;border:1px solid #485b61;display:grid;place-items:center;flex:none;background:#293a43;color:#d7b5a1}
+.fdc-notebook-empty{display:flex;align-items:center;gap:12px;margin-top:16px;background:#102029;padding:16px 18px;border:1px dashed #4d6470}
+.fdc-notebook-empty>svg{color:#d6b27f;flex:none}
+.fdc-notebook-empty p{font-size:11px;line-height:1.7;color:#b4c6cb;margin:0;flex:1}
+.fdc-notebook-empty button{flex:none;background:#283d43;border:1px solid #6c6555;color:#e3c598;font-weight:800;padding:10px;font-size:10px}
+.fdc-notebook-biblio{margin-top:17px;border-top:1px solid #425861;padding-top:15px}
+.fdc-notebook-biblio summary{cursor:pointer;font-size:11px;color:#d5b990;font-weight:850}
+.fdc-notebook-biblio>div{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 7px}
+.fdc-notebook-biblio a{display:inline-flex;align-items:center;gap:7px;font-size:10px!important;border:1px solid #4a606c;padding:9px 11px;background:#12232e}
+.fdc-notebook-biblio small{display:block;color:#93a8b2;font-size:10px;line-height:1.6}
+.fdc-review-strip{display:flex;align-items:start;gap:12px;margin:18px 0 0;border:1px solid #75664c;background:linear-gradient(95deg,#312f28,#1b2a2f);padding:15px}
+.fdc-review-strip>svg{flex:none;color:#ebc58e}
+.fdc-review-strip strong{font-size:10px;color:#edca93;letter-spacing:.12em}
+.fdc-review-strip p{font-size:12px;color:#dce5e2;line-height:1.7;margin:8px 0 0}
+.fdc-video-panel{margin:20px 0 0;background:#11202a;border:1px solid #44606e;box-shadow:0 10px 30px #09111688}
+.fdc-video-summary{padding:19px 21px;display:flex;align-items:center;gap:16px}
+.fdc-video-icon{display:grid;place-items:center;width:52px;height:52px;flex:none;color:#f2d6ad;background:linear-gradient(145deg,#4a3b2b,#1d2f38);border:1px solid #95784f}
+.fdc-video-summary>div:nth-child(2){flex:1;min-width:0}
+.fdc-video-summary h3{font:900 clamp(20px,2.4vw,30px)/1.07 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;letter-spacing:.012em;color:#eee7da;margin:1px 0 9px}
+.fdc-video-summary p:not(.fdc-kicker){font-size:11px;line-height:1.68;color:#a6bac2;margin:0;max-width:740px}
+.fdc-video-play{display:inline-flex;gap:9px;align-items:center;justify-content:center;flex:none;border:1px solid #d9b580;color:#18242a;background:#e3b981;padding:14px 19px;font-size:11px;font-weight:900;transition:transform .18s,background .18s}
+.fdc-video-play:hover{transform:translateY(-2px);background:#f1d19f}
+.fdc-video-frame{background:#04070a;position:relative;width:100%;aspect-ratio:16/9}
+.fdc-video-frame iframe{display:block;border:0;width:100%;height:100%;max-height:720px}
+.fdc-video-utilities{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 15px;background:#172731}
+.fdc-video-utilities span{display:flex;gap:7px;align-items:center;color:#a1bbc2;font-size:10px}
+.fdc-video-utilities button{display:flex;align-items:center;gap:7px;background:transparent;border:1px solid #526773;color:#e7caa4;padding:9px 12px;font-size:11px}
+.fdc-video-footer{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 21px;border-top:1px solid #35505a}
+.fdc-video-footer a{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800}
+.fdc-video-footer span{font-size:10px;color:#78939d}
+@media(max-width:950px){.fdc-notebook-list{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){
+ .fdc-notebook{padding:15px}
+ .fdc-notebook-list{grid-template-columns:1fr}
+ .fdc-notebook-item{padding:11px}
+ .fdc-notebook-header h3{font-size:24px}
+ .fdc-notebook-empty{align-items:start;flex-wrap:wrap}
+ .fdc-notebook-empty p{flex:1 1 calc(100% - 40px)}
+ .fdc-notebook-empty button{margin-left:34px}
+ .fdc-video-summary{padding:15px;align-items:start;flex-wrap:wrap;gap:10px}
+ .fdc-video-icon{width:38px;height:38px}
+ .fdc-video-summary>div:nth-child(2){flex:1 1 calc(100% - 53px)}
+ .fdc-video-play{width:100%}
+ .fdc-video-footer{flex-direction:column;align-items:flex-start;padding:10px 15px;gap:7px}
+ .fdc-video-utilities{flex-direction:column;align-items:stretch}
+ .fdc-video-utilities button{justify-content:center}
+ .fdc-pin-action{width:100%;margin-top:14px}
+}
+@media(prefers-reduced-motion:reduce){.fdc-pin-action,.fdc-video-play{transition:none}}

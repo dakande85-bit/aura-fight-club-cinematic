@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "enabled": false,
+  "operatorDataConnected": false,
+  "jurisdictionVerificationConnected": false,
+  "ageVerificationConnected": false,
+  "operatorOffers": [],
+  "lastReviewed": "2026-10-15",
+  "activationNotes": "This file is an inert configuration scaffold. Do not turn on wagering offer display without approved per-market links, legal and responsible-gambling review, age/jurisdiction safeguards, and verified bookmaker operating permissions."
+}
