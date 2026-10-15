@@ -1,7 +1,8 @@
 [
   {
     "name": "varsity",
-    "url": "https://d2jqrm6oza8nb6.cloudfront.net/datasets/252293ce-3fbf-4801-845a-2ea11cb44172.jpeg?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNjRlYmYzN2M5YjYyYTNjMiIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc5MjE5OTI5Mn0.5bK9dyJhN_BwTQ7N-s2gMtRmE5GY-nKsemgziZfNJpA"
+    "url": "https://d2jqrm6oza8nb6.cloudfront.net/datasets/252293ce-3fbf-4801-845a-2ea11cb44172.jpeg?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNjRlYmYzN2M5YjYyYTNjMiIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc5MjE5OTI5Mn0.5bK9dyJhN_BwTQ7N-s2gMtRmE5GY-nKsemgziZfNJpA",
+    "batch": "2026-10-15-retry"
   },
   {
     "name": "hoodie-black",
