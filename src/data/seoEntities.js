@@ -43,6 +43,7 @@ export const fighters = [
  {"slug":"emiliano-vargas","name":"Emiliano Vargas","aliases":["Emiliano Vargas"],"division":"Junior welterweight","nationality":"United States","record":"","summary":"Fast-rising 22-year-old puncher, recognised as The Ring prospect of the year."},
  {"slug":"giorgio-visioli","name":"Giorgio Visioli","aliases":["Giorgio Visioli"],"division":"Lightweight","nationality":"United Kingdom","record":"","summary":"Razor-sharp southpaw counterpuncher and standout from the British prospect crop."},
  {"slug":"andy-cruz","name":"Andy Cruz","aliases":["Andy Cruz"],"division":"Lightweight","nationality":"Cuba","record":"","summary":"Olympic gold medallist with elite amateur fundamentals and strong professional progression."},
+ {"slug":"ryan-garcia","name":"Ryan Garcia","aliases":["Ryan Garcia"],"division":"Welterweight","nationality":"United States","record":"26–2 (21 KO)","recordSource":"https://wbcboxing.com/en/ryan-garcia-wbc-boxer-of-the-month-october-2026/","recordCheckedAt":"2026-10-15","stance":"Orthodox","summary":"Reigning WBC welterweight champion with extraordinary hand speed and knockout left hook; stopped Conor Benn in September 2026."},
 ];
 
 export const topics = [
