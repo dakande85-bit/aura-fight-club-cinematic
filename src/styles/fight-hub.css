@@ -254,3 +254,51 @@
 .aura-verdict-footer a{color:#815e28;font-size:12px;font-weight:850}
 @media(max-width:850px){.aura-verdict-page .aura-verdict-grid{grid-template-columns:1fr}.aura-verdict-event-photo{height:280px}}
 @media(max-width:600px){.aura-compare-suggestions{gap:7px}.aura-compare-suggestions button{padding:10px}.aura-compare-page .fh-comparison-selectors{grid-template-columns:minmax(0,1fr) 50px minmax(0,1fr);gap:7px}.fh-comparison-selectors .aura-compare-swap{min-width:0}.aura-verdict-event-photo{height:200px}.aura-verdict-card__content{padding:20px}.aura-compare-style{min-height:0}}
+
+
+/* Fighter intelligence mobile repair — explicit media height prevents the 800px
+   image columns seen in Safari; text never forces the statistics grid wider. */
+.aura-compare-page,.aura-compare-page *{box-sizing:border-box}
+.aura-compare-page{overflow-x:clip}
+.aura-compare-page .fh-compare-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.aura-compare-page .fh-compare-fighter{display:flex;flex-direction:column;min-width:0;min-height:0;align-self:start}
+.aura-compare-page .fh-compare-fighter>.aura-photo{
+ position:relative;width:100%;height:auto!important;min-height:0!important;
+ aspect-ratio:3/2!important;flex:none;overflow:hidden
+}
+.aura-compare-page .fh-compare-fighter .aura-photo img{
+ position:absolute;inset:0;width:100%;height:100%;
+ object-fit:cover!important;object-position:center 35%!important;
+ background:#12171b
+}
+.aura-compare-page .fh-compare-fighter .aura-photo__placeholder{
+ min-height:0;height:100%;justify-content:end
+}
+.aura-compare-key-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.aura-compare-key-stats>div{background:#202a31;padding:10px;min-width:0}
+.aura-compare-key-stats span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:#cdb27e;margin-bottom:6px}
+.aura-compare-key-stats strong{display:block;font-size:clamp(12px,1.9vw,17px);line-height:1.25;overflow-wrap:anywhere}
+.aura-compare-page .fh-compare-row{grid-template-columns:minmax(0,1fr) minmax(80px,21%) minmax(0,1fr)}
+.aura-compare-page .fh-compare-row strong{min-width:0;overflow-wrap:anywhere;line-height:1.35}
+.aura-compare-page .fh-compare-row span{min-width:0;overflow-wrap:anywhere}
+.aura-compare-page .fh-comparison-selectors label{min-width:0}
+.aura-compare-page .fh-comparison-selectors select{display:block;max-width:100%;min-width:0}
+@media(max-width:600px){
+ .aura-compare-page{padding-inline:12px}
+ .aura-compare-page .fh-compare-grid{gap:9px}
+ .aura-compare-page .fh-compare-fighter{padding:9px}
+ .aura-compare-page .fh-compare-fighter>.aura-photo{aspect-ratio:1/1!important}
+ .aura-compare-page .fh-compare-fighter h2{font-size:clamp(17px,5vw,23px);line-height:1.1;overflow-wrap:anywhere}
+ .aura-compare-page .aura-compare-status{font-size:9px;letter-spacing:.08em}
+ .aura-compare-page .aura-compare-key-stats{grid-template-columns:1fr;gap:5px}
+ .aura-compare-page .aura-compare-key-stats>div{padding:7px}
+ .aura-compare-page .aura-compare-style{font-size:12px;line-height:1.45}
+ .aura-compare-page .fh-compare-fighter>a,.aura-compare-page .aura-compare-source{font-size:11px;overflow-wrap:anywhere}
+ .aura-compare-page .fh-compare-row{grid-template-columns:minmax(0,1fr) 80px minmax(0,1fr);gap:4px;padding:12px 6px}
+ .aura-compare-page .fh-compare-row strong{font-size:12px}
+ .aura-compare-page .fh-compare-row span{font-size:10px}
+ .aura-compare-page .fh-comparison-selectors{grid-template-columns:minmax(0,1fr) 50px minmax(0,1fr);gap:7px}
+ .aura-compare-page .fh-comparison-selectors select{font-size:12px;padding:10px 5px}
+ .aura-compare-page .aura-compare-swap{font-size:20px}
+ .aura-compare-page .aura-compare-swap span{font-size:9px}
+}
