@@ -7,9 +7,11 @@ import Breadcrumbs, { breadcrumbSchema } from '../components/Breadcrumbs.jsx';
 import { fighters, topics, evergreenGuides, author } from '../data/seoEntities.js';
 import { useArticles } from '../hooks/useArticles.js';
 import fightEdition from '../../public/news/fights.json';
+import {auraTop50,auraTop50CheckedAt,auraTop50Sources} from '../data/auraTop50.js';
 import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
 import '../styles/aura-editorial.css';
 import '../styles/fight-hub.css';
+import '../styles/aura-top50.css';
 
 const clean = value => String(value || '').toLowerCase();
 
@@ -25,6 +27,45 @@ function ArticleLinks({items}) {
  return <div className="aura-coverage-list">{items.map(item=><article key={item.slug}><p className="aura-ed-kicker">{item.category} · {item.date}</p><h3><Link to={`/news/${item.slug}`}>{item.title}</Link></h3><p>{item.summary}</p><Link to={`/news/${item.slug}`}>Read article</Link></article>)}</div>;
 }
 
+function AuraTop50({base,isEs,query=''}) {
+ const visible=auraTop50.filter(item=>!query||item.name.toLowerCase().includes(query)||item.division.toLowerCase().includes(query));
+ const t=(en,es)=>isEs?es:en;
+ return <section className="aura-50" id="aura-top-50" aria-labelledby="aura-50-title">
+  <div className="aura-50__head"><div>
+   <p className="aura-ed-kicker">AURA / WORLD RANKINGS</p><h2 id="aura-50-title">{t('THE AURA 50.','LOS 50 DE AURA.')}</h2>
+   <p>{t("Our independently curated ranking of active men's boxers, regardless of weight. The order rewards elite opposition, technical ability, achievement and recent form — not popularity alone.","Nuestra lista editorial de 50 boxeadores profesionales en activo de todas las categorías; no es una clasificación oficial.")}</p>
+  </div><div className="aura-50__stamp">{t('Editorial snapshot','Revisión editorial')}<br/><strong>{auraTop50CheckedAt}</strong></div></div>
+  <p className="aura-50__method">{t('AURA opinion — not a live BoxRec feed or an official Ring/TBRB ranking. The five-bout ledger is a verification workstream: only sourced results appear; pending cells do not mean a fighter has not competed. Tap a row for analysis and available bout history.','Opinión editorial de AURA; no conectada en directo a BoxRec. Se publican únicamente los resultados verificados; las casillas pendientes no representan inactividad.')}</p>
+  <div className="aura-50__sources">{auraTop50Sources.map(source=><a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>)}</div>
+  <div className="aura-50__rows">
+   {visible.map(item=>{
+    const profile=fighters.find(f=>f.slug===item.slug);
+    return <details className="aura-50__row" key={item.slug}>
+     <summary>
+      <span className="aura-50__rank">{String(item.rank).padStart(2,'0')}</span>
+      <span className="aura-50__portrait"><VerifiedPhoto fighterSlug={item.slug} label={item.name}/></span>
+      <span className="aura-50__identity"><strong>{profile?<Link to={base+'/'+profile.slug} onClick={e=>e.stopPropagation()}>{item.name}</Link>:item.name}</strong><small>{item.division}</small></span>
+      <span className="aura-50__division">{item.division}</span>
+      <span className={'aura-50__record'+(!profile?.record?' aura-50__record--none':'')}>{profile?.record||'—'}<small>{t('Career record snapshot','Récord no actualizado')}</small></span>
+      <span className="aura-50__expand">{t('Last five ↗','Últimos 5 ↗')}</span>
+      <span className="aura-50__chevron" aria-hidden="true">+</span>
+     </summary>
+     <div className="aura-50__detail">
+      <p><strong>{t('AURA assessment:','Análisis de AURA:')}</strong> {item.reason}</p>
+      <div className="aura-50__form">{Array.from({length:5},(_,i)=>{
+       const bout=item.recentBouts?.[i];
+       return bout?<div className="aura-50__bout" key={i}><b>{bout.result} · {bout.opponent}</b><time dateTime={bout.date}>{bout.date}</time><small>{bout.method}</small><a href={bout.sourceUrl} target="_blank" rel="noreferrer">{t('Verify source ↗','Fuente ↗')}</a></div>
+       :<div className="aura-50__bout aura-50__bout--pending" key={i}><b>—</b><small>{t('Bout not yet verified','Combate pendiente de verificar')}</small></div>;
+      })}</div>
+      {!profile&&<p style={{marginTop:'12px',fontSize:'12px'}}>{t('Detailed profile, verified record and licensed portrait in editorial review.','Perfil detallado, récord y fotografía sujetos a revisión editorial.')}</p>}
+     </div>
+    </details>
+   })}
+  </div>
+  {!visible.length&&<p className="aura-directory-empty">{t('No matching names in the active top 50.','Sin coincidencias en el top 50.')}</p>}
+ </section>;
+}
+
 export function FightersIndexPage({locale='en'}){
  const isEs=locale==='es'; const base=isEs?'/es/fighters':'/fighters';
  const translate=(en,es)=>isEs?es:en;
@@ -36,10 +77,10 @@ export function FightersIndexPage({locale='en'}){
  };
  const [query,setQuery]=useState('');
  const groups=[
-  {title:'The elite',subtitle:'Pound-for-pound excellence and fighters operating at the highest level.',slugs:['naoya-inoue','oleksandr-usyk','shakur-stevenson','jesse-bam-rodriguez','david-benavidez','dmitry-bivol','jaron-ennis','junto-nakatani','devin-haney','canelo-alvarez','jai-opetaia','vergil-ortiz','sebastian-fundora','oscar-collazo']},
-  {title:'Future stars',subtitle:'Prospects and emerging names worth knowing before everyone else does.',slugs:['moses-itauma','abdullah-mason','floyd-schofield','ben-whittaker','hamza-uddin','xander-zayas','dalton-smith','keyshawn-davis']},
-  {title:'Fighters to watch',subtitle:'Exciting champions, dangerous contenders and the matchups we want to see.',slugs:['isaac-cruz','osleys-iglesias','rafael-espinoza','oshaquie-foster','emanuel-navarrete','christian-mbilli','tim-tszyu','callum-smith','erislandy-lara','artur-beterbiev','anthony-joshua','tyson-fury','fabio-wardley']},
-  {title:'Modern greats',subtitle:'Retired legends preserved as career archives, not listed as active champions.',slugs:['terence-crawford']}
+  {title:'The elite',subtitle:'World-class pound-for-pound talents and established champions with proven opposition.',slugs:['jesse-bam-rodriguez','oleksandr-usyk','naoya-inoue','shakur-stevenson','dmitry-bivol','david-benavidez','jaron-ennis','junto-nakatani','devin-haney','canelo-alvarez','oscar-collazo','artur-beterbiev','rafael-espinoza']},
+  {title:'Future stars',subtitle:'The breakout generation — elite amateurs, emerging professionals and young champions building a legacy.',slugs:['abdullah-mason','moses-itauma','floyd-schofield','ben-whittaker','curmel-moton','emiliano-vargas','giorgio-visioli','andy-cruz','hamza-uddin','xander-zayas','dalton-smith','keyshawn-davis']},
+  {title:'Fighters to watch',subtitle:'Dangerous titleholders, compelling contenders and the next must-see matchups.',slugs:['isaac-cruz','jai-opetaia','daniel-dubois','fabio-wardley','sebastian-fundora','osleys-iglesias','christian-mbilli','vergil-ortiz','callum-smith','tim-tszyu','oshaquie-foster','emanuel-navarrete']},
+  {title:'Modern greats',subtitle:'Retired icons and veteran stars who have already shaped an era.',slugs:['terence-crawford','anthony-joshua','tyson-fury','erislandy-lara']}
  ];
  const q=query.trim().toLowerCase();
  const count=groups.reduce((n,g)=>n+g.slugs.filter(slug=>{const f=fighters.find(x=>x.slug===slug);return f&&(!q||f.name.toLowerCase().includes(q))}).length,0);
@@ -60,6 +101,7 @@ export function FightersIndexPage({locale='en'}){
    </section>;
   })}
   {!count&&<p className="aura-directory-empty">{translate('No matching fighter in our curated index yet.','No se ha encontrado ningún boxeador.')}</p>}
+  <AuraTop50 base={base} isEs={isEs} query={q}/>
   <p className="aura-ed-note aura-fighter-disclaimer">{translate('Our editorial selection is not an official ranking. Records are supplied only where independently checked; photo placeholders are clearly identified.','Esta selección editorial no es una clasificación oficial. Los récords se muestran cuando han sido contrastados y se indican las imágenes pendientes.')}</p>
  </Shell>;
 }
