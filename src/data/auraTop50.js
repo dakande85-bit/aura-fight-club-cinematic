@@ -1,0 +1,62 @@
+/** AURA men's active pound-for-pound editorial order, curated 15 October 2026.
+ * Not an official sanctioning-body, The Ring, TBRB or BoxRec list.
+ * Five-fight form is never inferred from a career record. Add individually cited bouts only.
+ */
+export const auraTop50CheckedAt='2026-10-15';
+export const auraTop50Sources=[
+ {label:'The Ring — pound-for-pound comparison',url:'https://www.ringmagazine.com/'},
+ {label:'Transnational Boxing Rankings Board',url:'https://tbrb.org/'},
+ {label:'WBC divisional records and title status',url:'https://wbcboxing.com/en/ratings/'}
+];
+export const auraTop50=[
+ {rank:1,slug:"jesse-bam-rodriguez",name:"Jesse “Bam” Rodriguez",division:"Bantamweight",reason:"Elite multi-weight résumé, sustained pressure, angles and championship wins.",recentBouts:[]},
+ {rank:2,slug:"oleksandr-usyk",name:"Oleksandr Usyk",division:"Heavyweight",reason:"Historic cruiserweight-to-heavyweight championship résumé and elite tactical adjustment.",recentBouts:[]},
+ {rank:3,slug:"naoya-inoue",name:"Naoya Inoue",division:"Junior featherweight",reason:"Four-division champion with exceptional timing, power and elite opposition beaten.",recentBouts:[]},
+ {rank:4,slug:"shakur-stevenson",name:"Shakur Stevenson",division:"Junior welterweight",reason:"Masterclass defence, distance management and multi-division titles.",recentBouts:[]},
+ {rank:5,slug:"dmitry-bivol",name:"Dmitry Bivol",division:"Light heavyweight",reason:"Technical command, elite opposition and a victory in the Beterbiev rematch.",recentBouts:[{"date":"2025-02-22","opponent":"Artur Beterbiev","result":"W","method":"Majority decision","sourceUrl":"https://www.ringmagazine.com/news/photos-dmitry-bivol-gets-revenge-stuns-artur-beterbiev-for-undisputed-crown-4L9DgeJSHwpeTpuhVEyA1U"}]},
+ {rank:6,slug:"david-benavidez",name:"David Benavidez",division:"Cruiserweight",reason:"Power, relentless combinations and titles spanning weight classes.",recentBouts:[{"date":"2026-05-02","opponent":"Gilberto Ramírez","result":"W","method":"KO 6","sourceUrl":"https://www.ringmagazine.com/news/benavidez-floors-stops-ramirez-in-sixth-to-win-cruiserweight-titles-39zpkCWO9u2jBKLSLJ4wTE"},{"date":"2025-11-22","opponent":"Anthony Yarde","result":"W","method":"TKO 7","sourceUrl":"https://www.ringmagazine.com/news/david-benavidez-bloodies-stops-anthony-yarde-in-7th-round-to-retain-wbc-light-heavyweight-title-Car3aqfVNAbGNoAXA5jXK"}]},
+ {rank:7,slug:"jaron-ennis",name:"Jaron “Boots” Ennis",division:"Junior middleweight",reason:"Switch-hitting versatility, knockout danger and championship pedigree.",recentBouts:[]},
+ {rank:8,slug:"junto-nakatani",name:"Junto Nakatani",division:"Junior featherweight",reason:"World-class southpaw skills and multi-division championship achievements.",recentBouts:[]},
+ {rank:9,slug:"canelo-alvarez",name:"Saúl “Canelo” Álvarez",division:"Super middleweight",reason:"Deep elite résumé across divisions; recent results temper present position.",recentBouts:[]},
+ {rank:10,slug:"oscar-collazo",name:"Oscar Collazo",division:"Minimumweight",reason:"Top-flight small-weight champion with sustained world-level success.",recentBouts:[]},
+ {rank:11,slug:"devin-haney",name:"Devin Haney",division:"Welterweight",reason:"Undisputed lightweight pedigree and welterweight title win over Brian Norman Jr.",recentBouts:[{"date":"2025-11-22","opponent":"Brian Norman Jr.","result":"W","method":"UD 12","sourceUrl":"https://www.ringmagazine.com/news/devin-haney-drops-outpoints-brian-norman-jr-to-win-wbo-welterweight-title-534uW87LYPjWNSpeF4fnho"}]},
+ {rank:12,slug:"artur-beterbiev",name:"Artur Beterbiev",division:"Light heavyweight",reason:"Former undisputed champion; elite pressure, finishing and Bivol rivalry.",recentBouts:[]},
+ {rank:13,slug:"jai-opetaia",name:"Jai Opetaia",division:"Cruiserweight",reason:"Explosive southpaw cruiserweight; strength of future opponents will define his ceiling.",recentBouts:[]},
+ {rank:14,slug:"vergil-ortiz",name:"Vergil Ortiz Jr.",division:"Junior middleweight",reason:"Relentless power pressure and increasingly high-level opposition.",recentBouts:[]},
+ {rank:15,slug:"sebastian-fundora",name:"Sebastian Fundora",division:"Junior middleweight",reason:"Extraordinary frame, non-stop inside work and proven title-winning ability.",recentBouts:[{"date":"2026-03-28","opponent":"Keith Thurman","result":"W","method":"TKO 6","sourceUrl":"https://www.wral.com/news/ap/a84e4-fundora-retains-wbc-super-welterweight-title-with-6th-round-ko-of-thurman/"}]},
+ {rank:16,slug:"rafael-espinoza",name:"Rafael Espinoza",division:"Featherweight",reason:"Championship-level volume, leverage and pressure.",recentBouts:[]},
+ {rank:17,slug:"emanuel-navarrete",name:"Emanuel Navarrete",division:"Junior lightweight",reason:"Difficult rhythm, multiple title reigns and heavy handedness.",recentBouts:[]},
+ {rank:18,slug:"oshaquie-foster",name:"O’Shaquie Foster",division:"Junior lightweight",reason:"Elite defensive craft, counter timing and title-level quality.",recentBouts:[]},
+ {rank:19,slug:"christian-mbilli",name:"Christian Mbilli",division:"Super middleweight",reason:"High-paced pressure fighter with genuine championship credentials.",recentBouts:[]},
+ {rank:20,slug:"osleys-iglesias",name:"Osleys Iglesias",division:"Super middleweight",reason:"Dangerous southpaw with an outstanding stoppage threat.",recentBouts:[]},
+ {rank:21,slug:"daniel-dubois",name:"Daniel Dubois",division:"Heavyweight",reason:"Heavy-handed heavyweight titleholder, meaningful elite-level tests.",recentBouts:[]},
+ {rank:22,slug:"xander-zayas",name:"Xander Zayas",division:"Junior middleweight",reason:"Young world-level Puerto Rican technician already proving himself.",recentBouts:[]},
+ {rank:23,slug:"abdullah-mason",name:"Abdullah Mason",division:"Lightweight",reason:"Young world-level southpaw with speed, accuracy and an expanding résumé.",recentBouts:[]},
+ {rank:24,slug:"callum-smith",name:"Callum Smith",division:"Light heavyweight",reason:"Former world champion with continued light-heavyweight relevance.",recentBouts:[]},
+ {rank:25,slug:"tim-tszyu",name:"Tim Tszyu",division:"Middleweight",reason:"Fearless offence and former championship pedigree despite setbacks.",recentBouts:[]},
+ {rank:26,slug:"gilberto-ramirez",name:"Gilberto Ramírez",division:"Cruiserweight",reason:"Two-division world champion with proven world-class opposition.",recentBouts:[]},
+ {rank:27,slug:"hamzah-sheeraz",name:"Hamzah Sheeraz",division:"Super middleweight",reason:"Tall, dangerous knockout artist rising through elite matchups.",recentBouts:[]},
+ {rank:28,slug:"agit-kabayel",name:"Agit Kabayel",division:"Heavyweight",reason:"Effective pressure, disciplined body punching and credible heavyweight wins.",recentBouts:[]},
+ {rank:29,slug:"fabio-wardley",name:"Fabio Wardley",division:"Heavyweight",reason:"Proven puncher, resilience and prominent heavyweight title contention.",recentBouts:[]},
+ {rank:30,slug:"teofimo-lopez",name:"Teófimo López",division:"Junior welterweight",reason:"Two-division former champion and elite win over Vasyl Lomachenko.",recentBouts:[]},
+ {rank:31,slug:"richardson-hitchins",name:"Richardson Hitchins",division:"Junior welterweight",reason:"Precise jab, defensive control and world-title level performances.",recentBouts:[]},
+ {rank:32,slug:"lester-martinez",name:"Lester Martínez",division:"Super middleweight",reason:"High-class contender with championship-level opposition on his horizon.",recentBouts:[]},
+ {rank:33,slug:"raymond-ford",name:"Raymond Ford",division:"Junior lightweight",reason:"Former featherweight champion and sharp, evolving boxer-puncher.",recentBouts:[]},
+ {rank:34,slug:"carlos-adames",name:"Carlos Adames",division:"Middleweight",reason:"World-class middleweight champion with depth of international experience.",recentBouts:[]},
+ {rank:35,slug:"nick-ball",name:"Nick Ball",division:"Featherweight",reason:"Aggressive former titleholder and relentless inside-volume specialist.",recentBouts:[]},
+ {rank:36,slug:"brandon-figueroa",name:"Brandon Figueroa",division:"Featherweight",reason:"Champion-level volume puncher and proven pressure fighter.",recentBouts:[]},
+ {rank:37,slug:"stephen-fulton",name:"Stephen Fulton",division:"Featherweight",reason:"Elite fundamentals and significant super-bantamweight championship pedigree.",recentBouts:[]},
+ {rank:38,slug:"kenshiro-teraji",name:"Kenshiro Teraji",division:"Flyweight",reason:"Multi-division champion with excellent ring IQ and lighter-weight résumé.",recentBouts:[]},
+ {rank:39,slug:"anthony-olascuaga",name:"Anthony Olascuaga",division:"Flyweight",reason:"Fast-rising high-level titleholder with sharp punch selection.",recentBouts:[]},
+ {rank:40,slug:"andy-cruz",name:"Andy Cruz",division:"Lightweight",reason:"Olympic champion with exceptional amateur pedigree and professional promise.",recentBouts:[]},
+ {rank:41,slug:"dalton-smith",name:"Dalton Smith",division:"Junior welterweight",reason:"Unbeaten WBC champion and polished domestic-to-world-level progression.",recentBouts:[]},
+ {rank:42,slug:"keyshawn-davis",name:"Keyshawn Davis",division:"Junior welterweight",reason:"Olympic medallist with high technical ceiling and improving pro résumé.",recentBouts:[]},
+ {rank:43,slug:"isaac-cruz",name:"Isaac “Pitbull” Cruz",division:"Junior welterweight",reason:"High-output Mexican crowd favourite and world-level pressure fighter.",recentBouts:[]},
+ {rank:44,slug:"floyd-schofield",name:"Floyd Schofield",division:"Lightweight",reason:"Young, explosive talent whose latest tests are defining his ceiling.",recentBouts:[]},
+ {rank:45,slug:"moses-itauma",name:"Moses Itauma",division:"Heavyweight",reason:"Young heavyweight with unusual speed and a high-performance ceiling.",recentBouts:[]},
+ {rank:46,slug:"chris-billam-smith",name:"Chris Billam-Smith",division:"Cruiserweight",reason:"Former world champion with tested fundamentals against elite cruiserweights.",recentBouts:[]},
+ {rank:47,slug:"bakhram-murtazaliev",name:"Bakhram Murtazaliev",division:"Junior middleweight",reason:"Heavy-handed former world champion with destructive power.",recentBouts:[]},
+ {rank:48,slug:"joseph-parker",name:"Joseph Parker",division:"Heavyweight",reason:"Veteran championship résumé refreshed by meaningful late-career performances.",recentBouts:[]},
+ {rank:49,slug:"alberto-puello",name:"Alberto Puello",division:"Junior welterweight",reason:"Skilled southpaw former champion with high-level title-fight experience.",recentBouts:[]},
+ {rank:50,slug:"gervonta-davis",name:"Gervonta Davis",division:"Lightweight",reason:"Exceptional knockout talent; inactivity makes current placement provisional.",recentBouts:[]}
+];
