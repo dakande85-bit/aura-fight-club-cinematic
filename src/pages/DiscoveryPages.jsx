@@ -79,7 +79,7 @@ export function FightersIndexPage({locale='en'}){
  const groups=[
   {title:'The elite',subtitle:'World-class pound-for-pound talents and established champions with proven opposition.',slugs:['jesse-bam-rodriguez','oleksandr-usyk','naoya-inoue','shakur-stevenson','dmitry-bivol','david-benavidez','jaron-ennis','junto-nakatani','devin-haney','canelo-alvarez','oscar-collazo','artur-beterbiev','rafael-espinoza']},
   {title:'Future stars',subtitle:'The breakout generation — elite amateurs, emerging professionals and young champions building a legacy.',slugs:['abdullah-mason','moses-itauma','floyd-schofield','ben-whittaker','curmel-moton','emiliano-vargas','giorgio-visioli','andy-cruz','hamza-uddin','xander-zayas','dalton-smith','keyshawn-davis']},
-  {title:'Fighters to watch',subtitle:'Dangerous titleholders, compelling contenders and the next must-see matchups.',slugs:['isaac-cruz','jai-opetaia','daniel-dubois','fabio-wardley','sebastian-fundora','osleys-iglesias','christian-mbilli','vergil-ortiz','callum-smith','tim-tszyu','oshaquie-foster','emanuel-navarrete']},
+  {title:'Fighters to watch',subtitle:'Dangerous titleholders, compelling contenders and the next must-see matchups.',slugs:['isaac-cruz','jai-opetaia','daniel-dubois','fabio-wardley','sebastian-fundora','osleys-iglesias','christian-mbilli','vergil-ortiz','callum-smith','tim-tszyu','ryan-garcia','oshaquie-foster','emanuel-navarrete']},
   {title:'Modern greats',subtitle:'Retired icons and veteran stars who have already shaped an era.',slugs:['terence-crawford','anthony-joshua','tyson-fury','erislandy-lara']}
  ];
  const q=query.trim().toLowerCase();
