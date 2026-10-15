@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prebuild": "npm run social:cards && npm run data:check && npm run news:audit && npm run media:audit && npm run lifestyle:audit && node scripts/generate-sitemaps.mjs",
+    "prebuild": "npm run data:check && npm run news:audit && npm run media:audit && npm run lifestyle:audit && node scripts/generate-sitemaps.mjs",
     "seo:generate": "node scripts/generate-sitemaps.mjs",
     "data:check": "node scripts/check-fight-data.mjs",
     "news:audit": "node scripts/audit-editorial.mjs",
