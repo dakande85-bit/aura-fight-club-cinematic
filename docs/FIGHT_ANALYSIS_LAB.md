@@ -15,6 +15,13 @@
 - The fight selector distinguishes fully sourced scouting from profile-only bouts. Missing tactical writeups never show invented analysis.
 - Betting affiliate configuration is inert and separated from the research experience.
 
+## Visual revision v4 — research to verdict
+- `src/components/FightResearchExtras.jsx` adds save/remove controls for specific **editorial scouting questions**. The notebook is persisted locally per matchup, shown during the sensitivity comparison, and included in the decision stage. The questions are not represented as verified evidence or statistical measurements; background citations are separately accessible.
+- Event `officialVideo.youtubeId` and `officialVideo.sourceUrl` can surface a consent-on-click `youtube-nocookie.com` embed with clear publisher attribution and a direct link. There is no scraped or rehosted fight footage.
+- `src/data/fightLabMetrics.js` contains pure, independently testable career parsing, fractional-inch measurements, guarded comparisons and corner-oriented markers. Missing inputs are excluded; weighted comparisons must never be called calibrated win probability.
+- `scripts/test-fight-lab.mjs` covers missing/inconsistent data, fractions, KO ratios, corner orientation, the sourced-video contract and disabled default betting/punch feeds. `.github/workflows/fight-lab-qa.yml` runs that test and the Vite build on relevant PR changes.
+- The newest development code remains in PR #20. A READY Vercel URL for an earlier commit is not proof of a current-head release; confirm latest SHA and complete real-browser/mobile QA before any production merge.
+
 ## What is verifiably functional now
 1. Switch between confirmed upcoming events, with fighter profile data resolved from `src/data/seoEntities.js`.
 2. Career-record-derived KO win share and total-fight win share, reach, height, data availability labels, comparison bars.
