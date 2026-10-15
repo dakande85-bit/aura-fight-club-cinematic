@@ -25,7 +25,7 @@ The initial editorial project is **Dubois vs Wardley II** and its source is the 
 3. Review the available artwork, the current scene timeline, and optional stock footage.
 4. Download your audio.
 5. **Only if acceptable to make the audio public**, upload it to the public GitHub repository's `creator/voiceovers/` folder. GitHub is currently only a temporary workaround; *do not upload confidential recordings*.
-6. Open [AURA Creator workflow](https://github.com/dakande85-bit/aura-fight-club-cinematic/actions/workflows/aura-creator-render.yml), run it manually on the feature branch, choose the format, and enter the relative file paths for the uploaded voiceover(s).
+6. **After this feature branch is approved and merged into the default branch** (GitHub requires a default-branch workflow for manual dispatch), open [AURA Creator workflow](https://github.com/dakande85-bit/aura-fight-club-cinematic/actions/workflows/aura-creator-render.yml), run it manually on the feature branch, choose the format, and enter the relative file paths for the uploaded voiceover(s).
 7. Download the Artifact ZIP, verify video and audio, inspect still imagery/stock licensing, confirm all claims against the article, review captions and publishing metadata.
 8. Publish manually to TikTok or YouTube (or via Metricool if the desired social account is connected and specifically authorised). **No posting or unreviewed publication is automated**.
 
