@@ -8,6 +8,7 @@ on:
       - 'src/components/FightResearchExtras.jsx'
       - 'src/components/TacticalBlueprint.jsx'
       - 'src/components/VerifiedFormTimeline.jsx'
+      - 'src/components/FightSourceLedger.jsx'
       - 'src/data/fightLabMetrics.js'
       - 'src/data/fightLabPresentation.js'
       - 'src/data/fightLabScouting.js'
