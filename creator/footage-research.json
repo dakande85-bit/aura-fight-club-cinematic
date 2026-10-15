@@ -107,18 +107,19 @@
   ],
   "licensingContacts": [
     {
+      "organisation": "IMG Video Archive / Queensberry Promotions",
+      "url": "https://imgvideoarchive.com/client/frank_warren_boxing",
+      "contact": "craig.wooff@img.com",
+      "contactRole": "Official footage archive licensing contact listed by IMG; verify this specific fight's rights",
+      "request": "Request rates for 2–10 second annotated excerpts of official boxing footage on monetised YouTube and TikTok under the AURA Fight Club boxing-analysis brand, worldwide online use; specifically ask if the May 9, 2026 Dubois–Wardley bout is available for sublicensing and the duration/territory/attribution terms."
+    },
+    {
       "organisation": "DAZN Group",
       "url": "https://dazngroup.com/contact/",
       "contact": "pr-boxing@dazn.com",
       "contactRole": "Media enquiry; ask for correct rights/licensing contact",
       "request": "Permission to use selected 2–7 second annotated clips from Dubois vs Wardley May 9 2026 in original commercial YouTube/TikTok boxing analysis; specify territory and monetisation."
-    },
-    {
-      "organisation": "Matchroom Boxing",
-      "url": "https://matchroom.com/contact/",
-      "contact": "boxing@matchroom.com",
-      "contactRole": "Promoter enquiry; confirm whether it controls relevant bout footage",
-      "request": "Ask if fight-week b-roll, press conferences, ring walk footage or fight highlights are available for licensed editorial reuse."
     }
-  ]
+  ],
+  "rightsGuidance": "The event is associated with Queensberry and DAZN, and Queensberry refers footage licensing to IMG; do not infer that IMG licenses this specific 2026 broadcast without written confirmation. Public official YouTube footage remains reference-only."
 }
