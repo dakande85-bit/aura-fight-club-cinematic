@@ -40,6 +40,8 @@
 .aura-50__bout time{display:block;font-size:10px;color:#d2b789;margin-top:5px}
 .aura-50__bout small{font-size:10px;display:block;margin-top:4px;line-height:1.4;color:#c4c0b7}
 .aura-50__bout a{font-size:10px;color:#e6c487}
+.aura-50__form-status{width:100%;padding:18px 20px;border-left:2px solid #9f8557;background:#22211f;color:#c2bdaf;line-height:1.55;font-size:12px}
+.aura-50__form-hint{margin-top:13px!important;font-size:11px!important;color:#c3bdb1!important}
 .aura-50__method{margin:0 0 24px;max-width:1040px;color:#bfb8ac;font-size:12px;line-height:1.6}
 .aura-50__row .aura-50__record--none{color:#a6a198}
 @media(max-width:850px){.aura-50__row summary{grid-template-columns:32px 55px minmax(0,1fr) 20px;gap:10px}.aura-50__portrait{height:55px;width:55px}.aura-50__division,.aura-50__record,.aura-50__expand{display:none}.aura-50__detail{padding:17px}.aura-50__head{grid-template-columns:1fr}.aura-50__stamp{justify-self:start}}
