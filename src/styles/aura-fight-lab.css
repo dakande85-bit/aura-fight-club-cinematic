@@ -142,3 +142,24 @@
 @media(max-width:610px){.afl-hero{align-items:start}.afl-hero h1{font-size:clamp(48px,14vw,80px)}.afl-hero__seal{display:none}.afl-topline__right{display:none}.afl-fight-picker{flex-direction:column;align-items:stretch}.afl-fight-picker label,.afl-fight-picker select{width:100%}.afl-matchup{grid-template-columns:minmax(0,1fr) 68px minmax(0,1fr);min-height:245px}.afl-face,.afl-face--right{display:flex;flex-direction:column;align-items:stretch}.afl-face__portrait{height:130px;max-width:none;min-width:0;width:100%;flex:none}.afl-face__info{padding:12px 8px 18px!important;text-align:left!important}.afl-face__info h3{font-size:clamp(19px,5vw,28px);margin:7px 0}.afl-face__info p{font-size:11px}.afl-face__info small{font-size:10px;line-height:1.4}.afl-versus strong{font-size:46px}.afl-versus span{font-size:8px}.afl-versus small{font-size:8px}.afl-panel{padding:19px}.afl-telemetry-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.afl-scout-grid{grid-template-columns:1fr}.afl-career-grid{grid-template-columns:1fr}.afl-next-grid{grid-template-columns:1fr 1fr}.afl-panel-heading{flex-wrap:wrap}.afl-root .afl-panel h2{font-size:29px}}
 @media(max-width:390px){.afl-shell{padding-inline:10px}.afl-next-grid{grid-template-columns:1fr}.afl-signal-strip>div{padding:12px 8px;font-size:10px}.afl-face__info h3{font-size:18px}.afl-face__portrait{height:112px}}
 @media(prefers-reduced-motion:reduce){.afl-fill{transition:none}}
+
+/* Verified recent-form cards & conditional licensed telemetry */
+.afl-recent-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:19px}
+.afl-recent-fighter{background:#1d292f;border:1px solid #394951;padding:17px;min-width:0}
+.afl-recent-fighter h3{font:900 19px/1.15 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;color:#f2d8b4;margin:0 0 16px}
+.afl-recent-fighter>small{display:block;font-size:10px;color:#9fb0b5;margin-top:14px}
+.afl-form-fight{display:flex;align-items:center;gap:11px;padding:11px 8px;background:#111a20;border:1px solid #384850;color:#d6dfde!important}
+.afl-form-fight>b{width:29px;height:29px;display:grid;place-items:center;background:#40654e;color:#fff;font-size:13px;flex:none}
+.afl-form-fight>b.lost{background:#763b3b}
+.afl-form-fight span{flex:1;min-width:0}
+.afl-form-fight strong{font-size:12px;display:block;overflow-wrap:anywhere}
+.afl-form-fight small{font-size:10px;color:#9baab1;display:block;margin-top:4px}
+.afl-punch-chart{margin-top:22px;border:1px solid #45535b;background:#172229;padding:17px}
+.afl-punch-chart h3{color:#f1d8b0;font-size:13px;text-transform:uppercase;letter-spacing:.09em}
+.afl-punch-row{padding:15px 0;border-bottom:1px solid #2c414c}
+.afl-punch-row>span{display:block;font-size:11px;color:#b5c5cb;margin-bottom:11px}
+.afl-punch-row__bars{display:flex;flex-direction:column;align-items:start;gap:4px}
+.afl-punch-row__bars>.afl-fill{height:9px}
+.afl-source-pills{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:11px}
+.afl-telemetry-cell strong{font-size:clamp(26px,2.6vw,38px);overflow-wrap:anywhere}
+@media(max-width:610px){.afl-recent-grid{grid-template-columns:1fr}}
