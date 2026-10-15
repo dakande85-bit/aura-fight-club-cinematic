@@ -50,7 +50,7 @@ export default function AppRouter() {
         <Route path="/" element={<HomeStaticHero />} />
         <Route path="/es" element={<SpanishSite />} />
         <Route path="/es/fighters/compare" element={<FighterComparePage locale="es" />} />
-        <Route path="/es/fighters/:slug" element={<FighterProfilePage />} />
+        <Route path="/es/fighters/:slug" element={<FighterProfilePage locale="es" />} />
         <Route path="/es/*" element={<SpanishSite />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/news/:slug" element={<ArticlePage />} />
