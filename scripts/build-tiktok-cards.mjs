@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generate 1080x1920 editorial JPEG carousels. No outside photography or image API.
+// Generate 1080x1920 editorial JPEGs, using only explicitly licensed, attributed photos.
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
@@ -30,17 +30,26 @@ function silhouette(x,reverse=false) {
   '<path d="M-150 248 Q-260 168 -304 248 Q-351 326 -295 384 Q-232 439 -170 377Z" fill="#c4a168"/>'+
   '<path d="M86 240 Q184 170 230 238 Q265 300 213 364 Q164 404 111 354Z" fill="#d7b578"/></g>';
 }
-function makeSvg(pack,slide,idx) {
+function makeSvg(pack,slide,idx,photo) {
  const accent=idx===0?'#e3c68a':idx===4?'#e6bd72':'#d5ad6b';
  const title=String(slide.headline).toUpperCase();
- const size=idx===0?(title.length>58?78:89):(title.length>55?72:83);
- const titleY=idx===0?510:620;
+ const hasPhoto=Boolean(photo);
+ const size=hasPhoto?(idx===0?(title.length>54?69:75):68):(idx===0?(title.length>58?78:89):(title.length>55?72:83));
+ const titleY=hasPhoto?(idx===0?1120:955):(idx===0?510:620);
  const titleHeight=lineWidths(title,size,916,8).length*1.16*size;
- const bodyY=Math.max(titleY+titleHeight+118,1010);
+ const bodyY=hasPhoto?Math.max(titleY+titleHeight+60,idx===0?1520:1210):Math.max(titleY+titleHeight+118,1010);
  const body=slide.body||slide.subhead||'';
- const bodySize=idx===0?52:idx===4?52:46;
+ const bodySize=hasPhoto?(idx===0?37:43):(idx===0?52:idx===4?52:46);
  const bg=idx===0?(silhouette(330)+silhouette(770,true)):
   '<g opacity=".16"><circle cx="880" cy="980" r="405" fill="none" stroke="#dcb878" stroke-width="8"/><circle cx="880" cy="980" r="260" fill="none" stroke="#dcb878" stroke-width="2"/><path d="M475 980 H1285 M880 545 V1405" stroke="#c3ced0" stroke-width="3" /></g>';
+ const photography=hasPhoto
+ ? '<defs><clipPath id="photoWindow"><rect x="71" y="330" width="938" height="745"/></clipPath>'+
+   '<linearGradient id="photoFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#111920" stop-opacity="0"/><stop offset=".7" stop-color="#111920" stop-opacity=".08"/><stop offset="1" stop-color="#111920" stop-opacity=".9"/></linearGradient></defs>'+
+   '<g clip-path="url(#photoWindow)"><image href="data:image/jpeg;base64,'+photo.base64+
+   '" x="70" y="330" width="940" height="745" preserveAspectRatio="xMidYMid slice"/>'+
+   '<rect x="70" y="330" width="940" height="745" fill="url(#photoFade)"/></g>'+
+   '<rect x="70" y="330" width="8" height="745" fill="#d8b77a"/>'
+ : '';
  const parts=[
   '<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">',
   '<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#293643"/><stop offset=".43" stop-color="#101923"/><stop offset="1" stop-color="#080d12"/></linearGradient>',
@@ -52,8 +61,8 @@ function makeSvg(pack,slide,idx) {
   '<rect width="1080" height="1920" fill="url(#grid)"/>',
   '<ellipse cx="'+(idx===0?530:950)+'" cy="'+(idx===0?835:1100)+'" rx="790" ry="880" fill="url(#glow)"/>',
   '<path d="M-100 1400 L1180 160 M-100 1580 L1180 340 M-100 1760 L1180 520" fill="none" stroke="#d0b07c" stroke-opacity=".065" stroke-width="5"/>',
-  bg,
-  '<rect width="1080" height="1920" fill="url(#shade)"/>',
+  hasPhoto ? photography : bg,
+  hasPhoto ? '<rect x="0" y="1075" width="1080" height="845" fill="#0d141c" fill-opacity=".93"/>' : '<rect width="1080" height="1920" fill="url(#shade)"/>',
   '<rect width="1080" height="14" fill="'+accent+'"/>',
   '<rect x="80" y="121" width="66" height="9" fill="'+accent+'"/>',
   '<text x="163" y="145" fill="#f7f4ec" font-family="Arial,DejaVu Sans,sans-serif" font-size="36" font-weight="900" letter-spacing="4">AURA / FIGHT DESK</text>',
@@ -63,6 +72,7 @@ function makeSvg(pack,slide,idx) {
   lines(title,80,titleY,size,916,size*1.16,8,'#f8f6f0',900),
   '<rect x="80" y="'+Math.min(bodyY-70,1530)+'" width="184" height="8" fill="'+accent+'"/>',
   lines(body,82,bodyY,bodySize,900,bodySize*1.41,9,idx===0?accent:'#dde3e5',idx===0?840:570),
+  hasPhoto ? '<text x="79" y="1664" fill="#e9ded0" font-family="Arial,DejaVu Sans,sans-serif" font-size="17" font-weight="650">'+escapeXml(photo.credit)+'</text>' : '',
   '<path d="M80 1695 H1000" stroke="#f0eadc" stroke-opacity=".3" stroke-width="3"/>',
   '<text x="80" y="1763" fill="#c9d2d9" font-family="Arial,DejaVu Sans,sans-serif" font-size="24" font-weight="780" letter-spacing="2">INDEPENDENT BOXING REPORTING / AURA FIGHT CLUB</text>',
   '<text x="80" y="1831" fill="'+accent+'" font-family="Arial,DejaVu Sans,sans-serif" font-size="30" font-weight="800">'+escapeXml(pack.id.toUpperCase().replaceAll('-',' / '))+'</text>',
@@ -73,6 +83,23 @@ function makeSvg(pack,slide,idx) {
 }
 async function main() {
  const edition=JSON.parse(await fs.readFile(source,'utf8'));
+ const licenceData=JSON.parse(await fs.readFile('data/tiktok-photo-licences.json','utf8'));
+ const photoDefinitions=new Map(licenceData.sources.map(photo=>[photo.id,photo]));
+ const photos=new Map();
+ for(const p of licenceData.sources){
+  const filename=path.join('public/news/tiktok/source-media',p.localFile);
+  try {
+   const blob=await fs.readFile(filename);
+   const metadata=await sharp(blob).metadata();
+   if(metadata.format!=='jpeg'||metadata.width<900||metadata.height<700)throw new Error('Invalid licensed image: '+p.id);
+   const jpg=await sharp(blob).resize({width:1300,height:1050,fit:'cover',position:'attention'})
+    .jpeg({quality:83,mozjpeg:true}).toBuffer();
+   photos.set(p.id,{base64:jpg.toString('base64'),credit:p.displayCredit});
+  }catch(error){
+   if(process.env.REQUIRE_CURATED_PHOTOS==='1')throw new Error('Required licensed photo missing '+p.id+': '+error.message);
+   console.warn('Licensed source not available; waiting for asset import:',p.id);
+  }
+ }
  const articles=JSON.parse(await fs.readFile('public/news/articles.json','utf8')).articles;
  const known=new Set(articles.map(a=>a.slug));
  if(!Array.isArray(edition.packs)||!edition.packs.length)throw Error('No social story packs');
@@ -86,11 +113,17 @@ async function main() {
   for(let i=0;i<5;i++){
    const slide=pack.slides[i];if(!slide.headline||!slide.eyebrow||!slide.type)throw Error('Incomplete slide');
    const name=String(i+1).padStart(2,'0')+'.jpg';
-   await sharp(Buffer.from(makeSvg(pack,slide,i)),{density:144}).resize(WIDTH,HEIGHT)
+   const photoId=licenceData.slidePhotos?.[pack.id]?.[String(i)];
+   if(photoId&&!photoDefinitions.has(photoId))throw Error('Unknown photograph '+photoId);
+   const photo=photos.get(photoId)||null;
+   await sharp(Buffer.from(makeSvg(pack,slide,i,photo)),{density:144}).resize(WIDTH,HEIGHT)
     .jpeg({quality:87,mozjpeg:true}).toFile(path.join(dest,name));
    media.push('/news/tiktok/'+pack.id+'/'+name);
   }
-  out.packs.push({id:pack.id,relatedArticle:pack.relatedArticle,caption:pack.caption,media});
+  out.packs.push({id:pack.id,relatedArticle:pack.relatedArticle,caption:pack.caption,media,
+   photoCredits: licenceData.sources.filter(p=>Object.values(licenceData.slidePhotos?.[pack.id]||{}).includes(p.id))
+    .map(p=>({fighter:p.fighter,creator:p.creator,license:p.license,licenseUrl:p.licenseUrl,sourcePage:p.sourcePage,archiveDate:p.date}))
+  });
  }
  await fs.writeFile('public/news/tiktok/manifest.json',JSON.stringify(out,null,2)+'\n');
  console.log('Generated '+out.packs.reduce((n,p)=>n+p.media.length,0)+' editorial slides.');
