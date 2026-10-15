@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useState} from 'react';
 import {Link, useSearchParams} from 'react-router-dom';
 import {
-  Activity, ArrowRight, ArrowUpRight, BarChart3, BookmarkCheck,
+  ArrowRight, ArrowUpRight, BarChart3, BookmarkCheck,
   Check, ChevronDown, CircleHelp, ClipboardCheck, Compass, Database,
   ExternalLink, Info, LockKeyhole, RotateCcw, ScanLine, ShieldCheck,
   SlidersHorizontal, Target, Zap
@@ -11,6 +11,8 @@ import Footer from '../components/Footer.jsx';
 import {PageSEO} from '../components/SEO.jsx';
 import {getFighterByName} from '../data/seoEntities.js';
 import {inchesFromText,parseCareerRecord,compareBoxingProfiles,indicatorPosition} from '../data/fightLabMetrics.js';
+import {getCalendarDate,upcomingFightCards,createDecisionBrief} from '../data/fightLabPresentation.js';
+import VerifiedFormTimeline from '../components/VerifiedFormTimeline.jsx';
 import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
 import TacticalBlueprint from '../components/TacticalBlueprint.jsx';
 import {PinCurrentFactor, FightNotebook, OfficialVideoPanel} from '../components/FightResearchExtras.jsx';
@@ -20,9 +22,9 @@ import '../styles/fight-hub.css';
 import '../styles/fight-decision-cockpit.css';
 import '../styles/tactical-blueprint.css';
 import '../styles/fight-research-extras.css';
+import '../styles/fight-lab-evidence.css';
 
-const dateNow=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Atlantic/Canary',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const upcoming=edition.fights.filter(f=>f.status!=='Completed'&&f.date>=dateNow()&&f.fighters?.length===2).sort((a,b)=>a.date.localeCompare(b.date));
+const upcoming=upcomingFightCards(edition.fights,getCalendarDate());
 const featured=['dubois-wardley-2','fundora-hadribeaj','canelo-mbilli'];
 const allFights=[...upcoming].sort((a,b)=>{
   const x=featured.indexOf(a.id),y=featured.indexOf(b.id);
@@ -139,13 +141,12 @@ function ResearchView({fight,fighters,scouting,selectedPins,onTogglePin,onNext})
    <details className="fdc-citations"><summary>Evidence behind the tactical readout <ChevronDown size={16}/></summary>{scouting.evidence.map((e,i)=><p key={i}><strong>{e.label}:</strong> {e.detail} <a href={e.url} target="_blank" rel="noopener noreferrer">Source <ExternalLink size={12}/></a></p>)}</details>
    </>:<div className="fdc-lab-empty"><Database size={25}/><h3>Technical preview awaiting source review</h3><p>We would rather leave a matchup unrated than manufacture a breakdown from a fighter’s record.</p></div>}
   <OfficialVideoPanel fight={fight}/>
-  <div className="fdc-form-ribbon"><span><Activity size={15}/> VERIFIED RESULT SNAPSHOT</span>{fighters.map(f=><div key={f.name}><strong>{f.name}</strong>{verifiedRecentFights[f.name]?.length?<a href={verifiedRecentFights[f.name][0].source} target="_blank" rel="noopener noreferrer">{verifiedRecentFights[f.name][0].result} against {verifiedRecentFights[f.name][0].opponent} ↗</a>:<small>Recent results awaiting verification</small>}</div>)}</div>
+  <VerifiedFormTimeline fight={fight} fighters={fighters} results={verifiedRecentFights}/>
   <div className="fdc-panel-bottom"><span>Explore the evidence. Then test your thesis.</span><button onClick={onNext} type="button">Stress-test the matchup <ArrowRight size={16}/></button></div>
  </div>;
 }
 
-function ModelView({fight,fighters,scouting,selectedPins,onNext}){
- const [weights,setWeights]=useState({power:40,form:25,range:35});
+function ModelView({fight,fighters,scouting,selectedPins,weights,setWeights,onNext}){
  const [selectedScenario,setSelectedScenario]=useState(0);
  const [showMethod,setShowMethod]=useState(false);
  const model=useMemo(()=>compareBoxingProfiles(fighters,weights),[fighters,weights]);
@@ -163,7 +164,7 @@ function ModelView({fight,fighters,scouting,selectedPins,onNext}){
   <div className="fdc-panel-bottom"><span>Explore the data. Record your view.</span><button onClick={onNext} type="button">Next: make your call <ArrowRight size={16}/></button></div>
  </div>;
 }
-function DecisionView({fight,fighters,scouting,selectedPins,onRemovePin,onReset}){
+function DecisionView({fight,fighters,scouting,selectedPins,weights,onRemovePin,onReset}){
  const key='aura-fight-lab-decisions';
  const [saved,setSaved]=useState(()=>{try{return JSON.parse(localStorage.getItem(key)||'{}')}catch{return {}}});
  const savedPick=saved[fight.id]||{};
@@ -171,7 +172,10 @@ function DecisionView({fight,fighters,scouting,selectedPins,onRemovePin,onReset}
  const [confidence,setConfidence]=useState(savedPick.confidence||'undecided');
  const [why,setWhy]=useState(savedPick.why||'');
  const [copied,setCopied]=useState(false);
- const choose=name=>setPick(name);
+ const [briefCopied,setBriefCopied]=useState(false);
+ const decisionBrief=createDecisionBrief({fight,fighters,pick,confidence,reason:why,selectedQuestions:selectedPins.map(i=>scouting?.keys?.[i]).filter(Boolean),model:compareBoxingProfiles(fighters,weights)});
+ const copyBrief=()=>{if(navigator.clipboard?.writeText){navigator.clipboard.writeText(decisionBrief).then(()=>setBriefCopied(true)).catch(()=>setBriefCopied(false))}};
+ const choose=name=>{setPick(name);setBriefCopied(false)};
  const store=()=>{if(!pick)return;const next={...saved,[fight.id]:{pick,confidence,why,updatedAt:new Date().toISOString()}};try{localStorage.setItem(key,JSON.stringify(next))}catch{}setSaved(next)};
  const share=()=>{const text='AURA Fight Lab: '+fight.name+' — my pick: '+(pick||'undecided')+'. '+(why||'What is your read?')+' https://www.aurafightclub.com/verdict?fight='+fight.id;if(navigator.share){navigator.share({title:'My AURA Fight Lab pick',text}).catch(()=>{})}else if(navigator.clipboard?.writeText){navigator.clipboard.writeText(text).then(()=>setCopied(true)).catch(()=>setCopied(false))}};
  return <div className="fdc-panel fdc-decision">
@@ -179,6 +183,7 @@ function DecisionView({fight,fighters,scouting,selectedPins,onRemovePin,onReset}
   <FightNotebook fight={fight} scouting={scouting} selected={selectedPins} onRemove={onRemovePin} onBack={onReset}/>
   <div className="fdc-decision-layout"><div className="fdc-pick-box"><p>WHO DO YOU THINK WINS?</p><div className="fdc-pick-options">{fighters.map(f=><button className={pick===f.name?'selected':''} onClick={()=>choose(f.name)} type="button" key={f.name}><span>{f.name}</span>{pick===f.name?<Check size={18}/>:<ArrowUpRight size={17}/>}</button>)}</div><div className="fdc-confidence"><p>YOUR PERSONAL CONFIDENCE</p><div>{[['low','Uncertain'],['medium','Somewhat'],['high','Confident']].map(([id,text])=><button type="button" key={id} className={confidence===id?'active':''} onClick={()=>setConfidence(id)}>{text}</button>)}</div></div><label className="fdc-reason">WHAT CONVINCED YOU?<textarea value={why} onChange={e=>setWhy(e.target.value.slice(0,240))} maxLength={240} rows={3} placeholder="e.g. The jab, pressure in the middle rounds, or a matchup weakness…"/><small>{why.length}/240 · Stored only on your device</small></label><button className="fdc-save" type="button" disabled={!pick} onClick={store}>{savedPick.pick===pick&&pick?'Update my selection':'Save my selection'} <BookmarkCheck size={17}/></button>{savedPick.pick&&<p className="fdc-saved"><CheckCircle2 size={16}/> Saved: {savedPick.pick}</p>}</div>
    <div className="fdc-aura-call"><span className="fdc-kicker">AURA EDITORIAL VIEW</span><h3>{scouting?'Our technical reading':'Analysis not ready'}</h3><p className="fdc-editorial-lean">{scouting?.editorialLean||'AURA is not publishing a verdict until the underlying bout research is complete.'}</p><p>{scouting?.confidence||'We have not run a calibrated probability model for this matchup.'}</p><div className="fdc-decision-why"><strong>What the evidence cannot yet tell us</strong><ul><li>Reliable opponent-adjusted punch efficiency</li><li>Calibrated win probability or most likely KO round</li><li>Live bookmaker odds or market value</li></ul></div><div className="fdc-share-actions"><button type="button" onClick={share}>Share my read <ArrowUpRight size={15}/></button>{copied&&<span>Copied</span>}<Link to={'/fights/'+fight.id}>Fight details <ArrowRight size={15}/></Link></div></div></div>
+   <section className="fdc-personal-brief" aria-labelledby="fdc-brief-title"><div className="fdc-personal-brief-top"><div><p className="fdc-kicker">YOUR PERSONAL FIGHT CARD</p><h3 id="fdc-brief-title">Take your reasoning with you.</h3></div><button type="button" onClick={copyBrief}><ClipboardCheck size={16}/>{briefCopied?'Copied to clipboard':'Copy my analysis'}</button></div><div className="fdc-personal-brief-copy">{decisionBrief}</div><p className="fdc-personal-brief-note"><ShieldCheck size={15}/> A personal research note, not an automated forecast, odds recommendation or public prediction.</p></section>
    <section className="fdc-partners"><div><span className="fdc-kicker">18+ / SEPARATE COMMERCIAL INFORMATION</span><h3>Market watch & partner offers</h3><p>Compare licensed bookmakers and their verified markets here once partner approval, territorial checks, current odds and age safeguards are in place. Editorial analysis and betting promotions remain separate.</p></div><div className="fdc-partners-ready"><span><LockKeyhole size={17}/> OFFERS NOT ACTIVATED</span><p>No bookmaker affiliation or live prices connected. No affiliate relationships implied.</p><Link to="/commercial-policy">Affiliate disclosures <ArrowUpRight size={13}/></Link></div></section>
   <div className="fdc-panel-bottom"><span>Analysis is not a guarantee. No pressure to place a bet.</span><button type="button" onClick={onReset}>Revisit the evidence <ArrowRight size={16}/></button></div>
  </div>;
@@ -189,11 +194,14 @@ export default function FightDecisionCockpit(){
  const routeFight=params.get('fight');
  const fight=allFights.find(f=>f.id===routeFight)||allFights[0];
  const [stage,setStage]=useState('scout');
+ const [weightsByFight,setWeightsByFight]=useState({});
  const [pinsByFight,setPinsByFight]=useState(()=>{try{const item=JSON.parse(localStorage.getItem('aura-fight-evidence-pins-v1')||'{}');return item&&typeof item==='object'&&!Array.isArray(item)?item:{}}catch{return {}}});
  useEffect(()=>{try{localStorage.setItem('aura-fight-evidence-pins-v1',JSON.stringify(pinsByFight))}catch{}},[pinsByFight]);
  const fighters=useMemo(()=>fight?fight.fighters.map(fighterByName):[],[fight]);
  const scouting=fight?fightLabScouting[fight.id]:null;
  const selectedPins=fight&&Array.isArray(pinsByFight[fight.id])?pinsByFight[fight.id]:[];
+ const weights=fight?(weightsByFight[fight.id]||{power:40,form:25,range:35}):{power:40,form:25,range:35};
+ const setWeights=next=>{if(!fight)return;setWeightsByFight(previous=>{const current=previous[fight.id]||{power:40,form:25,range:35};return {...previous,[fight.id]:typeof next==='function'?next(current):next}})};
  const togglePin=index=>{if(!fight||!scouting?.keys?.[index])return;setPinsByFight(previous=>{const values=Array.isArray(previous[fight.id])?previous[fight.id]:[];const next=values.includes(index)?values.filter(value=>value!==index):[...values,index].sort((a,b)=>a-b);return {...previous,[fight.id]:next}})};
  const navigateFight=id=>{setParams({fight:id});setStage('scout')};
  const setScreen=(screen,scroll=false)=>{setStage(screen);if(scroll&&typeof window!=='undefined')window.requestAnimationFrame(()=>document.getElementById('fdc-analysis-steps')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}))};
@@ -205,7 +213,7 @@ export default function FightDecisionCockpit(){
    {fight?<><div className="fdc-selector-head"><span>SELECT YOUR MATCHUP</span><small>{allFights.length} scheduled fights · editorially reviewed event dates</small></div><div className="fdc-fight-rail" role="group" aria-label="Choose an upcoming boxing fight">{allFights.map((f,i)=><button type="button" aria-pressed={fight.id===f.id} onClick={()=>navigateFight(f.id)} key={f.id}><span className="fdc-rail-id">{String(i+1).padStart(2,'0')} / {new Date(f.date+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</span><strong>{f.fighters[0]} <span>vs</span> {f.fighters[1]}</strong><small>{f.division} · {fightLabScouting[f.id]?'SCOUTING READY':'PROFILE DATA'}</small></button>)}</div>
    <FightStage key={fight.id} fight={fight} fighters={fighters} scouting={scouting} goToModel={()=>setScreen('model',true)}/>
    <nav className="fdc-workflow" id="fdc-analysis-steps" aria-label="Analysis workflow">{stages.map((item,i)=>{const Icon=item.icon;return <button type="button" key={item.id} aria-current={stage===item.id?'step':undefined} className={stage===item.id?'active':''} onClick={()=>setScreen(item.id)}><span>{item.number}</span><Icon size={18}/><strong>{item.label}</strong><ArrowRight className="fdc-step-arrow" size={16}/></button>})}</nav>
-   {stage==='scout'?<ResearchView key={fight.id} fight={fight} fighters={fighters} scouting={scouting} selectedPins={selectedPins} onTogglePin={togglePin} onNext={()=>setScreen('model',true)}/>:stage==='model'?<ModelView key={fight.id} fight={fight} fighters={fighters} scouting={scouting} selectedPins={selectedPins} onNext={()=>setScreen('decision',true)}/>:<DecisionView key={fight.id} fight={fight} fighters={fighters} scouting={scouting} selectedPins={selectedPins} onRemovePin={togglePin} onReset={()=>setScreen('scout',true)}/>}
+   {stage==='scout'?<ResearchView key={fight.id} fight={fight} fighters={fighters} scouting={scouting} selectedPins={selectedPins} onTogglePin={togglePin} onNext={()=>setScreen('model',true)}/>:stage==='model'?<ModelView key={fight.id} fight={fight} fighters={fighters} scouting={scouting} selectedPins={selectedPins} weights={weights} setWeights={setWeights} onNext={()=>setScreen('decision',true)}/>:<DecisionView key={fight.id} fight={fight} fighters={fighters} scouting={scouting} selectedPins={selectedPins} weights={weights} onRemovePin={togglePin} onReset={()=>setScreen('scout',true)}/>}
    </>:<div className="fdc-empty"><h2>No upcoming verified matchups</h2><p>The decision lab opens when a new card has been added to the verified calendar.</p><Link to="/fight-hub">Explore Fight Hub <ArrowRight size={16}/></Link></div>}
    <div className="fdc-bottomline"><span><ShieldCheck size={17}/> Every metric should have a provenance trail. Data gaps remain visible.</span><span>Event list checked {edition.checkedAt} · <Link to="/editorial-policy">How we work ↗</Link></span></div>
   </div>
