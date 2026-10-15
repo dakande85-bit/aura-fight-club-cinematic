@@ -1,0 +1,50 @@
+name: AURA Editorial Radar
+
+# This workflow never changes published article data or deploys the website.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */3 * * *'
+  pull_request:
+    paths:
+      - 'scripts/newsroom-radar.py'
+      - 'newsroom/**'
+      - '.github/workflows/editorial-radar.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  newsroom:
+    name: Research queue (no publication)
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Test editorial scoring without network
+        run: python -m unittest discover -s newsroom/tests -v
+
+      - name: Collect public research signals
+        if: github.event_name != 'pull_request'
+        run: python scripts/newsroom-radar.py --output newsroom-output
+
+      - name: Show editorial shortlist in run summary
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          cat newsroom-output/editorial-brief.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload research queue (private CI artifact)
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: aura-editorial-radar
+          path: newsroom-output/
+          retention-days: 7
