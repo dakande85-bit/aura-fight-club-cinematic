@@ -34,6 +34,9 @@ on:
       - scripts/render-creator-video.py
       - creator/projects/**
       - .github/workflows/aura-creator-render.yml
+      - creator/footage-research.json
+      - src/components/FootageResearch.jsx
+      - tests/footage-research.test.mjs
 
 permissions:
   contents: read
@@ -46,6 +49,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install requirements
         run: python -m pip install 'Pillow>=11,<13'
+      - name: Ensure unlicensed broadcaster media never passes as reusable source
+        run: node --test tests/footage-research.test.mjs
       - name: Validate storyboard and rights manifest
         run: python scripts/render-creator-video.py --project creator/projects/dubois-wardley-ii.json --format both --dry-run
 
