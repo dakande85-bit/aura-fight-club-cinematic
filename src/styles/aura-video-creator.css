@@ -1,0 +1,55 @@
+.aura-video-creator{min-height:100vh;padding:clamp(96px,11vw,150px) clamp(20px,5vw,90px) 100px;background:#0d1219;color:#f5f3ed;font-family:inherit}
+.aura-video-creator a{color:#e4c48a}.aura-video-creator__hero{max-width:1250px;margin:0 auto 35px;padding-bottom:28px;border-bottom:1px solid #344250}
+.aura-video-creator__kicker{font-size:12px;font-weight:800;letter-spacing:.18em;color:#d9b578}
+.aura-video-creator__hero h1{font-size:clamp(45px,7vw,104px);font-weight:950;line-height:1;letter-spacing:-.05em;margin:18px 0}
+.aura-video-creator__hero h1 em{font-style:normal;color:#d6b473}
+.aura-video-creator__hero>p:not(.aura-video-creator__kicker){max-width:810px;color:#c3d0d9;line-height:1.7;font-size:clamp(15px,1.4vw,19px)}
+.aura-video-creator__heroLinks{display:flex;flex-wrap:wrap;gap:22px;margin-top:22px;font-size:13px;font-weight:700}
+.aura-video-creator__state{max-width:1250px;margin:0 auto 22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;font-weight:800;letter-spacing:.09em}
+.aura-video-creator__state strong{color:#e1b575}
+.aura-video-creator__switch{max-width:1250px;margin:0 auto 30px;display:flex;gap:12px}
+.aura-video-creator__switch button{flex:1;text-align:left;padding:18px 23px;border:1px solid #56606a;border-radius:9px;color:#d9e0e6;background:#1b242e;font-weight:900;font-size:18px;cursor:pointer}
+.aura-video-creator__switch button.active{border-color:#dab879;background:#413827;color:white;box-shadow:inset 0 0 0 1px #dab879}
+.aura-video-creator__switch small{display:block;color:#d0d8dc;margin-top:7px;font-size:12px;font-weight:550}
+.aura-video-creator__layout{max-width:1250px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:32px;align-items:start}
+.aura-video-creator__editor,.aura-video-creator__visual{border:1px solid #31404d;background:#131c25;padding:clamp(17px,3vw,30px);border-radius:12px;min-width:0}
+.aura-video-creator__section{display:flex;gap:14px;align-items:flex-start;margin:18px 0 19px}
+.aura-video-creator__section h2{font-size:23px;letter-spacing:-.03em;margin:0 0 8px}
+.aura-video-creator__section p{font-size:13px;line-height:1.55;color:#aebfcc;margin:0}
+.aura-video-creator__num{display:inline-flex;align-items:center;justify-content:center;flex:0 0 36px;height:36px;border-radius:50%;background:#d9b578;color:#15212e;font-size:13px;font-weight:900}
+.aura-video-creator__label{font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:#d9b578;font-weight:800}
+.aura-video-creator__editor textarea{display:block;width:100%;resize:vertical;margin:10px 0;padding:15px;background:#0b131b;border:1px solid #596673;border-radius:7px;color:white;font-size:14px;line-height:1.7;font-family:inherit}
+.aura-video-creator__buttons{display:flex;gap:11px;flex-wrap:wrap;margin:15px 0 28px}
+.aura-video-creator__buttons button,.aura-video-creator__buttons a.primary,.aura-video-creator__recorder button{cursor:pointer;padding:13px 16px;border:1px solid #d9b578;border-radius:6px;background:#d9b578;color:#131b25;font-weight:800;font-size:13px;text-decoration:none}
+.aura-video-creator__buttons button:not(:first-child){background:transparent;color:#d9b578}
+.aura-video-creator__recorder{display:grid;gap:12px;border:1px solid #405061;background:#101720;border-radius:8px;padding:20px;margin-bottom:20px}
+.aura-video-creator__recorder button{justify-self:start}
+.aura-video-creator__recorder button.recording{background:#ca5f55;border-color:#ca5f55;color:white}
+.aura-video-creator__recorder label{display:grid;gap:8px;font-size:13px;color:#d6e0e6}
+.aura-video-creator__recorder input{max-width:100%;font-size:12px}
+.aura-video-creator__recorder audio{width:100%}.aura-video-creator__recorder p{font-size:12px;color:#aebcc7;margin:0}
+.aura-video-creator__feedback{border-left:3px solid #dbb779;padding:12px;background:#24281f;color:#eed7af;font-size:13px}
+.aura-video-creator__steps{display:grid;gap:14px;padding-left:26px;line-height:1.6;font-size:14px;color:#d3dce2}
+.aura-video-creator__steps li::marker{color:#d9b578;font-weight:900}
+.aura-video-creator__warning,.aura-video-creator__footerNote{font-size:12px;color:#c8b79c;line-height:1.65}
+.aura-video-creator__visualTitle{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}
+.aura-video-creator__visualTitle h2{margin:5px 0;font-size:21px}
+.aura-video-creator__visualTitle span{font-size:12px;color:#adb8be}
+.aura-video-creator__screen{position:relative;margin:0 auto;background:#05090d;overflow:hidden;border:1px solid #3d4853;max-height:660px}
+.aura-video-creator__screen.vertical{aspect-ratio:9/16;max-width:340px}
+.aura-video-creator__screen.widescreen{aspect-ratio:16/9;width:100%}
+.aura-video-creator__screen>img{display:block;width:100%;height:100%;object-fit:cover}
+.aura-video-creator__screenOverlay{position:absolute;inset:auto 0 0 0;padding:27% 7% 9%;background:linear-gradient(0deg,rgba(4,9,15,.97),rgba(4,9,15,.77) 55%,transparent);pointer-events:none}
+.aura-video-creator__screenOverlay small{color:#e0b579;font-weight:800;letter-spacing:.12em;font-size:10px}
+.aura-video-creator__screenOverlay h3{font-size:clamp(16px,2vw,25px);line-height:1.1;margin:8px 0 12px}
+.aura-video-creator__screenOverlay p{font-size:12px;color:#d9e0e4;line-height:1.5}
+.aura-video-creator__screenOverlay span{font-size:9px;color:#e4d6bb}
+.aura-video-creator__storyboard{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.aura-video-creator__storyboard button{cursor:pointer;display:grid;align-content:start;gap:7px;text-align:left;padding:9px;background:#1b2835;border:1px solid #334957;color:#eff0f2;border-radius:6px}
+.aura-video-creator__storyboard button.active{outline:2px solid #e2bc7c}
+.aura-video-creator__storyboard img{width:100%;height:88px;object-fit:cover;border-radius:3px}
+.aura-video-creator__storyboard span{font-size:10px;color:#dbbd86}.aura-video-creator__storyboard strong{font-size:11px;line-height:1.25}
+.aura-video-creator__roadmap{max-width:1250px;margin:30px auto 0;padding:25px;border:1px solid #3c4b59;border-radius:9px;background:#1a222d}
+.aura-video-creator__roadmap strong{font-size:12px;letter-spacing:.14em;color:#e1b876}.aura-video-creator__roadmap p{font-size:13px;color:#bdcbd5}
+@media(max-width:930px){.aura-video-creator__layout{grid-template-columns:1fr}}
+@media(max-width:600px){.aura-video-creator__switch{flex-direction:column}.aura-video-creator__storyboard{grid-template-columns:repeat(2,minmax(0,1fr))}.aura-video-creator__heroLinks{gap:12px}}
