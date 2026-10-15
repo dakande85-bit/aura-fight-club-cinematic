@@ -1,3 +1,4 @@
+import punchFeed from './licensedPunchStats.json';
 /**
  * AURA editorial scouting, NOT a punch-stat feed.
  * Facts and interpretations are separately labelled; source URLs are mandatory
@@ -40,13 +41,8 @@ export const fightLabScouting = {
 };
 
 /** Optional licensed-feed contract: no fictional default values. */
-export const punchDataContract = {
-  schemaVersion: 1,
-  provider: null,
-  licensedForDisplay: false,
-  lastUpdated: null,
-  fights: {}
-};
+export const punchDataContract = punchFeed;
+
 // When licensed data arrives, the vetted publishing pipeline can populate per-fight:
 // { fighters: { [name]: { sampleFights, rounds: [{round, jabsThrown,
 //   jabsLanded, powerThrown, powerLanded}], sourceUrl, reviewedAt } } }
