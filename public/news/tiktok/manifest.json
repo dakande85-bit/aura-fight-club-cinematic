@@ -22,7 +22,13 @@
           "sourcePage": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout_(cropped).jpg",
           "archiveDate": "2025-07-19"
         }
-      ]
+      ],
+      "coverArt": {
+        "type": "AI-generated editorial illustration",
+        "representation": "Illustration of named fighters; not a real event photograph or official fight poster.",
+        "disclosure": "AI-generated image",
+        "originalAsset": "Canva AURA Fight Club library and Metricool TikTok draft"
+      }
     },
     {
       "id": "fundora-hadribeaj",
@@ -44,7 +50,13 @@
           "sourcePage": "https://commons.wikimedia.org/wiki/File:Ermal_HAdribeaj.jpg",
           "archiveDate": "2023-07-24"
         }
-      ]
+      ],
+      "coverArt": {
+        "type": "AI-generated editorial illustration",
+        "representation": "Illustration of named fighters; not a real event photograph or official fight poster.",
+        "disclosure": "AI-generated image",
+        "originalAsset": "Canva AURA Fight Club library and Metricool TikTok draft"
+      }
     },
     {
       "id": "october-17-boxing-three-fights",
@@ -74,7 +86,13 @@
           "sourcePage": "https://commons.wikimedia.org/wiki/File:Ermal_HAdribeaj.jpg",
           "archiveDate": "2023-07-24"
         }
-      ]
+      ],
+      "coverArt": {
+        "type": "AI-generated editorial illustration",
+        "representation": "Illustration of named fighters; not a real event photograph or official fight poster.",
+        "disclosure": "AI-generated image",
+        "originalAsset": "Canva AURA Fight Club library and Metricool TikTok draft"
+      }
     }
   ]
 }
