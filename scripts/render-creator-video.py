@@ -102,7 +102,7 @@ def render_frame(clip: Clip, size: tuple[int,int], out: pathlib.Path, preview: b
         bg.paste(central,(x,y))
         frame=bg
     else:
-        frame=Image.new("RGB",size,INK)
+        frame=Image.new("RGBA",size,(0,0,0,0))
     d=ImageDraw.Draw(frame,"RGBA")
     # Deep gradient for legibility; keep important moving footage visible.
     dark_y=int(h*.56)
@@ -135,7 +135,8 @@ def render_frame(clip: Clip, size: tuple[int,int], out: pathlib.Path, preview: b
     if preview:
         d.rounded_rectangle((int(w*.62),int(h*.12),int(w*.95),int(h*.17)),radius=6,fill=(80,23,16,207))
         d.text((int(w*.64),int(h*.13)),"VOICEOVER NEEDED",font=get_font(max(11,int(w*.020))),fill=WHITE+(255,))
-    frame.save(out,"JPEG",quality=88,optimize=True)
+    if clip.media_type=="video": frame.save(out.with_suffix(".png"),"PNG",optimize=True)
+    else: frame.save(out,"JPEG",quality=88,optimize=True)
 
 def load_project(project_path: pathlib.Path) -> dict:
     p=json.loads(project_path.read_text(encoding="utf-8"))
@@ -217,9 +218,12 @@ def render(project:dict,name:str,voiceover:pathlib.Path|None,outdir:pathlib.Path
             if clip.media_type=="video":
                 vf=(f"scale={width}:{height}:force_original_aspect_ratio=increase,"
                     f"crop={width}:{height},format=yuv420p")
+                overlay=jpg.with_suffix(".png")
                 cmd=["ffmpeg","-y","-nostdin","-v","error","-stream_loop","-1",
-                     "-i",str(clip.asset),"-an","-t",f"{clip.duration:.4f}",
-                     "-vf",vf,"-r",str(fps),"-c:v","libx264","-preset","veryfast",
+                     "-i",str(clip.asset),"-loop","1","-i",str(overlay),
+                     "-t",f"{clip.duration:.4f}",
+                     "-filter_complex",f"[0:v]{vf}[bg];[bg][1:v]overlay=0:0:shortest=1,format=yuv420p[out]",
+                     "-map","[out]","-an","-r",str(fps),"-c:v","libx264","-preset","veryfast",
                      "-crf","26","-pix_fmt","yuv420p",str(segment)]
             else:
                 cmd=["ffmpeg","-y","-nostdin","-v","error","-loop","1","-i",str(jpg),
@@ -264,7 +268,7 @@ def main():
     ap.add_argument("--size-test",action="store_true",help="Use reduced resolution for CI smoke test")
     ap.add_argument("--dry-run",action="store_true",help="Validate project and report shots, without rendering")
     args=ap.parse_args()
-    if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
+    if not args.dry_run and (not shutil.which("ffmpeg") or not shutil.which("ffprobe")):
         raise SystemExit("ffmpeg and ffprobe are required")
     project=load_project(file_in_repo(args.project))
     results=[]
