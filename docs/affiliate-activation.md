@@ -24,7 +24,11 @@ Updated 15 October 2026. Revenue links must be unique, issued by the programme, 
 - Brand contact mailbox configured on the website: `partnerships@aurafightclub.com`. Validate DNS and ownership; it is **not** the same as the connected Gmail identity.
 - Ask each company for publisher approval, geo-specific deep-link rules, banner creative permissions, cookie/attribution rules, payouts and a testing link.
 - Do not use DAZN Bet affiliate links: they concern wagering, not the DAZN sports streaming subscription service.
-- Where there is no verifiable publisher contact address, use the official affiliate application form; do not guess addresses.
+- RDX publishes `affiliate@rdxsports.com` for programme support (outreach sent 15 October 2026).
+- DAZN publishes `playmakers@dazn.com` for its Playmakers creator programme (outreach sent 15 October 2026); DAZN also has a separate publisher form at `https://affiliate.dazn.com/`.
+- BOXRAW publishes `contact@boxraw.com` as its sponsorship contact (outreach sent 15 October 2026).
+- Ticketmaster and FightCamp enquiries were also sent on 15 October 2026; confirm delivery and whether a specific affiliate team needs routing.
+- Where there is no verified publisher contact address, use the official affiliate application form; do not invent addresses.
 - Confirm affiliate link clicks convert in Partnerize/Impact dashboards, then enable the approved affiliate URL in Commercial Admin.
 - Track placement results via the existing `/api/affiliate-click` telemetry and network reporting; a click log alone cannot prove sales or commissions.
 
