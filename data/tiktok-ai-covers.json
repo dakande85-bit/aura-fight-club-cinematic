@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-15",
+  "description": "AI-generated fight artwork, not real fight photographs or official posters. Artwork uploaded directly to the corresponding Metricool draft, verified as cover (image 1/5). The linked CDN file is imported by GitHub Actions and committed into this repository.",
+  "images": [
+    {
+      "packId": "dubois-wardley-ii",
+      "title": "Dubois vs Wardley II",
+      "url": "https://static.metricool.com/planner/202610/7438814-file-13262165085395013919.png",
+      "isAiGenerated": true
+    },
+    {
+      "packId": "fundora-hadribeaj",
+      "title": "Fundora vs Hadribeaj",
+      "url": "https://static.metricool.com/planner/202610/7438814-file-2667829061306866637.png",
+      "isAiGenerated": true
+    },
+    {
+      "packId": "october-17-boxing-three-fights",
+      "title": "Three Fights Boxing Fans Can't Miss",
+      "url": "https://static.metricool.com/planner/202610/7438814-file-190991727408726068.png",
+      "isAiGenerated": true
+    }
+  ]
+}

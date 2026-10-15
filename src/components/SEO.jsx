@@ -12,6 +12,10 @@ const routeSeo = {
     title: 'AURA Fight Club | Boxing News, Fight Analysis, Rankings & Lifestyle',
     description: 'Independent boxing news, fight analysis, rankings, fight calendar, interviews and boxing lifestyle from AURA Fight Club.',
   },
+  '/tiktok': {
+    title: 'TikTok Boxing News | Full Stories and Fight Analysis | AURA Fight Club',
+    description: 'Find the original boxing story you saw on TikTok. Read the context, reporting and fight analysis from AURA Fight Club.',
+  },
   '/news': {
     title: 'Boxing News & Fight Analysis | AURA Fight Club',
     description: 'Latest boxing news, in-depth fight analysis, predictions, features and original opinion from the AURA Fight Club fight desk.',

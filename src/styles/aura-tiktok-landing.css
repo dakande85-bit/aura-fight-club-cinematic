@@ -1,0 +1,36 @@
+.aura-tiktok-hub{min-height:100vh;background:#0a0f15;color:#f7f6f0;font-family:inherit}
+.aura-tiktok-hub__hero{padding:clamp(120px,14vw,220px) clamp(20px,6vw,110px) clamp(55px,7vw,95px);background:radial-gradient(circle at 85% 15%,rgba(213,175,105,.18),transparent 40%),linear-gradient(140deg,#182534,#080d13);border-bottom:1px solid #3e4548}
+.aura-tiktok-hub__hero>p,.aura-tiktok-hub__section-title>div>p,.aura-tiktok-hub__footer>p{color:#d8b77a;font-size:12px;letter-spacing:.22em;font-weight:900}
+.aura-tiktok-hub__hero h1{max-width:1100px;font-size:clamp(48px,8vw,125px);line-height:.95;letter-spacing:-.055em;margin:30px 0 45px;font-weight:950}
+.aura-tiktok-hub__hero-bottom{display:flex;align-items:end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.aura-tiktok-hub__hero-bottom p{font-size:clamp(16px,1.7vw,22px);line-height:1.55;max-width:740px;color:#c4cdd6}
+.aura-tiktok-hub a{text-decoration:none;color:inherit}
+.aura-tiktok-hub__hero-bottom a{border:1px solid #d8b77a;background:#d8b77a;padding:17px 21px;font-size:14px;font-weight:800;color:#101317}
+.aura-tiktok-hub__content{padding:clamp(40px,6vw,90px) clamp(18px,6vw,110px);max-width:1700px;margin:0 auto}
+.aura-tiktok-hub__section-title{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:30px;margin-bottom:38px}
+.aura-tiktok-hub__section-title h2{font-size:clamp(29px,4vw,53px);margin:14px 0 0;line-height:1.1}
+.aura-tiktok-hub__section-title label{display:grid;gap:10px;font-size:13px;font-weight:700;color:#c8d0d5}
+.aura-tiktok-hub__section-title input{width:min(360px,84vw);box-sizing:border-box;border:1px solid #4e5d69;background:#121d29;padding:14px 16px;border-radius:5px;color:#f8f6ef;font:inherit}
+.aura-tiktok-hub__layout{display:grid;grid-template-columns:minmax(320px,1.1fr) minmax(0,1fr);align-items:start;gap:24px}
+.aura-tiktok-hub__lead{background:#131e29;border:1px solid #3c4752;border-radius:9px;overflow:hidden}
+.aura-tiktok-hub__lead>a{display:block}
+.aura-tiktok-hub__lead img{display:block;width:100%;height:clamp(235px,29vw,460px);object-fit:cover;object-position:center}
+.aura-tiktok-hub__lead-body{padding:clamp(21px,3vw,42px)}
+.aura-tiktok-hub__lead-body>span,.aura-tiktok-hub__stories span{color:#d8b77a;font-weight:850;letter-spacing:.08em;font-size:11px;text-transform:uppercase}
+.aura-tiktok-hub__lead-body h3{font-size:clamp(26px,3.4vw,45px);line-height:1.08;margin:19px 0}
+.aura-tiktok-hub__lead-body p{line-height:1.65;color:#bac7d0}
+.aura-tiktok-hub__lead-body strong,.aura-tiktok-hub__stories strong{display:inline-block;color:#d8b77a;margin-top:15px;font-size:13px}
+.aura-tiktok-hub__stories{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.aura-tiktok-hub__stories article{background:#111922;border:1px solid #303d49;border-radius:7px;min-width:0}
+.aura-tiktok-hub__stories a{display:block;padding:23px;height:100%;box-sizing:border-box}
+.aura-tiktok-hub__stories h3{font-size:clamp(17px,1.6vw,22px);line-height:1.24;margin:15px 0}
+.aura-tiktok-hub__stories p{font-size:13px;line-height:1.55;color:#aebbca;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.aura-tiktok-hub__stories a:hover,.aura-tiktok-hub__lead>a:hover{background:#1b2935}
+.aura-tiktok-hub__empty{padding:40px;color:#bac6ce}
+.aura-tiktok-hub__empty button{background:transparent;border:0;color:#d8b77a;text-decoration:underline;cursor:pointer}
+.aura-tiktok-hub__footer{text-align:center;padding:80px 20px 110px;background:#17222d;border-top:1px solid #40515b}
+.aura-tiktok-hub__footer h2{max-width:900px;margin:16px auto 27px;font-size:clamp(30px,5vw,66px);line-height:1.06}
+.aura-tiktok-hub__footer>div{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.aura-tiktok-hub__footer a{border:1px solid #8b8673;padding:14px 19px;border-radius:4px;font-weight:800;font-size:13px}
+@media(max-width:1050px){.aura-tiktok-hub__layout{grid-template-columns:1fr}.aura-tiktok-hub__lead img{height:320px}}
+@media(max-width:580px){.aura-tiktok-hub__stories{grid-template-columns:1fr}.aura-tiktok-hub__hero{padding-top:130px}.aura-tiktok-hub__hero h1{letter-spacing:-.04em}}

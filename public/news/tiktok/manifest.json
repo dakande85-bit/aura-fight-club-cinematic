@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-15",
+  "packs": [
+    {
+      "id": "dubois-wardley-ii",
+      "relatedArticle": "dubois-wardley-rematch-technical-preview",
+      "caption": "Wardley dropped Dubois twice. Dubois still stopped him in the 11th. The WBO heavyweight title is on the line again this Saturday in London. Who learned more from the first fight? Read our tactical preview at the link in bio. #DuboisWardley2 #Boxing #Heavyweight #BoxingNews",
+      "media": [
+        "/news/tiktok/dubois-wardley-ii/01.jpg",
+        "/news/tiktok/dubois-wardley-ii/02.jpg",
+        "/news/tiktok/dubois-wardley-ii/03.jpg",
+        "/news/tiktok/dubois-wardley-ii/04.jpg",
+        "/news/tiktok/dubois-wardley-ii/05.jpg"
+      ],
+      "metricoolPlannerUrl": "https://app.metricool.com/planner/calendar?blogId=7438814&openWithPostUuid=-3805576481422227210",
+      "editorialStatus": "draft_review_required",
+      "coverDisclosure": "AI-generated editorial illustration, not an authentic fight photograph.",
+      "photoCredits": [
+        {
+          "fighter": "Daniel Dubois",
+          "creator": "Editor083 (crop: Hullian111)",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout_(cropped).jpg",
+          "archiveDate": "2025-07-19"
+        }
+      ],
+      "coverArt": {
+        "type": "AI-generated editorial illustration",
+        "representation": "Illustration of named fighters; not a real event photograph or official fight poster.",
+        "disclosure": "AI-generated image",
+        "originalAsset": "Canva AURA Fight Club library and Metricool TikTok draft"
+      }
+    },
+    {
+      "id": "fundora-hadribeaj",
+      "relatedArticle": "fundora-hadribeaj-prediction-boots-ennis-next-2026",
+      "caption": "Fundora is talking about the big fights at 154, but he has an unbeaten mandatory challenger in front of him. Can Ermal Hadribeaj disrupt the towering southpaw's plans? Our fight preview is on AURA Fight Club via the link in bio. #Fundora #Hadribeaj #Boxing #WBC",
+      "media": [
+        "/news/tiktok/fundora-hadribeaj/01.jpg",
+        "/news/tiktok/fundora-hadribeaj/02.jpg",
+        "/news/tiktok/fundora-hadribeaj/03.jpg",
+        "/news/tiktok/fundora-hadribeaj/04.jpg",
+        "/news/tiktok/fundora-hadribeaj/05.jpg"
+      ],
+      "metricoolPlannerUrl": "https://app.metricool.com/planner/calendar?blogId=7438814&openWithPostUuid=2237435188402929847",
+      "editorialStatus": "draft_review_required",
+      "coverDisclosure": "AI-generated editorial illustration, not an authentic fight photograph.",
+      "photoCredits": [
+        {
+          "fighter": "Ermal Hadribeaj",
+          "creator": "Donato2024",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Ermal_HAdribeaj.jpg",
+          "archiveDate": "2023-07-24"
+        }
+      ],
+      "coverArt": {
+        "type": "AI-generated editorial illustration",
+        "representation": "Illustration of named fighters; not a real event photograph or official fight poster.",
+        "disclosure": "AI-generated image",
+        "originalAsset": "Canva AURA Fight Club library and Metricool TikTok draft"
+      }
+    },
+    {
+      "id": "october-17-boxing-three-fights",
+      "relatedArticle": "figueroa-kameda-featherweight-championship-preview-2026",
+      "caption": "THREE fights to watch this Saturday: Dubois vs Wardley II, Fundora vs Hadribeaj and Figueroa vs Kameda. A heavyweight rematch, a dangerous 154lb title defence and an overlooked featherweight championship bout. Which fight will steal the show? More previews at AURA Fight Club — link in bio. #Boxing #BoxingWeekend #DuboisWardley2 #Fundora",
+      "media": [
+        "/news/tiktok/october-17-boxing-three-fights/01.jpg",
+        "/news/tiktok/october-17-boxing-three-fights/02.jpg",
+        "/news/tiktok/october-17-boxing-three-fights/03.jpg",
+        "/news/tiktok/october-17-boxing-three-fights/04.jpg",
+        "/news/tiktok/october-17-boxing-three-fights/05.jpg"
+      ],
+      "metricoolPlannerUrl": "https://app.metricool.com/planner/calendar?blogId=7438814&openWithPostUuid=-8545143740629302483",
+      "editorialStatus": "draft_review_required",
+      "coverDisclosure": "AI-generated editorial illustration, not an authentic fight photograph.",
+      "photoCredits": [
+        {
+          "fighter": "Daniel Dubois",
+          "creator": "Editor083 (crop: Hullian111)",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout_(cropped).jpg",
+          "archiveDate": "2025-07-19"
+        },
+        {
+          "fighter": "Ermal Hadribeaj",
+          "creator": "Donato2024",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Ermal_HAdribeaj.jpg",
+          "archiveDate": "2023-07-24"
+        }
+      ],
+      "coverArt": {
+        "type": "AI-generated editorial illustration",
+        "representation": "Illustration of named fighters; not a real event photograph or official fight poster.",
+        "disclosure": "AI-generated image",
+        "originalAsset": "Canva AURA Fight Club library and Metricool TikTok draft"
+      }
+    }
+  ]
+}

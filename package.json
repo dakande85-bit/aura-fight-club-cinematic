@@ -15,7 +15,8 @@
     "media:audit": "node scripts/audit-fighter-media.mjs",
     "lifestyle:audit": "node scripts/audit-lookbook.mjs",
     "postbuild": "node scripts/prerender-seo.mjs && node scripts/verify-prerender.mjs",
-    "test:seo": "node scripts/verify-prerender.mjs"
+    "test:seo": "node scripts/verify-prerender.mjs",
+    "social:cards": "node scripts/build-tiktok-cards.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
@@ -37,6 +38,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
-    "vite": "^8.0.12"
+    "vite": "^8.0.12",
+    "sharp": "^0.34.4"
   }
 }

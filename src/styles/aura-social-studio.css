@@ -25,3 +25,80 @@
 .aura-social-studio__check{display:flex;gap:10px;align-items:center;color:#cad3d7;font-size:13px;margin:20px 0 0}
 .aura-social-studio__check input{accent-color:#d7b578;width:16px;height:16px}
 @media(min-width:1200px){.aura-social-studio__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* TikTok photo-mode studio — responsive, high-contrast mobile-first workspace */
+.aura-social-studio__workspace{max-width:1420px;margin:0 auto 48px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(340px,.8fr);gap:clamp(16px,3vw,42px);align-items:start}
+.aura-social-studio__controls,.aura-social-studio__preview{background:#131c26;border:1px solid #34414d;border-radius:12px;padding:clamp(18px,2.5vw,34px);min-width:0}
+.aura-social-studio__controls>.aura-social-studio__state:not(:first-child){margin-top:34px;padding-top:24px;border-top:1px solid #37424b}
+.aura-social-studio__field{display:grid;gap:9px;font-size:13px;color:#d7b578;font-weight:800;letter-spacing:.02em;margin:17px 0}
+.aura-social-studio__field :is(input,select,textarea){box-sizing:border-box;width:100%;min-width:0;border:1px solid #4d5c6a;border-radius:6px;padding:13px 14px;background:#0b121b;color:#f7f5ef;font:500 15px/1.5 inherit;letter-spacing:normal}
+.aura-social-studio__field textarea{resize:vertical;min-height:154px;line-height:1.55}
+.aura-social-studio__field input[type=file]{cursor:pointer;font-size:13px}
+.aura-social-studio__field :is(input,select,textarea):focus-visible,.aura-social-studio button:focus-visible{outline:2px solid #d7b578;outline-offset:2px}
+.aura-social-studio__story{background:#0b141e;border-left:3px solid #d7b578;padding:18px;margin:17px 0 27px;display:grid;gap:9px}
+.aura-social-studio__story span{font-size:11px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;color:#c8a86b}
+.aura-social-studio__story strong{font-size:clamp(18px,2vw,24px);line-height:1.3}
+.aura-social-studio__story p{font-size:14px;line-height:1.6;color:#c5cdd3;margin:0}
+.aura-social-studio__story a,.aura-social-studio__hint a{color:#eac992}
+.aura-social-studio__rights,.aura-social-studio__check{display:flex;align-items:flex-start;gap:11px;line-height:1.5;color:#d5dbe0;font-size:13px}
+.aura-social-studio__rights input,.aura-social-studio__check input{width:19px;height:19px;flex-shrink:0;accent-color:#d7b578}
+.aura-social-studio__hint{color:#aebac5;line-height:1.6;font-size:13px;margin:12px 0 23px}
+.aura-social-studio__main-buttons{display:grid;gap:11px;margin:16px 0}
+.aura-social-studio button,.aura-social-studio__upload-link{cursor:pointer;border:1px solid #647181;border-radius:6px;padding:12px 15px;background:#22303e;color:#f8f7f0;font-weight:800;font-size:14px;text-align:center;transition:background .15s ease}
+.aura-social-studio button:hover:not(:disabled),.aura-social-studio__upload-link:hover{background:#354555}
+.aura-social-studio button:disabled{opacity:.45;cursor:not-allowed}
+.aura-social-studio__main-buttons button:first-child{background:#d8b77a;color:#101419;border-color:#d8b77a}
+.aura-social-studio__main-buttons button:first-child:hover:not(:disabled){background:#f0cf96}
+.aura-social-studio__upload-link{display:block;text-decoration:none;margin-bottom:22px}
+.aura-social-studio__minor-btn{width:100%}
+.aura-social-studio__links{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:end}
+.aura-social-studio__links .aura-social-studio__field{margin:12px 0 0}
+.aura-social-studio__links button{margin-bottom:0;min-height:50px}
+.aura-social-studio__check{margin:24px 0 10px}
+.aura-social-studio__feedback{background:#26333c;border:1px solid #c9a86d;border-radius:6px;color:#ffe2ae;padding:13px;font-size:13px;line-height:1.5}
+.aura-social-studio__preview{position:sticky;top:20px}
+.aura-social-studio__preview-head{display:flex;align-items:end;justify-content:space-between;gap:12px}
+.aura-social-studio__preview-head h2{font-size:clamp(17px,2vw,24px);margin:8px 0 20px}
+.aura-social-studio__preview-head span{font-size:15px;color:#d8b77a;font-weight:800}
+.aura-social-studio__preview canvas{width:min(100%,405px);height:auto;aspect-ratio:9/16;display:block;margin:auto;background:#111b25;border:1px solid #45515c;border-radius:8px}
+.aura-social-studio__slide-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:18px;flex-wrap:wrap}
+.aura-social-studio__slide-nav button{padding:10px 11px;font-size:12px}
+.aura-social-studio__slide-nav>div{display:flex;gap:5px}
+.aura-social-studio__slide-nav .active{background:#d8b77a;color:#111820;border-color:#d8b77a}
+.aura-social-studio__existing{border-top:1px solid #35424e;margin-top:28px;padding-top:20px}
+.aura-social-studio__existing img{display:block;width:130px;aspect-ratio:9/16;object-fit:cover;border-radius:6px;margin:12px 0}
+.aura-social-studio__existing a{color:#d8b77a;font-size:13px}
+.aura-social-studio__queue .aura-social-studio__card>img{max-height:320px;object-fit:cover;object-position:top}
+.aura-social-studio__queue .aura-social-studio__card-body{display:flex;flex-direction:column;gap:12px}
+.aura-social-studio__queue .aura-social-studio__card-body h3{min-height:0;font-size:15px;margin:0}
+.aura-social-studio__queue .aura-social-studio__card-body button{font-size:12px}
+.aura-social-studio__queue .aura-social-studio__card-body>a{color:#d8b77a;font-size:12px}
+@media(max-width:960px){.aura-social-studio__workspace{grid-template-columns:1fr}.aura-social-studio__preview{position:static;order:-1}.aura-social-studio__preview canvas{max-width:320px}}
+@media(max-width:540px){.aura-social-studio__preview canvas{max-width:245px}.aura-social-studio__slide-nav{justify-content:center}.aura-social-studio__links{grid-template-columns:1fr}.aura-social-studio__links button{margin-bottom:8px}.aura-social-studio__workspace{gap:14px}.aura-social-studio{padding-left:14px;padding-right:14px}.aura-social-studio__intro h1{font-size:clamp(37px,10vw,54px)}}
+
+
+.aura-social-studio__curated{width:100%;max-width:1420px;margin:0 auto 48px}
+.aura-social-studio__curated-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.aura-social-studio__curated-card{display:grid;grid-template-columns:minmax(0,138px) minmax(0,1fr);background:#141d27;border:1px solid #35414c;border-radius:10px;overflow:hidden;min-height:310px}
+.aura-social-studio__curated-card>img{width:100%;height:100%;object-fit:cover;object-position:top;background:#0b1116}
+.aura-social-studio__curated-content{min-width:0;display:flex;flex-direction:column;align-items:flex-start;padding:20px;gap:10px}
+.aura-social-studio__curated-content h3{margin:0;font-size:17px;font-weight:900;line-height:1.24}
+.aura-social-studio__curated-content>p:not(.aura-social-studio__state){font-size:12px;line-height:1.55;color:#bfcbd3;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.aura-social-studio__curated-actions{margin-top:auto;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.aura-social-studio__curated-actions button{padding:9px;font-size:12px}
+.aura-social-studio__curated-actions button:first-child{background:#d8b77a;color:#141a20;border-color:#d8b77a}
+.aura-social-studio__curated-actions a{color:#d8b77a;font-size:12px}
+@media(max-width:1200px){.aura-social-studio__curated-grid{grid-template-columns:1fr}.aura-social-studio__curated-card{grid-template-columns:160px minmax(0,1fr)}}
+@media(max-width:530px){.aura-social-studio__curated-card{grid-template-columns:110px minmax(0,1fr)}.aura-social-studio__curated-content{padding:15px}.aura-social-studio__curated-actions{display:grid;width:100%;justify-content:stretch}.aura-social-studio__curated-actions button{width:100%}}
+
+
+/* Review-grade previews of all five original slides, including the AI cover. */
+.aura-social-studio__curated-gallery{display:flex;width:100%;gap:6px;margin:2px 0 4px;overflow-x:auto;scrollbar-width:thin;padding:4px 0}
+.aura-social-studio__curated-gallery a{position:relative;display:block;flex:0 0 39px;max-width:39px;aspect-ratio:9 / 16;border:1px solid #87909a;border-radius:3px;overflow:hidden;outline-offset:3px}
+.aura-social-studio__curated-gallery img{width:100%;height:100%;object-fit:cover}
+.aura-social-studio__curated-gallery span{position:absolute;bottom:1px;left:2px;background:rgba(0,0,0,.85);padding:1px 3px;font-size:9px;color:#fff}
+.aura-social-studio__curated-gallery a:focus-visible{outline:2px solid #e1c282}
+.aura-social-studio__curated-content>p.aura-social-studio__disclosure{font-size:11px;color:#d5c09c;margin:2px 0;line-height:1.5}
+.aura-social-studio__curated-actions a.aura-social-studio__review-link{display:inline-block;padding:9px 11px;border:1px solid #d7b77a;background:#d7b77a;color:#14202b;border-radius:4px;font-weight:850;line-height:1.3;text-decoration:none}
+.aura-social-studio__curated-actions a.aura-social-studio__review-link:hover,.aura-social-studio__curated-actions a.aura-social-studio__review-link:focus-visible{background:#f3dcaf;color:#14202b}
+@media(max-width:530px){.aura-social-studio__curated-gallery a{flex-basis:34px;max-width:34px}.aura-social-studio__curated-actions a.aura-social-studio__review-link{font-size:11px}}

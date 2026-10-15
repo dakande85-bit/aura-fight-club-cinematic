@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-15",
+  "note": "Five-frame TikTok editorial carousels with AI-generated illustrative covers, original analysis slides and disclosure; manual accuracy review before publishing.",
+  "packs": [
+    {
+      "id": "dubois-wardley-ii",
+      "relatedArticle": "dubois-wardley-rematch-technical-preview",
+      "category": "HEAVYWEIGHT • THE REMATCH",
+      "caption": "Wardley dropped Dubois twice. Dubois still stopped him in the 11th. The WBO heavyweight title is on the line again this Saturday in London. Who learned more from the first fight? Read our tactical preview at the link in bio. #DuboisWardley2 #Boxing #Heavyweight #BoxingNews",
+      "slides": [
+        {
+          "eyebrow": "SAT 17 OCT • THE O2, LONDON",
+          "headline": "WARDLEY DROPPED DUBOIS TWICE. DUBOIS STILL WON.",
+          "subhead": "WHO WINS THE REMATCH?",
+          "type": "cover"
+        },
+        {
+          "eyebrow": "01 / WHAT HAPPENED",
+          "headline": "TWO KNOCKDOWNS. ONE COMEBACK.",
+          "body": "Wardley had Dubois down twice in their first fight. Dubois recovered and stopped him in round eleven.",
+          "type": "explainer"
+        },
+        {
+          "eyebrow": "02 / AURA FIGHT LAB",
+          "headline": "THE OPENING ROUNDS MATTER.",
+          "body": "Wardley's pressure creates danger. Dubois needs a disciplined jab and clean exits before he looks for the right hand.",
+          "type": "analysis"
+        },
+        {
+          "eyebrow": "03 / THE ADJUSTMENT",
+          "headline": "A REMATCH IS A DIFFERENT FIGHT.",
+          "body": "Can Wardley repeat his early success without taking so much return fire? Can Dubois control range before the exchanges turn wild?",
+          "type": "analysis"
+        },
+        {
+          "eyebrow": "04 / YOUR VERDICT",
+          "headline": "DUBOIS OR WARDLEY?",
+          "body": "Make your pick in the comments. For the full tactical prediction, follow the link in the AURA Fight Club profile.",
+          "type": "cta"
+        }
+      ],
+      "metricoolDraftUuid": "-3805576481422227210",
+      "editorialStatus": "draft_review_required",
+      "coverDisclosure": "AI-generated editorial illustration, not an authentic fight photograph."
+    },
+    {
+      "id": "fundora-hadribeaj",
+      "relatedArticle": "fundora-hadribeaj-prediction-boots-ennis-next-2026",
+      "category": "WBC TITLE • 154 LBS",
+      "caption": "Fundora is talking about the big fights at 154, but he has an unbeaten mandatory challenger in front of him. Can Ermal Hadribeaj disrupt the towering southpaw's plans? Our fight preview is on AURA Fight Club via the link in bio. #Fundora #Hadribeaj #Boxing #WBC",
+      "slides": [
+        {
+          "eyebrow": "SAT 17 OCT • LAS VEGAS",
+          "headline": "IS FUNDORA LOOKING PAST THE MAN IN FRONT OF HIM?",
+          "subhead": "AN UNBEATEN CHALLENGER WAITS.",
+          "type": "cover"
+        },
+        {
+          "eyebrow": "01 / THE RECORDS",
+          "headline": "CHAMPION VS UNBEATEN CHALLENGER.",
+          "body": "Sebastian Fundora: 24-1-1, 16 KOs. Ermal Hadribeaj: 23-0-1, 8 KOs. The WBC super-welterweight championship is at stake.",
+          "type": "explainer"
+        },
+        {
+          "eyebrow": "02 / FIGHT LAB",
+          "headline": "HEIGHT ISN'T THE WHOLE STORY.",
+          "body": "Fundora's height and reach are unusual at 154 pounds. But his willingness to exchange can offer Hadribeaj openings.",
+          "type": "analysis"
+        },
+        {
+          "eyebrow": "03 / WHAT COMES NEXT?",
+          "headline": "BOOTS CAN WAIT.",
+          "body": "Fundora has discussed possible major fights, including Jaron Ennis. Nothing comes next unless he solves Saturday's challenge.",
+          "type": "analysis"
+        },
+        {
+          "eyebrow": "04 / YOUR VERDICT",
+          "headline": "STATEMENT WIN OR UPSET?",
+          "body": "Tell us your pick. Read the independent pre-fight breakdown at AURA Fight Club — link in bio.",
+          "type": "cta"
+        }
+      ],
+      "metricoolDraftUuid": "2237435188402929847",
+      "editorialStatus": "draft_review_required",
+      "coverDisclosure": "AI-generated editorial illustration, not an authentic fight photograph."
+    },
+    {
+      "id": "october-17-boxing-three-fights",
+      "relatedArticle": "figueroa-kameda-featherweight-championship-preview-2026",
+      "category": "WEEKEND FIGHT GUIDE",
+      "caption": "THREE fights to watch this Saturday: Dubois vs Wardley II, Fundora vs Hadribeaj and Figueroa vs Kameda. A heavyweight rematch, a dangerous 154lb title defence and an overlooked featherweight championship bout. Which fight will steal the show? More previews at AURA Fight Club — link in bio. #Boxing #BoxingWeekend #DuboisWardley2 #Fundora",
+      "slides": [
+        {
+          "eyebrow": "SATURDAY 17 OCTOBER",
+          "headline": "THREE FIGHTS BOXING FANS CAN'T MISS.",
+          "subhead": "WHICH ONE STEALS THE SHOW?",
+          "type": "cover"
+        },
+        {
+          "eyebrow": "01 / LONDON",
+          "headline": "DUBOIS VS WARDLEY II",
+          "body": "The WBO heavyweight title is on the line. Dubois won a dramatic first meeting; Wardley gets another chance in London.",
+          "type": "explainer"
+        },
+        {
+          "eyebrow": "02 / LAS VEGAS",
+          "headline": "FUNDORA VS HADRIBEAJ",
+          "body": "The towering WBC super-welterweight champion defends against an unbeaten mandatory challenger. Can Hadribeaj upset the plans at 154?",
+          "type": "explainer"
+        },
+        {
+          "eyebrow": "03 / LAS VEGAS",
+          "headline": "FIGUEROA VS KAMEDA",
+          "body": "A WBA featherweight title defence. Figueroa's relentless work rate meets Kameda's experience — don't overlook the undercard.",
+          "type": "explainer"
+        },
+        {
+          "eyebrow": "04 / FAN POLL",
+          "headline": "WHICH FIGHT WINS THE NIGHT?",
+          "body": "Dubois–Wardley, Fundora–Hadribeaj or Figueroa–Kameda? Vote below, then read the full AURA previews — link in bio.",
+          "type": "cta"
+        }
+      ],
+      "metricoolDraftUuid": "-8545143740629302483",
+      "editorialStatus": "draft_review_required",
+      "coverDisclosure": "AI-generated editorial illustration, not an authentic fight photograph."
+    }
+  ]
+}
