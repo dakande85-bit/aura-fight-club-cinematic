@@ -84,7 +84,7 @@ export default function VideoCreator(){
    <p className="aura-video-creator__kicker">AURA / ORIGINAL BOXING CONTENT</p>
    <h1>VIDEO <em>CREATOR</em></h1>
    <p>One researched fight story. Your voice. Two formats. Review the shots, record narration and produce faceless video analysis. No Lovable credits or AI video subscription needed.</p>
-   <div className="aura-video-creator__heroLinks"><Link to="/admin/social">Social newsroom ↗</Link><a href={workflow} target="_blank" rel="noopener noreferrer">MP4 rendering workflow ↗</a><Link to="/admin/analytics">Audience analytics ↗</Link></div>
+   <div className="aura-video-creator__heroLinks"><Link to="/admin/social">Social newsroom ↗</Link><a href={workflow} target="_blank" rel="noopener noreferrer">MP4 workflow (after release) ↗</a><Link to="/admin/analytics">Audience analytics ↗</Link></div>
   </header>
   <div className="aura-video-creator__state"><span>STORY 01 / {project.title}</span><strong>EDITORIAL PROTOTYPE — NO AUTOMATIC POSTING</strong></div>
   <div className="aura-video-creator__switch" aria-label="Choose output format">
@@ -109,11 +109,11 @@ export default function VideoCreator(){
     <div className="aura-video-creator__section"><span className="aura-video-creator__num">03</span><div><h2>Render to MP4</h2><p>The FFmpeg pipeline combines your recording, editorial shot list and approved images/footage.</p></div></div>
     <ol className="aura-video-creator__steps">
      <li>Download your recording. In the current prototype, upload it through <a href={uploadUrl} target="_blank" rel="noopener noreferrer">GitHub's voiceover folder ↗</a> only if public sharing is acceptable.</li>
-     <li>Open <a href={workflow} target="_blank" rel="noopener noreferrer">the AURA Creator workflow ↗</a>, choose Short or YouTube, and supply the path to your audio file.</li>
+     <li>After this feature is approved and merged into the default branch, open <a href={workflow} target="_blank" rel="noopener noreferrer">the AURA Creator workflow ↗</a>, choose Short or YouTube, and supply the path to your audio file.</li>
      <li>Download <strong>aura-creator-review-exports</strong>, check the final MP4 and authorise the upload.</li>
     </ol>
-    <p className="aura-video-creator__warning">Voiceovers uploaded to this public GitHub repository are public. A private upload and cloud-render backend is still to be built. This page does not publish or directly render MP4s in the browser.</p>
-    <div className="aura-video-creator__buttons"><button type="button" onClick={shotlistDownload}>Download shot list</button><a className="primary" href={workflow} target="_blank" rel="noopener noreferrer">Open MP4 renderer ↗</a></div>
+    <p className="aura-video-creator__warning">Voiceovers uploaded to this public GitHub repository are public. A private upload and cloud-render backend is still to be built. The manually triggered GitHub workflow becomes available after the feature is released to the default branch. This page does not publish or directly render MP4s in the browser.</p>
+    <div className="aura-video-creator__buttons"><button type="button" onClick={shotlistDownload}>Download shot list</button><a className="primary" href={workflow} target="_blank" rel="noopener noreferrer">MP4 renderer (after release) ↗</a></div>
    </section>
    <section className="aura-video-creator__visual" aria-label="Storyboard">
     <div className="aura-video-creator__visualTitle"><div><p className="aura-video-creator__kicker">FIGHT LAB / STORYBOARD</p><h2>{kind==='short'?'Fast vertical edit':'Long-form analysis cut'}</h2></div><span>{beats.length} beats</span></div>
