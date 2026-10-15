@@ -21,6 +21,7 @@ function getReviews() {
 export default function AdminSocial(){
  const [stories,setStories]=useState(()=>latestArticles(bundledArticles,200));
  const [queue,setQueue]=useState({items:[]});
+ const [curatedPacks,setCuratedPacks]=useState([]);
  const [slug,setSlug]=useState('');
  const [search,setSearch]=useState('');
  const [angle,setAngle]=useState('question');
@@ -43,6 +44,10 @@ export default function AdminSocial(){
   }).then(data=>{
    if(Array.isArray(data.articles)&&data.articles.length)setStories(latestArticles(data.articles,200));
   }).catch(()=>{}); // The bundled, published edition remains available offline.
+  fetch('/news/tiktok/manifest.json',{cache:'no-store',signal:controller.signal})
+   .then(r=>r.ok?r.json():{packs:[]})
+   .then(data=>{if(Array.isArray(data.packs))setCuratedPacks(data.packs);})
+   .catch(()=>{});
   fetch('/news/social-queue.json',{cache:'no-store',signal:controller.signal}).then(r=>{
    if(!r.ok)throw Error('Prepared cover queue unavailable');
    return r.json();
@@ -90,6 +95,23 @@ export default function AdminSocial(){
   drawTikTokSlide(el,slides[index],index,slides.length,clearedRights?photo:null);
   return el;
  }
+ async function downloadCurated(pack){
+  setExporting(true);setStatus('');
+  try{
+   const zip=new JSZip();
+   for(let i=0;i<pack.media.length;i++){
+    const url=pack.media[i];
+    const response=await fetch(url);
+    if(!response.ok)throw Error('The prepared image '+(i+1)+' is unavailable.');
+    zip.file(String(i+1).padStart(2,'0')+'.jpg',await response.blob());
+   }
+   const trackedSource=articleUrl(pack.relatedArticle,'tiktok_'+pack.id);
+   zip.file('caption.txt',pack.caption+'\n\nStory: '+trackedSource+'\nTikTok profile: '+tikTokBioUrl+'\n');
+   zip.file('review-before-posting.txt','Verify current dates, sources and opinions. Confirm artwork and captions before posting. No image pack is automatically published.\n');
+   downloadBlob(await zip.generateAsync({type:'blob'}),'aura-tiktok-'+pack.id+'.zip');
+   setStatus('Five-slide curated ZIP downloaded for review. Not posted.');
+  }catch(e){setStatus(e.message);}finally{setExporting(false);}
+ }
  async function exportOne(){
   if(!active || !slides.length)return;
   setExporting(true);setStatus('');
@@ -125,6 +147,24 @@ export default function AdminSocial(){
     <a href={workflow} target="_blank" rel="noopener noreferrer">Export short MP4 clips ↗</a>
    </div>
   </header>
+  <section className="aura-social-studio__curated" aria-label="Editorially prepared fight-week carousels">
+   <div className="aura-social-studio__queue-head"><div><p className="aura-social-studio__state">THIS WEEKEND / EDITOR'S PICKS</p><h2>Five-slide ready packs</h2><p>Original portrait fight graphics with fact-checked editorial summaries. Still subject to final review before TikTok publication.</p></div></div>
+   <div className="aura-social-studio__curated-grid">
+    {curatedPacks.map(pack=><article key={pack.id} className="aura-social-studio__curated-card">
+     <img src={pack.media?.[0]} alt={'First slide of '+pack.id.replaceAll('-',' ')} loading="lazy"/>
+     <div className="aura-social-studio__curated-content">
+      <p className="aura-social-studio__state">FIVE SLIDES · 1080 × 1920</p>
+      <h3>{pack.id.replaceAll('-',' ').toUpperCase()}</h3>
+      <p>{pack.caption}</p>
+      <div className="aura-social-studio__curated-actions">
+       <button type="button" disabled={exporting} onClick={()=>downloadCurated(pack)}>Download 5-slide ZIP</button>
+       <button type="button" onClick={()=>copy(pack.caption,'Editorial caption')}>Copy caption</button>
+       <Link to={'/news/'+pack.relatedArticle}>Read source ↗</Link>
+      </div>
+     </div>
+    </article>)}
+   </div>
+  </section>
   <section className="aura-social-studio__workspace" aria-label="TikTok carousel editor">
    <div className="aura-social-studio__controls">
     <p className="aura-social-studio__state">01 / SELECT A VERIFIED STORY</p>
