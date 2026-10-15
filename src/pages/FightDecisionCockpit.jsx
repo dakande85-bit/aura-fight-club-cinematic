@@ -1,10 +1,10 @@
 import {useMemo, useState} from 'react';
 import {Link, useSearchParams} from 'react-router-dom';
 import {
-  Activity, ArrowDownRight, ArrowRight, ArrowUpRight, BarChart3, BookmarkCheck,
-  Check, CheckCircle2, ChevronDown, CircleHelp, ClipboardCheck, Compass, Database,
-  ExternalLink, Gauge, Info, LockKeyhole, RotateCcw, ScanLine, ShieldCheck,
-  SlidersHorizontal, Target, TrendingUp, Zap
+  Activity, ArrowRight, ArrowUpRight, BookmarkCheck,
+  Check, ChevronDown, CircleHelp, ClipboardCheck, Compass, Database,
+  ExternalLink, Info, LockKeyhole, RotateCcw, ScanLine, ShieldCheck,
+  SlidersHorizontal, Target, Zap
 } from 'lucide-react';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
@@ -105,7 +105,7 @@ function FightStage({fight,fighters,scouting,goToModel}){
    <div className="fdc-vs"><span>THE MATCHUP</span><strong>VS</strong><small>{fight.division}</small></div>
    <Portrait fighter={fighters[1]} position="right"/>
   </div>
-  <div className="fdc-stage-dock"><div><span className="fdc-kicker">SCOUTED EVENT</span><strong>{new Date(fight.date+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})} <span className="fdc-muted">· {fight.venue}</span></strong></div><div><span className="fdc-kicker">EVIDENCE COVERAGE</span><strong>{info.verified}/{info.total} checked fields <button type="button" onClick={()=>setExpanded(x=>!x)} aria-expanded={expanded} aria-label="Explain evidence coverage"><Info size={13}/></button></strong></div><button className="fdc-dock-action" type="button" onClick={goToModel}>Stress-test the matchup <ArrowRight size={15}/></button></div>
+  <div className="fdc-stage-dock"><div><span className="fdc-kicker">SCOUTED EVENT</span><strong>{new Date(fight.date+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})} <span className="fdc-muted">· {fight.venue}</span></strong></div><div><span className="fdc-kicker">PROFILE COVERAGE</span><strong>{info.verified}/{info.total} available fields <button type="button" onClick={()=>setExpanded(x=>!x)} aria-expanded={expanded} aria-label="Explain evidence coverage"><Info size={13}/></button></strong></div><button className="fdc-dock-action" type="button" onClick={goToModel}>Stress-test the matchup <ArrowRight size={15}/></button></div>
   {expanded&&<p className="fdc-coverage-note">Coverage counts published professional records, reach, height and stance for both fighters, plus an editorial scouting brief. It does not measure prediction accuracy or statistical confidence.</p>}
   <div className="fdc-mini-grid">
    <BriefMetric title="KO WIN SHARE" left={fighters[0].stats?.finish} right={fighters[1].stats?.finish} format={pct} explain={lensMeta.power.description}/>
