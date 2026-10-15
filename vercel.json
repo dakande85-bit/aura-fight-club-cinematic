@@ -1,24 +1,100 @@
 {
   "redirects": [
-    { "source": "/our-story", "destination": "/who-we-are", "permanent": true },
-    { "source": "/cinematic", "destination": "/who-we-are", "permanent": true },
-    { "source": "/apparel", "destination": "/lifestyle", "permanent": true },
-    { "source": "/footwear", "destination": "/lifestyle", "permanent": true },
-    { "source": "/accessories", "destination": "/lifestyle", "permanent": true },
-    { "source": "/equipment", "destination": "/lifestyle", "permanent": true },
-    { "source": "/drops", "destination": "/lifestyle", "permanent": true },
-    { "source": "/drop-001", "destination": "/lifestyle", "permanent": true },
-    { "source": "/pre-orders", "destination": "/lifestyle", "permanent": true },
-    { "source": "/made-to-order", "destination": "/lifestyle", "permanent": true },
-    { "source": "/cart", "destination": "/lifestyle", "permanent": true },
-    { "source": "/product/:slug", "destination": "/lifestyle", "permanent": true },
-    { "source": "/products/:path*", "destination": "/lifestyle", "permanent": true },
-    { "source": "/collections/:path*", "destination": "/lifestyle", "permanent": true },
-    { "source": "/shop", "destination": "/lifestyle", "permanent": true },
-    { "source": "/shop/:path*", "destination": "/lifestyle", "permanent": true },
-    { "source": "/fightclub", "destination": "/fight-club", "permanent": true }
+    {
+      "source": "/our-story",
+      "destination": "/who-we-are",
+      "permanent": true
+    },
+    {
+      "source": "/cinematic",
+      "destination": "/who-we-are",
+      "permanent": true
+    },
+    {
+      "source": "/apparel",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/footwear",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/accessories",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/equipment",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/drops",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/drop-001",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/pre-orders",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/made-to-order",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/cart",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/product/:slug",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/products/:path*",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/collections/:path*",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/shop",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/shop/:path*",
+      "destination": "/members",
+      "permanent": true
+    },
+    {
+      "source": "/fightclub",
+      "destination": "/fight-club",
+      "permanent": true
+    },
+    {
+      "source": "/lifestyle",
+      "destination": "/members",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }

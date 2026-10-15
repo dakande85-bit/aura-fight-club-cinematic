@@ -118,7 +118,7 @@ export function GuidePage(){
  if(!guide) return <Shell seo={{title:'Guide not found | AURA Fight Club',description:'Guide not found.',canonicalPath:`/guides/${slug}`,noindex:true}} crumbs={[{label:'Home',to:'/'},{label:'Guides',to:'/guides'},{label:'Not found',to:`/guides/${slug}`}]}><div className="aura-ed-page-title"><h1>Guide not found.</h1></div></Shell>;
  const crumbs=[{label:'Home',to:'/'},{label:'Guides',to:'/guides'},{label:guide.title,to:`/guides/${guide.slug}`}];
  const articleSchema={'@type':'Article',headline:guide.title,description:guide.description,author:{'@id':`${SITE_URL}/authors/${author.slug}#person`},publisher:{'@type':'Organization',name:'AURA Fight Club',url:SITE_URL},mainEntityOfPage:`${SITE_URL}/guides/${guide.slug}`,inLanguage:'en'};
- return <Shell seo={{title:`${guide.title} | AURA Fight Club`,description:guide.description,canonicalPath:`/guides/${guide.slug}`,type:'article',schema:articleSchema}} crumbs={crumbs}>
+ return <Shell seo={{title:`${guide.title} | AURA Fight Club`,description:guide.description,canonicalPath:`/guides/${guide.slug}`,type:'article',schema:articleSchema,noindex:true}} crumbs={crumbs}>
   <article className="aura-article"><p className="aura-ed-kicker">AURA boxing guide</p><h1>{guide.title}</h1><p className="aura-article-deck">{guide.description}</p><p>This guide is part of AURA Fight Club’s evergreen boxing knowledge base. It is structured and indexed now so editorial copy can be expanded without changing the URL, internal links or search intent.</p><p className="aura-ed-note">Editorial owner: <Link to={`/authors/${author.slug}`}>{author.name}</Link>. Update this page whenever rules, sanctioning-body procedures or terminology materially change.</p></article>
  </Shell>;
 }
