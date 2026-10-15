@@ -10,6 +10,7 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import {PageSEO} from '../components/SEO.jsx';
 import {getFighterByName} from '../data/seoEntities.js';
+import {inchesFromText,parseCareerRecord,compareBoxingProfiles,indicatorPosition} from '../data/fightLabMetrics.js';
 import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
 import TacticalBlueprint from '../components/TacticalBlueprint.jsx';
 import {PinCurrentFactor, FightNotebook, OfficialVideoPanel} from '../components/FightResearchExtras.jsx';
@@ -52,33 +53,12 @@ const lensMeta={
   range:{label:'Reach advantage',description:'Published reach — not automatically a tactical advantage.',unit:'in'}
 };
 const pct=v=>v==null?'—':v.toFixed(1)+'%';
-const inc=s=>{const match=String(s||'').match(/(\d+(?:\.\d+)?)\s*in\b/i);return match?Number(match[1]):null};
-function recordValue(record){
- const m=String(record||'').match(/^(\d+)\s*[–-]\s*(\d+)(?:\s*[–-]\s*(\d+))?\s*\(\s*(\d+)\s*KO\s*\)/i);
- if(!m)return null;
- const wins=Number(m[1]),losses=Number(m[2]),draws=Number(m[3]||0),kos=Number(m[4]);
- return kos<=wins?{wins,losses,draws,kos,total:wins+losses+draws,finish:wins?kos/wins*100:null,winshare:(wins+losses+draws)?wins/(wins+losses+draws)*100:null}:null;
-}
 function fighterByName(name){
  const base=getFighterByName(name)||{};
  const c=curated[name]||{};
  const f={...base,...c,name};
- const stats=recordValue(f.record);
- return {...f,stats,reachIn:inc(f.reach),sources:[...new Set([f.recordSource,f.statSourceUrl,f.bioSourceUrl].filter(Boolean))]};
-}
-function hasMetric(f,metric){return metric==='power'?f.stats?.finish??null:metric==='form'?f.stats?.winshare??null:f.reachIn;}
-function calculateLens(fighters,weights){
- if(fighters.length!==2)return null;
- const entries=Object.entries(weights).filter(([metric,weight])=>weight>0&&fighters.every(f=>hasMetric(f,metric)!=null));
- const sum=entries.reduce((a,[,weight])=>a+weight,0);
- if(!sum)return null;
- const rows=entries.map(([metric,weight])=>{
-  const a=hasMetric(fighters[0],metric),b=hasMetric(fighters[1],metric);
-  const relative=(a-b)/Math.max(Math.abs(a),Math.abs(b),1);
-  return {metric,weight,difference:relative,contribution:relative*weight/sum,lead:Math.abs(relative)<.012?'Neither':relative>0?fighters[0].name:fighters[1].name};
- });
- const score=rows.reduce((a,x)=>a+x.contribution,0);
- return {rows,score,leader:Math.abs(score)<.015?null:score>0?fighters[0].name:fighters[1].name};
+ const stats=parseCareerRecord(f.record);
+ return {...f,stats,reachIn:inchesFromText(f.reach),sources:[...new Set([f.recordSource,f.statSourceUrl,f.bioSourceUrl].filter(Boolean))]};
 }
 function sourceCoverage(fighters,scouting){
  const checks=fighters.flatMap(f=>[Boolean(f.stats),Boolean(f.reachIn),Boolean(f.stance),Boolean(f.height)]);
@@ -168,10 +148,9 @@ function ModelView({fight,fighters,scouting,selectedPins,onNext}){
  const [weights,setWeights]=useState({power:40,form:25,range:35});
  const [selectedScenario,setSelectedScenario]=useState(0);
  const [showMethod,setShowMethod]=useState(false);
- const model=useMemo(()=>calculateLens(fighters,weights),[fighters,weights]);
+ const model=useMemo(()=>compareBoxingProfiles(fighters,weights),[fighters,weights]);
  const profile=simulations[fight.id]?.[selectedScenario];
- const tilt=model?model.score:0;
- const tiltLocation=50-Math.max(-40,Math.min(40,tilt*100));
+ const tiltLocation=indicatorPosition(model?.score);
  return <div className="fdc-panel fdc-model">
   <div className="fdc-panel-title"><div><p className="fdc-kicker">02 / INTERACTIVE STRATEGY</p><h2>Test the fight, not your bias.</h2></div><span className="fdc-panel-side"><SlidersHorizontal size={16}/> YOU CONTROL THE LENS</span></div>
   <div className="fdc-sim-layout">
