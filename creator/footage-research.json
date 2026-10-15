@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "storyId": "dubois-wardley-ii",
+  "editorialDate": "2026-10-15",
+  "purpose": "These are reviewed candidate reference locations, not approved downloads. Rights must be cleared per intended use before video insertion.",
+  "sources": [
+    {
+      "id": "dazn-first-fight-highlights",
+      "title": "WHAT A FINISH!! Dubois vs Wardley — official fight highlights",
+      "provider": "DAZN Boxing",
+      "sourceType": "authentic_fight_footage",
+      "url": "https://www.youtube.com/watch?v=5HReUSh22bY",
+      "date": "2026-05-09",
+      "fighters": [
+        "Daniel Dubois",
+        "Fabio Wardley"
+      ],
+      "topics": [
+        "early knockdowns",
+        "round 11 stoppage",
+        "comeback",
+        "distance and exchanges"
+      ],
+      "rightsStatus": "reference_only",
+      "rightsHolder": "DAZN / underlying event rights holder (confirm licensing scope)",
+      "usageNotes": "Authentic May 2026 fight images. Reference only; no download or reuse clearance established."
+    },
+    {
+      "id": "sky-highlights-dazn-credit",
+      "title": "Sky Sports highlight recap (footage supplied by DAZN)",
+      "provider": "Sky Sports",
+      "sourceType": "authentic_fight_footage",
+      "url": "https://www.skysports.com/boxing/video/37488/13542180/highlights-dubois-floored-in-ten-seconds-but-stops-wardley-in-thriller",
+      "date": "2026-05-11",
+      "fighters": [
+        "Daniel Dubois",
+        "Fabio Wardley"
+      ],
+      "topics": [
+        "first knockdown",
+        "stoppage",
+        "fight recap"
+      ],
+      "rightsStatus": "reference_only",
+      "rightsHolder": "DAZN (Sky credits DAZN for footage; verify rights)",
+      "usageNotes": "Not a separate royalty-free source; cross-reference event, do not assume Sky can sublicense."
+    },
+    {
+      "id": "dazn-may-watchalong",
+      "title": "Wardley vs Dubois — broadcaster watchalong",
+      "provider": "DAZN Boxing",
+      "sourceType": "studio_coverage",
+      "url": "https://www.youtube.com/watch?v=gFGnTZsxioA",
+      "date": "2026-05-09",
+      "fighters": [
+        "Daniel Dubois",
+        "Fabio Wardley"
+      ],
+      "topics": [
+        "fight-night discussion",
+        "context"
+      ],
+      "rightsStatus": "reference_only",
+      "rightsHolder": "DAZN",
+      "usageNotes": "Authentic broadcaster studio coverage; do not mistake for ring-action footage."
+    },
+    {
+      "id": "talksport-fight-week-interview",
+      "title": "Dubois–Wardley rematch studio face-off and preparation dispute",
+      "provider": "talkSPORT",
+      "sourceType": "interview_context",
+      "url": "https://talksport.com/boxing/4641624/fabio-wardley-daniel-dubois-face-off/",
+      "date": "2026-10-13",
+      "fighters": [
+        "Daniel Dubois",
+        "Fabio Wardley"
+      ],
+      "topics": [
+        "face-off",
+        "preparation dispute",
+        "fight week"
+      ],
+      "rightsStatus": "reference_only",
+      "rightsHolder": "talkSPORT / content producer (verify clip rights)",
+      "usageNotes": "Interview source for editorial context, not an approved clip library."
+    },
+    {
+      "id": "bbc-first-fight-recap",
+      "title": "BBC verified report and still-image recap",
+      "provider": "BBC Sport",
+      "sourceType": "journalism_context",
+      "url": "https://www.bbc.co.uk/sport/boxing/live/cx21npe9prlt",
+      "date": "2026-05-09",
+      "fighters": [
+        "Daniel Dubois",
+        "Fabio Wardley"
+      ],
+      "topics": [
+        "fight outcome",
+        "punching sequence",
+        "photo credits"
+      ],
+      "rightsStatus": "reference_only",
+      "rightsHolder": "BBC / photo agencies and original broadcasters (varies by item)",
+      "usageNotes": "Fact-checking reference; Getty or broadcaster photos visible there require separate permission."
+    }
+  ],
+  "licensingContacts": [
+    {
+      "organisation": "DAZN Group",
+      "url": "https://dazngroup.com/contact/",
+      "contact": "pr-boxing@dazn.com",
+      "contactRole": "Media enquiry; ask for correct rights/licensing contact",
+      "request": "Permission to use selected 2–7 second annotated clips from Dubois vs Wardley May 9 2026 in original commercial YouTube/TikTok boxing analysis; specify territory and monetisation."
+    },
+    {
+      "organisation": "Matchroom Boxing",
+      "url": "https://matchroom.com/contact/",
+      "contact": "boxing@matchroom.com",
+      "contactRole": "Promoter enquiry; confirm whether it controls relevant bout footage",
+      "request": "Ask if fight-week b-roll, press conferences, ring walk footage or fight highlights are available for licensed editorial reuse."
+    }
+  ]
+}
