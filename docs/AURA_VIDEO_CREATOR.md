@@ -76,3 +76,46 @@ Without audio files, the renderer produces silent **REVIEW-ONLY DEMOS** with an 
 ### CI proof
 
 The GitHub Actions `render-preview` workflow completed successfully on the starter renderer. It generated valid short and landscape MP4 artifacts at reduced resolution and passed both FFprobe stream checks. This confirms the encoding and core shot loop, **not production-level aesthetics or automatic uploads**.
+
+
+## Authentic fight footage discovery & editorial edit decisions (October 15 update)
+
+The Creator now includes a **Research & clip library** tab under /admin/videos. It brings actual fight footage into the editorial process without treating a public video player as a licence.
+
+### Sources already indexed for the Dubois–Wardley story
+
+- Official **DAZN Boxing** May 9, 2026 fight highlights: https://www.youtube.com/watch?v=5HReUSh22bY
+- **Sky Sports** highlights, credited as DAZN footage: https://www.skysports.com/boxing/video/37488/13542180/highlights-dubois-floored-in-ten-seconds-but-stops-wardley-in-thriller
+- DAZN broadcaster watchalong: https://www.youtube.com/watch?v=gFGnTZsxioA
+- talkSPORT fight-week interview: https://talksport.com/boxing/4641624/fabio-wardley-daniel-dubois-face-off/
+- BBC round-by-round editorial reference: https://www.bbc.co.uk/sport/boxing/live/cx21npe9prlt
+
+The source queue stores fighter/topic tags, date, rights holder and **reference_only** status. A source can be viewed at its original destination. A researcher can mark an in/out timecode and the relevant storyboard beat, adding a text annotation such as "Wardley exits on a straight line" or "Dubois controls the jab".
+
+**These reference markers are not usable media**. They are source URLs/timecodes for review, not video bytes.
+
+For files obtained through a valid licence, the browser can load an MP4/MOV/WEBM for *local preview* and ask the editor to attest an original production, written licence or applicable compatible Creative Commons rights. The editor must record the licence/permission evidence before the clip can be assigned to the usable part of the timeline. A session-based edit decision list can be exported as JSON, including licence status, assigned narration beat, source and in/out points.
+
+The EDL currently records decisions, **not a finished cut**. Importing video bytes to private media storage and creating a render job from that EDL still need to be built. Do not upload licenced broadcast footage or private recordings to a public GitHub repository.
+
+### Footage rights sources
+
+- Queensberry Promotions' official policy directs requests to **IMG Video Archive**, https://imgvideoarchive.com/client/frank_warren_boxing. Contact: craig.wooff@img.com (as listed by IMG). Ask whether the specific fight and excerpts can be sublicensed for an independent, monetised boxing analysis video on YouTube/TikTok.
+- DAZN press/media enquiry: pr-boxing@dazn.com — ask for the licensing owner for the event, not merely the broadcaster press office.
+- Queensberry and DAZN have a global broadcast agreement dating from April 2025. That does not by itself establish who can grant sublicensing rights for every individual highlight or still.
+
+The YouTube Data API supports **video metadata discovery** but not arbitrary reuse of video downloads. Automating discovery can be added using a YouTube API key. **Do not implement an automatic download/scraping pipeline for broadcaster footage**. YouTube's terms generally restrict download/reproduction without authorisation or a valid legal permission. A short excerpt for criticism/quotation may sometimes be lawful depending on purpose and jurisdiction, but there is no automatic safe-duration rule. YouTube Content ID could still block or claim an uploaded video.
+
+### Desired production workflow once private assets and rendering are connected
+
+1. New boxing story → fighter names, fight dates, key moments extracted from reviewed reporting.
+2. Rights-aware video source discovery → exact official highlights and licensed media candidates, verified metadata and edit reference points.
+3. Editor reviews source and rights → clips can be tagged as "licensed", "owned", "public-domain/compatible Creative Commons" or "reference only".
+4. Imported and approved **binary** clips live in a private library, with checksum, provenance, territory and licence date.
+5. Narration recorded/uploaded privately. Speech recognition supplies word-level timestamps.
+6. Match narration claims to editorial reference beats and cleared footage; automatically draft an editable timeline. No fake video of named fights.
+7. User adjusts in/out points, selects angles, moves clips or adjusts subtitles.
+8. Render TikTok Shorts and YouTube long-form from the same project data. Preview for fact/copyright/editorial review.
+9. Owner approves publication → TikTok via the connected Metricool integration, YouTube through connected channel permissions, separately.
+
+The current release implements **steps 1–3 (manual selection), part of 4 (local preview only) and a separate existing MP4 renderer**. End-to-end private media ingestion and precise edit integration remain open work.
