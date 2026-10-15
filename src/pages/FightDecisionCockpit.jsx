@@ -132,7 +132,7 @@ function ResearchView({fight,fighters,scouting,onNext}){
   <div className="fdc-panel-title"><div><p className="fdc-kicker">01 / READ THE MATCHUP</p><h2>See the fight before it happens.</h2></div><span className="fdc-panel-side"><Compass size={16}/> INTERACTIVE SCOUTING ROOM</span></div>
   <p className="fdc-scout-mission">Select a <strong>tactical factor</strong> to explore the ring, the key exchanges and the vulnerabilities on either side. The blueprint is an illustration, not tracking data.</p>
   {scouting?<><div className="fdc-scout-lab">
-    <TacticalBlueprint fighters={fighters} active={selected} onSelect={chooseFactor}/>
+    <TacticalBlueprint fighters={fighters} fightId={fight.id} scenes={secondary} active={selected} onSelect={chooseFactor}/>
     <div className="fdc-factor-list">{questions.map((q,i)=><button className={selected===i?'selected':''} aria-pressed={selected===i} type="button" key={i} onClick={()=>chooseFactor(i)}><span>0{i+1}</span><strong>{secondary[i]?.name||'Fight factor '+(i+1)}</strong><small>{q}</small><ArrowUpRight size={15}/></button>)}</div>
    </div>
    <div className="fdc-scout-story">
