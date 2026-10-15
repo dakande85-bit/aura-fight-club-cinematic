@@ -22,6 +22,15 @@
 - `scripts/test-fight-lab.mjs` covers missing/inconsistent data, fractions, KO ratios, corner orientation, the sourced-video contract and disabled default betting/punch feeds. `.github/workflows/fight-lab-qa.yml` runs that test and the Vite build on relevant PR changes.
 - The newest development code remains in PR #20. A READY Vercel URL for an earlier commit is not proof of a current-head release; confirm latest SHA and complete real-browser/mobile QA before any production merge.
 
+## Visual revision v5 — sourced form and decision handoff
+- Matchup dates now use Intl.DateTimeFormat.formatToParts rather than comparing locale-specific formatted strings; only Scheduled fights with complete pairs display. Pure helpers in src/data/fightLabPresentation.js.
+- src/components/VerifiedFormTimeline.jsx shows a two-corner result history using only dated, source-linked bouts that predate the upcoming event. Partial coverage is labelled; missing prior fights are never padded to five.
+- Source checks updated: Hadribeaj's UD win over Bakary Samake is linked to The Ring's post-fight report. Fundora's stoppage of Keith Thurman is linked directly to the PBC event organiser.
+- Slider weights are lifted to the parent cockpit and stored independently for each selected fight during navigation. The older screen-local implementation discarded adjusted weights on every transition.
+- The personal Fight Card produces a copyable research note from the visitor's winner pick, confidence, short reasoning, saved tactical questions, available relative metrics and deduplicated event/fighter source links. It is not a calibrated prediction or betting recommendation.
+- src/components/FightSourceLedger.jsx provides a tap- and keyboard-accessible input audit of records, reach and stance, including source links and missing-data flags. A cited value is not necessarily predictive.
+- The dedicated Node QA now tests daylight-saving boundaries, upcoming-card filtering, pre-fight historical cutoffs, missing results and copied report provenance.
+- The latest Vercel deploy status is build-rate-limit. Earlier READY previews do not represent this v5 head. No production merge before current-head visual QA.
 ## What is verifiably functional now
 1. Switch between confirmed upcoming events, with fighter profile data resolved from `src/data/seoEntities.js`.
 2. Career-record-derived KO win share and total-fight win share, reach, height, data availability labels, comparison bars.
