@@ -8,6 +8,10 @@ on:
       - 'src/pages/FighterComparePage.jsx'
       - 'src/pages/SpanishSite.jsx'
       - 'src/data/seoEntities.js'
+      - 'src/data/auraTop50.js'
+      - 'src/data/boxingPhotography.js'
+      - 'src/styles/aura-top50.css'
+      - 'scripts/audit-aura-top50.mjs'
       - 'src/components/Header.jsx'
       - 'src/styles/fight-hub.css'
       - 'src/AppRouter.jsx'
@@ -26,4 +30,5 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --no-package-lock --no-audit --no-fund
+      - run: node scripts/audit-aura-top50.mjs
       - run: npm run build
