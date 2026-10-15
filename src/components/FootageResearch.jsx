@@ -155,6 +155,16 @@ export default function FootageResearch({storyId,format,beats,articleUrl}){
      placeholder="Owner, written permission date, usage scope, link to license terms..." /></label>
     <button type="button" onClick={addLocal}>Assign local clip to this shot</button></div>
   </div>
+  <div className="aura-footage__licensing">
+   <div><h3>Request original boxing footage legally</h3><p>Relevant official archives can supply licensed fight footage for future investigations. Ask for short-form digital reuse, editing and monetisation rights in writing.</p></div>
+   <div className="aura-footage__contactGrid">{research.licensingContacts.map(contact=><article key={contact.organisation}>
+    <h4>{contact.organisation}</h4>
+    <p>{contact.contactRole}</p>
+    <a href={contact.url} target="_blank" rel="noopener noreferrer">View licensing source ↗</a>
+    <a href={'mailto:'+contact.contact+'?subject='+encodeURIComponent('AURA Fight Club — boxing footage licensing enquiry')} target="_blank" rel="noopener noreferrer">{contact.contact}</a>
+    <small>{contact.request}</small>
+   </article>)}</div>
+  </div>
   <div className="aura-footage__timeline">
    <div className="aura-footage__timelineTitle"><h3>Editorial clip timeline</h3><button type="button" onClick={exportTimeline}>Export clip decisions (JSON)</button></div>
    {marks.length===0?<p>No moments marked yet. Start by watching an official source and marking the exact moment you want to discuss.</p>
