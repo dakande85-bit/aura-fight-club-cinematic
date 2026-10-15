@@ -90,3 +90,15 @@
 .aura-social-studio__curated-actions a{color:#d8b77a;font-size:12px}
 @media(max-width:1200px){.aura-social-studio__curated-grid{grid-template-columns:1fr}.aura-social-studio__curated-card{grid-template-columns:160px minmax(0,1fr)}}
 @media(max-width:530px){.aura-social-studio__curated-card{grid-template-columns:110px minmax(0,1fr)}.aura-social-studio__curated-content{padding:15px}.aura-social-studio__curated-actions{display:grid;width:100%;justify-content:stretch}.aura-social-studio__curated-actions button{width:100%}}
+
+
+/* Review-grade previews of all five original slides, including the AI cover. */
+.aura-social-studio__curated-gallery{display:flex;width:100%;gap:6px;margin:2px 0 4px;overflow-x:auto;scrollbar-width:thin;padding:4px 0}
+.aura-social-studio__curated-gallery a{position:relative;display:block;flex:0 0 39px;max-width:39px;aspect-ratio:9 / 16;border:1px solid #87909a;border-radius:3px;overflow:hidden;outline-offset:3px}
+.aura-social-studio__curated-gallery img{width:100%;height:100%;object-fit:cover}
+.aura-social-studio__curated-gallery span{position:absolute;bottom:1px;left:2px;background:rgba(0,0,0,.85);padding:1px 3px;font-size:9px;color:#fff}
+.aura-social-studio__curated-gallery a:focus-visible{outline:2px solid #e1c282}
+.aura-social-studio__curated-content>p.aura-social-studio__disclosure{font-size:11px;color:#d5c09c;margin:2px 0;line-height:1.5}
+.aura-social-studio__curated-actions a.aura-social-studio__review-link{display:inline-block;padding:9px 11px;border:1px solid #d7b77a;background:#d7b77a;color:#14202b;border-radius:4px;font-weight:850;line-height:1.3;text-decoration:none}
+.aura-social-studio__curated-actions a.aura-social-studio__review-link:hover,.aura-social-studio__curated-actions a.aura-social-studio__review-link:focus-visible{background:#f3dcaf;color:#14202b}
+@media(max-width:530px){.aura-social-studio__curated-gallery a{flex-basis:34px;max-width:34px}.aura-social-studio__curated-actions a.aura-social-studio__review-link{font-size:11px}}
