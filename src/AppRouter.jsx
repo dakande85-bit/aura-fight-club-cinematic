@@ -19,6 +19,7 @@ import AdminWaitlist from './pages/AdminWaitlist.jsx';
 import AdminCinematic from './pages/AdminCinematic.jsx';
 import AdminArticles from './pages/AdminArticles.jsx';
 import AdminSocial from './pages/AdminSocial.jsx';
+import TikTokLanding from './pages/TikTokLanding.jsx';
 import AdminSuppliers from './pages/AdminSuppliers.jsx';
 import AdminMonetization from './pages/AdminMonetization.jsx';
 import Advertise from './pages/Advertise.jsx';
@@ -51,6 +52,7 @@ export default function AppRouter() {
         <Route path="/es" element={<SpanishSite />} />
         <Route path="/es/*" element={<SpanishSite />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/tiktok" element={<TikTokLanding />} />
         <Route path="/news/:slug" element={<ArticlePage />} />
         <Route path="/fighters" element={<FightersIndexPage />} />
         <Route path="/fighters/compare" element={<FighterComparePage />} />
