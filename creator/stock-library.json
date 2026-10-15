@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "reviewDate": "2026-10-15",
+  "disclaimer": "Candidate sources only, not uploaded video files. Recheck the individual license and release terms before importing. These are generic training scenes, not actual named fighters or broadcast action. No clip automatically fetched or published.",
+  "clips": [
+    {
+      "id": "pexels-mittwork-6296167",
+      "title": "Boxing mittwork, close-range combinations",
+      "source": "Pexels",
+      "creator": "Pavel Danilyuk",
+      "url": "https://www.pexels.com/video/a-man-working-out-in-the-boxing-gym-6296167/",
+      "licence": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/legal-pages/license/",
+      "orientation": "vertical",
+      "durationSeconds": 20,
+      "commercialUseReported": true,
+      "assetStatus": "source_link_only"
+    },
+    {
+      "id": "pexels-heavybag-5752373",
+      "title": "Vertical heavy bag punches",
+      "source": "Pexels",
+      "creator": "Tima Miroshnichenko",
+      "url": "https://www.pexels.com/video/man-punching-a-punching-bag-5752373/",
+      "licence": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/legal-pages/license/",
+      "orientation": "vertical",
+      "durationSeconds": 12,
+      "commercialUseReported": true,
+      "assetStatus": "source_link_only"
+    },
+    {
+      "id": "pexels-boxer-8612284",
+      "title": "Boxing athlete working a heavy bag",
+      "source": "Pexels",
+      "creator": "RDNE Stock project",
+      "url": "https://www.pexels.com/video/boxer-training-using-a-punching-bag-8612284/",
+      "licence": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/legal-pages/license/",
+      "orientation": "vertical",
+      "durationSeconds": 20,
+      "commercialUseReported": true,
+      "assetStatus": "source_link_only"
+    },
+    {
+      "id": "mixkit-boxer-ring-40948",
+      "title": "Boxer working pads with a trainer",
+      "source": "Mixkit",
+      "creator": "Mixkit contributor",
+      "url": "https://mixkit.co/free-stock-video/boxer-training-in-the-ring-40948/",
+      "licence": "Mixkit Stock Video Free License",
+      "licenceUrl": "https://mixkit.co/license/",
+      "orientation": "horizontal",
+      "durationSeconds": 18,
+      "commercialUseReported": true,
+      "assetStatus": "source_link_only"
+    },
+    {
+      "id": "mixkit-boxer-heavybag-40265",
+      "title": "Close-up bag work in a boxing gym",
+      "source": "Mixkit",
+      "creator": "Mixkit contributor",
+      "url": "https://mixkit.co/free-stock-video/boxer-training-with-a-punching-bag-at-the-gym-40265/",
+      "licence": "Mixkit Stock Video Free License",
+      "licenceUrl": "https://mixkit.co/license/",
+      "orientation": "horizontal",
+      "durationSeconds": 7,
+      "commercialUseReported": true,
+      "assetStatus": "source_link_only"
+    },
+    {
+      "id": "mixkit-boxing-coach-40273",
+      "title": "Pad training in a boxing ring",
+      "source": "Mixkit",
+      "creator": "Mixkit contributor",
+      "url": "https://mixkit.co/free-stock-video/boxing-trainer-and-his-apprentice-in-a-training-40273/",
+      "licence": "Mixkit Stock Video Free License",
+      "licenceUrl": "https://mixkit.co/license/",
+      "orientation": "vertical",
+      "durationSeconds": 8,
+      "commercialUseReported": true,
+      "assetStatus": "source_link_only"
+    }
+  ]
+}
