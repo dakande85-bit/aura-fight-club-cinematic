@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import project from '../../creator/projects/dubois-wardley-ii.json';
+import stockLibrary from '../../creator/stock-library.json';
 import '../styles/aura-video-creator.css';
 
 const repo='https://github.com/dakande85-bit/aura-fight-club-cinematic';
@@ -128,6 +129,17 @@ export default function VideoCreator(){
     <p className="aura-video-creator__footerNote">This is an editorial storyboard, not the rendered video. Actual exports apply motion and timed cuts. Archive dates and illustrative imagery remain labelled for accuracy.</p>
    </section>
   </div>
+  <section className="aura-video-creator__stock">
+   <div><p className="aura-video-creator__kicker">APPROVED SOURCING WORKFLOW</p><h2>Boxing stock-footage shortlist</h2><p>Six starting sources for training, mittwork and ringside atmosphere. These links are candidate stock footage, not downloads; inspect licence terms and download only the clips you want to use. Do not label generic boxers as Dubois or Wardley.</p></div>
+   <div className="aura-video-creator__stockGrid">
+    {stockLibrary.clips.map(clip=><article key={clip.id}>
+     <span>{clip.source} · {clip.orientation} · {clip.durationSeconds}s</span>
+     <h3>{clip.title}</h3>
+     <p>Creator: {clip.creator}</p>
+     <a href={clip.url} target="_blank" rel="noopener noreferrer">Review stock footage ↗</a>
+    </article>)}
+   </div>
+  </section>
   <aside className="aura-video-creator__roadmap"><strong>FUTURE STAGE</strong><p>Private audio uploads, licensed stock-video picker, precise speech-aligned subtitles, editable shot timings and YouTube/TikTok publishing after approval.</p></aside>
  </main><Footer/></>;
 }
