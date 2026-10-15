@@ -13,6 +13,7 @@ import {getFighterByName} from '../data/seoEntities.js';
 import {inchesFromText,parseCareerRecord,compareBoxingProfiles,indicatorPosition} from '../data/fightLabMetrics.js';
 import {getCalendarDate,upcomingFightCards,createDecisionBrief} from '../data/fightLabPresentation.js';
 import VerifiedFormTimeline from '../components/VerifiedFormTimeline.jsx';
+import FightSourceLedger from '../components/FightSourceLedger.jsx';
 import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
 import TacticalBlueprint from '../components/TacticalBlueprint.jsx';
 import {PinCurrentFactor, FightNotebook, OfficialVideoPanel} from '../components/FightResearchExtras.jsx';
@@ -160,6 +161,7 @@ function ModelView({fight,fighters,scouting,selectedPins,weights,setWeights,onNe
   </div>
   {selectedPins.length>0&&scouting&&<aside className="fdc-review-strip"><BookmarkCheck size={19}/><div><strong>YOUR SCOUTING QUESTIONS</strong><p>{selectedPins.filter(i=>scouting.keys[i]).map(i=>scouting.keys[i]).join('  ·  ')}</p></div></aside>}
   <div className="fdc-what-if"><p className="fdc-kicker">FIGHT SCRIPT / WHAT COULD CHANGE THE OUTCOME?</p><div className="fdc-what-tabs">{['Early pressure','Distance control','Late exchanges'].map((name,i)=><button type="button" className={i===selectedScenario?'active':''} onClick={()=>setSelectedScenario(i)} key={name}>{simulations[fight.id]?.[i]?.short||name}</button>)}</div><div className="fdc-what-body"><Zap size={22}/><div><strong>{profile?.lead||'No reviewed scenario yet'}</strong><p>{profile?.body||'We will only model tactical scenarios after a named-source review of this fight.'}</p></div></div></div>
+  <FightSourceLedger fighters={fighters}/>
   <div className="fdc-feed-status"><Database size={19}/><div><strong>PUNCH TELEMETRY IS NOT CONNECTED</strong><p>Rounds, accurate jab frequency and stoppage-round likelihood need a licensed, validated historical feed. They are never inferred from win-loss records.</p></div><span>DATA PIPELINE / PENDING</span></div>
   <div className="fdc-panel-bottom"><span>Explore the data. Record your view.</span><button onClick={onNext} type="button">Next: make your call <ArrowRight size={16}/></button></div>
  </div>;
