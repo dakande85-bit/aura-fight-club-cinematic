@@ -14,25 +14,49 @@ const suggestions=[
  {label:'Canelo vs Mbilli',left:'canelo-alvarez',right:'christian-mbilli'},
  {label:'Ennis vs Fundora',left:'jaron-ennis',right:'sebastian-fundora'}
 ];
-const fields=[['Record','record'],['Weight class','division'],['Nationality','nationality'],['Stance','stance'],['Height','height'],['Reach','reach'],['Date of birth','birthDate']];
-function SourceBadge({fighter}){
- const source=fighter.recordSource||fighter.bioSourceUrl;
+const fields=[['Record','record'],['Reach','reach'],['Height','height'],['Weight class','division'],['Stance','stance'],['Nationality','nationality'],['Date of birth','birthDate']];
+const labels={
+ en:{title:'HEAD TO HEAD.',eyebrow:'AURA / FIGHTER INTELLIGENCE',intro:'Compare verified records, size, reach and fighting styles side by side. Unconfirmed figures are clearly identified.',suggest:'Explore a matchup',first:'First fighter',second:'Second fighter',swap:'Swap',retired:' (retired)',archive:'Career archive',profile:'Fighter profile',style:'Style & strengths',view:'View fighter intelligence →',sources:'Sources for available statistics ↗',checked:'Physical stats checked',recordChecked:'Record last reviewed',unverified:'Not verified',unreviewed:'Data not recently source-verified',different:'Choose two different fighters to compare.',copy:'Copy comparison link ↗',copied:'Comparison link copied',copyUnavailable:'Copy unavailable; use the address bar',browse:'Browse the fighter index →',note:'Records are editorial snapshots, not a live BoxRec feed. Height and reach may vary by publisher. Source references and last-checked dates accompany available statistics.',fields:{Record:'Record',Reach:'Reach',Height:'Height','Weight class':'Weight class',Stance:'Stance',Nationality:'Nationality','Date of birth':'Date of birth'}},
+ es:{title:'CARA A CARA.',eyebrow:'AURA / INTELIGENCIA DEL RING',intro:'Compara récords, estatura, alcance y estilos de boxeo con fuentes. Los datos no verificados se identifican claramente.',suggest:'Explora un enfrentamiento',first:'Primer boxeador',second:'Segundo boxeador',swap:'Cambiar',retired:' (retirado)',archive:'Archivo de carrera',profile:'Perfil del boxeador',style:'Estilo y puntos fuertes',view:'Ver ficha del boxeador →',sources:'Fuentes de las estadísticas ↗',checked:'Medidas revisadas',recordChecked:'Récord revisado',unverified:'Sin verificar',unreviewed:'Datos pendientes de revisión',different:'Selecciona dos boxeadores distintos.',copy:'Copiar enlace ↗',copied:'Enlace copiado',copyUnavailable:'No se puede copiar; utiliza la barra de direcciones',browse:'Ver todos los boxeadores →',note:'Los récords son datos editoriales puntuales, no una conexión en directo con BoxRec. La estatura y el alcance pueden variar según la fuente. Se muestran referencias y fechas de revisión.',fields:{Record:'Récord',Reach:'Alcance',Height:'Estatura','Weight class':'Categoría',Stance:'Guardia',Nationality:'País','Date of birth':'Nacimiento'}}
+};
+const divisionES={'Heavyweight':'Peso pesado','Super middleweight':'Peso supermediano','Junior middleweight':'Peso superwélter','Junior featherweight':'Peso supergallo','Light heavyweight':'Peso semipesado','Cruiserweight':'Peso crucero','Welterweight':'Peso wélter'};
+const countryES={Ukraine:'Ucrania','United Kingdom':'Reino Unido',Japan:'Japón','United States':'Estados Unidos',Mexico:'México',France:'Francia'};
+const displayValue=(fighter,key,locale,t)=>{
+ const value=fighter[key];
+ if(!value)return t.unverified;
+ if(locale!=='es')return value;
+ if(key==='stance')return {Southpaw:'Zurdo',Orthodox:'Ortodoxo',Switch:'Ambidiestro'}[value]||value;
+ if(key==='division')return divisionES[value]||value;
+ if(key==='nationality')return countryES[value]||value;
+ if(key==='birthDate'&&/^\d{4}-\d{2}-\d{2}$/.test(value))return new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(value+'T12:00:00Z'));
+ return value;
+};
+function SourceBadge({fighter,t}){
+ const statsSource=fighter.statSourceUrl;
+ const recordSource=fighter.recordSource||fighter.bioSourceUrl;
  return <div className="aura-compare-source">
-  <span>{fighter.recordCheckedAt?'Reviewed '+fighter.recordCheckedAt:'Statistics not recently source-verified'}</span>
-  {source&&<a href={source} target="_blank" rel="noopener noreferrer">Source for available statistics ↗</a>}
+  <span>{fighter.statsCheckedAt?t.checked+': '+fighter.statsCheckedAt:t.unreviewed}</span>
+  {statsSource&&<a href={statsSource} target="_blank" rel="noopener noreferrer">{t.sources}</a>}
+  {fighter.recordCheckedAt&&<span>{t.recordChecked+': '+fighter.recordCheckedAt}</span>}
+  {!statsSource&&recordSource&&<a href={recordSource} target="_blank" rel="noopener noreferrer">{t.sources}</a>}
  </div>;
 }
-function FighterColumn({fighter}){
+function FighterColumn({fighter,locale,t}){
+ const base=locale==='es'?'/es/fighters':'/fighters';
  return <section className="fh-compare-fighter" aria-label={fighter.name}>
   <VerifiedPhoto fighterSlug={fighter.slug} label={fighter.name} creditLink/>
-  <p className="aura-compare-status">{fighter.careerStatus==='Retired'?'Career archive':'Fighter profile'}</p>
+  <p className="aura-compare-status">{fighter.careerStatus==='Retired'?t.archive:t.profile}</p>
   <h2>{fighter.name}</h2>
+  <div className="aura-compare-key-stats">
+   {['reach','height'].map(key=><div key={key}><span>{t.fields[key==='reach'?'Reach':'Height']}</span><strong>{displayValue(fighter,key,locale,t)}</strong></div>)}
+  </div>
   <p className="aura-compare-style">{fighter.summary}</p>
-  <Link to={`/fighters/${fighter.slug}`}>View fighter intelligence →</Link>
-  <SourceBadge fighter={fighter}/>
+  <Link to={base+'/'+fighter.slug}>{t.view}</Link>
+  <SourceBadge fighter={fighter} t={t}/>
  </section>;
 }
-export default function FighterComparePage(){
+export default function FighterComparePage({locale='en'}){
+ const t=labels[locale]||labels.en;
  const [params,setParams]=useSearchParams();
  const [copyStatus,setCopyStatus]=useState('');
  const valid=id=>choices.some(f=>f.slug===id);
@@ -41,35 +65,33 @@ export default function FighterComparePage(){
  const a=choices.find(f=>f.slug===left);
  const b=choices.find(f=>f.slug===right);
  const same=left===right;
- const update=(nextLeft,nextRight)=>{
-  setParams({left:nextLeft,right:nextRight});
-  setCopyStatus('');
- };
+ const base=locale==='es'?'/es/fighters':'/fighters';
+ const update=(nextLeft,nextRight)=>{setParams({left:nextLeft,right:nextRight});setCopyStatus('');};
  const copyLink=()=>{
-  const url=window.location.origin+'/fighters/compare?left='+encodeURIComponent(left)+'&right='+encodeURIComponent(right);
-  if(!navigator.clipboard?.writeText){setCopyStatus('Copy unavailable on this device');return;}
-  navigator.clipboard.writeText(url).then(()=>setCopyStatus('Comparison link copied')).catch(()=>setCopyStatus('Copy unavailable; use the address bar'));
+  const url=window.location.origin+base+'/compare?left='+encodeURIComponent(left)+'&right='+encodeURIComponent(right);
+  if(!navigator.clipboard?.writeText){setCopyStatus(t.copyUnavailable);return;}
+  navigator.clipboard.writeText(url).then(()=>setCopyStatus(t.copied)).catch(()=>setCopyStatus(t.copyUnavailable));
  };
- return <><PageSEO title="Compare Two Boxers — Fighter Head-to-Head | AURA Fight Club" canonicalPath="/fighters/compare" description="Compare two boxing fighters side by side with profile images, records, fighting styles and cited editorial statistics."/><Header/>
+ return <><PageSEO title={locale==='es'?'Comparar boxeadores — AURA Fight Club':'Compare Two Boxers — Fighter Head-to-Head | AURA Fight Club'} canonicalPath={base+'/compare'} description={t.intro}/><Header/>
   <main className="fh-page aura-compare-page">
-   <header className="fh-intro"><p className="fh-kicker">AURA / FIGHTER INTELLIGENCE</p><h1>HEAD TO HEAD.</h1><p>Put two fighters side by side. Compare their skills, records and measurable attributes without inventing missing statistics or a predicted winner.</p></header>
-   <div className="aura-compare-suggestions" aria-label="Suggested boxing comparisons">
-    <span>Explore a matchup</span>
+   <header className="fh-intro"><p className="fh-kicker">{t.eyebrow}</p><h1>{t.title}</h1><p>{t.intro}</p></header>
+   <div className="aura-compare-suggestions" aria-label={t.suggest}>
+    <span>{t.suggest}</span>
     {suggestions.map(s=><button key={s.label} type="button" onClick={()=>update(s.left,s.right)} aria-pressed={left===s.left&&right===s.right}>{s.label}</button>)}
    </div>
    <div className="fh-comparison-selectors">
-    <label>First fighter<select value={left} onChange={e=>update(e.target.value,right)}>{choices.map(f=><option value={f.slug} key={f.slug}>{f.name}{f.careerStatus==='Retired'?' (retired)':''}</option>)}</select></label>
-    <button type="button" className="aura-compare-swap" onClick={()=>update(right,left)} aria-label="Swap the two fighters">⇄ <span>Swap</span></button>
-    <label>Second fighter<select value={right} onChange={e=>update(left,e.target.value)}>{choices.map(f=><option value={f.slug} key={f.slug}>{f.name}{f.careerStatus==='Retired'?' (retired)':''}</option>)}</select></label>
+    <label>{t.first}<select value={left} onChange={e=>update(e.target.value,right)}>{choices.map(f=><option value={f.slug} key={f.slug}>{f.name}{f.careerStatus==='Retired'?t.retired:''}</option>)}</select></label>
+    <button type="button" className="aura-compare-swap" onClick={()=>update(right,left)} aria-label={t.swap}>⇄ <span>{t.swap}</span></button>
+    <label>{t.second}<select value={right} onChange={e=>update(left,e.target.value)}>{choices.map(f=><option value={f.slug} key={f.slug}>{f.name}{f.careerStatus==='Retired'?t.retired:''}</option>)}</select></label>
    </div>
-   {same?<p className="fh-compare-note" role="status">Choose two different fighters to compare.</p>:<>
-    <div className="fh-compare-grid"><FighterColumn fighter={a}/><FighterColumn fighter={b}/></div>
-    <div className="fh-compare-table" aria-label="Side-by-side fighter statistics">{fields.map(([label,key])=><div className="fh-compare-row" key={key}>
-     <strong>{a[key]||'Not verified'}</strong><span>{label}</span><strong>{b[key]||'Not verified'}</strong>
+   {same?<p className="fh-compare-note" role="status">{t.different}</p>:<>
+    <div className="fh-compare-grid"><FighterColumn fighter={a} locale={locale} t={t}/><FighterColumn fighter={b} locale={locale} t={t}/></div>
+    <div className="fh-compare-table" aria-label={locale==='es'?'Comparación de estadísticas':'Side-by-side fighter statistics'}>{fields.map(([label,key])=><div className="fh-compare-row" key={key}>
+     <strong>{displayValue(a,key,locale,t)}</strong><span>{t.fields[label]}</span><strong>{displayValue(b,key,locale,t)}</strong>
     </div>)}</div>
    </>}
-   <div className="aura-compare-actions"><button type="button" onClick={copyLink}>Copy comparison link ↗</button>{copyStatus&&<span role="status">{copyStatus}</span>}<Link to="/fighters">Browse the fighter index →</Link></div>
-   <p className="fh-compare-note">Records and measurements are editorial snapshots, not a live BoxRec feed. If a source is absent, the statistic has not been recently verified. Current title status, results and rankings require confirmation from official records.</p>
+   <div className="aura-compare-actions"><button type="button" onClick={copyLink}>{t.copy}</button>{copyStatus&&<span role="status">{copyStatus}</span>}<Link to={base}>{t.browse}</Link></div>
+   <p className="fh-compare-note">{t.note}</p>
   </main><Footer/>
  </>;
 }
