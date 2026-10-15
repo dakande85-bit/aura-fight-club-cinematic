@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-05T14:25:00.000Z",
+  "updatedAt": "2026-10-15T09:55:00.000Z",
   "disclosure": "AURA Fight Club may earn a commission when you buy or subscribe through selected links. Editorial coverage is independent.",
   "partners": {
     "dazn": {
@@ -24,7 +24,7 @@
       "name": "RDX Sports",
       "category": "Equipment",
       "enabled": true,
-      "officialUrl": "https://rdxsports.com/",
+      "officialUrl": "https://rdxsports.eu/",
       "affiliateUrl": "",
       "cta": "Shop boxing equipment",
       "note": ""
@@ -33,7 +33,7 @@
       "name": "BOXRAW",
       "category": "Lifestyle",
       "enabled": true,
-      "officialUrl": "https://boxraw.com/",
+      "officialUrl": "https://eu.boxraw.com/",
       "affiliateUrl": "",
       "cta": "Shop boxing lifestyle",
       "note": ""
@@ -51,38 +51,66 @@
   "adSlots": {
     "article-top": {
       "enabled": true,
-      "mode": "house",
-      "label": "Partner with AURA Fight Club"
+      "mode": "affiliate",
+      "partnerKey": "rdx",
+      "headline": "Every round begins before the bell.",
+      "body": "Find the equipment that belongs in your corner.",
+      "cta": "Explore boxing gear",
+      "label": "Advertise to boxing's most committed fans"
     },
     "article-mid": {
       "enabled": true,
-      "mode": "house",
-      "label": "Reach boxing fans with AURA"
+      "mode": "affiliate",
+      "partnerKey": "dazn",
+      "headline": "The fights. The moments. The aftermath.",
+      "body": "Your front-row access starts here. Streaming and PPV options vary by territory.",
+      "cta": "Explore DAZN",
+      "label": "Put your brand in the middle of the action"
     },
     "article-bottom": {
       "enabled": true,
-      "mode": "house",
-      "label": "Advertise with AURA Fight Club"
+      "mode": "affiliate",
+      "partnerKey": "boxraw",
+      "headline": "The culture never clocks off.",
+      "body": "Boxing lives beyond the ropes. Discover what comes next.",
+      "cta": "Explore boxing lifestyle",
+      "label": "Be part of AURA's boxing culture"
     },
     "fight-page": {
       "enabled": true,
-      "mode": "house",
-      "label": "Fight night partnerships"
+      "mode": "affiliate",
+      "partnerKey": "dazn",
+      "headline": "Don't just read the verdict.",
+      "body": "Find where to watch the fights that matter.",
+      "cta": "Explore DAZN",
+      "label": "Own the conversation on fight night"
     },
     "calendar": {
       "enabled": true,
-      "mode": "house",
-      "label": "Sponsor the AURA Fight Calendar"
+      "mode": "affiliate",
+      "partnerKey": "ticketmaster",
+      "headline": "Be there when the bell rings.",
+      "body": "Explore event tickets and experiences. Availability depends on location.",
+      "cta": "Explore tickets",
+      "label": "Reach fans planning their next fight night"
     },
     "home-feed": {
       "enabled": true,
-      "mode": "house",
-      "label": "Partner with AURA Fight Club"
+      "mode": "affiliate",
+      "partnerKey": "rdx",
+      "headline": "Respect is earned in the gym.",
+      "body": "Explore boxing training essentials for every level.",
+      "cta": "Explore boxing gear",
+      "label": "Reach the next generation of boxing fans"
     },
     "rankings": {
       "enabled": true,
-      "mode": "house",
-      "label": "Sponsor the AURA Belt Rankings"
+      "mode": "affiliate",
+      "partnerKey": "fightcamp",
+      "headline": "Greatness is built one round at a time.",
+      "body": "Explore at-home boxing training and performance.",
+      "cta": "Explore training",
+      "label": "Sponsor AURA's fighter rankings"
     }
   },
   "adsense": {
