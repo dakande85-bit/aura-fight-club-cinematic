@@ -13,7 +13,7 @@ function validate(input){
   out.contactEmail=String(input.contactEmail||'hello@aurafightclub.com').trim().slice(0,200);
   out.disclosure=String(input.disclosure||'').trim().slice(0,600);
   out.partners=Object.fromEntries(Object.entries(input.partners||{}).map(([key,p])=>[key,{...p,name:String(p.name||key).slice(0,100),category:String(p.category||'Partner').slice(0,60),enabled:p.enabled===true,officialUrl:cleanUrl(p.officialUrl),affiliateUrl:cleanUrl(p.affiliateUrl),cta:String(p.cta||'Learn more').slice(0,100),note:String(p.note||'').slice(0,300)}]));
-  out.adSlots=Object.fromEntries(Object.entries(input.adSlots||{}).map(([key,s])=>[key,{enabled:s.enabled===true,mode:['house','adsense','off'].includes(s.mode)?s.mode:'house',label:String(s.label||'Advertise with AURA').slice(0,160)}]));
+  out.adSlots=Object.fromEntries(Object.entries(input.adSlots||{}).map(([key,s])=>[key,{enabled:s.enabled===true,mode:['house','affiliate','adsense','off'].includes(s.mode)?s.mode:'house',label:String(s.label||'Advertise with AURA').slice(0,160),partnerKey:String(s.partnerKey||'').slice(0,60),headline:String(s.headline||'').slice(0,160),body:String(s.body||'').slice(0,350),cta:String(s.cta||'').slice(0,90)}]));
   out.adsense={enabled:input.adsense?.enabled===true,client:String(input.adsense?.client||'').trim().slice(0,100),slots:input.adsense?.slots||{}};
   return out;
 }
