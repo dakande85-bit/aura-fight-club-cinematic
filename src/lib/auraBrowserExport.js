@@ -1,104 +1,133 @@
-// In-browser FFmpeg MP4 exporter for rights-cleared local footage.
-// Uses no server uploads; loads FFmpeg WASM lazily only after the user clicks Export.
-import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { toBlobURL, fetchFile } from '@ffmpeg/util';
+// Browser-only real-footage exporter. Small previews are deliberately lightweight.
+// Any failed render returns the exact failed stage + FFmpeg diagnostic lines.
+import {FFmpeg} from '@ffmpeg/ffmpeg';
+import {toBlobURL,fetchFile} from '@ffmpeg/util';
+import {checkExport,videoFilter} from './auraExportProfile.js';
 
-let enginePromise;
-const CORE_BASE='https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd';
+let enginePromise=null;
+let engine=null;
+const recentLogs=[];
+const CORE_BASE='https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm';
 
+function diagnosticText(){
+ return recentLogs.slice(-9).join('\n').slice(-1600);
+}
+function fail(stage,detail=''){
+ const explanation=(detail||diagnosticText()||'The browser video engine stopped unexpectedly.').trim();
+ return new Error(stage+': '+explanation);
+}
 async function getEngine(onStatus){
  if(!enginePromise){
   enginePromise=(async()=>{
-   onStatus?.('Loading the video engine for the first time (about 30 MB)…');
+   onStatus?.('Loading the video renderer (first use downloads about 31 MB)…');
    const ffmpeg=new FFmpeg();
-   await ffmpeg.load({
-    coreURL:await toBlobURL(CORE_BASE+'/ffmpeg-core.js','text/javascript'),
-    wasmURL:await toBlobURL(CORE_BASE+'/ffmpeg-core.wasm','application/wasm'),
+   ffmpeg.on('log',({message})=>{
+    if(message){recentLogs.push(String(message));if(recentLogs.length>60)recentLogs.shift();}
    });
+   try{
+    await ffmpeg.load({
+      coreURL:await toBlobURL(CORE_BASE+'/ffmpeg-core.js','text/javascript'),
+      wasmURL:await toBlobURL(CORE_BASE+'/ffmpeg-core.wasm','application/wasm')
+    });
+   }catch(error){
+    try{ffmpeg.terminate();}catch{}
+    throw fail('Renderer could not initialise',String(error?.message||error));
+   }
+   engine=ffmpeg;
    return ffmpeg;
-  })().catch(err=>{enginePromise=null;throw err;});
+  })().catch(e=>{enginePromise=null;engine=null;throw e;});
  }
  return enginePromise;
 }
-const encoding=(channel)=>{
- // Reduced resolution fits a wider range of mobile devices; server jobs can do full 1080p.
- if(channel==='shorts')return {w:720,h:1280};
- return {w:1280,h:720};
-};
-const fitVF=(channel)=>{
- const {w,h}=encoding(channel);
- if(channel==='shorts'){
-  // Keep the entire real ring visible and use a blurred extension to fill 9:16.
-  return `[0:v]split=2[background][foreground];[background]scale=${w}:${h}:force_original_aspect_ratio=increase,crop=${w}:${h},boxblur=18:1[backdrop];[foreground]scale=${w}:${h}:force_original_aspect_ratio=decrease[boxing];[backdrop][boxing]overlay=(W-w)/2:(H-h)/2,setsar=1,fps=24[v]`;
- }
- return `[0:v]scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=24[v]`;
-};
-const mustBeFile=file=>{
- if(!(file instanceof File || file instanceof Blob))throw Error('Attach actual, reusable source video files first.');
- return file;
-};
+function resetEngine(){
+ if(engine){try{engine.terminate();}catch{}}
+ engine=null;enginePromise=null;
+}
+async function run(ffmpeg,args,stage){
+ recentLogs.length=0;
+ let exit;
+ try{exit=await ffmpeg.exec(args,300000);}
+ catch(error){throw fail(stage,String(error?.message||error));}
+ if(exit!==0)throw fail(stage,'FFmpeg returned code '+exit+'. '+diagnosticText());
+}
+function suffix(file){
+ const name=file.name||'';
+ const extension=name.split('.').pop()?.toLowerCase()||'';
+ if(['mp4','m4v','mov','webm','mkv','avi'].includes(extension))return extension;
+ return file.type?.includes('webm')?'webm':'mp4';
+}
+function audioSuffix(file){
+ const name=file.name||'';
+ const extension=name.split('.').pop()?.toLowerCase()||'';
+ if(['mp3','m4a','wav','ogg','opus','webm','aac','mp4'].includes(extension))return extension;
+ return file.type?.includes('webm')?'webm':'m4a';
+}
 export async function exportAutoVideo({cuts,assets,format='shorts',voiceFile,onStatus}){
- if(!['shorts','youtube'].includes(format))throw Error('Choose YouTube or Shorts output.');
- if(!Array.isArray(cuts)||!cuts.length)throw Error('There are no assembled shots on the timeline.');
- const lookup=Object.fromEntries(assets.map(a=>[a.id,a]));
- for(const cut of cuts){
-  const asset=lookup[cut.assetId];
-  if(!asset||!asset.file)throw Error('One or more timeline shots are missing their real source video.');
-  if(asset.rightsReviewed!==true)throw Error(`Review the reuse basis for "${asset.title}" before export.`);
-  if(!(Number(cut.duration)>0&&Number(cut.start)>=0&&cut.start+cut.duration<=asset.duration+0.5))
-   throw Error('At least one video cut extends outside its actual source footage.');
- }
- const estimated=assets.filter(a=>cuts.some(c=>c.assetId===a.id)).reduce((s,a)=>s+(a.file?.size||0),0);
- if(estimated>400*1024*1024)throw Error('Selected footage is too large for reliable in-browser export. Use shorter source files or the server rendering workflow.');
+ const agent=typeof navigator!=='undefined'?navigator.userAgent:'';
+ const profile=checkExport(cuts,assets,format,agent);
  const ffmpeg=await getEngine(onStatus);
- const prefix='aura-'+Date.now().toString(36);
- const cleanups=[];
+ const nonce='aura-'+Date.now().toString(36);
+ const temporary=[];
+ const seen=new Map();
+ const add=(name)=>{temporary.push(name);return name;};
+ const sources=new Map(assets.map(a=>[a.id,a]));
+ onStatus?.('Preparing '+cuts.length+' cuts for a '+profile.width+' × '+profile.height+' '+format+' export…');
  try{
-  const uploaded=new Map();
-  for(const asset of assets){
-   if(!cuts.some(c=>c.assetId===asset.id))continue;
-   const path=`${prefix}-input-${uploaded.size}.mp4`;
-   onStatus?.('Loading actual fight footage: '+asset.title);
-   await ffmpeg.writeFile(path,await fetchFile(mustBeFile(asset.file)));
-   uploaded.set(asset.id,path);
-   cleanups.push(path);
+  for(const cut of cuts){
+   if(seen.has(cut.assetId))continue;
+   const source=sources.get(cut.assetId);
+   const input=add(nonce+'-source-'+seen.size+'.'+suffix(source.file));
+   onStatus?.('Loading footage: '+source.title);
+   await ffmpeg.writeFile(input,await fetchFile(source.file));
+   seen.set(cut.assetId,input);
   }
   const clips=[];
   for(let i=0;i<cuts.length;i++){
-   const shot=cuts[i],input=uploaded.get(shot.assetId),out=`${prefix}-clip-${i}.mp4`;
-   onStatus?.(`Trimming and assembling real footage ${i+1} of ${cuts.length}…`);
-   const args=['-ss',Number(shot.start).toFixed(2),'-i',input,'-t',Number(shot.duration).toFixed(2),
-    '-filter_complex',fitVF(format),'-map','[v]','-an','-c:v','libx264','-preset','ultrafast','-crf','28','-r','24',
-    '-pix_fmt','yuv420p','-movflags','+faststart','-y',out];
-   const exit=await ffmpeg.exec(args, -1);
-   if(exit!==0)throw Error(`Encoding failed on scene ${i+1}; try a smaller video or desktop browser.`);
-   clips.push(out);cleanups.push(out);
+   const cut=cuts[i],target=add(nonce+'-shot-'+String(i).padStart(3,'0')+'.mp4');
+   onStatus?.('Encoding cut '+(i+1)+'/'+cuts.length+' at '+profile.width+' × '+profile.height+'…');
+   await run(ffmpeg,[
+    '-ss',Number(cut.start).toFixed(2),'-i',seen.get(cut.assetId),
+    '-t',Number(cut.duration).toFixed(2),
+    '-vf',videoFilter(profile),'-an',
+    '-c:v','libx264','-preset','ultrafast','-crf',profile.mobile?'34':'31',
+    '-threads','1','-r',String(profile.fps),'-pix_fmt','yuv420p','-y',target
+   ],'Video encoding failed on cut '+(i+1));
+   clips.push(target);
   }
-  const concat=`${prefix}-list.txt`;
-  const lines=clips.map(name=>`file '${name}'`).join('\n')+'\n';
-  await ffmpeg.writeFile(concat,new TextEncoder().encode(lines));cleanups.push(concat);
-  const merged=`${prefix}-picture.mp4`;
-  onStatus?.('Joining the trimmed scenes into one video…');
-  if(await ffmpeg.exec(['-f','concat','-safe','0','-i',concat,'-c','copy','-y',merged],-1)!==0)
-   throw Error('Unable to join trimmed shots.');
-  cleanups.push(merged);
-  const output=`${prefix}-final.mp4`;
-  if(voiceFile){
-   onStatus?.('Mixing your own narration into the finished video…');
-   const audio=`${prefix}-voice.${voiceFile.type?.includes('webm')?'webm':'m4a'}`;
-   await ffmpeg.writeFile(audio,await fetchFile(mustBeFile(voiceFile)));cleanups.push(audio);
-   const args=['-i',merged,'-i',audio,'-map','0:v:0','-map','1:a:0','-c:v','copy',
-       '-c:a','aac','-b:a','160k','-af','apad','-t',String(cuts.reduce((n,cut)=>n+Number(cut.duration),0)),'-movflags','+faststart','-y',output];
-   if(await ffmpeg.exec(args,-1)!==0)throw Error('Narration could not be mixed. Try MP3, WAV or M4A.');
-  }else{
-   onStatus?.('Creating a silent draft, ready for narration…');
-   if(await ffmpeg.exec(['-i',merged,'-c','copy','-y',output],-1)!==0)throw Error('Unable to save edited video.');
+  const list=add(nonce+'-cuts.txt');
+  await ffmpeg.writeFile(list,new TextEncoder().encode(
+   clips.map(file=>"file '"+file+"'").join('\n')+'\n'));
+  const joined=add(nonce+'-joined.mp4');
+  onStatus?.('Joining '+clips.length+' real-footage cuts…');
+  await run(ffmpeg,['-f','concat','-safe','0','-i',list,
+    '-c','copy','-movflags','+faststart','-y',joined],'Joining video clips failed');
+  if(!voiceFile){
+   const bytes=await ffmpeg.readFile(joined);
+   if(bytes.byteLength<5000)throw fail('Export produced an empty video');
+   onStatus?.('Silent MP4 ready. You can record narration and export again.');
+   return new Blob([bytes.slice().buffer],{type:'video/mp4'});
   }
-  cleanups.push(output);
+  const audioName=add(nonce+'-narration.'+audioSuffix(voiceFile));
+  onStatus?.('Adding your recorded narration…');
+  await ffmpeg.writeFile(audioName,await fetchFile(voiceFile));
+  const output=add(nonce+'-narrated.mp4');
+  await run(ffmpeg,[
+   '-i',joined,'-i',audioName,
+   '-map','0:v:0','-map','1:a:0','-c:v','copy',
+   '-c:a','aac','-b:a','128k','-af','aresample=async=1,apad',
+   '-t',String(profile.seconds),'-movflags','+faststart','-y',output
+  ],'Narration mix failed');
   const bytes=await ffmpeg.readFile(output);
-  onStatus?.('Real-footage MP4 assembled.');
-  return new Blob([bytes],{type:'video/mp4'});
+  if(bytes.byteLength<5000)throw fail('Export produced an empty video');
+  onStatus?.('Finished MP4 ready, with your voiceover.');
+  return new Blob([bytes.slice().buffer],{type:'video/mp4'});
+ }catch(error){
+  // A failed FFmpeg job can leave its WASM worker in an unusable state.
+  resetEngine();
+  throw error;
  }finally{
-  for(const name of cleanups)try{await ffmpeg.deleteFile(name);}catch{}
+  if(engine===ffmpeg){
+   for(const file of temporary){try{await ffmpeg.deleteFile(file);}catch{}}
+  }
  }
 }
