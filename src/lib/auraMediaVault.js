@@ -1,7 +1,7 @@
 // Local, private project media persistence. Nothing is uploaded to Aura servers.
 // Browser storage quotas and private browsing can prevent persistence; errors are surfaced.
 const DB_NAME='aura-filmroom-workspace-v1';
-const DB_VERSION=1;
+const DB_VERSION=2;
 const MAX_MEDIA_BYTES=220*1024*1024;
 function connect(){
  if(typeof indexedDB==='undefined')return Promise.reject(new Error('This browser does not support offline video storage.'));
@@ -11,6 +11,7 @@ function connect(){
    const db=req.result;
    if(!db.objectStoreNames.contains('media'))db.createObjectStore('media',{keyPath:'key'});
    if(!db.objectStoreNames.contains('edits'))db.createObjectStore('edits',{keyPath:'key'});
+   if(!db.objectStoreNames.contains('voices'))db.createObjectStore('voices',{keyPath:'key'});
   };
   req.onsuccess=()=>resolve(req.result);
   req.onerror=()=>reject(req.error||new Error('Could not open media workspace.'));
@@ -62,6 +63,14 @@ export async function saveEdit(slug,format,data){
 }
 export async function getEdit(slug,format){
  return request('edits','readonly',s=>s.get(keyOf(slug,format)));
+}
+export async function saveVoice(slug,format,file){
+ if(!file || file.size>30*1024*1024)throw new Error('Voiceover must be under 30 MB.');
+ return request('voices','readwrite',s=>s.put({key:keyOf(slug,format),file,updatedAt:new Date().toISOString()}));
+}
+export async function getVoice(slug,format){
+ const result=await request('voices','readonly',s=>s.get(keyOf(slug,format)));
+ return result?.file||null;
 }
 export const DEMO={
  id:'aura-public-domain-boxing-demo',
