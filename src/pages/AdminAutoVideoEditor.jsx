@@ -5,6 +5,7 @@ import AuraFootageFinder from '../components/AuraFootageFinder.jsx';
 import Footer from '../components/Footer.jsx';
 import {planCuts,scanActionPeaks} from '../lib/auraAutoCut.js';
 import {exportAutoVideo} from '../lib/auraBrowserExport.js';
+import {checkExport,exportProfile} from '../lib/auraExportProfile.js';
 import {DEMO,loadDemoFile,saveVideo,getVideos,deleteVideo,saveEdit,getEdit,saveVoice,getVoice} from '../lib/auraMediaVault.js';
 import '../styles/aura-auto-video-editor.css';
 
@@ -52,6 +53,9 @@ export default function AdminAutoVideoEditor(){
  const [progress,setProgress]=useState(0);
  const [resultUrl,setResultUrl]=useState('');
  const [resultBlob,setResultBlob]=useState(null);
+ const [resultKind,setResultKind]=useState('');
+ const [renderError,setRenderError]=useState('');
+ const [voiceSeconds,setVoiceSeconds]=useState(0);
  const videoRef=useRef(null),recorderRef=useRef(null),chunksRef=useRef([]),assetUrls=useRef(new Map()),narrationRef=useRef(null);
  const [voiceUrl,setVoiceUrl]=useState('');
  const [workspaceNotice,setWorkspaceNotice]=useState('');
@@ -127,7 +131,17 @@ export default function AdminAutoVideoEditor(){
  const missing=cuts.filter(c=>!assets.some(a=>a.id===c.assetId));
  const total=cuts.reduce((n,c)=>n+(Number(c.duration)||0),0);
  const rightsReady=cuts.length>0&&cuts.every(c=>assets.some(a=>a.id===c.assetId&&a.rightsReviewed));
- const currentlyReady=rightsReady&&missing.length===0&&!working;
+ const renderBudget=exportProfile(format,typeof navigator!=='undefined'?navigator.userAgent:'');
+ const exportProblem=(()=>{
+  try{checkExport(cuts,assets,format,typeof navigator!=='undefined'?navigator.userAgent:'');return '';}
+  catch(e){return e.message;}
+ })();
+ const currentlyReady=!working&&!exportProblem;
+ const testCuts=cuts.filter(c=>assets.some(a=>a.id===c.assetId&&a.rightsReviewed&&a.file)).slice(0,2).map(c=>({...c,duration:Math.min(3,Number(c.duration)||3)}));
+ const testProblem=(()=>{
+  try{checkExport(testCuts,assets,format,typeof navigator!=='undefined'?navigator.userAgent:'');return '';}
+  catch(e){return e.message;}
+ })();
  const previewDuration=total?time(total):'—';
  const sourceStatus=assets.length?assets.map(a=>WORDING[a.kind]).join(', '):'Not yet supplied';
  const setCut=(patch)=>{setManualEdits(true);setCuts(old=>old.map((c,i)=>i===activeIndex?{...c,...patch}:c));};
@@ -251,16 +265,27 @@ export default function AdminAutoVideoEditor(){
   if(!project?.slug||!voice||!workspaceReady.current)return;
   saveVoice(project.slug,format,voice).catch(e=>setWorkspaceNotice('Audio could not be saved to the device: '+e.message));
  },[voice,format,project?.slug]);
- const doExport=async()=>{
-  if(!currentlyReady)return;
-  setWorking(true);setStatus('Preparing the real-footage MP4…');setResultUrl('');setResultBlob(null);
+ const doExport=async(testMode=false)=>{
+  const problem=testMode?testProblem:exportProblem;
+  if(working||problem){setRenderError(problem||'Another video job is already running.');return;}
+  setWorking(true);setRenderError('');setStatus('Preparing real footage for MP4 export…');
+  setResultUrl('');setResultBlob(null);setResultKind('');
   try{
-   const blob=await exportAutoVideo({cuts,assets,format,voiceFile:voice,onStatus:setStatus});
+   const blob=await exportAutoVideo({
+    cuts:testMode?testCuts:cuts,assets,format,voiceFile:testMode?null:voice,
+    onStatus:setStatus
+   });
+   if(blob.size<5000)throw new Error('The rendered video file was empty.');
    const url=URL.createObjectURL(blob);setResultUrl(url);setResultBlob(blob);
-   setStatus('Finished MP4 ready to preview and download. This video has NOT been posted anywhere.');
-  }catch(e){setStatus('Export did not complete: '+e.message);}
-  finally{setWorking(false);}
+   setResultKind(testMode?'Silent 6-second export test':'Your edited video'+(voice?' with voiceover':' (silent)'));
+   setStatus(testMode?'Export test succeeded — play and download the real boxing footage below.':'MP4 created. Review and download it below; nothing was published.');
+  }catch(e){
+   const reason=String(e?.message||e);
+   setRenderError(reason);
+   setStatus('Export could not complete. Read the error below; you can retry a small silent test without losing your recording.');
+  }finally{setWorking(false);}
  };
+ useEffect(()=>()=>{if(resultUrl)URL.revokeObjectURL(resultUrl);},[resultUrl]);
  const sourceRefs=(project?.sources||[]).filter(s=>/^https?:\/\//.test(s.url||''));
  const srtTime=t=>{
   const v=Math.max(0,Math.floor(t*1000)),h=Math.floor(v/3600000),m=Math.floor(v/60000)%60,s=Math.floor(v/1000)%60,ms=v%1000;
@@ -370,19 +395,26 @@ export default function AdminAutoVideoEditor(){
       <button onClick={startVoice} disabled={recording}>● Record</button><button onClick={stopVoice} disabled={!recording}>■ Stop</button>
      </div>
      <label className="aura-edit-audio-upload">Or upload a voice recording<input type="file" accept="audio/*" onChange={e=>setVoice(e.target.files?.[0]||null)}/></label>
-     {voiceUrl&&<audio controls src={voiceUrl}/>}
+     {voiceUrl&&<audio controls src={voiceUrl} onLoadedMetadata={e=>setVoiceSeconds(e.currentTarget.duration||0)}/>}
+     {voiceSeconds>total+2&&<small className="aura-edit-export-warning">Your voiceover is {time(voiceSeconds)} but the current video lasts {time(total)}. The export will end when the video ends. Trim your narration or extend the video for a natural ending.</small>}
      <small className="aura-edit-hint">Listen back, review the script and adjust clip lengths to your speaking pace.</small>
     </section>
     <section className="aura-edit-card aura-edit-export">
      <div className="aura-edit-panel-head"><h2>4. Export video</h2><span>MP4</span></div>
      <p>{format==='shorts'?'Vertical video, optimised for TikTok / Reels / YouTube Shorts.':'Widescreen analysis, designed for YouTube.'}</p>
-     <button type="button" className="aura-edit-primary" onClick={doExport} disabled={!currentlyReady}>▶ Render finished MP4</button>
-     {cuts.length>0&&!rightsReady&&<small>Review the footage source usage to enable rendering.</small>}
-     {cuts.length===0&&<small>Assemble your real video first.</small>}
+     <p className="aura-edit-export-details">{renderBudget.width} × {renderBudget.height} · {renderBudget.fps} fps · up to {renderBudget.durationLimit}s on this device</p>
+     <button type="button" className="aura-edit-primary" onClick={()=>doExport(false)} disabled={!currentlyReady}>▶ {voice?'Export MP4 with my narration':'Export silent MP4'}</button>
+     <button type="button" onClick={()=>doExport(true)} disabled={working||Boolean(testProblem)}>Test export first — 6 seconds, no audio</button>
+     {exportProblem&&<p className="aura-edit-export-warning" role="status">{exportProblem}</p>}
+     {!exportProblem&&voice&&<small className="aura-edit-hint">Recorded voiceover will be included. Use the small silent test if audio mixing fails.</small>}
+     {renderError&&<div className="aura-edit-render-error" role="alert">
+      <strong>Video export failed</strong><p>{renderError}</p>
+      <button type="button" onClick={()=>{if(typeof navigator!=='undefined'&&navigator.clipboard)navigator.clipboard.writeText(renderError).then(()=>setStatus('Copied error to clipboard.')).catch(()=>{});}}>Copy the export error</button>
+     </div>}
      {cuts.length>0&&<button type="button" onClick={exportCaptions}>Download timed subtitles (.srt)</button>}
-     {resultUrl&&<div className="aura-edit-rendered"><strong>Finished edit</strong><video src={resultUrl} controls playsInline/>
-      <button type="button" onClick={()=>save(resultBlob,project.slug+'-'+format+'.mp4')}>Download finished MP4</button></div>}
-     <small className="aura-edit-hint">Current export runs in your browser without Lovable/API credits. It may be too memory-intensive for long footage on phones; desktop Chrome is recommended. No automatic social publishing.</small>
+     {resultUrl&&<div className="aura-edit-rendered"><strong>{resultKind||'Your MP4'}</strong><video src={resultUrl} controls playsInline/>
+      <button type="button" onClick={()=>save(resultBlob,project.slug+'-'+format+(resultKind.startsWith('Silent')?'-test':'')+'.mp4')}>Download MP4</button></div>}
+     <small className="aura-edit-hint">Small videos are exported directly on your device. Longer videos need a server-rendering worker, especially on iPhone. No Lovable credits or automatic posting.</small>
     </section>
    </aside>
   </div>:<div className="aura-edit-loading">{status||'Opening your fight production…'}</div>}
