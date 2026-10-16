@@ -12,6 +12,11 @@ on:
       - 'src/data/boxingPhotography.js'
       - 'src/styles/aura-top50.css'
       - 'scripts/audit-aura-top50.mjs'
+      - 'scripts/audit-fighter-photo-url-health.mjs'
+      - 'src/data/fighterUpcoming.js'
+      - 'scripts/generate-sitemaps.mjs'
+      - 'scripts/prerender-seo.mjs'
+      - 'scripts/verify-prerender.mjs'
       - 'src/components/Header.jsx'
       - 'src/styles/fight-hub.css'
       - 'src/AppRouter.jsx'
@@ -31,4 +36,5 @@ jobs:
           node-version: '22'
       - run: npm install --no-package-lock --no-audit --no-fund
       - run: node scripts/audit-aura-top50.mjs
+      - run: node scripts/audit-fighter-photo-url-health.mjs
       - run: npm run build
