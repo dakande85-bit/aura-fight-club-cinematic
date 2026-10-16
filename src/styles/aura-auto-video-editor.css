@@ -84,3 +84,6 @@
 .aura-edit-foot{text-align:center;color:#77899b;margin-top:25px;font-size:12px}
 @media(max-width:1050px){.aura-edit-workspace{grid-template-columns:minmax(0,1fr)}.aura-edit-viewer-panel{position:static}.aura-edit-top{align-items:stretch}.aura-edit-formats{align-self:end}}
 @media(max-width:640px){.aura-edit-main{padding:93px 14px 40px}.aura-edit-header{align-items:start;flex-direction:column}.aura-edit-header-links{gap:12px}.aura-edit-top{flex-direction:column;align-items:stretch}.aura-edit-select{max-width:100%}.aura-edit-formats{align-self:stretch}.aura-edit-formats button{flex:1;padding:12px 8px}.aura-edit-viewer-panel,.aura-edit-card{padding:14px}.aura-edit-screen.vertical{max-height:450px}.aura-edit-upload-grid{grid-template-columns:1fr 1fr}.aura-edit-upload{padding:12px 8px}.aura-edit-inline-buttons button{flex:auto}}
+
+.aura-edit-asset-actions{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.aura-edit-asset-actions button{padding:5px 8px!important;font-size:11px!important}
