@@ -39,8 +39,9 @@ export function planCuts({script,format='shorts',assets=[]}){
  for(let i=0;i<beats.length;i++){
    const beat=beats[i],asset=chooseAsset(assets,beat.role,i);
    if(used>=max)break;
-   const amount=Math.min(Math.max(0,Math.round((max-used)*10)/10),Math.round(beat.duration*10)/10);
-   if(amount<0.2)break;
+   const available=asset && Number.isFinite(asset.duration) ? Math.max(0,asset.duration-0.05) : Infinity;
+   const amount=Math.min(Math.max(0,Math.round((max-used)*10)/10),Math.round(beat.duration*10)/10,Math.floor(available*10)/10);
+   if(amount<0.2){if(!asset)break;continue;}
    let start=0;
    if(asset){
     const peaks=(asset.peaks||[]).filter(p=>Number.isFinite(p.time)&&p.time>=0&&p.time<asset.duration-amount);
