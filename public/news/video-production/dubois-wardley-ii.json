@@ -33,6 +33,18 @@
       "rightsNotes": "Research link only. Link may be watched/embedded, not automatically downloaded."
     },
     {
+      "id": "official-faceoff",
+      "title": "DAZN Boxing — Dubois vs Wardley II face-off",
+      "kind": "faceoff",
+      "publisher": "DAZN Boxing",
+      "url": "https://www.youtube.com/watch?v=2W33Uyr3KBc",
+      "published": "2026-09-18",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Official rematch face-off, reference only; assess lawful reuse separately."
+    },
+    {
       "id": "first-fight-press",
       "title": "Seconds Out — First fight final press conference",
       "kind": "press",
@@ -76,7 +88,7 @@
     {
       "purpose": "Counterpoint",
       "description": "Show Wardley at a press conference or face-off",
-      "preferredSource": "recent-faceoff"
+      "preferredSource": "official-faceoff"
     },
     {
       "purpose": "Prediction",
