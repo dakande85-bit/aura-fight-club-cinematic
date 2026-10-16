@@ -8,6 +8,8 @@ on:
       - 'src/styles/aura-auto-video-editor.css'
       - 'src/lib/auraAutoCut.js'
       - 'src/lib/auraBrowserExport.js'
+      - 'src/lib/auraExportProfile.js'
+      - 'tests/filmroom-export-profile.test.mjs'
       - 'tests/auto-video-editor.test.mjs'
       - 'tests/footage-sources.test.mjs'
       - 'tests/demo-boxing-api.test.mjs'
@@ -55,6 +57,7 @@ jobs:
       - name: Verify auto-scene-cut planning
         run: |
           node --test tests/auto-video-editor.test.mjs
+          node --test tests/filmroom-export-profile.test.mjs
           node --test tests/footage-sources.test.mjs
           node --test tests/demo-boxing-api.test.mjs
       - name: Verify site build with the new admin route
