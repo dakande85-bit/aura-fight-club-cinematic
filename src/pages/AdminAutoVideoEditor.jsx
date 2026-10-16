@@ -50,7 +50,7 @@ export default function AdminAutoVideoEditor(){
  const [progress,setProgress]=useState(0);
  const [resultUrl,setResultUrl]=useState('');
  const [resultBlob,setResultBlob]=useState(null);
- const videoRef=useRef(null),recorderRef=useRef(null),chunksRef=useRef([]),assetUrls=useRef(new Map());
+ const videoRef=useRef(null),recorderRef=useRef(null),chunksRef=useRef([]),assetUrls=useRef(new Map()),narrationRef=useRef(null);
  const [voiceUrl,setVoiceUrl]=useState('');
 
  useEffect(()=>{
@@ -131,7 +131,19 @@ export default function AdminAutoVideoEditor(){
   setManualEdits(false);setCuts(result);setActiveIndex(0);setIsPlaying(false);setResultUrl('');setResultBlob(null);
   setStatus(`A ${result.length}-scene rough cut has been assembled from real uploaded video. Review the actual exchanges and adjust any incorrect selections before publishing.`);
  };
- const play=useCallback(()=>{setActiveIndex(0);setIsPlaying(true);},[]);
+ const play=useCallback(()=>{
+  const audio=narrationRef.current;if(audio){audio.currentTime=0;audio.play().catch(()=>{});}
+  setActiveIndex(0);setIsPlaying(true);
+ },[]);
+ useEffect(()=>{
+  const v=videoRef.current;
+  if(!isPlaying||!v||!selected)return;
+  try{v.currentTime=Math.max(0,selected.start);}catch{}
+  v.play().catch(()=>{});
+ },[isPlaying,activeIndex,asset?.objectUrl]);
+ useEffect(()=>{
+  if(!isPlaying){narrationRef.current?.pause();}
+ },[isPlaying]);
  const handleLoaded=()=>{
   const v=videoRef.current,c=cuts[activeIndex];if(!v||!c)return;
   try{v.currentTime=Math.min(c.start,Math.max(0,v.duration-.1));}catch{}
@@ -140,10 +152,10 @@ export default function AdminAutoVideoEditor(){
  const timeUpdate=()=>{
   const v=videoRef.current,c=cuts[activeIndex];if(!v||!c||!isPlaying)return;
   if(v.currentTime>=Number(c.start)+Number(c.duration)-.08){
-   if(activeIndex<cuts.length-1){setActiveIndex(i=>i+1);}else{setIsPlaying(false);v.pause();}
+   if(activeIndex<cuts.length-1){setActiveIndex(i=>i+1);}else{setIsPlaying(false);v.pause();narrationRef.current?.pause();}
   }
  };
- const selectCut=i=>{setActiveIndex(i);setIsPlaying(false);};
+ const selectCut=i=>{setActiveIndex(i);setIsPlaying(false);narrationRef.current?.pause();};
  const moveCut=(i,d)=>{
   setManualEdits(true);
   setCuts(old=>{const a=[...old],to=i+d;if(to<0||to>=a.length)return old;[a[i],a[to]]=[a[to],a[i]];return a;});
@@ -190,6 +202,18 @@ export default function AdminAutoVideoEditor(){
   finally{setWorking(false);}
  };
  const sourceRefs=(project?.sources||[]).filter(s=>/^https?:\/\//.test(s.url||''));
+ const srtTime=t=>{
+  const v=Math.max(0,Math.floor(t*1000)),h=Math.floor(v/3600000),m=Math.floor(v/60000)%60,s=Math.floor(v/1000)%60,ms=v%1000;
+  return [h,m,s].map(n=>String(n).padStart(2,'0')).join(':')+','+String(ms).padStart(3,'0');
+ };
+ function exportCaptions(){
+  let elapsed=0;
+  const captions=cuts.map((c,i)=>{
+   const from=elapsed;elapsed+=Number(c.duration)||0;
+   return (i+1)+'\\n'+srtTime(from)+' --> '+srtTime(elapsed)+'\\n'+c.narration+'\\n';
+  }).join('\\n');
+  save(new Blob([captions],{type:'text/plain'}),project.slug+'-'+format+'.srt');
+ }
  return <><Header/><main className="aura-edit-main">
   <header className="aura-edit-header">
    <div><p className="aura-edit-kicker">AURA FIGHT CLUB / VIDEO PRODUCTION</p><h1>Film Room Studio</h1>
@@ -210,10 +234,11 @@ export default function AdminAutoVideoEditor(){
     <div className="aura-edit-panel-head"><h2>Video preview</h2><span>{cuts.length?cuts.length+' clips · '+previewDuration:'No video assembled'}</span></div>
     <div className={'aura-edit-screen '+(format==='shorts'?'vertical':'widescreen')}>
      {playable?<video key={asset.objectUrl+'-'+activeIndex} ref={videoRef} controls={!isPlaying} playsInline preload="auto"
-       src={asset.objectUrl} onLoadedMetadata={handleLoaded} onTimeUpdate={timeUpdate} onEnded={timeUpdate} muted={!voice} />:
+       src={asset.objectUrl} onLoadedMetadata={handleLoaded} onTimeUpdate={timeUpdate} onEnded={timeUpdate} muted />:
       <div className="aura-edit-empty-view"><span className="aura-edit-film-icon">▶</span><strong>{assets.length?'Select a clip to preview':'Your scripted rough cut is waiting for genuine footage'}</strong><small>No generated boxers or slideshow placeholders</small></div>}
      {selected&&<div className="aura-edit-viewer-caption"><span>FIGHT INTELLIGENCE</span><strong>{selected.caption||selected.narration?.slice(0,86)||'Review this sequence'}</strong></div>}
     </div>
+    {voiceUrl&&<audio ref={narrationRef} src={voiceUrl} preload="metadata" aria-label="Voiceover preview" hidden/>}
     <div className="aura-edit-viewer-tools">
      <button type="button" onClick={play} disabled={!cuts.length||missing.length>0}>▶ Play assembled edit</button>
      {isPlaying&&<button type="button" onClick={()=>{setIsPlaying(false);videoRef.current?.pause();}}>Pause</button>}
@@ -288,6 +313,7 @@ export default function AdminAutoVideoEditor(){
      <button type="button" className="aura-edit-primary" onClick={doExport} disabled={!currentlyReady}>▶ Render finished MP4</button>
      {cuts.length>0&&!rightsReady&&<small>Review the footage source usage to enable rendering.</small>}
      {cuts.length===0&&<small>Assemble your real video first.</small>}
+     {cuts.length>0&&<button type="button" onClick={exportCaptions}>Download timed subtitles (.srt)</button>}
      {resultUrl&&<div className="aura-edit-rendered"><strong>Finished edit</strong><video src={resultUrl} controls playsInline/>
       <button type="button" onClick={()=>save(resultBlob,project.slug+'-'+format+'.mp4')}>Download finished MP4</button></div>}
      <small className="aura-edit-hint">Current export runs in your browser without Lovable/API credits. It may be too memory-intensive for long footage on phones; desktop Chrome is recommended. No automatic social publishing.</small>
