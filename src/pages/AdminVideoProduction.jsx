@@ -23,6 +23,11 @@ function watchLink(source, at=0) {
   return url.href;
  }catch{return '';}
 }
+function embedLink(source){
+ const link=watchLink(source,0);
+ const id=new URLSearchParams(link.split('?')[1]||'').get('v');
+ return link.includes('youtube.com/watch')&&id?'https://www.youtube-nocookie.com/embed/'+id+'?rel=0':'';
+}
 function seconds(value){return Number(value).toFixed(1)+'s';}
 export default function AdminVideoProduction(){
  const [project,setProject]=useState(null);
@@ -139,7 +144,7 @@ export default function AdminVideoProduction(){
        <input type="file" accept="video/mp4,video/quicktime,video/webm" onChange={e=>attachClip(active.id,e.target.files?.[0])}/>
       </label>
       {localPreview?<div><video key={localPreview} ref={videoRef} src={localPreview} controls playsInline preload="metadata" /><button type="button" onClick={seek}>Jump to in-point</button></div>:
-       <p className="aura-video-tip">Source link available to research. Upload an eligible local copy to preview actual footage here. No video is fetched from YouTube or uploaded to our server.</p>}
+       <div>{embedLink(active)&&<iframe title={active.title+' official video'} src={embedLink(active)} loading="lazy" allow="encrypted-media; picture-in-picture" allowFullScreen/>}<p className="aura-video-tip">Official video embedded for research. Add an eligible local copy for timeline export. The website does not extract or download YouTube footage.</p></div>}
       <label className="aura-video-check"><input type="checkbox" checked={Boolean(active.clearedForExport)} onChange={e=>editSource(active.id,{clearedForExport:e.target.checked})}/> I reviewed the rights or applicable legal exception for this particular source and use.</label>
       <label>Rights / context notes<textarea rows={2} value={active.rightsNotes||''} onChange={e=>editSource(active.id,{rightsNotes:e.target.value})}/></label>
      </div>}
