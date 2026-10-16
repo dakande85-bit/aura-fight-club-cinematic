@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "fightId": "canelo-mbilli",
+  "slug": "canelo-mbilli",
+  "title": "Canelo Alvarez vs Christian Mbilli — AURA Fight Lab",
+  "eventDate": "2026-10-31",
+  "fightStatus": "Scheduled",
+  "eventSourceUrl": "https://www.ringmagazine.com/news/5sfn9dNL3anidcXu6lwavf",
+  "storyUrl": "https://www.aurafightclub.com/news/canelo-mbilli-prediction-analysis",
+  "status": "research_required",
+  "editorialAngle": "",
+  "analysis": {
+    "status": "research_required",
+    "centralQuestion": "What tactical choices will decide Canelo Alvarez vs Christian Mbilli?",
+    "editorialThesis": "",
+    "axes": [
+      {
+        "name": "Lead hand and distance",
+        "question": "What film evidence establishes lead hand and distance?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Foot position, entry and exits",
+        "question": "What film evidence establishes foot position, entry and exits?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Defence, counters and body attacks",
+        "question": "What film evidence establishes defence, counters and body attacks?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Pace, rounds and strategic adjustments",
+        "question": "What film evidence establishes pace, rounds and strategic adjustments?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      }
+    ],
+    "prediction": {
+      "pick": "",
+      "method": "",
+      "condition": "",
+      "confidence": "unrated",
+      "alternatives": ""
+    },
+    "claims": [
+      {
+        "text": "Canelo Alvarez vs Christian Mbilli is on the fight calendar for 2026-10-31.",
+        "sourceUrl": "https://www.ringmagazine.com/news/5sfn9dNL3anidcXu6lwavf",
+        "claimType": "calendar_listing",
+        "verification": "requires_source_review"
+      }
+    ],
+    "linkedArticle": "canelo-mbilli-prediction-analysis",
+    "reviewChecks": [
+      "Verify date, fighters, stakes and broadcast",
+      "Timecode tactical claims with authentic clips",
+      "Include a credible counterargument",
+      "Separate findings and opinion",
+      "Check footage reuse, identities and context"
+    ]
+  },
+  "narrationScript": "",
+  "scripts": {
+    "youtube": {
+      "draft": "",
+      "approved": false,
+      "targetMinutes": [
+        4,
+        8
+      ]
+    },
+    "shorts": {
+      "draft": "",
+      "approved": false,
+      "targetSeconds": [
+        35,
+        60
+      ]
+    }
+  },
+  "deliverables": {
+    "youtube": {
+      "aspect": "16:9",
+      "reviewStatus": "waiting_for_research"
+    },
+    "shorts": {
+      "aspect": "9:16",
+      "reviewStatus": "waiting_for_research"
+    }
+  },
+  "sources": [
+    {
+      "id": "event",
+      "title": "Official event listing — Canelo Alvarez vs Christian Mbilli",
+      "kind": "official_event",
+      "publisher": "The Ring",
+      "url": "https://www.ringmagazine.com/news/5sfn9dNL3anidcXu6lwavf",
+      "verified": false,
+      "candidateStatus": "source_needs_review",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Event verification only. Not a usable video."
+    },
+    {
+      "id": "interview",
+      "title": "Search: Canelo Alvarez vs Christian Mbilli press conference",
+      "kind": "press",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Canelo%20Alvarez%20vs%20Christian%20Mbilli%20press%20conference%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "face-off",
+      "title": "Search: Canelo Alvarez vs Christian Mbilli weigh in face off",
+      "kind": "faceoff",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Canelo%20Alvarez%20vs%20Christian%20Mbilli%20weigh%20in%20face%20off%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "fight-highlights",
+      "title": "Search: Canelo Alvarez vs Christian Mbilli fight highlights",
+      "kind": "fight",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Canelo%20Alvarez%20vs%20Christian%20Mbilli%20fight%20highlights%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    }
+  ],
+  "suggestedBeats": [
+    {
+      "purpose": "Hook",
+      "description": "Use an authentic exchange showing the central tactical question",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Evidence",
+      "description": "Show a real filmed exchange and narrate what is visible",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Counterpoint",
+      "description": "Show a credible tactical response or answer",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Context",
+      "description": "Use genuine press or face-off footage to illustrate the stakes",
+      "preferredSource": "interview"
+    },
+    {
+      "purpose": "Verdict",
+      "description": "Summarise conditional prediction and alternative",
+      "preferredSource": "face-off"
+    }
+  ],
+  "shots": [],
+  "voiceoverFile": "",
+  "voiceoverFiles": {
+    "youtube": "",
+    "shorts": ""
+  },
+  "notes": "Automatically selected fight from Aura's fight calendar. All video links are research leads only and have no extraction/reuse clearance."
+}
