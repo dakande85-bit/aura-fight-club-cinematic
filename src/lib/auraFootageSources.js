@@ -56,6 +56,10 @@ export async function fetchDirectVideo(url,{maxBytes=250*1024*1024,onProgress}={
  let response;
  try{response=await fetch(valid,{mode:'cors',credentials:'omit',redirect:'follow'});}
  catch{throw new Error('The video host blocked direct imports (CORS). Use the source website’s Download option, then upload the saved MP4.');}
+ const ultimate=new URL(response.url);
+ if(ultimate.protocol!=='https:' || YOUTUBE_HOSTS.has(ultimate.hostname.toLowerCase()) || /(^|\\.)googlevideo\\.com$/i.test(ultimate.hostname)){
+  throw new Error('This link redirects to a protected streaming service rather than an authorised downloadable file.');
+ }
  if(!response.ok)throw new Error('The video file could not be opened (HTTP '+response.status+').');
  const type=response.headers.get('content-type')||'';
  if(!/^video\//i.test(type) && !/^(application\/octet-stream|binary\/octet-stream)/i.test(type) && type!==''){
