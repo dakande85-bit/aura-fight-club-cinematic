@@ -7,7 +7,11 @@ on:
       - 'src/styles/aura-video-production.css'
       - 'src/AppRouter.jsx'
       - 'scripts/render-real-footage-short.py'
+      - 'scripts/render-fight-production.py'
+      - 'scripts/build-video-production-queue.py'
+      - 'scripts/seed-video-narrations.py'
       - 'tests/test_real_footage_renderer.py'
+      - 'tests/test_video_production_pipeline.py'
       - 'public/news/video-production/**'
       - '.github/workflows/aura-real-footage-ci.yml'
   workflow_dispatch:
@@ -26,7 +30,8 @@ jobs:
           python-version: '3.12'
       - name: Test cut selection, provenance and file isolation
         run: |
-          python -m py_compile scripts/render-real-footage-short.py
+          python -m py_compile scripts/render-real-footage-short.py scripts/render-fight-production.py scripts/build-video-production-queue.py scripts/seed-video-narrations.py
+          python -m unittest discover -s tests -p 'test_video_production_pipeline.py' -v
           python -m unittest discover -s tests -p 'test_real_footage_renderer.py' -v
       - uses: actions/setup-node@v4
         with:
