@@ -51,6 +51,24 @@ try{
  await page.getByText('Film Room Studio').first().waitFor({state:'visible'});
  await page.locator('textarea[aria-label="Narration script"]').waitFor({state:'visible',timeout:35000});
  await saveScreenshot('initial-editor');
+ // Important regression: simulate real user tapping the one-click demo.
+ await page.getByRole('button',{name:/Load test boxing footage/}).click();
+ await page.locator('.aura-edit-asset').first().waitFor({state:'visible',timeout:65000});
+ await page.waitForFunction(()=>{
+  const el=document.querySelector('.aura-edit-screen video');
+  return Boolean(el && el.readyState>=1 && el.videoWidth>0);
+ },null,{timeout:45000});
+ await page.locator('.aura-edit-screen video').first().evaluate(async video=>{
+  await video.play().catch(()=>{});
+  if(video.readyState<2)await new Promise((resolve,reject)=>{
+   const timer=setTimeout(()=>reject(new Error('iPhone video preview never reached HAVE_CURRENT_DATA')),10000);
+   video.addEventListener('loadeddata',()=>{clearTimeout(timer);resolve();},{once:true});
+  });
+  if(video.videoWidth<100)throw new Error('The test MP4 has no playable video dimensions.');
+ });
+ await saveScreenshot('real-demo-footage-visible');
+ console.log('One-click static real-footage playback PASS');
+ await page.locator('.aura-edit-asset-actions button').filter({hasText:/Remove/}).first().click();
  await page.getByRole('tab',{name:/Bring in footage/}).click();
  await page.locator('.aura-finder-drop input[type=file]').setInputFiles(fixture);
  await page.locator('.aura-edit-asset').first().waitFor({state:'visible',timeout:55000});
