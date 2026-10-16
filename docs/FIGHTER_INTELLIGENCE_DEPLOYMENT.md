@@ -46,6 +46,14 @@ This creates optimized `public/assets/fighters/licensed/sebastian-fundora.webp`,
 
 Run `npm run fighters:portrait:audit` to check override integrity. The summary prints the remaining rights-pending public profiles.
 
+## Optional legally conservative launch configuration
+
+To publish functional fighter rankings while any external portrait permissions remain unresolved, use `VITE_AURA_FIGHTER_MEDIA_RIGHTS_STRICT=true` as the Vercel **build-time environment variable**, then build/deploy normally. This mode blocks requests for rights-unconfirmed third-party photography in the Fighter Intelligence component and shows original local illustrations or labelled name placeholders. It **does not** alter the rankings, records, scouting content, links or comparison statistics. It does not cover other legacy parts of the site that render external photos through separate components.
+
+You can reproduce the safe build locally using `npm run build:rights-safe`. The GitHub Browser QA workflow tests both the normal editorial preview and this strict variant. When signed proof and approved local photos have been recorded using the importer, those images remain visible even in rights-strict mode.
+
+**Visual trade-off:** until licensed replacements are supplied, portraits subject to restrictions appear as placeholders. If fighter photography is essential to public launch, obtain the relevant licenses before switching from preview to production; do not turn off rights-strict mode solely to conceal a permissions problem.
+
 ## Release, rollback and ownership
 
 - No Lovable calls or credits were used. Deploy through the existing GitHub-to-Vercel integration after explicit release approval and the rights review.
