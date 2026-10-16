@@ -61,7 +61,7 @@ export default function AuraFootageFinder({project,onAddFile,working=false,onNot
   if(file.size>350*1024*1024){notify('Choose a video under 350 MB for this browser editor. Trim longer footage first.');return;}
   setImporting(true);
   try{
-   await onAddFile?.(file,kind);
+   await onAddFile?.(file,kind,chosen?.url||'');
    notify(file.name+' added to the Film Room timeline sources. The editor can now analyse and cut the actual video.');
    setSection('files');
   }catch(e){notify('Video import failed: '+e.message);}
@@ -74,7 +74,7 @@ export default function AuraFootageFinder({project,onAddFile,working=false,onNot
   setImporting(true);setPct(0);
   try{
    const file=await fetchDirectVideo(direct,{onProgress:setPct});
-   await onAddFile?.(file,customKind);
+   await onAddFile?.(file,customKind,direct);
    notify('Downloaded authorised video file into this editor: '+file.name+'. You can now trim it.');
    setDirect('');setSection('files');
   }catch(e){notify(e.message);}
