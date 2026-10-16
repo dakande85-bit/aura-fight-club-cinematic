@@ -210,8 +210,8 @@ export default function AdminAutoVideoEditor(){
   let elapsed=0;
   const captions=cuts.map((c,i)=>{
    const from=elapsed;elapsed+=Number(c.duration)||0;
-   return (i+1)+'\\n'+srtTime(from)+' --> '+srtTime(elapsed)+'\\n'+c.narration+'\\n';
-  }).join('\\n');
+   return (i+1)+'\n'+srtTime(from)+' --> '+srtTime(elapsed)+'\n'+c.narration+'\n';
+  }).join('\n');
   save(new Blob([captions],{type:'text/plain'}),project.slug+'-'+format+'.srt');
  }
  return <><Header/><main className="aura-edit-main">
