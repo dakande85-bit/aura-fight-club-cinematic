@@ -15,16 +15,24 @@ const errors=[];
 const observed=[];
 let failures=0;
 
-async function assert(name,test,page){
- const passed=await test();
+async function assert(name,test,page) {
+ let passed=false;
+ const deadline=Date.now()+3500;
+ // React replaces server-prerendered HTML asynchronously; allow the UI to settle.
+ do {
+  try {passed=Boolean(await test());} catch {passed=false;}
+  if(passed) break;
+  await page?.waitForTimeout(100);
+ } while(Date.now()<deadline);
  observed.push({name,passed});
  if(!passed){failures++;console.error('FAIL '+name+' '+(page?.url()||''));}
  else console.log('PASS '+name);
 }
 async function openPage(page,path) {
  await page.goto(origin+path,{waitUntil:'domcontentloaded',timeout:25000});
- await page.locator('main').waitFor({timeout:25000});
- await page.waitForTimeout(500);
+ // Wait for the interactive React shell, not the prerendered static <main>.
+ await page.locator('main.aura-editorial, main.aura-compare-page').waitFor({timeout:25000});
+ await page.waitForTimeout(100);
 }
 async function screenshot(page,name){
  await page.screenshot({path:`${output}/${name}.png`,animations:'disabled',timeout:30000});
