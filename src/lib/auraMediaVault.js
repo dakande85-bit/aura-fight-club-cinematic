@@ -76,8 +76,8 @@ export const DEMO={
  id:'aura-public-domain-boxing-demo',
  title:'1891 boxing film — public-domain workflow test',
  original:'https://commons.wikimedia.org/wiki/File:Men_Boxing.webm',
- mediaUrl:'/api/demo-boxing',
- downloadUrl:'https://upload.wikimedia.org/wikipedia/commons/0/07/Men_Boxing.webm',
+ mediaUrl:'/demos/boxing-1891-test.mp4',
+ downloadUrl:'/demos/boxing-1891-test.mp4',
  kind:'fight',
  credit:'Men Boxing (1891), W. K. L. Dickson and William Heise, Library of Congress; public-domain original film via Wikimedia Commons.',
  script:'This is a Film Room demonstration using genuine historic boxing footage from 1891. The editor cuts the source into short segments, places them on a timeline, and allows you to adjust the shots and record narration. This is a workflow test, not footage of a modern championship fight.'
@@ -87,15 +87,15 @@ export async function loadDemoFile({onProgress}={}){
  try{
   response=await fetch(DEMO.mediaUrl,{mode:'cors',credentials:'omit'});
  }catch{
-  throw new Error('Wikimedia blocked the demo download in this browser. Use the download link below and upload the saved WebM instead.');
+  throw new Error('The built-in test footage could not be requested. Check your internet connection and reload the editor.');
  }
- if(!response.ok)throw new Error('Demo footage unavailable from Wikimedia (HTTP '+response.status+').');
+ if(!response.ok)throw new Error('The test MP4 is missing from this preview (HTTP '+response.status+'). This preview may be outdated; ask for the latest Film Room link.');
  const type=response.headers.get('content-type')||'';
  if(type&&!/^(video\/|application\/octet-stream)/i.test(type))
-   throw new Error('The demo source returned an invalid video response.');
+   throw new Error('The test footage URL returned a web page instead of an MP4. Use the newest Film Room preview.');
  const len=Number(response.headers.get('content-length')||0);
  if(len>10*1024*1024)throw new Error('Demo source exceeds the 10 MB limit.');
- if(!response.body)throw new Error('Streaming video downloads are unsupported; download the demo directly and upload it.');
+ if(!response.body)throw new Error('This browser cannot download the demo automatically; use the MP4 download link and upload it manually.');
  const reader=response.body.getReader(),chunks=[];
  let size=0;
  try{
@@ -110,5 +110,5 @@ export async function loadDemoFile({onProgress}={}){
  }finally{reader.releaseLock();}
  if(size<8192)throw new Error('Demo footage file is incomplete.');
  onProgress?.(100);
- return new File(chunks,'men-boxing-1891-public-domain-demo.webm',{type:'video/webm'});
+ return new File(chunks,'aura-boxing-1891-demo.mp4',{type:'video/mp4'});
 }
