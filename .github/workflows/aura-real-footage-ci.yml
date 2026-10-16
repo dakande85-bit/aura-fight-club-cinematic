@@ -9,6 +9,10 @@ on:
       - 'src/lib/auraAutoCut.js'
       - 'src/lib/auraBrowserExport.js'
       - 'tests/auto-video-editor.test.mjs'
+      - 'tests/footage-sources.test.mjs'
+      - 'src/lib/auraFootageSources.js'
+      - 'src/components/AuraFootageFinder.jsx'
+      - 'src/styles/aura-footage-finder.css'
       - 'package.json'
       - 'src/styles/aura-video-production.css'
       - 'src/AppRouter.jsx'
@@ -46,7 +50,9 @@ jobs:
         with:
           node-version: '22'
       - name: Verify auto-scene-cut planning
-        run: node --test tests/auto-video-editor.test.mjs
+        run: |
+          node --test tests/auto-video-editor.test.mjs
+          node --test tests/footage-sources.test.mjs
       - name: Verify site build with the new admin route
         run: |
           npm install --no-package-lock --no-audit --no-fund
