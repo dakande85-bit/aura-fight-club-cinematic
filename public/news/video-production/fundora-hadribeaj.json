@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "fightId": "fundora-hadribeaj",
+  "slug": "fundora-hadribeaj",
+  "title": "Sebastian Fundora vs Ermal Hadribeaj — AURA Fight Lab",
+  "eventDate": "2026-10-17",
+  "fightStatus": "Scheduled",
+  "eventSourceUrl": "https://www.premierboxingchampions.com/sebastian-fundora-vs-ermal-hadribeaj",
+  "storyUrl": "https://www.aurafightclub.com/news/jermall-charlo-injury-resendiz-replacement-fundora-card-2026",
+  "status": "research_required",
+  "editorialAngle": "",
+  "analysis": {
+    "status": "research_required",
+    "centralQuestion": "What tactical choices will decide Sebastian Fundora vs Ermal Hadribeaj?",
+    "editorialThesis": "",
+    "axes": [
+      {
+        "name": "Lead hand and distance",
+        "question": "What film evidence establishes lead hand and distance?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Foot position, entry and exits",
+        "question": "What film evidence establishes foot position, entry and exits?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Defence, counters and body attacks",
+        "question": "What film evidence establishes defence, counters and body attacks?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Pace, rounds and strategic adjustments",
+        "question": "What film evidence establishes pace, rounds and strategic adjustments?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      }
+    ],
+    "prediction": {
+      "pick": "",
+      "method": "",
+      "condition": "",
+      "confidence": "unrated",
+      "alternatives": ""
+    },
+    "claims": [
+      {
+        "text": "Sebastian Fundora vs Ermal Hadribeaj is on the fight calendar for 2026-10-17.",
+        "sourceUrl": "https://www.premierboxingchampions.com/sebastian-fundora-vs-ermal-hadribeaj",
+        "claimType": "calendar_listing",
+        "verification": "requires_source_review"
+      }
+    ],
+    "linkedArticle": "jermall-charlo-injury-resendiz-replacement-fundora-card-2026",
+    "reviewChecks": [
+      "Verify date, fighters, stakes and broadcast",
+      "Timecode tactical claims with authentic clips",
+      "Include a credible counterargument",
+      "Separate findings and opinion",
+      "Check footage reuse, identities and context"
+    ]
+  },
+  "narrationScript": "",
+  "scripts": {
+    "youtube": {
+      "draft": "",
+      "approved": false,
+      "targetMinutes": [
+        4,
+        8
+      ]
+    },
+    "shorts": {
+      "draft": "",
+      "approved": false,
+      "targetSeconds": [
+        35,
+        60
+      ]
+    }
+  },
+  "deliverables": {
+    "youtube": {
+      "aspect": "16:9",
+      "reviewStatus": "waiting_for_research"
+    },
+    "shorts": {
+      "aspect": "9:16",
+      "reviewStatus": "waiting_for_research"
+    }
+  },
+  "sources": [
+    {
+      "id": "event",
+      "title": "Official event listing — Sebastian Fundora vs Ermal Hadribeaj",
+      "kind": "official_event",
+      "publisher": "Premier Boxing Champions",
+      "url": "https://www.premierboxingchampions.com/sebastian-fundora-vs-ermal-hadribeaj",
+      "verified": false,
+      "candidateStatus": "source_needs_review",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Event verification only. Not a usable video."
+    },
+    {
+      "id": "interview",
+      "title": "Search: Sebastian Fundora vs Ermal Hadribeaj press conference",
+      "kind": "press",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Sebastian%20Fundora%20vs%20Ermal%20Hadribeaj%20press%20conference%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "face-off",
+      "title": "Search: Sebastian Fundora vs Ermal Hadribeaj weigh in face off",
+      "kind": "faceoff",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Sebastian%20Fundora%20vs%20Ermal%20Hadribeaj%20weigh%20in%20face%20off%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "fight-highlights",
+      "title": "Search: Sebastian Fundora vs Ermal Hadribeaj fight highlights",
+      "kind": "fight",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Sebastian%20Fundora%20vs%20Ermal%20Hadribeaj%20fight%20highlights%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    }
+  ],
+  "suggestedBeats": [
+    {
+      "purpose": "Hook",
+      "description": "Use an authentic exchange showing the central tactical question",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Evidence",
+      "description": "Show a real filmed exchange and narrate what is visible",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Counterpoint",
+      "description": "Show a credible tactical response or answer",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Context",
+      "description": "Use genuine press or face-off footage to illustrate the stakes",
+      "preferredSource": "interview"
+    },
+    {
+      "purpose": "Verdict",
+      "description": "Summarise conditional prediction and alternative",
+      "preferredSource": "face-off"
+    }
+  ],
+  "shots": [],
+  "voiceoverFile": "",
+  "voiceoverFiles": {
+    "youtube": "",
+    "shorts": ""
+  },
+  "notes": "Automatically selected fight from Aura's fight calendar. All video links are research leads only and have no extraction/reuse clearance."
+}
