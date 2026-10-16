@@ -1,0 +1,37 @@
+name: Validate real boxing footage studio
+
+on:
+  pull_request:
+    paths:
+      - 'src/pages/AdminVideoProduction.jsx'
+      - 'src/styles/aura-video-production.css'
+      - 'src/AppRouter.jsx'
+      - 'scripts/render-real-footage-short.py'
+      - 'tests/test_real_footage_renderer.py'
+      - 'public/news/video-production/**'
+      - '.github/workflows/aura-real-footage-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test cut selection, provenance and file isolation
+        run: |
+          python -m py_compile scripts/render-real-footage-short.py
+          python -m unittest discover -s tests -p 'test_real_footage_renderer.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify site build with the new admin route
+        run: |
+          npm install --no-package-lock --no-audit --no-fund
+          npm run build
