@@ -38,6 +38,9 @@ export default function AdminVideoProduction(){
  const [activeId,setActiveId]=useState('first-fight-highlights');
  const [uploaded,setUploaded]=useState({});
  const [voiceFile,setVoiceFile]=useState(null);
+ const [recording,setRecording]=useState(false);
+ const recorderRef=useRef(null);
+ const recordingChunksRef=useRef([]);
  const [start,setStart]=useState('0');
  const [end,setEnd]=useState('3');
  const [purpose,setPurpose]=useState('Tactical evidence');
@@ -80,6 +83,8 @@ export default function AdminVideoProduction(){
   const active=useMemo(()=>project?.sources.find(s=>s.id===activeId)||project?.sources[0],[project,activeId]);
  const clipFile=active?uploaded[active.id]:null;
  const localPreview=useMemo(()=>clipFile?URL.createObjectURL(clipFile):null,[clipFile]);
+ const voicePreview=useMemo(()=>voiceFile?URL.createObjectURL(voiceFile):null,[voiceFile]);
+ useEffect(()=>()=>{if(voicePreview)URL.revokeObjectURL(voicePreview);},[voicePreview]);
  useEffect(()=>()=>{if(localPreview)URL.revokeObjectURL(localPreview);},[localPreview]);
  const total=useMemo(()=>project?.shots.reduce((sum,s)=>sum+(Number(s.out)-Number(s.in)),0)||0,[project]);
  const missing=useMemo(()=>project?.shots.filter(shot=>{
@@ -95,6 +100,38 @@ export default function AdminVideoProduction(){
   setStatus('Video attached in this browser only. Review each source before exporting the final MP4.');
  }
  function attachVoice(file){setVoiceFile(file);patch(p=>({...p,voiceoverFile:file?.name||''}));}
+ async function startRecording(){
+   if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){setStatus('Recording is unsupported by this browser. Use the audio upload control instead.');return;}
+   try{
+     const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+     const candidates=['audio/mp4','audio/webm;codecs=opus','audio/webm'];
+     const mime=candidates.find(m=>MediaRecorder.isTypeSupported(m));
+     const recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);
+     recordingChunksRef.current=[];recorderRef.current=recorder;
+     const forChannel=scriptFormat;
+     recorder.ondataavailable=event=>{if(event.data?.size)recordingChunksRef.current.push(event.data);};
+     recorder.onstop=()=>{
+       const type=recorder.mimeType||'audio/webm';
+       const extension=type.includes('mp4')?'m4a':'webm';
+       const name='aura-'+project.slug+'-'+forChannel+'-narration.'+extension;
+       const file=new File(recordingChunksRef.current,name,{type});
+       stream.getTracks().forEach(track=>track.stop());
+       setRecording(false);
+       setVoiceFile(file);
+       patch(p=>({...p,voiceoverFiles:{...p.voiceoverFiles,[forChannel]:file.name},voiceoverFile:file.name}));
+       setStatus('Narration recorded. Listen back and download the audio file for the video rendering worker.');
+     };
+     recorder.onerror=()=>{stream.getTracks().forEach(track=>track.stop());setRecording(false);setStatus('Microphone recording failed.');};
+     recorder.start();setRecording(true);setStatus('Microphone recording started. Stop when your reading is complete.');
+   }catch(e){setStatus('Microphone unavailable: '+(e?.message||String(e)));}
+ }
+ function stopRecording(){if(recorderRef.current?.state==='recording')recorderRef.current.stop();}
+ function downloadNarration(){
+   if(!voiceFile)return;
+   const url=URL.createObjectURL(voiceFile);const a=document.createElement('a');
+   a.href=url;a.download=voiceFile.name;document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(url),3000);
+ }
  function addSource(){
   const id='source-'+Date.now();
   patch(p=>({...p,sources:[...p.sources,{
@@ -249,7 +286,13 @@ export default function AdminVideoProduction(){
     <label>Attach your recorded {scriptFormat==='youtube'?'YouTube':'Shorts'} voiceover (MP3/WAV/M4A)
      <input type="file" accept="audio/*" onChange={e=>{const file=e.target.files?.[0];setVoiceFile(file);patch(p=>({...p,voiceoverFiles:{...p.voiceoverFiles,[scriptFormat]:file?.name||''},voiceoverFile:file?.name||''}));}}/>
     </label>
-    <p className="aura-video-sub">{voiceFile?'This session: '+voiceFile.name:'Narration files are held locally. Upload and review each format before MP4 export.'}</p>
+    <div className="aura-video-recording-controls">
+      <button type="button" disabled={recording} onClick={startRecording}><span aria-hidden="true">●</span> Record your narration</button>
+      <button type="button" disabled={!recording} onClick={stopRecording}>■ Stop recording</button>
+      <button type="button" disabled={!voiceFile} onClick={downloadNarration}>Download recorded audio</button>
+    </div>
+    {voicePreview&&<audio controls src={voicePreview} preload="metadata" aria-label="Recorded narration playback"/>}
+    <p className="aura-video-sub">{voiceFile?'This session: '+voiceFile.name:'You can record and listen in the browser. The recording is not sent to the backend yet; keep a downloaded copy for final rendering.'}</p>
    </section>
    <section className="aura-video-panel">
     <h2>6. Export and review</h2>
