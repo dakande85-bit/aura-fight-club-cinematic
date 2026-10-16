@@ -76,7 +76,8 @@ export const DEMO={
  id:'aura-public-domain-boxing-demo',
  title:'1891 boxing film — public-domain workflow test',
  original:'https://commons.wikimedia.org/wiki/File:Men_Boxing.webm',
- mediaUrl:'https://upload.wikimedia.org/wikipedia/commons/0/07/Men_Boxing.webm',
+ mediaUrl:'/api/demo-boxing',
+ downloadUrl:'https://upload.wikimedia.org/wikipedia/commons/0/07/Men_Boxing.webm',
  kind:'fight',
  credit:'Men Boxing (1891), W. K. L. Dickson and William Heise, Library of Congress; public-domain original film via Wikimedia Commons.',
  script:'This is a Film Room demonstration using genuine historic boxing footage from 1891. The editor cuts the source into short segments, places them on a timeline, and allows you to adjust the shots and record narration. This is a workflow test, not footage of a modern championship fight.'
