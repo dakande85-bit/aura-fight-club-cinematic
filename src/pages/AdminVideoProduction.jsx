@@ -147,6 +147,23 @@ export default function AdminVideoProduction(){
   const shot={id:'cut-'+Date.now(),sourceId:active.id,in:i,out:o,purpose,caption:caption.trim().slice(0,95),narration:narration.trim(),formats:cutFormat==='both'?['youtube','shorts']:[cutFormat]};
   patch(p=>({...p,shots:[...p.shots,shot]}));setStatus('Real-video cut added to the edit decision list.');setStart(String(o));setEnd(String(o+3));
  }
+ async function importCandidateCuts(event){
+  const file=event.target.files?.[0];if(!file)return;
+  try{
+   const parsed=JSON.parse(await file.text());
+   if(!Array.isArray(parsed.suggestedCuts)||parsed.fightId!==project.fightId)throw Error('Suggestion file is not for this fight');
+   const sourceIds=new Set(project.sources.map(s=>s.id));
+   const valid=parsed.suggestedCuts.filter(s=>sourceIds.has(s.sourceId) && Number(s.in)>=0 && Number(s.out)>Number(s.in) && Number(s.out)-Number(s.in)<=12);
+   patch(p=>({...p,candidateCuts:[...(p.candidateCuts||[]),...valid]}));
+   setStatus(valid.length+' automatically identified candidates imported. You must inspect the actual footage before approval.');
+  }catch(e){setStatus('Cannot import candidate clips: '+e.message);}
+ }
+ function approveCandidate(candidate){
+  const shot={...candidate,id:'shot-reviewed-'+Date.now(),reviewStatus:'editor_reviewed'};
+  delete shot.score;delete shot.transcriptEvidence;
+  patch(p=>({...p,shots:[...p.shots,shot],candidateCuts:(p.candidateCuts||[]).filter(x=>x.id!==candidate.id)}));
+  setStatus('Clip moved into the edit timeline. Confirm it visually supports any associated analytical claims.');
+ }
  function moveShot(index,diff){
   patch(p=>{
    const shots=[...p.shots],dest=index+diff;
@@ -246,6 +263,22 @@ export default function AdminVideoProduction(){
   </div>
   <section className="aura-video-panel">
    <div className="aura-video-panel-title"><h2>3. Build the timeline</h2><span>{cuts.length} cuts · {seconds(total)}</span></div>
+   <label>Import automatically suggested cut windows (JSON from transcript research)
+     <input type="file" accept="application/json" onChange={importCandidateCuts}/>
+   </label>
+   <p className="aura-video-sub">Transcript cues suggest where action may be mentioned. They do not prove which punch appears on screen; visual review remains essential.</p>
+   {(project.candidateCuts||[]).length>0&&<div className="aura-video-candidates">
+     <h3>Candidate clips awaiting your film review ({project.candidateCuts.length})</h3>
+     {(project.candidateCuts||[]).map((shot,i)=><div className="aura-video-candidate" key={shot.id+'-'+i}>
+       <p><strong>{shot.purpose}</strong> · {seconds(shot.in)}–{seconds(shot.out)}</p>
+       <p className="aura-video-sub">{shot.transcriptEvidence}</p>
+       <div className="aura-video-cut-actions">
+         <button type="button" onClick={()=>{setActiveId(shot.sourceId);setStart(String(shot.in));setEnd(String(shot.out));setStatus('Inspect this source at the selected time before approving the cut.');}}>View source at time</button>
+         <button type="button" onClick={()=>approveCandidate(shot)}>Approve clip to timeline</button>
+         <button type="button" onClick={()=>patch(p=>({...p,candidateCuts:(p.candidateCuts||[]).filter(x=>x.id!==shot.id)}))}>Discard</button>
+       </div>
+     </div>)}
+   </div>}
    {cuts.length?<ol className="aura-video-timeline">{cuts.map((shot,i)=><li key={shot.id}>
     <div className="aura-video-cut-time">{String(i+1).padStart(2,'0')} · {seconds(Number(shot.out)-Number(shot.in))}</div>
     <div><strong>{shot.purpose}</strong><p>{project.sources.find(s=>s.id===shot.sourceId)?.title||shot.sourceId}</p><small>Source {shot.in}s → {shot.out}s · {shot.caption||'No caption'} · {(shot.formats||['youtube','shorts']).join(' + ')}</small></div>
