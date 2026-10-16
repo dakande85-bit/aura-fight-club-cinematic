@@ -45,7 +45,7 @@ def search_url(query):
 
 def pick_article(fight, articles):
     matches = [a for a in articles if a.get("fightId") == fight["id"]]
-    matches.sort(key=lambda a: (str(a.get("date") or ""), int(a.get("priority") or 0)), reverse=True)
+    matches.sort(key=lambda a: (int("prediction" in (a.get("slug") or "") or "technical" in (a.get("slug") or "")), int(a.get("priority") or 0), str(a.get("date") or "")), reverse=True)
     return matches[0] if matches else None
 
 
