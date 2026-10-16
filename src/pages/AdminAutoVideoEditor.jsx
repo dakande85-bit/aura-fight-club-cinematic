@@ -1,6 +1,7 @@
 import {useCallback,useEffect,useMemo,useRef,useState} from 'react';
 import {Link} from 'react-router-dom';
 import Header from '../components/Header.jsx';
+import AuraFootageFinder from '../components/AuraFootageFinder.jsx';
 import Footer from '../components/Footer.jsx';
 import {planCuts,scanActionPeaks} from '../lib/auraAutoCut.js';
 import {exportAutoVideo} from '../lib/auraBrowserExport.js';
@@ -275,21 +276,12 @@ export default function AdminAutoVideoEditor(){
    <aside className="aura-edit-sidebar">
     <section className="aura-edit-card">
      <div className="aura-edit-panel-head"><h2>1. Footage</h2><span>{assets.length} real sources loaded</span></div>
-     <p>Attach footage you can lawfully reuse. The studio analyses motion to suggest rough cuts; it cannot know a specific punch without reviewing that exchange.</p>
-     <div className="aura-edit-upload-grid">
-      {Object.entries(WORDING).map(([kind,title])=><label key={kind} className="aura-edit-upload">
-       <strong>+ {title}</strong><small>Select a video file</small>
-       <input type="file" accept="video/mp4,video/webm,video/quicktime" onChange={e=>addAsset(e.target.files?.[0],kind)}/>
-      </label>)}
-     </div>
+     <p>Search and watch authentic fight videos, add YouTube research references, then upload or import video files for automated scene cuts.</p>
+     <AuraFootageFinder project={project} onAddFile={addAsset} working={working} onNotice={setStatus}/>
      {assets.map(a=><div key={a.id} className="aura-edit-asset">
       <div><strong>{a.title}</strong><small>{WORDING[a.kind]} · {time(a.duration)} · {a.peaks.length} suggested moments</small></div>
       <label><input type="checkbox" checked={a.rightsReviewed} onChange={e=>setAssets(old=>old.map(x=>x.id===a.id?{...x,rightsReviewed:e.target.checked}:x))}/> Usage reviewed</label>
      </div>)}
-     {!assets.length&&<div className="aura-edit-research"><strong>Footage sources we've located</strong>
-      {sourceRefs.slice(0,5).map(s=><a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer">{s.title} ↗</a>)}
-      <small>These are viewing/research links, not downloadable licensed clips.</small>
-     </div>}
     </section>
     <section className="aura-edit-card">
      <div className="aura-edit-panel-head"><h2>2. Narration script</h2><span>Editable</span></div>
