@@ -109,3 +109,8 @@
 .aura-edit-render-error p{font-size:12px;white-space:pre-wrap;line-height:1.5}
 .aura-edit-export>button{display:block;width:100%;margin:10px 0}
 .aura-edit-rendered>video{background:black;border-radius:8px}
+
+/* Stable mobile demo preview. Show real footage before asking users to edit. */
+.aura-edit-demo-controls video{display:block;width:100%;max-width:295px;aspect-ratio:4/3;max-height:200px;object-fit:contain;border-radius:8px;border:1px solid #76634a;background:#000}
+.aura-edit-demo-tip{color:#f3d8a9!important;font-size:12px!important;max-width:650px}
+@media(max-width:700px){.aura-edit-demo-controls video{max-width:100%;max-height:230px}}
