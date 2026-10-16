@@ -60,6 +60,8 @@ export default function AdminAutoVideoEditor(){
  const [voiceUrl,setVoiceUrl]=useState('');
  const [workspaceNotice,setWorkspaceNotice]=useState('');
  const [demoProject,setDemoProject]=useState(false);
+ const [demoPlayerError,setDemoPlayerError]=useState('');
+ const [previewError,setPreviewError]=useState('');
  const workspaceReady=useRef(false);
 
  useEffect(()=>{
@@ -171,6 +173,9 @@ export default function AdminAutoVideoEditor(){
  };
  const loadPublicDemo=async()=>{
   if(!project||working)return;
+  const existing=assets.find(a=>a.referenceUrl===DEMO.original && a.file?.size>0);
+  if(existing){setDemoProject(true);setManualEdits(false);setScript(DEMO.script);setStatus('Existing demo footage restored from this device. Select Play assembled edit.');return;}
+  setDemoPlayerError('');setPreviewError('');
   setWorking(true);setProgress(0);
   setStatus('Fetching historic public-domain boxing footage from Wikimedia Commons…');
   try{
@@ -215,6 +220,7 @@ export default function AdminAutoVideoEditor(){
   if(!isPlaying){narrationRef.current?.pause();}
  },[isPlaying]);
  const handleLoaded=()=>{
+  setPreviewError("");
   const v=videoRef.current,c=cuts[activeIndex];if(!v||!c)return;
   try{v.currentTime=Math.min(c.start,Math.max(0,v.duration-.1));}catch{}
   if(isPlaying)v.play().catch(()=>setIsPlaying(false));
@@ -310,8 +316,12 @@ export default function AdminAutoVideoEditor(){
     <strong>TEST THE EDITOR — no API key or fight download needed</strong>
     <p>Load genuine public-domain boxing footage from 1891, then preview the automatically arranged clips, record your voice, and export a sample MP4. This is historical test footage, not footage from a modern title fight.</p>
     <a href={DEMO.original} target="_blank" rel="noopener noreferrer">Check the public-domain film and its source ↗</a>
+    <p className="aura-edit-demo-tip">This is a normal MP4 on Aura's own server. First tap the video below to verify it plays, then tap Load test boxing footage to put it on the editing timeline.</p>
    </div>
    <div className="aura-edit-demo-controls">
+    <video aria-label="Play real demo boxing footage" controls playsInline muted preload="metadata" src={DEMO.mediaUrl}
+     onError={()=>setDemoPlayerError('The test MP4 did not load on this preview. This may be an old deployment or a blocked video file.')} />
+    {demoPlayerError&&<small className="aura-edit-export-warning" role="alert">{demoPlayerError}</small>}
     <button type="button" className="aura-edit-primary" onClick={loadPublicDemo} disabled={!project||working}>
      {working?'Loading the boxing demo…':'▶ Load test boxing footage'}
     </button>
@@ -334,10 +344,11 @@ export default function AdminAutoVideoEditor(){
     <div className="aura-edit-panel-head"><h2>Video preview</h2><span>{cuts.length?cuts.length+' clips · '+previewDuration:'No video assembled'}</span></div>
     <div className={'aura-edit-screen '+(format==='shorts'?'vertical':'widescreen')}>
      {playable?<video key={asset.objectUrl+'-'+activeIndex} ref={videoRef} controls={!isPlaying} playsInline preload="auto"
-       src={asset.objectUrl} onLoadedMetadata={handleLoaded} onTimeUpdate={timeUpdate} onEnded={timeUpdate} muted />:
+       src={asset.objectUrl} onLoadedMetadata={handleLoaded} onTimeUpdate={timeUpdate} onEnded={timeUpdate} onError={()=>setPreviewError("This video file could not be decoded. Try an H.264 MP4 instead of WebM or MOV.")} muted />:
       <div className="aura-edit-empty-view"><span className="aura-edit-film-icon">▶</span><strong>{assets.length?'Select a clip to preview':'Your scripted rough cut is waiting for genuine footage'}</strong><small>No generated boxers or slideshow placeholders</small></div>}
      {selected&&<div className="aura-edit-viewer-caption"><span>FIGHT INTELLIGENCE</span><strong>{selected.caption||selected.narration?.slice(0,86)||'Review this sequence'}</strong></div>}
     </div>
+    {previewError&&<p className="aura-edit-export-warning" role="alert">{previewError}</p>}
     {voiceUrl&&<audio ref={narrationRef} src={voiceUrl} preload="metadata" aria-label="Voiceover preview" hidden/>}
     <div className="aura-edit-viewer-tools">
      <button type="button" onClick={play} disabled={!cuts.length||missing.length>0}>▶ Play assembled edit</button>
