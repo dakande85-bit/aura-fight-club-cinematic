@@ -18,7 +18,8 @@
     "test:seo": "node scripts/verify-prerender.mjs",
     "social:cards": "node scripts/build-tiktok-cards.mjs",
     "fighters:portrait:add": "node scripts/import-licensed-fighter-portrait.mjs",
-    "fighters:portrait:audit": "node scripts/audit-licensed-fighter-portraits.mjs"
+    "fighters:portrait:audit": "node scripts/audit-licensed-fighter-portraits.mjs",
+    "build:rights-safe": "VITE_AURA_FIGHTER_MEDIA_RIGHTS_STRICT=true npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
