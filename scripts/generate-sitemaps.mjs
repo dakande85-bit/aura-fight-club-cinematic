@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {fighters,topics,evergreenGuides} from '../src/data/seoEntities.js';
 
 const ROOT=process.cwd();
 const PUBLIC=path.join(ROOT,'public');
@@ -14,19 +15,17 @@ const readText=file=>fs.readFileSync(path.join(ROOT,file),'utf8');
 
 const articles=readJson('articles.json').articles || [];
 const fights=readJson('fights.json').fights || [];
-const entities=readText('src/data/seoEntities.js');
 const spanishArticlesSource=readText('src/i18n/esArticles.js');
 const reviewedSpanishSlugs=[...spanishArticlesSource.matchAll(/^  '([^']+)': \{/gm)].map(match=>match[1]);
 const generatedSpanishSlugs=Object.keys(JSON.parse(readText('public/news/articles.es.json')).articles||{});
 const spanishArticleSlugs=[...new Set([...reviewedSpanishSlugs,...generatedSpanishSlugs])];
-const pull=(name)=>{
- const block=entities.match(new RegExp(`export const ${name} = \\[([\\s\\S]*?)\\n\\];`));
- if(!block) return [];
- return [...block[1].matchAll(/slug:'([^']+)'/g)].map(m=>m[1]);
-};
-const fighterSlugs=pull('fighters');
-const topicSlugs=pull('topics');
-const guideSlugs=pull('evergreenGuides');
+// Import the actual ESM data rather than parsing only single-quoted slugs
+// (JSON-style entries used by newer profiles were silently missing from SEO).
+const fighterSlugs=fighters.filter(f=>!f.editorialHidden).map(f=>f.slug);
+const topicSlugs=topics.map(t=>t.slug);
+const guideSlugs=evergreenGuides.map(g=>g.slug);
+if(fighterSlugs.length<50)throw Error('Fighter sitemap unexpectedly below 50 profiles');
+if(new Set(fighterSlugs).size!==fighterSlugs.length)throw Error('Duplicate fighter sitemap entries');
 
 const today=isoDate(new Date());
 const staticPages=[
