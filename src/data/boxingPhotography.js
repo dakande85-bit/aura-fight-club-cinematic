@@ -1,3 +1,4 @@
+import licensedFighterPortraits from './licensedFighterPortraits.json';
 export const fighterPhotography={
  'daniel-dubois':{src:'https://www.rte.ie/images/00245710-800.jpg',alt:'Daniel Dubois and Fabio Wardley in boxing action in the ring during their first championship bout',credit:'RTÉ Sport — May 2026 fight-action archive',sourceUrl:'https://www.rte.ie/sport/boxing/',assetKind:'action photograph',focus:'center 30%',license:'Publisher permission not established; original source attribution'},
  'david-benavidez':{"src":"https://df955mgqzxcnm.cloudfront.net/72f0eb47-ebdb-4c35-84bd-9709dea8ab66.jpeg","alt":"David Benavidez wearing a red and black boxing training shirt with a green WBC title belt","credit":"Ready To Fight — David Benavidez championship photo","sourceUrl":"https://rtfight.com/news/benavidez-attending-beterbiev-bivol-fight-potential-announcement","assetKind":"identity-verified championship portrait","focus":"center 24%","license":"Publisher permission to republish not established"},
@@ -67,6 +68,18 @@ export const fighterPhotography={
  'manny-pacquiao':{"src":"https://od2-image-api.abs-cbn.com/prod/editorImage/1753158738379Manny%20Pacquiao%20vs%20Mario%20Barrios.jpg","alt":"Manny Pacquiao in orange trunks throwing a counter against Mario Barrios in their July 2025 WBC title fight","credit":"ABS-CBN Sports","sourceUrl":"https://www.abs-cbn.com/sports/othersports/2025/10/13/pacquiao-reunites-with-top-rank-for-january-2026-bout-1723","assetKind":"in-ring archive photograph","focus":"73% 25%","license":"Publisher permission to republish not established"},
  'raymond-muratalla':{"src":"https://images.ctfassets.net/lg76kxmf55ue/3DVDgI1exjfRAWxX6MB1ex/e69b9c9eaa4a9cb9e60759dd0e97f173/muratalla_celebrates_50136a5a15.jpeg?fm=webp&q=80&w=1920","alt":"Raymond Muratalla with IBF title belt around his waist and right arm raised by referee in a boxing ring","credit":"The Ring — Raymond Muratalla","sourceUrl":"https://www.ringmagazine.com/news/ibf-orders-raymond-muratalla-to-defend-lightweight-title-vs-andy-cruz-2or8KyBXGZXGKhdM2YCidI","assetKind":"identity-matched championship photograph","focus":"center 18%","license":"Publisher permission to republish not established"},
 };
+
+/** Documented-rights, optimized local media wins over any legacy external publisher URL.
+ * Editors supply assets using scripts/import-licensed-fighter-portrait.mjs.
+ * The overrides are empty until written permission, a suitable public license,
+ * a purchased editorial license, or original ownership is independently established.
+ */
+for(const [slug,licensedPhoto] of Object.entries(licensedFighterPortraits)){
+ if(fighterPhotography[slug]&&licensedPhoto?.rightsStatus==='approved'){
+  fighterPhotography[slug]={...fighterPhotography[slug],...licensedPhoto};
+ }
+}
+
 export const fightPhotography={
  'bivol-callum-smith':{src:'/news/media/aura-bivol-callum-smith-preview.svg',alt:'Original AURA Bivol vs Callum Smith preview artwork, not a photograph',credit:'AURA Fight Club',sourceUrl:'https://www.matchroomboxing.com/events/',assetKind:'original art',license:'AURA original'},
  'smith-puello':{src:'https://www.matchroomboxing.com/app/uploads/2026/08/Dalton-v-Puello-launch-presser-1536x864.jpg',alt:'Official Matchroom Smith vs Puello promotional artwork showing both boxers',credit:'Matchroom Boxing',sourceUrl:'https://www.matchroomboxing.com/events/smith-vs-puello/',assetKind:'event promotional art',license:'Publisher permission not established'},
