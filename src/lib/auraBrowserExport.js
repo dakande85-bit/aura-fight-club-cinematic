@@ -88,7 +88,7 @@ export async function exportAutoVideo({cuts,assets,format='shorts',voiceFile,onS
    const audio=`${prefix}-voice.${voiceFile.type?.includes('webm')?'webm':'m4a'}`;
    await ffmpeg.writeFile(audio,await fetchFile(mustBeFile(voiceFile)));cleanups.push(audio);
    const args=['-i',merged,'-i',audio,'-map','0:v:0','-map','1:a:0','-c:v','copy',
-       '-c:a','aac','-b:a','160k','-af','apad','-shortest','-movflags','+faststart','-y',output];
+       '-c:a','aac','-b:a','160k','-af','apad','-t',String(cuts.reduce((n,cut)=>n+Number(cut.duration),0)),'-movflags','+faststart','-y',output];
    if(await ffmpeg.exec(args,-1)!==0)throw Error('Narration could not be mixed. Try MP3, WAV or M4A.');
   }else{
    onStatus?.('Creating a silent draft, ready for narration…');
