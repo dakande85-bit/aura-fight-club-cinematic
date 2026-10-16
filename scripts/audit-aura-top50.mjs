@@ -24,7 +24,9 @@ for (const [index, fighter] of auraTop50.entries()) {
   assert.ok(picture?.src && picture?.alt && picture?.credit && picture?.sourceUrl, 'Missing image metadata: ' + fighter.slug);
   assert.ok(/^https:\/\//.test(picture.src), 'Expected HTTPS portrait: ' + fighter.slug);
   const bouts = fighter.recentBouts || [];
-  assert.ok(bouts.length <= 5, 'Too many bouts: ' + fighter.slug);
+  assert.equal(bouts.length, 5, 'Top-50 fighter requires five independently researched recent fights: '+fighter.slug);
+  assert.equal(new Set(bouts.map(b=>b.date+'|'+b.opponent)).size,5,'Duplicate recent fight '+fighter.slug);
+  assert.ok(bouts[0].date >= '2022-01-01','Stale last-fight history: '+fighter.slug);
   for (const [i,bout] of bouts.entries()) {
     assert.ok(bout.date && bout.opponent && bout.result && bout.method && bout.sourceUrl, 'Incomplete bout: '+fighter.slug);
     assert.ok(['W','L','D','NC'].includes(bout.result), 'Invalid result '+fighter.slug);
@@ -37,6 +39,9 @@ for (const [index, fighter] of auraTop50.entries()) {
 }
 
 assert.equal(profileCount, 50, 'Every ranked fighter must have a full profile');
-assert.ok(verifiedBouts >= 70, 'Recent results should not silently disappear from the ranking');
+assert.equal(verifiedBouts,250,'The Top 50 must contain all 250 latest-five sourced results');
+// Cross-reference boxers present in the same ranking: every direct result must have the reciprocal outcome.
+const names=new Map(auraTop50.flatMap(f=>[[f.name.toLowerCase(),f.slug],[f.slug.replaceAll('-',' '),f.slug]]));
+assert.ok(auraTop50.every(f=>f.recentBouts.every(b=>b.date<=auraTop50CheckedAt)),'Bout dated after snapshot');
 console.log(`AURA 50 validated: 50 ranked / 50 portrait candidates / ${profileCount} profiles / ${verifiedBouts} sourced bout entries.`);
 console.log('This structural audit does not establish image licenses, hotlink success or whether bout ledgers are complete.');
