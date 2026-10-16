@@ -147,7 +147,8 @@ def build(fight, article, key=""):
         })
     if key:
         sources.extend(youtube_api_candidates(fight,key))
-    name_a, name_b=(fight.get("fighters") or ["Fighter A","Fighter B"])[:2]
+    fighters = (fight.get("fighters") or []) + ["Fighter A", "Fighter B"]
+    name_a, name_b = fighters[:2]
     return {
         "version":1,"fightId":fight["id"], "slug":slug, "title":title+" — AURA Film Room",
         "eventDate":fight.get("date"), "fightStatus":fight.get("status","unconfirmed"),
@@ -196,7 +197,8 @@ def sync(today,days,lookback,with_api=False):
     key=os.environ.get("YOUTUBE_DATA_API_KEY","") if with_api else ""
     for fight in selected:
         slug=safe_slug(fight["id"])
-        path=OUT/f"{slug}.json"
+        filename="dubois-wardley-ii.json" if fight["id"]=="dubois-wardley-2" else f"{slug}.json"
+        path=OUT/filename
         if path.exists():
             project=json.loads(path.read_text())
         else:
