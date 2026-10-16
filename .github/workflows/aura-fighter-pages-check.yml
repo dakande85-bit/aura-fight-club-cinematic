@@ -13,6 +13,7 @@ on:
       - 'src/styles/aura-top50.css'
       - 'scripts/audit-aura-top50.mjs'
       - 'scripts/audit-fighter-photo-url-health.mjs'
+      - 'scripts/audit-fighter-bout-links.mjs'
       - 'src/data/fighterUpcoming.js'
       - 'scripts/generate-sitemaps.mjs'
       - 'scripts/prerender-seo.mjs'
@@ -37,4 +38,5 @@ jobs:
       - run: npm install --no-package-lock --no-audit --no-fund
       - run: node scripts/audit-aura-top50.mjs
       - run: node scripts/audit-fighter-photo-url-health.mjs
+      - run: node scripts/audit-fighter-bout-links.mjs
       - run: npm run build
