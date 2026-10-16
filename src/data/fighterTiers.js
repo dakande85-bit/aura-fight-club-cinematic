@@ -13,7 +13,7 @@ export const fighterEditorialTiers=[
   slugs:['abdullah-mason','moses-itauma','floyd-schofield','ben-whittaker','curmel-moton','emiliano-vargas','giorgio-visioli','andy-cruz','hamza-uddin','xander-zayas','dalton-smith','keyshawn-davis']},
  {title:'Fighters to watch',
   subtitle:'Dangerous contenders, ex-champions and intriguing division movers who could force their way into the elite.',
-  slugs:['isaac-cruz','fabio-wardley','christian-mbilli','vergil-ortiz','callum-smith','tim-tszyu','ryan-garcia','gilberto-ramirez','agit-kabayel','lester-martinez','hamzah-sheeraz','nick-ball','richardson-hitchins','stephen-fulton','chris-billam-smith','joseph-parker','bakhram-murtazaliev','alberto-puello']},
+  slugs:['isaac-cruz','fabio-wardley','christian-mbilli','vergil-ortiz','callum-smith','tim-tszyu','ryan-garcia','gilberto-ramirez','agit-kabayel','lester-martinez','hamzah-sheeraz','nick-ball','richardson-hitchins','stephen-fulton','chris-billam-smith','joseph-parker','bakhram-murtazaliev','alberto-puello','raymond-ford']},
  {title:'Modern greats',
   subtitle:'Retired icons and era-defining veteran stars; each profile distinguishes active from retired status.',
   slugs:['terence-crawford','vasiliy-lomachenko','errol-spence-jr','manny-pacquiao','anthony-joshua','tyson-fury','deontay-wilder','josh-taylor','erislandy-lara']}
