@@ -213,7 +213,9 @@ def sync(today,days,lookback,with_api=False):
                       "reviewReady":False})
     if not index:
         raise SystemExit("No major bouts met the date range; use --days 90 or check the fight calendar.")
-    INDEX.write_text(json.dumps({"version":1,"generatedOn":today.isoformat(),
+    previous=json.loads(INDEX.read_text()) if INDEX.exists() else {}
+    generated_on=previous.get("generatedOn",today.isoformat()) if previous.get("projects")==index else today.isoformat()
+    INDEX.write_text(json.dumps({"version":1,"generatedOn":generated_on,
                                  "note":"A research/work queue, NOT finished footage, automated rights or auto-publishing.",
                                  "projects":index},indent=2,ensure_ascii=False)+"\n")
     print(f"Prepared {len(index)} major-fight production briefs (all require editorial/media review)")
