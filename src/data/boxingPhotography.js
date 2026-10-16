@@ -1,4 +1,4 @@
-import licensedFighterPortraits from './licensedFighterPortraits.json';
+import licensedFighterPortraits from './licensedFighterPortraits.json' with {type:'json'};
 export const fighterPhotography={
  'daniel-dubois':{src:'https://www.rte.ie/images/00245710-800.jpg',alt:'Daniel Dubois and Fabio Wardley in boxing action in the ring during their first championship bout',credit:'RTÉ Sport — May 2026 fight-action archive',sourceUrl:'https://www.rte.ie/sport/boxing/',assetKind:'action photograph',focus:'center 30%',license:'Publisher permission not established; original source attribution'},
  'david-benavidez':{"src":"https://df955mgqzxcnm.cloudfront.net/72f0eb47-ebdb-4c35-84bd-9709dea8ab66.jpeg","alt":"David Benavidez wearing a red and black boxing training shirt with a green WBC title belt","credit":"Ready To Fight — David Benavidez championship photo","sourceUrl":"https://rtfight.com/news/benavidez-attending-beterbiev-bivol-fight-potential-announcement","assetKind":"identity-verified championship portrait","focus":"center 24%","license":"Publisher permission to republish not established"},
