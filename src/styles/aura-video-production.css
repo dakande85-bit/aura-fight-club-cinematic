@@ -61,3 +61,7 @@
 .aura-video-recording-controls{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}
 .aura-video-recording-controls button:first-child{border-color:#bc5965;background:#4a1d2a}
 .aura-video-panel audio{max-width:100%;width:100%;min-height:38px;margin-top:12px}
+
+.aura-video-candidates{border:1px solid #7b643d;background:#1c1b19;padding:15px;border-radius:9px;margin:16px 0}
+.aura-video-candidate{border-top:1px solid #534e45;padding:12px 0}
+.aura-video-candidate>p{margin:6px 0}
