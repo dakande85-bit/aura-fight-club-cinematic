@@ -1,0 +1,294 @@
+import {useCallback,useEffect,useMemo,useRef,useState} from 'react';
+import {Link} from 'react-router-dom';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import {planCuts,scanActionPeaks} from '../lib/auraAutoCut.js';
+import {exportAutoVideo} from '../lib/auraBrowserExport.js';
+import '../styles/aura-auto-video-editor.css';
+
+const QUEUE='/news/video-production/index.json';
+const CUT_KEY='aura-auto-rough-cut-v1-';
+const WORDING={fight:'Fight highlights',press:'Press conference / interview',faceoff:'Face-off / weigh-in',broll:'Other real boxing footage'};
+const time=n=>{const v=Math.max(0,Number(n)||0);return Math.floor(v/60)+':'+String(Math.floor(v%60)).padStart(2,'0');};
+const save=(blob,filename)=>{
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),10000);
+};
+function getDuration(file){
+ return new Promise((resolve,reject)=>{
+  const el=document.createElement('video'),url=URL.createObjectURL(file);
+  const timeout=setTimeout(()=>finish(new Error('Video metadata timed out')),15000);
+  const finish=(error)=>{
+   clearTimeout(timeout);URL.revokeObjectURL(url);el.removeAttribute('src');el.load();
+   error?reject(error):resolve(duration);
+  };
+  let duration=0;
+  el.preload='metadata';el.muted=true;el.onloadedmetadata=()=>{duration=el.duration;finish();};
+  el.onerror=()=>finish(new Error('This video could not be opened'));
+  el.src=url;
+ });
+}
+function formatScript(project,format){
+ return (project?.scripts?.[format]?.draft||project?.narrationScript||'').trim();
+}
+export default function AdminAutoVideoEditor(){
+ const [queue,setQueue]=useState([]);
+ const [project,setProject]=useState(null);
+ const [selectedPath,setSelectedPath]=useState('');
+ const [format,setFormat]=useState('shorts');
+ const [assets,setAssets]=useState([]);
+ const [cuts,setCuts]=useState([]);
+ const [activeIndex,setActiveIndex]=useState(0);
+ const [script,setScript]=useState('');
+ const [voice,setVoice]=useState(null);
+ const [recording,setRecording]=useState(false);
+ const [isPlaying,setIsPlaying]=useState(false);
+ const [working,setWorking]=useState(false);
+ const [status,setStatus]=useState('');
+ const [progress,setProgress]=useState(0);
+ const [resultUrl,setResultUrl]=useState('');
+ const [resultBlob,setResultBlob]=useState(null);
+ const videoRef=useRef(null),recorderRef=useRef(null),chunksRef=useRef([]),assetUrls=useRef(new Map());
+ const [voiceUrl,setVoiceUrl]=useState('');
+
+ useEffect(()=>{
+  fetch(QUEUE,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Production queue unavailable');return r.json();})
+   .then(d=>{const q=d.projects||[];setQueue(q);if(q.length)setSelectedPath(q[0].path);})
+   .catch(e=>setStatus(e.message));
+  return()=>{for(const url of assetUrls.current.values())URL.revokeObjectURL(url);};
+ },[]);
+ useEffect(()=>{
+  if(!selectedPath)return;
+  let active=true;setStatus('');setProject(null);setCuts([]);setAssets([]);setActiveIndex(0);
+  for(const url of assetUrls.current.values())URL.revokeObjectURL(url);
+  assetUrls.current.clear();setVoice(null);
+  fetch(selectedPath,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight briefing is unavailable');return r.json();}).then(d=>{
+   if(!active)return;setProject(d);setScript(formatScript(d,format));
+   try{
+    const cached=JSON.parse(localStorage.getItem(CUT_KEY+d.slug+'-'+format)||'null');
+    if(cached?.script)setScript(cached.script);
+   }catch{}
+  }).catch(e=>setStatus(e.message));
+  return()=>{active=false;};
+ },[selectedPath]);
+ useEffect(()=>{
+  if(!project)return;
+  setScript(formatScript(project,format));
+  setCuts([]);
+  setActiveIndex(0);setIsPlaying(false);
+  setResultUrl('');setResultBlob(null);setVoice(null);setVoiceUrl('');
+  try{
+   const cached=JSON.parse(localStorage.getItem(CUT_KEY+project.slug+'-'+format)||'null');
+   if(cached?.script)setScript(cached.script);
+  }catch{}
+ },[format,project?.slug]);
+ useEffect(()=>{
+  if(!project||!script)return;
+  try{localStorage.setItem(CUT_KEY+project.slug+'-'+format,JSON.stringify({script}));}catch{}
+ },[script,project?.slug,format]);
+ const selected=cuts[activeIndex]||null;
+ const asset=assets.find(a=>a.id===selected?.assetId)||null;
+ const playable=Boolean(asset?.objectUrl);
+ const missing=cuts.filter(c=>!assets.some(a=>a.id===c.assetId));
+ const total=cuts.reduce((n,c)=>n+(Number(c.duration)||0),0);
+ const rightsReady=cuts.length>0&&cuts.every(c=>assets.some(a=>a.id===c.assetId&&a.rightsReviewed));
+ const currentlyReady=rightsReady&&missing.length===0&&!working;
+ const previewDuration=total?time(total):'—';
+ const sourceStatus=assets.length?assets.map(a=>WORDING[a.kind]).join(', '):'Not yet supplied';
+ const setCut=(patch)=>setCuts(old=>old.map((c,i)=>i===activeIndex?{...c,...patch}:c));
+
+ const addAsset=async(file,kind)=>{
+  if(!file)return;
+  if(!file.type.startsWith('video/')){setStatus('Choose a real MP4, MOV or WebM video file.');return;}
+  setWorking(true);setStatus('Reading '+file.name+'…');setProgress(0);
+  try{
+   const duration=await getDuration(file);
+   if(!Number.isFinite(duration)||duration<=0)throw Error('Video has no recognised duration.');
+   const id='media-'+Date.now()+'-'+Math.random().toString(36).slice(2,6);
+   const url=URL.createObjectURL(file);assetUrls.current.set(id,url);
+   const item={id,kind,title:file.name,file,duration,objectUrl:url,rightsReviewed:false,peaks:[]};
+   setAssets(old=>[...old,item]);
+   setStatus('Real footage loaded. Analysing changes of scene and motion to create possible cut points…');
+   try{
+    const scanned=await scanActionPeaks(file,{onProgress:setProgress});
+    item.peaks=scanned.peaks;
+    setAssets(old=>old.map(a=>a.id===id?{...a,peaks:scanned.peaks}:a));
+    setStatus('Footage analysed. Press “Assemble my video” to build an editable rough cut.');
+   }catch(err){setStatus('Footage loaded; advanced motion scan unavailable. Auto edit can still make a provisional cut from the video.');}
+  }catch(e){setStatus('Source video error: '+e.message);}
+  finally{setWorking(false);setProgress(0);}
+ };
+ const autoAssemble=()=>{
+  if(!script.trim()){setStatus('No narration yet. Add or edit the voiceover script first.');return;}
+  if(!assets.length){setStatus('Attach genuine fight or press-conference video files first. Source links alone cannot be copied into an MP4.');return;}
+  const result=planCuts({script,format,assets});
+  setCuts(result);setActiveIndex(0);setIsPlaying(false);setResultUrl('');setResultBlob(null);
+  setStatus(`A ${result.length}-scene rough cut has been assembled from real uploaded video. Review the actual exchanges and adjust any incorrect selections before publishing.`);
+ };
+ const play=useCallback(()=>{setActiveIndex(0);setIsPlaying(true);},[]);
+ const handleLoaded=()=>{
+  const v=videoRef.current,c=cuts[activeIndex];if(!v||!c)return;
+  try{v.currentTime=Math.min(c.start,Math.max(0,v.duration-.1));}catch{}
+  if(isPlaying)v.play().catch(()=>setIsPlaying(false));
+ };
+ const timeUpdate=()=>{
+  const v=videoRef.current,c=cuts[activeIndex];if(!v||!c||!isPlaying)return;
+  if(v.currentTime>=Number(c.start)+Number(c.duration)-.08){
+   if(activeIndex<cuts.length-1){setActiveIndex(i=>i+1);}else{setIsPlaying(false);v.pause();}
+  }
+ };
+ const selectCut=i=>{setActiveIndex(i);setIsPlaying(false);};
+ const moveCut=(i,d)=>{
+  setCuts(old=>{const a=[...old],to=i+d;if(to<0||to>=a.length)return old;[a[i],a[to]]=[a[to],a[i]];return a;});
+  setActiveIndex(Math.max(0,Math.min(cuts.length-1,i+d)));setIsPlaying(false);
+ };
+ const deleteCut=()=>{
+  setCuts(old=>old.filter((_,i)=>i!==activeIndex));
+  setActiveIndex(i=>Math.max(0,i-1));setIsPlaying(false);
+ };
+ const replaceSource=(id)=>{setCut({assetId:id,start:0});setIsPlaying(false);};
+ const startVoice=async()=>{
+  if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){setStatus('Recording requires microphone access. You can upload an audio file instead.');return;}
+  try{
+   const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+   const mime=['audio/mp4','audio/webm;codecs=opus','audio/webm'].find(m=>MediaRecorder.isTypeSupported(m));
+   const r=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);
+   recorderRef.current=r;chunksRef.current=[];
+   r.ondataavailable=e=>{if(e.data?.size)chunksRef.current.push(e.data);};
+   r.onstop=()=>{
+    const ext=r.mimeType.includes('mp4')?'m4a':'webm';
+    const newFile=new File(chunksRef.current,project.slug+'-'+format+'-voiceover.'+ext,{type:r.mimeType});
+    setVoice(newFile);setRecording(false);stream.getTracks().forEach(t=>t.stop());
+    setStatus('Voiceover recorded. Listen to it below, then preview or export with your real clips.');
+   };
+   r.onerror=()=>{setRecording(false);stream.getTracks().forEach(t=>t.stop());setStatus('Recording failed.');};
+   r.start();setRecording(true);setStatus('Recording — read your narration script.'); 
+  }catch(e){setStatus('Microphone access failed: '+e.message);}
+ };
+ const stopVoice=()=>{if(recorderRef.current?.state==='recording')recorderRef.current.stop();};
+ useEffect(()=>{
+  if(!voice){setVoiceUrl('');return;}
+  const url=URL.createObjectURL(voice);setVoiceUrl(url);
+  return()=>URL.revokeObjectURL(url);
+ },[voice]);
+ const doExport=async()=>{
+  if(!currentlyReady)return;
+  setWorking(true);setStatus('Preparing the real-footage MP4…');setResultUrl('');setResultBlob(null);
+  try{
+   const blob=await exportAutoVideo({cuts,assets,format,voiceFile:voice,onStatus:setStatus});
+   const url=URL.createObjectURL(blob);setResultUrl(url);setResultBlob(blob);
+   setStatus('Finished MP4 ready to preview and download. This video has NOT been posted anywhere.');
+  }catch(e){setStatus('Export did not complete: '+e.message);}
+  finally{setWorking(false);}
+ };
+ const sourceRefs=(project?.sources||[]).filter(s=>/^https?:\/\//.test(s.url||''));
+ return <><Header/><main className="aura-edit-main">
+  <header className="aura-edit-header">
+   <div><p className="aura-edit-kicker">AURA FIGHT CLUB / VIDEO PRODUCTION</p><h1>Film Room Studio</h1>
+    <p>Real footage. Real boxing analysis. Your voice. One finished video.</p></div>
+   <div className="aura-edit-header-links"><Link to="/admin/social">Social posts</Link><Link to="/admin/video-production/advanced">Advanced setup</Link></div>
+  </header>
+  <div className="aura-edit-top">
+   <label className="aura-edit-select">Choose the fight
+    <select value={selectedPath} onChange={e=>setSelectedPath(e.target.value)}>{queue.map(x=><option key={x.path} value={x.path}>{x.date} · {x.name}</option>)}</select>
+   </label>
+   <div className="aura-edit-formats" role="group" aria-label="Video format">
+    <button type="button" className={format==='shorts'?'on':''} onClick={()=>setFormat('shorts')}>Vertical / TikTok</button>
+    <button type="button" className={format==='youtube'?'on':''} onClick={()=>setFormat('youtube')}>YouTube / Widescreen</button>
+   </div>
+  </div>
+  {project?<div className="aura-edit-workspace">
+   <section className="aura-edit-viewer-panel">
+    <div className="aura-edit-panel-head"><h2>Video preview</h2><span>{cuts.length?cuts.length+' clips · '+previewDuration:'No video assembled'}</span></div>
+    <div className={'aura-edit-screen '+(format==='shorts'?'vertical':'widescreen')}>
+     {playable?<video key={asset.objectUrl+'-'+activeIndex} ref={videoRef} controls={!isPlaying} playsInline preload="auto"
+       src={asset.objectUrl} onLoadedMetadata={handleLoaded} onTimeUpdate={timeUpdate} onEnded={timeUpdate} muted={!voice} />:
+      <div className="aura-edit-empty-view"><span className="aura-edit-film-icon">▶</span><strong>{assets.length?'Select a clip to preview':'Your real fight video will appear here'}</strong><small>No generated boxers or slideshow placeholders</small></div>}
+     {selected&&<div className="aura-edit-viewer-caption"><span>FIGHT INTELLIGENCE</span><strong>{selected.caption||selected.narration?.slice(0,86)||'Review this sequence'}</strong></div>}
+    </div>
+    <div className="aura-edit-viewer-tools">
+     <button type="button" onClick={play} disabled={!cuts.length||missing.length>0}>▶ Play assembled edit</button>
+     {isPlaying&&<button type="button" onClick={()=>{setIsPlaying(false);videoRef.current?.pause();}}>Pause</button>}
+     <span>{cuts.length?activeIndex+1+' / '+cuts.length:'Waiting for footage'}</span>
+    </div>
+    <div className="aura-edit-divider"/>
+    <div className="aura-edit-panel-head"><h2>Your video timeline</h2><span>Click a shot to edit it</span></div>
+    <div className="aura-edit-timeline" aria-label="Editable assembled video clips">
+     {cuts.length?cuts.map((c,i)=>{
+      const src=assets.find(a=>a.id===c.assetId);
+      return <button type="button" key={c.id} onClick={()=>selectCut(i)} className={'aura-edit-shot '+(i===activeIndex?'active':'')}>
+       <span>{String(i+1).padStart(2,'0')} · {time(c.duration)}</span>
+       <strong>{WORDING[c.role]||'Real footage'}</strong>
+       <small>{src?.title||'Video required'}</small>
+      </button>;
+     }):<p className="aura-edit-placeholder">Upload your real footage, then select <b>Assemble my video</b>. The script will be divided into scenes and source footage placed on an editable timeline automatically.</p>}
+    </div>
+    {selected&&<div className="aura-edit-shot-settings">
+     <h3>Edit selected scene</h3>
+     <label>Which real video?<select value={selected.assetId||''} onChange={e=>replaceSource(e.target.value)}>
+      <option value="">Choose footage</option>{assets.map(a=><option key={a.id} value={a.id}>{a.title}</option>)}
+     </select></label>
+     <div className="aura-edit-inline">
+      <label>Start (seconds)<input type="number" step=".1" min="0" value={selected.start}
+       onChange={e=>setCut({start:Math.max(0,Number(e.target.value))})}/></label>
+      <label>Clip length (seconds)<input type="number" step=".1" min=".2" max="12" value={selected.duration}
+       onChange={e=>setCut({duration:Math.max(.2,Math.min(12,Number(e.target.value)||.2))})}/></label>
+     </div>
+     <label>On-screen caption<input value={selected.caption} placeholder="Explain the exchange" onChange={e=>setCut({caption:e.target.value})}/></label>
+     <div className="aura-edit-scene-narration">{selected.narration}</div>
+     <div className="aura-edit-inline-buttons"><button onClick={()=>moveCut(activeIndex,-1)} disabled={activeIndex===0}>← Earlier</button><button onClick={()=>moveCut(activeIndex,1)} disabled={activeIndex===cuts.length-1}>Later →</button><button onClick={deleteCut}>Remove scene</button></div>
+    </div>}
+   </section>
+   <aside className="aura-edit-sidebar">
+    <section className="aura-edit-card">
+     <div className="aura-edit-panel-head"><h2>1. Footage</h2><span>{assets.length} real sources loaded</span></div>
+     <p>Attach footage you can lawfully reuse. The studio analyses motion to suggest rough cuts; it cannot know a specific punch without reviewing that exchange.</p>
+     <div className="aura-edit-upload-grid">
+      {Object.entries(WORDING).map(([kind,title])=><label key={kind} className="aura-edit-upload">
+       <strong>+ {title}</strong><small>Select a video file</small>
+       <input type="file" accept="video/mp4,video/webm,video/quicktime" onChange={e=>addAsset(e.target.files?.[0],kind)}/>
+      </label>)}
+     </div>
+     {assets.map(a=><div key={a.id} className="aura-edit-asset">
+      <div><strong>{a.title}</strong><small>{WORDING[a.kind]} · {time(a.duration)} · {a.peaks.length} suggested moments</small></div>
+      <label><input type="checkbox" checked={a.rightsReviewed} onChange={e=>setAssets(old=>old.map(x=>x.id===a.id?{...x,rightsReviewed:e.target.checked}:x))}/> Usage reviewed</label>
+     </div>)}
+     {!assets.length&&<div className="aura-edit-research"><strong>Footage sources we've located</strong>
+      {sourceRefs.slice(0,5).map(s=><a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer">{s.title} ↗</a>)}
+      <small>These are viewing/research links, not downloadable licensed clips.</small>
+     </div>}
+    </section>
+    <section className="aura-edit-card">
+     <div className="aura-edit-panel-head"><h2>2. Narration script</h2><span>Editable</span></div>
+     <textarea rows={format==='shorts'?7:10} value={script} onChange={e=>setScript(e.target.value)}
+      aria-label="Narration script" placeholder="The fight analysis narration appears here for editing."/>
+     <div className="aura-edit-inline-buttons"><button type="button" className="aura-edit-primary" onClick={autoAssemble} disabled={!assets.length||working||!script.trim()}>✂ Assemble my video</button></div>
+     <small className="aura-edit-hint">Rough-cut timing follows the words you narrate. Automatically selected motion is a draft, not independently verified tactical evidence.</small>
+    </section>
+    <section className="aura-edit-card">
+     <div className="aura-edit-panel-head"><h2>3. Record your voiceover</h2><span>{recording?'● Recording':'Optional for silent draft'}</span></div>
+     <div className="aura-edit-inline-buttons">
+      <button onClick={startVoice} disabled={recording}>● Record</button><button onClick={stopVoice} disabled={!recording}>■ Stop</button>
+     </div>
+     <label className="aura-edit-audio-upload">Or upload a voice recording<input type="file" accept="audio/*" onChange={e=>setVoice(e.target.files?.[0]||null)}/></label>
+     {voiceUrl&&<audio controls src={voiceUrl}/>}
+     <small className="aura-edit-hint">Listen back, review the script and adjust clip lengths to your speaking pace.</small>
+    </section>
+    <section className="aura-edit-card aura-edit-export">
+     <div className="aura-edit-panel-head"><h2>4. Export video</h2><span>MP4</span></div>
+     <p>{format==='shorts'?'Vertical video, optimised for TikTok / Reels / YouTube Shorts.':'Widescreen analysis, designed for YouTube.'}</p>
+     <button type="button" className="aura-edit-primary" onClick={doExport} disabled={!currentlyReady}>▶ Render finished MP4</button>
+     {cuts.length>0&&!rightsReady&&<small>Review the footage source usage to enable rendering.</small>}
+     {cuts.length===0&&<small>Assemble your real video first.</small>}
+     {resultUrl&&<div className="aura-edit-rendered"><strong>Finished edit</strong><video src={resultUrl} controls playsInline/>
+      <button type="button" onClick={()=>save(resultBlob,project.slug+'-'+format+'.mp4')}>Download finished MP4</button></div>}
+     <small className="aura-edit-hint">Current export runs in your browser without Lovable/API credits. It may be too memory-intensive for long footage on phones; desktop Chrome is recommended. No automatic social publishing.</small>
+    </section>
+   </aside>
+  </div>:<div className="aura-edit-loading">{status||'Opening your fight production…'}</div>}
+  {working&&<div className="aura-edit-working"><span className="aura-edit-spinner"/>{status}{progress>0?' '+progress+'%':''}</div>}
+  {!working&&status&&<div className="aura-edit-status" role="status">{status}</div>}
+  <footer className="aura-edit-foot"><Link to="/admin/social">Social studio</Link> · <Link to="/news">Fight Desk articles</Link> · <Link to="/admin/video-production/advanced">Research and advanced controls</Link></footer>
+ </main><Footer/></>;
+}
