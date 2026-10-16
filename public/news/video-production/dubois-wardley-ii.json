@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "slug": "dubois-wardley-ii-pre-fight",
+  "title": "DUBOIS vs WARDLEY II — What changes in the rematch?",
+  "eventDate": "2026-10-17",
+  "storyUrl": "https://www.aurafightclub.com/news/dubois-wardley-rematch-technical-preview",
+  "status": "draft",
+  "editorialAngle": "Wardley dropped Dubois twice but could not control the later rounds. What changes?",
+  "narrationScript": "Wardley put Dubois down twice in their first fight. But Dubois recovered and stopped him in round eleven. For the rematch, the question isn't whether Wardley can hurt him. It's whether he can manage the distance and pace when Dubois starts applying pressure. Watch the exits after Wardley attacks, and whether Dubois gets his jab working early. That's where this heavyweight title fight could be decided. What's your pick?",
+  "sources": [
+    {
+      "id": "first-fight-highlights",
+      "title": "DAZN Boxing — Dubois vs Wardley first-fight highlights",
+      "kind": "fight",
+      "publisher": "DAZN Boxing",
+      "url": "https://www.youtube.com/watch?v=5HReUSh22bY",
+      "published": "2026-05-09",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Research link only. Obtain or supply a legally reusable local video file before rendering."
+    },
+    {
+      "id": "rematch-launch-press",
+      "title": "DAZN Boxing — Dubois vs Wardley II launch press conference",
+      "kind": "press",
+      "publisher": "DAZN Boxing",
+      "url": "https://www.youtube.com/watch?v=KMozMmGVII0",
+      "published": "2026-09-02",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Research link only. Link may be watched/embedded, not automatically downloaded."
+    },
+    {
+      "id": "first-fight-press",
+      "title": "Seconds Out — First fight final press conference",
+      "kind": "press",
+      "publisher": "Seconds Out",
+      "url": "https://www.youtube.com/watch?v=btNdii0CexM",
+      "published": "2026-05-07",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Archival reference for press conference shots before first fight."
+    },
+    {
+      "id": "recent-faceoff",
+      "title": "talkSPORT — Dubois/Wardley face-off and interview",
+      "kind": "faceoff",
+      "publisher": "talkSPORT",
+      "url": "https://talksport.com/boxing/4641624/fabio-wardley-daniel-dubois-face-off/",
+      "published": "2026-10-14",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Article with video context. Research only: confirm relevant footage and reuse rights."
+    }
+  ],
+  "suggestedBeats": [
+    {
+      "purpose": "Hook",
+      "description": "Brief extract of an early first-fight knockdown; explain what allowed Wardley to land",
+      "preferredSource": "first-fight-highlights"
+    },
+    {
+      "purpose": "Context",
+      "description": "Cut to actual fighters speaking about the rematch",
+      "preferredSource": "rematch-launch-press"
+    },
+    {
+      "purpose": "Adjustment",
+      "description": "Cut to a later first-fight exchange showing Dubois applying pressure",
+      "preferredSource": "first-fight-highlights"
+    },
+    {
+      "purpose": "Counterpoint",
+      "description": "Show Wardley at a press conference or face-off",
+      "preferredSource": "recent-faceoff"
+    },
+    {
+      "purpose": "Prediction",
+      "description": "Use one meaningful tactical exchange or face-off as the conclusion",
+      "preferredSource": "first-fight-highlights"
+    }
+  ],
+  "shots": [],
+  "voiceoverFile": "",
+  "notes": "This is a research/production manifest. Exact source timestamps must be marked after viewing, and footage rights assessed before an export. No third-party media bytes are stored in the repo."
+}
