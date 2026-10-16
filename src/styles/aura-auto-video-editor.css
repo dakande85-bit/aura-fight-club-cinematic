@@ -87,3 +87,16 @@
 
 .aura-edit-asset-actions{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
 .aura-edit-asset-actions button{padding:5px 8px!important;font-size:11px!important}
+
+/* Keep the working demo immediately visible, ahead of the footage source forms. */
+.aura-edit-demo{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:19px 22px;margin:18px 0;border:1px solid #b5955e;border-radius:12px;background:linear-gradient(115deg,#27323b,#252921)}
+.aura-edit-demo-copy{flex:1;max-width:720px}
+.aura-edit-demo-copy>strong{display:block;color:#e9c98e;font-size:13px;letter-spacing:.05em}
+.aura-edit-demo-copy p{font-size:13px;line-height:1.55;color:#e1e3e4;margin:9px 0}
+.aura-edit-demo a{color:#ebce9a;font-size:12px}
+.aura-edit-demo-controls{display:flex;align-items:stretch;flex-direction:column;gap:10px;min-width:226px}
+.aura-edit-demo-controls .aura-edit-primary{white-space:normal}
+.aura-edit-demo-controls a{text-align:center}
+.aura-edit-demo-flag{background:#46371d;color:#f6daa3;border:1px solid #cfae6d;border-radius:6px;padding:9px 12px;font-size:12px;font-weight:800;margin:0 0 14px}
+.aura-edit-persist-warning{background:#44332a;color:#ffdfbc;border-radius:8px;padding:10px;font-size:12px}
+@media(max-width:700px){.aura-edit-demo{flex-direction:column;align-items:stretch;padding:15px}.aura-edit-demo-controls{min-width:0}}
