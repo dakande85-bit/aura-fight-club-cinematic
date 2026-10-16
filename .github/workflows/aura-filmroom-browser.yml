@@ -17,6 +17,10 @@ jobs:
   video_export_in_browser:
     runs-on: ubuntu-latest
     timeout-minutes: 22
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,7 +30,7 @@ jobs:
         run: |
           npm install --no-audit --no-fund --no-package-lock
           npm install --no-save --no-audit --no-fund --no-package-lock playwright@1.57.0
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps ${{ matrix.browser }}
       - name: Make small real historical boxing source and 4s narration
         run: |
           sudo apt-get update -qq
@@ -48,12 +52,13 @@ jobs:
       - name: Render silent and narrated real boxing in Chromium
         env:
           FILMROOM_OUTPUT: /tmp/aura-filmroom-browser/outputs
+          FILMROOM_BROWSER: ${{ matrix.browser }}
         run: node tests/filmroom-browser-smoke.mjs
       - name: Keep recordings and screenshots for QA
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: filmroom-browser-export-qa
+          name: filmroom-browser-export-qa-${{ matrix.browser }}
           path: |
             /tmp/aura-filmroom-browser/outputs
             /tmp/aura-filmroom-browser/server.log
