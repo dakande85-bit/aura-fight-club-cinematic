@@ -27,8 +27,11 @@ const encoding=(channel)=>{
 };
 const fitVF=(channel)=>{
  const {w,h}=encoding(channel);
- if(channel==='shorts')return `scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=24`;
- return `scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=24`;
+ if(channel==='shorts'){
+  // Keep the entire real ring visible and use a blurred extension to fill 9:16.
+  return `[0:v]split=2[background][foreground];[background]scale=${w}:${h}:force_original_aspect_ratio=increase,crop=${w}:${h},boxblur=18:1[backdrop];[foreground]scale=${w}:${h}:force_original_aspect_ratio=decrease[boxing];[backdrop][boxing]overlay=(W-w)/2:(H-h)/2,setsar=1,fps=24[v]`;
+ }
+ return `[0:v]scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=24[v]`;
 };
 const mustBeFile=file=>{
  if(!(file instanceof File || file instanceof Blob))throw Error('Attach actual, reusable source video files first.');
@@ -65,7 +68,7 @@ export async function exportAutoVideo({cuts,assets,format='shorts',voiceFile,onS
    const shot=cuts[i],input=uploaded.get(shot.assetId),out=`${prefix}-clip-${i}.mp4`;
    onStatus?.(`Trimming and assembling real footage ${i+1} of ${cuts.length}…`);
    const args=['-ss',Number(shot.start).toFixed(2),'-i',input,'-t',Number(shot.duration).toFixed(2),
-    '-vf',fitVF(format),'-an','-c:v','libx264','-preset','ultrafast','-crf','28','-r','24',
+    '-filter_complex',fitVF(format),'-map','[v]','-an','-c:v','libx264','-preset','ultrafast','-crf','28','-r','24',
     '-pix_fmt','yuv420p','-movflags','+faststart','-y',out];
    const exit=await ffmpeg.exec(args, -1);
    if(exit!==0)throw Error(`Encoding failed on scene ${i+1}; try a smaller video or desktop browser.`);
