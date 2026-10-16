@@ -212,7 +212,8 @@ def sync(today,days,lookback,with_api=False):
                       "clipCount":len(project.get("shots",[])),
                       "reviewReady":False})
     if not index:
-        raise SystemExit("No major bouts met the date range; use --days 90 or check the fight calendar.")
+        print("No major bouts in window. Leave last approved research queue intact; do not guess future fixtures.")
+        return []
     previous=json.loads(INDEX.read_text()) if INDEX.exists() else {}
     generated_on=previous.get("generatedOn",today.isoformat()) if previous.get("projects")==index else today.isoformat()
     INDEX.write_text(json.dumps({"version":1,"generatedOn":generated_on,
