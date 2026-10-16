@@ -5,6 +5,7 @@ import AuraFootageFinder from '../components/AuraFootageFinder.jsx';
 import Footer from '../components/Footer.jsx';
 import {planCuts,scanActionPeaks} from '../lib/auraAutoCut.js';
 import {exportAutoVideo} from '../lib/auraBrowserExport.js';
+import {DEMO,loadDemoFile,saveVideo,getVideos,deleteVideo,saveEdit,getEdit} from '../lib/auraMediaVault.js';
 import '../styles/aura-auto-video-editor.css';
 
 const QUEUE='/news/video-production/index.json';
@@ -53,6 +54,9 @@ export default function AdminAutoVideoEditor(){
  const [resultBlob,setResultBlob]=useState(null);
  const videoRef=useRef(null),recorderRef=useRef(null),chunksRef=useRef([]),assetUrls=useRef(new Map()),narrationRef=useRef(null);
  const [voiceUrl,setVoiceUrl]=useState('');
+ const [workspaceNotice,setWorkspaceNotice]=useState('');
+ const [demoProject,setDemoProject]=useState(false);
+ const workspaceReady=useRef(false);
 
  useEffect(()=>{
   fetch(QUEUE,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Production queue unavailable');return r.json();})
@@ -62,7 +66,7 @@ export default function AdminAutoVideoEditor(){
  },[]);
  useEffect(()=>{
   if(!selectedPath)return;
-  let active=true;setStatus('');setProject(null);setCuts([]);setAssets([]);setManualEdits(false);setActiveIndex(0);
+  let active=true;workspaceReady.current=false;setWorkspaceNotice('');setDemoProject(false);setStatus('');setProject(null);setCuts([]);setAssets([]);setManualEdits(false);setActiveIndex(0);
   for(const url of assetUrls.current.values())URL.revokeObjectURL(url);
   assetUrls.current.clear();setVoice(null);
   fetch(selectedPath,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight briefing is unavailable');return r.json();}).then(d=>{
@@ -75,25 +79,47 @@ export default function AdminAutoVideoEditor(){
   return()=>{active=false;};
  },[selectedPath]);
  useEffect(()=>{
-  if(!project)return;
-  setScript(formatScript(project,format));
-  setCuts([]);setManualEdits(false);
-  setActiveIndex(0);setIsPlaying(false);
+  if(!project?.slug)return;
+  let active=true;
+  workspaceReady.current=false;setManualEdits(true);
+  setCuts([]);setActiveIndex(0);setIsPlaying(false);
   setResultUrl('');setResultBlob(null);setVoice(null);setVoiceUrl('');
-  try{
-   const cached=JSON.parse(localStorage.getItem(CUT_KEY+project.slug+'-'+format)||'null');
-   if(cached?.script)setScript(cached.script);
-  }catch{}
+  (async()=>{
+   let files=[],prior=null;const messages=[];
+   try{files=await getVideos(project.slug);}catch(e){messages.push('Device media storage unavailable: '+e.message);}
+   try{prior=await getEdit(project.slug,format);}catch(e){messages.push('Previous cuts could not be restored: '+e.message);}
+   if(!active)return;
+   for(const url of assetUrls.current.values())URL.revokeObjectURL(url);
+   assetUrls.current.clear();
+   const restored=files.filter(x=>x.file).map(x=>{
+    const objectUrl=URL.createObjectURL(x.file);assetUrls.current.set(x.id,objectUrl);
+    return {...x,objectUrl};
+   });
+   setAssets(restored);
+   let savedScript=prior?.script;
+   try{const cached=JSON.parse(localStorage.getItem(CUT_KEY+project.slug+'-'+format)||'null');if(!savedScript&&cached?.script)savedScript=cached.script;}catch{}
+   const text=savedScript||formatScript(project,format);
+   setScript(text);
+   setCuts(prior?.cuts?.length?prior.cuts:planCuts({script:text,format,assets:restored}));
+   setManualEdits(Boolean(prior?.cuts?.length));
+   setWorkspaceNotice(messages.join(' '));workspaceReady.current=true;
+  })();
+  return ()=>{active=false;workspaceReady.current=false;};
  },[format,project?.slug]);
  useEffect(()=>{
   if(!project||!script)return;
   try{localStorage.setItem(CUT_KEY+project.slug+'-'+format,JSON.stringify({script}));}catch{}
  },[script,project?.slug,format]);
  useEffect(()=>{
-  if(!project || !script.trim() || manualEdits)return;
+  if(!project||!script.trim()||manualEdits||!workspaceReady.current)return;
   setCuts(planCuts({script,format,assets}));setActiveIndex(0);
  },[project?.slug,format,assets,script,manualEdits]);
- const selected=cuts[activeIndex]||null;
+ useEffect(()=>{
+  if(!project?.slug||!workspaceReady.current)return;
+  const timer=setTimeout(()=>{saveEdit(project.slug,format,{script,cuts}).catch(e=>setWorkspaceNotice('This edit could not be saved: '+e.message));},450);
+  return()=>clearTimeout(timer);
+ },[script,cuts,project?.slug,format]);
+  const selected=cuts[activeIndex]||null;
  const asset=assets.find(a=>a.id===selected?.assetId)||null;
  const playable=Boolean(asset?.objectUrl);
  const missing=cuts.filter(c=>!assets.some(a=>a.id===c.assetId));
@@ -104,7 +130,7 @@ export default function AdminAutoVideoEditor(){
  const sourceStatus=assets.length?assets.map(a=>WORDING[a.kind]).join(', '):'Not yet supplied';
  const setCut=(patch)=>{setManualEdits(true);setCuts(old=>old.map((c,i)=>i===activeIndex?{...c,...patch}:c));};
 
- const addAsset=async(file,kind,referenceUrl='')=>{
+ const addAsset=async(file,kind,referenceUrl='',approvedDemo=false)=>{
   if(!file)return;
   if(!file.type.startsWith('video/')){setStatus('Choose a real MP4, MOV or WebM video file.');return;}
   setWorking(true);setStatus('Reading '+file.name+'…');setProgress(0);
@@ -113,18 +139,45 @@ export default function AdminAutoVideoEditor(){
    if(!Number.isFinite(duration)||duration<=0)throw Error('Video has no recognised duration.');
    const id='media-'+Date.now()+'-'+Math.random().toString(36).slice(2,6);
    const url=URL.createObjectURL(file);assetUrls.current.set(id,url);
-   const item={id,kind,title:file.name,file,duration,objectUrl:url,referenceUrl,rightsReviewed:false,peaks:[]};
+   const item={id,kind,title:file.name,file,duration,objectUrl:url,referenceUrl,rightsReviewed:Boolean(approvedDemo),peaks:[]};
+   try{await saveVideo(project.slug,item);}catch(err){setWorkspaceNotice('Video usable now, but not saved offline: '+err.message);}
    setAssets(old=>[...old,item]);
    setStatus('Real footage loaded. Analysing changes of scene and motion to create possible cut points…');
    try{
     const scanned=await scanActionPeaks(file,{onProgress:setProgress});
     item.peaks=scanned.peaks;
     setAssets(old=>old.map(a=>a.id===id?{...a,peaks:scanned.peaks}:a));
+    saveVideo(project.slug,{...item,peaks:scanned.peaks}).catch(e=>setWorkspaceNotice('Motion analysis was not saved: '+e.message));
     setStatus('Footage analysed. Press “Assemble my video” to build an editable rough cut.');
    }catch(err){setStatus('Footage loaded; advanced motion scan unavailable. Auto edit can still make a provisional cut from the video.');}
   }catch(e){setStatus('Source video error: '+e.message);throw e;}
   finally{setWorking(false);setProgress(0);}
  };
+ const loadPublicDemo=async()=>{
+  if(!project||working)return;
+  setWorking(true);setProgress(0);
+  setStatus('Fetching historic public-domain boxing footage from Wikimedia Commons…');
+  try{
+   const movie=await loadDemoFile({onProgress:setProgress});
+   setWorking(false);
+   await addAsset(movie,'fight',DEMO.original,true);
+   setDemoProject(true);setScript(DEMO.script);setManualEdits(false);
+   setStatus('Real historical boxing footage loaded and ready to edit. This is NOT a current Dubois–Wardley video.');
+  }catch(e){setStatus('Demo did not download: '+e.message+' Use the manual file link and upload it instead.');}
+  finally{setWorking(false);setProgress(0);}
+ };
+ async function removeAsset(id){
+  const target=assets.find(a=>a.id===id);if(!target)return;
+  try{await deleteVideo(project.slug,id);}catch(e){setWorkspaceNotice('Removing saved footage failed: '+e.message);}
+  if(target.objectUrl){URL.revokeObjectURL(target.objectUrl);assetUrls.current.delete(id);}
+  setAssets(list=>list.filter(a=>a.id!==id));setManualEdits(false);
+  setStatus('Source removed; rebuilding cuts from the remaining footage.');
+ }
+ const setReviewed=(id,checked)=>setAssets(old=>old.map(a=>{
+  if(a.id!==id)return a;const next={...a,rightsReviewed:checked};
+  saveVideo(project.slug,next).catch(e=>setWorkspaceNotice('Usage status was not saved: '+e.message));
+  return next;
+ }));
  const autoAssemble=()=>{
   if(!script.trim()){setStatus('No narration yet. Add or edit the voiceover script first.');return;}
   if(!assets.length){setStatus('Attach genuine fight or press-conference video files first. Source links alone cannot be copied into an MP4.');return;}
@@ -221,6 +274,19 @@ export default function AdminAutoVideoEditor(){
     <p>Real footage. Real boxing analysis. Your voice. One finished video.</p></div>
    <div className="aura-edit-header-links"><Link to="/admin/social">Social posts</Link><Link to="/admin/video-production/advanced">Advanced setup</Link></div>
   </header>
+  <section className="aura-edit-demo">
+   <div className="aura-edit-demo-copy">
+    <strong>TEST THE EDITOR — no API key or fight download needed</strong>
+    <p>Load genuine public-domain boxing footage from 1891, then preview the automatically arranged clips, record your voice, and export a sample MP4. This is historical test footage, not footage from a modern title fight.</p>
+    <a href={DEMO.original} target="_blank" rel="noopener noreferrer">Check the public-domain film and its source ↗</a>
+   </div>
+   <div className="aura-edit-demo-controls">
+    <button type="button" className="aura-edit-primary" onClick={loadPublicDemo} disabled={!project||working}>
+     {working?'Loading the boxing demo…':'▶ Load test boxing footage'}
+    </button>
+    <a href={DEMO.mediaUrl} target="_blank" rel="noopener noreferrer">Manual demo download ↗</a>
+   </div>
+  </section>
   <div className="aura-edit-top">
    <label className="aura-edit-select">Choose the fight
     <select value={selectedPath} onChange={e=>setSelectedPath(e.target.value)}>{queue.map(x=><option key={x.path} value={x.path}>{x.date} · {x.name}</option>)}</select>
@@ -232,6 +298,8 @@ export default function AdminAutoVideoEditor(){
   </div>
   {project?<div className="aura-edit-workspace">
    <section className="aura-edit-viewer-panel">
+    {demoProject&&<p className="aura-edit-demo-flag">Real historical boxing — test project only</p>}
+    {workspaceNotice&&<p className="aura-edit-persist-warning" role="status">{workspaceNotice}</p>}
     <div className="aura-edit-panel-head"><h2>Video preview</h2><span>{cuts.length?cuts.length+' clips · '+previewDuration:'No video assembled'}</span></div>
     <div className={'aura-edit-screen '+(format==='shorts'?'vertical':'widescreen')}>
      {playable?<video key={asset.objectUrl+'-'+activeIndex} ref={videoRef} controls={!isPlaying} playsInline preload="auto"
@@ -280,7 +348,7 @@ export default function AdminAutoVideoEditor(){
      <AuraFootageFinder project={project} onAddFile={addAsset} working={working} onNotice={setStatus}/>
      {assets.map(a=><div key={a.id} className="aura-edit-asset">
       <div><strong>{a.title}</strong><small>{WORDING[a.kind]} · {time(a.duration)} · {a.peaks.length} suggested moments</small>{a.referenceUrl&&<a href={a.referenceUrl} target="_blank" rel="noopener noreferrer" style={{fontSize:11,color:'#dfc28f'}}>View source ↗</a>}</div>
-      <div className="aura-edit-asset-actions"><button type="button" onClick={()=>save(a.file,a.title)}>Save file</button><label><input type="checkbox" checked={a.rightsReviewed} onChange={e=>setAssets(old=>old.map(x=>x.id===a.id?{...x,rightsReviewed:e.target.checked}:x))}/> Usage reviewed</label></div>
+      <div className="aura-edit-asset-actions"><button type="button" onClick={()=>save(a.file,a.title)}>Save file</button><label><input type="checkbox" checked={a.rightsReviewed} onChange={e=>setReviewed(a.id,e.target.checked)}/> Usage reviewed</label><button type="button" onClick={()=>removeAsset(a.id)}>Remove</button></div>
      </div>)}
     </section>
     <section className="aura-edit-card">
