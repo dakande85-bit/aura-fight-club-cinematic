@@ -39,6 +39,7 @@ export default function AdminAutoVideoEditor(){
  const [format,setFormat]=useState('shorts');
  const [assets,setAssets]=useState([]);
  const [cuts,setCuts]=useState([]);
+ const [manualEdits,setManualEdits]=useState(false);
  const [activeIndex,setActiveIndex]=useState(0);
  const [script,setScript]=useState('');
  const [voice,setVoice]=useState(null);
@@ -60,7 +61,7 @@ export default function AdminAutoVideoEditor(){
  },[]);
  useEffect(()=>{
   if(!selectedPath)return;
-  let active=true;setStatus('');setProject(null);setCuts([]);setAssets([]);setActiveIndex(0);
+  let active=true;setStatus('');setProject(null);setCuts([]);setAssets([]);setManualEdits(false);setActiveIndex(0);
   for(const url of assetUrls.current.values())URL.revokeObjectURL(url);
   assetUrls.current.clear();setVoice(null);
   fetch(selectedPath,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight briefing is unavailable');return r.json();}).then(d=>{
@@ -75,7 +76,7 @@ export default function AdminAutoVideoEditor(){
  useEffect(()=>{
   if(!project)return;
   setScript(formatScript(project,format));
-  setCuts([]);
+  setCuts([]);setManualEdits(false);
   setActiveIndex(0);setIsPlaying(false);
   setResultUrl('');setResultBlob(null);setVoice(null);setVoiceUrl('');
   try{
@@ -87,6 +88,10 @@ export default function AdminAutoVideoEditor(){
   if(!project||!script)return;
   try{localStorage.setItem(CUT_KEY+project.slug+'-'+format,JSON.stringify({script}));}catch{}
  },[script,project?.slug,format]);
+ useEffect(()=>{
+  if(!project || !script.trim() || manualEdits)return;
+  setCuts(planCuts({script,format,assets}));setActiveIndex(0);
+ },[project?.slug,format,assets,script,manualEdits]);
  const selected=cuts[activeIndex]||null;
  const asset=assets.find(a=>a.id===selected?.assetId)||null;
  const playable=Boolean(asset?.objectUrl);
@@ -96,7 +101,7 @@ export default function AdminAutoVideoEditor(){
  const currentlyReady=rightsReady&&missing.length===0&&!working;
  const previewDuration=total?time(total):'—';
  const sourceStatus=assets.length?assets.map(a=>WORDING[a.kind]).join(', '):'Not yet supplied';
- const setCut=(patch)=>setCuts(old=>old.map((c,i)=>i===activeIndex?{...c,...patch}:c));
+ const setCut=(patch)=>{setManualEdits(true);setCuts(old=>old.map((c,i)=>i===activeIndex?{...c,...patch}:c));};
 
  const addAsset=async(file,kind)=>{
   if(!file)return;
@@ -123,7 +128,7 @@ export default function AdminAutoVideoEditor(){
   if(!script.trim()){setStatus('No narration yet. Add or edit the voiceover script first.');return;}
   if(!assets.length){setStatus('Attach genuine fight or press-conference video files first. Source links alone cannot be copied into an MP4.');return;}
   const result=planCuts({script,format,assets});
-  setCuts(result);setActiveIndex(0);setIsPlaying(false);setResultUrl('');setResultBlob(null);
+  setManualEdits(false);setCuts(result);setActiveIndex(0);setIsPlaying(false);setResultUrl('');setResultBlob(null);
   setStatus(`A ${result.length}-scene rough cut has been assembled from real uploaded video. Review the actual exchanges and adjust any incorrect selections before publishing.`);
  };
  const play=useCallback(()=>{setActiveIndex(0);setIsPlaying(true);},[]);
@@ -140,10 +145,12 @@ export default function AdminAutoVideoEditor(){
  };
  const selectCut=i=>{setActiveIndex(i);setIsPlaying(false);};
  const moveCut=(i,d)=>{
+  setManualEdits(true);
   setCuts(old=>{const a=[...old],to=i+d;if(to<0||to>=a.length)return old;[a[i],a[to]]=[a[to],a[i]];return a;});
   setActiveIndex(Math.max(0,Math.min(cuts.length-1,i+d)));setIsPlaying(false);
  };
  const deleteCut=()=>{
+  setManualEdits(true);
   setCuts(old=>old.filter((_,i)=>i!==activeIndex));
   setActiveIndex(i=>Math.max(0,i-1));setIsPlaying(false);
  };
@@ -204,7 +211,7 @@ export default function AdminAutoVideoEditor(){
     <div className={'aura-edit-screen '+(format==='shorts'?'vertical':'widescreen')}>
      {playable?<video key={asset.objectUrl+'-'+activeIndex} ref={videoRef} controls={!isPlaying} playsInline preload="auto"
        src={asset.objectUrl} onLoadedMetadata={handleLoaded} onTimeUpdate={timeUpdate} onEnded={timeUpdate} muted={!voice} />:
-      <div className="aura-edit-empty-view"><span className="aura-edit-film-icon">▶</span><strong>{assets.length?'Select a clip to preview':'Your real fight video will appear here'}</strong><small>No generated boxers or slideshow placeholders</small></div>}
+      <div className="aura-edit-empty-view"><span className="aura-edit-film-icon">▶</span><strong>{assets.length?'Select a clip to preview':'Your scripted rough cut is waiting for genuine footage'}</strong><small>No generated boxers or slideshow placeholders</small></div>}
      {selected&&<div className="aura-edit-viewer-caption"><span>FIGHT INTELLIGENCE</span><strong>{selected.caption||selected.narration?.slice(0,86)||'Review this sequence'}</strong></div>}
     </div>
     <div className="aura-edit-viewer-tools">
@@ -222,7 +229,7 @@ export default function AdminAutoVideoEditor(){
        <strong>{WORDING[c.role]||'Real footage'}</strong>
        <small>{src?.title||'Video required'}</small>
       </button>;
-     }):<p className="aura-edit-placeholder">Upload your real footage, then select <b>Assemble my video</b>. The script will be divided into scenes and source footage placed on an editable timeline automatically.</p>}
+     }):<p className="aura-edit-placeholder">Your script is broken into draft scenes automatically. Attach real fight footage to fill those scenes and preview the edit.</p>}
     </div>
     {selected&&<div className="aura-edit-shot-settings">
      <h3>Edit selected scene</h3>
