@@ -59,7 +59,8 @@ try{
   return Boolean(el && el.readyState>=1 && el.videoWidth>0);
  },null,{timeout:45000});
  await page.locator('.aura-edit-screen video').first().evaluate(async video=>{
-  await video.play().catch(()=>{});
+  // Browser autoplay can remain pending on iOS even though metadata and frames decode correctly.
+  // Loaded frame data, not programmatic autoplay, is the compatibility signal.
   if(video.readyState<2)await new Promise((resolve,reject)=>{
    const timer=setTimeout(()=>reject(new Error('iPhone video preview never reached HAVE_CURRENT_DATA')),10000);
    video.addEventListener('loadeddata',()=>{clearTimeout(timer);resolve();},{once:true});
