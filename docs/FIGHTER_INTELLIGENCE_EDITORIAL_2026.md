@@ -35,7 +35,7 @@ The user mentioned **"Kerman ..."** as a possible emerging fighter. Do not assig
 ## Fighter Intelligence delivery verification — 16 October 2026
 
 - All 50 men’s editorial Top 50 ranks have full profiles. AURA 50 is not an official Ring, TBRB or BoxRec ranking.
-- **164 result entries** now have source URLs; all 50 ranked fighters have at least one documented result; **22/50** have five documented results. Partial ledgers must never be represented as complete latest-five histories.
+- **186 result entries** now have source URLs; all 50 ranked fighters have at least one documented result; **28/50** have five documented results. Partial ledgers must never be represented as complete latest-five histories.
 - All **65 public fighter profiles** are now in the sitemap (previously 18 because a regex missed JSON-format profiles). Static English and Spanish rankings are generated, with 50 crawled fighter links and English ItemList structured data.
 - Added responsive division filters, sorting by ranking, name or verified result date, verified-results-only toggle, and full-profile links from the expandable rank rows.
 - Profile pages now show scheduled fights from src/data/fighterUpcoming.js with individual source links, when available. This is not an exhaustive official fight calendar.
