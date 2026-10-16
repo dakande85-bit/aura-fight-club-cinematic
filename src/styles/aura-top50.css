@@ -69,3 +69,19 @@
 .aura-profile-asof{display:block;margin-top:16px;font-size:11px;color:#aca79d}
 .aura-form-first{font-size:15px;padding:3px 6px;border:1px solid currentColor;border-radius:3px;margin-right:5px}
 @media(max-width:520px){.aura-profile-recent-bouts{grid-template-columns:1fr}.aura-profile-recent-bout{padding:12px}.aura-profile-recent-bout strong{font-size:12px}.aura-profile-recent-bout a{font-size:9px}}
+
+/* AURA 50 discovery controls and accessible expanded-row navigation */
+.aura-50__toolbar{display:flex;flex-wrap:wrap;gap:14px;align-items:end;padding:17px 0 22px;border-top:1px solid rgba(215,181,123,.25)}
+.aura-50__toolbar label:not(.aura-50__documented){display:flex;flex-direction:column;gap:7px;font-size:10px;letter-spacing:.13em;text-transform:uppercase;font-weight:750;color:#e2d4bb}
+.aura-50__toolbar select{min-width:172px;max-width:280px;color:#f2eee4;background:#242426;border:1px solid #635741;padding:12px 34px 12px 13px;border-radius:2px;font-size:12px;min-height:44px;letter-spacing:0;text-transform:none}
+.aura-50__toolbar select:focus-visible,.aura-50__toolbar input:focus-visible,.aura-50__row summary:focus-visible,.aura-50__profile-link:focus-visible{outline:2px solid #edce92;outline-offset:3px}
+.aura-50__documented{display:flex;gap:8px;align-items:center;min-height:44px;font-size:12px;color:#e8e1d6;cursor:pointer}
+.aura-50__documented input{accent-color:#d7b47c;width:17px;height:17px}
+.aura-50__count{margin-left:auto;align-self:center;font-size:12px;color:#bcb4a5;font-variant-numeric:tabular-nums}
+.aura-50__profile-link{display:inline-flex;margin-top:15px;padding:12px 16px;border:1px solid #c7a669;color:#f4d391!important;font-size:12px;font-weight:750;letter-spacing:.1em;text-decoration:none!important}
+.aura-50__profile-link:hover,.aura-50__profile-link:focus-visible{background:#3e3428}
+.aura-50__row summary:focus-visible{position:relative;z-index:1}
+.aura-profile-upcoming article{border-left:3px solid #d5b47b!important;background:linear-gradient(120deg,rgba(213,180,123,.12),transparent)!important}
+.aura-profile-upcoming article a{color:#e8c88e;font-size:12px}
+@media(max-width:700px){.aura-50__toolbar{display:grid;grid-template-columns:1fr 1fr}.aura-50__toolbar select{min-width:0;width:100%;max-width:none}.aura-50__count{margin-left:0}}
+@media(max-width:460px){.aura-50__toolbar{grid-template-columns:1fr}.aura-50__toolbar label:not(.aura-50__documented){width:100%}.aura-50__toolbar select{width:100%}.aura-50__count{font-size:11px}}
