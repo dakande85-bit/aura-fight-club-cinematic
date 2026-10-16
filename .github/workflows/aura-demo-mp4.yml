@@ -37,5 +37,7 @@ jobs:
             echo "Static boxing MP4 already committed."
           else
             git commit -m "Provide local H264 MP4 boxing demo for iPhone playback"
+            git fetch origin feature/real-footage-production-studio
+            git rebase FETCH_HEAD
             git push origin HEAD:feature/real-footage-production-studio
           fi
