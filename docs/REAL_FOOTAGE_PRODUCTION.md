@@ -51,3 +51,28 @@ Rendered video is unposted; review quality, accuracy, graphics, audio, aspect ra
 
 ## Fight date fact check
 Dubois vs Wardley II is Saturday **17 October 2026** at The O2 in London. The plan is a **pre-fight** analysis release on Friday 16 October, not a reaction to a result that has not occurred. The May first bout ended in an 11th-round Dubois stoppage after Wardley scored two early knockdowns.
+
+
+## 16 October 2026 — expansion to the recurring fight video desk
+
+**Preview route:** `/admin/video-production` on the Vercel preview for the `feature/real-footage-production-studio` branch. All changes remain in draft PR #23; the production site is unchanged.
+
+**Implemented in source:**
+- Six Fight Hub events seeded in `public/news/video-production/index.json`; fight selector loads a different evidence package without adding another app or Lovable project.
+- `scripts/build-video-production-queue.py`: select notable featured or world-title bouts 30 days ahead and 3 days back from `public/news/fights.json`. Creates draft footage-search links and an evidence schema. Optional `YOUTUBE_DATA_API_KEY` uses the official YouTube Data API for *metadata* leads only; default uses no paid API.
+- `scripts/seed-video-narrations.py`: populate **unapproved** long/short scripts from our own sourced Fight Lab articles, without claiming any technical exchange was inspected. Source quality and spoken wording still require editorial review.
+- `scripts/suggest-real-footage-cuts.py`: given a timecoded transcript from an approved local video, find candidate windows around boxing terminology. These are *transcript matches*, not a visual-action detector. Import suggestions as JSON in the studio, inspect, then approve cuts individually.
+- `scripts/render-fight-production.py`: outputs 1920×1080 YouTube and 1080×1920 Shorts MP4s from distinct selected cuts. Requires approved scripts, local video files cleared for their actual use, real in/out timecodes, an audio file for each format, and closely matching narration duration. It refuses silent voiceover truncation or invented visual evidence.
+- Narrate inside the browser with the microphone recording controls, play back, or upload an external recording. At present the browser does not automatically upload this to persistent storage; export a local copy for the rendering worker.
+- Editorial checks for boxing mechanisms: range, jab, guard, angles, entry/exit, counters, pace, condition-dependent prediction and a counterargument. Timecoded observations require linked clips.
+
+**Recurring research workflow:** `.github/workflows/aura-video-research-queue.yml` is configured for daily UTC checks. Once merged into the default branch it can generate research-only artefacts and create a *draft* review PR. It cannot post, scrape/download YouTube videos, publish unapproved articles, or replace the existing public site without review. The workflow is not active on the default branch while this pull request is unmerged.
+
+**Material gaps before the requested hands-off workflow is complete:**
+1. Durable authenticated per-user production store and protected uploads for original/cleared source video and voiceover; existing public Supabase media policies are unsuitable for privately held broadcast files.
+2. A bounded background job queue and authenticated FFmpeg workers for MP4 rendering, provenance and generated media URLs (Vercel frontend alone is not adequate for multi-minute video encoding).
+3. A lawful source-licensing or platform-authorised ingestion path, or user-provided original licensed footage. Public YouTube metadata and embeds do not grant downloadable footage.
+4. Clip relevance detection with multimodal scene analysis and visual evidence review, not solely transcript keywords. Until this is configured, the editor remains the shot-selection bottleneck.
+5. Publishing connections to YouTube and TikTok with account authorisation and explicit final approval. No automatic public posts have happened.
+
+**No fake real-footage outputs.** As of this change there is no licensed/local video in the connected repository, no source timecodes for Dubois–Wardley, and no finished clip derived from actual broadcast footage. The scripts and queue are the tested production foundation, not proof of completed video generation.
