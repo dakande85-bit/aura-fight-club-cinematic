@@ -57,3 +57,7 @@
 .aura-video-analysis strong{color:#e8cc94}
 .aura-video-analysis p{color:#b8c3ce;font-size:14px;line-height:1.55}
 @media(max-width:650px){.aura-video-analysis-grid{grid-template-columns:1fr}}
+
+.aura-video-recording-controls{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}
+.aura-video-recording-controls button:first-child{border-color:#bc5965;background:#4a1d2a}
+.aura-video-panel audio{max-width:100%;width:100%;min-height:38px;margin-top:12px}
