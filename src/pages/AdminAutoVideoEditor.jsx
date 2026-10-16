@@ -5,7 +5,7 @@ import AuraFootageFinder from '../components/AuraFootageFinder.jsx';
 import Footer from '../components/Footer.jsx';
 import {planCuts,scanActionPeaks} from '../lib/auraAutoCut.js';
 import {exportAutoVideo} from '../lib/auraBrowserExport.js';
-import {DEMO,loadDemoFile,saveVideo,getVideos,deleteVideo,saveEdit,getEdit} from '../lib/auraMediaVault.js';
+import {DEMO,loadDemoFile,saveVideo,getVideos,deleteVideo,saveEdit,getEdit,saveVoice,getVoice} from '../lib/auraMediaVault.js';
 import '../styles/aura-auto-video-editor.css';
 
 const QUEUE='/news/video-production/index.json';
@@ -85,9 +85,10 @@ export default function AdminAutoVideoEditor(){
   setCuts([]);setActiveIndex(0);setIsPlaying(false);
   setResultUrl('');setResultBlob(null);setVoice(null);setVoiceUrl('');
   (async()=>{
-   let files=[],prior=null;const messages=[];
+   let files=[],prior=null,recordedVoice=null;const messages=[];
    try{files=await getVideos(project.slug);}catch(e){messages.push('Device media storage unavailable: '+e.message);}
    try{prior=await getEdit(project.slug,format);}catch(e){messages.push('Previous cuts could not be restored: '+e.message);}
+   try{recordedVoice=await getVoice(project.slug,format);}catch(e){messages.push('Previous narration could not be restored: '+e.message);}
    if(!active)return;
    for(const url of assetUrls.current.values())URL.revokeObjectURL(url);
    assetUrls.current.clear();
@@ -96,6 +97,7 @@ export default function AdminAutoVideoEditor(){
     return {...x,objectUrl};
    });
    setAssets(restored);
+   if(recordedVoice)setVoice(recordedVoice);
    let savedScript=prior?.script;
    try{const cached=JSON.parse(localStorage.getItem(CUT_KEY+project.slug+'-'+format)||'null');if(!savedScript&&cached?.script)savedScript=cached.script;}catch{}
    const text=savedScript||formatScript(project,format);
@@ -245,6 +247,10 @@ export default function AdminAutoVideoEditor(){
   const url=URL.createObjectURL(voice);setVoiceUrl(url);
   return()=>URL.revokeObjectURL(url);
  },[voice]);
+ useEffect(()=>{
+  if(!project?.slug||!voice||!workspaceReady.current)return;
+  saveVoice(project.slug,format,voice).catch(e=>setWorkspaceNotice('Audio could not be saved to the device: '+e.message));
+ },[voice,format,project?.slug]);
  const doExport=async()=>{
   if(!currentlyReady)return;
   setWorking(true);setStatus('Preparing the real-footage MP4…');setResultUrl('');setResultBlob(null);
