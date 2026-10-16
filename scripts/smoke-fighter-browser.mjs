@@ -50,9 +50,9 @@ try{
   const page=await context.newPage();
   page.on('pageerror',e=>errors.push(name+': '+e.message));
   await openPage(page,'/fighters');
-  await assert(name+' loads four directory tiers',async()=>page.locator('.aura-intelligence-group').count()===4,page);
-  await assert(name+' shows 50 distinct AURA rows',async()=>page.locator('.aura-50__row').count()===50,page);
-  await assert(name+' displays all 50 details',async()=>page.locator('.aura-50__row summary').count()===50,page);
+  await assert(name+' loads four directory tiers',async()=> (await page.locator('.aura-intelligence-group').count())===4,page);
+  await assert(name+' shows 50 distinct AURA rows',async()=> (await page.locator('.aura-50__row').count())===50,page);
+  await assert(name+' displays all 50 details',async()=> (await page.locator('.aura-50__row summary').count())===50,page);
   await layoutChecks(page,name+' directory');
   await screenshot(page,name+'-fighters-index');
   await page.locator('#aura-top-50').scrollIntoViewIfNeeded();
@@ -66,14 +66,14 @@ try{
   await page.locator('.aura-50__toolbar select').first().selectOption('all');
   const search=page.locator('.aura-directory-controls input[type=search]');
   await search.fill('Sebastian Fundora');
-  await assert(name+' searches fighter cards and rank list',async()=>page.locator('.aura-50__row').count()===1&&await page.locator('.aura-fighter-tile').count()===1,page);
+  await assert(name+' searches fighter cards and rank list',async()=> (await page.locator('.aura-50__row').count())===1&&(await page.locator('.aura-fighter-tile').count())===1,page);
   await search.fill('');
   await page.locator('.aura-50__row').first().locator('summary').click();
   await assert(name+' ranking detail opens with fighter link',async()=>page.locator('.aura-50__row').first().locator('.aura-50__profile-link').isVisible(),page);
   await page.locator('.aura-50__row').first().locator('.aura-50__profile-link').click();
   await assert(name+' fighter profile navigation works',async()=>page.url().includes('/fighters/jesse-bam-rodriguez'),page);
   await openPage(page,'/es/fighters');
-  await assert(name+' Spanish route retains ranking',async()=>page.locator('.aura-50__row').count()===50,page);
+  await assert(name+' Spanish route retains ranking',async()=> (await page.locator('.aura-50__row').count())===50,page);
   await assert(name+' Spanish route has Spanish headings',async()=>await page.locator('#aura-50-title').textContent().then(x=>x.includes('LOS 50')),page);
   await layoutChecks(page,name+' Spanish directory');
   await screenshot(page,name+'-spanish-index');
@@ -99,7 +99,7 @@ try{
     });
    });}catch{return false}
   },page);
-  await assert(slug+' includes sourced form',async()=>page.locator('.aura-profile-recent-bout').count()===5,page);
+  await assert(slug+' includes sourced form',async()=> (await page.locator('.aura-profile-recent-bout').count())===5,page);
   await screenshot(page,'fighter-'+slug);
  }
  await context.close();
