@@ -8,6 +8,7 @@ import { fighters, topics, evergreenGuides, author } from '../data/seoEntities.j
 import { useArticles } from '../hooks/useArticles.js';
 import fightEdition from '../../public/news/fights.json';
 import {auraTop50,auraTop50CheckedAt,auraTop50Sources} from '../data/auraTop50.js';
+import {fighterEditorialTiers} from '../data/fighterTiers.js';
 import {fighterUpcoming,fighterUpcomingReviewedAt} from '../data/fighterUpcoming.js';
 import {VerifiedPhoto} from '../components/VerifiedPhoto.jsx';
 import '../styles/aura-editorial.css';
@@ -94,12 +95,7 @@ export function FightersIndexPage({locale='en'}){
  'Modern greats':['Grandes figuras','Leyendas retiradas y campeones veteranos con legado internacional.']
  };
  const [query,setQuery]=useState('');
- const groups=[
-  {title:'The elite',subtitle:'World-class pound-for-pound talents and established champions with proven opposition.',slugs:['jesse-bam-rodriguez','oleksandr-usyk','naoya-inoue','shakur-stevenson','dmitry-bivol','david-benavidez','jaron-ennis','junto-nakatani','devin-haney','canelo-alvarez','oscar-collazo','artur-beterbiev','rafael-espinoza']},
-  {title:'Future stars',subtitle:'The breakout generation — elite amateurs, emerging professionals and young champions building a legacy.',slugs:['abdullah-mason','moses-itauma','floyd-schofield','ben-whittaker','curmel-moton','emiliano-vargas','giorgio-visioli','andy-cruz','hamza-uddin','xander-zayas','dalton-smith','keyshawn-davis']},
-  {title:'Fighters to watch',subtitle:'Dangerous titleholders, compelling contenders and the next must-see matchups.',slugs:['isaac-cruz','jai-opetaia','daniel-dubois','fabio-wardley','sebastian-fundora','osleys-iglesias','christian-mbilli','vergil-ortiz','callum-smith','tim-tszyu','ryan-garcia','oshaquie-foster','emanuel-navarrete']},
-  {title:'Modern greats',subtitle:'Retired icons and era-defining veterans, with their career status clearly labelled.',slugs:['terence-crawford','vasiliy-lomachenko','errol-spence-jr','manny-pacquiao','anthony-joshua','tyson-fury','deontay-wilder','josh-taylor','erislandy-lara']}
- ];
+ const groups=fighterEditorialTiers;
  const q=query.trim().toLowerCase();
  const count=groups.reduce((n,g)=>n+g.slugs.filter(slug=>{const f=fighters.find(x=>x.slug===slug);return f&&(!q||f.name.toLowerCase().includes(q))}).length,0);
  return <Shell seo={{title:isEs?'Boxeadores — perfiles y comparaciones | AURA Fight Club':'Fighter Intelligence, Boxing Prospects & Head-to-Head | AURA Fight Club',description:'Discover outstanding active fighters, exciting boxing prospects and side-by-side fighter comparisons.',canonicalPath:base}} crumbs={[{label:translate('Home','Inicio'),to:isEs?'/es':'/'},{label:translate('Fighter Intelligence','Boxeadores'),to:base}]}>
