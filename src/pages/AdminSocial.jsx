@@ -143,6 +143,7 @@ export default function AdminSocial(){
    <p>Turn a verified Aura article into a 9:16, multi-image TikTok story. Preview every slide, export a complete image pack, copy a caption and drive readers back to the original journalism. No TikTok credentials or paid AI credits required.</p>
    <div className="aura-social-studio__actions">
     <Link to="/admin/articles">Manage news articles</Link>
+    <Link to="/admin/video-production">Real Footage Studio — cuts & voiceover</Link>
     <Link to="/admin/analytics">Audience analytics</Link>
     <Link to="/tiktok">Preview TikTok traffic page</Link>
     <a href={workflow} target="_blank" rel="noopener noreferrer">Export short MP4 clips ↗</a>
