@@ -31,3 +31,16 @@ The user mentioned **"Kerman ..."** as a possible emerging fighter. Do not assig
 **Modern Greats expanded to nine:** Crawford, Lomachenko, Spence, Pacquiao, Joshua, Fury, Wilder, Josh Taylor, Lara. Retirees have a retired status; veterans are not falsely labelled retired.
 
 **Open editorial and release blockers:** Portrait URLs have metadata, but visual/browser and copyright/licensing clearance for externally hosted publisher photography remains outstanding. Structural audit/CI must pass on current branch. Full five-result history for all 50 is not yet complete, and some career records are deliberately blank rather than unverified. This branch is separate from the production `main` branch. Do not merge until visual inspection, permission confirmation, and current-source review.
+
+## Fighter Intelligence delivery verification — 16 October 2026
+
+- All 50 men’s editorial Top 50 ranks have full profiles. AURA 50 is not an official Ring, TBRB or BoxRec ranking.
+- **164 result entries** now have source URLs; all 50 ranked fighters have at least one documented result; **22/50** have five documented results. Partial ledgers must never be represented as complete latest-five histories.
+- All **65 public fighter profiles** are now in the sitemap (previously 18 because a regex missed JSON-format profiles). Static English and Spanish rankings are generated, with 50 crawled fighter links and English ItemList structured data.
+- Added responsive division filters, sorting by ranking, name or verified result date, verified-results-only toggle, and full-profile links from the expandable rank rows.
+- Profile pages now show scheduled fights from src/data/fighterUpcoming.js with individual source links, when available. This is not an exhaustive official fight calendar.
+- GitHub Actions remotely probes 65 external fighter images and checks 75 unique fight-result or upcoming-card source URLs without downloading content.
+- Last CI probe: 64/65 images return HTTP 2xx image responses; one publisher blocks automated image access (Anthony Olascuaga), and no definitive 404/410 images. Benavidez, Bivol, Haney and Fundora all pass.
+- Source probe: 65/75 response status 2xx/3xx; zero definite 404/410; ten protected by login/CDN (401/403), requiring separate editorial browser verification. Response status alone never validates the fight fact.
+- **Publication blockers**: no demonstrated republication rights for most publisher images, no independent full desktop/mobile screenshot pass, plus 86 pending latest-five fight-result slots.
+- **Status**: development feature branch and draft PR #21 only. No Lovable credits, no live merge. Keep draft until image-use permissions, visual QA and remaining fight-result research are completed.
