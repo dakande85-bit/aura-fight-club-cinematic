@@ -42,5 +42,5 @@ The user mentioned **"Kerman ..."** as a possible emerging fighter. Do not assig
 - GitHub Actions remotely probes 65 external fighter images and checks 75 unique fight-result or upcoming-card source URLs without downloading content.
 - Last CI probe: 64/65 images return HTTP 2xx image responses; one publisher blocks automated image access (Anthony Olascuaga), and no definitive 404/410 images. Benavidez, Bivol, Haney and Fundora all pass.
 - Source probe: 65/75 response status 2xx/3xx; zero definite 404/410; ten protected by login/CDN (401/403), requiring separate editorial browser verification. Response status alone never validates the fight fact.
-- **Publication blockers**: no demonstrated republication rights for most publisher images, no independent full desktop/mobile screenshot pass, plus 86 pending latest-five fight-result slots.
+- **Publication blockers**: no demonstrated republication rights for most publisher images, no independent full desktop/mobile screenshot pass, plus 64 pending latest-five fight-result slots.
 - **Status**: development feature branch and draft PR #21 only. No Lovable credits, no live merge. Keep draft until image-use permissions, visual QA and remaining fight-result research are completed.
