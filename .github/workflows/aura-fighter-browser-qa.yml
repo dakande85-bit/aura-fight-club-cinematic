@@ -1,0 +1,57 @@
+name: Fighter Intelligence Browser QA
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/auraTop50.js'
+      - 'src/data/boxingPhotography.js'
+      - 'src/data/seoEntities.js'
+      - 'src/data/fighterUpcoming.js'
+      - 'src/pages/DiscoveryPages.jsx'
+      - 'src/pages/FighterComparePage.jsx'
+      - 'src/components/VerifiedPhoto.jsx'
+      - 'src/styles/aura-top50.css'
+      - 'scripts/smoke-fighter-browser.mjs'
+      - '.github/workflows/aura-fighter-browser-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fighter-browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install site dependencies
+        run: npm install --no-package-lock --no-audit --no-fund
+      - name: Install Chromium test harness
+        run: |
+          npm install --no-save --no-package-lock --no-audit --no-fund playwright
+          npx playwright install --with-deps chromium
+      - name: Build preview
+        run: npm run build
+      - name: Start preview
+        run: |
+          nohup ./node_modules/.bin/vite preview --host 127.0.0.1 --port 4173 > /tmp/aura-vite-preview.log 2>&1 &
+          for i in $(seq 1 35); do
+            if curl --fail --silent http://127.0.0.1:4173/fighters > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/aura-vite-preview.log
+          exit 1
+      - name: Exercise real desktop and mobile browser
+        run: node scripts/smoke-fighter-browser.mjs
+      - name: Attach screenshots and test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fighter-intelligence-screenshots
+          path: qa-artifacts/fighter-intelligence/
+          retention-days: 14
+          if-no-files-found: warn
