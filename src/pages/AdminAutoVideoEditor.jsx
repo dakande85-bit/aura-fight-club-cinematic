@@ -104,7 +104,7 @@ export default function AdminAutoVideoEditor(){
  const sourceStatus=assets.length?assets.map(a=>WORDING[a.kind]).join(', '):'Not yet supplied';
  const setCut=(patch)=>{setManualEdits(true);setCuts(old=>old.map((c,i)=>i===activeIndex?{...c,...patch}:c));};
 
- const addAsset=async(file,kind)=>{
+ const addAsset=async(file,kind,referenceUrl='')=>{
   if(!file)return;
   if(!file.type.startsWith('video/')){setStatus('Choose a real MP4, MOV or WebM video file.');return;}
   setWorking(true);setStatus('Reading '+file.name+'…');setProgress(0);
@@ -113,7 +113,7 @@ export default function AdminAutoVideoEditor(){
    if(!Number.isFinite(duration)||duration<=0)throw Error('Video has no recognised duration.');
    const id='media-'+Date.now()+'-'+Math.random().toString(36).slice(2,6);
    const url=URL.createObjectURL(file);assetUrls.current.set(id,url);
-   const item={id,kind,title:file.name,file,duration,objectUrl:url,rightsReviewed:false,peaks:[]};
+   const item={id,kind,title:file.name,file,duration,objectUrl:url,referenceUrl,rightsReviewed:false,peaks:[]};
    setAssets(old=>[...old,item]);
    setStatus('Real footage loaded. Analysing changes of scene and motion to create possible cut points…');
    try{
@@ -122,7 +122,7 @@ export default function AdminAutoVideoEditor(){
     setAssets(old=>old.map(a=>a.id===id?{...a,peaks:scanned.peaks}:a));
     setStatus('Footage analysed. Press “Assemble my video” to build an editable rough cut.');
    }catch(err){setStatus('Footage loaded; advanced motion scan unavailable. Auto edit can still make a provisional cut from the video.');}
-  }catch(e){setStatus('Source video error: '+e.message);}
+  }catch(e){setStatus('Source video error: '+e.message);throw e;}
   finally{setWorking(false);setProgress(0);}
  };
  const autoAssemble=()=>{
@@ -279,8 +279,8 @@ export default function AdminAutoVideoEditor(){
      <p>Search and watch authentic fight videos, add YouTube research references, then upload or import video files for automated scene cuts.</p>
      <AuraFootageFinder project={project} onAddFile={addAsset} working={working} onNotice={setStatus}/>
      {assets.map(a=><div key={a.id} className="aura-edit-asset">
-      <div><strong>{a.title}</strong><small>{WORDING[a.kind]} · {time(a.duration)} · {a.peaks.length} suggested moments</small></div>
-      <label><input type="checkbox" checked={a.rightsReviewed} onChange={e=>setAssets(old=>old.map(x=>x.id===a.id?{...x,rightsReviewed:e.target.checked}:x))}/> Usage reviewed</label>
+      <div><strong>{a.title}</strong><small>{WORDING[a.kind]} · {time(a.duration)} · {a.peaks.length} suggested moments</small>{a.referenceUrl&&<a href={a.referenceUrl} target="_blank" rel="noopener noreferrer" style={{fontSize:11,color:'#dfc28f'}}>View source ↗</a>}</div>
+      <div className="aura-edit-asset-actions"><button type="button" onClick={()=>save(a.file,a.title)}>Save file</button><label><input type="checkbox" checked={a.rightsReviewed} onChange={e=>setAssets(old=>old.map(x=>x.id===a.id?{...x,rightsReviewed:e.target.checked}:x))}/> Usage reviewed</label></div>
      </div>)}
     </section>
     <section className="aura-edit-card">
