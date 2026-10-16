@@ -1,0 +1,12 @@
+/** Individually source-linked confirmed future bouts for Fighter Intelligence.
+ * Dates and details are editorial snapshots, not live-booking guarantees.
+ * Refresh after each event; never infer outcomes from this list.
+ */
+export const fighterUpcomingReviewedAt='2026-10-16';
+export const fighterUpcoming=[
+ {id:'fundora-hadribeaj-2026-10-17',date:'2026-10-17',fighters:['sebastian-fundora'],opponent:'Ermal Hadribeaj',event:'WBC junior-middleweight title defence',venue:'The Chelsea, Cosmopolitan, Las Vegas',sourceUrl:'https://www.premierboxingchampions.com/events/854219'},
+ {id:'figueroa-kameda-2026-10-17',date:'2026-10-17',fighters:['brandon-figueroa'],opponent:'Tomoki Kameda',event:'WBA featherweight title defence',venue:'The Chelsea, Cosmopolitan, Las Vegas',sourceUrl:'https://www.premierboxingchampions.com/events/854219'},
+ {id:'dubois-wardley-2-2026-10-17',date:'2026-10-17',fighters:['daniel-dubois','fabio-wardley'],opponentBySlug:{'daniel-dubois':'Fabio Wardley','fabio-wardley':'Daniel Dubois'},event:'WBO heavyweight championship rematch',venue:'London, United Kingdom',sourceUrl:'https://www.badlefthook.com/boxing-schedule/119473/how-to-watch-daniel-dubois-fabio-wardley-rematch-sebastian-fundora-jalolov-streaming-tv-schedule-boxing-news-2026'},
+ {id:'foster-navarrete-2026-10-24',date:'2026-10-24',fighters:['oshaquie-foster','emanuel-navarrete'],opponentBySlug:{'oshaquie-foster':'Emanuel Navarrete','emanuel-navarrete':"O'Shaquie Foster"},event:'World junior-lightweight title unification',venue:'Frost Bank Center, San Antonio, Texas',sourceUrl:'https://wbcboxing.com/en/oshaquie-foster-to-defend-wbc-super-featherweight-world-title-against-emanuel-navarrete/'},
+ {id:'canelo-mbilli-2026-10-31',date:'2026-10-31',fighters:['canelo-alvarez','christian-mbilli'],opponentBySlug:{'canelo-alvarez':'Christian Mbilli','christian-mbilli':'Canelo Álvarez'},event:'WBC super-middleweight championship',venue:'Riyadh, Saudi Arabia (subject to event updates)',sourceUrl:'https://www.reuters.com/sports/alvarez-will-go-ahead-with-title-fight-riyadh-despite-attacks-says-alalshikh-2026-10-12/'}
+];
