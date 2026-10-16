@@ -1,46 +1,51 @@
-# AURA Fighter Intelligence — editorial model (15 October 2026)
-## Audience-facing categories
-- **The Elite:** proven highest-tier pound-for-pound specialists and multi-division / established world champions with elite opposition. A title alone is not sufficient to establish an all-time or pound-for-pound case.
-- **Future Stars:** prospects, exceptional under-25s, breakout contenders, amateur standouts and new young champions. A champion may remain here temporarily while building an elite-level résumé (e.g. Dalton Smith).
-- **Fighters to Watch:** dangerous contenders, titleholders with compelling matchups, knockout threats, distinctive styles, momentum and fan interest; not a catch-all for legacy superstars.
-- **Modern Greats:** retired or veteran household-name legends with major achievements; show retired status accurately.
+# AURA Fighter Intelligence — editorial policy and completion
 
-## AURA 50 active men's pound-for-pound
-This is an **opinionated, separately published editorial order**, **not** the official BoxRec, Ring or TBRB ranking. #1 Bam Rodriguez is an AURA editorial selection, acknowledging other respected bodies have Inoue or Usyk ahead. Activity, quality of opposition, recent form, technical level, division depth, championships, and record are weighted together. No BoxRec scraping or implied live sync.
+**Snapshot:** 16 October 2026.
+**Repository:** `dakande85-bit/aura-fight-club-cinematic`.
+**Development:** pull request #21, not automatically published.
 
-**Five-fight form contract:** display individually checked dated bout outcomes only; do not infer W or L from a record. If absent, mark pending rather than fabricating five results. Source for every populated bout. The form section is progressively verified, **not complete yet**.
+## Directory editorial categories
 
-## Portrait policy
-- In-ring image of the correct boxer; never show another boxer as a substitute.
-- Include credit and source link with every image; maintain an image-rights review before monetising.
-- If source fails, show honest labelled unavailable placeholder, not a misleading silhouette or unrelated image.
-- Four highlighted upgrades: Benavidez, Bivol, Haney, Fundora, pending publisher permissions. Avoid downloading or copying restricted/Getty assets.
-- Before editorial promotion to Elite or Top 50 verify recent fight results, retirement status, weight class and relevant source date.
+- **The Elite:** cross-division world champions and pound-for-pound-level boxers, based on technical quality, elite opposition and championship pedigree. Not simply everyone who has once won a belt.
+- **Future Stars:** exceptional amateurs, rising prospects and younger world-level talents building their résumés. A new champion such as Dalton Smith may remain here until the wider résumé matures.
+- **Fighters to Watch:** dangerous challengers, former champions and divisional movers with compelling matchups.
+- **Modern Greats:** retired icons and era-defining veterans. Do not label currently active veterans as retired.
+- Categories are maintained as an explicit registry in `src/data/fighterTiers.js`. Each of the 65 public profiles appears exactly once; the ranking's 50 fighters all appear in the editorial directory.
 
-## Named question
-The user mentioned **"Kerman ..."** as a possible emerging fighter. Do not assign this to Kerman Lejarraga (older former European champion) or Curmel Moton without confirmation; meanwhile Curmel Moton is included on merit as a rising prospect.
+## AURA Top 50 men's pound-for-pound
 
-## Development continuation — 15 October 2026
+This is **AURA editorial opinion**, not The Ring, BoxRec, TBRB or any sanctioning body's official ranking. AURA places Jesse 'Bam' Rodriguez at No. 1 for his multi-weight résumé, while recognising that other credible lists favour Usyk or Inoue. Editorial positioning rewards peak skill, opponent level, form, activity, tactical sophistication, championship quality and weight-class depth.
 
-**Code on draft PR #21; not published.** All 50 positions now resolve to a dedicated AURA fighter profile. The top-50 row and profile page link to one another and display a dated scouting verdict, available source-linked bout results, and photo credits. Top-50 placement is **editorial opinion**, not a verbatim Ring / BoxRec list.
+Every one of the **50 ranked boxers has exactly five dated, source-linked professional fight results**, totalling **250 bout records**. Results include W, L, D and NC rather than inferring success from win-loss statistics. Automated audits check uniqueness, chronology and result metadata, but **a reachable citation alone does not prove the underlying outcome**. Editorial accuracy and records must continue to be reviewed after major fights.
 
-**New coverage:** Gilberto Ramirez, Hamzah Sheeraz, Agit Kabayel, Teofimo Lopez, Richardson Hitchins, Lester Martinez, Raymond Ford, Carlos Adames, Nick Ball, Brandon Figueroa, Stephen Fulton, Kenshiro Teraji, Anthony Olascuaga, Chris Billam-Smith, Bakhram Murtazaliev, Joseph Parker and Alberto Puello. Later added Raymond Muratalla (IBF lightweight champion) to the active Top 50 based on title wins over Andy Cruz and Robson Conceicao; Moses Itauma remains in Future Stars, not the active pound-for-pound top 50.
+## Portrait and licensing policy
 
-**Rank-to-profile corrections:** Hitchins is at welterweight (vacated junior-welterweight belt April 2026); Fulton at lightweight following 2026 weight problems; Kenshiro Teraji at junior bantamweight; Nick Ball is a former champion after defeat to Brandon Figueroa. Fabio Wardley vs Daniel Dubois result dated May 9, 2026. Only manually evidenced and independently source-linked fight outcomes are shown in AURA's partial five-fight ledgers.
+- Use only photographs that actually depict the named boxer. Never show an unrelated athlete as a substitute.
+- Every external image has a source, credit and rights review status. **Attribution does not grant usage permission**, and successful delivery from an image CDN does not confer a publishing license.
+- If a host blocks or removes a photo, display an honestly labelled identity-specific fallback.
+- Priority boxer photographs (Benavidez, Bivol, Haney, Fundora) were checked against actual browser rendering in CI.
+- A rights-cleared replacement can be imported with `npm run fighters:portrait:add` and will automatically supersede external publisher photo links. Store proof of license privately, not in the Git repository. Verify the source license actually permits the intended editorial/commercial context.
+- For conservative publication when rights remain unresolved, build with `VITE_AURA_FIGHTER_MEDIA_RIGHTS_STRICT=true`. This prevents Fighter Intelligence from requesting externally hosted, rights-unconfirmed photos. It will temporarily display local original art or labelled placeholders instead.
+- Full instructions: `docs/FIGHTER_INTELLIGENCE_DEPLOYMENT.md`.
 
-**Modern Greats expanded to nine:** Crawford, Lomachenko, Spence, Pacquiao, Joshua, Fury, Wilder, Josh Taylor, Lara. Retirees have a retired status; veterans are not falsely labelled retired.
+## Data and release verification
 
-**Open editorial and release blockers:** Portrait URLs have metadata, but visual/browser and copyright/licensing clearance for externally hosted publisher photography remains outstanding. Structural audit/CI must pass on current branch. Full five-result history for all 50 is not yet complete, and some career records are deliberately blank rather than unverified. This branch is separate from the production `main` branch. Do not merge until visual inspection, permission confirmation, and current-source review.
+- 50 active men ranked and 65 public boxer profiles in the XML sitemap.
+- Four curated boxer tiers, every public boxer included once.
+- 250 recent fight results and auditable reference links.
+- Search, division filter, name/rank/form ordering, scouting insights, mobile layout and functional fighter comparison.
+- English and Spanish ranking pages, crawlable static previews and ranking structured data.
+- Promoter/source-referenced upcoming fight cards, time-limited editorial snapshots rather than live reservation or BoxRec feeds.
+- Automated source checks and CI compilation.
+- Chromium desktop and mobile browser testing, screenshot artifacts, four priority portraits, Spanish/English and navigation workflows.
+- Opt-in production-safe image mode and source-checked approved-image ingestion workflow.
 
-## Fighter Intelligence delivery verification — 16 October 2026
+## Remaining non-code approvals
 
-- All 50 men’s editorial Top 50 ranks have full profiles. AURA 50 is not an official Ring, TBRB or BoxRec ranking.
-- **186 result entries** now have source URLs; all 50 ranked fighters have at least one documented result; **28/50** have five documented results. Partial ledgers must never be represented as complete latest-five histories.
-- All **65 public fighter profiles** are now in the sitemap (previously 18 because a regex missed JSON-format profiles). Static English and Spanish rankings are generated, with 50 crawled fighter links and English ItemList structured data.
-- Added responsive division filters, sorting by ranking, name or verified result date, verified-results-only toggle, and full-profile links from the expandable rank rows.
-- Profile pages now show scheduled fights from src/data/fighterUpcoming.js with individual source links, when available. This is not an exhaustive official fight calendar.
-- GitHub Actions remotely probes 65 external fighter images and checks 75 unique fight-result or upcoming-card source URLs without downloading content.
-- Last CI probe: 64/65 images return HTTP 2xx image responses; one publisher blocks automated image access (Anthony Olascuaga), and no definitive 404/410 images. Benavidez, Bivol, Haney and Fundora all pass.
-- Source probe: 65/75 response status 2xx/3xx; zero definite 404/410; ten protected by login/CDN (401/403), requiring separate editorial browser verification. Response status alone never validates the fight fact.
-- **Publication blockers**: no demonstrated republication rights for most publisher images, no independent full desktop/mobile screenshot pass, plus 64 pending latest-five fight-result slots.
-- **Status**: development feature branch and draft PR #21 only. No Lovable credits, no live merge. Keep draft until image-use permissions, visual QA and remaining fight-result research are completed.
+1. **External photography rights:** Existing third-party editorial images cannot be declared licensed merely because URLs resolve. Obtain permissions or deploy the rights-strict placeholder mode until cleared.
+2. **Editorial sign-off:** A human editor should spot-check material bout results, activity, career status and belt ownership at launch time, and sign off the subjective Top 50 ranking order.
+3. **Production release:** No automatic merge to `main` and no Vercel production deployment have been performed; the connected Vercel account did not expose an accessible Aura project for deployment verification.
+
+## Open editorial identity question
+
+A previously mentioned emerging fighter sounded like 'Kerman…'. Do not identify this person as Kerman Lejarraga or Curmel Moton without confirmation. Curmel Moton is listed independently on his boxing résumé, not by assuming he is the unnamed fighter.
