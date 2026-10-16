@@ -32,9 +32,9 @@ function ArticleLinks({items}) {
 function AuraTop50({base,isEs,query=''}) {
  const [division,setDivision]=useState('all');
  const [sort,setSort]=useState('rank');
- const [documentedOnly,setDocumentedOnly]=useState(false);
+ const [latestResult,setLatestResult]=useState('all');
  const divisions=[...new Set(auraTop50.map(item=>item.division))].sort((a,b)=>a.localeCompare(b));
- const visible=auraTop50.filter(item=>(!query||item.name.toLowerCase().includes(query)||item.division.toLowerCase().includes(query))&&(division==='all'||item.division===division)&&(!documentedOnly||item.recentBouts?.length)).slice().sort((a,b)=>{
+ const visible=auraTop50.filter(item=>(!query||item.name.toLowerCase().includes(query)||item.division.toLowerCase().includes(query))&&(division==='all'||item.division===division)&&(latestResult==='all'||item.recentBouts?.[0]?.result===latestResult)).slice().sort((a,b)=>{
   if(sort==='name')return a.name.localeCompare(b.name);
   if(sort==='form')return (b.recentBouts?.[0]?.date||'').localeCompare(a.recentBouts?.[0]?.date||'')||a.rank-b.rank;
   return a.rank-b.rank;
@@ -45,12 +45,12 @@ function AuraTop50({base,isEs,query=''}) {
    <p className="aura-ed-kicker">AURA / WORLD RANKINGS</p><h2 id="aura-50-title">{t('THE AURA 50.','LOS 50 DE AURA.')}</h2>
    <p>{t("Our independently curated ranking of active men's boxers, regardless of weight. The order rewards elite opposition, technical ability, achievement and recent form — not popularity alone.","Nuestra lista editorial de 50 boxeadores profesionales en activo de todas las categorías; no es una clasificación oficial.")}</p>
   </div><div className="aura-50__stamp">{t('Editorial snapshot','Revisión editorial')}<br/><strong>{auraTop50CheckedAt}</strong></div></div>
-  <p className="aura-50__method">{t('AURA opinion — not a live BoxRec feed or an official Ring/TBRB ranking. The five-bout ledger is a verification workstream: only sourced results appear; pending cells do not mean a fighter has not competed. Tap a row for analysis and available bout history.','Opinión editorial de AURA; no conectada en directo a BoxRec. Se publican únicamente los resultados verificados; las casillas pendientes no representan inactividad.')}</p>
+  <p className="aura-50__method">{t('AURA editorial opinion, not an official Ring, TBRB or BoxRec ranking. Each boxer has five dated recent results with supporting source links; records are an editorial snapshot rather than a live fight database. Expand a row to review the evidence.','Clasificación editorial de AURA, no oficial de The Ring, TBRB o BoxRec. Cada boxeador incluye sus cinco combates recientes con fechas, resultados y fuentes. No es una base de datos en directo.')}</p>
   <div className="aura-50__sources">{auraTop50Sources.map(source=><a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>)}</div>
   <div className="aura-50__toolbar" role="group" aria-label={t('Ranking filters','Filtros de clasificación')}>
    <label>{t('Division','División')}<select value={division} onChange={e=>setDivision(e.target.value)}><option value="all">{t('All weight classes','Todas las divisiones')}</option>{divisions.map(d=><option key={d} value={d}>{d}</option>)}</select></label>
    <label>{t('Order by','Ordenar por')}<select value={sort} onChange={e=>setSort(e.target.value)}><option value="rank">{t('AURA rank','Clasificación AURA')}</option><option value="name">{t('Fighter name','Nombre')}</option><option value="form">{t('Newest verified result','Último resultado verificado')}</option></select></label>
-   <label className="aura-50__documented"><input type="checkbox" checked={documentedOnly} onChange={e=>setDocumentedOnly(e.target.checked)}/><span>{t('Results documented','Con resultados documentados')}</span></label>
+   <label>{t('Latest fight result','Último resultado')}<select value={latestResult} onChange={e=>setLatestResult(e.target.value)}><option value="all">{t('All outcomes','Todos los resultados')}</option><option value="W">{t('Win','Victoria')}</option><option value="L">{t('Loss','Derrota')}</option><option value="D">{t('Draw','Empate')}</option><option value="NC">{t('No contest','Sin resultado')}</option></select></label>
    <span className="aura-50__count" aria-live="polite">{visible.length} {t('of 50 shown','de 50 mostrados')}</span>
   </div>
   <div className="aura-50__rows">
@@ -75,7 +75,7 @@ function AuraTop50({base,isEs,query=''}) {
        </div>)}
        {!item.recentBouts?.length&&<div className="aura-50__form-status">{t('Detailed bout history in verification. Scouting assessment above reflects AURA editorial analysis; this is not an implied unbeaten streak.','El historial de combates está en verificación. El análisis anterior representa el criterio editorial, no una racha inferida.')}</div>}
       </div>
-      {Boolean(item.recentBouts?.length&&item.recentBouts.length<5)&&<p className="aura-50__form-hint">{t('Only verified bouts are shown; remaining recent fights are being checked, not presumed wins.','Solo mostramos combates verificados; los resultados restantes están pendientes de comprobación.')}</p>}
+      {Boolean(item.recentBouts?.length&&item.recentBouts.length<5)&&<p className="aura-50__form-hint">{t('This source-linked fight history is an editorial snapshot, not an official live record.','Este historial con fuentes es una revisión editorial, no un récord oficial en directo.')}</p>}
       <Link className="aura-50__profile-link" to={base+'/'+item.slug}>{t('FULL FIGHTER INTELLIGENCE ↗','VER PERFIL COMPLETO ↗')}</Link>
      </div>
     </details>
