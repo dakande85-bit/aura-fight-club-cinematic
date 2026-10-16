@@ -1,8 +1,5 @@
 name: Prepare browser-compatible boxing demo clip
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/aura-demo-mp4.yml'
   workflow_dispatch:
 
 permissions:
