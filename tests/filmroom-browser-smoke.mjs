@@ -1,6 +1,6 @@
 // Browser-level Film Room smoke test: real video -> editable clip -> FFmpeg/WASM export.
 // Runs against Vite preview in GitHub Actions; no real broadcast sources or Lovable credits.
-import {chromium} from 'playwright';
+import {chromium,webkit,devices} from 'playwright';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -10,8 +10,16 @@ const voice=process.env.FILMROOM_VOICE||'/tmp/aura-filmroom-browser/voice.wav';
 const output=process.env.FILMROOM_OUTPUT||'/tmp/aura-filmroom-browser/outputs';
 await fs.mkdir(output,{recursive:true});
 
-const browser=await chromium.launch({headless:true,args:['--autoplay-policy=no-user-gesture-required']});
-const page=await browser.newPage({viewport:{width:1365,height:900},acceptDownloads:true});
+const browserName=process.env.FILMROOM_BROWSER||'chromium';
+const engine=browserName==='webkit'?webkit:chromium;
+const browser=await engine.launch({
+ headless:true,...(browserName==='chromium'?{args:['--autoplay-policy=no-user-gesture-required']}:{})
+});
+const page=await browser.newPage(browserName==='webkit'?
+ {...devices['iPhone 13'],acceptDownloads:true}:
+ {viewport:{width:1365,height:900},acceptDownloads:true}
+);
+console.log('Browser engine:',browserName);
 const errors=[];
 page.on('pageerror',e=>errors.push('Page: '+e.message));
 page.on('console',message=>{if(message.type()==='error')errors.push('Console: '+message.text());});
@@ -50,7 +58,7 @@ try{
  await page.locator('textarea[aria-label="Narration script"]').fill('This is genuine historic boxing footage. Watch the action.');
  const test=page.getByRole('button',{name:/Test export first/});
  await test.waitFor({state:'visible'});
- await page.waitForFunction(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Test export first'));return Boolean(b&&!b.disabled);},{timeout:45000});
+ await page.waitForFunction(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Test export first'));return Boolean(b&&!b.disabled);},null,{timeout:45000});
  await saveScreenshot('edited-real-footage');
  console.log('Starting silent real video FFmpeg/WASM export');
  await test.click();
