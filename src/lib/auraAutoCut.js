@@ -83,9 +83,13 @@ export async function scanActionPeaks(file,{onProgress,signal}={}){
  // Motion heuristic detects visual changes, NOT knockdowns, tactics, or an event result.
  const url=URL.createObjectURL(file);
  const video=document.createElement('video');
- video.muted=true;video.preload='auto';video.playsInline=true;video.src=url;
+ video.muted=true;video.preload='metadata';video.playsInline=true;
  try{
-  await waitFor(video,'loadedmetadata',12000);
+  // Attach event listeners before assigning src; otherwise a cached iOS MP4
+  // can signal loadedmetadata before the listener exists.
+  const pending=waitFor(video,'loadedmetadata',12000);
+  video.src=url;video.load();
+  await pending;
   const duration=video.duration;
   if(!Number.isFinite(duration)||duration<=0)throw Error('Unable to read video duration');
   const canvas=document.createElement('canvas');canvas.width=88;canvas.height=50;
