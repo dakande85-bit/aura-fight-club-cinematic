@@ -98,5 +98,105 @@
   ],
   "shots": [],
   "voiceoverFile": "",
-  "notes": "This is a research/production manifest. Exact source timestamps must be marked after viewing, and footage rights assessed before an export. No third-party media bytes are stored in the repo."
+  "notes": "This is a research/production manifest. Exact source timestamps must be marked after viewing, and footage rights assessed before an export. No third-party media bytes are stored in the repo.",
+  "fightId": "dubois-wardley-2",
+  "fightStatus": "Scheduled",
+  "eventSourceUrl": "https://queensberry.co.uk/blogs/queensberry-promotions-blog/run-it-back-dubois-wardley-sequel-set-for-october-17",
+  "analysis": {
+    "status": "editorial_review_needed",
+    "editorialThesis": "Wardley secured two early knockdowns but Dubois recovered and stopped him in round eleven; can Wardley control the range and exchanges longer this time?",
+    "centralQuestion": "Does Wardley's route to early damage survive Dubois's sustained jab and pressure?",
+    "axes": [
+      {
+        "name": "Early counters and knockdowns",
+        "question": "What opening allowed Wardley to drop Dubois?",
+        "status": "needs_timecoded_evidence",
+        "sourceIds": [
+          "first-fight-highlights"
+        ],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Pressure and the jab",
+        "question": "Which Dubois entries consistently make Wardley defend?",
+        "status": "needs_timecoded_evidence",
+        "sourceIds": [
+          "first-fight-highlights"
+        ],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Wardley's exits",
+        "question": "Can Wardley exit at angles rather than retreating under sustained pressure?",
+        "status": "hypothesis",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Fight-two adjustments",
+        "question": "Whose adjustment is backed by actual ring evidence rather than declarations?",
+        "status": "hypothesis",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      }
+    ],
+    "prediction": {
+      "pick": "",
+      "method": "",
+      "condition": "",
+      "confidence": "unrated",
+      "alternatives": ""
+    },
+    "claims": [
+      {
+        "text": "Dubois stopped Wardley in round 11 of their first fight after Wardley scored two early knockdowns.",
+        "sourceUrl": "https://as.com/us/masdeporte/la-declaracion-de-fabio-wardley-tras-perder-con-dubois-mi-cuerpo-fallo-pero-no-mi-corazon-f202610-n/",
+        "claimType": "reported_result",
+        "verification": "source_linked_editorial_review_required"
+      }
+    ],
+    "reviewChecks": [
+      "Verify knockout sequence against actual DAZN fight footage",
+      "Timecode each technical claim",
+      "Separate observed action from prediction",
+      "At least one counterargument",
+      "Clear source use for each excerpt"
+    ]
+  },
+  "scripts": {
+    "youtube": {
+      "draft": "",
+      "approved": false,
+      "targetMinutes": [
+        4,
+        8
+      ]
+    },
+    "shorts": {
+      "draft": "Wardley put Dubois down twice in their first fight. But Dubois recovered and stopped him in round eleven. For the rematch, the question isn't whether Wardley can hurt him. It's whether he can manage the distance and pace when Dubois starts applying pressure. Watch the exits after Wardley attacks, and whether Dubois gets his jab working early. That's where this heavyweight title fight could be decided. What's your pick?",
+      "approved": false,
+      "targetSeconds": [
+        35,
+        60
+      ]
+    }
+  },
+  "deliverables": {
+    "youtube": {
+      "aspect": "16:9",
+      "reviewStatus": "waiting_for_research"
+    },
+    "shorts": {
+      "aspect": "9:16",
+      "reviewStatus": "waiting_for_research"
+    }
+  },
+  "voiceoverFiles": {
+    "youtube": "",
+    "shorts": ""
+  }
 }
