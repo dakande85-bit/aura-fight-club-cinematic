@@ -4,8 +4,8 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import '../styles/aura-video-production.css';
 
-const PROJECT_URL='/news/video-production/dubois-wardley-ii.json';
-const STORE='aura-video-production-dubois-wardley-v1';
+const INDEX_URL='/news/video-production/index.json';
+const STORE_PREFIX='aura-video-production-v2-';
 const RENDER_DOC='https://github.com/dakande85-bit/aura-fight-club-cinematic/blob/feature/real-footage-production-studio/docs/REAL_FOOTAGE_PRODUCTION.md';
 function saveBlob(name, content, mime='application/json') {
  const url=URL.createObjectURL(new Blob([content],{type:mime}));
@@ -31,6 +31,10 @@ function embedLink(source){
 function seconds(value){return Number(value).toFixed(1)+'s';}
 export default function AdminVideoProduction(){
  const [project,setProject]=useState(null);
+ const [fightIndex,setFightIndex]=useState([]);
+ const [projectPath,setProjectPath]=useState('');
+ const [cutFormat,setCutFormat]=useState('both');
+ const [scriptFormat,setScriptFormat]=useState('youtube');
  const [activeId,setActiveId]=useState('first-fight-highlights');
  const [uploaded,setUploaded]=useState({});
  const [voiceFile,setVoiceFile]=useState(null);
@@ -44,17 +48,36 @@ export default function AdminVideoProduction(){
  const videoRef=useRef(null);
  useEffect(()=>{
   let cancelled=false;
-  fetch(PROJECT_URL,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Production manifest not available');return r.json();})
-   .then(d=>{
+  fetch(INDEX_URL,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Production fight index unavailable');return r.json();})
+   .then(data=>{
     if(cancelled)return;
-    let cached=null;try{cached=JSON.parse(localStorage.getItem(STORE)||'null');}catch{}
-    setProject(cached?.version===1&&cached.slug===d.slug?cached:d);
+    if(!Array.isArray(data.projects)||!data.projects.length)throw Error('No featured fights in production queue');
+    setFightIndex(data.projects);
+    setProjectPath(data.projects[0].path);
+   }).catch(e=>{if(!cancelled){setStatus(e.message);setLoading(false);}});
+  return ()=>{cancelled=true;};
+ },[]);
+ useEffect(()=>{
+  if(!projectPath)return;
+  let cancelled=false;
+  setLoading(true);
+  setProject(null);
+  setUploaded({});
+  setVoiceFile(null);
+  fetch(projectPath,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight production project unavailable');return r.json();})
+   .then(data=>{
+    if(cancelled)return;
+    let cached=null;
+    try{cached=JSON.parse(localStorage.getItem(STORE_PREFIX+data.slug)||'null');}catch{}
+    setProject(cached?.version===1&&cached.slug===data.slug?cached:data);
+    setActiveId((data.sources||[])[0]?.id||'');
+    setStatus('');
     setLoading(false);
    }).catch(e=>{if(!cancelled){setStatus(e.message);setLoading(false);}});
-  return()=>{cancelled=true;};
- },[]);
- useEffect(()=>{if(project){try{localStorage.setItem(STORE,JSON.stringify(project));}catch{}}},[project]);
- const active=useMemo(()=>project?.sources.find(s=>s.id===activeId)||project?.sources[0],[project,activeId]);
+  return ()=>{cancelled=true;};
+ },[projectPath]);
+ useEffect(()=>{if(project){try{localStorage.setItem(STORE_PREFIX+project.slug,JSON.stringify(project));}catch{}}},[project]);
+  const active=useMemo(()=>project?.sources.find(s=>s.id===activeId)||project?.sources[0],[project,activeId]);
  const clipFile=active?uploaded[active.id]:null;
  const localPreview=useMemo(()=>clipFile?URL.createObjectURL(clipFile):null,[clipFile]);
  useEffect(()=>()=>{if(localPreview)URL.revokeObjectURL(localPreview);},[localPreview]);
@@ -84,7 +107,7 @@ export default function AdminVideoProduction(){
   if(!active||!Number.isFinite(i)||!Number.isFinite(o)||i<0||o<=i||o-i>12){
    setStatus('Set a valid in/out range. Every video extract must be positive and at most 12 seconds.');return;
   }
-  const shot={id:'cut-'+Date.now(),sourceId:active.id,in:i,out:o,purpose,caption:caption.trim().slice(0,95),narration:narration.trim()};
+  const shot={id:'cut-'+Date.now(),sourceId:active.id,in:i,out:o,purpose,caption:caption.trim().slice(0,95),narration:narration.trim(),formats:cutFormat==='both'?['youtube','shorts']:[cutFormat]};
   patch(p=>({...p,shots:[...p.shots,shot]}));setStatus('Real-video cut added to the edit decision list.');setStart(String(o));setEnd(String(o+3));
  }
  function moveShot(index,diff){
@@ -102,7 +125,7 @@ export default function AdminVideoProduction(){
  }
  function exportProject(){
   if(!project?.shots.length){setStatus('Add at least one real-footage cut before exporting the project.');return;}
-  saveBlob('aura-dubois-wardley-real-footage-edit.json',JSON.stringify(project,null,2)+'\n');
+  saveBlob('aura-'+project.slug+'-real-footage-edit.json',JSON.stringify(project,null,2)+'\n');
   setStatus('Edit project downloaded. Media files remain on your device; supply them to the FFmpeg renderer.');
  }
  function seek(){
@@ -127,6 +150,15 @@ export default function AdminVideoProduction(){
    <p>Make an original boxing analysis from short real fight exchanges, press conferences and face-offs. Source links are for research; attach locally held reusable MP4s to render your own edit. No AI fight scenes, automated downloads, Lovable credits or automatic publishing.</p>
    <div className="aura-video-actions"><Link to="/admin/social">Social News Studio</Link><Link to="/admin/articles">Articles</Link><a href={RENDER_DOC} target="_blank" rel="noreferrer">Rendering guide ↗</a></div>
   </div>
+  <section className="aura-video-panel">
+    <div className="aura-video-panel-title"><h2>Production queue — major fights</h2><span>{fightIndex.length} active research projects</span></div>
+    <label>Select your fight
+      <select value={projectPath} onChange={e=>setProjectPath(e.target.value)}>
+       {fightIndex.map(item=><option key={item.path} value={item.path}>{item.date} — {item.name} — {item.editorialStatus}</option>)}
+      </select>
+    </label>
+    <p className="aura-video-sub">Generated from the Fight Hub calendar. A fight listed here is a research project, not an approved script or cut video.</p>
+   </section>
   <div className="aura-video-summary"><div><span>PROJECT</span><strong>{project.title}</strong></div><div><span>SOURCE VIDEOS</span><strong>{project.sources.length}</strong></div><div><span>SELECTED CUTS</span><strong>{cuts.length}</strong></div><div><span>EDIT DURATION</span><strong>{seconds(total)}</strong></div></div>
   <div className="aura-video-columns">
    <section className="aura-video-panel">
@@ -156,6 +188,13 @@ export default function AdminVideoProduction(){
      <label>Source in (seconds)<input type="number" min="0" step=".1" value={start} onChange={e=>setStart(e.target.value)}/></label>
      <label>Source out (seconds)<input type="number" min="0" step=".1" value={end} onChange={e=>setEnd(e.target.value)}/></label>
     </div>
+    <label>Use this excerpt in
+      <select value={cutFormat} onChange={e=>setCutFormat(e.target.value)}>
+       <option value="both">Both the main YouTube video and Shorts</option>
+       <option value="youtube">YouTube long-form only</option>
+       <option value="shorts">TikTok and YouTube Shorts only</option>
+      </select>
+    </label>
     <label>Why this cut matters
      <select value={purpose} onChange={e=>setPurpose(e.target.value)}>
       {['Hook','Tactical evidence','Press conference','Face-off','Transition','Closing prediction'].map(t=><option key={t}>{t}</option>)}
@@ -172,20 +211,48 @@ export default function AdminVideoProduction(){
    <div className="aura-video-panel-title"><h2>3. Build the timeline</h2><span>{cuts.length} cuts · {seconds(total)}</span></div>
    {cuts.length?<ol className="aura-video-timeline">{cuts.map((shot,i)=><li key={shot.id}>
     <div className="aura-video-cut-time">{String(i+1).padStart(2,'0')} · {seconds(Number(shot.out)-Number(shot.in))}</div>
-    <div><strong>{shot.purpose}</strong><p>{project.sources.find(s=>s.id===shot.sourceId)?.title||shot.sourceId}</p><small>Source {shot.in}s → {shot.out}s · {shot.caption||'No caption'}</small></div>
+    <div><strong>{shot.purpose}</strong><p>{project.sources.find(s=>s.id===shot.sourceId)?.title||shot.sourceId}</p><small>Source {shot.in}s → {shot.out}s · {shot.caption||'No caption'} · {(shot.formats||['youtube','shorts']).join(' + ')}</small></div>
     <div className="aura-video-cut-actions"><button onClick={()=>reviewShot(shot)}>Review</button><button disabled={i===0} onClick={()=>moveShot(i,-1)}>↑</button><button disabled={i===cuts.length-1} onClick={()=>moveShot(i,1)}>↓</button><button onClick={()=>patch(p=>({...p,shots:p.shots.filter(s=>s.id!==shot.id)}))}>Remove</button></div>
    </li>)}</ol>:<p className="aura-video-tip">Your timeline is empty. Watch the real highlight video and add short, relevant cuts using the timestamps above.</p>}
   </section>
+  <section className="aura-video-panel">
+   <div className="aura-video-panel-title"><h2>4. Fight intelligence and evidence review</h2><span>{project.analysis?.status||'research needed'}</span></div>
+   <p className="aura-video-sub">Analytics must be anchored in genuine footage and named sources. An empty technical claim means nothing has been verified from video yet.</p>
+   <label>The film-room thesis<textarea rows={3} value={project.analysis?.editorialThesis||''} onChange={e=>patch(p=>({...p,analysis:{...p.analysis,editorialThesis:e.target.value}}))}/></label>
+   <label>Central tactical question<input value={project.analysis?.centralQuestion||''} onChange={e=>patch(p=>({...p,analysis:{...p.analysis,centralQuestion:e.target.value}}))}/></label>
+   <div className="aura-video-analysis-grid">
+   {(project.analysis?.axes||[]).map((axis,i)=><div className="aura-video-analysis" key={axis.name+'-'+i}>
+     <strong>{axis.name}</strong><p>{axis.question}</p>
+     <label>Observed technical claim / hypothesis<textarea rows={3} value={axis.claim||''} placeholder="Do not invent footage observations. Describe what a timecoded source actually shows." onChange={e=>patch(p=>({...p,analysis:{...p.analysis,axes:p.analysis.axes.map((a,j)=>j===i?{...a,claim:e.target.value}:a)}}))}/></label>
+     <label>Evidence status<select value={axis.status||'not_observed'} onChange={e=>patch(p=>({...p,analysis:{...p.analysis,axes:p.analysis.axes.map((a,j)=>j===i?{...a,status:e.target.value}:a)}}))}>
+       <option value="not_observed">Not yet observed</option>
+       <option value="needs_timecoded_evidence">Needs timestamped evidence</option>
+       <option value="hypothesis">Editorial hypothesis</option>
+       <option value="timecoded_observation">Timecoded observed evidence</option>
+      </select></label>
+     <label>Supporting cut IDs (comma-separated)<input value={(axis.clipIds||[]).join(', ')} onChange={e=>patch(p=>({...p,analysis:{...p.analysis,axes:p.analysis.axes.map((a,j)=>j===i?{...a,clipIds:e.target.value.split(',').map(v=>v.trim()).filter(Boolean)}:a)}}))}/></label>
+   </div>)}
+   </div>
+   <p className="aura-video-tip">Journalistic gate: no fight-result assertion without confirmation; no observation tagged as verified unless the relevant cut exists and shows what the script claims.</p>
+  </section>
   <div className="aura-video-columns">
    <section className="aura-video-panel">
-    <h2>4. Your narration</h2>
-    <textarea rows={9} value={project.narrationScript||''} onChange={e=>patch(p=>({...p,narrationScript:e.target.value}))}/>
-    <label>Attach recorded voiceover (MP3/WAV/M4A)
-     <input type="file" accept="audio/*" onChange={e=>attachVoice(e.target.files?.[0])}/>
-    </label><p className="aura-video-sub">{voiceFile?'Attached: '+voiceFile.name:'You can export the edit without voiceover, but the final cut needs your recording.'}</p>
+    <div className="aura-video-panel-title"><h2>5. Narration — two formats</h2><span>{scriptFormat==='youtube'?'16:9 long-form':'9:16 vertical'}</span></div>
+    <label>Choose narration script
+      <select value={scriptFormat} onChange={e=>setScriptFormat(e.target.value)}>
+       <option value="youtube">YouTube analysis (4–8 minute target)</option>
+       <option value="shorts">TikTok / YouTube Shorts (35–60 seconds)</option>
+      </select>
+    </label>
+    <textarea rows={11} value={project.scripts?.[scriptFormat]?.draft||(!project.scripts&&project.narrationScript)||''} onChange={e=>patch(p=>({...p,scripts:{...p.scripts,[scriptFormat]:{...p.scripts?.[scriptFormat],draft:e.target.value,approved:false}}}))}/>
+    <label className="aura-video-check"><input type="checkbox" checked={Boolean(project.scripts?.[scriptFormat]?.approved)} onChange={e=>patch(p=>({...p,scripts:{...p.scripts,[scriptFormat]:{...p.scripts?.[scriptFormat],approved:e.target.checked}}}))}/> I have personally checked this narration and its evidential claims.</label>
+    <label>Attach your recorded {scriptFormat==='youtube'?'YouTube':'Shorts'} voiceover (MP3/WAV/M4A)
+     <input type="file" accept="audio/*" onChange={e=>{const file=e.target.files?.[0];setVoiceFile(file);patch(p=>({...p,voiceoverFiles:{...p.voiceoverFiles,[scriptFormat]:file?.name||''},voiceoverFile:file?.name||''}));}}/>
+    </label>
+    <p className="aura-video-sub">{voiceFile?'This session: '+voiceFile.name:'Narration files are held locally. Upload and review each format before MP4 export.'}</p>
    </section>
    <section className="aura-video-panel">
-    <h2>5. Export and review</h2>
+    <h2>6. Export and review</h2>
     <p>Before generating the final MP4, review the script, trim positions, source usage and audio. Exporting the project does <strong>not</strong> publish or download a third-party broadcast.</p>
     <p className="aura-video-sub">Local clips still needed for export: {missing.length} of {cuts.length}. These remain on this device; files must be placed beside the rendering script when creating the MP4.</p>
     <div className="aura-video-publish">
