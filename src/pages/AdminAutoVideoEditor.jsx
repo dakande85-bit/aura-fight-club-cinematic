@@ -290,7 +290,7 @@ export default function AdminAutoVideoEditor(){
     <button type="button" className="aura-edit-primary" onClick={loadPublicDemo} disabled={!project||working}>
      {working?'Loading the boxing demo…':'▶ Load test boxing footage'}
     </button>
-    <a href={DEMO.mediaUrl} target="_blank" rel="noopener noreferrer">Manual demo download ↗</a>
+    <a href={DEMO.downloadUrl} target="_blank" rel="noopener noreferrer">Manual demo download ↗</a>
    </div>
   </section>
   <div className="aura-edit-top">
