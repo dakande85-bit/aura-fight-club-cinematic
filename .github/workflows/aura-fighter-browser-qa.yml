@@ -5,6 +5,11 @@ on:
     branches: [main]
     paths:
       - 'src/data/auraTop50.js'
+      - 'src/data/fighterTiers.js'
+      - 'src/data/licensedFighterPortraits.json'
+      - 'scripts/audit-licensed-fighter-portraits.mjs'
+      - 'scripts/import-licensed-fighter-portrait.mjs'
+      - 'package.json'
       - 'src/data/boxingPhotography.js'
       - 'src/data/seoEntities.js'
       - 'src/data/fighterUpcoming.js'
