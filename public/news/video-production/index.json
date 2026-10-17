@@ -1,17 +1,30 @@
 {
   "version": 1,
-  "generatedOn": "2026-10-16",
+  "generatedOn": "2026-10-18",
   "note": "Automated research queue. Media, rights, analysis and publishing require review.",
   "projects": [
+    {
+      "fightId": "dubois-wardley-2-postfight",
+      "name": "Daniel Dubois stops Fabio Wardley — analysis",
+      "date": "2026-10-17",
+      "fightStatus": "Result confirmed: Dubois TKO R2",
+      "featured": true,
+      "stakes": "WBO heavyweight world title",
+      "path": "/news/video-production/dubois-wardley-ii-postfight.json",
+      "editorialStatus": "postfight source preview",
+      "sourceCount": 5,
+      "clipCount": 0,
+      "reviewReady": false
+    },
     {
       "fightId": "dubois-wardley-2",
       "name": "Daniel Dubois vs Fabio Wardley II",
       "date": "2026-10-17",
-      "fightStatus": "Scheduled",
-      "featured": true,
+      "fightStatus": "Completed (pre-fight research archive)",
+      "featured": false,
       "stakes": "WBO heavyweight world title",
       "path": "/news/video-production/dubois-wardley-ii.json",
-      "editorialStatus": "draft",
+      "editorialStatus": "historical_prediction_draft",
       "sourceCount": 5,
       "clipCount": 0,
       "reviewReady": false
