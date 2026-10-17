@@ -28,7 +28,7 @@ MAX_DURATION=600
 WPM=140
 ROLE_RE={
     "weighin": re.compile(r"weigh.?in|scales|weight|face.?off|face to face|staredown", re.I),
-    "press":re.compile(r"press|interview|said|claims|promoter|announce|spoke|trainer",re.I),
+    "press":re.compile(r"\\bpress(?: conference)?\\b|interview|said|claims|promoter|announce|spoke|trainer",re.I),
     "training":re.compile(r"training|camp|gym|spar|fitness|conditioning|prepare",re.I),
     "fight":re.compile(r"fight|exchange|knock|jab|hook|counter|right hand|ring|round|punch|pressure|footwork|defen",re.I)
 }
