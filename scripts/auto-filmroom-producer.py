@@ -150,7 +150,7 @@ def archive_search(query,kind,max_items=5):
         if not archive_license_ok(licence):continue
         files=[x for x in meta.get("files",[]) if
                x.get("name") and x.get("source") in ("original","derivative") and
-               re.fullmatch(r"[A-Za-z0-9_.() -]{3,160}\\.(mp4|webm|ogv)",str(x["name"]),re.I)]
+               re.fullmatch(r"[A-Za-z0-9_.() -]{3,160}\.(mp4|webm|ogv)",str(x["name"]),re.I)]
         files=[x for x in files if 30000<int(x.get("size") or 0)<MAX_FILE]
         files.sort(key=lambda x:(x.get("source")!="original",int(x.get("size") or 0)))
         if not files:continue
