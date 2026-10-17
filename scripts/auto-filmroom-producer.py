@@ -292,7 +292,7 @@ def write_report(out,project,beats,sources,log,state,shots=None):
     report={
       "status":state,"project":project.get("slug"),"title":project.get("title"),
       "subject":project.get("fightId") or project.get("title"),
-      "mode":"analysis","scriptWords":len(words(project.get("scripts",{}).get("youtube",{}).get("draft",""))),
+      "mode":project.get('requestedMode','analysis'),"scriptWords":len(words(project.get("scripts",{}).get("youtube",{}).get("draft",""))),
       "narrationSecondsEstimate":round(sum(b["duration"] for b in beats),2),
       "sourceCount":len(sources),
       "sourceRegister":[{k:s.get(k) for k in ["id","kind","provider","license","originUrl","attribution","illustrative","namedFighterVerified","rightsStatus"]} for s in sources],
@@ -304,8 +304,9 @@ def write_report(out,project,beats,sources,log,state,shots=None):
 
 def produce(args):
     project=json.loads(Path(args.project).read_text())
+    project['requestedMode']=getattr(args,'mode','analysis')
     script=project.get("scripts",{}).get("youtube",{}).get("draft","")
-    beats=narrative_beats(script)
+    beats=narrative_beats(script,desired_seconds=getattr(args,'target_minutes',None)*60 if getattr(args,'target_minutes',None) else None)
     out=Path(args.out).resolve()
     media_dir=Path(args.media_dir).resolve();media_dir.mkdir(parents=True,exist_ok=True)
     catalog=json.loads(Path(args.media_register).read_text()) if args.media_register else []
@@ -346,6 +347,8 @@ def main():
     p.add_argument("--media-register",help="JSON array of individually cleared first-party or licensed local videos")
     p.add_argument("--dry-run",action="store_true")
     p.add_argument("--no-render",action="store_true")
+    p.add_argument("--target-minutes",type=int,choices=[5,7,10])
+    p.add_argument("--mode",choices=["analysis","prediction","critique","profile"],default="analysis")
     args=p.parse_args()
     outcome=produce(args)
     print(json.dumps({k:outcome[k] for k in ("status","title","sourceCount","narrationSecondsEstimate","notes")},indent=2))
