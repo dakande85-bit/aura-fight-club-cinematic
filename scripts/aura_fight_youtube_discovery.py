@@ -53,8 +53,9 @@ def discover(key):
    # An editorial highlights reel must not start with a 2-hour watchalong or
    # a pundit's reaction incorrectly labelled as the actual fight.
    if any(s in lowered for s in ("watchalong","watch along","betting odds","predictions","predicts")):continue
-   actual_kind=("fight" if "highlight" in lowered or "full fight" in lowered else
-                "weighin" if "weigh" in lowered or "face off" in lowered or "face-off" in lowered else
+   actual_kind=("weighin" if "weigh" in lowered or "face off" in lowered or "face-off" in lowered else
+                "press" if "react" in lowered or "post fight" in lowered or "interview" in lowered or "conference" in lowered else
+                "fight" if "highlight" in lowered or "full fight" in lowered else
                 "press")
    if kind=="fight" and actual_kind!="fight":continue
    seen.add(ident)
@@ -80,13 +81,12 @@ def discover(key):
     entry["embedVerifiedByYouTubeAPI"]=True
     entry["durationISO8601"]=duration
     approved.append(entry)
+ approved.sort(key=lambda x:str(x.get("published") or ""),reverse=True)
  approved.sort(key=lambda x:(
     0 if x["kind"]=="fight" and "full card" not in x["title"].lower() else
     1 if x["kind"]=="fight" else
     2 if x["kind"]=="press" and ("react" in x["title"].lower() or "post fight" in x["title"].lower()) else
-    3 if x["kind"]=="faceoff" else 4,
-    -(int((x.get("published") or "1970")[:4])),
-    x["title"]
+    3 if x["kind"]=="faceoff" else 4
  ))
  return approved[:25],notes
 
