@@ -3,6 +3,7 @@ import {Link,useNavigate} from 'react-router-dom';
 import {Clapperboard,Film,AudioLines,ShieldAlert,Play,RefreshCw,CheckCircle2} from 'lucide-react';
 import Header from '../components/Header.jsx';
 import AuraApprovedYouTube from '../components/AuraApprovedYouTube.jsx';
+import AuraRealFootageReel from '../components/AuraRealFootageReel.jsx';
 import Footer from '../components/Footer.jsx';
 import {buildNarrationShots,minutesForShots,storyboardCoverage} from '../lib/auraAutoFilmStoryboard.js';
 import {inspectFilmArtifact,extractEditableFilmClips} from '../lib/auraFilmArtifact.js';
@@ -218,9 +219,10 @@ export default function AdminAutoFilmProducer(){
   <div className="aura-producer-eyebrow">AURA FIGHT CLUB · AUTOMATED FILM ROOM</div>
   <div className="aura-producer-top">
    <div><h1>One subject. One prepared video.</h1>
-    <p>A real boxing analysis studio: research the footage, prepare clips, assemble a narrated five-to-ten-minute structure, then record your commentary.</p></div>
+    <p>Start with verified modern boxing footage from the actual fighters. Preview source excerpts here, then assemble an exportable film from material cleared for editing.</p></div>
    <Link to="/admin/video-production/editor">Manual editor / existing recordings →</Link>
   </div>
+  {project&&<AuraRealFootageReel project={project}/>}
   <section className="aura-producer-create">
     <div className="aura-producer-controls">
       <label>1 · What is the video about?
