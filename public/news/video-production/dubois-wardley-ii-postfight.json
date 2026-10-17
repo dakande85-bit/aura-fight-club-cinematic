@@ -19,16 +19,16 @@
   "narrationScript": "Daniel Dubois stopped Fabio Wardley in the second round at London's O2 Arena on October seventeenth. Wardley's corner intervened, and the contest was officially over at two minutes and twenty-one seconds of round two. The rematch was supposed to answer whether Wardley could do more with the success he had enjoyed in their first meeting. Instead, it left a much sharper question: why was Dubois able to take control so quickly?\n\nThe contrast with their first fight is enormous. In Manchester in May, Wardley knocked Dubois down twice before Dubois recovered to win by eleventh-round stoppage. Wardley proved he could damage the bigger name, but the price of those early successes became clear as the contest progressed. Dubois survived, reorganised, and ultimately applied the more sustainable pressure. Those facts made the rematch fascinating because each man had a clear route to victory and an equally obvious danger to manage.\n\nThe second contest lasted far less time. Reports from ringside describe Dubois dropping Wardley just seventeen seconds into the opening round, then maintaining heavy pressure. Wardley made it into round two, but his corner eventually decided he had absorbed enough. When a corner stops a fight this quickly, it is tempting to interpret the result only in terms of power. Heavyweight power matters, but it does not explain everything. The question for an analyst is how the first clean opportunities were created, whether the defender had room to reset, and what happened between the punches.\n\nThat is where the actual fight footage becomes essential. We should not pretend a press-conference video proves what happened in the ring. Before publishing a punch-by-punch tactical claim, I want the production editor to show the precise sequence in the official highlights. Was Dubois establishing his lead hand? Did Wardley retreat in a straight line, or was he caught while trying to answer back? Did the finish come from a repeated opening or one decisive moment? Those are questions for the film, not assertions to manufacture from a result sheet.\n\nThere is already a useful story in the fighters' build-up. Dubois and Wardley faced one another again knowing the danger from their first meeting. The launch press conference, their face-off and their earlier weigh-in footage show the public context and the different messages coming out of each camp. But the promotional rhetoric needs to stay in its proper place. A fighter saying that he is better prepared does not establish improved preparation. Only the performance and verifiable training evidence can support that conclusion.\n\nFor Dubois, the result supplies a substantial sporting fact: he retained the WBO heavyweight title and completed a second stoppage victory over the same opponent. The first win required a major recovery over eleven rounds; the second ended inside two. We can analyse that contrast without embellishing footage or declaring that every technical issue has been solved. There is still a difference between winning a rematch decisively and having a perfect defence against every other elite heavyweight.\n\nFor Wardley, the defeat is serious, but it should not erase the value of his previous achievements. His early knockdowns in May were real. So was Dubois's recovery. The rematch demonstrates that the first fight's early pattern was not repeated successfully. It does not establish that Wardley lacks courage or ability. His corner's responsibility was to protect their fighter when the damage became too great. In a division where one exchange can change everything, a short fight can still tell us plenty about risk, timing and the cost of being caught before settling into rhythm.\n\nThe next question is where Dubois goes after two victories in this rivalry. Other heavyweight champions and challengers will look at the same footage, asking whether the opportunities Wardley found in May can be recreated without suffering the same punishment. That is the essence of an intelligent boxing breakdown: separate the verified result, the visible exchanges and the hypotheses we make about future opponents.\n\nAura Fight Club's verdict is straightforward on the outcome: Dubois won by second-round stoppage. On the deeper technical explanation, the correct approach is to timecode the actual official fight footage and show the evidence as we discuss it. No generic fighters, no invented punches, and no cinematic filler. The real story is strong enough.",
   "sources": [
     {
-      "id": "first-fight-highlights",
-      "title": "DAZN Boxing — Dubois vs Wardley first-fight highlights (May 2026)",
-      "kind": "fight",
+      "id": "rematch-faceoff",
+      "title": "DAZN Boxing — DUBOIS VS WARDLEY 2 face-off",
+      "kind": "faceoff",
       "publisher": "DAZN Boxing",
-      "url": "https://www.youtube.com/watch?v=5HReUSh22bY",
-      "event": "2026-05-09",
+      "url": "https://www.youtube.com/watch?v=2W33Uyr3KBc",
+      "event": "2026-09-18",
       "verified": true,
       "localFile": "",
       "clearedForExport": false,
-      "rightsNotes": "Original broadcast highlight research reference only; check availability, identity, source permissions and timestamps before reuse."
+      "rightsNotes": "Verified DAZN original YouTube face-off, excerpt timestamps provisional."
     },
     {
       "id": "rematch-launch-press",
@@ -43,16 +43,16 @@
       "rightsNotes": "Verified DAZN original YouTube video; preview through YouTube embed only."
     },
     {
-      "id": "rematch-faceoff",
-      "title": "DAZN Boxing — DUBOIS VS WARDLEY 2 face-off",
-      "kind": "faceoff",
+      "id": "first-fight-highlights",
+      "title": "DAZN Boxing — Dubois vs Wardley first-fight highlights (May 2026)",
+      "kind": "fight",
       "publisher": "DAZN Boxing",
-      "url": "https://www.youtube.com/watch?v=2W33Uyr3KBc",
-      "event": "2026-09-18",
+      "url": "https://www.youtube.com/watch?v=5HReUSh22bY",
+      "event": "2026-05-09",
       "verified": true,
       "localFile": "",
       "clearedForExport": false,
-      "rightsNotes": "Verified DAZN original YouTube face-off, excerpt timestamps provisional."
+      "rightsNotes": "Original broadcast highlight research reference only; check availability, identity, source permissions and timestamps before reuse."
     },
     {
       "id": "first-fight-weigh-in",
@@ -81,10 +81,10 @@
   ],
   "sourceReel": [
     {
-      "sourceId": "first-fight-highlights",
+      "sourceId": "rematch-faceoff",
       "startSeconds": 0,
-      "endSeconds": 18,
-      "status": "opening seconds proposed, action unverified"
+      "endSeconds": 16,
+      "status": "preview only"
     },
     {
       "sourceId": "rematch-launch-press",
@@ -93,10 +93,10 @@
       "status": "preview only"
     },
     {
-      "sourceId": "rematch-faceoff",
+      "sourceId": "first-fight-highlights",
       "startSeconds": 0,
-      "endSeconds": 16,
-      "status": "preview only"
+      "endSeconds": 18,
+      "status": "opening seconds proposed, action unverified"
     },
     {
       "sourceId": "first-fight-weigh-in",
