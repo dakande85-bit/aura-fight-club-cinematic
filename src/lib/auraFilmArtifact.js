@@ -24,14 +24,20 @@ export async function inspectFilmArtifact(arrayBuffer){
  if(!reportFile)throw Error('The automatic production archive is missing its editorial report.');
  if(reportFile._data?.uncompressedSize>MAX_REPORT)throw Error('Invalid oversized production report.');
  const report=JSON.parse(await reportFile.async('string'));
+ const researchFile=findFile(archive,'youtube-research.json');
+ let youtubeResearch=null;
+ if(researchFile){
+  if(researchFile._data?.uncompressedSize>MAX_REPORT)throw Error('Oversized YouTube research report.');
+  youtubeResearch=JSON.parse(await researchFile.async('string'));
+ }
  const movie=findFile(archive,'roughcut-youtube.mp4');
- if(!movie)return {report,video:null,videoName:null,description:describeFilmReport(report)};
+ if(!movie)return {report,youtubeResearch,video:null,videoName:null,description:describeFilmReport(report)};
  if(movie._data?.uncompressedSize>MAX_VIDEO)
   throw Error('This rough-cut is too large to preview on a phone. Download the video pack.');
  const bytes=await movie.async('uint8array');
  if(bytes.byteLength<10000 ||
     String.fromCharCode(...bytes.subarray(4,8))!=='ftyp')
    throw Error('The video output is not a valid MP4.');
- return {report,video:new Blob([bytes],{type:'video/mp4'}),
+ return {report,youtubeResearch,video:new Blob([bytes],{type:'video/mp4'}),
   videoName:movie.name.split('/').pop(),description:describeFilmReport(report)};
 }
