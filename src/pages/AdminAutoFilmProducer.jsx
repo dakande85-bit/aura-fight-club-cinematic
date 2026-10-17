@@ -1,4 +1,4 @@
-import {useEffect,useMemo,useState} from 'react';
+import {useEffect,useMemo,useRef,useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Clapperboard,Film,AudioLines,ShieldAlert,Play,RefreshCw,CheckCircle2} from 'lucide-react';
 import Header from '../components/Header.jsx';
@@ -26,6 +26,11 @@ export default function AdminAutoFilmProducer(){
  const [archiveLink,setArchiveLink]=useState('');
  const [draftPreview,setDraftPreview]=useState(null);
  const [draftVideoUrl,setDraftVideoUrl]=useState('');
+ const [voiceover,setVoiceover]=useState(null);
+ const [voiceoverUrl,setVoiceoverUrl]=useState('');
+ const [isNarrating,setIsNarrating]=useState(false);
+ const [playhead,setPlayhead]=useState(0);
+ const videoRef=useRef(null),recorderRef=useRef(null),chunksRef=useRef([]);
  useEffect(()=>{
   Promise.all([
    fetch('/news/video-production/index.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight research queue unavailable');return r.json();}),
@@ -38,7 +43,7 @@ export default function AdminAutoFilmProducer(){
  useEffect(()=>{
   if(!selected)return;
   const ctrl=new AbortController();
-  setProject(null);setStatus('');setJobs([]);setJobState('');setArchiveLink('');setDraftPreview(null);
+  setProject(null);setStatus('');setJobs([]);setJobState('');setArchiveLink('');setDraftPreview(null);setVoiceover(null);setPlayhead(0);
   fetch(selected,{signal:ctrl.signal,cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight production briefing is missing');return r.json();})
    .then(setProject).catch(e=>{if(e.name!=='AbortError')setStatus(e.message);});
   return()=>ctrl.abort();
@@ -52,6 +57,13 @@ export default function AdminAutoFilmProducer(){
   setDraftVideoUrl(url);
   return()=>URL.revokeObjectURL(url);
  },[draftPreview]);
+ useEffect(()=>{
+  if(!voiceover){setVoiceoverUrl('');return;}
+  const url=URL.createObjectURL(voiceover);
+  setVoiceoverUrl(url);
+  return()=>URL.revokeObjectURL(url);
+ },[voiceover]);
+ const activeCue=shots.find(s=>playhead>=s.start&&playhead<s.end)?.narration||shots[Math.min(shots.length-1,Math.max(0,Math.floor(playhead/5)))]?.narration||'';
  const ready=Boolean(config?.ready);
  const selectedFight=queue.find(x=>x.path===selected);
  const measured=minutesForShots(shots);
@@ -70,6 +82,33 @@ export default function AdminAutoFilmProducer(){
    setJobState(payload.jobs?.length?'Job history loaded. Completed jobs provide a draft ZIP or a missing-media report.':'No automatic production runs for this fight yet.');
   }catch(e){setJobState(e.message);}
   finally{setJobsLoading(false);}
+ }
+ async function startNarration(){
+  if(!draftVideoUrl||!videoRef.current)return setJobState('Open a completed rough cut before recording.');
+  if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder)return setJobState('This browser does not support microphone recording. Try Safari or Chrome.');
+  try{
+   const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+   const mime=['audio/mp4','audio/webm;codecs=opus','audio/webm'].find(x=>MediaRecorder.isTypeSupported(x));
+   const recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);
+   recorderRef.current=recorder;chunksRef.current=[];
+   recorder.ondataavailable=event=>{if(event.data?.size)chunksRef.current.push(event.data);};
+   recorder.onstop=()=>{
+    stream.getTracks().forEach(t=>t.stop());
+    const extension=recorder.mimeType.includes('mp4')?'m4a':'webm';
+    setVoiceover(new File(chunksRef.current,(selectedFight?.fightId||'aura')+'-narration.'+extension,{type:recorder.mimeType}));
+    setIsNarrating(false);
+    setJobState('Narration recorded. Review and download the audio alongside your edited video. The server-side final mix still requires private media storage.');
+   };
+   recorder.onerror=()=>{stream.getTracks().forEach(t=>t.stop());setIsNarrating(false);setJobState('Microphone recording was interrupted.');};
+   videoRef.current.currentTime=0;videoRef.current.muted=true;
+   recorder.start();setIsNarrating(true);
+   await videoRef.current.play().catch(()=>{});
+   setJobState('Recording your commentary over the prepared video. Stop when finished.');
+  }catch(error){setJobState('Microphone access failed: '+error.message);}
+ }
+ function stopNarration(){
+  if(recorderRef.current?.state==='recording')recorderRef.current.stop();
+  videoRef.current?.pause();
  }
  async function getArtifact(artifactId,preview=true){
   if(!password)return setJobState('Enter the editor password first.');
@@ -178,7 +217,17 @@ export default function AdminAutoFilmProducer(){
    {archiveLink&&<a className="aura-producer-archive-link" href={archiveLink} target="_blank" rel="noopener noreferrer">Download full edit pack (.zip) ↗</a>}
    {draftPreview&&<div className="aura-producer-draft-preview">
     <h3>{draftPreview.video?'Automatically edited rough cut':'Production is waiting for real footage'}</h3>
-    {draftVideoUrl&&<video src={draftVideoUrl} controls playsInline preload="metadata" />}
+    {draftVideoUrl&&<video ref={videoRef} src={draftVideoUrl} controls playsInline preload="metadata" muted onTimeUpdate={e=>setPlayhead(e.currentTarget.currentTime)} onEnded={stopNarration}/>}
+    {draftVideoUrl&&<div className="aura-producer-narration-controls">
+      <h4>Record your analysis over the automatic video</h4>
+      <p className="aura-producer-teleprompter">{activeCue||'Your prepared narration will follow the video timeline.'}</p>
+      <div>
+        <button type="button" disabled={isNarrating} onClick={startNarration}>● Start narration</button>
+        <button type="button" disabled={!isNarrating} onClick={stopNarration}>■ Stop and save</button>
+      </div>
+      {voiceoverUrl&&<><audio src={voiceoverUrl} controls/><a href={voiceoverUrl} download={voiceover?.name||'aura-commentary.webm'}>Download narration audio</a></>}
+      <small>Recordings are kept locally in this session. Final five-to-ten-minute audio/video merging requires the cloud renderer.</small>
+    </div>}
     {draftPreview.video&&<a href={draftVideoUrl} download={(selectedFight?.fightId||'aura')+'-roughcut.mp4'}>Download playable MP4</a>}
     {draftPreview.report?.notes?.length>0&&<div className="aura-producer-draft-notes">
      {draftPreview.report.notes.slice(0,8).map((note,i)=><p key={i}>{note}</p>)}
