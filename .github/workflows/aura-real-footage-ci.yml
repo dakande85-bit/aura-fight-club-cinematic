@@ -5,6 +5,14 @@ on:
     paths:
       - 'src/pages/AdminVideoProduction.jsx'
       - 'src/pages/AdminAutoVideoEditor.jsx'
+      - 'src/pages/AdminAutoFilmProducer.jsx'
+      - 'src/styles/aura-auto-film-producer.css'
+      - 'src/lib/auraAutoFilmStoryboard.js'
+      - 'api/auto-film.js'
+      - 'scripts/auto-filmroom-producer.py'
+      - 'tests/test_auto_filmroom_producer.py'
+      - 'tests/auto-film-storyboard.test.mjs'
+      - '.github/workflows/aura-auto-film-production.yml'
       - 'src/styles/aura-auto-video-editor.css'
       - 'src/lib/auraAutoCut.js'
       - 'src/lib/auraBrowserExport.js'
@@ -25,7 +33,7 @@ on:
       - 'scripts/render-fight-production.py'
       - 'scripts/build-video-production-queue.py'
       - 'scripts/seed-video-narrations.py'
-      - 'scripts/suggest-real-footage-cuts.py'
+      - 'scripts/suggest-real-footage-cuts.py scripts/auto-filmroom-producer.py'
       - 'tests/test_real_footage_renderer.py'
       - 'tests/test_video_production_pipeline.py'
       - 'tests/test_video_cut_suggester.py'
@@ -50,12 +58,14 @@ jobs:
           python -m py_compile scripts/render-real-footage-short.py scripts/render-fight-production.py scripts/build-video-production-queue.py scripts/seed-video-narrations.py scripts/suggest-real-footage-cuts.py
           python -m unittest discover -s tests -p 'test_video_cut_suggester.py' -v
           python -m unittest discover -s tests -p 'test_video_production_pipeline.py' -v
+          python -m unittest discover -s tests -p 'test_auto_filmroom_producer.py' -v
           python -m unittest discover -s tests -p 'test_real_footage_renderer.py' -v
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Verify auto-scene-cut planning
         run: |
+          node --test tests/auto-film-storyboard.test.mjs
           node --test tests/auto-video-editor.test.mjs
           node --test tests/filmroom-export-profile.test.mjs
           node --test tests/footage-sources.test.mjs
