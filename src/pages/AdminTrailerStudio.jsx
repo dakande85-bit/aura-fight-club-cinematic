@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import JSZip from 'jszip';
 import Header from '../components/Header.jsx';
@@ -22,7 +22,12 @@ export default function AdminTrailerStudio() {
   const [selectedId, setSelectedId] = useState('hook');
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [playIndex, setPlayIndex] = useState(0);
+  const voiceRef = useRef(null);
+  const musicRef = useRef(null);
   const selected = plan.shots.find(x => x.id === selectedId) || plan.shots[0];
+  const shownShot = isPlaying ? (plan.shots[playIndex] || plan.shots[0]) : selected;
   const mediaNames = useMemo(() => new Set(Object.values(assets).filter(Boolean).map(x => x.path)), [assets]);
   const renderErrors = useMemo(() => checkTrailerPlan(plan, mediaNames), [plan, mediaNames]);
   const duration = totalDuration(plan);
@@ -32,6 +37,25 @@ export default function AdminTrailerStudio() {
     setAssetUrls(next);
     return () => Object.values(next).forEach(url => URL.revokeObjectURL(url));
   }, [assets]);
+  useEffect(() => {
+    if (!isPlaying) return undefined;
+    const shot = plan.shots[playIndex];
+    if (!shot) return undefined;
+    const handle = window.setTimeout(() => {
+      if (playIndex >= plan.shots.length - 1) { setIsPlaying(false); voiceRef.current?.pause(); musicRef.current?.pause(); }
+      else setPlayIndex(i => i + 1);
+    }, Number(shot.seconds) * 1000);
+    return () => window.clearTimeout(handle);
+  }, [isPlaying, playIndex, plan.shots]);
+  function startPreview() {
+    setPlayIndex(0); setIsPlaying(true);
+    [voiceRef.current, musicRef.current].forEach(audio => {
+      if (!audio) return;
+      audio.currentTime = 0;
+      audio.play().catch(() => setNotice('Your browser blocked audio autoplay. You can still review the storyboard.'));
+    });
+  }
+  function stopPreview() { setIsPlaying(false); voiceRef.current?.pause(); musicRef.current?.pause(); }
   function updatePlan(key, value) { setPlan(p => ({ ...p, [key]: value })); }
   function updateShot(key, value) {
     setPlan(p => ({ ...p, shots: p.shots.map(s => s.id === selected.id ? { ...s, [key]: value } : s) }));
@@ -39,6 +63,7 @@ export default function AdminTrailerStudio() {
   function chooseTemplate(which) {
     setPlan(makeTrailerPlan(which));
     setAssets({});
+    stopPreview();
     setSelectedId(which === 'commentary' ? 'intro' : 'hook');
     setNotice('Template loaded. Attach and review your own media; nothing was generated or published.');
   }
@@ -104,8 +129,8 @@ export default function AdminTrailerStudio() {
     } catch (error) { setNotice('Could not create the pack: ' + error.message); }
     finally { setBusy(false); }
   }
-  const attached = selected && assets[selected.id];
-  const preview = selected && assetUrls[selected.id];
+  const attached = shownShot && assets[shownShot.id];
+  const preview = shownShot && assetUrls[shownShot.id];
   return <><Header/><main className="aura-trailer">
     <div className="aura-trailer__top">
       <div><p className="aura-trailer__eyebrow">AURA / FIGHT DESK / CREATIVE STUDIO</p>
@@ -119,6 +144,8 @@ export default function AdminTrailerStudio() {
       <button onClick={() => chooseTemplate('commentary')} type="button">Boxing breakdown · 45s</button>
       <span>{plan.shots.length} shots · {duration.toFixed(1)}s · 9:16 / 1080 × 1920</span>
     </div>
+    <audio ref={voiceRef} src={assetUrls.narration || undefined} preload="auto" />
+    <audio ref={musicRef} src={assetUrls.music || undefined} preload="auto" loop />
     <div className="aura-trailer__workspace">
       <section className="aura-trailer__timeline">
         <div className="aura-trailer__section-title"><h2>Shot timeline</h2><button type="button" onClick={addShot}>+ Add shot</button></div>
@@ -149,12 +176,13 @@ export default function AdminTrailerStudio() {
           <label className="aura-trailer__check"><input type="checkbox" checked={plan.coverRightsVerified} onChange={e => updatePlan('coverRightsVerified', e.target.checked)} />I verified the cover can be used commercially</label></>}
       </section>
       <section className="aura-trailer__editor">
-        <h2>Selected shot</h2>
+        <div className="aura-trailer__section-title"><h2>Shot preview</h2><button type="button" onClick={isPlaying ? stopPreview : startPreview}>{isPlaying ? '■ Stop' : '▶ Play full storyboard'}</button></div>
         {selected && <><div className="aura-trailer__phone">
-          {preview ? attached.file.type.startsWith('video/') ? <video key={preview} src={preview} controls muted playsInline /> : <img src={preview} alt={selected.name} /> : <div className="aura-trailer__empty"><span>NO VISUAL ATTACHED</span><strong>{selected.name}</strong><p>{selected.direction}</p></div>}
-          {selected.kind === 'reveal' && selected.text && <div className="aura-trailer__phone-reveal"><strong>{selected.text}</strong>{plan.fightStatus === 'hypothetical' && <span>DREAM MATCHUP · NOT ANNOUNCED</span>}</div>}
-          {selected.kind === 'ai_scene' && <span className="aura-trailer__phone-disclosure">Illustrative scene</span>}
+          {preview ? attached.file.type.startsWith('video/') ? <video key={preview} src={preview} controls={!isPlaying} autoPlay={isPlaying} muted playsInline /> : <img src={preview} alt={shownShot.name} /> : <div className="aura-trailer__empty"><span>NO VISUAL ATTACHED</span><strong>{shownShot.name}</strong><p>{shownShot.direction}</p></div>}
+          {shownShot.kind === 'reveal' && shownShot.text && <div className="aura-trailer__phone-reveal"><strong>{shownShot.text}</strong>{plan.fightStatus === 'hypothetical' && <span>DREAM MATCHUP · NOT ANNOUNCED</span>}</div>}
+          {shownShot.kind === 'ai_scene' && <span className="aura-trailer__phone-disclosure">Illustrative scene</span>}
         </div>
+        {isPlaying && <p className="aura-trailer__play-status">Playing scene {playIndex + 1} of {plan.shots.length}: {shownShot.name}</p>}
         <div className="aura-trailer__fields">
           <label>Scene name<input value={selected.name} onChange={e => updateShot('name', e.target.value)} /></label>
           <div className="aura-trailer__duo"><label>Visual type<select value={selected.kind} onChange={e => {
