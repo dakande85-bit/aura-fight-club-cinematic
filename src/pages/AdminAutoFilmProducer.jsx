@@ -2,6 +2,7 @@ import {useEffect,useMemo,useRef,useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Clapperboard,Film,AudioLines,ShieldAlert,Play,RefreshCw,CheckCircle2} from 'lucide-react';
 import Header from '../components/Header.jsx';
+import AuraApprovedYouTube from '../components/AuraApprovedYouTube.jsx';
 import Footer from '../components/Footer.jsx';
 import {buildNarrationShots,minutesForShots,storyboardCoverage} from '../lib/auraAutoFilmStoryboard.js';
 import {inspectFilmArtifact} from '../lib/auraFilmArtifact.js';
@@ -259,6 +260,7 @@ export default function AdminAutoFilmProducer(){
      </div>
    </div>)}
   </section>
+  {project&&selectedFight&&<AuraApprovedYouTube project={project} fightId={selectedFight.fightId} password={password}/>}
   <div className="aura-producer-columns">
    <section className="aura-producer-card">
      <div className="aura-producer-cardtitle"><h2>Automatically prepared narration</h2><span>{script.trim().split(/\s+/).filter(Boolean).length} words</span></div>
