@@ -12,6 +12,8 @@ on:
       - 'api/auto-film-jobs.js'
       - 'api/auto-film-download.js'
       - 'src/lib/auraFilmArtifact.js'
+      - 'src/lib/auraTransientFilmEdits.js'
+      - 'tests/auto-film-transient.test.mjs'
       - 'tests/auto-film-artifact.test.mjs'
       - 'tests/auto-film-jobs.test.mjs'
       - 'scripts/auto-filmroom-producer.py'
@@ -90,3 +92,4 @@ jobs:
           npm install --no-package-lock --no-audit --no-fund
           npm run build
           node --test tests/auto-film-artifact.test.mjs
+          node --test tests/auto-film-transient.test.mjs
