@@ -83,3 +83,29 @@
 .aura-producer-narration-controls audio{display:block;width:100%;max-width:520px;margin:14px 0}
 .aura-producer-narration-controls small{display:block;margin-top:12px;color:#a9b7c6;font-size:11px;line-height:1.5}
 .aura-producer-teleprompter{border-radius:8px;border-left:3px solid #caa465;background:#253546;padding:13px 15px;font-size:15px!important;line-height:1.7!important;color:#edf1f5!important}
+
+/* Saved authorised YouTube source intake, deliberately separate from auto research results. */
+.aura-producer-approved{margin:18px 0;padding:21px;border:1px solid #425365;border-radius:13px;background:#162532}
+.aura-producer-approved .aura-producer-cardtitle{align-items:start;margin-bottom:12px}
+.aura-producer-approved .aura-producer-cardtitle h2{font-size:18px}
+.aura-producer-approved .aura-producer-cardtitle p,.aura-producer-approved-count{font-size:12px;line-height:1.6;color:#b8c6d0;margin:8px 0}
+.aura-producer-approved-count strong{font-size:15px;color:#ddbe83}
+.aura-producer-approval-form{border-top:1px solid #435564;margin:15px 0 0;padding:13px 0 0;display:flex;flex-direction:column;gap:13px}
+.aura-producer-approval-form>p{font-size:12px;line-height:1.6;color:#d6c8af}
+.aura-producer-approval-form>label{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:700;color:#d3b57d}
+.aura-producer-approval-form .aura-producer-approval-check{flex-direction:row;align-items:start;line-height:1.5;color:#e0e6ec;font-weight:400;gap:10px}
+.aura-producer-approval-check input{width:16px;accent-color:#d6ac6b}
+.aura-producer-save-source{background:#dfb879;border:1px solid #dfb879;color:#101820;padding:13px;border-radius:9px;font-size:13px;font-weight:800;cursor:pointer;align-self:flex-start}
+.aura-producer-save-source:disabled{opacity:.4;cursor:not-allowed}
+.aura-producer-source-status{background:#253b49;padding:13px;border-radius:7px}
+.aura-producer-saved-sources{display:flex;flex-direction:column;gap:7px}
+.aura-producer-saved-sources div{font-size:12px;background:#243849;padding:9px;border-radius:6px}
+.aura-producer-saved-sources span{color:#dbbe8b}
+.aura-producer-video-research{background:#142331;margin:12px 0;border:1px solid #415262;border-radius:9px;padding:15px}
+.aura-producer-video-research>h4{font-size:14px;color:#f3d6a2;margin:0 0 8px}
+.aura-producer-video-research>p{font-size:12px;line-height:1.6;color:#bbcad5}
+.aura-producer-research-video{display:flex;flex-direction:column;gap:5px;padding:9px 11px;border-radius:7px;border-bottom:1px solid #394c5c}
+.aura-producer-research-video>span{color:#dbba82;font-size:11px}
+.aura-producer-research-video>strong{font-size:12px}
+.aura-producer-research-video>small{font-size:11px;color:#9eb1c3}
+@media(max-width:700px){.aura-producer-approved{padding:14px}.aura-producer-approved .aura-producer-cardtitle{flex-direction:column}.aura-producer-save-source{width:100%}}
