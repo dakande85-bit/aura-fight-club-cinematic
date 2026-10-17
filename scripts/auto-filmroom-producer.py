@@ -20,6 +20,7 @@ import sys
 import tempfile
 from urllib.parse import urlparse, urlencode
 from urllib.request import Request, urlopen
+from aura_youtube_ingest import source_authorised as youtube_authorised, ingest as ingest_youtube, discover as discover_youtube
 
 MAX_FILE=90_000_000
 MAX_TOTAL=450_000_000
@@ -199,7 +200,9 @@ def pexels(query,key,per_page=14):
     return entries
 
 def allowed_source(item):
-    # The user can add direct licensed first-party assets through the source register.
+    # The user can add individually approved YouTube sources (separate platform/copyright review).
+    if item.get("provider")=="YouTube approved":
+        return youtube_authorised(item)
     if item.get("provider")=="Internet Archive":
         return (item.get("rightsStatus")=="archive_license_check_required" and
             archive_license_ok(item.get("licenseProof","")) and archive_file(item.get("fileUrl","")))
@@ -257,6 +260,8 @@ def safe_local_file(media_dir,name):
     return full
 
 def download_video(entry,out_dir):
+    if entry.get("provider")=="YouTube approved":
+        return ingest_youtube(entry,out_dir)
     if entry.get("localFile"):
         local=safe_local_file(out_dir,entry["localFile"])
         if not local.is_file():raise FileNotFoundError("Missing licensed file "+entry["localFile"])
@@ -388,8 +393,20 @@ def produce(args):
     except ValueError as error:
         return write_report(out,project,[],[],[str(error)],"needs_script")
     media_dir=Path(args.media_dir).resolve();media_dir.mkdir(parents=True,exist_ok=True)
-    catalog=json.loads(Path(args.media_register).read_text()) if args.media_register else []
+    raw=json.loads(Path(args.media_register).read_text()) if args.media_register else []
+    catalog=raw.get("sources",[]) if isinstance(raw,dict) else raw
+    if not isinstance(catalog,list):raise ValueError("Media register must contain a sources array.")
+    fight_id=getattr(args,"fight_id",None) or project.get("fightId") or project.get("slug","")
+    approved=[s for s in catalog if s.get("provider")=="YouTube approved" and s.get("fightId")==fight_id and youtube_authorised(s)]
+    catalog=[s for s in catalog if s.get("provider")!="YouTube approved"]+approved
     sources,notes=research(script,catalog,key=os.environ.get("PEXELS_API_KEY"))
+    leads,lead_notes=discover_youtube(project.get("title") or fight_id,os.environ.get("YOUTUBE_DATA_API_KEY",""))
+    notes.extend(lead_notes)
+    out.mkdir(parents=True,exist_ok=True)
+    (out/"youtube-research.json").write_text(json.dumps({
+        "fightId":fight_id,"downloadIsNotAuthorizedBySearch":True,
+        "found":len(leads),"candidates":leads},indent=2)+"\n")
+    if leads:notes.append(f"Found {len(leads)} YouTube research leads; only sources with separate documented platform and copyright permission can be downloaded.")
     if args.dry_run:
         return write_report(out,project,beats,sources,notes,"research_ready" if sources else "needs_licensed_footage")
     if len(words(script))<400 or len(words(script))/WPM*60>MAX_DURATION:
@@ -441,7 +458,8 @@ def main():
     p.add_argument("--project",required=True)
     p.add_argument("--out",default="aura-roughcut")
     p.add_argument("--media-dir",default="/tmp/aura-auto-media")
-    p.add_argument("--media-register",help="JSON array of individually cleared first-party or licensed local videos")
+    p.add_argument("--media-register",help="JSON media registry of cleared owner footage and YouTube approved videos")
+    p.add_argument("--fight-id",help="Official fight ID for licensed YouTube source matching")
     p.add_argument("--dry-run",action="store_true")
     p.add_argument("--no-render",action="store_true")
     p.add_argument("--target-minutes",type=int,choices=[5,7,10])
