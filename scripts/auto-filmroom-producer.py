@@ -20,6 +20,9 @@ import sys
 import tempfile
 from urllib.parse import urlparse, urlencode
 from urllib.request import Request, urlopen
+# Also support importlib-based CI tests importing this hyphenated script.
+if str(Path(__file__).resolve().parent) not in sys.path:
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
 from aura_youtube_ingest import source_authorised as youtube_authorised, ingest as ingest_youtube, discover as discover_youtube, sources_from_register as approved_youtube_registry
 
 MAX_FILE=90_000_000
