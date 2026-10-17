@@ -18,6 +18,8 @@ on:
       - 'scripts/aura_youtube_ingest.py'
       - 'tests/test_aura_youtube_ingest.py'
       - 'config/aura-approved-youtube-sources.json'
+      - 'api/auto-film-source.js'
+      - 'src/components/AuraApprovedYouTube.jsx'
       - 'tests/test_auto_filmroom_producer.py'
       - 'tests/auto-film-storyboard.test.mjs'
       - '.github/workflows/aura-auto-film-production.yml'
