@@ -7,6 +7,7 @@ import Footer from '../components/Footer.jsx';
 import {buildNarrationShots,minutesForShots,storyboardCoverage} from '../lib/auraAutoFilmStoryboard.js';
 import {inspectFilmArtifact,extractEditableFilmClips} from '../lib/auraFilmArtifact.js';
 import {saveVideo,saveEdit,saveVoice} from '../lib/auraMediaVault.js';
+import {stageAutomaticEdit} from '../lib/auraTransientFilmEdits.js';
 import '../styles/aura-auto-film-producer.css';
 
 const FORMAT=[{value:'analysis',label:'Fight analysis'},{value:'prediction',label:'Fight prediction'},{value:'profile',label:'Fighter profile'},{value:'critique',label:'Critical breakdown'}];
@@ -132,25 +133,36 @@ export default function AdminAutoFilmProducer(){
   try{
    const result=await extractEditableFilmClips(draftPack);
    const key='auto-'+Date.now();
-   const cuts=[];
+   const cuts=[],assets=[];
+   let storageFailed=false;
+   const script=project?.scripts?.youtube?.draft||project?.narrationScript||'';
    for(let i=0;i<result.clips.length;i++){
     const clip=result.clips[i],id=key+'-'+String(i+1).padStart(3,'0');
     const file=new File([clip.blob],clip.filename,{type:'video/mp4'});
-    await saveVideo(project.slug,{
-     id,title:clip.title,kind:clip.kind,file,duration:clip.duration,
-     referenceUrl:clip.referenceUrl,rightsReviewed:false,peaks:[]
-    });
+    const asset={id,title:clip.title,kind:clip.kind,file,duration:clip.duration,
+     referenceUrl:clip.referenceUrl,rightsReviewed:false,peaks:[]};
+    assets.push(asset);
+    if(!storageFailed){
+     try{await saveVideo(project.slug,asset);}
+     catch{storageFailed=true;}
+    }
     cuts.push({id:'auto-cut-'+i,assetId:id,sourceId:null,start:0,
       duration:clip.duration,caption:'',narration:clip.narration,
       role:clip.kind==='faceoff'?'weighin':clip.kind==='broll'?'training':clip.kind,
       reviewStatus:'suggested_not_verified',usedFallback:false});
    }
-   await saveEdit(project.slug,'youtube',{
-    script:project?.scripts?.youtube?.draft||project?.narrationScript||'',
-    cuts
-   });
-   if(voiceover)await saveVoice(project.slug,'youtube',voiceover);
-   setJobState(cuts.length+' real MP4 scene files saved locally. Opening the editor.');
+   if(!storageFailed){
+    try{
+     await saveEdit(project.slug,'youtube',{script,cuts});
+     if(voiceover)await saveVoice(project.slug,'youtube',voiceover);
+    }catch{storageFailed=true;}
+   }
+   // Safari may reject Blob/File values in IndexedDB even when video playback works.
+   // Keep the exact MP4 scene files in memory across this SPA route transition.
+   stageAutomaticEdit({slug:project.slug,assets,cuts,script,voice:voiceover,storageFailed});
+   setJobState(storageFailed?
+     'iPhone storage is unavailable; opening the edit in memory. Keep your ZIP backup before leaving the page.':
+     cuts.length+' real MP4 scene files saved locally. Opening the editor.');
    navigate('/admin/video-production/editor?fightId='+encodeURIComponent(selectedFight.fightId));
   }catch(error){setJobState('Could not import the editable footage: '+error.message);}
   finally{setOpeningEditor(false);}
