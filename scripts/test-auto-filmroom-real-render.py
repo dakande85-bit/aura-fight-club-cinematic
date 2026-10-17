@@ -97,6 +97,42 @@ def main():
       "sourceIds":list(dict.fromkeys(x["assetId"] for x in edits)),
       "shots":edits
     }
+    # Exercise the *same deliverables* that the browser's automatic-video
+    # draft reader expects from a real production job. Mark fixture explicitly.
+    project={"slug":"aura-technical-integration-test",
+             "title":"Automatic video pipeline test — synthetic footage, not a real fight",
+             "scripts":{"youtube":{"draft":script}}}
+    engine.write_report(out,project,beats,sources,
+       ["TECHNICAL TEST ONLY: Synthetic patterns + historical 1891 footage.",
+        "No Wardley or Dubois bout footage; not for publication."],
+       "rough_cut_generated",edits)
+    report_path=out/"production.json"
+    report=json.loads(report_path.read_text())
+    report["testFixture"]=True
+    report["actualFighterFootage"]=False
+    report["publishable"]=False
+    report_path.write_text(json.dumps(report,indent=2)+"\n")
+    (out/"narration.txt").write_text(script+"\n")
+    timeline={"format":"AURA-FILMROOM-EDIT-V1","testFixture":True,
+       "project":project["slug"],"sceneCount":len(edits),
+       "estimatedDurationSeconds":round(total,2),
+       "scenes":[{**shot,"localClip":f"editable-clips/scene-{i+1:03d}.mp4"}
+                  for i,shot in enumerate(edits)]}
+    (out/"editable-timeline.json").write_text(json.dumps(timeline,indent=2)+"\n")
+    def ts(seconds):
+        milliseconds=int(round(seconds*1000))
+        hh,rem=divmod(milliseconds,3600000)
+        mm,rem=divmod(rem,60000)
+        ss,ms=divmod(rem,1000)
+        return f"{hh:02}:{mm:02}:{ss:02},{ms:03}"
+    elapsed=0;captions=[]
+    for i,shot in enumerate(edits):
+        upcoming=elapsed+float(shot["shotSeconds"])
+        captions.append(f"{i+1}\n{ts(elapsed)} --> {ts(upcoming)}\n{shot['narration']}\n")
+        elapsed=upcoming
+    (out/"narration-cues.srt").write_text("\n".join(captions)+"\n")
+    assert report_path.is_file() and (out/"editable-timeline.json").is_file()
+    assert len(captions)==len(edits)
     (out/"technical-result.json").write_text(json.dumps(manifest,indent=2)+"\n")
     print(json.dumps({k:v for k,v in manifest.items() if k!="shots"},indent=2))
     print("AUTO FILM REAL FFMPEG INTEGRATION: PASS")
