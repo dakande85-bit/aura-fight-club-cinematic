@@ -40,8 +40,8 @@ jobs:
         run: |
           npm install --no-save --no-package-lock --no-audit --no-fund playwright
           npx playwright install --with-deps chromium
-      - name: Build preview
-        run: npm run build
+      - name: Build image-enabled review preview
+        run: VITE_AURA_FIGHTER_MEDIA_RIGHTS_STRICT=false npm run build
       - name: Start preview
         run: |
           nohup ./node_modules/.bin/vite preview --host 127.0.0.1 --port 4173 > /tmp/aura-vite-preview.log 2>&1 &
