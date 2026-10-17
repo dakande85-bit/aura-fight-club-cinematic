@@ -22,7 +22,7 @@ export function makeTrailerPlan(preset = 'fundora') {
     musicFile: '',
     audioRights: '',
     musicRightsVerified: false,
-    coverFile: '',
+    coverFile: '', coverSource: '', coverRightsVerified: false,
     shots: []
   };
   if (preset === 'commentary') return {
@@ -52,7 +52,7 @@ export function totalDuration(plan) {
   return Number((plan?.shots || []).reduce((sum, s) => sum + Number(s.seconds || 0), 0).toFixed(2));
 }
 export function safeAssetName(fileName) {
-  return clean(fileName).replace(/[^a-z0-9._-]/gi, '_').replace(/^\.+/, '').slice(0, 110);
+  return clean(fileName).split(/[\\/]/).at(-1).replace(/[^a-z0-9._-]/gi, '_').replace(/^\.+/, '').slice(0, 110);
 }
 export function checkTrailerPlan(plan, availableFiles = new Set()) {
   const errors = [];
@@ -77,6 +77,7 @@ export function checkTrailerPlan(plan, availableFiles = new Set()) {
   if (plan.musicFile && !files.has(plan.musicFile)) errors.push('Music file is missing.');
   if (plan.narrationFile && !files.has(plan.narrationFile)) errors.push('Narration file is missing.');
   if (plan.musicFile && (!clean(plan.audioRights) || !plan.musicRightsVerified)) errors.push('Verify music and sync rights before rendering.');
+  if (plan.coverFile && (!files.has(plan.coverFile) || !plan.coverRightsVerified || !clean(plan.coverSource))) errors.push('Verify cover provenance, rights and attached file.');
   return errors;
 }
 export function exportManifest(plan) {
@@ -91,7 +92,10 @@ export function exportManifest(plan) {
     narration_file: plan.narrationFile || '',
     music_file: plan.musicFile || '',
     music_rights_reference: clean(plan.audioRights),
+    music_rights_verified: Boolean(plan.musicRightsVerified),
     cover_file: plan.coverFile || '',
+    cover_source_reference: clean(plan.coverSource),
+    cover_rights_verified: Boolean(plan.coverRightsVerified),
     publication_status: 'DRAFT_NOT_PUBLISHED',
     shots: (plan.shots || []).map(s => ({
       id: clean(s.id), name: clean(s.name), kind: s.kind, duration: Number(s.seconds),
