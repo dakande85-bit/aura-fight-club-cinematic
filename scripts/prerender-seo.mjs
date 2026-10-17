@@ -11,7 +11,7 @@ import {auraTop50,auraTop50CheckedAt} from '../src/data/auraTop50.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dist=path.join(root,'dist');
-const site='https://aurafightclub.com';
+const site='https://www.aurafightclub.com';
 const template=fs.readFileSync(path.join(dist,'index.html'),'utf8');
 const articles=JSON.parse(fs.readFileSync(path.join(root,'public/news/articles.json'),'utf8')).articles||[];
 const fights=JSON.parse(fs.readFileSync(path.join(root,'public/news/fights.json'),'utf8')).fights||[];
