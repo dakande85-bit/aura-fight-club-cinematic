@@ -229,6 +229,14 @@ export default function AdminAutoFilmProducer(){
       <small>Recordings are kept locally in this session. Final five-to-ten-minute audio/video merging requires the cloud renderer.</small>
     </div>}
     {draftPreview.video&&<a href={draftVideoUrl} download={(selectedFight?.fightId||'aura')+'-roughcut.mp4'}>Download playable MP4</a>}
+    {draftPreview.youtubeResearch&&<div className="aura-producer-video-research">
+      <h4>Automatically discovered YouTube footage ({draftPreview.youtubeResearch.found||0})</h4>
+      <p>These are matched research videos, not yet downloaded or rights-cleared clips. Videos approved in the source register are retrieved automatically when the backend worker runs.</p>
+      {(draftPreview.youtubeResearch.candidates||[]).slice(0,14).map((source,i)=><div className="aura-producer-research-video" key={source.id+'-'+i}>
+        <span>{source.kind||'Source'}</span><strong>{source.title||'YouTube research lead'}</strong>
+        <small>{source.publisher||'YouTube'} · {source.mediaDownloaded?'Video downloaded':'Permission/usable file pending'}</small>
+      </div>)}
+    </div>}
     {draftPreview.report?.notes?.length>0&&<div className="aura-producer-draft-notes">
      {draftPreview.report.notes.slice(0,8).map((note,i)=><p key={i}>{note}</p>)}
     </div>}
