@@ -55,10 +55,37 @@ class AutoFilmTests(unittest.TestCase):
                              [source]+self.sources[1:4])
         self.assertTrue(all(x["actualFighterFootage"] is False for x in scenes if x["assetId"]=="pexels-4"))
 
+    def test_archive_accepts_commercial_attribution_licences_only(self):
+        yes=[
+          "https://creativecommons.org/licenses/by/4.0/",
+          "https://creativecommons.org/licenses/by-sa/3.0/",
+          "https://creativecommons.org/publicdomain/zero/1.0/",
+          "https://creativecommons.org/publicdomain/mark/1.0/"
+        ]
+        no=[
+          "https://creativecommons.org/licenses/by-nc/4.0/",
+          "https://creativecommons.org/licenses/by-nd/4.0/",
+          "https://creativecommons.org/licenses/by-nc-sa/3.0/",
+          "https://attacker.org/licenses/by/4.0/"
+        ]
+        self.assertTrue(all(engine.archive_license_ok(x) for x in yes))
+        self.assertTrue(all(not engine.archive_license_ok(x) for x in no))
+        self.assertTrue(engine.archive_file("https://archive.org/download/boxingmovie/boxing.mp4"))
+        self.assertFalse(engine.archive_file("https://archive.org.attacker.net/download/boxing.mp4"))
+
+    def test_archive_source_still_requires_licence_and_real_download_url(self):
+        source=dict(provider="Internet Archive",rightsStatus="archive_license_check_required",
+            licenseProof="https://creativecommons.org/licenses/by/4.0/",
+            fileUrl="https://archive.org/download/boxing/film.webm")
+        self.assertTrue(engine.allowed_source(source))
+        self.assertFalse(engine.allowed_source({**source,"licenseProof":"copyright protected"}))
+
     def test_no_api_keys_means_blocked_not_fake_success(self):
         old=os.environ.pop("PEXELS_API_KEY",None)
         original_commons=engine.commons
+        original_archive=engine.archive_search
         engine.commons=lambda query,role: []
+        engine.archive_search=lambda query,role,max_items=5: []
         try:
             with tempfile.TemporaryDirectory() as tmp:
                 import json
@@ -73,6 +100,7 @@ class AutoFilmTests(unittest.TestCase):
                 self.assertFalse((Path(tmp)/"out"/"roughcut-youtube.mp4").exists())
         finally:
             engine.commons=original_commons
+            engine.archive_search=original_archive
             if old:os.environ["PEXELS_API_KEY"]=old
 
 if __name__=="__main__":unittest.main()
