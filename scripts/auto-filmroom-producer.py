@@ -24,6 +24,7 @@ from urllib.request import Request, urlopen
 MAX_FILE=90_000_000
 MAX_TOTAL=450_000_000
 MAX_DOWNLOAD=14
+MAX_DURATION=600
 WPM=140
 ROLE_RE={
     "weighin": re.compile(r"weigh.?in|scales|weight|face.?off|face to face|staredown", re.I),
@@ -71,6 +72,43 @@ def narrative_beats(script,desired_seconds=None):
     commit()
     return beats
 
+def commons_file(url):
+    p=urlparse(url)
+    return (p.scheme=="https" and p.hostname=="upload.wikimedia.org" and
+            p.path.lower().endswith((".webm",".ogv",".mp4")) and not p.username and not p.password)
+
+def commons(query,kind,limit=20):
+    params={"action":"query","generator":"search","gsrsearch":"filetype:video "+query,
+       "gsrnamespace":"6","gsrlimit":str(limit),
+       "prop":"imageinfo","iiprop":"url|size|extmetadata","format":"json","formatversion":"2"}
+    req=Request("https://commons.wikimedia.org/w/api.php?"+urlencode(params),
+                headers={"User-Agent":"AuraFightClub/1.0 (contact: editorial@aurafightclub.com)"})
+    with urlopen(req,timeout=25) as result:data=json.load(result)
+    entries=[]
+    for page in data.get("query",{}).get("pages",[]):
+        if not page.get("imageinfo"):continue
+        info=page["imageinfo"][0];url=info.get("url","")
+        if not commons_file(url):continue
+        if int(info.get("size") or 0)>MAX_FILE:continue
+        md=info.get("extmetadata") or {}
+        tag=lambda name: re.sub(r"<[^>]*>","",str(md.get(name,{}).get("value",""))).strip()
+        lic=tag("LicenseShortName")
+        lic_norm=lic.lower().replace(" ","")
+        # No CC NC/ND licences for monetised derivative news edits.
+        allowed=(lic_norm.startswith(("cc-by-","cc-by-sa-")) or
+                 lic_norm in ("pd","publicdomain","cc0","cc0-1.0","publicdomainmark"))
+        if not allowed or "nc" in lic_norm or "nd" in lic_norm:continue
+        ident=hashlib.sha256(url.encode()).hexdigest()[:12]
+        entries.append({"id":"commons-"+ident,"kind":kind,"fileUrl":url,
+            "originUrl":info.get("descriptionurl",""),
+            "provider":"Wikimedia Commons", "license":lic,
+            "attribution":tag("Artist")[:160] or "Wikimedia Commons creator",
+            "displayName":"Creative Commons boxing footage",
+            "duration":0,"illustrative":True,"namedFighterVerified":False,
+            "rightsStatus":"commons_license_check_required",
+            "licenseProof":info.get("descriptionurl","")})
+    return entries
+
 def safety_url(url):
     p=urlparse(url)
     if p.scheme!="https" or p.username or p.password: return False
@@ -104,6 +142,9 @@ def pexels(query,key,per_page=14):
 
 def allowed_source(item):
     # The user can add direct licensed first-party assets through the source register.
+    if item.get("provider")=="Wikimedia Commons":
+        return (item.get('licenseProof') and commons_file(item.get('fileUrl','')) and
+            item.get('rightsStatus')=='commons_license_check_required')
     if item.get("provider")=="Pexels":
         return item.get("license")=="Pexels License" and safety_url(item.get("fileUrl",""))
     return (item.get("rightsStatus")=="cleared" and item.get("licenseProof") and
@@ -113,24 +154,30 @@ def research(script,existing,key=None):
     needed=list(dict.fromkeys(b["role"] for b in narrative_beats(script)))
     sources=[{**x} for x in existing if allowed_source(x)]
     notes=[]
-    if not key:
-        notes.append("PEXELS_API_KEY missing: no automatic legal b-roll can be downloaded.")
-        return sources,notes
     used={s["id"] for s in sources}
     for role in needed:
         found=0
-        for query in QUERY.get(role,QUERY["training"]):
-            try:
-                options=pexels(query,key)
+        if key:
+            for query in QUERY.get(role,QUERY["training"]):
+                try:options=pexels(query,key)
+                except Exception as error:
+                    notes.append(f"Pexels {role} search failed: {type(error).__name__}");continue
+                for entry in options:
+                    entry["kind"]=role
+                    if entry["id"] in used:continue
+                    used.add(entry["id"]);sources.append(entry);found+=1
+                    if found>=5:break
+                if found>=5:break
+        for query in QUERY.get(role,QUERY["training"])[:1]:
+            try:options=commons(query,role)
             except Exception as error:
-                notes.append(f"Pexels {role} search failed: {type(error).__name__}");continue
+                notes.append(f"Commons {role} search failed: {type(error).__name__}");continue
             for entry in options:
-                entry["kind"]=role
                 if entry["id"] in used:continue
                 used.add(entry["id"]);sources.append(entry);found+=1
                 if found>=5:break
-            if found>=5:break
-        if found==0:notes.append("No licensed downloadable video for "+role)
+        if found==0:notes.append("No openly reusable downloadable video for "+role)
+    if not key:notes.append("Pexels not configured; tried Commons reusable video searches only.")
     return sources,notes
 
 def safe_local_file(media_dir,name):
@@ -146,14 +193,18 @@ def download_video(entry,out_dir):
         local=safe_local_file(out_dir,entry["localFile"])
         if not local.is_file():raise FileNotFoundError("Missing licensed file "+entry["localFile"])
         return local
-    if entry.get("provider")!="Pexels" or not safety_url(entry.get("fileUrl","")):
-        raise ValueError("Only verified provider downloads are permitted")
-    filename=entry["id"]+".mp4"
+    provider=entry.get("provider")
+    url=entry.get("fileUrl","")
+    if provider=="Pexels" and safety_url(url): pass
+    elif provider=="Wikimedia Commons" and commons_file(url):pass
+    else:raise ValueError("Only verified provider downloads are permitted")
+    filename=entry["id"]+(".webm" if urlparse(url).path.lower().endswith(".webm") else ".ogv" if urlparse(url).path.lower().endswith(".ogv") else ".mp4")
     target=out_dir/filename
     if target.exists() and target.stat().st_size>1000:return target
-    request=Request(entry["fileUrl"],headers={"User-Agent":"AuraFightClub/1.0"})
+    request=Request(url,headers={"User-Agent":"AuraFightClub/1.0 (editorial@aurafightclub.com)"})
     with urlopen(request,timeout=70) as response:
-        if not safety_url(response.geturl()):raise ValueError("Unexpected redirected download")
+        if provider=="Pexels" and not safety_url(response.geturl()):raise ValueError("Unexpected redirected download")
+        if provider=="Wikimedia Commons" and not commons_file(response.geturl()):raise ValueError("Unexpected Wikimedia download redirect")
         declared=int(response.headers.get("content-length") or 0)
         if declared>MAX_FILE:raise ValueError("Footage is too large")
         total=0
@@ -252,8 +303,8 @@ def produce(args):
     sources,notes=research(script,catalog,key=os.environ.get("PEXELS_API_KEY"))
     if args.dry_run:
         return write_report(out,project,beats,sources,notes,"research_ready" if sources else "needs_licensed_footage")
-    if len(words(script))<400:
-        return write_report(out,project,beats,sources,notes+["Narration is too short for a 5–10 minute report; expand editorial script."],"needs_script")
+    if len(words(script))<400 or len(words(script))/WPM*60>MAX_DURATION:
+        return write_report(out,project,beats,sources,notes+["Narration must be about 5–10 minutes (400–1400 words at 140 wpm). Revise editorial script."],"needs_script")
     if not sources:
         return write_report(out,project,beats,sources,notes+["No downloadable, licensed clips. Refusing to fabricate a fight video."],"needs_licensed_footage")
     usable=[];bytes_used=0
