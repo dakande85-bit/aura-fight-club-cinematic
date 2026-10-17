@@ -18,6 +18,10 @@ export default function AdminAutoFilmProducer(){
  const [status,setStatus]=useState('');
  const [sending,setSending]=useState(false);
  const [showScenes,setShowScenes]=useState(false);
+ const [jobs,setJobs]=useState([]);
+ const [jobState,setJobState]=useState('');
+ const [jobsLoading,setJobsLoading]=useState(false);
+ const [downloading,setDownloading]=useState(0);
  useEffect(()=>{
   Promise.all([
    fetch('/news/video-production/index.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight research queue unavailable');return r.json();}),
@@ -30,7 +34,7 @@ export default function AdminAutoFilmProducer(){
  useEffect(()=>{
   if(!selected)return;
   const ctrl=new AbortController();
-  setProject(null);setStatus('');
+  setProject(null);setStatus('');setJobs([]);setJobState('');
   fetch(selected,{signal:ctrl.signal,cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight production briefing is missing');return r.json();})
    .then(setProject).catch(e=>{if(e.name!=='AbortError')setStatus(e.message);});
   return()=>ctrl.abort();
@@ -43,6 +47,36 @@ export default function AdminAutoFilmProducer(){
  const measured=minutesForShots(shots);
  const actualLengthOk=measured>=4.5&&measured<=10.5;
  const hasActualFootage=coverage.actualFighterFootage>0;
+ async function checkJobs(){
+  if(!selectedFight||!password){setJobState('Enter the Aura editor password to view private production jobs.');return;}
+  setJobsLoading(true);setJobState('Checking the automatic film worker…');
+  try{
+   const response=await fetch('/api/auto-film-jobs?fightId='+encodeURIComponent(selectedFight.fightId),{
+    headers:{Authorization:'Bearer '+password},cache:'no-store'
+   });
+   const payload=await response.json();
+   if(!response.ok)throw Error(payload.error||'Could not retrieve video jobs.');
+   setJobs(payload.jobs||[]);
+   setJobState(payload.jobs?.length?'Job history loaded. Completed jobs provide a draft ZIP or a missing-media report.':'No automatic production runs for this fight yet.');
+  }catch(e){setJobState(e.message);}
+  finally{setJobsLoading(false);}
+ }
+ async function getArtifact(artifactId){
+  if(!password)return setJobState('Enter the editor password first.');
+  setDownloading(artifactId);setJobState('Requesting your production draft download…');
+  try{
+   const response=await fetch('/api/auto-film-download',{
+    method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+password},
+    body:JSON.stringify({fightId:selectedFight.fightId,artifactId})
+   });
+   const data=await response.json();
+   if(!response.ok)throw Error(data.error||'Draft download failed.');
+   const link=document.createElement('a');link.href=data.url;link.download=data.filename;
+   link.rel='noopener noreferrer';link.target='_blank';document.body.appendChild(link);link.click();link.remove();
+   setJobState('Opened the production pack. It may contain a silent MP4 or a report explaining missing footage.');
+  }catch(e){setJobState(e.message);}
+  finally{setDownloading(0);}
+ }
  async function start(){
   if(!selectedFight){setStatus('Select a researched boxing fight first.');return;}
   setSending(true);setStatus('Requesting automatic film production…');
@@ -54,7 +88,7 @@ export default function AdminAutoFilmProducer(){
    const result=await response.json();
    if(!response.ok)throw Error(result.error||'Automatic production could not be queued.');
    setStatus('Automatic video research queued for '+result.subject+'. The worker will only render from lawful video assets. The output remains a draft, not a published video.');
-   setPassword('');
+   setJobState('Production requested. Press Check job results to track the backend render and download the review pack.');
   }catch(e){setStatus(e.message);}
   finally{setSending(false);}
  }
@@ -105,6 +139,30 @@ export default function AdminAutoFilmProducer(){
       </div>
     </div>
     {status&&<div className="aura-producer-status" role="status">{status}</div>}
+  </section>
+  <section className="aura-producer-card aura-producer-jobs">
+   <div className="aura-producer-cardtitle"><h2>Produced drafts and job status</h2>
+    <button type="button" onClick={checkJobs} disabled={!password||!selectedFight||jobsLoading}>{jobsLoading?'Checking…':'Check job results'}</button>
+   </div>
+   <p>Each production runs in the background. When complete, inspect its genuine footage report and download any finished rough-cut MP4. Nothing is published automatically.</p>
+   {!ready&&<p className="aura-producer-note">The production workflow is not yet activated in this deployment. Its source code is in the GitHub review branch.</p>}
+   {!password&&<label className="aura-producer-job-login">Aura editor password for private job history
+      <input type="password" autoComplete="off" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Editor password"/>
+    </label>}
+   {jobState&&<div className="aura-producer-status" role="status">{jobState}</div>}
+   {jobs.map(job=><div key={job.id} className="aura-producer-job">
+     <div>
+      <strong>{job.subject||selectedFight?.name}</strong>
+      <small>{job.status==='completed'?(job.conclusion==='success'?'Worker finished; check the output':'Worker '+(job.conclusion||'ended')):'Worker '+job.status}
+       {job.createdAt?' · '+new Date(job.createdAt).toLocaleString():''}</small>
+     </div>
+     <div className="aura-producer-job-actions">
+      {job.downloadable?.map(x=><button key={x.id} type="button" disabled={downloading===x.id} onClick={()=>getArtifact(x.id)}>
+       {downloading===x.id?'Preparing…':'Download draft pack'}
+      </button>)}
+      {job.url&&<a href={job.url} target="_blank" rel="noopener noreferrer">Worker log ↗</a>}
+     </div>
+   </div>)}
   </section>
   <div className="aura-producer-columns">
    <section className="aura-producer-card">
