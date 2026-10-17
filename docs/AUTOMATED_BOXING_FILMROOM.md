@@ -40,3 +40,20 @@ Do not use a YouTube streaming extractor. YouTube API policies explicitly prohib
 Pexels: https://www.pexels.com/api/documentation/
 YouTube developer policies: https://developers.google.com/youtube/terms/developer-policies
 Pixabay: https://pixabay.com/api/docs/
+
+## Additional delivery components — 17 October 2026
+
+- `api/auto-film-jobs.js`: password-protected production-run status, limited to this Film Room workflow and fight ID. Completed runs list their actual signed draft-pack artifacts.
+- `api/auto-film-download.js`: validates that the artifact belongs to an authorised Film Room workflow run and returns a short-lived GitHub ZIP download. No GitHub token reaches the web browser.
+- `src/lib/auraFilmArtifact.js`: JSZip import of a completed worker's artifact, with MP4 header checks, size limits and explicit reporting when the job is blocked by missing footage or script.
+- Automatic producer now previews silent MP4 directly inside the app (where the signed download permits browser CORS), falls back to a secure ZIP link, and enables microphone recording with a timed narration guide. Full length final audio/video mix still requires a connected cloud worker and media storage.
+- Renderer now packages separately editable real footage clips as `editable-clips/scene-XXX.mp4` plus `editable-timeline.json` and `narration-cues.srt`. This prevents an irreversibly flattened MP4 from being the only output.
+- Added Internet Archive official metadata API as a third provider: only explicit CC BY, CC BY-SA, public-domain-mark or CC0 licence URLs qualify for preliminary footage discovery; uploader claims are still independently reviewable and no third-party broadcasts are assumed to be clear.
+
+### Verification
+
+GitHub Actions six checks PASS on branch commit `8089667ccebc940a68396f97ef0d5d78b51ed301`, including real-browser WebKit/Chromium export smoke, licence tests and JSZip draft unpack validation.
+
+### Deployment reality
+
+Latest feature branch code has not yet shown a corresponding READY Vercel deployment; the last confirmed READY preview lags behind. Vercel project environment access returns 403. Private cloud media delivery and the automatic workflow activation cannot be represented as live until that permission is repaired and the reviewed workflow is installed in main. No production site or Lovable credits were touched.
