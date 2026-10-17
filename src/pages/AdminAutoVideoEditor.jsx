@@ -7,6 +7,7 @@ import {planCuts,scanActionPeaks} from '../lib/auraAutoCut.js';
 import {exportAutoVideo} from '../lib/auraBrowserExport.js';
 import {checkExport,exportProfile} from '../lib/auraExportProfile.js';
 import {DEMO,loadDemoFile,saveVideo,getVideos,deleteVideo,saveEdit,getEdit,saveVoice,getVoice} from '../lib/auraMediaVault.js';
+import {consumeAutomaticEdit} from '../lib/auraTransientFilmEdits.js';
 import '../styles/aura-auto-video-editor.css';
 
 const QUEUE='/news/video-production/index.json';
@@ -39,7 +40,7 @@ export default function AdminAutoVideoEditor(){
  const [queue,setQueue]=useState([]);
  const [project,setProject]=useState(null);
  const [selectedPath,setSelectedPath]=useState('');
- const [format,setFormat]=useState('shorts');
+ const [format,setFormat]=useState(()=>new URLSearchParams(window.location.search).has('fightId')?'youtube':'shorts');
  const [assets,setAssets]=useState([]);
  const [cuts,setCuts]=useState([]);
  const [manualEdits,setManualEdits]=useState(false);
@@ -92,24 +93,31 @@ export default function AdminAutoVideoEditor(){
   setResultUrl('');setResultBlob(null);setVoice(null);setVoiceUrl('');
   (async()=>{
    let files=[],prior=null,recordedVoice=null;const messages=[];
+   const handoff=format==='youtube'?consumeAutomaticEdit(project.slug):null;
    try{files=await getVideos(project.slug);}catch(e){messages.push('Device media storage unavailable: '+e.message);}
    try{prior=await getEdit(project.slug,format);}catch(e){messages.push('Previous cuts could not be restored: '+e.message);}
    try{recordedVoice=await getVoice(project.slug,format);}catch(e){messages.push('Previous narration could not be restored: '+e.message);}
    if(!active)return;
    for(const url of assetUrls.current.values())URL.revokeObjectURL(url);
    assetUrls.current.clear();
-   const restored=files.filter(x=>x.file).map(x=>{
+   const allFiles=handoff?.assets?.length?
+    [...files.filter(x=>!handoff.assets.some(a=>a.id===x.id)),...handoff.assets]:files;
+   const restored=allFiles.filter(x=>x.file).map(x=>{
     const objectUrl=URL.createObjectURL(x.file);assetUrls.current.set(x.id,objectUrl);
     return {...x,objectUrl};
    });
    setAssets(restored);
-   if(recordedVoice)setVoice(recordedVoice);
+   if(handoff?.voice||recordedVoice)setVoice(handoff?.voice||recordedVoice);
    let savedScript=prior?.script;
    try{const cached=JSON.parse(localStorage.getItem(CUT_KEY+project.slug+'-'+format)||'null');if(!savedScript&&cached?.script)savedScript=cached.script;}catch{}
-   const text=savedScript||formatScript(project,format);
+   const text=handoff?.script||savedScript||formatScript(project,format);
    setScript(text);
-   setCuts(prior?.cuts?.length?prior.cuts:planCuts({script:text,format,assets:restored}));
-   setManualEdits(Boolean(prior?.cuts?.length));
+   const restoredCuts=handoff?.cuts?.length?handoff.cuts:prior?.cuts||[];
+   setCuts(restoredCuts.length?restoredCuts:planCuts({script:text,format,assets:restored}));
+   setManualEdits(Boolean(restoredCuts.length));
+   if(handoff?.storageFailed){
+    messages.push('iPhone storage could not save the imported MP4s. You can edit and preview during this session, but keep the original ZIP backup: reloading can lose the clips.');
+   }
    setWorkspaceNotice(messages.join(' '));workspaceReady.current=true;
   })();
   return ()=>{active=false;workspaceReady.current=false;};
