@@ -265,6 +265,10 @@ def render(timeline,library,media_dir,out_file,portrait=False):
     w,h=(720,1280) if portrait else (1280,720)
     with tempfile.TemporaryDirectory(prefix="aura-auto-film-") as tmp:
         tmp=Path(tmp)
+        # Keep every short, processed scene so the editor can adjust the
+        # automatic sequence instead of receiving just a flattened movie.
+        clip_output=out_file.parent/"editable-clips"
+        clip_output.mkdir(parents=True,exist_ok=True)
         clips=[]
         for i,cut in enumerate(timeline):
             source=safe_local_file(media_dir,media[cut["assetId"]]["localFile"])
@@ -278,6 +282,9 @@ def render(timeline,library,media_dir,out_file,portrait=False):
                 "-ss",str(cut["in"]),"-i",str(source),"-t",str(cut["shotSeconds"]),
                 "-vf",vf,"-an","-c:v","libx264","-preset","veryfast","-crf","29","-pix_fmt","yuv420p",str(v)],
                 check=True,timeout=110)
+            editable=clip_output/f"scene-{i+1:03d}.mp4"
+            import shutil
+            shutil.copyfile(v,editable)
             clips.append(v)
         concat=tmp/"list.txt"
         concat.write_text("".join(f"file '{v}'\n" for v in clips))
@@ -338,6 +345,24 @@ def produce(args):
         except Exception as error:
             return write_report(out,project,beats,usable,notes+[f"Rendering error: {type(error).__name__}: {str(error)[:200]}"],"render_failed",shots)
     (out/"narration.txt").write_text(script)
+    (out/"editable-timeline.json").write_text(json.dumps({
+        "format":"AURA-FILMROOM-EDIT-V1","project":project.get("slug"),
+        "estimatedDurationSeconds":round(sum(float(s["shotSeconds"]) for s in shots),2),
+        "sceneCount":len(shots),
+        "scenes":[{**s,"localClip":"editable-clips/scene-"+str(i+1).zfill(3)+".mp4"}
+                  for i,s in enumerate(shots)]},indent=2)+"\n")
+    def srt_timestamp(value):
+        millis=max(0,round(value*1000))
+        hrs,ms=divmod(millis,3600000)
+        mins,ms=divmod(ms,60000)
+        sec,ms=divmod(ms,1000)
+        return f"{hrs:02}:{mins:02}:{sec:02},{ms:03}"
+    captions=[];timecode=0
+    for i,shot in enumerate(shots):
+        next_time=timecode+float(shot["shotSeconds"])
+        captions.append(str(i+1)+"\n"+srt_timestamp(timecode)+" --> "+srt_timestamp(next_time)+"\n"+shot["narration"]+"\n")
+        timecode=next_time
+    (out/"narration-cues.srt").write_text("\n".join(captions)+"\n")
     with (out/"credits.txt").open("w") as handle:
         for s in usable:handle.write(f"{s['id']} | {s['provider']} | {s.get('attribution','')} | {s.get('originUrl','')}\n")
     return write_report(out,project,beats,usable,notes,"rough_cut_generated" if not args.no_render else "rough_cut_planned",shots)
