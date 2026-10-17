@@ -8,6 +8,7 @@ on:
       - 'src/styles/aura-trailer-studio.css'
       - 'scripts/render-cinematic-trailer.py'
       - 'tests/trailer-studio.test.mjs'
+      - 'tests/trailer-render-smoke.py'
       - 'src/pages/TikTokLanding.jsx'
       - 'src/lib/tiktokStudio.js'
       - 'src/lib/tiktokCardCanvas.js'
@@ -35,5 +36,7 @@ jobs:
         run: node --test tests/tiktok-studio.test.mjs tests/trailer-studio.test.mjs
       - name: Validate offline trailer renderer syntax
         run: python3 -m py_compile scripts/render-cinematic-trailer.py
+      - name: Render a two-second synthetic fight teaser end to end
+        run: python3 tests/trailer-render-smoke.py
       - name: Production build with news and media audits
         run: npm run build
