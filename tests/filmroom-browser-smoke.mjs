@@ -90,7 +90,16 @@ try{
  });
  await importPage.getByRole('button',{name:/Open all automatic cuts in the editor/}).waitFor({state:'visible',timeout:45000});
  await importPage.getByRole('button',{name:/Open all automatic cuts in the editor/}).click();
- await importPage.getByText('Film Room Studio').first().waitFor({state:'visible',timeout:45000});
+ try{
+  await importPage.waitForURL(/\/admin\/video-production\/editor\?fightId=/,{timeout:30000});
+ }catch(error){
+  console.error('Import navigation URL:',importPage.url());
+  console.error('Import status details:',await importPage.locator('.aura-producer-status').allTextContents().catch(()=>[]));
+  console.error('Visible editor button:',await importPage.getByRole('button',{name:/Open all automatic cuts/}).allTextContents().catch(()=>[]));
+  await importPage.screenshot({path:path.join(output,'automatic-import-failure.png'),fullPage:true}).catch(()=>{});
+  throw error;
+ }
+ await importPage.getByText('Film Room Studio').first().waitFor({state:'visible',timeout:25000});
  await importPage.locator('.aura-edit-asset').first().waitFor({state:'visible',timeout:45000});
  const restoredCount=await importPage.locator('.aura-edit-asset').count();
  if(restoredCount<2)throw new Error('Automatic scene ZIP did not restore both editable MP4 clips: '+restoredCount);
