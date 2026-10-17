@@ -20,7 +20,7 @@ import sys
 import tempfile
 from urllib.parse import urlparse, urlencode
 from urllib.request import Request, urlopen
-from aura_youtube_ingest import source_authorised as youtube_authorised, ingest as ingest_youtube, discover as discover_youtube
+from aura_youtube_ingest import source_authorised as youtube_authorised, ingest as ingest_youtube, discover as discover_youtube, sources_from_register as approved_youtube_registry
 
 MAX_FILE=90_000_000
 MAX_TOTAL=450_000_000
@@ -397,7 +397,8 @@ def produce(args):
     catalog=raw.get("sources",[]) if isinstance(raw,dict) else raw
     if not isinstance(catalog,list):raise ValueError("Media register must contain a sources array.")
     fight_id=getattr(args,"fight_id",None) or project.get("fightId") or project.get("slug","")
-    approved=[s for s in catalog if s.get("provider")=="YouTube approved" and s.get("fightId")==fight_id and youtube_authorised(s)]
+    # Normalise and scope entries from the dedicated per-fight approval registry.
+    approved=approved_youtube_registry(args.media_register,fight_id) if args.media_register else []
     catalog=[s for s in catalog if s.get("provider")!="YouTube approved"]+approved
     sources,notes=research(script,catalog,key=os.environ.get("PEXELS_API_KEY"))
     leads,lead_notes=discover_youtube(project.get("title") or fight_id,os.environ.get("YOUTUBE_DATA_API_KEY",""))
