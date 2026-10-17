@@ -74,3 +74,12 @@
 .aura-producer-draft-preview p{color:#b1c4cf;font-size:12px;line-height:1.6}
 .aura-producer-draft-notes{background:#2b2720;border-left:3px solid #daa65d;border-radius:6px;padding:9px 12px;margin:12px 0}
 .aura-producer-draft-notes p{margin:6px 0}
+
+.aura-producer-narration-controls{border-top:1px solid #3a5163;margin:16px 0;padding:16px 0}
+.aura-producer-narration-controls h4{font-size:14px;color:#f1d2a0;margin:0 0 10px}
+.aura-producer-narration-controls>div{display:flex;flex-wrap:wrap;gap:10px}
+.aura-producer-narration-controls button{background:#dfbc82;color:#141b20;border:1px solid #dfbc82;padding:10px 15px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer}
+.aura-producer-narration-controls button:disabled{opacity:.4;cursor:not-allowed}
+.aura-producer-narration-controls audio{display:block;width:100%;max-width:520px;margin:14px 0}
+.aura-producer-narration-controls small{display:block;margin-top:12px;color:#a9b7c6;font-size:11px;line-height:1.5}
+.aura-producer-teleprompter{border-radius:8px;border-left:3px solid #caa465;background:#253546;padding:13px 15px;font-size:15px!important;line-height:1.7!important;color:#edf1f5!important}
