@@ -51,6 +51,9 @@ try{
  await page.getByText('One subject. One prepared video.').waitFor({state:'visible'});
  await page.getByText('Automatically prepared narration').waitFor({state:'visible'});
  await page.getByText('Script-aligned video timeline').waitFor({state:'visible'});
+ await page.getByText('Produced drafts and job status').waitFor({state:'visible'});
+ await page.getByRole('button',{name:'Check job results'}).waitFor({state:'visible'});
+ console.log('Automatic film dashboard displays production status, narration shots and draft delivery controls.');
  console.log('Automatic producer dashboard loads and script timeline renders.');
  await page.goto(origin+'/admin/video-production/editor',{waitUntil:'domcontentloaded',timeout:60000});
  await page.getByText('Film Room Studio').first().waitFor({state:'visible'});
