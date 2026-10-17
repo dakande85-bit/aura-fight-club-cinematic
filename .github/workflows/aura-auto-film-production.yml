@@ -38,10 +38,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install FFmpeg
+      - name: Install FFmpeg and public-media ingestion tool
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
+          python -m pip install yt-dlp
       - name: Resolve selected fight
         id: project
         env:
@@ -66,11 +67,14 @@ jobs:
         if: steps.project.outputs.path != ''
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
         run: |
           python scripts/auto-filmroom-producer.py \
             --project '${{ steps.project.outputs.path }}' \
             --out 'filmroom-output/${{ steps.project.outputs.slug }}' \
-            --media-dir '/tmp/aura-automated-footage' \\
+            --media-dir '/tmp/aura-automated-footage' \
+            --media-register 'config/aura-approved-youtube-sources.json' \
+            --fight-id '${{ steps.project.outputs.slug }}' \\
             --mode '${{ inputs.content_type || 'analysis' }}' \\
             --target-minutes '${{ inputs.target_minutes || '7' }}'
       - name: Preserve generated MP4, timed shots, script and credits for review
