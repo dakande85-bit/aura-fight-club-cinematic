@@ -23,7 +23,7 @@ from urllib.request import Request, urlopen
 
 MAX_FILE=90_000_000
 MAX_TOTAL=450_000_000
-MAX_DOWNLOAD=14
+MAX_DOWNLOAD=28
 MAX_DURATION=600
 WPM=140
 ROLE_RE={
@@ -95,8 +95,9 @@ def commons(query,kind,limit=20):
         lic=tag("LicenseShortName")
         lic_norm=lic.lower().replace(" ","")
         # No CC NC/ND licences for monetised derivative news edits.
-        allowed=(lic_norm.startswith(("cc-by-","cc-by-sa-")) or
-                 lic_norm in ("pd","publicdomain","cc0","cc0-1.0","publicdomainmark"))
+        canonical=re.sub(r"[^a-z0-9]+","",lic.lower())
+        allowed=(canonical.startswith(("ccby","ccbysa")) or
+                 canonical in ("pd","publicdomain","cc0","cc01","publicdomainmark"))
         if not allowed or "nc" in lic_norm or "nd" in lic_norm:continue
         ident=hashlib.sha256(url.encode()).hexdigest()[:12]
         entries.append({"id":"commons-"+ident,"kind":kind,"fileUrl":url,
@@ -226,22 +227,30 @@ def probe(path):
     return float(data.get("format",{}).get("duration") or 0)
 
 def assign(beats,library,min_sources=3):
+    """Never create a five-minute video by looping the same ten-second source."""
     usable=[s for s in library if float(s.get("duration",0))>=3.5]
     distinct={s["id"] for s in usable}
-    if len(distinct)<min_sources:raise ValueError(f"Only {len(distinct)} usable video sources, need at least {min_sources} diverse licensed sources")
-    allocated={x["id"]:0 for x in usable}
+    if len(distinct)<min_sources:
+        raise ValueError(f"Only {len(distinct)} usable video sources, need at least {min_sources} diverse licensed sources")
+    demand=sum(float(x["duration"]) for x in beats)
+    supply=sum(max(0,float(x.get("duration",0))-.5) for x in usable)
+    if supply < demand*.94:
+        raise ValueError(f"Insufficient genuinely varied footage: {supply:.0f}s of usable media for {demand:.0f}s of narration. Never loop clips to fill time.")
+    consumed={x["id"]:0.2 for x in usable}
     timeline=[]
     last=None
     for i,beat in enumerate(beats):
-        candidates=[x for x in usable if x.get("kind")==beat["role"]]
-        if not candidates:candidates=usable
-        candidates=sorted(candidates,key=lambda x:(x["id"]==last, allocated[x["id"]],x["id"]))
+        length=min(float(beat["duration"]),9.8)
+        candidates=[s for s in usable
+            if float(s["duration"])-consumed[s["id"]]-0.15>=length]
+        if not candidates:
+            raise ValueError(f"Source footage exhausted near scene {i+1}. More legitimate boxing video is needed.")
+        candidates.sort(key=lambda x:(
+            x.get("kind")!=beat["role"],x["id"]==last,
+            consumed[x["id"]]/max(1,x["duration"]),x["id"]))
         source=candidates[0]
-        length=min(float(beat["duration"]),9.8,float(source["duration"])-.2)
-        # Avoid fake fighter action: stock footage is always explicitly "ILLUSTRATIVE"
-        maximum=max(0,float(source["duration"])-length)
-        start=(allocated[source["id"]]*11.9 + i*3.7)%max(1,maximum)
-        allocated[source["id"]]+=1
+        start=consumed[source["id"]]
+        consumed[source["id"]]+=length+.08
         last=source["id"]
         timeline.append({**beat,"assetId":source["id"],"in":round(start,2),"out":round(start+length,2),
                          "shotSeconds":round(length,2), "title":source["displayName"],
