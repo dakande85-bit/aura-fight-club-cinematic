@@ -66,7 +66,7 @@ export default function AdminAutoVideoEditor(){
 
  useEffect(()=>{
   fetch(QUEUE,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Production queue unavailable');return r.json();})
-   .then(d=>{const q=d.projects||[];setQueue(q);if(q.length)setSelectedPath(q[0].path);})
+   .then(d=>{const q=d.projects||[];setQueue(q);if(q.length){const id=new URLSearchParams(window.location.search).get('fightId');const requested=q.find(x=>x.fightId===id);setSelectedPath(requested?.path||q[0].path);}})
    .catch(e=>setStatus(e.message));
   return()=>{for(const url of assetUrls.current.values())URL.revokeObjectURL(url);};
  },[]);
