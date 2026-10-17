@@ -1,0 +1,59 @@
+name: Verify Aura YouTube API connection
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/aura-youtube-connection.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Test private YouTube Data API key with real boxing search
+        env:
+          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json,os,sys
+          from urllib.parse import urlencode
+          from urllib.request import urlopen,Request
+          from urllib.error import HTTPError,URLError
+
+          key=os.environ.get('YOUTUBE_DATA_API_KEY','').strip()
+          if not key:
+              print('FAILED: YOUTUBE_DATA_API_KEY secret missing or empty in this repository.')
+              sys.exit(2)
+          print('Secret present: yes. Checking YouTube search API without disclosing the key.')
+          args=urlencode({
+              'part':'snippet','type':'video','maxResults':3,
+              'q':'Daniel Dubois Fabio Wardley boxing highlights',
+              'key':key,
+          })
+          url='https://www.googleapis.com/youtube/v3/search?'+args
+          try:
+              with urlopen(Request(url,headers={'User-Agent':'AuraFightClub/1.0 boxing video discovery smoke test'}),timeout=22) as response:
+                  result=json.load(response)
+          except HTTPError as err:
+              try:
+                  details=json.load(err)
+                  reasons=','.join(str(x.get('reason','unknown')) for x in details.get('error',{}).get('errors',[])[:2])
+              except Exception:
+                  reasons='not supplied'
+              print(f'FAILED: YouTube API returned HTTP {err.code}; reason={reasons}. Check YouTube Data API v3 is enabled, allowed API restriction, key validity, quota, and network restrictions.')
+              sys.exit(3)
+          except (URLError,TimeoutError):
+              print('FAILED: Could not reach Google API endpoint from the GitHub runner.')
+              sys.exit(4)
+          items=result.get('items',[])
+          if not items:
+              print('FAILED: Search was authorised but returned no usable video results.')
+              sys.exit(5)
+          print('PASS: Aura YouTube Data API key works and real boxing video search returned '+str(len(items))+' results.')
+          print('No video was downloaded. A search API key does not grant media downloading or reuse rights.')
+          PY
