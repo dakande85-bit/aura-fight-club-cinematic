@@ -74,8 +74,8 @@ jobs:
             --out 'filmroom-output/${{ steps.project.outputs.slug }}' \
             --media-dir '/tmp/aura-automated-footage' \
             --media-register 'config/aura-approved-youtube-sources.json' \
-            --fight-id '${{ steps.project.outputs.slug }}' \\
-            --mode '${{ inputs.content_type || 'analysis' }}' \\
+            --fight-id '${{ steps.project.outputs.slug }}' \
+            --mode '${{ inputs.content_type || 'analysis' }}' \
             --target-minutes '${{ inputs.target_minutes || '7' }}'
       - name: Preserve generated MP4, timed shots, script and credits for review
         if: steps.project.outputs.path != ''
