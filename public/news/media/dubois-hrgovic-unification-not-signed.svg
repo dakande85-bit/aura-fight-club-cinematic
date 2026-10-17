@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="AURA Fight Club editorial title card: Daniel Dubois and Filip Hrgovic potential WBO and IBF unification; not a fight photograph">
+<defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#091018"/><stop offset=".48" stop-color="#182027"/><stop offset="1" stop-color="#101319"/></linearGradient><linearGradient id="a" x1="0" x2="1"><stop stop-color="#b99e73"/><stop offset="1" stop-color="#7e6b55"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#b)"/>
+<path d="M705 0L990 630M810 0L1095 630M915 0L1200 630" stroke="#ccae80" stroke-width="42" opacity=".065"/>
+<path d="M52 65H1148 M52 541H1148" stroke="url(#a)" stroke-width="2"/>
+<text x="56" y="115" font-family="Arial,Helvetica,sans-serif" letter-spacing="7" font-weight="700" font-size="23" fill="#e3c9a0">AURA / HEAVYWEIGHT INTELLIGENCE</text>
+<text x="50" y="267" font-family="Arial,Helvetica,sans-serif" letter-spacing="-4" font-weight="900" font-size="118" fill="#f4f1e9">DUBOIS</text>
+<text x="55" y="333" font-family="Arial,Helvetica,sans-serif" letter-spacing="7" font-weight="700" font-size="32" fill="#bea57e">VS</text>
+<text x="50" y="454" font-family="Arial,Helvetica,sans-serif" letter-spacing="-4" font-weight="900" font-size="118" fill="#f4f1e9">HRGOVIC II?</text>
+<rect x="56" y="480" width="372" height="38" rx="2" fill="#a98e67"/>
+<text x="72" y="508" font-family="Arial,Helvetica,sans-serif" letter-spacing="3" font-weight="800" font-size="22" fill="#0f1419">WBO × IBF — NOT SIGNED</text>
+<text x="55" y="594" font-family="Arial,Helvetica,sans-serif" letter-spacing="6" font-weight="700" font-size="22" fill="#d7d3cb">AURA FIGHT CLUB</text>
+<text x="1146" y="594" font-family="Arial,Helvetica,sans-serif" letter-spacing="2" font-size="17" fill="#a99a85" text-anchor="end">ORIGINAL EDITORIAL ARTWORK</text>
+</svg>
