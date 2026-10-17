@@ -31,3 +31,11 @@
 .aura-media-approved-grid img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
 .aura-media-approved-grid figcaption{padding:.7rem;font-size:.75rem;color:#ddd;line-height:1.5}
 @media(max-width:680px){.aura-media-link-grid{grid-template-columns:1fr}.aura-real-media{margin:1.3rem 0;padding:1rem}.aura-media-heading{align-items:start;flex-direction:column;gap:.3rem}}
+
+/* Original broadcast embed is the visible media lead on fight-result articles. */
+.aura-official-fight-lead{width:100%;margin:0 0 1.3rem;background:#0d1116;border:1px solid rgba(177,147,96,.28);border-radius:6px;overflow:hidden}
+.aura-official-fight-lead__frame{width:100%;aspect-ratio:16/9;position:relative;background:#050506}
+.aura-official-fight-lead__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.aura-official-fight-lead figcaption{padding:.75rem 1rem;line-height:1.55;font-size:.82rem;color:#d8d6d0}
+.aura-official-fight-lead figcaption strong{color:#e8d1a5}
+.aura-official-fight-lead figcaption a{color:#ebca94;text-decoration:underline}
