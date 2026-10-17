@@ -59,8 +59,11 @@ def verify_manifest(manifest, names):
     for field in ("narration_file", "music_file"):
         if manifest.get(field) and manifest[field] not in names:
             fail("Missing attached " + field)
-    if manifest.get("music_file") and not manifest.get("music_rights_reference"):
-        fail("Music licence reference is required")
+    if manifest.get("music_file") and (not manifest.get("music_rights_reference") or not manifest.get("music_rights_verified")):
+        fail("Approved music licence and sync rights are required")
+    if manifest.get("cover_file"):
+        if manifest["cover_file"] not in names or not manifest.get("cover_source_reference") or not manifest.get("cover_rights_verified"):
+            fail("Cover image rights and provenance have not been verified")
     return shots, seconds
 
 
