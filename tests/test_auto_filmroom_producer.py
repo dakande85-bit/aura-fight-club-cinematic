@@ -57,6 +57,8 @@ class AutoFilmTests(unittest.TestCase):
 
     def test_no_api_keys_means_blocked_not_fake_success(self):
         old=os.environ.pop("PEXELS_API_KEY",None)
+        original_commons=engine.commons
+        engine.commons=lambda query,role: []
         try:
             with tempfile.TemporaryDirectory() as tmp:
                 import json
@@ -70,6 +72,7 @@ class AutoFilmTests(unittest.TestCase):
                 self.assertEqual(result["status"],"needs_licensed_footage")
                 self.assertFalse((Path(tmp)/"out"/"roughcut-youtube.mp4").exists())
         finally:
+            engine.commons=original_commons
             if old:os.environ["PEXELS_API_KEY"]=old
 
 if __name__=="__main__":unittest.main()
