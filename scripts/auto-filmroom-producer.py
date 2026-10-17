@@ -406,10 +406,25 @@ def produce(args):
     sources,notes=research(script,catalog,key=os.environ.get("PEXELS_API_KEY"))
     leads,lead_notes=discover_youtube(project.get("title") or fight_id,os.environ.get("YOUTUBE_DATA_API_KEY",""))
     notes.extend(lead_notes)
+    existing_ids={x.get("id") for x in leads}
+    for ref in project.get("sources",[]):
+        url=str(ref.get("url") or "")
+        if "youtube.com/watch?v=" not in url and "youtu.be/" not in url:continue
+        from aura_youtube_ingest import video_id as youtube_video_id
+        ident=youtube_video_id(url)
+        if not ident or ident in existing_ids:continue
+        leads.append({
+            "id":ident,"url":"https://www.youtube.com/watch?v="+ident,
+            "title":ref.get("title"),"publisher":ref.get("publisher"),
+            "kind":ref.get("kind"),"rightsStatus":"research_only","mediaDownloaded":False,
+            "origin":"existing Aura research register"
+        })
+        existing_ids.add(ident)
     out.mkdir(parents=True,exist_ok=True)
     (out/"youtube-research.json").write_text(json.dumps({
         "fightId":fight_id,"downloadIsNotAuthorizedBySearch":True,
-        "found":len(leads),"candidates":leads},indent=2)+"\n")
+        "found":len(leads),"approvedForDownload":len(approved),
+        "candidates":leads},indent=2)+"\n")
     if leads:notes.append(f"Found {len(leads)} YouTube research leads; only sources with separate documented platform and copyright permission can be downloaded.")
     if args.dry_run:
         return write_report(out,project,beats,sources,notes,"research_ready" if sources else "needs_licensed_footage")
