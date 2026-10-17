@@ -41,10 +41,17 @@ async function github(path,options={}){
 export default async function handler(req,res){
  try{
   if(req.method==='GET'){
+   const credentials=Boolean(process.env.GITHUB_TOKEN&&process.env.ARTICLE_EDITOR_PASSWORD);
+   let workflowInstalled=false;
+   if(credentials){
+    try{const workflow=await github('/actions/workflows/'+WORKFLOW);workflowInstalled=Boolean(workflow?.id);}catch{}
+    // Mark ready only if GitHub actually has this workflow installed.
+   }
    return send(res,200,{
     automatedProduction:true,
-    ready: Boolean(process.env.GITHUB_TOKEN&&process.env.ARTICLE_EDITOR_PASSWORD),
+    ready: credentials&&workflowInstalled,
     workerConfigured:Boolean(process.env.GITHUB_TOKEN),
+    workflowInstalled,
     licensedStockConfigured:Boolean(process.env.PEXELS_API_KEY),
     cloudMediaReady:Boolean(process.env.AURA_FILM_CLOUD_STORAGE_READY==='true'),
     jobsRequireLogin:true,
@@ -63,8 +70,10 @@ export default async function handler(req,res){
   const item=projects().find(p=>p.fightId===body.fightId);
   if(!item)return send(res,400,{error:'Choose an existing researched fight.'});
   if(body.mode!=='prepare')return send(res,400,{error:'Only draft preparation is supported. No videos will be published.'});
+  const contentType=['analysis','prediction','critique','profile'].includes(body.kind)?body.kind:'analysis';
+  const runtime=[5,7,10].includes(Number(body.targetMinutes))?String(body.targetMinutes):'7';
   await github('/actions/workflows/'+WORKFLOW+'/dispatches',{
-   method:'POST',body:JSON.stringify({ref:branch,inputs:{fight_id:item.fightId}})
+   method:'POST',body:JSON.stringify({ref:branch,inputs:{fight_id:item.fightId,content_type:contentType,target_minutes:runtime}})
   });
   return send(res,202,{queued:true,subject:item.name,branch,workflow:WORKFLOW,
    note:'Research, licensed footage downloads, automatic cutting and a silent rough-cut render were requested. Source coverage may prevent a render; the system will report the missing footage rather than manufacture a fake fight video.'});
