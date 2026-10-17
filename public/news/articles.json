@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-10-17",
+  "reviewedAt": "2026-10-18",
   "articles": [
     {
       "slug": "dubois-hrgovic-2-unification-ibf-mandatory-after-wardley",
@@ -38,7 +38,7 @@
         }
       ],
       "date": "2026-10-17",
-      "updatedAt": "",
+      "updatedAt": "2026-10-18",
       "body": [
         "Daniel Dubois had barely completed his first successful defence of the WBO heavyweight championship when the next challenge stepped into the ring. Filip Hrgović, who holds the IBF belt, joined Dubois at London's O2 Arena after the Briton's second-round stoppage of Fabio Wardley on Saturday. Frank Warren invited the Croatian champion forward, turning a dominant result into the opening exchange of a possible two-belt unification.",
         "The numbers from the main event explain the timing of the conversation. Dubois dropped Wardley within 17 seconds of the opening round and forced the challenger's corner to intervene at 2:21 of round two. The result ended an immediate-rematch obligation and freed Dubois to discuss a different opponent. It did not, by itself, create a signed contract for Hrgović.",
@@ -63,11 +63,13 @@
       "youtubeId": null,
       "videoUrl": "",
       "image": {
-        "src": "https://www.aurafightclub.com/news/media/dubois-hrgovic-unification-not-signed.svg",
-        "alt": "Original AURA typographic title graphic reading Dubois vs Hrgovic II, WBO and IBF, not signed; not a photograph",
-        "credit": "AURA Fight Club — original editorial artwork",
-        "caption": "Original editorial artwork. The proposed rematch has not been contracted.",
-        "sourceUrl": "https://www.aurafightclub.com/news/media/dubois-hrgovic-unification-not-signed.svg"
+        "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Daniel_Dubois_walkout.jpg",
+        "alt": "Daniel Dubois walking towards the ring at Wembley Stadium on 19 July 2025 for his fight against Oleksandr Usyk, archival photograph",
+        "credit": "Editor083 / Wikimedia Commons — CC BY 4.0",
+        "caption": "ARCHIVE, 19 July 2025: Daniel Dubois walks to the ring at Wembley before facing Oleksandr Usyk. Photographer: Editor083; CC BY 4.0. Original image, unmodified. This photograph is NOT from Dubois–Wardley II.",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout.jpg",
+        "focus": "center 25%",
+        "fallbackSrc": "/news/media/dubois-hrgovic-unification-not-signed.svg"
       }
     },
     {
@@ -75,7 +77,7 @@
       "title": "Dubois and Wardley React to TKO: What Was Said — and What Comes Next",
       "summary": "Dubois praised Wardley, Hrgović entered the ring to call for a rematch and the defeated challenger accepted the result. Here is what is verified.",
       "date": "2026-10-17",
-      "updatedAt": "2026-10-17",
+      "updatedAt": "2026-10-18",
       "category": "Fight Reactions",
       "articleType": "News",
       "featured": true,
@@ -132,7 +134,20 @@
         "There is also no justification to announce a retirement, injury diagnosis, suspension or booked next opponent in the absence of reliable official reporting. Boxing news moves quickly, but accuracy must not be traded for being first.",
         "For now, the central result and the immediate reaction stand: Dubois produced another win over the same rival, he did so far earlier than expected, and Wardley's next decision should be made on recovery and sporting merit rather than pressure to answer one loss immediately.",
         "*This is a developing reaction report. New attributed statements will be added with dates and source links.*"
-      ]
+      ],
+      "media": {
+        "photos": [
+          {
+            "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Daniel_Dubois_walkout.jpg",
+            "alt": "Daniel Dubois walking towards the ring at Wembley Stadium on 19 July 2025 for his fight against Oleksandr Usyk, archival photograph",
+            "credit": "Editor083 / Wikimedia Commons — CC BY 4.0",
+            "caption": "ARCHIVE, 19 July 2025: Daniel Dubois walks to the ring at Wembley before facing Oleksandr Usyk. Photographer: Editor083; CC BY 4.0. Original image, unmodified. This photograph is NOT from Dubois–Wardley II.",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout.jpg",
+            "licenceReference": "https://creativecommons.org/licenses/by/4.0/",
+            "rightsVerified": true
+          }
+        ]
+      }
     },
     {
       "slug": "dubois-wardley-rough-tactics-allegations-rematch-aftermath",
@@ -244,7 +259,7 @@
       "title": "Dubois Keeps the WBO Belt: The Heavyweight Questions That Now Matter",
       "summary": "Dubois has removed Wardley from his immediate title picture, but the identity of his next challenger depends on rankings, obligations and actual negotiations.",
       "date": "2026-10-17",
-      "updatedAt": "2026-10-17",
+      "updatedAt": "2026-10-18",
       "category": "Inside Boxing",
       "articleType": "News",
       "featured": false,
@@ -298,14 +313,27 @@
         "For Dubois, the victory creates clarity. He is the champion, his most immediate rival has been defeated again and his next negotiation can take place without another immediate rematch blocking the route forward.",
         "For the division, it is an opportunity to identify contenders on sporting merit, rather than simply giving prominence to the loudest callout. Aura will track official title obligations, credible promotional statements and signed fights as those developments are verified.",
         "Tonight's confirmed news is a convincing successful defence. The next meaningful news may be the identity of a contender with the tools to make Dubois work much harder."
-      ]
+      ],
+      "media": {
+        "photos": [
+          {
+            "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Daniel_Dubois_walkout.jpg",
+            "alt": "Daniel Dubois walking towards the ring at Wembley Stadium on 19 July 2025 for his fight against Oleksandr Usyk, archival photograph",
+            "credit": "Editor083 / Wikimedia Commons — CC BY 4.0",
+            "caption": "ARCHIVE, 19 July 2025: Daniel Dubois walks to the ring at Wembley before facing Oleksandr Usyk. Photographer: Editor083; CC BY 4.0. Original image, unmodified. This photograph is NOT from Dubois–Wardley II.",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout.jpg",
+            "licenceReference": "https://creativecommons.org/licenses/by/4.0/",
+            "rightsVerified": true
+          }
+        ]
+      }
     },
     {
       "slug": "daniel-dubois-fabio-wardley-2-result-second-round-tko",
       "title": "Daniel Dubois Stops Fabio Wardley in Two Rounds to Retain WBO Heavyweight Title",
       "summary": "Dubois dropped Wardley within 17 seconds and forced a corner stoppage at 2:21 of round two in their WBO heavyweight title rematch at The O2.",
       "date": "2026-10-17",
-      "updatedAt": "2026-10-17",
+      "updatedAt": "2026-10-18",
       "category": "Breaking News",
       "articleType": "News",
       "featured": true,
@@ -353,7 +381,20 @@
         "Wardley, meanwhile, has now been stopped twice by the same fighter within five months. It is not responsible to invent a medical diagnosis or declare his career over. The sensible immediate questions are how he recovers, what his team says after appropriate assessment, and whether his tactical approach can be rebuilt away from the pressure of an immediate rematch.",
         "The emphatic result should not obscure its sequence. Dubois established an advantage within 17 seconds, carried the pressure forward after the break and left the challenger's corner to make a difficult decision. He did not just win a second fight. He removed the conditions that had made the first one competitive.",
         "This report will be updated with verified post-fight statements and official information as they become available."
-      ]
+      ],
+      "media": {
+        "photos": [
+          {
+            "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Daniel_Dubois_walkout.jpg",
+            "alt": "Daniel Dubois walking towards the ring at Wembley Stadium on 19 July 2025 for his fight against Oleksandr Usyk, archival photograph",
+            "credit": "Editor083 / Wikimedia Commons — CC BY 4.0",
+            "caption": "ARCHIVE, 19 July 2025: Daniel Dubois walks to the ring at Wembley before facing Oleksandr Usyk. Photographer: Editor083; CC BY 4.0. Original image, unmodified. This photograph is NOT from Dubois–Wardley II.",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout.jpg",
+            "licenceReference": "https://creativecommons.org/licenses/by/4.0/",
+            "rightsVerified": true
+          }
+        ]
+      }
     },
     {
       "slug": "dubois-wardley-first-17-seconds-tactical-analysis",
@@ -3338,5 +3379,5 @@
       ]
     }
   ],
-  "updatedAt": "2026-10-17T22:46:40.327Z"
+  "updatedAt": "2026-10-18T00:00:00.000Z"
 }
