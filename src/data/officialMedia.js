@@ -8,6 +8,15 @@ const pressOct17 = [
  {title:'17 October — ringside results and fight images',publisher:'MMA Fighting',url:'https://www.mmafighting.com/boxing/516222/daniel-dubois-destroys-fabio-wardley-via-2nd-round-knockout-in-highly-anticipated-rematch',type:'ringside',published:'17 Oct 2026',description:'Independent ringside reporting and editorial pictures; visit the original publisher.'},
  {title:'15 October — official final press conference photographs',publisher:'Queensberry Promotions / FIGHTMAG',credit:'Leigh Dawney / Queensberry Promotions',url:'https://www.fightmag.com/photos-dubois-and-wardley-at-final-press-conference-ahead-of-rematch/',type:'gallery',published:'15 Oct 2026',description:'Multiple genuine portraits and face-off images released by the event promoter and published by FIGHTMAG.'}
 ];
+const octoberFightHighlight={
+ kind:'youtube',
+ youtubeId:'0oAF0n0vzrE',
+ lead:true,
+ title:'Dubois vs Wardley II — official fight highlights',
+ publisher:'DAZN Boxing',
+ published:'17 Oct 2026',
+ description:'Official highlights of the October rematch: the opening knockdown and the round-two corner stoppage. Video is hosted by the broadcaster and may be unavailable if embedding is disabled.'
+};
 const officialVideos=[
  {kind:'youtube',youtubeId:'5HReUSh22bY',title:'Dubois vs Wardley — first fight highlights',publisher:'DAZN Boxing (verified)',published:'9 May 2026',description:'ARCHIVE: highlights from the first meeting in Manchester, NOT the October rematch.'},
  {kind:'youtube',youtubeId:'2W33Uyr3KBc',title:'Dubois vs Wardley II — official face-off',publisher:'DAZN Boxing (verified)',published:'18 Sep 2026',description:'PRE-FIGHT: official rematch face-off, not a post-fight reaction.'},
@@ -19,13 +28,13 @@ const fightNightVideos=[
  {title:'October 17 — official broadcaster social clips',publisher:'DAZN Boxing',url:'https://x.com/DAZNBoxing',published:'17 Oct 2026 onward',description:'Official broadcaster account featuring ringside video and image posts. Posts remain on the original platform.'}
 ];
 const pressByStory={
- 'daniel-dubois-fabio-wardley-2-result-second-round-tko':{photos:pressOct17,videos:[officialVideos[0]],footage:fightNightVideos},
- 'dubois-wardley-2-post-fight-reaction-what-they-said':{photos:[pressOct17[0],pressOct17[1]],videos:[officialVideos[1]],footage:fightNightVideos},
- 'dubois-wardley-first-17-seconds-tactical-analysis':{photos:[pressOct17[0],pressOct17[1]],videos:[officialVideos[0]],footage:[fightNightVideos[0],fightNightVideos[1]]},
- 'ben-davison-towel-fabio-wardley-dubois-corner-decision':{photos:[pressOct17[0],pressOct17[1]],videos:[officialVideos[0]],footage:[fightNightVideos[0]]},
- 'dubois-wardley-rough-tactics-allegations-rematch-aftermath':{photos:[pressOct17[2],pressOct17[0]],videos:[officialVideos[0],officialVideos[2]],footage:[fightNightVideos[0]]},
- 'daniel-dubois-wbo-heavyweight-title-what-next-after-wardley':{photos:[pressOct17[0]],videos:[],footage:[fightNightVideos[0],fightNightVideos[1]]},
- 'dubois-hrgovic-2-unification-ibf-mandatory-after-wardley':{photos:[pressOct17[0],pressOct17[1]],videos:[],footage:[fightNightVideos[0],fightNightVideos[2]]},
+ 'daniel-dubois-fabio-wardley-2-result-second-round-tko':{photos:pressOct17,videos:[octoberFightHighlight,officialVideos[0]],footage:fightNightVideos},
+ 'dubois-wardley-2-post-fight-reaction-what-they-said':{photos:[pressOct17[0],pressOct17[1]],videos:[octoberFightHighlight,officialVideos[1]],footage:fightNightVideos},
+ 'dubois-wardley-first-17-seconds-tactical-analysis':{photos:[pressOct17[0],pressOct17[1]],videos:[octoberFightHighlight,officialVideos[0]],footage:[fightNightVideos[0],fightNightVideos[1]]},
+ 'ben-davison-towel-fabio-wardley-dubois-corner-decision':{photos:[pressOct17[0],pressOct17[1]],videos:[octoberFightHighlight,officialVideos[0]],footage:[fightNightVideos[0]]},
+ 'dubois-wardley-rough-tactics-allegations-rematch-aftermath':{photos:[pressOct17[2],pressOct17[0]],videos:[octoberFightHighlight,officialVideos[0],officialVideos[2]],footage:[fightNightVideos[0]]},
+ 'daniel-dubois-wbo-heavyweight-title-what-next-after-wardley':{photos:[pressOct17[0]],videos:[octoberFightHighlight],footage:[fightNightVideos[0],fightNightVideos[1]]},
+ 'dubois-hrgovic-2-unification-ibf-mandatory-after-wardley':{photos:[pressOct17[0],pressOct17[1]],videos:[octoberFightHighlight],footage:[fightNightVideos[0],fightNightVideos[2]]},
  'jalolov-dacres-result-dubois-wardley-undercard-october-2026':{photos:[{title:'17 October — full London card and official results',publisher:'MMA Fighting',url:'https://www.mmafighting.com/boxing/515997/dubois-vs-wardley-2-results-live-updates-of-the-undercard-and-main-event',type:'gallery',published:'17 Oct 2026',description:'Undercard reporting and accompanying event imagery; source images are not cleared for reuse.'}],videos:[],footage:[{title:'Queensberry official event media',publisher:'Queensberry Promotions',url:'https://queensberry.co.uk/pages/news',published:'17 Oct 2026 onward',description:'Event-organiser video interviews and photo coverage as made available.'}]}
 };
 export function officialMediaForArticle(slug){return pressByStory[slug]||null;}
