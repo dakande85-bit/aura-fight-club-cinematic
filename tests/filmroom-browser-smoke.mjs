@@ -48,6 +48,11 @@ async function readResult(label){
 try{
  console.log('Navigating',origin+'/admin/video-production');
  await page.goto(origin+'/admin/video-production',{waitUntil:'domcontentloaded',timeout:60000});
+ await page.getByText('One subject. One prepared video.').waitFor({state:'visible'});
+ await page.getByText('Automatically prepared narration').waitFor({state:'visible'});
+ await page.getByText('Script-aligned video timeline').waitFor({state:'visible'});
+ console.log('Automatic producer dashboard loads and script timeline renders.');
+ await page.goto(origin+'/admin/video-production/editor',{waitUntil:'domcontentloaded',timeout:60000});
  await page.getByText('Film Room Studio').first().waitFor({state:'visible'});
  await page.locator('textarea[aria-label="Narration script"]').waitFor({state:'visible',timeout:35000});
  await saveScreenshot('initial-editor');
