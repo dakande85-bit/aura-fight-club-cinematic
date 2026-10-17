@@ -8,7 +8,10 @@ export function VerifiedPhoto({fighterSlug,fightId,className='',label='',creditL
  const backup=media?.fallbackSrc||'';
  // Optional publication-safe mode: never request an unlicensed third-party image.
  // Use original local illustrations where available, otherwise a named placeholder.
- const strictRights=import.meta.env.VITE_AURA_FIGHTER_MEDIA_RIGHTS_STRICT==='true';
+ // Production defaults to non-infringing, first-party media. Explicit 'false'
+ // can be used for internal visual review only after checking permissions.
+ const rightsFlag=import.meta.env.VITE_AURA_FIGHTER_MEDIA_RIGHTS_STRICT;
+ const strictRights=rightsFlag==='true'||(import.meta.env.PROD&&rightsFlag!=='false');
  const rightsBlocked=Boolean(strictRights&&primary.startsWith('https:')&&media?.rightsStatus!=='approved');
  const safeBackup=backup.startsWith('/')?backup:'';
  const [failure,setFailure]=useState({primary:'',stage:0});
