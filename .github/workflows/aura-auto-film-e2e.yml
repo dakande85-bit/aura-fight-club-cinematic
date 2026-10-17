@@ -1,0 +1,46 @@
+name: Film Room — real FFmpeg auto-cut and export acceptance
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/auto-filmroom-producer.py'
+      - 'scripts/test-auto-filmroom-real-render.py'
+      - 'scripts/aura_youtube_ingest.py'
+      - '.github/workflows/aura-auto-film-e2e.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-short-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install video tooling
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffmpeg -hide_banner -version | head -n 1
+      - name: Render a playable automatic-cut MP4 and every editable scene
+        run: |
+          python scripts/test-auto-filmroom-real-render.py /tmp/aura-filmroom-real-render-qa
+      - name: Inspect actual video and all scene exports
+        run: |
+          ffprobe -v error -show_entries format=duration:stream=codec_name,width,height -of json /tmp/aura-filmroom-real-render-qa/roughcut-youtube.mp4
+          test "$(find /tmp/aura-filmroom-real-render-qa/editable-clips -name 'scene-*.mp4' | wc -l)" -ge 5
+          test -s /tmp/aura-filmroom-real-render-qa/technical-result.json
+      - name: Save real exported MP4, each cut, and technical evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: aura-filmroom-real-ffmpeg-render-qa
+          path: |
+            /tmp/aura-filmroom-real-render-qa/roughcut-youtube.mp4
+            /tmp/aura-filmroom-real-render-qa/editable-clips/
+            /tmp/aura-filmroom-real-render-qa/technical-result.json
+          retention-days: 14
+          if-no-files-found: error
