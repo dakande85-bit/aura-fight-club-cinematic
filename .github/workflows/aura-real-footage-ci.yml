@@ -15,6 +15,9 @@ on:
       - 'tests/auto-film-artifact.test.mjs'
       - 'tests/auto-film-jobs.test.mjs'
       - 'scripts/auto-filmroom-producer.py'
+      - 'scripts/aura_youtube_ingest.py'
+      - 'tests/test_aura_youtube_ingest.py'
+      - 'config/aura-approved-youtube-sources.json'
       - 'tests/test_auto_filmroom_producer.py'
       - 'tests/auto-film-storyboard.test.mjs'
       - '.github/workflows/aura-auto-film-production.yml'
@@ -61,10 +64,11 @@ jobs:
           python-version: '3.12'
       - name: Test cut selection, provenance and file isolation
         run: |
-          python -m py_compile scripts/render-real-footage-short.py scripts/render-fight-production.py scripts/build-video-production-queue.py scripts/seed-video-narrations.py scripts/suggest-real-footage-cuts.py scripts/auto-filmroom-producer.py
+          python -m py_compile scripts/render-real-footage-short.py scripts/render-fight-production.py scripts/build-video-production-queue.py scripts/seed-video-narrations.py scripts/suggest-real-footage-cuts.py scripts/auto-filmroom-producer.py scripts/aura_youtube_ingest.py
           python -m unittest discover -s tests -p 'test_video_cut_suggester.py' -v
           python -m unittest discover -s tests -p 'test_video_production_pipeline.py' -v
           python -m unittest discover -s tests -p 'test_auto_filmroom_producer.py' -v
+          python -m unittest discover -s tests -p 'test_aura_youtube_ingest.py' -v
           python -m unittest discover -s tests -p 'test_real_footage_renderer.py' -v
       - uses: actions/setup-node@v4
         with:
