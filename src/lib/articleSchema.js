@@ -28,7 +28,7 @@ export function validateArticle(input) {
   if(photo.rightsVerified!==true||!String(photo.licenceReference||'').trim())throw new Error('Photo '+(index+1)+' needs confirmed publication rights and a licence reference.');
   const alt=String(photo.alt||'').trim(),credit=String(photo.credit||'').trim();
   if(!alt||!credit)throw new Error('Photo '+(index+1)+' needs descriptive alt text and photographer credit.');
-  return {src:httpsUrl(photo.src),alt:alt.slice(0,500),credit:credit.slice(0,300),caption:String(photo.caption||'').trim().slice(0,500),licenceReference:String(photo.licenceReference).trim().slice(0,400),rightsVerified:true};
+  return {src:httpsUrl(photo.src),alt:alt.slice(0,500),credit:credit.slice(0,300),caption:String(photo.caption||'').trim().slice(0,500),sourceUrl:httpsUrl(photo.sourceUrl,true),licenceReference:String(photo.licenceReference).trim().slice(0,400),rightsVerified:true};
  });
  const seoTitle=String(input.seoTitle||'').trim().slice(0,70);
  const metaDescription=String(input.metaDescription||'').trim().slice(0,170);
