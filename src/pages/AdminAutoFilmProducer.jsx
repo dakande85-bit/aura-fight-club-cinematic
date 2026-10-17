@@ -1,15 +1,17 @@
 import {useEffect,useMemo,useRef,useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import {Clapperboard,Film,AudioLines,ShieldAlert,Play,RefreshCw,CheckCircle2} from 'lucide-react';
 import Header from '../components/Header.jsx';
 import AuraApprovedYouTube from '../components/AuraApprovedYouTube.jsx';
 import Footer from '../components/Footer.jsx';
 import {buildNarrationShots,minutesForShots,storyboardCoverage} from '../lib/auraAutoFilmStoryboard.js';
-import {inspectFilmArtifact} from '../lib/auraFilmArtifact.js';
+import {inspectFilmArtifact,extractEditableFilmClips} from '../lib/auraFilmArtifact.js';
+import {saveVideo,saveEdit,saveVoice} from '../lib/auraMediaVault.js';
 import '../styles/aura-auto-film-producer.css';
 
 const FORMAT=[{value:'analysis',label:'Fight analysis'},{value:'prediction',label:'Fight prediction'},{value:'profile',label:'Fighter profile'},{value:'critique',label:'Critical breakdown'}];
 export default function AdminAutoFilmProducer(){
+ const navigate=useNavigate();
  const [queue,setQueue]=useState([]);
  const [selected,setSelected]=useState('');
  const [project,setProject]=useState(null);
@@ -27,6 +29,8 @@ export default function AdminAutoFilmProducer(){
  const [archiveLink,setArchiveLink]=useState('');
  const [draftPreview,setDraftPreview]=useState(null);
  const [draftVideoUrl,setDraftVideoUrl]=useState('');
+ const [draftPack,setDraftPack]=useState(null);
+ const [openingEditor,setOpeningEditor]=useState(false);
  const [voiceover,setVoiceover]=useState(null);
  const [voiceoverUrl,setVoiceoverUrl]=useState('');
  const [isNarrating,setIsNarrating]=useState(false);
@@ -44,7 +48,7 @@ export default function AdminAutoFilmProducer(){
  useEffect(()=>{
   if(!selected)return;
   const ctrl=new AbortController();
-  setProject(null);setStatus('');setJobs([]);setJobState('');setArchiveLink('');setDraftPreview(null);setVoiceover(null);setPlayhead(0);
+  setProject(null);setStatus('');setJobs([]);setJobState('');setArchiveLink('');setDraftPreview(null);setDraftPack(null);setVoiceover(null);setPlayhead(0);
   fetch(selected,{signal:ctrl.signal,cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight production briefing is missing');return r.json();})
    .then(setProject).catch(e=>{if(e.name!=='AbortError')setStatus(e.message);});
   return()=>ctrl.abort();
@@ -111,6 +115,46 @@ export default function AdminAutoFilmProducer(){
   if(recorderRef.current?.state==='recording')recorderRef.current.stop();
   videoRef.current?.pause();
  }
+ async function loadLocalEditPack(file){
+  if(!file)return;
+  setJobState('Opening exported Aura video and scene files from this device…');
+  setDraftPack(null);setDraftPreview(null);
+  try{
+   const bytes=await file.arrayBuffer();
+   const inspected=await inspectFilmArtifact(bytes);
+   setDraftPack(bytes);setDraftPreview(inspected);
+   setJobState(inspected.report?.testFixture?'Technical test footage loaded. These are not modern fight clips.':inspected.description);
+  }catch(error){setJobState('Could not open the edit pack: '+error.message);}
+ }
+ async function openEditableTimeline(){
+  if(!draftPack||!project?.slug||!selectedFight)return setJobState('Open a completed video draft ZIP before editing.');
+  setOpeningEditor(true);setJobState('Transferring the automatically cut MP4 scenes into your Film Room editor…');
+  try{
+   const result=await extractEditableFilmClips(draftPack);
+   const key='auto-'+Date.now();
+   const cuts=[];
+   for(let i=0;i<result.clips.length;i++){
+    const clip=result.clips[i],id=key+'-'+String(i+1).padStart(3,'0');
+    const file=new File([clip.blob],clip.filename,{type:'video/mp4'});
+    await saveVideo(project.slug,{
+     id,title:clip.title,kind:clip.kind,file,duration:clip.duration,
+     referenceUrl:clip.referenceUrl,rightsReviewed:false,peaks:[]
+    });
+    cuts.push({id:'auto-cut-'+i,assetId:id,sourceId:null,start:0,
+      duration:clip.duration,caption:'',narration:clip.narration,
+      role:clip.kind==='faceoff'?'weighin':clip.kind==='broll'?'training':clip.kind,
+      reviewStatus:'suggested_not_verified',usedFallback:false});
+   }
+   await saveEdit(project.slug,'youtube',{
+    script:project?.scripts?.youtube?.draft||project?.narrationScript||'',
+    cuts
+   });
+   if(voiceover)await saveVoice(project.slug,'youtube',voiceover);
+   setJobState(cuts.length+' real MP4 scene files saved locally. Opening the editor.');
+   navigate('/admin/video-production/editor?fightId='+encodeURIComponent(selectedFight.fightId));
+  }catch(error){setJobState('Could not import the editable footage: '+error.message);}
+  finally{setOpeningEditor(false);}
+ }
  async function getArtifact(artifactId,preview=true){
   if(!password)return setJobState('Enter the editor password first.');
   setDownloading(artifactId);setDraftPreview(null);setArchiveLink('');
@@ -134,6 +178,7 @@ export default function AdminAutoFilmProducer(){
     if(len>100*1024*1024)throw Error('The footage pack is too large for an in-browser preview.');
     const buffer=await pack.arrayBuffer();
     const inspected=await inspectFilmArtifact(buffer);
+    setDraftPack(buffer);
     setDraftPreview(inspected);
     setJobState(inspected.description);
    }catch(error){
@@ -215,6 +260,12 @@ export default function AdminAutoFilmProducer(){
       <input type="password" autoComplete="off" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Editor password"/>
     </label>}
    {jobState&&<div className="aura-producer-status" role="status">{jobState}</div>}
+   <label className="aura-producer-local-zip">Already have an Aura-produced video pack?
+    <input type="file" accept=".zip,application/zip" onChange={e=>{const file=e.target.files?.[0];if(file)loadLocalEditPack(file);e.target.value='';}} />
+   </label>
+   {draftPack&&draftPreview?.video&&<button type="button" className="aura-producer-open-editor" disabled={openingEditor} onClick={openEditableTimeline}>
+     {openingEditor?'Importing the cut scenes…':'Open all automatic cuts in the editor'}
+    </button>}
    {archiveLink&&<a className="aura-producer-archive-link" href={archiveLink} target="_blank" rel="noopener noreferrer">Download full edit pack (.zip) ↗</a>}
    {draftPreview&&<div className="aura-producer-draft-preview">
     <h3>{draftPreview.video?'Automatically edited rough cut':'Production is waiting for real footage'}</h3>
