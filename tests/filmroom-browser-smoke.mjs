@@ -54,6 +54,18 @@ try{
  await page.getByText('Script-aligned video timeline').waitFor({state:'visible'});
  await page.getByText('Produced drafts and job status').waitFor({state:'visible'});
  await page.getByRole('button',{name:'Check job results'}).waitFor({state:'visible'});
+ // The default project must be the actual Dubois–Wardley postfight source reel,
+ // not historical/synthetic fixtures or a stale pre-fight prediction.
+ await page.getByText('Real boxing footage, inside Film Room').waitFor({state:'visible'});
+ await page.getByRole('button',{name:/DAZN Boxing — DUBOIS VS WARDLEY 2 face-off/i}).waitFor({state:'visible'});
+ await page.getByRole('button',{name:/DAZN Boxing — DUBOIS VS WARDLEY 2 face-off/i}).click();
+ await page.getByRole('button',{name:/Play real YouTube footage/}).click();
+ const actualSrc=await page.locator('.aura-real-reel-screen iframe').getAttribute('src');
+ if(!actualSrc?.includes('youtube-nocookie.com/embed/2W33Uyr3KBc'))
+  throw new Error('Actual DAZN Wardley–Dubois YouTube clip was not embedded inside Film Room: '+actualSrc);
+ console.log('Real-fighter DAZN video embedded in Film Room: '+actualSrc.slice(0,95));
+ await saveScreenshot('real-wardley-dubois-source-reel');
+
  console.log('Automatic film dashboard displays production status, narration shots and draft delivery controls.');
  console.log('Automatic producer dashboard loads and script timeline renders.');
  // Real multi-scene ZIP -> automatic producer -> IndexedDB -> manual editor.
