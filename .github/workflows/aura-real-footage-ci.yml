@@ -19,6 +19,7 @@ on:
       - 'tests/test_aura_youtube_ingest.py'
       - 'config/aura-approved-youtube-sources.json'
       - 'api/auto-film-source.js'
+      - 'tests/auto-film-source.test.mjs'
       - 'src/components/AuraApprovedYouTube.jsx'
       - 'tests/test_auto_filmroom_producer.py'
       - 'tests/auto-film-storyboard.test.mjs'
@@ -78,6 +79,7 @@ jobs:
       - name: Verify auto-scene-cut planning
         run: |
           node --test tests/auto-film-jobs.test.mjs
+          node --test tests/auto-film-source.test.mjs
           node --test tests/auto-film-storyboard.test.mjs
           node --test tests/auto-video-editor.test.mjs
           node --test tests/filmroom-export-profile.test.mjs
