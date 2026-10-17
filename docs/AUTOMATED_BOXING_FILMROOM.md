@@ -57,3 +57,30 @@ GitHub Actions six checks PASS on branch commit `8089667ccebc940a68396f97ef0d5d7
 ### Deployment reality
 
 Latest feature branch code has not yet shown a corresponding READY Vercel deployment; the last confirmed READY preview lags behind. Vercel project environment access returns 403. Private cloud media delivery and the automatic workflow activation cannot be represented as live until that permission is repaired and the reviewed workflow is installed in main. No production site or Lovable credits were touched.
+
+## YouTube footage adapter (October 17, 2026)
+
+The user requested automatic downloading and cutting of YouTube videos within Film Room, without manually visiting external YouTube search pages.
+
+### Implemented, but not yet live
+
+- `scripts/aura_youtube_ingest.py` now implements actual YouTube video metadata discovery using the official Data API (`YOUTUBE_DATA_API_KEY`). It also accepts curated links from existing fight research, even when an API key is unavailable.
+- The adapter includes an optional `yt-dlp` media retrieval path for **specifically authorised** video IDs. No account cookies, token-provider plugins, DRM bypass or access-control circumvention are configured. It can fail if a YouTube video is inaccessible or the extractor changes.
+- `scripts/auto-filmroom-producer.py` merges the discovered sources into `youtube-research.json` and passes permitted downloaded files through FFprobe and FFmpeg for clip extraction, an assembled silent MP4, separate scene MP4s and narration cues. A short source cannot be looped repeatedly to invent a five-to-ten-minute video.
+- `api/auto-film-source.js` + `src/components/AuraApprovedYouTube.jsx` allow an authenticated editor to save a reviewed per-fight video URL, verified fighter identity and reference IDs for copyright reuse and YouTube/platform permission or applicable-law use. This is a **user assertion of permission**, not independent legal clearance by Aura or YouTube. The approved register lives in `config/aura-approved-youtube-sources.json` on the authorised git branch. Do not put confidential contract text there.
+- `.github/workflows/aura-auto-film-production.yml` installs `yt-dlp`, reads the register, performs key-based video discovery and conditionally downloads approved YouTube media when a background production is triggered. No automatic general downloading of broadcaster uploads.
+- Tests `tests/test_aura_youtube_ingest.py` verify accepted YouTube hosts, rights guards, strict per-fight source IDs, no subprocess execution for unapproved links, and that the downloader operates without credentials. The discovery CI verifies existing Dubois–Wardley YouTube research links are found and remain marked research-only.
+
+### Constraints and why
+
+YouTube's current Terms of Service prohibit automated downloads except as specifically permitted by the service, with prior permission (including YouTube and relevant rights holders), or as applicable law permits. YouTube API developer rules also explicitly forbid API clients from downloading/caching audiovisual content without prior written YouTube approval. The standard Data API can search metadata; it does not supply editable video bytes. `yt-dlp` is a third-party extractor with no uptime guarantee; some videos may be blocked even when legally reusable.
+
+Evidence is required for a reason. This is not a tool to rip every DAZN/Queensberry broadcast from public YouTube merely because it is viewable. Footage licences/permissions for the relevant bouts must be independently established; a claimed criticism exception does not automatically authorise every complete fight clip or platform download.
+
+### Activation
+
+1. GitHub PR #23 must be reviewed and merged before the new `workflow_dispatch` becomes available on the default branch. Production site has deliberately not been touched.
+2. A connected GitHub token with workflow dispatch and repo contents write permissions is needed on the Vercel backend, plus `ARTICLE_EDITOR_PASSWORD`.
+3. `YOUTUBE_DATA_API_KEY` enables automatic discovery beyond the project’s existing curated links. Set it as a GitHub Actions secret (not a public Vite variable).
+4. Under *Automatic YouTube footage intake* in the Film Room editor, use **Manage permitted sources** once to record the rights and platform/legal-use reference for each reusable source; subsequent production runs will retrieve it and cut it without further video searching or uploading.
+5. Review the generated video, scene files and narration cues. The automatic long-form render and in-app delivery still require active backend credentials, a working background workflow and enough source footage; no complete Wardley–Dubois 5–10min MP4 has been generated yet.
