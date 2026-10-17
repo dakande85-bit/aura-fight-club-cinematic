@@ -3,6 +3,11 @@ on:
   pull_request:
     paths:
       - 'src/pages/AdminSocial.jsx'
+      - 'src/pages/AdminTrailerStudio.jsx'
+      - 'src/lib/trailerStudio.js'
+      - 'src/styles/aura-trailer-studio.css'
+      - 'scripts/render-cinematic-trailer.py'
+      - 'tests/trailer-studio.test.mjs'
       - 'src/pages/TikTokLanding.jsx'
       - 'src/lib/tiktokStudio.js'
       - 'src/lib/tiktokCardCanvas.js'
@@ -27,6 +32,8 @@ jobs:
       - name: Install project dependencies
         run: npm install --no-package-lock --no-audit --no-fund
       - name: Test social captions and attribution
-        run: node --test tests/tiktok-studio.test.mjs
+        run: node --test tests/tiktok-studio.test.mjs tests/trailer-studio.test.mjs
+      - name: Validate offline trailer renderer syntax
+        run: python3 -m py_compile scripts/render-cinematic-trailer.py
       - name: Production build with news and media audits
         run: npm run build
