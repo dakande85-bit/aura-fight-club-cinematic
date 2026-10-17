@@ -319,9 +319,10 @@ export default function AdminAutoVideoEditor(){
     <p>Real footage. Real boxing analysis. Your voice. One finished video.</p></div>
    <div className="aura-edit-header-links"><Link to="/admin/social">Social posts</Link><Link to="/admin/video-production/advanced">Advanced setup</Link></div>
   </header>
-  <section className="aura-edit-demo">
+  <details className="aura-edit-demo">
+   <summary>Developer diagnostic only — historical video export test</summary>
    <div className="aura-edit-demo-copy">
-    <strong>TEST THE EDITOR — no API key or fight download needed</strong>
+    <strong>HISTORICAL TEST ASSET — NOT A PRODUCTION VIDEO</strong>
     <p>Load genuine public-domain boxing footage from 1891, then preview the automatically arranged clips, record your voice, and export a sample MP4. This is historical test footage, not footage from a modern title fight.</p>
     <a href={DEMO.original} target="_blank" rel="noopener noreferrer">Check the public-domain film and its source ↗</a>
     <p className="aura-edit-demo-tip">This is a normal MP4 on Aura's own server. First tap the video below to verify it plays, then tap Load test boxing footage to put it on the editing timeline.</p>
@@ -335,7 +336,7 @@ export default function AdminAutoVideoEditor(){
     </button>
     <a href={DEMO.downloadUrl} target="_blank" rel="noopener noreferrer">Manual demo download ↗</a>
    </div>
-  </section>
+  </details>
   <div className="aura-edit-top">
    <label className="aura-edit-select">Choose the fight
     <select value={selectedPath} onChange={e=>setSelectedPath(e.target.value)}>{queue.map(x=><option key={x.path} value={x.path}>{x.date} · {x.name}</option>)}</select>
