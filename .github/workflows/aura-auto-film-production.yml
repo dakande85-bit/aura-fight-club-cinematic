@@ -1,5 +1,5 @@
 name: AURA automatic boxing video rough-cuts
-run-name: 'AURA film — ${{ inputs.fight_id || ''featured fights'' }}'
+run-name: "AURA film — ${{ inputs.fight_id || 'featured fights' }}"
 on:
   workflow_dispatch:
     inputs:
