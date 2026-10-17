@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {spanishArticles} from '../i18n/esArticles.js';
 
-export const SITE_URL = 'https://aurafightclub.com';
+export const SITE_URL = 'https://www.aurafightclub.com';
 const GOOGLE_VERIFICATION = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION;
 const BING_VERIFICATION = import.meta.env.VITE_BING_SITE_VERIFICATION;
 const DEFAULT_IMAGE = `${SITE_URL}/assets/aura-live/hero/hero-fighter-stance.png`;

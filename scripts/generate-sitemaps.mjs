@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const ROOT=process.cwd();
 const PUBLIC=path.join(ROOT,'public');
-const SITE='https://aurafightclub.com';
+const SITE='https://www.aurafightclub.com';
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
 const isoDate=value=>{
  const d=value ? new Date(value) : new Date();
