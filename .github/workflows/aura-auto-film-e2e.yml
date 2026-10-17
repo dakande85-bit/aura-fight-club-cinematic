@@ -34,6 +34,36 @@ jobs:
           ffprobe -v error -show_entries format=duration:stream=codec_name,width,height -of json /tmp/aura-filmroom-real-render-qa/roughcut-youtube.mp4
           test "$(find /tmp/aura-filmroom-real-render-qa/editable-clips -name 'scene-*.mp4' | wc -l)" -ge 5
           test -s /tmp/aura-filmroom-real-render-qa/technical-result.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm actual MP4 artifact opens in Film Room browser parser
+        run: |
+          npm install --no-package-lock --no-audit --no-fund --ignore-scripts
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile,ZIP_DEFLATED
+          root=Path('/tmp/aura-filmroom-real-render-qa')
+          with ZipFile('/tmp/aura-review-pack-test.zip','w',ZIP_DEFLATED) as archive:
+              for name in ['production.json','youtube-research.json','roughcut-youtube.mp4',
+                           'editable-timeline.json','narration-cues.srt','narration.txt']:
+                  if (root/name).exists():archive.write(root/name,name)
+              for clip in (root/'editable-clips').glob('scene-*.mp4'):
+                  archive.write(clip,str(clip.relative_to(root)))
+          PY
+          node --input-type=module - <<'JS'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          import {inspectFilmArtifact} from './src/lib/auraFilmArtifact.js';
+          const raw=fs.readFileSync('/tmp/aura-review-pack-test.zip');
+          const result=await inspectFilmArtifact(raw.buffer.slice(raw.byteOffset,raw.byteOffset+raw.byteLength));
+          assert.equal(result.report.testFixture,true);
+          assert.equal(result.report.publishable,false);
+          assert.equal(result.report.status,'rough_cut_generated');
+          assert.ok(result.video&&result.video.size>10000);
+          assert.equal(result.report.shots.length,5);
+          console.log('PASS: Automatic Film Room UI parser read actual 32s MP4, source report and five clips from archive');
+          JS
       - name: Save real exported MP4, each cut, and technical evidence
         uses: actions/upload-artifact@v4
         with:
@@ -42,5 +72,9 @@ jobs:
             /tmp/aura-filmroom-real-render-qa/roughcut-youtube.mp4
             /tmp/aura-filmroom-real-render-qa/editable-clips/
             /tmp/aura-filmroom-real-render-qa/technical-result.json
+            /tmp/aura-filmroom-real-render-qa/production.json
+            /tmp/aura-filmroom-real-render-qa/narration.txt
+            /tmp/aura-filmroom-real-render-qa/narration-cues.srt
+            /tmp/aura-filmroom-real-render-qa/editable-timeline.json
           retention-days: 14
           if-no-files-found: error
