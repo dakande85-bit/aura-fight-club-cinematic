@@ -63,6 +63,9 @@ export async function extractEditableFilmClips(input){
  const timelineFile=findFile(archive,'editable-timeline.json');
  if(!timelineFile)throw Error('This pack contains only a rendered video, not an editable scene timeline.');
  const timeline=JSON.parse(await timelineFile.async('string'));
+ const directoryPrefix=timelineFile.name.slice(0,-'editable-timeline.json'.length);
+ if(directoryPrefix&&!/^[a-zA-Z0-9_-]+\/$/.test(directoryPrefix))
+  throw Error('The imported scene pack contains an invalid directory structure.');
  if(timeline.format!=='AURA-FILMROOM-EDIT-V1'||
      !Array.isArray(timeline.scenes)||timeline.scenes.length<1||
      timeline.scenes.length>MAX_EDITABLE_CLIPS)
@@ -73,7 +76,7 @@ export async function extractEditableFilmClips(input){
    const shot=timeline.scenes[i];
    if(!/^editable-clips\/scene-[0-9]{3}\.mp4$/.test(shot?.localClip||''))
     throw Error('The film contains an invalid editable scene path.');
-   const file=archive.file(shot.localClip);
+   const file=archive.file(directoryPrefix+shot.localClip)||archive.file(shot.localClip);
    if(!file||file.dir)throw Error('An edited scene video is missing: '+shot.localClip);
    const predictedSize=Number(file._data?.uncompressedSize)||0;
    if(predictedSize>MAX_VIDEO||byteTotal+predictedSize>MAX_EDITABLE_TOTAL)
