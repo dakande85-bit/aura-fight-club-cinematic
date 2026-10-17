@@ -1,4 +1,4 @@
-export const siteUrl = 'https://aurafightclub.com';
+export const siteUrl = 'https://www.aurafightclub.com';
 
 export const fighters = [
  {slug:'naoya-inoue',stance:'Orthodox',height:'5 ft 5 in (165 cm)',reach:'67½ in (171 cm)',birthDate:'1993-04-10',statSourceUrl:'https://wbcboxing.com/en/boxer/naoya-inoue/',statsCheckedAt:'2026-10-15',name:'Naoya Inoue',aliases:['Naoya Inoue'],division:'Junior featherweight',nationality:'Japan',record:'33–0 (27 KO)',recordSource:'https://www.ringmagazine.com/fighters/naoya-inoue-3EiWl7niEWkAd2sT8cfQec',recordCheckedAt:'2026-10-16',summary:'Four-division world champion and one of boxing’s leading pound-for-pound fighters.'},
