@@ -17,7 +17,7 @@ class AutoFilmTests(unittest.TestCase):
           dict(id="owned-"+str(i),provider="owner",rightsStatus="cleared",
                licenseProof="asset license "+str(i),localFile="scene-"+str(i)+".mp4",
                kind=["fight","weighin","training","press"][i%4],
-               duration=42,displayName="Real archive footage",illustrative=False,
+               duration=130,displayName="Real archive footage",illustrative=False,
                namedFighterVerified=True)
           for i in range(9)
         ]
