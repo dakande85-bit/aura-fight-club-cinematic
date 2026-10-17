@@ -3,6 +3,16 @@ import '../styles/official-media.css';
 
 const httpsOnly=(url)=>{try{const parsed=new URL(url);return parsed.protocol==='https:'?parsed.href:null;}catch{return null;}};
 const validYoutube=(id)=>/^[a-zA-Z0-9_-]{11}$/.test(id||'');
+export function OfficialFightVideoLead({article}){
+ const highlight=(officialMediaForArticle(article.slug)?.videos||[]).find(video=>video.lead===true&&validYoutube(video.youtubeId));
+ if(!highlight)return null;
+ return <figure className="aura-official-fight-lead">
+  <div className="aura-official-fight-lead__frame">
+   <iframe src={`https://www.youtube-nocookie.com/embed/${highlight.youtubeId}`} title={highlight.title} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen referrerPolicy="strict-origin-when-cross-origin"/>
+  </div>
+  <figcaption><strong>Official fight footage — {highlight.published}.</strong> {highlight.description} <a href={`https://www.youtube.com/watch?v=${highlight.youtubeId}`} target="_blank" rel="noopener noreferrer">Watch on DAZN Boxing ↗</a></figcaption>
+ </figure>;
+}
 function ExternalMedia({item,icon}){
  const url=httpsOnly(item.url);
  if(!url)return null;
@@ -20,7 +30,7 @@ function ExternalMedia({item,icon}){
 export default function OfficialMediaGallery({article}){
  const curated=officialMediaForArticle(article.slug);
  const photos=curated?.photos||[];
- const videos=curated?.videos||[];
+ const videos=(curated?.videos||[]).filter(video=>!video.lead);
  const footage=curated?.footage||[];
  // CMS-uploaded photography is displayable only with recorded publication rights.
  // A press credit is NOT a licence and cannot override this condition.
