@@ -64,7 +64,7 @@ class AutoFilmTests(unittest.TestCase):
                 import json
                 source=Path(tmp)/"project.json"
                 source.write_text(json.dumps({"slug":"fight-test","title":"Real fight",
-                    "scripts":{"youtube":{"draft":self.script}}}))
+                    "scripts":{"youtube":{"draft":" ".join(self.script.split(" ")[:850])}}}))
                 arg=type("Args",(),dict(project=str(source),out=str(Path(tmp)/"out"),
                    media_dir=str(Path(tmp)/"media"),media_register=None,
                    dry_run=False,no_render=False))()
