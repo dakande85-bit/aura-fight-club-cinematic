@@ -1,0 +1,71 @@
+name: AURA automatic boxing video rough-cuts
+on:
+  workflow_dispatch:
+    inputs:
+      fight_id:
+        description: Fight ID from the production queue, or all for all featured fights
+        required: false
+        type: string
+        default: all
+  schedule:
+    - cron: '0 9 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: aura-auto-film-${{ github.event.inputs.fight_id || 'daily' }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        index: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Resolve selected fight
+        id: project
+        env:
+          CHOSEN_FIGHT: ${{ inputs.fight_id || 'all' }}
+          INDEX: ${{ matrix.index }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          projects=json.loads(Path('public/news/video-production/index.json').read_text())['projects']
+          i=int(os.environ['INDEX'])
+          if i>=len(projects):quit()
+          entry=projects[i]
+          wanted=os.environ.get('CHOSEN_FIGHT') or 'all'
+          if wanted!='all' and wanted!=entry['fightId']:quit()
+          if wanted=='all' and not entry.get('featured'):quit()
+          with open(os.environ['GITHUB_OUTPUT'],'a') as o:
+              o.write('path=public'+entry['path']+'\n')
+              o.write('slug='+entry['fightId']+'\n')
+          PY
+      - name: Research downloadable licensed footage and assemble rough-cut
+        if: steps.project.outputs.path != ''
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: |
+          python scripts/auto-filmroom-producer.py \
+            --project '${{ steps.project.outputs.path }}' \
+            --out 'filmroom-output/${{ steps.project.outputs.slug }}' \
+            --media-dir '/tmp/aura-automated-footage'
+      - name: Preserve generated MP4, timed shots, script and credits for review
+        if: steps.project.outputs.path != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-film-${{ steps.project.outputs.slug }}
+          path: filmroom-output/${{ steps.project.outputs.slug }}/
+          retention-days: 14
+          if-no-files-found: error
