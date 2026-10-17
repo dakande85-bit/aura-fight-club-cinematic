@@ -4,6 +4,7 @@ import {Clapperboard,Film,AudioLines,ShieldAlert,Play,RefreshCw,CheckCircle2} fr
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import {buildNarrationShots,minutesForShots,storyboardCoverage} from '../lib/auraAutoFilmStoryboard.js';
+import {inspectFilmArtifact} from '../lib/auraFilmArtifact.js';
 import '../styles/aura-auto-film-producer.css';
 
 const FORMAT=[{value:'analysis',label:'Fight analysis'},{value:'prediction',label:'Fight prediction'},{value:'profile',label:'Fighter profile'},{value:'critique',label:'Critical breakdown'}];
@@ -22,6 +23,9 @@ export default function AdminAutoFilmProducer(){
  const [jobState,setJobState]=useState('');
  const [jobsLoading,setJobsLoading]=useState(false);
  const [downloading,setDownloading]=useState(0);
+ const [archiveLink,setArchiveLink]=useState('');
+ const [draftPreview,setDraftPreview]=useState(null);
+ const [draftVideoUrl,setDraftVideoUrl]=useState('');
  useEffect(()=>{
   Promise.all([
    fetch('/news/video-production/index.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight research queue unavailable');return r.json();}),
@@ -34,7 +38,7 @@ export default function AdminAutoFilmProducer(){
  useEffect(()=>{
   if(!selected)return;
   const ctrl=new AbortController();
-  setProject(null);setStatus('');setJobs([]);setJobState('');
+  setProject(null);setStatus('');setJobs([]);setJobState('');setArchiveLink('');setDraftPreview(null);
   fetch(selected,{signal:ctrl.signal,cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Fight production briefing is missing');return r.json();})
    .then(setProject).catch(e=>{if(e.name!=='AbortError')setStatus(e.message);});
   return()=>ctrl.abort();
@@ -42,6 +46,12 @@ export default function AdminAutoFilmProducer(){
  const script=project?.scripts?.youtube?.draft||project?.narrationScript||'';
  const shots=useMemo(()=>buildNarrationShots(script),[script]);
  const coverage=useMemo(()=>storyboardCoverage(shots,project?.sources),[shots,project?.sources]);
+ useEffect(()=>{
+  if(!draftPreview?.video){setDraftVideoUrl('');return;}
+  const url=URL.createObjectURL(draftPreview.video);
+  setDraftVideoUrl(url);
+  return()=>URL.revokeObjectURL(url);
+ },[draftPreview]);
  const ready=Boolean(config?.ready);
  const selectedFight=queue.find(x=>x.path===selected);
  const measured=minutesForShots(shots);
@@ -61,19 +71,34 @@ export default function AdminAutoFilmProducer(){
   }catch(e){setJobState(e.message);}
   finally{setJobsLoading(false);}
  }
- async function getArtifact(artifactId){
+ async function getArtifact(artifactId,preview=true){
   if(!password)return setJobState('Enter the editor password first.');
-  setDownloading(artifactId);setJobState('Requesting your production draft download…');
+  setDownloading(artifactId);setDraftPreview(null);setArchiveLink('');
+  setJobState(preview?'Opening automatic video rough cut…':'Getting a secure clip-pack download…');
   try{
    const response=await fetch('/api/auto-film-download',{
     method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+password},
     body:JSON.stringify({fightId:selectedFight.fightId,artifactId})
    });
    const data=await response.json();
-   if(!response.ok)throw Error(data.error||'Draft download failed.');
-   const link=document.createElement('a');link.href=data.url;link.download=data.filename;
-   link.rel='noopener noreferrer';link.target='_blank';document.body.appendChild(link);link.click();link.remove();
-   setJobState('Opened the production pack. It may contain a silent MP4 or a report explaining missing footage.');
+   if(!response.ok)throw Error(data.error||'Draft retrieval failed.');
+   setArchiveLink(data.url);
+   if(!preview){
+    setJobState('Your complete scene pack is ready. Use the Download ZIP link below; it includes individual edited shots when rendering succeeded.');
+    return;
+   }
+   try{
+    const pack=await fetch(data.url,{credentials:'omit',mode:'cors'});
+    if(!pack.ok)throw Error('The signed artifact download returned '+pack.status);
+    const len=Number(pack.headers.get('content-length')||0);
+    if(len>100*1024*1024)throw Error('The footage pack is too large for an in-browser preview.');
+    const buffer=await pack.arrayBuffer();
+    const inspected=await inspectFilmArtifact(buffer);
+    setDraftPreview(inspected);
+    setJobState(inspected.description);
+   }catch(error){
+    setJobState('Direct video preview is unavailable ('+error.message+'). Use the secure Download ZIP link below to obtain the MP4, individual clips and script.');
+   }
   }catch(e){setJobState(e.message);}
   finally{setDownloading(0);}
  }
@@ -150,6 +175,16 @@ export default function AdminAutoFilmProducer(){
       <input type="password" autoComplete="off" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Editor password"/>
     </label>}
    {jobState&&<div className="aura-producer-status" role="status">{jobState}</div>}
+   {archiveLink&&<a className="aura-producer-archive-link" href={archiveLink} target="_blank" rel="noopener noreferrer">Download full edit pack (.zip) ↗</a>}
+   {draftPreview&&<div className="aura-producer-draft-preview">
+    <h3>{draftPreview.video?'Automatically edited rough cut':'Production is waiting for real footage'}</h3>
+    {draftVideoUrl&&<video src={draftVideoUrl} controls playsInline preload="metadata" />}
+    {draftPreview.video&&<a href={draftVideoUrl} download={(selectedFight?.fightId||'aura')+'-roughcut.mp4'}>Download playable MP4</a>}
+    {draftPreview.report?.notes?.length>0&&<div className="aura-producer-draft-notes">
+     {draftPreview.report.notes.slice(0,8).map((note,i)=><p key={i}>{note}</p>)}
+    </div>}
+    <p>{draftPreview.report?.shots?.length||0} edited clips · {Math.round(draftPreview.report?.narrationSecondsEstimate||0)} seconds of proposed narration. Review the footage and rights before narration or publication.</p>
+   </div>}
    {jobs.map(job=><div key={job.id} className="aura-producer-job">
      <div>
       <strong>{job.subject||selectedFight?.name}</strong>
@@ -157,9 +192,12 @@ export default function AdminAutoFilmProducer(){
        {job.createdAt?' · '+new Date(job.createdAt).toLocaleString():''}</small>
      </div>
      <div className="aura-producer-job-actions">
-      {job.downloadable?.map(x=><button key={x.id} type="button" disabled={downloading===x.id} onClick={()=>getArtifact(x.id)}>
-       {downloading===x.id?'Preparing…':'Download draft pack'}
-      </button>)}
+      {job.downloadable?.map(x=><div className="aura-producer-pack-actions" key={x.id}>
+       <button type="button" disabled={Boolean(downloading)} onClick={()=>getArtifact(x.id,true)}>
+        {downloading===x.id?'Opening…':'Watch prepared video'}
+       </button>
+       <button type="button" disabled={Boolean(downloading)} onClick={()=>getArtifact(x.id,false)}>Get editable clips</button>
+      </div>)}
       {job.url&&<a href={job.url} target="_blank" rel="noopener noreferrer">Worker log ↗</a>}
      </div>
    </div>)}
