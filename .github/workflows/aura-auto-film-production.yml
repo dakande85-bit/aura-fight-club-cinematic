@@ -19,8 +19,6 @@ on:
         type: choice
         options: ['5', '7', '10']
         default: '7'
-  schedule:
-    - cron: '0 9 * * *'
 permissions:
   contents: read
 concurrency:
