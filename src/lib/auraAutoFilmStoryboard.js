@@ -2,7 +2,7 @@
 // This plans a rough cut; without actual licensed source files no MP4 exists.
 const PATTERNS=[
  {kind:'weighin',label:'Weigh-in / face-off',pattern:/weigh.?in|scales|stare|face.?off|face to face|weight/i},
- {kind:'press',label:'Press conference / interviews',pattern:/press|interview|said|spoke|coach|trainer|promoter|claim|announce/i},
+ {kind:'press',label:'Press conference / interviews',pattern:/\\bpress(?: conference)?\\b|interview|said|spoke|coach|trainer|promoter|claim|announce/i},
  {kind:'training',label:'Training / preparation',pattern:/training|camp|gym|sparring|conditioning|practice/i},
  {kind:'fight',label:'Actual fight action required',pattern:/fight|exchange|jab|hook|knock|counter|right hand|punch|round|guard|pressure|defen|footwork/i}
 ];
