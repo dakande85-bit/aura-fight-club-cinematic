@@ -3,7 +3,26 @@ import {buildRealFootageReel,iframePreviewUrl,validSegment} from '../lib/auraRea
 import '../styles/aura-real-footage-reel.css';
 
 export default function AuraRealFootageReel({project}){
- const initial=useMemo(()=>buildRealFootageReel(project),[project]);
+ const [discovered,setDiscovered]=useState([]);
+ const [discoveryStatus,setDiscoveryStatus]=useState('');
+ useEffect(()=>{
+  if(!project?.fightId){setDiscovered([]);return;}
+  let cancelled=false;
+  setDiscoveryStatus('');setDiscovered([]);
+  const endpoint='/news/video-production/auto-discovery/'+encodeURIComponent(project.fightId)+'.json';
+  fetch(endpoint,{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{
+   if(cancelled)return;
+   const valid=(data?.videos||[]).filter(x=>
+     x.embedVerifiedByYouTubeAPI===true&&x.rightsStatus==='research_only'&&
+     x.clearedForExport===false&&x.videoId&&x.url);
+   setDiscovered(valid);
+   if(valid.length)setDiscoveryStatus(valid.length+' actual YouTube videos discovered automatically');
+  }).catch(()=>{if(!cancelled)setDiscovered([]);});
+  return()=>{cancelled=true;};
+ },[project?.fightId]);
+ const initial=useMemo(()=>buildRealFootageReel({
+   ...project,sources:[...discovered,...(project?.sources||[])]
+ }),[project,discovered]);
  const [scenes,setScenes]=useState(initial);
  const [selected,setSelected]=useState(0);
  const [running,setRunning]=useState(false);
@@ -57,6 +76,7 @@ export default function AuraRealFootageReel({project}){
    <div>
     <p className="aura-real-reel-kicker">REAL FIGHTERS · ORIGINAL CHANNELS</p>
     <h2>Real boxing footage, inside Film Room</h2>
+    {discoveryStatus&&<p className="aura-real-reel-discovered">{discoveryStatus} · official previews, not licensed MP4 files</p>}
     <p>Actual YouTube footage of the named fighters. Screen the clips here, set excerpt points and run a preview sequence—no external searching or irrelevant test patterns.</p>
    </div>
    <div className="aura-real-reel-counter"><b>{scenes.length}</b> relevant videos <span>{Math.round(total)} seconds of proposed excerpts</span></div>
@@ -89,7 +109,7 @@ export default function AuraRealFootageReel({project}){
      <p className="aura-real-reel-notice">This screens excerpts through the official YouTube player; it is <b>not</b> a downloadable edited MP4. The timing is provisional, and video availability or autoplay depends on the original channel and the device. Review the exact action before using it as evidence. Downloading or exporting clips needs the necessary permissions and a media file.</p>
     </div>
     <div className="aura-real-reel-sources">
-     <h3>Automatic source reel</h3>
+     <h3>Automatically sourced clips {discovered.length>0?'· '+discovered.length+' new videos':''}</h3>
      {scenes.map((s,i)=><button type="button" key={s.id} className={'aura-real-reel-tile '+(i===selected?'is-active':'')} onClick={()=>pick(i)}>
       <img src={s.thumbnail} alt="" loading="lazy"/>
       <span><strong>{s.title}</strong><small>{s.publisher}</small><small>{s.startSeconds}–{s.endSeconds}s · {s.rightsCleared?'Approved media':'Preview only'}</small></span>
