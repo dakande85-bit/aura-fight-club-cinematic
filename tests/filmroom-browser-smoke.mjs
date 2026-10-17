@@ -123,7 +123,8 @@ try{
  await page.getByText('Film Room Studio').first().waitFor({state:'visible'});
  await page.locator('textarea[aria-label="Narration script"]').waitFor({state:'visible',timeout:35000});
  await saveScreenshot('initial-editor');
- // Important regression: simulate real user tapping the one-click demo.
+ // Important regression: developer test fixture is intentionally collapsed in the editorial UI.
+ await page.locator('details.aura-edit-demo summary').click();
  await page.getByRole('button',{name:/Load test boxing footage/}).click();
  await page.locator('.aura-edit-asset').first().waitFor({state:'visible',timeout:65000});
  await page.waitForFunction(()=>{
