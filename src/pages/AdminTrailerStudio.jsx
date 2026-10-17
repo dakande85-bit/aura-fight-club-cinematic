@@ -82,8 +82,8 @@ export default function AdminTrailerStudio() {
     setAssets(a => ({ ...a, [key]: { file, path } }));
     if (key === 'narration') updatePlan('narrationFile', path);
     else if (key === 'music') updatePlan('musicFile', path);
-    else if (key === 'cover') updatePlan('coverFile', path);
-    else updateShot('fileName', path);
+    else if (key === 'cover') setPlan(p => ({ ...p, coverFile: path, coverRightsVerified: false }));
+    else setPlan(p => ({ ...p, shots: p.shots.map(shot => shot.id === key ? { ...shot, fileName: path, rightsVerified: false, approved: false } : shot) }));
     setNotice('Local asset attached. It remains on this device until you export the pack.');
   }
   function savePlan() {
@@ -145,6 +145,8 @@ export default function AdminTrailerStudio() {
         {plan.musicFile && <><label>Music licence or permission reference<input value={plan.audioRights} onChange={e => updatePlan('audioRights', e.target.value)} placeholder="Licence ID / creator permission" /></label>
           <label className="aura-trailer__check"><input type="checkbox" checked={plan.musicRightsVerified} onChange={e => updatePlan('musicRightsVerified', e.target.checked)} />I verified that this soundtrack can be synchronised and posted commercially</label></>}
         <label>Optional vertical cover (real, cleared image preferred)<input type="file" accept="image/*" onChange={e => setMedia('cover', e, 'cover')} /></label>
+        {plan.coverFile && <><label>Cover image source/licence reference<input value={plan.coverSource} onChange={e => updatePlan('coverSource', e.target.value)} placeholder="Photographer / licence / own work reference" /></label>
+          <label className="aura-trailer__check"><input type="checkbox" checked={plan.coverRightsVerified} onChange={e => updatePlan('coverRightsVerified', e.target.checked)} />I verified the cover can be used commercially</label></>}
       </section>
       <section className="aura-trailer__editor">
         <h2>Selected shot</h2>
