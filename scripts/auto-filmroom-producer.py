@@ -306,8 +306,11 @@ def produce(args):
     project=json.loads(Path(args.project).read_text())
     project['requestedMode']=getattr(args,'mode','analysis')
     script=project.get("scripts",{}).get("youtube",{}).get("draft","")
-    beats=narrative_beats(script,desired_seconds=getattr(args,'target_minutes',None)*60 if getattr(args,'target_minutes',None) else None)
     out=Path(args.out).resolve()
+    try:
+        beats=narrative_beats(script,desired_seconds=getattr(args,'target_minutes',None)*60 if getattr(args,'target_minutes',None) else None)
+    except ValueError as error:
+        return write_report(out,project,[],[],[str(error)],"needs_script")
     media_dir=Path(args.media_dir).resolve();media_dir.mkdir(parents=True,exist_ok=True)
     catalog=json.loads(Path(args.media_register).read_text()) if args.media_register else []
     sources,notes=research(script,catalog,key=os.environ.get("PEXELS_API_KEY"))
