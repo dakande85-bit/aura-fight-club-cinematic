@@ -41,3 +41,62 @@ export async function inspectFilmArtifact(arrayBuffer){
  return {report,youtubeResearch,video:new Blob([bytes],{type:'video/mp4'}),
   videoName:movie.name.split('/').pop(),description:describeFilmReport(report)};
 }
+
+const MAX_EDITABLE_CLIPS=120;
+const MAX_EDITABLE_TOTAL=185*1024*1024;
+
+/**
+ * Import the actual FFmpeg-produced, separately editable MP4 scene files.
+ * The returned video bytes are backed by the local ZIP, not fake YouTube URLs.
+ * Caller must not assume the original footage is approved for publication.
+ */
+export async function extractEditableFilmClips(input){
+ const source=input instanceof ArrayBuffer?input:input?.buffer;
+ if(!source||source.byteLength<200||source.byteLength>MAX_ARCHIVE)
+  throw Error('The video edit pack is missing or too large for this browser.');
+ const archive=await JSZip.loadAsync(source,{checkCRC32:true});
+ const reportFile=findFile(archive,'production.json');
+ if(!reportFile)throw Error('Missing film production report.');
+ const report=JSON.parse(await reportFile.async('string'));
+ if(report.status!=='rough_cut_generated')
+  throw Error(describeFilmReport(report));
+ const timelineFile=findFile(archive,'editable-timeline.json');
+ if(!timelineFile)throw Error('This pack contains only a rendered video, not an editable scene timeline.');
+ const timeline=JSON.parse(await timelineFile.async('string'));
+ if(timeline.format!=='AURA-FILMROOM-EDIT-V1'||
+     !Array.isArray(timeline.scenes)||timeline.scenes.length<1||
+     timeline.scenes.length>MAX_EDITABLE_CLIPS)
+   throw Error('The imported film timeline format is invalid.');
+ let byteTotal=0;
+ const clips=[];
+ for(let i=0;i<timeline.scenes.length;i++){
+   const shot=timeline.scenes[i];
+   if(!/^editable-clips\/scene-[0-9]{3}\.mp4$/.test(shot?.localClip||''))
+    throw Error('The film contains an invalid editable scene path.');
+   const file=archive.file(shot.localClip);
+   if(!file||file.dir)throw Error('An edited scene video is missing: '+shot.localClip);
+   const predictedSize=Number(file._data?.uncompressedSize)||0;
+   if(predictedSize>MAX_VIDEO||byteTotal+predictedSize>MAX_EDITABLE_TOTAL)
+    throw Error('The edit pack contains too much video for on-device storage. Download the ZIP and edit on desktop.');
+   const bytes=await file.async('uint8array');
+   byteTotal+=bytes.byteLength;
+   if(bytes.byteLength<512||
+       String.fromCharCode(...bytes.subarray(4,8))!=='ftyp')
+     throw Error('An editable scene is not a playable MP4: '+shot.localClip);
+   const duration=Number(shot.shotSeconds);
+   if(!Number.isFinite(duration)||duration<.15||duration>12)
+     throw Error('An editable scene contains an invalid cut duration.');
+   clips.push({
+      scene:i+1,blob:new Blob([bytes],{type:'video/mp4'}),
+      filename:shot.localClip.split('/').pop(),
+      duration,kind:shot.role==='weighin'?'faceoff':
+       shot.role==='press'?'press':shot.role==='fight'?'fight':'broll',
+      narration:String(shot.narration||''),
+      referenceUrl:String(shot.sourceUrl||''),
+      title:String(shot.title||'Auto-edited scene '+(i+1)),
+      illustrative:Boolean(shot.illustrative),
+      rightsReviewed:false
+   });
+ }
+ return {clips,report,timeline};
+}
