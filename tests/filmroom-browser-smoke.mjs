@@ -3,6 +3,7 @@
 import {chromium,webkit,devices} from 'playwright';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import JSZip from 'jszip';
 
 const origin=process.env.FILMROOM_URL||'http://127.0.0.1:4173';
 const fixture=process.env.FILMROOM_FIXTURE||'/tmp/aura-filmroom-browser/source.mp4';
@@ -55,6 +56,48 @@ try{
  await page.getByRole('button',{name:'Check job results'}).waitFor({state:'visible'});
  console.log('Automatic film dashboard displays production status, narration shots and draft delivery controls.');
  console.log('Automatic producer dashboard loads and script timeline renders.');
+ // Real multi-scene ZIP -> automatic producer -> IndexedDB -> manual editor.
+ // Separate browser context keeps this technical demo separate from the existing
+ // iPhone real-video/audio export test and avoids contaminating its source rights.
+ const importPage=await browser.newPage(browserName==='webkit'?
+  {...devices['iPhone 13'],acceptDownloads:true}:
+  {viewport:{width:1365,height:900},acceptDownloads:true});
+ importPage.on('pageerror',e=>errors.push('Import UI: '+e.message));
+ await importPage.goto(origin+'/admin/video-production',{waitUntil:'domcontentloaded'});
+ await importPage.waitForFunction(()=>{
+  return (document.querySelector('.aura-producer-script')?.textContent?.length||0)>150;
+ });
+ const sourceFile=await fs.readFile(fixture);
+ const timelineScenes=[1,2].map(i=>({
+  id:'acceptance-'+i,role:i===1?'fight':'training',
+  shotSeconds:4,narration:i===1?'A historical boxing demonstration.':'Synthetic test: do not publish.',
+  illustrative:true,localClip:'editable-clips/scene-'+String(i).padStart(3,'0')+'.mp4'
+ }));
+ const zip=new JSZip();
+ zip.file('production.json',JSON.stringify({
+  status:'rough_cut_generated',testFixture:true,publishable:false,
+  shots:timelineScenes,notes:['Historic sample only: no real modern fighter footage']
+ }));
+ zip.file('roughcut-youtube.mp4',sourceFile);
+ zip.file('editable-timeline.json',JSON.stringify({
+  format:'AURA-FILMROOM-EDIT-V1',
+  scenes:timelineScenes,sceneCount:2,estimatedDurationSeconds:8
+ }));
+ for(const scene of timelineScenes)zip.file(scene.localClip,sourceFile);
+ const editPack=await zip.generateAsync({type:'nodebuffer',compression:'DEFLATE'});
+ await importPage.locator('.aura-producer-local-zip input[type=file]').setInputFiles({
+  name:'aura-browser-editor-regression.zip',mimeType:'application/zip',buffer:editPack
+ });
+ await importPage.getByRole('button',{name:/Open all automatic cuts in the editor/}).waitFor({state:'visible',timeout:45000});
+ await importPage.getByRole('button',{name:/Open all automatic cuts in the editor/}).click();
+ await importPage.getByText('Film Room Studio').first().waitFor({state:'visible',timeout:45000});
+ await importPage.locator('.aura-edit-asset').first().waitFor({state:'visible',timeout:45000});
+ const restoredCount=await importPage.locator('.aura-edit-asset').count();
+ if(restoredCount<2)throw new Error('Automatic scene ZIP did not restore both editable MP4 clips: '+restoredCount);
+ await importPage.waitForFunction(()=>document.querySelector('.aura-edit-screen video')?.videoWidth>0,null,{timeout:45000});
+ await importPage.close();
+ console.log('Automatic ZIP-to-editable-timeline browser import PASS: 2 actual MP4 scene assets on '+browserName);
+
  await page.goto(origin+'/admin/video-production/editor',{waitUntil:'domcontentloaded',timeout:60000});
  await page.getByText('Film Room Studio').first().waitFor({state:'visible'});
  await page.locator('textarea[aria-label="Narration script"]').waitFor({state:'visible',timeout:35000});
