@@ -36,6 +36,8 @@ jobs:
         run: node --test tests/tiktok-studio.test.mjs tests/trailer-studio.test.mjs
       - name: Validate offline trailer renderer syntax
         run: python3 -m py_compile scripts/render-cinematic-trailer.py
+      - name: Install offline render tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
       - name: Render a two-second synthetic fight teaser end to end
         run: python3 tests/trailer-render-smoke.py
       - name: Production build with news and media audits
