@@ -31,6 +31,10 @@ jobs:
           report=json.loads(Path('/tmp/aura-footage-research/production.json').read_text())
           assert report['status'] in ('research_ready','needs_licensed_footage')
           assert all('license' in s and 'originUrl' in s for s in report['sourceRegister'])
+          youtube=json.loads(Path('/tmp/aura-footage-research/youtube-research.json').read_text())
+          assert youtube['found']>=3, 'Existing authentic fight/press/faceoff YouTube research links must be discovered automatically'
+          assert all(x['rightsStatus']=='research_only' and x['mediaDownloaded'] is False for x in youtube['candidates'])
+          print('YouTube research leads:',youtube['found'])
           print('Real footage sources found:', report['sourceCount'])
           print('Research notes:',report['notes'])
           PY
@@ -38,5 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: aura-boxing-automatic-source-research
-          path: /tmp/aura-footage-research/production.json
+          path: |
+            /tmp/aura-footage-research/production.json
+            /tmp/aura-footage-research/youtube-research.json
           retention-days: 7
