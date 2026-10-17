@@ -110,6 +110,63 @@ def commons(query,kind,limit=20):
             "licenseProof":info.get("descriptionurl","")})
     return entries
 
+def archive_license_ok(value):
+    """Only credit-required commercial derivative-friendly Creative Commons URLs."""
+    if isinstance(value,list):value=next((v for v in value if isinstance(v,str)),"")
+    value=str(value or "").lower()
+    parsed=urlparse(value)
+    if parsed.scheme not in ("https","http"):return False
+    if parsed.hostname!="creativecommons.org":return False
+    path=parsed.path.rstrip("/")
+    return (path.startswith(("/licenses/by/","/licenses/by-sa/","/publicdomain/zero/","/publicdomain/mark/"))
+            and "/by-nc" not in path and "/by-nd" not in path)
+
+def archive_file(url):
+    p=urlparse(str(url or ""))
+    if p.scheme!="https" or p.username or p.password:return False
+    host=(p.hostname or "").lower()
+    return (host=="archive.org" or host.endswith(".archive.org")) and p.path.lower().endswith((".mp4",".webm",".ogv"))
+
+def archive_search(query,kind,max_items=5):
+    """Public Internet Archive metadata API; verifies per-item CC licence first."""
+    search="mediatype:movies AND (title:boxing OR subject:boxing OR title:\"boxing training\")"
+    params={"q":search,"fl[]":["identifier","title","licenseurl"],"rows":str(max_items*4),"page":"1","output":"json"}
+    from urllib.parse import quote
+    url="https://archive.org/advancedsearch.php?"+urlencode(params,doseq=True)
+    req=Request(url,headers={"User-Agent":"AuraFightClub/1.0 (licence-checked video research)"})
+    with urlopen(req,timeout=25) as response:data=json.load(response)
+    sources=[]
+    for item in data.get("response",{}).get("docs",[]):
+        if len(sources)>=max_items:break
+        ident=str(item.get("identifier") or "")
+        if not re.fullmatch(r"[A-Za-z0-9_.-]{2,120}",ident):continue
+        check=Request("https://archive.org/metadata/"+quote(ident,safe=""),
+                     headers={"User-Agent":"AuraFightClub/1.0"})
+        try:
+            with urlopen(check,timeout=20) as response:meta=json.load(response)
+        except Exception:continue
+        md=meta.get("metadata") or {}
+        licence=md.get("licenseurl") or item.get("licenseurl")
+        if not archive_license_ok(licence):continue
+        files=[x for x in meta.get("files",[]) if
+               x.get("name") and x.get("source") in ("original","derivative") and
+               re.fullmatch(r"[A-Za-z0-9_.() -]{3,160}\\.(mp4|webm|ogv)",str(x["name"]),re.I)]
+        files=[x for x in files if 30000<int(x.get("size") or 0)<MAX_FILE]
+        files.sort(key=lambda x:(x.get("source")!="original",int(x.get("size") or 0)))
+        if not files:continue
+        filename=quote(files[0]["name"],safe="")
+        file_url="https://archive.org/download/"+quote(ident,safe="")+"/"+filename
+        creator=md.get("creator") or "Internet Archive contributor"
+        if isinstance(creator,list):creator=", ".join(map(str,creator[:2]))
+        sources.append({"id":"archive-"+hashlib.sha256(file_url.encode()).hexdigest()[:12],
+          "kind":kind,"fileUrl":file_url,"originUrl":"https://archive.org/details/"+quote(ident,safe=""),
+          "provider":"Internet Archive","license":str(licence),
+          "licenseProof":str(licence),"attribution":str(creator)[:160],
+          "displayName":"Creative Commons boxing archive footage",
+          "duration":0,"illustrative":True,"namedFighterVerified":False,
+          "rightsStatus":"archive_license_check_required"})
+    return sources
+
 def safety_url(url):
     p=urlparse(url)
     if p.scheme!="https" or p.username or p.password: return False
@@ -143,6 +200,9 @@ def pexels(query,key,per_page=14):
 
 def allowed_source(item):
     # The user can add direct licensed first-party assets through the source register.
+    if item.get("provider")=="Internet Archive":
+        return (item.get("rightsStatus")=="archive_license_check_required" and
+            archive_license_ok(item.get("licenseProof","")) and archive_file(item.get("fileUrl","")))
     if item.get("provider")=="Wikimedia Commons":
         return (item.get('licenseProof') and commons_file(item.get('fileUrl','')) and
             item.get('rightsStatus')=='commons_license_check_required')
@@ -177,6 +237,13 @@ def research(script,existing,key=None):
                 if entry["id"] in used:continue
                 used.add(entry["id"]);sources.append(entry);found+=1
                 if found>=5:break
+        if found<5:
+            try:
+                for entry in archive_search(query,role,max_items=5-found):
+                    if entry["id"] in used:continue
+                    used.add(entry["id"]);sources.append(entry);found+=1
+            except Exception as error:
+                notes.append(f"Internet Archive {role} search failed: {type(error).__name__}")
         if found==0:notes.append("No openly reusable downloadable video for "+role)
     if not key:notes.append("Pexels not configured; tried Commons reusable video searches only.")
     return sources,notes
@@ -198,6 +265,7 @@ def download_video(entry,out_dir):
     url=entry.get("fileUrl","")
     if provider=="Pexels" and safety_url(url): pass
     elif provider=="Wikimedia Commons" and commons_file(url):pass
+    elif provider=="Internet Archive" and archive_file(url):pass
     else:raise ValueError("Only verified provider downloads are permitted")
     filename=entry["id"]+(".webm" if urlparse(url).path.lower().endswith(".webm") else ".ogv" if urlparse(url).path.lower().endswith(".ogv") else ".mp4")
     target=out_dir/filename
@@ -206,6 +274,7 @@ def download_video(entry,out_dir):
     with urlopen(request,timeout=70) as response:
         if provider=="Pexels" and not safety_url(response.geturl()):raise ValueError("Unexpected redirected download")
         if provider=="Wikimedia Commons" and not commons_file(response.geturl()):raise ValueError("Unexpected Wikimedia download redirect")
+        if provider=="Internet Archive" and not archive_file(response.geturl()):raise ValueError("Unexpected archive download redirect")
         declared=int(response.headers.get("content-length") or 0)
         if declared>MAX_FILE:raise ValueError("Footage is too large")
         total=0
