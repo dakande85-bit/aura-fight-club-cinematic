@@ -38,9 +38,11 @@ jobs:
           p=Path('public/news/video-production/auto-discovery/dubois-wardley-2-postfight.json')
           doc=json.loads(p.read_text())
           assert len(doc['videos'])>=1
-          assert all(x['embedVerifiedByYouTubeAPI'] and not x['clearedForExport']
-              and 'dubois' in (x['title']).lower()+ ' '+x['url'].lower()
-              or False for x in doc['videos'])
+          assert all(x['embedVerifiedByYouTubeAPI'] is True
+              and x['clearedForExport'] is False
+              and x['rightsStatus']=='research_only'
+              and x['url'].startswith('https://www.youtube.com/watch?v=')
+              for x in doc['videos'])
           print('Passed genuine-video metadata:',len(doc['videos']))
           PY
       - name: Attach research manifest to draft PR branch only
