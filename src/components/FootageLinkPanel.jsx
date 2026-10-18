@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { parseFootageUrl, validFootageRange, youtubeEmbedLink } from '../lib/footageLinks.js';
 
+const SOURCES = [
+  { label: 'Fundora vs Tszyu I — PBC full fight', url: 'https://www.youtube.com/watch?v=8XFXBF7npxA' },
+  { label: 'Fundora vs Tszyu II — PBC highlights', url: 'https://www.youtube.com/watch?v=VbtugGI7KN8' },
+  { label: 'Fundora vs Tszyu II — Prime highlights', url: 'https://www.youtube.com/watch?v=VJt4pN2ERJM' }
+];
+
 /** Reference source videos first. Actual exported video bytes come only from attached source media. */
 export default function FootageLinkPanel({ shot, onChange, onImported }) {
   const [entry, setEntry] = useState(shot.referenceUrl || '');
@@ -8,9 +14,10 @@ export default function FootageLinkPanel({ shot, onChange, onImported }) {
   const [importing, setImporting] = useState(false);
   useEffect(() => { setEntry(shot.referenceUrl || ''); setError(''); }, [shot.id, shot.referenceUrl]);
   const reference = useMemo(() => shot.referenceUrl ? parseFootageUrl(shot.referenceUrl) : null, [shot.referenceUrl]);
-  function attach() {
-    const parsed = parseFootageUrl(entry);
+  function attach(value = entry) {
+    const parsed = parseFootageUrl(value);
     if (parsed.kind === 'invalid') { setError(parsed.error); return; }
+    setEntry(value);
     const start = Number(parsed.start || 0);
     onChange({
       referenceUrl: parsed.url,
@@ -44,7 +51,9 @@ export default function FootageLinkPanel({ shot, onChange, onImported }) {
     <h3>Find footage by URL</h3>
     <p>Paste a YouTube video or direct MP4 link. You can choose and preview your section immediately, with no upload, API key or generation credits.</p>
     <label>Video link<input type="url" value={entry} placeholder="https://www.youtube.com/watch?v=…" onChange={e => setEntry(e.target.value)} /></label>
-    <button type="button" onClick={attach}>Preview video link</button>
+    <button type="button" onClick={() => attach()}>Preview video link</button>
+    <p className="aura-trailer__hint">Official clips to start researching:</p>
+    <div className="aura-trailer__source-picks">{SOURCES.map(s => <button key={s.url} type="button" onClick={() => attach(s.url)}>{s.label}</button>)}</div>
     {error && <p role="alert" className="aura-trailer__link-error">{error}</p>}
     {reference && reference.kind !== 'invalid' && <>
       <div className="aura-trailer__duo">
