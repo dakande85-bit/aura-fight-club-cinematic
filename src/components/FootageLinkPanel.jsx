@@ -49,11 +49,11 @@ export default function FootageLinkPanel({ shot, onChange, onImported }) {
     {reference && reference.kind !== 'invalid' && <>
       <div className="aura-trailer__duo">
         <label>Start at (seconds)<input type="number" min="0" max="36000" step=".5" value={start}
-          onChange={e => onChange({ referenceStartSeconds: Math.max(0, Number(e.target.value)), trimStartSeconds: Math.max(0, Number(e.target.value)) })} /></label>
+          onChange={e => onChange({ referenceStartSeconds: Math.max(0, Number(e.target.value)), referenceEndSeconds: Math.max(0, Number(e.target.value)) + Number(shot.seconds || 4), trimStartSeconds: Math.max(0, Number(e.target.value)) })} /></label>
         <label>End at (seconds)<input type="number" min="0" max="36000" step=".5" value={end}
-          onChange={e => onChange({ referenceEndSeconds: Math.max(0, Number(e.target.value)) })} /></label>
+          onChange={e => onChange({ referenceEndSeconds: Math.max(0, Number(e.target.value)), ...(Number(e.target.value) - start >= 1 && Number(e.target.value) - start <= 12 ? { seconds: Number(e.target.value) - start } : {}) })} /></label>
       </div>
-      {!validFootageRange(start, end) && <p role="alert">The end must be after the start; select up to 180 seconds.</p>}
+      {(!validFootageRange(start, end) || end - start > 12) && <p role="alert">For a trailer shot, choose a 1–12-second section. Larger sequences can be split into separate shots.</p>}
       {reference.kind === 'youtube' ? <>
         <div className="aura-trailer__youtube"><iframe key={reference.videoId + '/' + start + '/' + end}
           title={'YouTube footage: ' + shot.name} src={youtubeEmbedLink(reference.videoId, start, end)} allowFullScreen
