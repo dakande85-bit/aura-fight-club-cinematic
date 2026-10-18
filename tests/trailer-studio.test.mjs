@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { makeTrailerPlan, totalDuration, checkTrailerPlan, exportManifest, safeAssetName } from '../src/lib/trailerStudio.js';
+import { makeTrailerPlan, totalDuration, checkTrailerPlan, checkDraftRenderPlan, exportManifest, safeAssetName } from '../src/lib/trailerStudio.js';
 
 test('Fundora template is a clear hypothetical matchup, not an announced fight', () => {
  const plan = makeTrailerPlan();
@@ -49,4 +49,37 @@ test('manifest is review-only and includes disclaimer flags for AI and proposed 
 });
 test('asset names are filesystem-safe', () => {
  assert.equal(safeAssetName('../../evil footage?.mp4'), 'evil_footage_.mp4');
+});
+
+import { parseFootageUrl, parseTime, youtubeEmbedLink, validFootageRange } from '../src/lib/footageLinks.js';
+test('YouTube watch, short and shorts links can be previewed without API keys', () => {
+ assert.equal(parseFootageUrl('https://youtu.be/M7lc1UVf-VE?t=1m12s').start,72);
+ assert.equal(parseFootageUrl('https://youtube.com/shorts/M7lc1UVf-VE').videoId,'M7lc1UVf-VE');
+ assert.equal(parseFootageUrl('https://www.youtube.com/watch?v=M7lc1UVf-VE&t=45').kind,'youtube');
+ assert.equal(parseFootageUrl('https://notyoutube.com/watch?v=M7lc1UVf-VE').kind,'invalid');
+ assert.match(youtubeEmbedLink('M7lc1UVf-VE',22,27),/start=22.*end=27/);
+});
+test('clip ranges support timestamps and reject bad ranges', () => {
+ assert.equal(parseTime('01:23'),83);
+ assert.equal(parseTime('1h2m3s'),3723);
+ assert.equal(validFootageRange(23,29),true);
+ assert.equal(validFootageRange(29,23),false);
+});
+test('rough-cut export depends on local media, not public rights approval', () => {
+ const p=makeTrailerPlan(), f=new Set();
+ p.shots.forEach((s,i)=>{s.fileName='media/scene-'+i+'.mp4';f.add(s.fileName)});
+ assert.deepEqual(checkDraftRenderPlan(p,f),[]);
+ assert.ok(checkTrailerPlan(p,f).length>0);
+ p.shots[0].fileName='';
+ assert.ok(checkDraftRenderPlan(p,f).length>0);
+});
+test('footage link references and trim offsets survive JSON storyboard export',()=>{
+ const p=makeTrailerPlan();
+ p.shots[2].referenceUrl='https://www.youtube.com/watch?v=M7lc1UVf-VE';
+ p.shots[2].referenceStartSeconds=14;
+ p.shots[2].referenceEndSeconds=18;
+ p.shots[2].trimStartSeconds=14;
+ const m=exportManifest(p);
+ assert.equal(m.shots[2].reference_start,14);
+ assert.equal(m.shots[2].trim_start,14);
 });
