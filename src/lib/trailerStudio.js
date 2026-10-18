@@ -6,7 +6,8 @@ export const RIGHTS_TYPES = Object.freeze(['self_owned', 'licensed', 'written_pe
 const clean = value => String(value || '').trim();
 const shot = (id, name, kind, seconds, instruction, text = '') => ({
   id, name, kind, seconds, direction: instruction, text, fileName: '',
-  sourceUrl: '', rights: '', rightsVerified: false, approved: false, aiDisclosure: kind === 'ai_scene'
+  sourceUrl: '', referenceUrl: '', referenceStartSeconds: 0, referenceEndSeconds: 0,
+  trimStartSeconds: 0, rights: '', rightsVerified: false, approved: false, aiDisclosure: kind === 'ai_scene'
 });
 export function makeTrailerPlan(preset = 'fundora') {
   const base = {
@@ -69,6 +70,7 @@ export function checkTrailerPlan(plan, availableFiles = new Set()) {
     if (!clean(s.id) || ids.has(s.id)) errors.push(label + ': duplicate or missing scene ID.');
     ids.add(s.id);
     if (!s.fileName || !files.has(s.fileName)) errors.push(label + ': attach the approved image/video file.');
+    if (!Number.isFinite(Number(s.trimStartSeconds ?? 0)) || Number(s.trimStartSeconds ?? 0) < 0) errors.push(label + ': invalid source trim start.');
     if (!RIGHTS_TYPES.includes(s.rights) || !s.rightsVerified) errors.push(label + ': verify permission or original ownership.');
     if (s.kind !== 'ai_scene' && !clean(s.sourceUrl)) errors.push(label + ': record the media source/licence reference.');
     if (s.kind === 'ai_scene' && (s.rights !== 'original_ai' || !s.aiDisclosure)) errors.push(label + ': label original AI visuals as illustrative.');
@@ -99,10 +101,23 @@ export function exportManifest(plan) {
     publication_status: 'DRAFT_NOT_PUBLISHED',
     shots: (plan.shots || []).map(s => ({
       id: clean(s.id), name: clean(s.name), kind: s.kind, duration: Number(s.seconds),
+      reference_url: clean(s.referenceUrl), reference_start: Number(s.referenceStartSeconds || 0),
+      reference_end: Number(s.referenceEndSeconds || 0), trim_start: Number(s.trimStartSeconds || 0),
       direction: clean(s.direction), overlay_text: clean(s.text),
       file: s.fileName || '', rights: s.rights, source_reference: clean(s.sourceUrl),
       rights_verified: Boolean(s.rightsVerified), approved: Boolean(s.approved),
       ai_illustration: Boolean(s.aiDisclosure)
     }))
   };
+}
+
+// Save an exploratory storyboard with YouTube references even without uploaded files or rights approval.
+export function checkDraftRenderPlan(plan, availableFiles = new Set()) {
+  const files = availableFiles instanceof Set ? availableFiles : new Set(availableFiles || []);
+  const errors = [];
+  if (!plan?.shots?.length) return ['Add at least one shot.'];
+  plan.shots.forEach((s,i) => { if (!s.fileName || !files.has(s.fileName)) errors.push('Scene '+(i+1)+': supply a local or authorised direct video/image file before rendering. A YouTube embed is a reference, not an MP4.'); });
+  if (plan.musicFile && !files.has(plan.musicFile)) errors.push('Music file missing.');
+  if (plan.narrationFile && !files.has(plan.narrationFile)) errors.push('Narration file missing.');
+  return errors;
 }
