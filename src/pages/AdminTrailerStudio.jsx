@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import JSZip from 'jszip';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
-import { checkTrailerPlan, exportManifest, makeTrailerPlan, safeAssetName, totalDuration, VISUAL_TYPES, RIGHTS_TYPES } from '../lib/trailerStudio.js';
+import FootageLinkPanel from '../components/FootageLinkPanel.jsx';
+import { checkTrailerPlan, checkDraftRenderPlan, exportManifest, makeTrailerPlan, safeAssetName, totalDuration, VISUAL_TYPES, RIGHTS_TYPES } from '../lib/trailerStudio.js';
 import '../styles/aura-trailer-studio.css';
 
 const TYPE_NAMES = { licensed_clip: 'Real fight clip', real_photo: 'Authentic photograph', ai_scene: 'Illustrative AI cinematic', reveal: 'Final fighter reveal' };
@@ -16,7 +17,7 @@ function saveFile(blob, name) {
   window.setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 export default function AdminTrailerStudio() {
-  const [plan, setPlan] = useState(() => makeTrailerPlan());
+  const [plan, setPlan] = useState(() => { try { const saved = JSON.parse(localStorage.getItem('aura-trailer-plan-v2') || 'null'); return saved?.shots?.length ? saved : makeTrailerPlan(); } catch { return makeTrailerPlan(); } });
   const [assets, setAssets] = useState({});
   const [assetUrls, setAssetUrls] = useState({});
   const [selectedId, setSelectedId] = useState('hook');
@@ -30,6 +31,8 @@ export default function AdminTrailerStudio() {
   const shownShot = isPlaying ? (plan.shots[playIndex] || plan.shots[0]) : selected;
   const mediaNames = useMemo(() => new Set(Object.values(assets).filter(Boolean).map(x => x.path)), [assets]);
   const renderErrors = useMemo(() => checkTrailerPlan(plan, mediaNames), [plan, mediaNames]);
+  const draftErrors = useMemo(() => checkDraftRenderPlan(plan, mediaNames), [plan, mediaNames]);
+  useEffect(() => { try { localStorage.setItem('aura-trailer-plan-v2', JSON.stringify(plan)); } catch {} }, [plan]);
   const duration = totalDuration(plan);
   useEffect(() => {
     const next = {};
@@ -111,21 +114,33 @@ export default function AdminTrailerStudio() {
     else setPlan(p => ({ ...p, shots: p.shots.map(shot => shot.id === key ? { ...shot, fileName: path, rightsVerified: false, approved: false } : shot) }));
     setNotice('Local asset attached. It remains on this device until you export the pack.');
   }
+  function setShotReferences(updates) {
+    setPlan(p => ({...p, shots: p.shots.map(shot => shot.id === selected.id ? {...shot, ...updates} : shot)}));
+  }
+  function importDirectFile(file, sourceUrl) {
+    const path = 'media/' + safeAssetName(selected.id) + '-' + safeAssetName(file.name);
+    setAssets(current => ({ ...current, [selected.id]: { file, path } }));
+    setPlan(p => ({ ...p, shots: p.shots.map(shot => shot.id === selected.id
+      ? {...shot, sourceUrl, fileName: path, approved: false, rightsVerified: false,
+          trimStartSeconds: Number(shot.referenceStartSeconds || 0)}
+      : shot) }));
+    setNotice('Direct video file imported for local editing. It is ready for private rough-cut assembly, not public posting.');
+  }
   function savePlan() {
     const blob = new Blob([JSON.stringify(exportManifest(plan), null, 2)], { type: 'application/json' });
     saveFile(blob, 'aura-trailer-storyboard.json');
     setNotice('Storyboard downloaded. Missing media stays marked as missing.');
   }
-  async function exportPack() {
-    if (renderErrors.length) { setNotice('Resolve the readiness checklist before exporting a render pack.'); return; }
+  async function exportPack(draft = false) {
+    if ((draft ? draftErrors : renderErrors).length) { setNotice('To export an MP4, attach usable local video/image files for all scenes. You can preview and save YouTube shot references without them.'); return; }
     setBusy(true); setNotice('');
     try {
       const zip = new JSZip();
       Object.values(assets).forEach(asset => { if (asset?.path) zip.file(asset.path, asset.file); });
-      zip.file('manifest.json', JSON.stringify(exportManifest(plan), null, 2));
+      zip.file('manifest.json', JSON.stringify({...exportManifest(plan), export_mode: draft ? 'rough_cut' : 'reviewed'}, null, 2));
       zip.file('README.txt', 'AURA cinematic trailer — reviewed local media pack\n\nRender with:\npython3 scripts/render-cinematic-trailer.py path/to/aura-trailer-pack.zip --output trailer.mp4\n\nThe Python renderer uses FFmpeg and Pillow. It does not generate new footage, buy API credits, or post to social networks.\n\nRecheck licences, truthful matchup status and content before any public upload.\n');
       saveFile(await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 1 } }), 'aura-trailer-pack.zip');
-      setNotice('Reviewed production pack exported. Run the FFmpeg renderer to create an MP4; nothing has been posted.');
+      setNotice(draft ? 'Rough-cut pack saved. Render with --draft; the result will be marked NOT FOR PUBLICATION.' : 'Reviewed production pack exported. Render without --draft after final rights review.');
     } catch (error) { setNotice('Could not create the pack: ' + error.message); }
     finally { setBusy(false); }
   }
@@ -192,6 +207,8 @@ export default function AdminTrailerStudio() {
             <label>Length · seconds<input type="number" min="1" max="12" step=".5" value={selected.seconds} onChange={e => updateShot('seconds', Number(e.target.value))} /></label></div>
           <label>Director's direction<textarea rows={3} value={selected.direction} onChange={e => updateShot('direction', e.target.value)} /></label>
           {selected.kind === 'reveal' && <label>Reveal headline only<input maxLength={52} value={selected.text} onChange={e => updateShot('text', e.target.value)} /></label>}
+          <FootageLinkPanel shot={selected} onChange={setShotReferences} onImported={importDirectFile} />
+          <label>Trim attached source from second<input type="number" min="0" step=".5" value={selected.trimStartSeconds || 0} onChange={e => updateShot('trimStartSeconds', Math.max(0, Number(e.target.value)))} /></label>
           <label>Attach original / cleared media<input type="file" accept="image/*,video/*" onChange={e => setMedia(selected.id, e, 'visual')} /></label>
           <p className="aura-trailer__hint">{TIP}</p>
           <label>Where it came from / licence reference<input value={selected.sourceUrl} onChange={e => updateShot('sourceUrl', e.target.value)} placeholder="Source URL, agreement ID or original shoot reference" /></label>
@@ -205,10 +222,11 @@ export default function AdminTrailerStudio() {
         </div></>}
       </section>
       <aside className="aura-trailer__export">
-        <h2>Export check</h2><p>Each item must have accurate provenance, reviewed rights, approved media and valid timing.</p>
+        <h2>Review & export</h2><p>Paste, preview and time-code footage links freely. Rights checks apply to publication-ready packs, not your private storyboard research.</p>
         {renderErrors.length ? <div className="aura-trailer__issues"><strong>{renderErrors.length} items to resolve</strong><ul>{renderErrors.slice(0, 10).map((e, i) => <li key={i}>{e}</li>)}</ul>{renderErrors.length > 10 && <p>And {renderErrors.length - 10} more.</p>}</div> : <p className="aura-trailer__ready">All checks passed — ready to package.</p>}
         <button type="button" onClick={savePlan}>Download shot plan · JSON</button>
-        <button type="button" className="aura-trailer__primary" disabled={Boolean(renderErrors.length) || busy} onClick={exportPack}>{busy ? 'Packaging…' : 'Export reviewed media pack · ZIP'}</button>
+        <button type="button" disabled={Boolean(draftErrors.length) || busy} onClick={() => exportPack(true)}>{busy ? 'Packaging…' : 'Export private rough-cut media pack · ZIP'}</button>
+        <button type="button" className="aura-trailer__primary" disabled={Boolean(renderErrors.length) || busy} onClick={() => exportPack(false)}>{busy ? 'Packaging…' : 'Export publication-reviewed pack · ZIP'}</button>
         <p className="aura-trailer__hint">The reviewed ZIP can be rendered to an MP4 with our local FFmpeg pipeline. Browser preview isn't the final export. Real footage and AI shots must be supplied as approved assets. Paid generation is intentionally disabled.</p>
         <p className="aura-trailer__hint">The final title automatically says DREAM MATCHUP when the bout is hypothetical.</p>
       </aside>
