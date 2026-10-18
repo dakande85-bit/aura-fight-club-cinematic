@@ -57,6 +57,15 @@ try{
  // The default project must be the actual Dubois–Wardley postfight source reel,
  // not historical/synthetic fixtures or a stale pre-fight prediction.
  await page.getByText('Real boxing footage, inside Film Room').waitFor({state:'visible'});
+ // A real highlight from last night's October 17 fight must appear without
+ // manual YouTube searching, using the persisted official YouTube API feed.
+ await page.getByRole('button',{name:/HIGHLIGHTS! Daniel Dubois vs Fabio Wardley 2/i}).first().waitFor({state:'visible'});
+ await page.getByRole('button',{name:/HIGHLIGHTS! Daniel Dubois vs Fabio Wardley 2/i}).first().click();
+ await page.getByRole('button',{name:/Play real YouTube footage/}).click();
+ const highlightSrc=await page.locator('.aura-real-reel-screen iframe').getAttribute('src');
+ if(!highlightSrc?.includes('/embed/0oAF0n0vzrE'))
+  throw new Error('Actual October 17 rematch highlights were not embedded in Film Room: '+highlightSrc);
+ console.log('DAZN October 17 fight highlights present in Film Room:',highlightSrc.slice(0,85));
  await page.getByRole('button',{name:/DAZN Boxing — DUBOIS VS WARDLEY 2 face-off/i}).waitFor({state:'visible'});
  await page.getByRole('button',{name:/DAZN Boxing — DUBOIS VS WARDLEY 2 face-off/i}).click();
  await page.getByRole('button',{name:/Play real YouTube footage/}).click();
