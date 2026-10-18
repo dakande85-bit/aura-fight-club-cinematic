@@ -32,7 +32,7 @@ def run(args, timeout=300):
     subprocess.run(args, check=True, timeout=timeout)
 
 
-def verify_manifest(manifest, names):
+def verify_manifest(manifest, names, draft=False):
     if manifest.get("schema") != "aura-cinematic-trailer-v1":
         fail("Unsupported manifest schema")
     if manifest.get("fight_status") not in {"confirmed", "hypothetical", "non_fight"}:
@@ -45,11 +45,11 @@ def verify_manifest(manifest, names):
         duration = float(shot.get("duration") or 0)
         if not 1 <= duration <= 12 or not shot.get("kind") in KINDS:
             fail("Scene %d has an invalid duration or kind" % idx)
-        if shot.get("rights") not in RIGHTS or not shot.get("rights_verified") or not shot.get("approved"):
+        if not draft and (shot.get("rights") not in RIGHTS or not shot.get("rights_verified") or not shot.get("approved")):
             fail("Scene %d lacks editorial/rights approval" % idx)
-        if shot["kind"] == "ai_scene" and (shot["rights"] != "original_ai" or not shot.get("ai_illustration")):
+        if shot["kind"] == "ai_scene" and not draft and (shot["rights"] != "original_ai" or not shot.get("ai_illustration")):
             fail("Original AI scenes must be identified as illustrative")
-        if shot["kind"] != "ai_scene" and not str(shot.get("source_reference") or "").strip():
+        if shot["kind"] != "ai_scene" and not draft and not str(shot.get("source_reference") or "").strip():
             fail("Scene %d is missing its provenance reference" % idx)
         if not shot.get("file") in names:
             fail("Scene %d media file not found" % idx)
@@ -59,10 +59,10 @@ def verify_manifest(manifest, names):
     for field in ("narration_file", "music_file"):
         if manifest.get(field) and manifest[field] not in names:
             fail("Missing attached " + field)
-    if manifest.get("music_file") and (not manifest.get("music_rights_reference") or not manifest.get("music_rights_verified")):
+    if manifest.get("music_file") and not draft and (not manifest.get("music_rights_reference") or not manifest.get("music_rights_verified")):
         fail("Approved music licence and sync rights are required")
     if manifest.get("cover_file"):
-        if manifest["cover_file"] not in names or not manifest.get("cover_source_reference") or not manifest.get("cover_rights_verified"):
+        if manifest["cover_file"] not in names or (not draft and (not manifest.get("cover_source_reference") or not manifest.get("cover_rights_verified"))):
             fail("Cover image rights and provenance have not been verified")
     return shots, seconds
 
@@ -87,7 +87,7 @@ def unpack_pack(archive, target):
     return names
 
 
-def make_filter(shot, index, manifest, tmp):
+def make_filter(shot, index, manifest, tmp, draft=False):
     video_filter = "scale=1080:1920:force_original_aspect_ratio=increase,crop=" + SIZE + ",setsar=1,fps=" + FPS
     label = (shot.get("overlay_text") or "").strip() if shot.get("kind") == "reveal" else ""
     if label:
@@ -108,19 +108,29 @@ def make_filter(shot, index, manifest, tmp):
         video_filter += (",drawtext=fontfile=" + FONT + ":textfile=" + str(disclosure) +
                          ":expansion=none:fontcolor=white:fontsize=23:"
                          "x=55:y=80:box=1:boxcolor=black@0.65:boxborderw=10")
+    if draft:
+        draft_text = tmp / ('draft_%02d.txt' % index)
+        draft_text.write_text('PRIVATE DRAFT - NOT FOR PUBLICATION', encoding='utf8')
+        video_filter += (',drawtext=fontfile=' + FONT + ':textfile=' + str(draft_text) +
+                         ':expansion=none:fontcolor=white:fontsize=29:x=(w-text_w)/2:y=90:'
+                         'box=1:boxcolor=black@0.70:boxborderw=13')
     return video_filter + ",format=yuv420p"
 
 
-def render_scene(file, shot, index, manifest, tmp):
+def render_scene(file, shot, index, manifest, tmp, draft=False):
     out = tmp / ("scene_%02d.mp4" % index)
     duration = float(shot["duration"])
     extension = file.suffix.lower()
     is_video = extension in {".mp4", ".mov", ".m4v", ".webm", ".mkv"}
     if not is_video and extension not in {".jpg", ".jpeg", ".png", ".webp"}:
         fail("Scene %d uses an unsupported media extension" % (index + 1))
-    inputs = ["-stream_loop", "-1", "-i", str(file)] if is_video else ["-loop", "1", "-framerate", FPS, "-i", str(file)]
+    trim_start = float(shot.get('trim_start') or 0)
+    if trim_start < 0 or trim_start > 36000:
+        fail('Scene %d has an invalid video trim offset' % (index + 1))
+    inputs = (["-stream_loop", "-1", "-ss", str(trim_start), "-i", str(file)] if is_video
+              else ["-loop", "1", "-framerate", FPS, "-i", str(file)])
     run(["ffmpeg", "-nostdin", "-hide_banner", "-loglevel", "error", "-y", *inputs,
-         "-t", str(duration), "-vf", make_filter(shot, index, manifest, tmp),
+         "-t", str(duration), "-vf", make_filter(shot, index, manifest, tmp, draft=draft),
          "-r", FPS, "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "21",
          "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)], timeout=300)
     return out
@@ -151,7 +161,7 @@ def assemble_audio(video, manifest, work, seconds, destination):
     run(cmd, timeout=300)
 
 
-def render(zip_path, output):
+def render(zip_path, output, draft=False):
     if not shutil.which("ffmpeg"):
         fail("FFmpeg is required")
     if not pathlib.Path(FONT).exists():
@@ -163,8 +173,8 @@ def render(zip_path, output):
         if "manifest.json" not in names:
             fail("Missing manifest.json")
         manifest = json.loads((work / "manifest.json").read_text(encoding="utf8"))
-        scenes, seconds = verify_manifest(manifest, names)
-        clips = [render_scene(work / scene["file"], scene, i, manifest, work) for i, scene in enumerate(scenes)]
+        scenes, seconds = verify_manifest(manifest, names, draft=draft)
+        clips = [render_scene(work / scene["file"], scene, i, manifest, work, draft=draft) for i, scene in enumerate(scenes)]
         concat = work / "clips.txt"
         # Paths created by TemporaryDirectory are controlled by this renderer.
         concat.write_text("".join("file '" + str(clip) + "'\n" for clip in clips), encoding="utf8")
@@ -181,9 +191,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("zip", type=pathlib.Path, help="Reviewed local media pack from /admin/social/trailer")
     parser.add_argument("--output", type=pathlib.Path, default=pathlib.Path("aura-trailer.mp4"))
+    parser.add_argument('--draft', action='store_true', help='Private rough cut with visible draft watermark; no publishing rights approval needed')
     args = parser.parse_args()
     try:
-        render(args.zip, args.output)
+        render(args.zip, args.output, draft=args.draft)
     except (ValueError, subprocess.CalledProcessError, TimeoutError, zipfile.BadZipFile) as exc:
         parser.exit(2, "AURA renderer stopped: %s\n" % exc)
 
