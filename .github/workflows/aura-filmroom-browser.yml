@@ -1,0 +1,65 @@
+name: Film Room browser export smoke test
+on:
+  pull_request:
+    paths:
+      - 'src/pages/AdminAutoVideoEditor.jsx'
+      - 'src/lib/auraBrowserExport.js'
+      - 'src/lib/auraExportProfile.js'
+      - 'src/lib/auraAutoCut.js'
+      - 'tests/filmroom-browser-smoke.mjs'
+      - '.github/workflows/aura-filmroom-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  video_export_in_browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install app and browser test driver
+        run: |
+          npm install --no-audit --no-fund --no-package-lock
+          npm install --no-save --no-audit --no-fund --no-package-lock playwright@1.57.0
+          npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Make small real historical boxing source and 4s narration
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          mkdir -p /tmp/aura-filmroom-browser/outputs
+          curl --fail --location --retry 2 --max-time 40 -A "AuraFilmRoom CI demo" -o /tmp/aura-filmroom-browser/source.webm https://upload.wikimedia.org/wikipedia/commons/0/07/Men_Boxing.webm
+          ffmpeg -hide_banner -loglevel error -y -i /tmp/aura-filmroom-browser/source.webm -t 9 -vf 'scale=256:192,setsar=1,fps=15' -an -c:v libx264 -preset ultrafast -crf 28 /tmp/aura-filmroom-browser/source.mp4
+          ffmpeg -hide_banner -loglevel error -y -f lavfi -i 'sine=frequency=300:sample_rate=16000' -t 4 -c:a pcm_s16le /tmp/aura-filmroom-browser/voice.wav
+      - name: Build and serve production preview
+        run: |
+          npm run build
+          npm run preview -- --host 127.0.0.1 > /tmp/aura-filmroom-browser/server.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4173/admin/video-production >/dev/null; then exit 0; fi
+            sleep 2
+          done
+          cat /tmp/aura-filmroom-browser/server.log
+          exit 1
+      - name: Render silent and narrated real boxing in Chromium
+        env:
+          FILMROOM_OUTPUT: /tmp/aura-filmroom-browser/outputs
+          FILMROOM_BROWSER: ${{ matrix.browser }}
+        run: node tests/filmroom-browser-smoke.mjs
+      - name: Keep recordings and screenshots for QA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: filmroom-browser-export-qa-${{ matrix.browser }}
+          path: |
+            /tmp/aura-filmroom-browser/outputs
+            /tmp/aura-filmroom-browser/server.log
+          retention-days: 7

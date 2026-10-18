@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "slug": "dubois-wardley-ii-pre-fight",
+  "title": "DUBOIS vs WARDLEY II — What changes in the rematch?",
+  "eventDate": "2026-10-17",
+  "storyUrl": "https://www.aurafightclub.com/news/dubois-wardley-rematch-technical-preview",
+  "status": "draft",
+  "editorialAngle": "Wardley dropped Dubois twice but could not control the later rounds. What changes?",
+  "narrationScript": "Wardley put Dubois down twice in their first fight. But Dubois recovered and stopped him in round eleven. For the rematch, the question isn't whether Wardley can hurt him. It's whether he can manage the distance and pace when Dubois starts applying pressure. Watch the exits after Wardley attacks, and whether Dubois gets his jab working early. That's where this heavyweight title fight could be decided. What's your pick?",
+  "sources": [
+    {
+      "id": "first-fight-highlights",
+      "title": "DAZN Boxing — Dubois vs Wardley first-fight highlights",
+      "kind": "fight",
+      "publisher": "DAZN Boxing",
+      "url": "https://www.youtube.com/watch?v=5HReUSh22bY",
+      "published": "2026-05-09",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Research link only. Obtain or supply a legally reusable local video file before rendering."
+    },
+    {
+      "id": "rematch-launch-press",
+      "title": "DAZN Boxing — Dubois vs Wardley II launch press conference",
+      "kind": "press",
+      "publisher": "DAZN Boxing",
+      "url": "https://www.youtube.com/watch?v=KMozMmGVII0",
+      "published": "2026-09-02",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Research link only. Link may be watched/embedded, not automatically downloaded."
+    },
+    {
+      "id": "official-faceoff",
+      "title": "DAZN Boxing — Dubois vs Wardley II face-off",
+      "kind": "faceoff",
+      "publisher": "DAZN Boxing",
+      "url": "https://www.youtube.com/watch?v=2W33Uyr3KBc",
+      "published": "2026-09-18",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Official rematch face-off, reference only; assess lawful reuse separately."
+    },
+    {
+      "id": "first-fight-press",
+      "title": "Seconds Out — First fight final press conference",
+      "kind": "press",
+      "publisher": "Seconds Out",
+      "url": "https://www.youtube.com/watch?v=btNdii0CexM",
+      "published": "2026-05-07",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Archival reference for press conference shots before first fight."
+    },
+    {
+      "id": "recent-faceoff",
+      "title": "talkSPORT — Dubois/Wardley face-off and interview",
+      "kind": "faceoff",
+      "publisher": "talkSPORT",
+      "url": "https://talksport.com/boxing/4641624/fabio-wardley-daniel-dubois-face-off/",
+      "published": "2026-10-14",
+      "verified": true,
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Article with video context. Research only: confirm relevant footage and reuse rights."
+    }
+  ],
+  "suggestedBeats": [
+    {
+      "purpose": "Hook",
+      "description": "Brief extract of an early first-fight knockdown; explain what allowed Wardley to land",
+      "preferredSource": "first-fight-highlights"
+    },
+    {
+      "purpose": "Context",
+      "description": "Cut to actual fighters speaking about the rematch",
+      "preferredSource": "rematch-launch-press"
+    },
+    {
+      "purpose": "Adjustment",
+      "description": "Cut to a later first-fight exchange showing Dubois applying pressure",
+      "preferredSource": "first-fight-highlights"
+    },
+    {
+      "purpose": "Counterpoint",
+      "description": "Show Wardley at a press conference or face-off",
+      "preferredSource": "official-faceoff"
+    },
+    {
+      "purpose": "Prediction",
+      "description": "Use one meaningful tactical exchange or face-off as the conclusion",
+      "preferredSource": "first-fight-highlights"
+    }
+  ],
+  "shots": [],
+  "voiceoverFile": "",
+  "notes": "This is a research/production manifest. Exact source timestamps must be marked after viewing, and footage rights assessed before an export. No third-party media bytes are stored in the repo.",
+  "fightId": "dubois-wardley-2",
+  "fightStatus": "Scheduled",
+  "eventSourceUrl": "https://queensberry.co.uk/blogs/queensberry-promotions-blog/run-it-back-dubois-wardley-sequel-set-for-october-17",
+  "analysis": {
+    "status": "editorial_review_needed",
+    "editorialThesis": "Wardley secured two early knockdowns but Dubois recovered and stopped him in round eleven; can Wardley control the range and exchanges longer this time?",
+    "centralQuestion": "Does Wardley's route to early damage survive Dubois's sustained jab and pressure?",
+    "axes": [
+      {
+        "name": "Early counters and knockdowns",
+        "question": "What opening allowed Wardley to drop Dubois?",
+        "status": "needs_timecoded_evidence",
+        "sourceIds": [
+          "first-fight-highlights"
+        ],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Pressure and the jab",
+        "question": "Which Dubois entries consistently make Wardley defend?",
+        "status": "needs_timecoded_evidence",
+        "sourceIds": [
+          "first-fight-highlights"
+        ],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Wardley's exits",
+        "question": "Can Wardley exit at angles rather than retreating under sustained pressure?",
+        "status": "hypothesis",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Fight-two adjustments",
+        "question": "Whose adjustment is backed by actual ring evidence rather than declarations?",
+        "status": "hypothesis",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      }
+    ],
+    "prediction": {
+      "pick": "",
+      "method": "",
+      "condition": "",
+      "confidence": "unrated",
+      "alternatives": ""
+    },
+    "claims": [
+      {
+        "text": "Dubois stopped Wardley in round 11 of their first fight after Wardley scored two early knockdowns.",
+        "sourceUrl": "https://as.com/us/masdeporte/la-declaracion-de-fabio-wardley-tras-perder-con-dubois-mi-cuerpo-fallo-pero-no-mi-corazon-f202610-n/",
+        "claimType": "reported_result",
+        "verification": "source_linked_editorial_review_required"
+      }
+    ],
+    "reviewChecks": [
+      "Verify knockout sequence against actual DAZN fight footage",
+      "Timecode each technical claim",
+      "Separate observed action from prediction",
+      "At least one counterargument",
+      "Clear source use for each excerpt"
+    ],
+    "linkedArticle": "dubois-wardley-rematch-technical-preview"
+  },
+  "scripts": {
+    "youtube": {
+      "draft": "Fabio Wardley has already demonstrated that he can hurt Daniel Dubois. In Manchester on 9 May 2026 he floored the bigger-name puncher in the opening seconds and dropped him again in the third. Yet Dubois eventually became the WBO heavyweight champion, turning the fight into a punishing eleventh-round stoppage. The result was decisive; the route to it was anything but comfortable for the winner. Five months later, they are meeting again at The O2 in London on Saturday 17 October, with Dubois defending the belt he took from Wardley.\n\nThat first fight is a better guide to their physical threat than to what happens next. Both camps now know their opponent's best weapon can reach them. The question is not who hits hard. It is which heavyweight can control the moments between the exchanges, stop the other resetting, and avoid giving away the fight after winning individual rounds.\n\nDubois's strongest sustainable path is to make the jab a positional weapon rather than a scoreboard gesture. If the jab makes Wardley halt his feet and stand square, the right hand becomes more dangerous. But if Dubois paws with his lead hand and steps in without covering the return, Wardley has already shown he can beat him to the punch with a disruptive overhand right. The champion needs a disciplined lead shoulder, a small exit angle after combination punching and enough patience to win minutes rather than hunt one dramatic shot.\n\nWardley's counter-question is how to make Dubois abandon that structure. His unconventional rhythm and explosive right hand can break a polished sequence. The challenger need not throw more punches than Dubois to win the early phase; he needs to time a few moments when Dubois commits his feet. What Wardley cannot afford is to admire the damage, wait directly in front of Dubois, then take the heavier return fire.\n\nThe brutal paradox of May was that Wardley's greatest successes did not keep him safe. He found two knockdowns, yet he could not prevent a prolonged reversal. That points to a rematch plan built around exits after landing, controlling the centre without standing stationary and using the clinch judiciously when Dubois gets his offence moving. A lead of two rounds is not worth much if a fighter must absorb ten more rounds of unbroken punishment to protect it.\n\nA smarter Wardley could throw in short bursts, take a half-step away from Dubois's right-hand lane and change levels on re-entry. That would force Dubois to repeatedly solve new angles. Yet there is a trade-off: too much movement may also suppress Wardley's own chance to punch. His chances improve if he treats power as an opportunity created by timing, rather than an instruction to load up whenever Dubois approaches.\n\nDubois's recovery in May was not an automatic consequence of being the naturally heavier puncher. He found his rhythm after a horrible start, began imposing sustained offence and steadily increased the physical cost to Wardley. That offers an unusually concrete rematch clue. Wardley must have an answer for the fourth-to-eighth-round phase, when the fight can stop being about a single knockdown and become an argument about stamina, defence and repeated clean punching.\n\nThat middle stretch is where we would expect the champion to press his advantage, especially if Wardley's head remains in front of him after combinations. Dubois cannot rely on Wardley tiring at the same rate a second time; rematches are not video replays. But making the challenger fight consistently at Dubois's preferred tempo remains an obvious route towards taking the final rounds out of reach.\n\nDangerous heavyweights rarely sound short of confidence during fight week. Dubois has spoken about being less prepared for the first meeting; Wardley publicly challenged that explanation. Those claims are promotional and personal accounts, not something independently established by a medical or conditioning report. The verifiable evidence is what happened in the ring: Dubois was dropped twice and still stopped Wardley, and Wardley was good enough to make the eventual winner's opening rounds very difficult.\n\nWardley has said he sought the rematch to correct his mistakes. That willingness matters, but only if it produces changes that survive hard contact. A rival already knows he can hurt Dubois; Dubois knows he can finish Wardley. Neither camp needs another motivational speech. They need a cleaner version of the same tactical contest.\n\nDubois has described being overweight and underprepared for the first encounter, while Wardley has publicly questioned that explanation and discussed the changes in his own training camp. Both accounts are claims made during fight week, not proof of what would have happened in May with different preparation. A more useful question is whether Dubois can protect the first minute of each exchange more consistently, and whether Wardley can keep his defensive shape after landing. Those changes, rather than the rhetoric, will determine whether the rematch differs.\n\nOur pick is Daniel Dubois by stoppage between rounds eight and eleven. The logic is cumulative: a more reliably repeatable jab, heavier sustained work as the rounds pass, and direct evidence he can reorganise after Wardley's best success. The pick is not based on assuming Dubois is invulnerable. He was vulnerable twice in May, and one mistimed advance could turn this prediction upside down.",
+      "approved": false,
+      "targetMinutes": [
+        4,
+        8
+      ],
+      "draftOrigin": {
+        "type": "own_article",
+        "slug": "dubois-wardley-rematch-technical-preview",
+        "reviewRequired": true
+      }
+    },
+    "shorts": {
+      "draft": "Wardley put Dubois down twice in their first fight. But Dubois recovered and stopped him in round eleven. For the rematch, the question isn't whether Wardley can hurt him. It's whether he can manage the distance and pace when Dubois starts applying pressure. Watch the exits after Wardley attacks, and whether Dubois gets his jab working early. That's where this heavyweight title fight could be decided. What's your pick?",
+      "approved": false,
+      "targetSeconds": [
+        35,
+        60
+      ]
+    }
+  },
+  "deliverables": {
+    "youtube": {
+      "aspect": "16:9",
+      "reviewStatus": "waiting_for_research"
+    },
+    "shorts": {
+      "aspect": "9:16",
+      "reviewStatus": "waiting_for_research"
+    }
+  },
+  "voiceoverFiles": {
+    "youtube": "",
+    "shorts": ""
+  }
+}

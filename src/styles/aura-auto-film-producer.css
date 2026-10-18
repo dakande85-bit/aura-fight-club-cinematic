@@ -1,0 +1,117 @@
+.aura-producer{min-height:100vh;background:#0b1016;color:#f7f5f0;padding:112px clamp(18px,4vw,70px) 70px;font-family:Inter,Arial,sans-serif}
+.aura-producer *{box-sizing:border-box}
+.aura-producer-eyebrow{font-size:11px;letter-spacing:.19em;color:#d3b57c;font-weight:800}
+.aura-producer-top{display:flex;align-items:end;justify-content:space-between;gap:22px;margin:13px 0 29px}
+.aura-producer-top h1{font-size:clamp(32px,4vw,55px);line-height:1.1;max-width:720px;margin:0}
+.aura-producer-top p{font-size:15px;color:#bac5ce;max-width:800px;line-height:1.6}
+.aura-producer-top a,.aura-producer-smallprint a{font-size:12px;color:#e0bc7c;white-space:nowrap}
+.aura-producer-create,.aura-producer-card{border:1px solid #344655;background:#16212c;border-radius:14px;padding:22px}
+.aura-producer-controls{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px}
+.aura-producer-controls label{display:flex;flex-direction:column;gap:8px;font-size:12px;color:#e4c992;font-weight:750}
+.aura-producer select,.aura-producer input{background:#0f1b26;color:#f1eee9;border:1px solid #3b5061;padding:13px 11px;border-radius:8px;font:inherit;font-size:13px;min-width:0;width:100%}
+.aura-producer-pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:23px 0}
+.aura-producer-pipeline>div{padding:15px 12px;background:#203142;border:1px solid #405365;border-radius:9px;display:flex;flex-direction:column;gap:7px}
+.aura-producer-pipeline svg{color:#e5c28b}
+.aura-producer-pipeline strong{font-size:13px}
+.aura-producer-pipeline small{color:#aab9c5;font-size:11px;line-height:1.4}
+.aura-producer-action{display:flex;gap:20px;justify-content:space-between;align-items:center;padding:17px 0 0;border-top:1px solid #374757}
+.aura-producer-action h2{font-size:19px;margin:0}
+.aura-producer-action p{margin:8px 0;color:#b3c2cf;line-height:1.5;font-size:13px;max-width:600px}
+.aura-producer-action .aura-producer-note{color:#f5cb85;display:flex;gap:7px}
+.aura-producer-launch{display:flex;flex-direction:column;gap:10px;width:250px;flex-shrink:0}
+.aura-producer-launch button{display:flex;align-items:center;justify-content:center;gap:8px;background:#e5bc75;border:1px solid #e5bc75;border-radius:8px;padding:15px;color:#161b21;font:inherit;font-weight:850;font-size:14px;cursor:pointer}
+.aura-producer-launch button:disabled{opacity:.43;cursor:not-allowed}
+.aura-producer-status{padding:14px;margin:15px 0 0;background:#253a48;color:#fff0d3;border:1px solid #a38b5b;border-radius:9px;font-size:13px;line-height:1.5}
+.aura-producer-columns{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin:19px 0}
+.aura-producer-cardtitle{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}
+.aura-producer-cardtitle h2{font-size:18px;margin:0}
+.aura-producer-cardtitle span{font-size:11px;color:#b1bfca}
+.aura-producer-script{background:#0d1822;max-height:470px;overflow:auto;white-space:pre-wrap;line-height:1.75;font-size:13px;padding:18px;border-radius:8px;color:#dbe2e9}
+.aura-producer-card>p{font-size:12px;line-height:1.6;color:#aebcc8}
+.aura-producer-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.aura-producer-summary>div{display:flex;flex-direction:column;gap:8px;padding:19px;background:#0e1b26;border-radius:9px}
+.aura-producer-summary strong{font-size:28px;color:#efc88b}
+.aura-producer-summary small{font-size:11px;color:#aebdcb}
+.aura-producer-evidence{padding:15px 0;color:#c8d0d9;line-height:1.5}
+.aura-producer-evidence p{font-size:12px}
+.aura-producer-evidence svg{display:inline;vertical-align:middle;margin-right:6px;color:#dabe83}
+.aura-producer-storyboard{margin-top:18px}
+.aura-producer-cardtitle button{background:#263849;border:1px solid #516678;border-radius:7px;padding:11px 16px;color:#f2e5c8;font-size:12px;cursor:pointer}
+.aura-producer-cardtitle p{font-size:12px;color:#9db2c4;margin:8px 0}
+.aura-producer-scenes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.aura-producer-scene{background:#0e1924;display:flex;gap:11px;padding:12px;border-radius:8px;border:1px solid #293b4c;align-items:start}
+.aura-producer-scene-index{font-size:12px;color:#ddb777;font-weight:800}
+.aura-producer-scene>div:nth-child(2){flex:1}
+.aura-producer-scene strong{font-size:12px;color:#e8d4ae}
+.aura-producer-scene p{font-size:11px;line-height:1.5;color:#b9c6d0;margin:7px 0 0}
+.aura-producer-scene-time{font-size:11px;color:#c0ccda;text-align:right;white-space:nowrap}
+.aura-producer-scene-time small{display:block;font-size:10px;color:#ad8a5f;margin-top:7px}
+.aura-producer-smallprint{font-size:11px;line-height:1.6;color:#91a2b1;margin-top:22px}
+@media(max-width:1060px){.aura-producer-controls{grid-template-columns:1fr 1fr}.aura-producer-controls label:first-child{grid-column:span 2}.aura-producer-columns{grid-template-columns:1fr}}
+@media(max-width:680px){.aura-producer{padding:95px 14px 50px}.aura-producer-top{flex-direction:column;align-items:start}.aura-producer-top a{white-space:normal}.aura-producer-create,.aura-producer-card{padding:14px}.aura-producer-controls{grid-template-columns:1fr}.aura-producer-controls label:first-child{grid-column:auto}.aura-producer-pipeline{grid-template-columns:1fr 1fr}.aura-producer-action{flex-direction:column;align-items:stretch}.aura-producer-launch{width:100%}.aura-producer-scenes{grid-template-columns:1fr}.aura-producer-cardtitle{align-items:start}.aura-producer-summary strong{font-size:23px}}
+
+/* Background render history and deliverables */
+.aura-producer-jobs{margin:18px 0}
+.aura-producer-jobs>.aura-producer-cardtitle{margin-bottom:12px}
+.aura-producer-job-login{max-width:380px;display:flex;flex-direction:column;gap:8px;color:#d3b57c;font-size:12px;margin:16px 0}
+.aura-producer-job{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px;border:1px solid #3d5060;border-radius:9px;background:#10202b;margin:10px 0}
+.aura-producer-job>div:first-child{display:flex;flex-direction:column;gap:8px}
+.aura-producer-job strong{font-size:13px;color:#f0e8d7}
+.aura-producer-job small{font-size:11px;color:#a6bac9}
+.aura-producer-job-actions{display:flex;align-items:center;gap:14px}
+.aura-producer-job-actions button{background:#e3bc7d;border:1px solid #e3bc7d;border-radius:7px;color:#192028;font-size:12px;font-weight:800;padding:10px 12px;cursor:pointer}
+.aura-producer-job-actions button:disabled{opacity:.5}
+.aura-producer-job-actions a{color:#dfc38d;font-size:12px}
+@media(max-width:700px){.aura-producer-job{align-items:stretch;flex-direction:column}.aura-producer-job-actions{justify-content:space-between}}
+
+.aura-producer-pack-actions{display:flex;flex-wrap:wrap;gap:8px}
+.aura-producer-pack-actions button:last-child{background:#233746;color:#ebd4af;border-color:#6c7680}
+.aura-producer-archive-link{display:inline-block;margin:13px 0;color:#f0c990;font-weight:700;font-size:13px;text-decoration:underline}
+.aura-producer-draft-preview{margin:18px 0;border:1px solid #c3a371;border-radius:12px;background:#10202b;padding:17px}
+.aura-producer-draft-preview h3{margin:0 0 13px;font-size:16px;color:#edc88b}
+.aura-producer-draft-preview video{display:block;max-width:100%;max-height:560px;aspect-ratio:16/9;background:black;margin:auto auto 14px;border-radius:8px}
+.aura-producer-draft-preview a{color:#e5c88e;font-size:13px;text-decoration:underline}
+.aura-producer-draft-preview p{color:#b1c4cf;font-size:12px;line-height:1.6}
+.aura-producer-draft-notes{background:#2b2720;border-left:3px solid #daa65d;border-radius:6px;padding:9px 12px;margin:12px 0}
+.aura-producer-draft-notes p{margin:6px 0}
+
+.aura-producer-narration-controls{border-top:1px solid #3a5163;margin:16px 0;padding:16px 0}
+.aura-producer-narration-controls h4{font-size:14px;color:#f1d2a0;margin:0 0 10px}
+.aura-producer-narration-controls>div{display:flex;flex-wrap:wrap;gap:10px}
+.aura-producer-narration-controls button{background:#dfbc82;color:#141b20;border:1px solid #dfbc82;padding:10px 15px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer}
+.aura-producer-narration-controls button:disabled{opacity:.4;cursor:not-allowed}
+.aura-producer-narration-controls audio{display:block;width:100%;max-width:520px;margin:14px 0}
+.aura-producer-narration-controls small{display:block;margin-top:12px;color:#a9b7c6;font-size:11px;line-height:1.5}
+.aura-producer-teleprompter{border-radius:8px;border-left:3px solid #caa465;background:#253546;padding:13px 15px;font-size:15px!important;line-height:1.7!important;color:#edf1f5!important}
+
+/* Saved authorised YouTube source intake, deliberately separate from auto research results. */
+.aura-producer-approved{margin:18px 0;padding:21px;border:1px solid #425365;border-radius:13px;background:#162532}
+.aura-producer-approved .aura-producer-cardtitle{align-items:start;margin-bottom:12px}
+.aura-producer-approved .aura-producer-cardtitle h2{font-size:18px}
+.aura-producer-approved .aura-producer-cardtitle p,.aura-producer-approved-count{font-size:12px;line-height:1.6;color:#b8c6d0;margin:8px 0}
+.aura-producer-approved-count strong{font-size:15px;color:#ddbe83}
+.aura-producer-approval-form{border-top:1px solid #435564;margin:15px 0 0;padding:13px 0 0;display:flex;flex-direction:column;gap:13px}
+.aura-producer-approval-form>p{font-size:12px;line-height:1.6;color:#d6c8af}
+.aura-producer-approval-form>label{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:700;color:#d3b57d}
+.aura-producer-approval-form .aura-producer-approval-check{flex-direction:row;align-items:start;line-height:1.5;color:#e0e6ec;font-weight:400;gap:10px}
+.aura-producer-approval-check input{width:16px;accent-color:#d6ac6b}
+.aura-producer-save-source{background:#dfb879;border:1px solid #dfb879;color:#101820;padding:13px;border-radius:9px;font-size:13px;font-weight:800;cursor:pointer;align-self:flex-start}
+.aura-producer-save-source:disabled{opacity:.4;cursor:not-allowed}
+.aura-producer-source-status{background:#253b49;padding:13px;border-radius:7px}
+.aura-producer-saved-sources{display:flex;flex-direction:column;gap:7px}
+.aura-producer-saved-sources div{font-size:12px;background:#243849;padding:9px;border-radius:6px}
+.aura-producer-saved-sources span{color:#dbbe8b}
+.aura-producer-video-research{background:#142331;margin:12px 0;border:1px solid #415262;border-radius:9px;padding:15px}
+.aura-producer-video-research>h4{font-size:14px;color:#f3d6a2;margin:0 0 8px}
+.aura-producer-video-research>p{font-size:12px;line-height:1.6;color:#bbcad5}
+.aura-producer-research-video{display:flex;flex-direction:column;gap:5px;padding:9px 11px;border-radius:7px;border-bottom:1px solid #394c5c}
+.aura-producer-research-video>span{color:#dbba82;font-size:11px}
+.aura-producer-research-video>strong{font-size:12px}
+.aura-producer-research-video>small{font-size:11px;color:#9eb1c3}
+@media(max-width:700px){.aura-producer-approved{padding:14px}.aura-producer-approved .aura-producer-cardtitle{flex-direction:column}.aura-producer-save-source{width:100%}}
+
+.aura-producer-local-zip{display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:12px 0;font-size:12px;color:#d7c4a6}
+.aura-producer-local-zip input{max-width:340px;padding:9px;border-radius:7px;border:1px solid #526c80;background:#102431;color:#e6ecf2}
+.aura-producer-open-editor{display:inline-flex;align-items:center;justify-content:center;background:#e8c68c;color:#13202b;font-size:13px;font-weight:800;border:1px solid #efcc95;border-radius:9px;padding:12px 15px;cursor:pointer}
+.aura-producer-open-editor:disabled{opacity:.5;cursor:wait}
+@media(max-width:650px){.aura-producer-local-zip input,.aura-producer-open-editor{width:100%;max-width:100%}}

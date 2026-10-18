@@ -1,0 +1,122 @@
+.aura-edit-main{min-height:100vh;background:#0b1015;color:#f5f3ef;padding:110px clamp(16px,4vw,60px) 66px;max-width:100%;font-family:Inter,Arial,sans-serif}
+.aura-edit-main *{box-sizing:border-box}
+.aura-edit-header{display:flex;align-items:end;justify-content:space-between;gap:24px;border-bottom:1px solid #33404b;padding:0 0 24px}
+.aura-edit-kicker{text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.2em;color:#ddbd80}
+.aura-edit-header h1{font-size:clamp(34px,4vw,56px);line-height:1.05;margin:10px 0}
+.aura-edit-header p:last-child{color:#b7c0c9;margin:4px 0;line-height:1.5}
+.aura-edit-header-links{display:flex;gap:18px;white-space:nowrap}
+.aura-edit-header-links a,.aura-edit-foot a{color:#debe86;text-decoration:none;font-size:13px}
+.aura-edit-header-links a:hover,.aura-edit-foot a:hover{text-decoration:underline}
+.aura-edit-top{display:flex;justify-content:space-between;align-items:end;gap:18px;margin:24px 0 22px}
+.aura-edit-select{display:flex;flex-direction:column;gap:8px;font-size:12px;color:#d4b981;font-weight:700;flex:1;max-width:630px}
+.aura-edit-main select,.aura-edit-main input:not([type=file]):not([type=checkbox]),.aura-edit-main textarea{background:#15222e;color:#f9f7f1;border:1px solid #3d5061;border-radius:8px;padding:12px 13px;font:inherit;font-size:14px;min-width:0;width:100%;outline:none}
+.aura-edit-main select:focus,.aura-edit-main input:focus,.aura-edit-main textarea:focus{border-color:#d7b476}
+.aura-edit-main textarea{line-height:1.6;resize:vertical}
+.aura-edit-formats{display:flex;gap:4px;background:#17212c;border:1px solid #334454;border-radius:10px;padding:4px}
+.aura-edit-main button{cursor:pointer;font:inherit}
+.aura-edit-formats button{border:none;background:transparent;border-radius:7px;padding:12px 17px;font-size:13px;font-weight:800;color:#b1bfcd}
+.aura-edit-formats button.on{background:#d8b47b;color:#171c20}
+.aura-edit-workspace{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,.92fr);gap:22px;align-items:start}
+.aura-edit-viewer-panel,.aura-edit-card{background:#151e28;border:1px solid #344250;border-radius:13px;padding:20px}
+.aura-edit-viewer-panel{position:sticky;top:16px}
+.aura-edit-panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:15px}
+.aura-edit-panel-head h2{font-size:17px;margin:0;letter-spacing:-.015em}
+.aura-edit-panel-head>span{color:#afb9c6;font-size:11px;text-align:right}
+.aura-edit-screen{margin:auto;background:#080b10;position:relative;overflow:hidden;border-radius:11px;border:1px solid #303c47;display:flex;align-items:center;justify-content:center}
+.aura-edit-screen.widescreen{aspect-ratio:16/9;width:100%}
+.aura-edit-screen.vertical{aspect-ratio:9/16;width:min(100%,355px);max-height:550px}
+.aura-edit-screen video{width:100%;height:100%;object-fit:contain;display:block}
+.aura-edit-empty-view{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;padding:35px}
+.aura-edit-film-icon{display:grid;place-items:center;border-radius:50%;width:76px;height:76px;border:1px solid #b99b65;color:#d6b77c;font-size:32px}
+.aura-edit-empty-view strong{font-size:19px;max-width:265px;line-height:1.4}
+.aura-edit-empty-view small{font-size:12px;color:#98a7b7}
+.aura-edit-viewer-caption{position:absolute;bottom:8%;left:5%;right:5%;padding:12px 14px;background:#07101bc9;pointer-events:none;text-align:center}
+.aura-edit-viewer-caption span{display:block;color:#eac988;font-size:9px;letter-spacing:.18em;font-weight:800;margin-bottom:6px}
+.aura-edit-viewer-caption strong{font-size:clamp(12px,1.6vw,19px);line-height:1.3;display:block}
+.aura-edit-viewer-tools{display:flex;gap:8px;align-items:center;justify-content:center;padding:16px 0}
+.aura-edit-main button:not(.aura-edit-shot):not(.aura-edit-primary):not(.aura-edit-formats button){border:1px solid #445666;border-radius:8px;background:#273646;padding:10px 13px;color:#e9edf0;font-size:13px;font-weight:700}
+.aura-edit-main button:disabled{opacity:.38;cursor:not-allowed}
+.aura-edit-viewer-tools span{color:#aab6c5;font-size:12px;margin-left:auto}
+.aura-edit-divider{height:1px;background:#35414e;margin:4px 0 22px}
+.aura-edit-timeline{display:flex;gap:8px;overflow-x:auto;align-items:stretch;min-height:110px;padding-bottom:10px}
+.aura-edit-shot{flex:0 0 145px;text-align:left;border:1px solid #394b5b;border-radius:8px;background:#243342;color:#f3f4f1;display:flex;flex-direction:column;gap:6px;padding:12px}
+.aura-edit-shot.active{border:1px solid #eac181;box-shadow:inset 0 3px #d5ae6c}
+.aura-edit-shot>span{color:#ddbe8c;font-size:11px;font-weight:800}
+.aura-edit-shot>strong{font-size:13px;line-height:1.32}
+.aura-edit-shot>small{font-size:11px;color:#9fb0bf;line-height:1.35;overflow-wrap:anywhere}
+.aura-edit-placeholder{color:#aeb9c7;line-height:1.6;font-size:14px;padding:5px 0}
+.aura-edit-shot-settings{margin-top:18px;border-top:1px solid #3c4858;padding-top:10px}
+.aura-edit-shot-settings h3{font-size:15px;margin:14px 0}
+.aura-edit-main label:not(.aura-edit-upload):not(.aura-edit-select):not(.aura-edit-audio-upload){font-size:12px;font-weight:700;color:#d0dae4;display:flex;flex-direction:column;gap:6px;margin:12px 0}
+.aura-edit-inline{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.aura-edit-inline-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.aura-edit-inline-buttons button{flex:1}
+.aura-edit-scene-narration{padding:14px;border-left:3px solid #cbab70;background:#0f1924;font-size:14px;color:#d4d9e1;line-height:1.5}
+.aura-edit-sidebar{display:flex;flex-direction:column;gap:15px}
+.aura-edit-card>p{color:#aebac8;font-size:13px;line-height:1.6;margin:0 0 15px}
+.aura-edit-upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.aura-edit-upload{cursor:pointer;background:#233240;border:1px dashed #627587;border-radius:9px;padding:16px 12px;display:flex;flex-direction:column;gap:7px;min-height:88px}
+.aura-edit-upload strong{font-size:13px;color:#faf8f4}
+.aura-edit-upload small{color:#afc0cd;font-size:11px}
+.aura-edit-upload input{width:100%;font-size:10px;color:#afb9c3;max-width:100%}
+.aura-edit-asset{display:flex;justify-content:space-between;gap:8px;align-items:center;background:#1b2b39;border-radius:8px;padding:12px;margin-top:9px}
+.aura-edit-asset>div{min-width:0;display:flex;flex-direction:column;gap:5px}
+.aura-edit-asset strong{font-size:12px;overflow-wrap:anywhere}
+.aura-edit-asset small{color:#a8b6c5;font-size:11px}
+.aura-edit-asset label{display:flex!important;flex-direction:row!important;gap:6px!important;font-size:11px!important;white-space:nowrap}
+.aura-edit-asset input{accent-color:#cba66c}
+.aura-edit-research{display:flex;flex-direction:column;gap:9px;margin-top:16px;border-top:1px solid #334557;padding-top:14px}
+.aura-edit-research strong{font-size:12px;color:#cbb587}
+.aura-edit-research a{font-size:12px;color:#cedae6;text-decoration:underline;text-underline-offset:3px}
+.aura-edit-research small,.aura-edit-hint{font-size:11px;color:#9facba;line-height:1.55;display:block}
+.aura-edit-primary{background:#dab675!important;border:1px solid #dab675!important;color:#171a20!important;border-radius:8px;padding:12px 15px;font-size:14px;font-weight:900;min-height:44px;width:100%}
+.aura-edit-audio-upload{display:flex;flex-direction:column;gap:10px;font-size:12px;color:#bbc4cf;margin:14px 0}
+.aura-edit-audio-upload input{color:#c2cbd3;font-size:12px}
+.aura-edit-card audio{width:100%;margin:8px 0}
+.aura-edit-export{border-color:#665639}
+.aura-edit-rendered{display:flex;flex-direction:column;gap:10px;margin:15px 0}
+.aura-edit-rendered video{max-width:100%;max-height:310px}
+.aura-edit-status,.aura-edit-working{position:sticky;bottom:14px;z-index:10;background:#253444;border:1px solid #d4b474;color:#f7f3ee;border-radius:10px;padding:12px 16px;margin-top:22px;font-size:13px;line-height:1.5}
+.aura-edit-working{display:flex;align-items:center;gap:10px}
+.aura-edit-spinner{display:block;border:3px solid #515d69;border-top-color:#e8c481;width:18px;height:18px;border-radius:50%;animation:aura-edit-spin 1s linear infinite}
+@keyframes aura-edit-spin{to{transform:rotate(360deg)}}
+.aura-edit-loading{padding:70px;background:#15212b;text-align:center;border:1px solid #384756;border-radius:12px}
+.aura-edit-foot{text-align:center;color:#77899b;margin-top:25px;font-size:12px}
+@media(max-width:1050px){.aura-edit-workspace{grid-template-columns:minmax(0,1fr)}.aura-edit-viewer-panel{position:static}.aura-edit-top{align-items:stretch}.aura-edit-formats{align-self:end}}
+@media(max-width:640px){.aura-edit-main{padding:93px 14px 40px}.aura-edit-header{align-items:start;flex-direction:column}.aura-edit-header-links{gap:12px}.aura-edit-top{flex-direction:column;align-items:stretch}.aura-edit-select{max-width:100%}.aura-edit-formats{align-self:stretch}.aura-edit-formats button{flex:1;padding:12px 8px}.aura-edit-viewer-panel,.aura-edit-card{padding:14px}.aura-edit-screen.vertical{max-height:450px}.aura-edit-upload-grid{grid-template-columns:1fr 1fr}.aura-edit-upload{padding:12px 8px}.aura-edit-inline-buttons button{flex:auto}}
+
+.aura-edit-asset-actions{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.aura-edit-asset-actions button{padding:5px 8px!important;font-size:11px!important}
+
+/* Keep the working demo immediately visible, ahead of the footage source forms. */
+.aura-edit-demo{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:19px 22px;margin:18px 0;border:1px solid #b5955e;border-radius:12px;background:linear-gradient(115deg,#27323b,#252921)}
+.aura-edit-demo-copy{flex:1;max-width:720px}
+.aura-edit-demo-copy>strong{display:block;color:#e9c98e;font-size:13px;letter-spacing:.05em}
+.aura-edit-demo-copy p{font-size:13px;line-height:1.55;color:#e1e3e4;margin:9px 0}
+.aura-edit-demo a{color:#ebce9a;font-size:12px}
+.aura-edit-demo-controls{display:flex;align-items:stretch;flex-direction:column;gap:10px;min-width:226px}
+.aura-edit-demo-controls .aura-edit-primary{white-space:normal}
+.aura-edit-demo-controls a{text-align:center}
+.aura-edit-demo-flag{background:#46371d;color:#f6daa3;border:1px solid #cfae6d;border-radius:6px;padding:9px 12px;font-size:12px;font-weight:800;margin:0 0 14px}
+.aura-edit-persist-warning{background:#44332a;color:#ffdfbc;border-radius:8px;padding:10px;font-size:12px}
+@media(max-width:700px){.aura-edit-demo{flex-direction:column;align-items:stretch;padding:15px}.aura-edit-demo-controls{min-width:0}}
+
+/* Make the export preflight actionable, especially on small mobile screens. */
+.aura-edit-export-details{font-size:12px!important;color:#d5c09a!important;border:1px solid #485564;background:#182634;border-radius:7px;padding:10px}
+.aura-edit-export-warning{display:block;color:#ffe0b3;background:#3a2a21;border:1px solid #9d6a45;padding:11px;border-radius:8px;font-size:12px;line-height:1.55}
+.aura-edit-render-error{border:1px solid #c76e6e;background:#3a2126;border-radius:10px;padding:14px;margin:12px 0;color:#f5d8d8;overflow-wrap:anywhere}
+.aura-edit-render-error strong{display:block;margin-bottom:8px;font-size:13px}
+.aura-edit-render-error p{font-size:12px;white-space:pre-wrap;line-height:1.5}
+.aura-edit-export>button{display:block;width:100%;margin:10px 0}
+.aura-edit-rendered>video{background:black;border-radius:8px}
+
+/* Stable mobile demo preview. Show real footage before asking users to edit. */
+.aura-edit-demo-controls video{display:block;width:100%;max-width:295px;aspect-ratio:4/3;max-height:200px;object-fit:contain;border-radius:8px;border:1px solid #76634a;background:#000}
+.aura-edit-demo-tip{color:#f3d8a9!important;font-size:12px!important;max-width:650px}
+@media(max-width:700px){.aura-edit-demo-controls video{max-width:100%;max-height:230px}}
+
+/* Historical video diagnostics are optional and hidden from editorial workflow. */
+details.aura-edit-demo{display:block;margin-bottom:12px;padding:0;background:transparent;border:1px solid #304151;border-radius:10px}
+details.aura-edit-demo>summary{display:list-item;cursor:pointer;padding:12px 16px;color:#899cac;font-size:11px;letter-spacing:.03em}
+details.aura-edit-demo:not([open])>summary{opacity:.76}
+details.aura-edit-demo[open]{padding:0 16px 16px}

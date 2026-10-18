@@ -1,0 +1,48 @@
+name: Validate automated fight-video discovery
+on:
+  pull_request:
+    paths:
+      - 'scripts/auto-filmroom-producer.py'
+      - 'tests/test_auto_filmroom_producer.py'
+      - '.github/workflows/aura-auto-film-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  investigate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run no-fabrication / video-licensing unit tests
+        run: python -m unittest discover -s tests -p 'test_auto_filmroom_producer.py' -v
+      - name: Discover real commercially reusable boxing footage without paid API
+        run: |
+          python scripts/auto-filmroom-producer.py \
+            --project public/news/video-production/dubois-wardley-ii.json \
+            --out /tmp/aura-footage-research \
+            --dry-run
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path('/tmp/aura-footage-research/production.json').read_text())
+          assert report['status'] in ('research_ready','needs_licensed_footage')
+          assert all('license' in s and 'originUrl' in s for s in report['sourceRegister'])
+          youtube=json.loads(Path('/tmp/aura-footage-research/youtube-research.json').read_text())
+          assert youtube['found']>=3, 'Existing authentic fight/press/faceoff YouTube research links must be discovered automatically'
+          assert all(x['rightsStatus']=='research_only' and x['mediaDownloaded'] is False for x in youtube['candidates'])
+          print('YouTube research leads:',youtube['found'])
+          print('Real footage sources found:', report['sourceCount'])
+          print('Research notes:',report['notes'])
+          PY
+      - name: Store verifiable source register and shortfall
+        uses: actions/upload-artifact@v4
+        with:
+          name: aura-boxing-automatic-source-research
+          path: |
+            /tmp/aura-footage-research/production.json
+            /tmp/aura-footage-research/youtube-research.json
+          retention-days: 7

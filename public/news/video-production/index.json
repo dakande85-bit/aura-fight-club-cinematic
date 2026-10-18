@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "generatedOn": "2026-10-18",
+  "note": "Automated research queue. Media, rights, analysis and publishing require review.",
+  "projects": [
+    {
+      "fightId": "dubois-wardley-2-postfight",
+      "name": "Daniel Dubois stops Fabio Wardley — analysis",
+      "date": "2026-10-17",
+      "fightStatus": "Result confirmed: Dubois TKO R2",
+      "featured": true,
+      "stakes": "WBO heavyweight world title",
+      "path": "/news/video-production/dubois-wardley-ii-postfight.json",
+      "editorialStatus": "postfight source preview",
+      "sourceCount": 5,
+      "clipCount": 0,
+      "reviewReady": false
+    },
+    {
+      "fightId": "dubois-wardley-2",
+      "name": "Daniel Dubois vs Fabio Wardley II",
+      "date": "2026-10-17",
+      "fightStatus": "Completed (pre-fight research archive)",
+      "featured": false,
+      "stakes": "WBO heavyweight world title",
+      "path": "/news/video-production/dubois-wardley-ii.json",
+      "editorialStatus": "historical_prediction_draft",
+      "sourceCount": 5,
+      "clipCount": 0,
+      "reviewReady": false
+    },
+    {
+      "fightId": "fundora-hadribeaj",
+      "name": "Sebastian Fundora vs Ermal Hadribeaj",
+      "date": "2026-10-17",
+      "fightStatus": "Scheduled",
+      "featured": false,
+      "stakes": "WBC super welterweight world title",
+      "path": "/news/video-production/fundora-hadribeaj.json",
+      "editorialStatus": "research_required",
+      "sourceCount": 4,
+      "clipCount": 0,
+      "reviewReady": false
+    },
+    {
+      "fightId": "figueroa-kameda",
+      "name": "Brandon Figueroa vs Tomoki Kameda",
+      "date": "2026-10-17",
+      "fightStatus": "Scheduled",
+      "featured": false,
+      "stakes": "WBA featherweight world title",
+      "path": "/news/video-production/figueroa-kameda.json",
+      "editorialStatus": "research_required",
+      "sourceCount": 4,
+      "clipCount": 0,
+      "reviewReady": false
+    },
+    {
+      "fightId": "foster-navarrete",
+      "name": "Emanuel Navarrete vs O'Shaquie Foster",
+      "date": "2026-10-24",
+      "fightStatus": "Scheduled",
+      "featured": true,
+      "stakes": "WBO, IBF and WBC super featherweight world-title unification",
+      "path": "/news/video-production/foster-navarrete.json",
+      "editorialStatus": "research_required",
+      "sourceCount": 4,
+      "clipCount": 0,
+      "reviewReady": false
+    },
+    {
+      "fightId": "smith-puello",
+      "name": "Dalton Smith vs Alberto Puello",
+      "date": "2026-10-24",
+      "fightStatus": "Scheduled",
+      "featured": false,
+      "stakes": "WBC super lightweight world title",
+      "path": "/news/video-production/smith-puello.json",
+      "editorialStatus": "research_required",
+      "sourceCount": 4,
+      "clipCount": 0,
+      "reviewReady": false
+    },
+    {
+      "fightId": "canelo-mbilli",
+      "name": "Canelo Alvarez vs Christian Mbilli",
+      "date": "2026-10-31",
+      "fightStatus": "Scheduled",
+      "featured": true,
+      "stakes": "WBC super middleweight world title",
+      "path": "/news/video-production/canelo-mbilli.json",
+      "editorialStatus": "research_required",
+      "sourceCount": 4,
+      "clipCount": 0,
+      "reviewReady": false
+    }
+  ]
+}

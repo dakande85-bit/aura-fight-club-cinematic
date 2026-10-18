@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "fightId": "smith-puello",
+  "slug": "smith-puello",
+  "title": "Dalton Smith vs Alberto Puello — AURA Fight Lab",
+  "eventDate": "2026-10-24",
+  "fightStatus": "Scheduled",
+  "eventSourceUrl": "https://www.matchroomboxing.com/events/smith-vs-puello/",
+  "storyUrl": "https://www.aurafightclub.com/news/dalton-smith-alberto-puello-wbc-title-prediction-october-2026",
+  "status": "research_required",
+  "editorialAngle": "",
+  "analysis": {
+    "status": "research_required",
+    "centralQuestion": "What tactical choices will decide Dalton Smith vs Alberto Puello?",
+    "editorialThesis": "",
+    "axes": [
+      {
+        "name": "Lead hand and distance",
+        "question": "What film evidence establishes lead hand and distance?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Foot position, entry and exits",
+        "question": "What film evidence establishes foot position, entry and exits?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Defence, counters and body attacks",
+        "question": "What film evidence establishes defence, counters and body attacks?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Pace, rounds and strategic adjustments",
+        "question": "What film evidence establishes pace, rounds and strategic adjustments?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      }
+    ],
+    "prediction": {
+      "pick": "",
+      "method": "",
+      "condition": "",
+      "confidence": "unrated",
+      "alternatives": ""
+    },
+    "claims": [
+      {
+        "text": "Dalton Smith vs Alberto Puello is on the fight calendar for 2026-10-24.",
+        "sourceUrl": "https://www.matchroomboxing.com/events/smith-vs-puello/",
+        "claimType": "calendar_listing",
+        "verification": "requires_source_review"
+      }
+    ],
+    "linkedArticle": "dalton-smith-alberto-puello-wbc-title-prediction-october-2026",
+    "reviewChecks": [
+      "Verify date, fighters, stakes and broadcast",
+      "Timecode tactical claims with authentic clips",
+      "Include a credible counterargument",
+      "Separate findings and opinion",
+      "Check footage reuse, identities and context"
+    ]
+  },
+  "narrationScript": "",
+  "scripts": {
+    "youtube": {
+      "draft": "Dalton Smith defends the WBC super-lightweight title against Alberto Puello at Utilita Arena Sheffield on Saturday 24 October. The original June date was postponed because Smith was injured in camp; Matchroom now lists this October contest. A dramatic homecoming is a comfortable story to tell. The more interesting question is whether the boxer who outgunned Subriel Matias can also out-think an experienced southpaw who is happy to make an opponent work for every opening.\n\nSmith's January championship win in Brooklyn was a remarkable fifth-round stoppage. He stood in front of Matias, survived a punishing contest and found the shots to finish it. Those qualities remain valuable, but a victory over a relentless aggressor does not automatically translate into success against a cautious counterpuncher. Puello is capable of changing the pace, retreating just far enough to make an attack fall short and then claiming the last clean punch of an exchange.\n\nPuello is a southpaw and former world champion with substantial twelve-round experience. The Dominican has faced Gary Antuanne Russell, Sandor Martin and Matias, and is comfortable when a contest becomes a question of subtle movement rather than brute force. Instead of advancing into Smith's punching range, he can encourage the champion to take the initiative, expose his foot position and throw a straight left into the space he has vacated.\n\nThat shifts responsibility onto Smith's lead hand and front foot. The orthodox champion cannot simply charge across a southpaw's right jab in pursuit of another highlight-reel right hand. His jab must be varied in height and tempo, and he must make Puello turn before landing combinations. A feint towards the head, a jab downstairs and a short step across the escape route could build the controlled pressure needed to win without falling into traps.\n\nThe crowd will want a statement finish. If Smith is obsessed by delivering it, Puello's style becomes more effective. The challenger may not need to dominate long exchanges to make the local favourite look uncomfortable; he only needs to interrupt the champion's rhythm and keep him starting again. Smith has to judge the fight on scoring and positioning, not on applause after one spectacular punch.\n\nThe body attack offers a disciplined alternative to chasing the head. When a mobile boxer repeatedly has to defend downstairs, he may become less willing to move in the same pattern. Smith can force more predictable exits if he jabs to the chest, touches the body and then changes angle rather than swinging as Puello leaves. This is a contest in which intelligent pressure may be more valuable than outright aggression.\n\nPuello must answer attacks rather than rely on making the champion miss. A boxer who spends twelve rounds avoiding damage can still give away too much scoring initiative. The former champion needs clean straight-left counters and the confidence to claim the centre occasionally, making the judges see his work. If he can reliably land as Smith squares up, the early rounds could become awkward and the homecoming story much less predictable.\n\nWatch the first four rounds. Does Smith make Puello move where he wants, or does Puello repeatedly dictate where Smith must restart? Watch also who lands the final clean punch after each clash of lead hands. Those details offer a far more useful guide to the contest than either man's reputation as a puncher.\n\nWe favour Dalton Smith to win on points. His versatility and threat of a hard finish should eventually force Puello to take more risks than he would prefer. But Puello's experience and educated defence argue against assuming another stoppage. Our pick depends on Smith establishing sustainable pressure and tolerating quiet rounds without forcing an emotional knockout. An upset remains realistic if Puello's counters consistently punish Smith's entries.\n\nMatchroom confirms the Sheffield date and WBC championship status; DAZN is linked to the event. Exact ring-walk timings should be verified against the final schedule rather than treated as fixed in this early prediction.",
+      "approved": false,
+      "targetMinutes": [
+        4,
+        8
+      ],
+      "draftOrigin": {
+        "type": "own_article",
+        "slug": "dalton-smith-alberto-puello-wbc-title-prediction-october-2026",
+        "reviewRequired": true
+      }
+    },
+    "shorts": {
+      "draft": "Smith returns to Sheffield as WBC champion against former titleholder Alberto Puello. Our prediction examines lead-foot control, the counterpunching problem and the risk of an emotional homecoming. Dalton Smith defends the WBC super-lightweight title against Alberto Puello at Utilita Arena Sheffield on Saturday 24 October. The original June date was postponed because Smith was injured in camp; Matchroom now lists this October contest. A dramatic homecoming is a comfortable story to tell. Smith's January championship win in Brooklyn was a remarkable fifth-round stoppage. He stood in front of Matias, survived a punishing contest and found the shots to finish it. Those qualities remain valuable, but a victory over a relentless aggressor does not automatically translate into success against a cautious counterpuncher.",
+      "approved": false,
+      "targetSeconds": [
+        35,
+        60
+      ],
+      "draftOrigin": {
+        "type": "own_article",
+        "slug": "dalton-smith-alberto-puello-wbc-title-prediction-october-2026",
+        "reviewRequired": true
+      }
+    }
+  },
+  "deliverables": {
+    "youtube": {
+      "aspect": "16:9",
+      "reviewStatus": "waiting_for_research"
+    },
+    "shorts": {
+      "aspect": "9:16",
+      "reviewStatus": "waiting_for_research"
+    }
+  },
+  "sources": [
+    {
+      "id": "event",
+      "title": "Official event listing — Dalton Smith vs Alberto Puello",
+      "kind": "official_event",
+      "publisher": "Matchroom Boxing",
+      "url": "https://www.matchroomboxing.com/events/smith-vs-puello/",
+      "verified": false,
+      "candidateStatus": "source_needs_review",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Event verification only. Not a usable video."
+    },
+    {
+      "id": "interview",
+      "title": "Search: Dalton Smith vs Alberto Puello press conference",
+      "kind": "press",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Dalton%20Smith%20vs%20Alberto%20Puello%20press%20conference%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "face-off",
+      "title": "Search: Dalton Smith vs Alberto Puello weigh in face off",
+      "kind": "faceoff",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Dalton%20Smith%20vs%20Alberto%20Puello%20weigh%20in%20face%20off%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "fight-highlights",
+      "title": "Search: Dalton Smith vs Alberto Puello fight highlights",
+      "kind": "fight",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Dalton%20Smith%20vs%20Alberto%20Puello%20fight%20highlights%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    }
+  ],
+  "suggestedBeats": [
+    {
+      "purpose": "Hook",
+      "description": "Use an authentic exchange showing the central tactical question",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Evidence",
+      "description": "Show a real filmed exchange and narrate what is visible",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Counterpoint",
+      "description": "Show a credible tactical response or answer",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Context",
+      "description": "Use genuine press or face-off footage to illustrate the stakes",
+      "preferredSource": "interview"
+    },
+    {
+      "purpose": "Verdict",
+      "description": "Summarise conditional prediction and alternative",
+      "preferredSource": "face-off"
+    }
+  ],
+  "shots": [],
+  "voiceoverFile": "",
+  "voiceoverFiles": {
+    "youtube": "",
+    "shorts": ""
+  },
+  "notes": "Automatically selected fight from Aura's fight calendar. All video links are research leads only and have no extraction/reuse clearance."
+}

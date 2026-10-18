@@ -1,0 +1,65 @@
+name: Aura real YouTube footage discovery
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/aura_fight_youtube_discovery.py'
+      - '.github/workflows/aura-youtube-editorial-reel.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  discover-real-boxing-sources:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Automatically discover official real boxing footage
+        env:
+          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+        run: |
+          python scripts/aura_fight_youtube_discovery.py \
+            --fight-id dubois-wardley-2-postfight \
+            --out public/news/video-production/auto-discovery/dubois-wardley-2-postfight.json
+      - name: Verify source identities and preview-only status
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('public/news/video-production/auto-discovery/dubois-wardley-2-postfight.json')
+          doc=json.loads(p.read_text())
+          assert len(doc['videos'])>=1
+          assert all(x['embedVerifiedByYouTubeAPI'] is True
+              and x['clearedForExport'] is False
+              and x['rightsStatus']=='research_only'
+              and x['url'].startswith('https://www.youtube.com/watch?v=')
+              for x in doc['videos'])
+          print('Passed genuine-video metadata:',len(doc['videos']))
+          PY
+      - name: Attach research manifest to draft PR branch only
+        env:
+          EDITORIAL_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+        run: |
+          git config user.name 'Aura Editorial Research Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/news/video-production/auto-discovery/dubois-wardley-2-postfight.json
+          if git diff --staged --quiet; then echo 'No new source metadata'; exit 0; fi
+          git commit -m 'Update source preview metadata from YouTube API [skip ci]'
+          git push origin HEAD:"$EDITORIAL_BRANCH"
+      - name: Keep a source manifest for editorial review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aura-official-boxing-source-discovery
+          path: public/news/video-production/auto-discovery/dubois-wardley-2-postfight.json
+          retention-days: 14
+          if-no-files-found: warn

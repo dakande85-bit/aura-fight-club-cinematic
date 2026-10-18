@@ -1,0 +1,39 @@
+.aura-real-reel{border:1px solid #3f5265;border-radius:16px;background:#111f2a;color:#edf2f6;padding:23px;margin:18px 0 24px}
+.aura-real-reel *{box-sizing:border-box}
+.aura-real-reel-heading{display:flex;justify-content:space-between;align-items:start;gap:18px;margin-bottom:18px}
+.aura-real-reel-kicker{letter-spacing:.18em;color:#ecc98d;font-size:10px;font-weight:800}
+.aura-real-reel-heading h2{margin:8px 0;font-size:clamp(20px,2.1vw,30px)}
+.aura-real-reel-heading p:not(.aura-real-reel-kicker){color:#b3c1cb;font-size:13px;line-height:1.65;max-width:650px}
+.aura-real-reel-counter{display:flex;flex-direction:column;align-items:end;gap:5px;font-size:12px;color:#cfdddf;white-space:nowrap}
+.aura-real-reel-counter b{font-size:26px;color:#f0c98c}
+.aura-real-reel-counter span{font-size:11px;color:#8fb0c0}
+.aura-real-reel-workspace{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(240px,.8fr);gap:19px}
+.aura-real-reel-screen{aspect-ratio:16/9;position:relative;background:#05090d;border:1px solid #354958;border-radius:10px;overflow:hidden}
+.aura-real-reel-screen iframe{display:block;width:100%;height:100%;border:0}
+.aura-real-reel-poster{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.aura-real-reel-poster:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.75),rgba(0,0,0,.1) 55%)}
+.aura-real-reel-poster img{height:100%;width:100%;object-fit:cover;opacity:.94}
+.aura-real-reel-poster button{position:absolute;z-index:1;bottom:16%;background:#d9b271;color:#161b20;border:0;border-radius:8px;padding:13px 20px;font-size:13px;font-weight:800;cursor:pointer}
+.aura-real-reel-player-caption{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+.aura-real-reel-player-caption strong{font-size:16px}
+.aura-real-reel-player-caption small{font-size:12px;color:#c0cbd5}
+.aura-real-reel-trim{display:flex;align-items:end;flex-wrap:wrap;gap:12px}
+.aura-real-reel-trim label{display:flex;flex-direction:column;gap:7px;color:#d7c69e;font-size:11px;font-weight:700}
+.aura-real-reel-trim input{width:123px;background:#132d3b;color:#f2eee5;border:1px solid #51687a;border-radius:7px;padding:10px;font-size:14px}
+.aura-real-reel-trim span{padding:8px 0;font-size:12px;color:#acc3d1}
+.aura-real-reel-actions{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}
+.aura-real-reel-actions button{background:#294054;border:1px solid #4e6579;color:white;border-radius:8px;padding:10px 15px;font-size:12px;cursor:pointer}
+.aura-real-reel-actions .aura-real-reel-play{background:#e5c38b;color:#16202a;border-color:#e5c38b;font-weight:800}
+.aura-real-reel-notice{font-size:11px;line-height:1.6;color:#aebbc8;margin:13px 0 0}
+.aura-real-reel-error{font-size:12px;color:#fac783}
+.aura-real-reel-sources{display:flex;flex-direction:column;gap:9px;min-height:0;max-height:690px;overflow-y:auto;scrollbar-width:thin}
+.aura-real-reel-sources h3{margin:0 0 7px;font-size:15px}
+.aura-real-reel-tile{width:100%;background:#1d3040;border:1px solid #334d61;color:#f2f5f6;border-radius:9px;padding:7px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer}
+.aura-real-reel-tile.is-active{border:1px solid #efc17a;box-shadow:inset 0 0 0 1px #efc17a}
+.aura-real-reel-tile img{width:114px;height:66px;object-fit:cover;border-radius:5px;flex-shrink:0}
+.aura-real-reel-tile span{display:flex;flex-direction:column;gap:5px;min-width:0}
+.aura-real-reel-tile strong{font-size:11px;line-height:1.25}
+.aura-real-reel-tile small{font-size:10px;color:#b1c1cc;line-height:1.3}
+.aura-real-reel-none{font-size:14px;color:#b1becb}
+@media(max-width:790px){.aura-real-reel-workspace{grid-template-columns:1fr}.aura-real-reel-sources{max-height:none;display:grid;grid-template-columns:1fr 1fr}.aura-real-reel-sources h3{grid-column:span 2}.aura-real-reel-tile{align-items:start}.aura-real-reel-tile img{width:80px;height:54px}}
+@media(max-width:580px){.aura-real-reel{padding:13px;margin:14px 0}.aura-real-reel-heading{flex-direction:column}.aura-real-reel-counter{align-items:start}.aura-real-reel-sources{grid-template-columns:1fr}.aura-real-reel-sources h3{grid-column:auto}.aura-real-reel-tile img{width:112px;height:66px}.aura-real-reel-poster button{bottom:12%;font-size:12px}.aura-real-reel-actions button{flex-grow:1}}

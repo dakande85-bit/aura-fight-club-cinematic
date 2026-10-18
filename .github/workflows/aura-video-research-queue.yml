@@ -1,0 +1,73 @@
+name: AURA major-fight video research queue
+
+on:
+  workflow_dispatch:
+    inputs:
+      days_ahead:
+        description: "Days of fight-calendar look-ahead (1-120)"
+        default: "30"
+        required: false
+        type: string
+  schedule:
+    # ~08:40 Canary summer / 07:40 Canary winter (UTC-based schedule)
+    - cron: '40 7 * * *'
+
+# Writes only to a review branch; never commits directly to live production.
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: aura-major-fight-video-queue
+  cancel-in-progress: false
+
+jobs:
+  research_queue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Draft fight projects from verified site calendar (no paid API)
+        env:
+          DAYS_AHEAD: ${{ inputs.days_ahead || '30' }}
+        run: |
+          python scripts/build-video-production-queue.py --days "$DAYS_AHEAD" --lookback 3
+          python scripts/seed-video-narrations.py
+      - name: Always supply an archive of research output
+        uses: actions/upload-artifact@v4
+        with:
+          name: aura-fight-video-research-queue
+          path: public/news/video-production/
+          retention-days: 14
+      - name: Prepare separate editorial review branch when content changes
+        id: difference
+        run: |
+          if [ -n "$(git status --porcelain -- public/news/video-production/)" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No new production briefs or narration revisions."
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Propose draft only — never publish a video or update main
+        if: steps.difference.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "AURA video research bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch="automation/major-fight-video-briefs"
+          git checkout -B "$branch"
+          git add public/news/video-production/
+          git commit -m "Propose new major-fight research and narration drafts"
+          git push --force-with-lease origin "HEAD:refs/heads/$branch"
+          if ! gh pr list --state open --head "$branch" --json number --jq '.[0].number' | grep -q '[0-9]'; then
+            gh pr create --draft --base main --head "$branch" \
+              --title "Review major-fight video research queue" \
+              --body "Generated briefs and first-pass narration from existing AURA articles. No downloaded broadcast footage, approved scripts, rights clearance or public posts. Editorial review, preview tests and source verification required."
+          fi

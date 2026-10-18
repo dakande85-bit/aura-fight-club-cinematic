@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "fightId": "figueroa-kameda",
+  "slug": "figueroa-kameda",
+  "title": "Brandon Figueroa vs Tomoki Kameda — AURA Fight Lab",
+  "eventDate": "2026-10-17",
+  "fightStatus": "Scheduled",
+  "eventSourceUrl": "https://www.premierboxingchampions.com/bouts/483574",
+  "storyUrl": "https://www.aurafightclub.com/news/figueroa-kameda-featherweight-championship-preview-2026",
+  "status": "research_required",
+  "editorialAngle": "",
+  "analysis": {
+    "status": "research_required",
+    "centralQuestion": "What tactical choices will decide Brandon Figueroa vs Tomoki Kameda?",
+    "editorialThesis": "",
+    "axes": [
+      {
+        "name": "Lead hand and distance",
+        "question": "What film evidence establishes lead hand and distance?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Foot position, entry and exits",
+        "question": "What film evidence establishes foot position, entry and exits?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Defence, counters and body attacks",
+        "question": "What film evidence establishes defence, counters and body attacks?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Pace, rounds and strategic adjustments",
+        "question": "What film evidence establishes pace, rounds and strategic adjustments?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      }
+    ],
+    "prediction": {
+      "pick": "",
+      "method": "",
+      "condition": "",
+      "confidence": "unrated",
+      "alternatives": ""
+    },
+    "claims": [
+      {
+        "text": "Brandon Figueroa vs Tomoki Kameda is on the fight calendar for 2026-10-17.",
+        "sourceUrl": "https://www.premierboxingchampions.com/bouts/483574",
+        "claimType": "calendar_listing",
+        "verification": "requires_source_review"
+      }
+    ],
+    "linkedArticle": "figueroa-kameda-featherweight-championship-preview-2026",
+    "reviewChecks": [
+      "Verify date, fighters, stakes and broadcast",
+      "Timecode tactical claims with authentic clips",
+      "Include a credible counterargument",
+      "Separate findings and opinion",
+      "Check footage reuse, identities and context"
+    ]
+  },
+  "narrationScript": "",
+  "scripts": {
+    "youtube": {
+      "draft": "Saturday 17 October is crowded with championship boxing. Daniel Dubois and Fabio Wardley meet again in London; Sebastian Fundora defends his WBC 154-pound title in Las Vegas. In the Nevada co-feature, Brandon Figueroa makes the first defence of the WBA featherweight championship he won by stopping Nick Ball in the last round in Liverpool earlier this year. Across from him is former world champion Tomoki Kameda. It is not a novelty act or a supporting attraction in sporting terms. It is a serious twelve-round examination.\n\nPBC confirms the fight for The Chelsea at The Cosmopolitan of Las Vegas. Figueroa arrives with recent evidence that his pressure and stamina work against elite opposition. Kameda carries the experience of an accomplished former champion who has negotiated a long professional career through changing divisions and opponents.\n\nPressure is often described as simple aggression, but Figueroa creates his advantage by repeatedly shortening the distance until the other man has fewer safe directions to go. He works the body, throws in combinations and stays busy late, forcing an opponent to either match that output or surrender territory. His dramatic final-round finish against Ball was an example of what sustained insistence can eventually produce.\n\nHowever, pressure can be managed. The best counter is not always to run; a well-timed step to the side after a jab can keep a pressure fighter turning without allowing him to settle for two or three consecutive attacks. Kameda's experience gives him a technical pathway to make those entries costly.\n\nKameda should not assume a champion known for activity will become frustrated simply because a few counters land. He needs to keep scoring in the quieter moments: a quick jab, a short two-punch response, then a pivot before Figueroa can touch the body. When a pressure fighter wins the centre of the ring between combinations, he can make a close contest feel increasingly one-sided to the judges.\n\nAn ambitious challenger also has to recognise the danger of waiting too long for perfectly clean openings. Figueroa will keep throwing; passive defence will only invite another round of work. Kameda must break the pattern with his own lead hand and make the champion reset his feet.\n\nAt featherweight, the body attack can be the decisive difference between an opponent who moves freely at the start and one who cannot escape by the tenth. Figueroa is built to extract that tax with repeated pressure. If Kameda's counters force Figueroa to hesitate before each entry, the attack slows; if Figueroa gets into a steady rhythm, the challenger may have to absorb punishment just to create the chance to answer.\n\nThe critical middle rounds should reveal which fighter is dictating exchanges. Figueroa will want longer sequences and sustained contact. Kameda needs short, productive bursts with a responsible exit. Neither strategy works unless the fighter can impose it while being hit.\n\nOur pick is Brandon Figueroa by decision. His recent level of competition, pressure and demonstrated late-fight stamina give him the better case over twelve rounds. A stoppage is a live possibility if Kameda is held on the ropes too often, but we prefer the more measured route: Figueroa winning stretches of each round without a clean finish.\n\nKameda's upset route lies in countering the first attack rather than the third, preventing long combinations and winning at least the opening half of the bout with efficient scoring. If the Japanese challenger makes Figueroa restart every few seconds, what looked like a predictable pressure fight can become a tight technical argument.\n\nThe fight takes place on the Fundora–Hadribeaj bill on 17 October. PBC lists the American broadcast window from 8pm Eastern / 5pm Pacific on DAZN and TNT, although that is not this specific bout's guaranteed ring-walk time. It would be a mistake to skip the featherweights simply because the biggest names fight later.",
+      "approved": false,
+      "targetMinutes": [
+        4,
+        8
+      ],
+      "draftOrigin": {
+        "type": "own_article",
+        "slug": "figueroa-kameda-featherweight-championship-preview-2026",
+        "reviewRequired": true
+      }
+    },
+    "shorts": {
+      "draft": "Brandon Figueroa's first WBA featherweight defence comes against former champion Tomoki Kameda. This could be the most technical contest of a stacked October 17 night. Saturday 17 October is crowded with championship boxing. Daniel Dubois and Fabio Wardley meet again in London; Sebastian Fundora defends his WBC 154-pound title in Las Vegas. PBC confirms the fight for The Chelsea at The Cosmopolitan of Las Vegas. Figueroa arrives with recent evidence that his pressure and stamina work against elite opposition. Kameda carries the experience of an accomplished former champion who has negotiated a long professional career through changing divisions and opponents.",
+      "approved": false,
+      "targetSeconds": [
+        35,
+        60
+      ],
+      "draftOrigin": {
+        "type": "own_article",
+        "slug": "figueroa-kameda-featherweight-championship-preview-2026",
+        "reviewRequired": true
+      }
+    }
+  },
+  "deliverables": {
+    "youtube": {
+      "aspect": "16:9",
+      "reviewStatus": "waiting_for_research"
+    },
+    "shorts": {
+      "aspect": "9:16",
+      "reviewStatus": "waiting_for_research"
+    }
+  },
+  "sources": [
+    {
+      "id": "event",
+      "title": "Official event listing — Brandon Figueroa vs Tomoki Kameda",
+      "kind": "official_event",
+      "publisher": "Premier Boxing Champions",
+      "url": "https://www.premierboxingchampions.com/bouts/483574",
+      "verified": false,
+      "candidateStatus": "source_needs_review",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Event verification only. Not a usable video."
+    },
+    {
+      "id": "interview",
+      "title": "Search: Brandon Figueroa vs Tomoki Kameda press conference",
+      "kind": "press",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Brandon%20Figueroa%20vs%20Tomoki%20Kameda%20press%20conference%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "face-off",
+      "title": "Search: Brandon Figueroa vs Tomoki Kameda weigh in face off",
+      "kind": "faceoff",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Brandon%20Figueroa%20vs%20Tomoki%20Kameda%20weigh%20in%20face%20off%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "fight-highlights",
+      "title": "Search: Brandon Figueroa vs Tomoki Kameda fight highlights",
+      "kind": "fight",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Brandon%20Figueroa%20vs%20Tomoki%20Kameda%20fight%20highlights%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    }
+  ],
+  "suggestedBeats": [
+    {
+      "purpose": "Hook",
+      "description": "Use an authentic exchange showing the central tactical question",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Evidence",
+      "description": "Show a real filmed exchange and narrate what is visible",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Counterpoint",
+      "description": "Show a credible tactical response or answer",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Context",
+      "description": "Use genuine press or face-off footage to illustrate the stakes",
+      "preferredSource": "interview"
+    },
+    {
+      "purpose": "Verdict",
+      "description": "Summarise conditional prediction and alternative",
+      "preferredSource": "face-off"
+    }
+  ],
+  "shots": [],
+  "voiceoverFile": "",
+  "voiceoverFiles": {
+    "youtube": "",
+    "shorts": ""
+  },
+  "notes": "Automatically selected fight from Aura's fight calendar. All video links are research leads only and have no extraction/reuse clearance."
+}

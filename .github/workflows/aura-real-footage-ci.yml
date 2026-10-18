@@ -1,0 +1,100 @@
+name: Validate real boxing footage studio
+
+on:
+  pull_request:
+    paths:
+      - 'src/pages/AdminVideoProduction.jsx'
+      - 'src/pages/AdminAutoVideoEditor.jsx'
+      - 'src/pages/AdminAutoFilmProducer.jsx'
+      - 'src/styles/aura-auto-film-producer.css'
+      - 'src/lib/auraAutoFilmStoryboard.js'
+      - 'api/auto-film.js'
+      - 'api/auto-film-jobs.js'
+      - 'api/auto-film-download.js'
+      - 'src/lib/auraFilmArtifact.js'
+      - 'src/lib/auraTransientFilmEdits.js'
+      - 'tests/auto-film-transient.test.mjs'
+      - 'tests/auto-film-artifact.test.mjs'
+      - 'tests/auto-film-jobs.test.mjs'
+      - 'scripts/auto-filmroom-producer.py'
+      - 'scripts/aura_youtube_ingest.py'
+      - 'tests/test_aura_youtube_ingest.py'
+      - 'config/aura-approved-youtube-sources.json'
+      - 'api/auto-film-source.js'
+      - 'tests/auto-film-source.test.mjs'
+      - 'src/components/AuraApprovedYouTube.jsx'
+      - 'src/components/AuraRealFootageReel.jsx'
+      - 'src/lib/auraRealFootageReel.js'
+      - 'src/styles/aura-real-footage-reel.css'
+      - 'tests/real-footage-reel.test.mjs'
+      - 'tests/test_auto_filmroom_producer.py'
+      - 'tests/auto-film-storyboard.test.mjs'
+      - '.github/workflows/aura-auto-film-production.yml'
+      - 'src/styles/aura-auto-video-editor.css'
+      - 'src/lib/auraAutoCut.js'
+      - 'src/lib/auraBrowserExport.js'
+      - 'src/lib/auraExportProfile.js'
+      - 'tests/filmroom-export-profile.test.mjs'
+      - 'tests/auto-video-editor.test.mjs'
+      - 'tests/footage-sources.test.mjs'
+      - 'tests/demo-boxing-api.test.mjs'
+      - 'src/lib/auraMediaVault.js'
+      - 'api/demo-boxing.js'
+      - 'src/lib/auraFootageSources.js'
+      - 'src/components/AuraFootageFinder.jsx'
+      - 'src/styles/aura-footage-finder.css'
+      - 'package.json'
+      - 'src/styles/aura-video-production.css'
+      - 'src/AppRouter.jsx'
+      - 'scripts/render-real-footage-short.py'
+      - 'scripts/render-fight-production.py'
+      - 'scripts/build-video-production-queue.py'
+      - 'scripts/seed-video-narrations.py'
+      - 'scripts/suggest-real-footage-cuts.py'
+      - 'scripts/auto-filmroom-producer.py'
+      - 'tests/test_real_footage_renderer.py'
+      - 'tests/test_video_production_pipeline.py'
+      - 'tests/test_video_cut_suggester.py'
+      - 'public/news/video-production/**'
+      - '.github/workflows/aura-real-footage-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test cut selection, provenance and file isolation
+        run: |
+          python -m py_compile scripts/render-real-footage-short.py scripts/render-fight-production.py scripts/build-video-production-queue.py scripts/seed-video-narrations.py scripts/suggest-real-footage-cuts.py scripts/auto-filmroom-producer.py scripts/aura_youtube_ingest.py
+          python -m unittest discover -s tests -p 'test_video_cut_suggester.py' -v
+          python -m unittest discover -s tests -p 'test_video_production_pipeline.py' -v
+          python -m unittest discover -s tests -p 'test_auto_filmroom_producer.py' -v
+          python -m unittest discover -s tests -p 'test_aura_youtube_ingest.py' -v
+          python -m unittest discover -s tests -p 'test_real_footage_renderer.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify auto-scene-cut planning
+        run: |
+          node --test tests/auto-film-jobs.test.mjs
+          node --test tests/auto-film-source.test.mjs
+          node --test tests/auto-film-storyboard.test.mjs
+          node --test tests/real-footage-reel.test.mjs
+          node --test tests/auto-video-editor.test.mjs
+          node --test tests/filmroom-export-profile.test.mjs
+          node --test tests/footage-sources.test.mjs
+          node --test tests/demo-boxing-api.test.mjs
+      - name: Verify site build with the new admin route
+        run: |
+          npm install --no-package-lock --no-audit --no-fund
+          npm run build
+          node --test tests/auto-film-artifact.test.mjs
+          node --test tests/auto-film-transient.test.mjs

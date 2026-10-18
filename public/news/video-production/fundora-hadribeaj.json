@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "fightId": "fundora-hadribeaj",
+  "slug": "fundora-hadribeaj",
+  "title": "Sebastian Fundora vs Ermal Hadribeaj — AURA Fight Lab",
+  "eventDate": "2026-10-17",
+  "fightStatus": "Scheduled",
+  "eventSourceUrl": "https://www.premierboxingchampions.com/sebastian-fundora-vs-ermal-hadribeaj",
+  "storyUrl": "https://www.aurafightclub.com/news/fundora-hadribeaj-prediction-boots-ennis-next-2026",
+  "status": "research_required",
+  "editorialAngle": "",
+  "analysis": {
+    "status": "research_required",
+    "centralQuestion": "What tactical choices will decide Sebastian Fundora vs Ermal Hadribeaj?",
+    "editorialThesis": "",
+    "axes": [
+      {
+        "name": "Lead hand and distance",
+        "question": "What film evidence establishes lead hand and distance?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Foot position, entry and exits",
+        "question": "What film evidence establishes foot position, entry and exits?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Defence, counters and body attacks",
+        "question": "What film evidence establishes defence, counters and body attacks?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      },
+      {
+        "name": "Pace, rounds and strategic adjustments",
+        "question": "What film evidence establishes pace, rounds and strategic adjustments?",
+        "status": "not_observed",
+        "sourceIds": [],
+        "clipIds": [],
+        "claim": ""
+      }
+    ],
+    "prediction": {
+      "pick": "",
+      "method": "",
+      "condition": "",
+      "confidence": "unrated",
+      "alternatives": ""
+    },
+    "claims": [
+      {
+        "text": "Sebastian Fundora vs Ermal Hadribeaj is on the fight calendar for 2026-10-17.",
+        "sourceUrl": "https://www.premierboxingchampions.com/sebastian-fundora-vs-ermal-hadribeaj",
+        "claimType": "calendar_listing",
+        "verification": "requires_source_review"
+      }
+    ],
+    "linkedArticle": "fundora-hadribeaj-prediction-boots-ennis-next-2026",
+    "reviewChecks": [
+      "Verify date, fighters, stakes and broadcast",
+      "Timecode tactical claims with authentic clips",
+      "Include a credible counterargument",
+      "Separate findings and opinion",
+      "Check footage reuse, identities and context"
+    ]
+  },
+  "narrationScript": "",
+  "scripts": {
+    "youtube": {
+      "draft": "Sebastian Fundora returns to Las Vegas on Saturday 17 October for a defence of his WBC super-welterweight championship against unbeaten Ermal Hadribeaj. For fans already imagining Fundora opposite Jaron 'Boots' Ennis or Vergil Ortiz, it is tempting to treat the challenger as a scheduling obligation. That is precisely the mistake good boxing journalism should resist. Hadribeaj has earned his opportunity; the champion still has to solve a live opponent before the division's biggest commercial questions can be asked in earnest.\n\nThe bout takes place at The Chelsea inside The Cosmopolitan of Las Vegas. Premier Boxing Champions lists coverage beginning at 8pm Eastern / 5pm Pacific on DAZN and TNT in the United States, with regional availability to be checked locally. That is a broadcast start, not a guaranteed ring-walk time.\n\nFundora is approximately six feet five and a half inches with an 80-inch reach; PBC lists Hadribeaj around five feet ten. That difference sounds as though it should make distance management simple, but Fundora rarely performs as a conventional back-foot giant. He willingly trades, shifts his head close to opponents and throws long punches while already at the edge of mid-range. His size is unusual. His readiness to fight inside it is the bigger tactical surprise.\n\nBoth boxers are southpaws. The familiar opposite-stance instruction to place the lead foot outside the opponent's lead foot is therefore less useful here. The crucial question becomes whether Hadribeaj can make Fundora reach with his right jab and then enter underneath the champion's left. If he stays in the space at the end of that jab without moving his feet, he risks getting picked apart by the taller man's repeated straight and hook combinations.\n\nHadribeaj's best chance is not to admire the reach deficit or spend twelve rounds circling a distant target. He needs to close in behind feints, attack in short combinations and move off the centre line before Fundora can re-establish the jab. A compact fighter can make a taller fighter's long arms inefficient at very close range — but only if he can pass through mid-range without taking free punches on the way in.\n\nThe challenger also has to avoid allowing Fundora's left hand to become a metronome. Switching rhythm with a touch to the body, a pause and then a quick return can make the champion think before committing. Those are tactical options, not evidence Hadribeaj has already demonstrated them successfully against a boxer of Fundora's class.\n\nFundora has developed into a proven world champion, including a sixth-round stoppage of Keith Thurman earlier this year. The relevant lesson is that his ring work has become more efficient: he can use the jab to measure, then throw in volume when an opponent lets him settle. If Hadribeaj cannot interrupt that cadence, the speed difference on the feet may matter less than the champion's ability to choose the exact moment to attack.\n\nStill, the problem with calling this a mismatch is that fights are not fought on height diagrams. Fundora has absorbed hard shots in his career, and his willingness to trade gives an aggressive challenger opportunities that a more conservative outside boxer might not present. An upset requires Hadribeaj to win exchanges without remaining in the pocket long enough for Fundora to reply.\n\nWe favour Fundora to wear the challenger down with sustained work, with a late stoppage our preferred outcome. The champion's reach and established high-level experience give him the stronger case across a long fight. The most plausible alternative is Hadribeaj consistently disrupting his lead hand and stealing rounds by landing quick bursts at close range; a dramatic early knockout is not the only credible route to an upset.\n\nWatch where the smaller man's head finishes after the first left hand. If Hadribeaj can punch and exit to a different line, he can make the rounds awkward. If he remains straight ahead of Fundora, the champion should gradually build a damaging rhythm.\n\nFundora has publicly discussed the possibility of unification against champions such as Boots Ennis and the leading 154-pound names, including Vergil Ortiz. These are potential fights, not confirmed next bouts. The most compelling future contest would test Fundora's extraordinary range against a quick, adaptable, high-volume technician with the footwork to attack from several angles.\n\nThe editorial irony is sharp: Fundora could become a major name by beating a bigger name, yet lose that opportunity by looking beyond the contender in front of him. Hadribeaj is owed the serious treatment of a world-title challenger, and the division is owed an answer about whether Fundora can defend consistently before it celebrates a blockbuster that hasn't been signed.",
+      "approved": false,
+      "targetMinutes": [
+        4,
+        8
+      ],
+      "draftOrigin": {
+        "type": "own_article",
+        "slug": "fundora-hadribeaj-prediction-boots-ennis-next-2026",
+        "reviewRequired": true
+      }
+    },
+    "shorts": {
+      "draft": "Sebastian Fundora defends his WBC title against unbeaten Ermal Hadribeaj in Las Vegas. The southpaw-versus-southpaw puzzle comes before the big Boots Ennis conversation. Sebastian Fundora returns to Las Vegas on Saturday 17 October for a defence of his WBC super-welterweight championship against unbeaten Ermal Hadribeaj. For fans already imagining Fundora opposite Jaron 'Boots' Ennis or Vergil Ortiz, it is tempting to treat the challenger as a scheduling obligation. That is precisely the mistake good boxing journalism should resist. The bout takes place at The Chelsea inside The Cosmopolitan of Las Vegas. Premier Boxing Champions lists coverage beginning at 8pm Eastern / 5pm Pacific on DAZN and TNT in the United States, with regional availability to be checked locally. That is a broadcast start, not a guaranteed ring-walk time.",
+      "approved": false,
+      "targetSeconds": [
+        35,
+        60
+      ],
+      "draftOrigin": {
+        "type": "own_article",
+        "slug": "fundora-hadribeaj-prediction-boots-ennis-next-2026",
+        "reviewRequired": true
+      }
+    }
+  },
+  "deliverables": {
+    "youtube": {
+      "aspect": "16:9",
+      "reviewStatus": "waiting_for_research"
+    },
+    "shorts": {
+      "aspect": "9:16",
+      "reviewStatus": "waiting_for_research"
+    }
+  },
+  "sources": [
+    {
+      "id": "event",
+      "title": "Official event listing — Sebastian Fundora vs Ermal Hadribeaj",
+      "kind": "official_event",
+      "publisher": "Premier Boxing Champions",
+      "url": "https://www.premierboxingchampions.com/sebastian-fundora-vs-ermal-hadribeaj",
+      "verified": false,
+      "candidateStatus": "source_needs_review",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Event verification only. Not a usable video."
+    },
+    {
+      "id": "interview",
+      "title": "Search: Sebastian Fundora vs Ermal Hadribeaj press conference",
+      "kind": "press",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Sebastian%20Fundora%20vs%20Ermal%20Hadribeaj%20press%20conference%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "face-off",
+      "title": "Search: Sebastian Fundora vs Ermal Hadribeaj weigh in face off",
+      "kind": "faceoff",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Sebastian%20Fundora%20vs%20Ermal%20Hadribeaj%20weigh%20in%20face%20off%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    },
+    {
+      "id": "fight-highlights",
+      "title": "Search: Sebastian Fundora vs Ermal Hadribeaj fight highlights",
+      "kind": "fight",
+      "publisher": "Search lead (unverified)",
+      "url": "https://www.youtube.com/results?search_query=Sebastian%20Fundora%20vs%20Ermal%20Hadribeaj%20fight%20highlights%20boxing",
+      "verified": false,
+      "candidateStatus": "search_lead_only",
+      "localFile": "",
+      "clearedForExport": false,
+      "rightsNotes": "Search page only, find exact original uploader and legally reusable source before selecting any clip."
+    }
+  ],
+  "suggestedBeats": [
+    {
+      "purpose": "Hook",
+      "description": "Use an authentic exchange showing the central tactical question",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Evidence",
+      "description": "Show a real filmed exchange and narrate what is visible",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Counterpoint",
+      "description": "Show a credible tactical response or answer",
+      "preferredSource": "fight-highlights"
+    },
+    {
+      "purpose": "Context",
+      "description": "Use genuine press or face-off footage to illustrate the stakes",
+      "preferredSource": "interview"
+    },
+    {
+      "purpose": "Verdict",
+      "description": "Summarise conditional prediction and alternative",
+      "preferredSource": "face-off"
+    }
+  ],
+  "shots": [],
+  "voiceoverFile": "",
+  "voiceoverFiles": {
+    "youtube": "",
+    "shorts": ""
+  },
+  "notes": "Automatically selected fight from Aura's fight calendar. All video links are research leads only and have no extraction/reuse clearance."
+}
