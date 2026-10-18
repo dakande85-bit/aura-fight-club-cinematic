@@ -138,7 +138,7 @@ export default function AdminTrailerStudio() {
       const zip = new JSZip();
       Object.values(assets).forEach(asset => { if (asset?.path) zip.file(asset.path, asset.file); });
       zip.file('manifest.json', JSON.stringify({...exportManifest(plan), export_mode: draft ? 'rough_cut' : 'reviewed'}, null, 2));
-      zip.file('README.txt', 'AURA cinematic trailer — reviewed local media pack\n\nRender with:\npython3 scripts/render-cinematic-trailer.py path/to/aura-trailer-pack.zip --output trailer.mp4\n\nThe Python renderer uses FFmpeg and Pillow. It does not generate new footage, buy API credits, or post to social networks.\n\nRecheck licences, truthful matchup status and content before any public upload.\n');
+      zip.file('README.txt', 'AURA Trailer Studio — ' + (draft ? 'PRIVATE ROUGH CUT' : 'PUBLICATION-REVIEWED') + '\\n\\nRender with:\\npython3 scripts/render-cinematic-trailer.py aura-trailer-pack.zip --output trailer.mp4' + (draft ? ' --draft' : '') + '\\n\\nThe --draft option burns NOT FOR PUBLICATION into the video. YouTube embedded references are not downloadable assets. Review every source before any social posting.\\n');
       saveFile(await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 1 } }), 'aura-trailer-pack.zip');
       setNotice(draft ? 'Rough-cut pack saved. Render with --draft; the result will be marked NOT FOR PUBLICATION.' : 'Reviewed production pack exported. Render without --draft after final rights review.');
     } catch (error) { setNotice('Could not create the pack: ' + error.message); }
