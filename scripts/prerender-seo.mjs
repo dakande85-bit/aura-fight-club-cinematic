@@ -7,6 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {fighters,topics} from '../src/data/seoEntities.js';
+import {auraTop50,auraTop50CheckedAt} from '../src/data/auraTop50.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dist=path.join(root,'dist');
@@ -95,6 +96,28 @@ for(const article of articles){
  const body='<h1>'+esc(article.title)+'</h1><p>'+esc(article.summary)+'</p><p>Published: '+esc(article.date)+'</p>'+(article.body||[]).map(paragraph).join('');
  save(url,{title:article.seoTitle||article.title+' | AURA Fight Club',description,image,schema,body});
 }
+// Pre-render ranking index for search engines and link-preview scrapers.
+// The SPA replaces this accessible HTML once JavaScript boots.
+const rankingBody='<h1>AURA Fighter Intelligence — Top 50 Men\'s Boxing Ranking</h1>'
+ +'<p>Independent AURA Fight Club editorial ranking, last reviewed '+esc(auraTop50CheckedAt)+'. Not an official Ring, TBRB or BoxRec ranking.</p>'
+ +'<ol>'+auraTop50.map(f=>'<li><a href="/fighters/'+esc(f.slug)+'">'+esc(f.name)+'</a> — '+esc(f.division)+'</li>').join('')+'</ol>';
+fs.mkdirSync(path.join(dist,'fighters'),{recursive:true});
+fs.writeFileSync(path.join(dist,'fighters','index.html'),pageHtml({
+ url:'/fighters',title:'AURA Top 50 Men\'s Boxing Rankings & Fighter Intelligence | AURA Fight Club',
+ description:'Explore 50 ranked boxer profiles, professional records, recent verified fights, detailed scouting and modern boxing stars.',
+ body:rankingBody,schema:{'@type':'ItemList',name:'AURA Top 50',itemListOrder:'https://schema.org/ItemListOrderAscending',
+ itemListElement:auraTop50.map(f=>({'@type':'ListItem',position:f.rank,name:f.name,url:site+'/fighters/'+f.slug})),dateModified:auraTop50CheckedAt}
+}));
+const spanishRankingBody='<h1>Los 50 de AURA — perfiles de boxeadores</h1>'
+ +'<p>Clasificación editorial independiente; revisión '+esc(auraTop50CheckedAt)+'. No es una lista oficial de BoxRec ni de The Ring.</p>'
+ +'<ol>'+auraTop50.map(f=>'<li><a href="/es/fighters/'+esc(f.slug)+'">'+esc(f.name)+'</a> — '+esc(f.division)+'</li>').join('')+'</ol>';
+fs.mkdirSync(path.join(dist,'es','fighters'),{recursive:true});
+fs.writeFileSync(path.join(dist,'es','fighters','index.html'),pageHtml({
+ url:'/es/fighters',title:'Los 50 de AURA — clasificación de boxeo | AURA Fight Club',
+ description:'Una clasificación editorial de 50 boxeadores, con perfiles, combates contrastados y análisis del boxeo.',
+ body:spanishRankingBody
+}));
+
 for(const fighter of fighters){
  const url='/fighters/'+fighter.slug;
  const description=fighter.name+': '+fighter.summary;

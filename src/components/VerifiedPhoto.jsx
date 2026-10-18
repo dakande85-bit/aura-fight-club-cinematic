@@ -6,11 +6,19 @@ export function VerifiedPhoto({fighterSlug,fightId,className='',label='',creditL
  const media=fightId?fightPhotography[fightId]:fighterPhotography[fighterSlug];
  const primary=media?.src||'';
  const backup=media?.fallbackSrc||'';
+ // Optional publication-safe mode: never request an unlicensed third-party image.
+ // Use original local illustrations where available, otherwise a named placeholder.
+ // Production defaults to non-infringing, first-party media. Explicit 'false'
+ // can be used for internal visual review only after checking permissions.
+ const rightsFlag=import.meta.env.VITE_AURA_FIGHTER_MEDIA_RIGHTS_STRICT;
+ const strictRights=rightsFlag==='true'||(import.meta.env.PROD&&rightsFlag!=='false');
+ const rightsBlocked=Boolean(strictRights&&primary.startsWith('https:')&&media?.rightsStatus!=='approved');
+ const safeBackup=backup.startsWith('/')?backup:'';
  const [failure,setFailure]=useState({primary:'',stage:0});
  const stage=failure.primary===primary?failure.stage:0;
- const src=stage===0?primary:stage===1?backup:'';
+ const src=rightsBlocked?safeBackup:stage===0?primary:stage===1?backup:'';
  const shown=Boolean(src);
- const isFallback=stage===1;
+ const isFallback=rightsBlocked||stage===1;
  const title=label||'Boxing coverage';
  const fail=()=>setFailure({primary,stage:stage+1});
  const credit=shown
@@ -23,7 +31,7 @@ export function VerifiedPhoto({fighterSlug,fightId,className='',label='',creditL
  return <div className={`aura-photo ${className}`}>
   {shown
    ? <img key={src} src={src} alt={isFallback?`Original AURA illustrated boxing event artwork for ${title}; not a photograph`:media.alt||title} style={{objectPosition:media.focus||'center center','--aura-zoom':media.zoom||1}} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={fail}/>
-   : <div className="aura-photo__placeholder" role="img" aria-label={`${title}: fighter photograph unavailable`}><span>AURA / BOXING</span><strong>{title}</strong><small>Photograph unavailable · Identity not substituted</small></div>}
+   : <div className="aura-photo__placeholder" role="img" aria-label={`${title}: ${rightsBlocked?'portrait rights under review':'fighter photograph unavailable'}`}><span>AURA / BOXING</span><strong>{title}</strong><small>{rightsBlocked?'Portrait rights under review':'Photograph unavailable · Identity not substituted'}</small></div>}
   {credit}
  </div>;
 }

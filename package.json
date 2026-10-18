@@ -12,11 +12,14 @@
     "seo:generate": "node scripts/generate-sitemaps.mjs",
     "data:check": "node scripts/check-fight-data.mjs",
     "news:audit": "node scripts/audit-editorial.mjs",
-    "media:audit": "node scripts/audit-fighter-media.mjs",
+    "media:audit": "node scripts/audit-fighter-media.mjs && node scripts/audit-licensed-fighter-portraits.mjs",
     "lifestyle:audit": "node scripts/audit-lookbook.mjs",
     "postbuild": "node scripts/prerender-seo.mjs && node scripts/verify-prerender.mjs",
     "test:seo": "node scripts/verify-prerender.mjs",
-    "social:cards": "node scripts/build-tiktok-cards.mjs"
+    "social:cards": "node scripts/build-tiktok-cards.mjs",
+    "fighters:portrait:add": "node scripts/import-licensed-fighter-portrait.mjs",
+    "fighters:portrait:audit": "node scripts/audit-licensed-fighter-portraits.mjs",
+    "build:rights-safe": "VITE_AURA_FIGHTER_MEDIA_RIGHTS_STRICT=true npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",

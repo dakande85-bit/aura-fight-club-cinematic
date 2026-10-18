@@ -8,6 +8,21 @@ on:
       - 'src/pages/FighterComparePage.jsx'
       - 'src/pages/SpanishSite.jsx'
       - 'src/data/seoEntities.js'
+      - 'src/data/auraTop50.js'
+      - 'src/data/fighterTiers.js'
+      - 'src/data/licensedFighterPortraits.json'
+      - 'scripts/audit-licensed-fighter-portraits.mjs'
+      - 'scripts/import-licensed-fighter-portrait.mjs'
+      - 'package.json'
+      - 'src/data/boxingPhotography.js'
+      - 'src/styles/aura-top50.css'
+      - 'scripts/audit-aura-top50.mjs'
+      - 'scripts/audit-fighter-photo-url-health.mjs'
+      - 'scripts/audit-fighter-bout-links.mjs'
+      - 'src/data/fighterUpcoming.js'
+      - 'scripts/generate-sitemaps.mjs'
+      - 'scripts/prerender-seo.mjs'
+      - 'scripts/verify-prerender.mjs'
       - 'src/components/Header.jsx'
       - 'src/styles/fight-hub.css'
       - 'src/AppRouter.jsx'
@@ -26,4 +41,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --no-package-lock --no-audit --no-fund
+      - run: node scripts/audit-aura-top50.mjs
+      - run: node scripts/audit-fighter-photo-url-health.mjs
+      - run: node scripts/audit-fighter-bout-links.mjs
       - run: npm run build

@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {fighters} from '../src/data/seoEntities.js';
+import {auraTop50} from '../src/data/auraTop50.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const dist=path.join(root,'dist');
@@ -45,3 +47,23 @@ for(const article of articles){
 assert.ok(sitemap.includes('https://www.aurafightclub.com/sitemap-articles.xml'),'Sitemap index must use primary www host');
 assert.ok(!sitemap.includes('https://aurafightclub.com/'),'Sitemap index must not link to redirecting apex host');
 console.log('SEO smoke test passed:',sample.slug,'and sitemap index');
+
+const fighterXml=fs.readFileSync(path.join(root,'public','sitemap-fighters.xml'),'utf8');
+const publicFighters=fighters.filter(f=>!f.editorialHidden);
+assert.ok(publicFighters.length>=50,'At least 50 public fighter profiles expected');
+const fighterLocs=[...fighterXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
+assert.equal(fighterLocs.length,publicFighters.length,'Fighter sitemap must include every public fighter');
+assert.equal(new Set(fighterLocs).size,fighterLocs.length,'Fighter sitemap contains duplicate paths');
+for(const fighter of publicFighters){
+ const route='/fighters/'+fighter.slug;
+ assert.ok(fighterLocs.includes('https://www.aurafightclub.com'+route),'Fighter not indexed: '+fighter.slug);
+ const html=fs.readFileSync(path.join(dist,route.slice(1),'index.html'),'utf8');
+ assert.ok(html.includes('rel="canonical"')&&html.includes(route),'Missing fighter canonical: '+fighter.slug);
+ assert.ok(html.includes('ProfilePage'),'Missing profile structured data: '+fighter.slug);
+}
+const rankingIndex=fs.readFileSync(path.join(dist,'fighters','index.html'),'utf8');
+assert.ok(rankingIndex.includes('ItemList'),'AURA rankings structured data missing');
+for(const fighter of auraTop50)assert.ok(rankingIndex.includes('href="/fighters/'+fighter.slug+'"'),'Ranking missing static SEO fighter link: '+fighter.slug);
+const rankingEs=fs.readFileSync(path.join(dist,'es','fighters','index.html'),'utf8');
+assert.ok(rankingEs.includes('<h1>Los 50 de AURA'),'Spanish rankings static preview missing');
+console.log('Fighter SEO complete: '+publicFighters.length+' public fighter entries, '+auraTop50.length+' AURA ranked links in both languages.');

@@ -1,0 +1,59 @@
+import assert from 'node:assert/strict';
+import { fighters } from '../src/data/seoEntities.js';
+import { fighterPhotography } from '../src/data/boxingPhotography.js';
+import { auraTop50, auraTop50CheckedAt } from '../src/data/auraTop50.js';
+import {fighterEditorialTiers} from '../src/data/fighterTiers.js';
+
+assert.equal(fighterEditorialTiers.length,4,'Expected exactly four edited fighter categories');
+const categorizedSlugs=fighterEditorialTiers.flatMap(tier=>tier.slugs);
+assert.equal(new Set(categorizedSlugs).size,categorizedSlugs.length,'A fighter appears in more than one editorial tier');
+for(const slug of categorizedSlugs){
+ const fighter=fighters.find(f=>f.slug===slug&&!f.editorialHidden);
+ assert.ok(fighter,'Editorial tier references missing or hidden boxer: '+slug);
+ if(slug&&fighter.careerStatus==='Retired')assert.ok(fighterEditorialTiers[3].slugs.includes(slug),'Retired boxer outside Modern Greats: '+slug);
+}
+const publishedFighters=fighters.filter(f=>!f.editorialHidden);
+assert.equal(categorizedSlugs.length,publishedFighters.length,'Every public boxer must appear in exactly one tier');
+assert.equal(auraTop50.length, 50, 'AURA 50 must list 50 active fighters');
+for(const ranked of auraTop50)assert.ok(categorizedSlugs.includes(ranked.slug),'Ranked fighter missing from main directory: '+ranked.slug);
+assert.ok(fighters.find(f=>f.slug==='sebastian-fundora')?.record, 'Fundora record was lost during merging');
+assert.equal(new Set(auraTop50.map(f => f.slug)).size, 50, 'Duplicated top-50 fighter');
+assert.match(auraTop50CheckedAt, /^20\d{2}-\d\d-\d\d$/, 'Snapshot date missing');
+
+let verifiedBouts = 0;
+let profileCount = 0;
+for (const [index, fighter] of auraTop50.entries()) {
+  assert.equal(fighter.rank, index + 1, 'Unordered rankings at ' + fighter.slug);
+  assert.ok(fighter.slug && fighter.name && fighter.division && fighter.reason, 'Missing editorial data at ' + fighter.rank);
+  assert.ok(!/crawford/i.test(fighter.slug), 'Retired fighter in active ranking');
+  const profile = fighters.find(f => f.slug === fighter.slug);
+  assert.ok(profile, 'Top-50 fighter has no full profile: ' + fighter.slug);
+  profileCount++;
+  assert.ok(!profile.careerStatus || profile.careerStatus !== 'Retired', 'Retired fighter: ' + fighter.slug);
+  assert.equal(profile.division, fighter.division, 'Top 50/profile division mismatch: '+fighter.slug);
+  assert.ok(Array.isArray(profile.aliases)&&profile.aliases.length>0, 'Fighter aliases needed: '+fighter.slug);
+  const picture = fighterPhotography[fighter.slug];
+  assert.ok(picture?.src && picture?.alt && picture?.credit && picture?.sourceUrl, 'Missing image metadata: ' + fighter.slug);
+  assert.ok(/^https:\/\//.test(picture.src), 'Expected HTTPS portrait: ' + fighter.slug);
+  const bouts = fighter.recentBouts || [];
+  assert.equal(bouts.length, 5, 'Top-50 fighter requires five independently researched recent fights: '+fighter.slug);
+  assert.equal(new Set(bouts.map(b=>b.date+'|'+b.opponent)).size,5,'Duplicate recent fight '+fighter.slug);
+  assert.ok(bouts[0].date >= '2022-01-01','Stale last-fight history: '+fighter.slug);
+  for (const [i,bout] of bouts.entries()) {
+    assert.ok(bout.date && bout.opponent && bout.result && bout.method && bout.sourceUrl, 'Incomplete bout: '+fighter.slug);
+    assert.ok(['W','L','D','NC'].includes(bout.result), 'Invalid result '+fighter.slug);
+    assert.ok(/^https:\/\//.test(bout.sourceUrl), 'Unverifiable bout '+fighter.slug);
+    assert.ok(!/example\.com|placeholder|fights?.com\/?$/i.test(bout.sourceUrl), 'Placeholder bout source: '+fighter.slug);
+    assert.ok(bout.date <= auraTop50CheckedAt, 'Future bout '+fighter.slug);
+    if (i) assert.ok(bouts[i-1].date >= bout.date, 'Unsorted recent form: '+fighter.slug);
+    verifiedBouts++;
+  }
+}
+
+assert.equal(profileCount, 50, 'Every ranked fighter must have a full profile');
+assert.equal(verifiedBouts,250,'The Top 50 must contain all 250 latest-five sourced results');
+// Cross-reference boxers present in the same ranking: every direct result must have the reciprocal outcome.
+const names=new Map(auraTop50.flatMap(f=>[[f.name.toLowerCase(),f.slug],[f.slug.replaceAll('-',' '),f.slug]]));
+assert.ok(auraTop50.every(f=>f.recentBouts.every(b=>b.date<=auraTop50CheckedAt)),'Bout dated after snapshot');
+console.log(`AURA 50 validated: 50 ranked / 50 portrait candidates / ${profileCount} profiles / ${verifiedBouts} sourced bout entries.`);
+console.log('This structural audit does not establish image licenses, hotlink success or whether bout ledgers are complete.');
