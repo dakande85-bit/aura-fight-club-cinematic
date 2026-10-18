@@ -45,4 +45,17 @@ with tempfile.TemporaryDirectory(prefix="aura-render-smoke-") as temp:
     assert any(x.get("codec_name") == "h264" and x.get("width") == 1080
                and x.get("height") == 1920 for x in streams), streams
     assert any(x.get("codec_name") == "aac" for x in streams), streams
-    print("AURA render smoke test passed — synthetic 2-second vertical trailer with audio.")
+    # A private rough cut must work without publication approval and stay watermarked.
+    for shot in shots:
+        shot["rights_verified"] = False
+        shot["approved"] = False
+    draftpack = directory / "rough-cut.zip"
+    with zipfile.ZipFile(draftpack, "w") as archive:
+        archive.write(photo, arcname="media/test.jpg")
+        archive.writestr("manifest.json", json.dumps(manifest))
+    draft_output = directory / "draft.mp4"
+    subprocess.run([sys.executable, str(RENDERER), str(draftpack), "--output", str(draft_output), "--draft"],
+                   check=True, timeout=180)
+    assert draft_output.exists() and draft_output.stat().st_size > 1000
+    print("AURA render smoke passed — reviewed + draft-labelled 2-second vertical trailers.")
+
