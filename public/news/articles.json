@@ -1,6 +1,503 @@
 {
-  "reviewedAt": "2026-10-14",
+  "reviewedAt": "2026-10-18",
   "articles": [
+    {
+      "slug": "dubois-hrgovic-2-unification-ibf-mandatory-after-wardley",
+      "title": "Dubois vs Hrgović II: Two Belts, One Mandatory and No Signed Fight",
+      "summary": "Hrgović confronted WBO champion Dubois after the Wardley stoppage and floated March. The IBF mandatory could complicate a two-belt rematch.",
+      "seoTitle": "Dubois vs Hrgović II: IBF Mandatory Could Delay Unification",
+      "metaDescription": "Dubois and IBF champion Filip Hrgović want a rematch after Wardley. Why the Frank Sanchez mandatory matters before any WBO–IBF unification is agreed.",
+      "tags": [
+        "Daniel Dubois",
+        "Filip Hrgovic",
+        "IBF",
+        "WBO",
+        "heavyweight unification",
+        "Frank Sanchez"
+      ],
+      "fighterSlugs": [
+        "daniel-dubois",
+        "filip-hrgovic"
+      ],
+      "category": "Inside Boxing",
+      "articleType": "Analysis",
+      "coverageStage": "",
+      "fightId": "",
+      "sources": [
+        {
+          "name": "Bad Left Hook — IBF mandatory and in-ring reaction",
+          "url": "https://www.badlefthook.com/boxing-results/119607/daniel-dubois-demolishes-fabio-wardley-in-rematch-boxing-results-news-2026"
+        },
+        {
+          "name": "BoxingScene — mandatory challenger Frank Sanchez",
+          "url": "https://www.boxingscene.com/articles/filip-hrgovic-obliged-to-defend-ibf-title-against-frank-sanchez-in-next-fight"
+        },
+        {
+          "name": "Evening Standard — post-fight boxer statements (republished)",
+          "url": "https://www.aol.co.uk/articles/daniel-dubois-reveals-desired-next-221913000.html"
+        }
+      ],
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-18",
+      "body": [
+        "Daniel Dubois had barely completed his first successful defence of the WBO heavyweight championship when the next challenge stepped into the ring. Filip Hrgović, who holds the IBF belt, joined Dubois at London's O2 Arena after the Briton's second-round stoppage of Fabio Wardley on Saturday. Frank Warren invited the Croatian champion forward, turning a dominant result into the opening exchange of a possible two-belt unification.",
+        "The numbers from the main event explain the timing of the conversation. Dubois dropped Wardley within 17 seconds of the opening round and forced the challenger's corner to intervene at 2:21 of round two. The result ended an immediate-rematch obligation and freed Dubois to discuss a different opponent. It did not, by itself, create a signed contract for Hrgović.",
+        "## What was actually said in the ring",
+        "According to MMA Fighting's ringside account, Hrgović called Dubois' victory an easy night and suggested a fight in March. Further reporting on the in-ring exchange said Dubois wanted the rematch and another championship belt. That is a direct indication of interest from the two boxers; it is not confirmation of a date, venue, sanctioning approval or broadcaster deal.",
+        "The pair already have history. Dubois stopped Hrgović in the eighth round of their June 2024 meeting in Riyadh, a contest in which accumulated damage and cuts led to the conclusion. It remains the Croatian's only professional defeat in the records cited by fight-night reporting. A return meeting would therefore put the memory of that stoppage alongside a radically different championship landscape: Hrgović is now the IBF champion after defeating Moses Itauma in August, while Dubois holds the WBO title.",
+        "## The biggest obstacle is not selling the fight",
+        "A world-title unification makes immediate commercial sense. Two current champions, an earlier result to avenge and heavyweight relevance would give promoters plenty to work with. But titles come with obligations that fighters cannot simply ignore. BoxingScene has reported that the IBF required Hrgović to face mandatory challenger Frank Sanchez in his next fight; Bad Left Hook's post-fight report likewise noted Warren's acknowledgement of that mandatory.",
+        "That makes the suggested March timeline provisional. An exception, sanctioning decision, fulfilment of the defence or change in circumstances could affect when a unification becomes possible. No one should advertise Dubois–Hrgović II as booked on the strength of a challenge issued in front of a crowd. The next concrete evidence would be a formal announcement from the parties and the relevant sanctioning bodies.",
+        "## The tactical question is more interesting than the slogan",
+        "The first fight offers the most useful starting point for any analysis. Dubois proved that he could sustain offence and force a stoppage against Hrgović, but a second meeting cannot be treated as a replay. The Croatian's success against Itauma altered his standing, and Dubois has added a heavyweight title defence that was controlled from the opening moments. Each has since met different problems and developed under different pressures.",
+        "Dubois would want to recreate his ability to close distance and make exchanges physically expensive rather than spend long periods being measured at range. Hrgović's task would be to disrupt those entries, deny repeat attacks and make Dubois pay a positional cost for stepping forward. Those are tactical hypotheses for film analysis, not invented punch-count data or claims about a training plan neither camp has disclosed.",
+        "There is an additional difference between chasing a rematch and defending a belt. Hrgović could arrive as champion, with his own negotiating power, rather than as the man trying to erase one defeat. Dubois, meanwhile, is less obliged to chase a dramatic recovery: the Wardley rematch rewarded him for starting accurately and keeping a hurt opponent under pressure. That shift in initiative is a meaningful subject for the next fight's build-up.",
+        "## What AURA is watching next",
+        "Three developments will determine whether this moves from an attractive idea to the calendar: the IBF's position on Sanchez, whether Queensberry and the relevant representatives announce formal negotiations, and whether a contracted date follows. Until then March is a proposal made during a post-fight exchange, not an official fixture.",
+        "The correct headline tonight is that two heavyweight champions have publicly signalled interest in a rematch. That is important and worth analysing. It is also where the verified story currently ends."
+      ],
+      "source": "MMA Fighting — ringside post-fight Hrgović faceoff",
+      "sourceUrl": "https://www.mmafighting.com/boxing/516222/daniel-dubois-destroys-fabio-wardley-via-2nd-round-knockout-in-highly-anticipated-rematch",
+      "featured": true,
+      "priority": 97,
+      "youtubeId": null,
+      "videoUrl": "",
+      "image": {
+        "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Daniel_Dubois_walkout.jpg",
+        "alt": "Daniel Dubois walking towards the ring at Wembley Stadium on 19 July 2025 for his fight against Oleksandr Usyk, archival photograph",
+        "credit": "Editor083 / Wikimedia Commons — CC BY 4.0",
+        "caption": "ARCHIVE, 19 July 2025: Daniel Dubois walks to the ring at Wembley before facing Oleksandr Usyk. Photographer: Editor083; CC BY 4.0. Original image, unmodified. This photograph is NOT from Dubois–Wardley II.",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout.jpg",
+        "focus": "center 25%",
+        "fallbackSrc": "/news/media/dubois-hrgovic-unification-not-signed.svg"
+      }
+    },
+    {
+      "slug": "dubois-wardley-2-post-fight-reaction-what-they-said",
+      "title": "Dubois and Wardley React to TKO: What Was Said — and What Comes Next",
+      "summary": "Dubois praised Wardley, Hrgović entered the ring to call for a rematch and the defeated challenger accepted the result. Here is what is verified.",
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-18",
+      "category": "Fight Reactions",
+      "articleType": "News",
+      "featured": true,
+      "priority": 94,
+      "coverageStage": "Reaction",
+      "fightId": "",
+      "source": "talkSPORT — first confirmed fight-night reactions",
+      "sourceUrl": "https://talksport.com/boxing/4650762/daniel-dubois-fabio-wardley-rematch/",
+      "sources": [
+        {
+          "name": "Reuters — independently confirmed fight result",
+          "url": "https://www.reuters.com/sports/dubois-stops-wardley-second-round-retain-wbo-heavyweight-title-2026-10-17/"
+        },
+        {
+          "name": "MMA Fighting — Hrgović enters ring after Dubois win",
+          "url": "https://www.mmafighting.com/boxing/516222/daniel-dubois-destroys-fabio-wardley-via-2nd-round-knockout-in-highly-anticipated-rematch"
+        },
+        {
+          "name": "Bad Left Hook — Wardley response and potential mandatory obstacle",
+          "url": "https://www.badlefthook.com/boxing-results/119607/daniel-dubois-demolishes-fabio-wardley-in-rematch-boxing-results-news-2026"
+        }
+      ],
+      "image": {
+        "src": "https://www.aurafightclub.com/news/media/dubois-wardley-reaction-2026.svg",
+        "alt": "AURA original graphic for Dubois and Wardley React to TKO: What Was Said — and What Comes Next; no fight photograph used",
+        "credit": "AURA Fight Club — original editorial design",
+        "caption": "Original AURA editorial illustration, not a photograph of the contest.",
+        "sourceUrl": "https://www.aurafightclub.com/news/media/dubois-wardley-reaction-2026.svg"
+      },
+      "seoTitle": "Dubois and Wardley React to TKO: What Was Said — and What Comes Next",
+      "metaDescription": "What Dubois and Wardley said after their October TKO, and why Hrgović's IBF title challenge is not yet an agreed rematch.",
+      "tags": [
+        "Daniel Dubois",
+        "Fabio Wardley",
+        "fight reactions",
+        "heavyweight"
+      ],
+      "body": [
+        "Daniel Dubois left The O2 as WBO heavyweight champion on Saturday after another stoppage victory over Fabio Wardley. This time there was no long recovery from early knockdowns. Dubois floored his challenger within 17 seconds of the first round and the corner stopped the contest at 2:21 of round two. That distinction is central to evaluating the fighters' first comments and the next steps.",
+        "The earliest fight-night reporting offers a clearer picture than the rush of unsourced social-media clips. In coverage carried by talkSPORT, Dubois credited the work done with his team and described entering the contest with \"bad intentions\". That short quotation is taken from published reporting and refers to an aggressive competitive mindset. It is not evidence of foul play in the rematch.",
+        "Wardley was reported to have acknowledged Dubois' performance and spoken of his willingness to test himself against elite opposition. We are paraphrasing the reporting, not creating a direct quote from a full interview we have not independently checked. Any further comments from the challenger, or from his trainer Ben Davison, should be added only when the source and date can be verified.",
+        "## Dubois names the next target",
+        "Following the victory, promoter Frank Warren invited IBF champion Filip Hrgović into the ring. Ringside coverage by MMA Fighting reported Hrgović proposing March for a rematch, while reporting of the exchange records Dubois expressing interest in winning Hrgović's belt. The two men last fought in 2024, when Dubois stopped the Croatian. A challenge in the ring is not an agreed fixture: the IBF's mandatory situation, promoter negotiations and a confirmed date remain outstanding.",
+        "That distinction also changes the championship discussion. It is now fair to report that the champions have publicly signalled interest in meeting again, but not that an IBF–WBO title unification has been scheduled. AURA's separate analysis explains why the Frank Sanchez mandatory may affect the timetable.",
+        "## Two fights and a changed explanation",
+        "The first meeting gave Wardley a powerful early advantage. He put Dubois down twice before the eventual champion took command over a much longer fight and won by stoppage in the eleventh round. That created an understandable belief that Wardley could hurt Dubois again in an immediate rematch.",
+        "October inverted the beginning and removed the entire middle portion of the fight. It was Wardley who had to recover from an opening knockdown, and Dubois who applied pressure until the corner stopped the punishment. The champion did not need the prolonged comeback that had defined his May success.",
+        "For that reason, a neat narrative about fortune or one lucky punch is not sufficient. The first knockdown mattered tremendously, but so did the continuation of the attack. It is the cumulative sequence, not a single isolated exchange, that supports the recorded TKO result.",
+        "## Davison's decision deserves context",
+        "The stoppage was a corner intervention. That matters because Davison had already addressed criticism surrounding the ending of the first meeting. The challenge for any trainer is judging when a boxer is genuinely able to protect himself, not how much more punishment he might be willing to endure. There should be no invented medical verdict or allegation that Wardley chose to give up.",
+        "The corner will have its own reflections after reviewing the tape. They may be informative, but no considered retrospective statement has been substituted here for verified remarks. Immediate disappointment in an emotional interview cannot tell us everything about the team's future plans.",
+        "## What counts as a meaningful new reaction?",
+        "We are watching for first-hand comments from Wardley and Davison; an account from Dubois' trainer Don Charles; a substantive assessment by promoter Frank Warren; and any official WBO development that might identify the champion's next obligation. A callout from another heavyweight is worth reporting only when it adds confirmed information beyond publicity.",
+        "There is also no justification to announce a retirement, injury diagnosis, suspension or booked next opponent in the absence of reliable official reporting. Boxing news moves quickly, but accuracy must not be traded for being first.",
+        "For now, the central result and the immediate reaction stand: Dubois produced another win over the same rival, he did so far earlier than expected, and Wardley's next decision should be made on recovery and sporting merit rather than pressure to answer one loss immediately.",
+        "*This is a developing reaction report. New attributed statements will be added with dates and source links.*"
+      ],
+      "media": {
+        "photos": [
+          {
+            "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Daniel_Dubois_walkout.jpg",
+            "alt": "Daniel Dubois walking towards the ring at Wembley Stadium on 19 July 2025 for his fight against Oleksandr Usyk, archival photograph",
+            "credit": "Editor083 / Wikimedia Commons — CC BY 4.0",
+            "caption": "ARCHIVE, 19 July 2025: Daniel Dubois walks to the ring at Wembley before facing Oleksandr Usyk. Photographer: Editor083; CC BY 4.0. Original image, unmodified. This photograph is NOT from Dubois–Wardley II.",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout.jpg",
+            "licenceReference": "https://creativecommons.org/licenses/by/4.0/",
+            "rightsVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "slug": "dubois-wardley-rough-tactics-allegations-rematch-aftermath",
+      "title": "Dubois–Wardley Rough-Tactics Claims: What the Rematch Actually Settled",
+      "summary": "Wardley's camp accused Dubois of questionable tactics in May, but the rematch ended by early knockdown and a corner retirement, not an officiating dispute.",
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-17",
+      "category": "Fight Lab · Analysis",
+      "articleType": "Analysis",
+      "featured": false,
+      "priority": 89,
+      "coverageStage": "",
+      "fightId": "",
+      "source": "Sky Sports — Wardley camp's pre-fight allegations",
+      "sourceUrl": "https://www.skysports.com/boxing/news/13599704/fabio-wardleys-team-criticise-daniel-dubois-tactics-in-first-fight-as-they-demand-a-strong-referee-for-rematch",
+      "sources": [
+        {
+          "name": "Reuters — confirmed October rematch result",
+          "url": "https://www.reuters.com/sports/dubois-stops-wardley-second-round-retain-wbo-heavyweight-title-2026-10-17/"
+        },
+        {
+          "name": "talkSPORT — technical knockout details",
+          "url": "https://talksport.com/boxing/4650762/daniel-dubois-fabio-wardley-rematch/"
+        }
+      ],
+      "image": {
+        "src": "https://www.aurafightclub.com/news/media/dubois-wardley-rough-tactics.svg",
+        "alt": "AURA original graphic for Dubois–Wardley Rough-Tactics Claims: What the Rematch Actually Settled; no fight photograph used",
+        "credit": "AURA Fight Club — original editorial design",
+        "caption": "Original AURA editorial illustration, not a photograph of the contest.",
+        "sourceUrl": "https://www.aurafightclub.com/news/media/dubois-wardley-rough-tactics.svg"
+      },
+      "seoTitle": "Dubois–Wardley Rough-Tactics Claims: What the Rematch Actually Settled",
+      "metaDescription": "Wardley's camp accused Dubois of questionable tactics in May, but the rematch ended by early knockdown and a corner retirement, not an officiating dispute.",
+      "tags": [
+        "Daniel Dubois",
+        "Fabio Wardley",
+        "ringcraft",
+        "officiating"
+      ],
+      "body": [
+        "Before Daniel Dubois and Fabio Wardley met for the second time, Wardley's team wanted a closer examination of how the WBO champion had operated in their May fight. Manager Michael Ofo criticised what he regarded as rough tactics, alleging head-first entries, a rugby-style tackle and questionable use of a knee by Dubois after he was hurt.",
+        "Those were accusations reported by Sky Sports from Wardley's representatives, not official rulings establishing that the champion committed the alleged fouls. A boxer taking a knee is not automatically illegal. Likewise, clinching, physical entries and wrestling-like movements must be assessed individually under the rules rather than used as interchangeable labels for misconduct.",
+        "Dubois' trainer Don Charles disputed the criticism. The contrasting positions created a genuine question in advance of the return bout: would the fight be shaped by warnings and breaks, or would the decisive action come through conventional boxing exchanges?",
+        "## The rematch provided a different answer",
+        "Saturday's contest developed before the officials could become the main story. Dubois knocked Wardley down inside 17 seconds, maintained the attacking pressure and forced Ben Davison to throw in the towel at 2:21 of round two. Independent reports agree on that sequence and describe a decisive title defence.",
+        "The reporting reviewed for this story does not establish that an officiating controversy determined the second contest. It would therefore be misleading to present the earlier allegations as the explanation for Wardley's defeat or to pretend that the rematch produced a formal verdict on the previous fight's incidents.",
+        "## Ringcraft and infringement are not interchangeable",
+        "Elite boxers use small positional advantages: lead-hand contact, shoulder alignment, leaning, clinching when hurt and timing the moment to reset. Some are legitimate survival or control skills, while particular applications can infringe the rules. The important journalistic question is what exactly happened, what the rule says and whether an official actually sanctioned it.",
+        "Taking a knee is often a deliberate way for a hurt fighter to receive a count instead of being exposed to further punches. It can be a practical defensive choice within the rules. In contrast, physically tackling an opponent or using the head dangerously can prompt different scrutiny. No serious assessment should group these actions together without examining their context.",
+        "Ofo's criticism remains newsworthy because it came from a camp directly involved in a major world-title rematch. Charles' response matters for the same reason. But neither claim should be elevated into an uncontested fact without an official finding or clear evidence for the particular act alleged.",
+        "## What was settled in London",
+        "What Saturday established was Dubois' ability to overwhelm Wardley early and sustain the attack until the challenger's corner stopped the fight. Wardley's team had wanted the match officiated firmly; Dubois presented a more immediate sporting difficulty than any pre-fight argument over gamesmanship.",
+        "The stronger post-fight question is how a challenger who hurt Dubois so early in their first meeting had so little time to impose his own strategy in the second. That answer is in the timing, pressure and defence, rather than an unsupported allegation about the rematch referee.",
+        "The distinction protects both good analysis and good reporting: retain the pre-fight controversy as attributed news, and give the winner proper credit for the result confirmed inside the ring."
+      ]
+    },
+    {
+      "slug": "jalolov-dacres-result-dubois-wardley-undercard-october-2026",
+      "title": "Jalolov Beats Dacres on Points as Dubois–Wardley Undercard Delivers",
+      "summary": "Bakhodir Jalolov claimed a unanimous decision over Solomon Dacres, while Adam Olaniyan and Nelson Birchall recorded stoppage wins.",
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-17",
+      "category": "Fight Results",
+      "articleType": "News",
+      "featured": false,
+      "priority": 87,
+      "coverageStage": "",
+      "fightId": "",
+      "source": "MMA Fighting — London event results",
+      "sourceUrl": "https://www.mmafighting.com/boxing/515997/dubois-vs-wardley-2-results-live-updates-of-the-undercard-and-main-event",
+      "sources": [
+        {
+          "name": "Bad Left Hook — round-by-round and main-card results",
+          "url": "https://www.badlefthook.com/live-boxing-updates/119565/daniel-dubois-vs-fabio-wardley-2-live-blog-results-round-by-round-boxing-news-2026"
+        }
+      ],
+      "image": {
+        "src": "https://www.aurafightclub.com/news/media/jalolov-dacres-result.svg",
+        "alt": "AURA original graphic for Jalolov Beats Dacres on Points as Dubois–Wardley Undercard Delivers; no fight photograph used",
+        "credit": "AURA Fight Club — original editorial design",
+        "caption": "Original AURA editorial illustration, not a photograph of the contest.",
+        "sourceUrl": "https://www.aurafightclub.com/news/media/jalolov-dacres-result.svg"
+      },
+      "seoTitle": "Jalolov Beats Dacres on Points as Dubois–Wardley Undercard Delivers",
+      "metaDescription": "Bakhodir Jalolov claimed a unanimous decision over Solomon Dacres, while Adam Olaniyan and Nelson Birchall recorded stoppage wins.",
+      "tags": [
+        "Bakhodir Jalolov",
+        "Solomon Dacres",
+        "fight results"
+      ],
+      "body": [
+        "Daniel Dubois' second-round finish of Fabio Wardley will dominate headlines from The O2, but the supporting card included a different kind of heavyweight result. Bakhodir Jalolov defeated Solomon Dacres by unanimous decision according to results published by MMA Fighting and Bad Left Hook.",
+        "The outcome matters because Jalolov did not end the contest early. A two-time Olympic super-heavyweight gold medallist, he carries a major amateur pedigree into the paid ranks, along with high expectations about how quickly his professional career should advance.",
+        "A decision win is not a failure to fulfil those expectations. Rounds against a determined opponent can provide a better assessment of pacing, concentration and adjustments than an immediate stoppage. However, no individual scores or detailed punch statistics should be invented when an official source has not been checked.",
+        "## The value of a full-distance result",
+        "At championship level, success often depends on maintaining technique after the first wave of attacks fails to produce an ending. The difficulty is that a points win alone cannot establish how well Jalolov managed that challenge. It confirms that he completed the contest and won it on all three cards; deeper technical conclusions require closer video review and official judging details.",
+        "What can be said confidently is that Jalolov adds another professional victory, and that his next opponent should provide a useful further test. The division does not benefit from treating every prospect as deficient unless he secures a spectacular knockout.",
+        "## The rest of the London card",
+        "Adam Olaniyan stopped Dan Garber in the second round. Nelson Birchall defeated Levi Giles by seventh-round TKO, while Louie O'Doherty and Michael Gomez Jr. fought to a majority draw. Results reporting also lists stoppage victories for Tony Curtis, Zayn Ahmed and Manny Safari lower on the bill.",
+        "These are not mere footnotes to the headline fight. The undercard is where the next wave of domestic contenders build a body of evidence about their level, whether by surviving rounds, making adjustments or showing they can impose pressure over higher-quality opposition.",
+        "## What Aura will follow",
+        "For Jalolov, the next task is to establish what kind of opponent will most clearly test him on the professional stage. For Olaniyan and Birchall, the important question is the level of competition that follows their stoppage victories rather than the optics of a quick finish.",
+        "Exact scorecards, in-ring interviews and any disciplinary or medical details should be added only from verified reports. Tonight's principal lesson is already clear: the main event ended almost instantly, but the wider London card produced a set of results worth treating as boxing news in their own right."
+      ]
+    },
+    {
+      "slug": "daniel-dubois-wbo-heavyweight-title-what-next-after-wardley",
+      "title": "Dubois Keeps the WBO Belt: The Heavyweight Questions That Now Matter",
+      "summary": "Dubois has removed Wardley from his immediate title picture, but the identity of his next challenger depends on rankings, obligations and actual negotiations.",
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-18",
+      "category": "Inside Boxing",
+      "articleType": "News",
+      "featured": false,
+      "priority": 84,
+      "coverageStage": "",
+      "fightId": "",
+      "source": "Reuters — WBO heavyweight title defence",
+      "sourceUrl": "https://www.reuters.com/sports/dubois-stops-wardley-second-round-retain-wbo-heavyweight-title-2026-10-17/",
+      "sources": [
+        {
+          "name": "talkSPORT — Dubois result and wider reactions",
+          "url": "https://talksport.com/boxing/4650762/daniel-dubois-fabio-wardley-rematch/"
+        },
+        {
+          "name": "MMA Fighting — post-fight Hrgović faceoff",
+          "url": "https://www.mmafighting.com/boxing/516222/daniel-dubois-destroys-fabio-wardley-via-2nd-round-knockout-in-highly-anticipated-rematch"
+        },
+        {
+          "name": "Bad Left Hook — IBF mandatory complication",
+          "url": "https://www.badlefthook.com/boxing-results/119607/daniel-dubois-demolishes-fabio-wardley-in-rematch-boxing-results-news-2026"
+        }
+      ],
+      "image": {
+        "src": "https://www.aurafightclub.com/news/media/dubois-heavyweight-power-map.svg",
+        "alt": "AURA original graphic for Dubois Keeps the WBO Belt: The Heavyweight Questions That Now Matter; no fight photograph used",
+        "credit": "AURA Fight Club — original editorial design",
+        "caption": "Original AURA editorial illustration, not a photograph of the contest.",
+        "sourceUrl": "https://www.aurafightclub.com/news/media/dubois-heavyweight-power-map.svg"
+      },
+      "seoTitle": "Dubois Keeps the WBO Belt: The Heavyweight Questions That Now Matter",
+      "metaDescription": "Dubois has removed Wardley from his immediate title picture, but the identity of his next challenger depends on rankings, obligations and actual negotiations.",
+      "tags": [
+        "Daniel Dubois",
+        "WBO",
+        "heavyweight titles"
+      ],
+      "body": [
+        "Daniel Dubois removed one important uncertainty from the heavyweight division on Saturday: he is still the WBO champion, and Fabio Wardley is no longer an unresolved threat to his position. Their October rematch ended in the second round after Dubois secured an early knockdown and Wardley's corner stopped the contest.",
+        "It would be easy to fill the next twenty-four hours with a list of imaginary negotiations. The more interesting question is what this win changes in the real title landscape. Dubois has now beaten Wardley twice in five months: first after surviving early knockdowns, then by taking control within 17 seconds of the opening bell.",
+        "## Hrgović has now made his intentions public",
+        "After the Wardley stoppage, Frank Warren invited IBF champion Filip Hrgović into the ring with Dubois. The Croatian suggested a March rematch and Dubois expressed interest in pursuing his belt, according to ringside accounts. The interest is real; a signed bout is not. Warren also noted the IBF mandatory issue, with Frank Sanchez reported as the contender owed a title shot. These details clarify the next possible direction without turning negotiation into fact.",
+        "Those results enhance his reputation for resilience and offensive pressure. They do not by themselves confirm a future unification fight or a specific mandatory defence.",
+        "## Champion versus challenger: the categories matter",
+        "Holding the WBO belt gives Dubois a particular sporting and negotiating position. It does not automatically entitle him to pick any champion from another organisation whenever he chooses. Mandatory obligations, sanctioning decisions, broadcasters and promoters all influence which bouts can actually be made.",
+        "Oleksandr Usyk remains a prominent part of the wider heavyweight conversation because of his history against Dubois and the significance of the championship picture. Joseph Parker and other credible challengers also appear in discussions about possible routes. But a marketable fight is not an agreed fight, and a headline identifying a supposed next opponent needs confirmation from the relevant parties.",
+        "The most productive reporting questions are therefore practical. Has the WBO announced a mandatory order? Have promoters confirmed formal discussions? Is a date or venue contracted? Until those details exist, the story should present options as possibilities rather than completed deals.",
+        "## Wardley needs a separate assessment",
+        "The rematch was a consequential decision for Fabio Wardley, who had taken significant punishment in the May bout before returning five months later. Saturday ended much earlier and more decisively. The conversation will inevitably ask whether the return was too soon, but reporting should not leap from the timeline to an unverified medical conclusion.",
+        "Whatever he decides, the immediate priority must be recovery and an informed technical reassessment. A later bout against a very different style might tell more about his development than a third encounter shaped by the same physical pressures.",
+        "## Why the result matters now",
+        "For Dubois, the victory creates clarity. He is the champion, his most immediate rival has been defeated again and his next negotiation can take place without another immediate rematch blocking the route forward.",
+        "For the division, it is an opportunity to identify contenders on sporting merit, rather than simply giving prominence to the loudest callout. Aura will track official title obligations, credible promotional statements and signed fights as those developments are verified.",
+        "Tonight's confirmed news is a convincing successful defence. The next meaningful news may be the identity of a contender with the tools to make Dubois work much harder."
+      ],
+      "media": {
+        "photos": [
+          {
+            "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Daniel_Dubois_walkout.jpg",
+            "alt": "Daniel Dubois walking towards the ring at Wembley Stadium on 19 July 2025 for his fight against Oleksandr Usyk, archival photograph",
+            "credit": "Editor083 / Wikimedia Commons — CC BY 4.0",
+            "caption": "ARCHIVE, 19 July 2025: Daniel Dubois walks to the ring at Wembley before facing Oleksandr Usyk. Photographer: Editor083; CC BY 4.0. Original image, unmodified. This photograph is NOT from Dubois–Wardley II.",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout.jpg",
+            "licenceReference": "https://creativecommons.org/licenses/by/4.0/",
+            "rightsVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "slug": "daniel-dubois-fabio-wardley-2-result-second-round-tko",
+      "title": "Daniel Dubois Stops Fabio Wardley in Two Rounds to Retain WBO Heavyweight Title",
+      "summary": "Dubois dropped Wardley within 17 seconds and forced a corner stoppage at 2:21 of round two in their WBO heavyweight title rematch at The O2.",
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-18",
+      "category": "Breaking News",
+      "articleType": "News",
+      "featured": true,
+      "priority": 100,
+      "coverageStage": "",
+      "fightId": "",
+      "source": "Reuters — October 17 fight-night reporting",
+      "sourceUrl": "https://www.reuters.com/sports/dubois-stops-wardley-second-round-retain-wbo-heavyweight-title-2026-10-17/",
+      "sources": [
+        {
+          "name": "talkSPORT — stoppage time and fighter reaction",
+          "url": "https://talksport.com/boxing/4650762/daniel-dubois-fabio-wardley-rematch/"
+        },
+        {
+          "name": "MMA Fighting — undercard and official result",
+          "url": "https://www.mmafighting.com/boxing/515997/dubois-vs-wardley-2-results-live-updates-of-the-undercard-and-main-event"
+        }
+      ],
+      "image": {
+        "src": "https://www.aurafightclub.com/news/media/dubois-wardley-result-2026.svg",
+        "alt": "Original AURA Fight Club typographic editorial graphic for Daniel Dubois Stops Fabio Wardley in Two Rounds to Retain WBO Heavyweight Title; not a fight-action photograph.",
+        "credit": "AURA Fight Club — original editorial artwork",
+        "caption": "Original editorial title artwork. A genuine photograph of this fight has not yet been licensed for publication.",
+        "sourceUrl": "https://www.aurafightclub.com/news/media/dubois-wardley-result-2026.svg"
+      },
+      "seoTitle": "Daniel Dubois Stops Fabio Wardley in Two Rounds to Retain WBO Heavywei",
+      "metaDescription": "Dubois dropped Wardley within 17 seconds and forced a corner stoppage at 2:21 of round two in their WBO heavyweight title rematch at The O2.",
+      "tags": [
+        "Daniel Dubois",
+        "Fabio Wardley",
+        "WBO",
+        "TKO",
+        "heavyweight title"
+      ],
+      "body": [
+        "Daniel Dubois did not leave Fabio Wardley time to find a second act. Five months after their turbulent first fight in Manchester, the WBO heavyweight champion reduced the rematch to two rounds of unrelenting pressure, stopping Wardley at The O2 in London on Saturday night.",
+        "The defining moment arrived almost immediately. Seventeen seconds into the opening round, Wardley was on the canvas. It was a startling reversal of their May meeting, when Wardley had floored Dubois twice before the Londoner fought his way back to an eleventh-round stoppage. On this occasion it was Dubois who imposed the crisis from the opening bell.",
+        "Wardley beat the count but could not establish the distance or tempo necessary to disrupt Dubois. The challenger survived the first round, with the bell providing a vital interruption to a sustained spell of pressure. Dubois returned to the same work in the second. When Wardley came under further heavy attack in a corner, trainer Ben Davison threw in the towel. The reported stoppage time was 2:21 of round two.",
+        "That distinction matters. This was a technical knockout following a corner intervention, not a clean knockout from which Wardley failed to rise. The official result is Dubois TKO 2. A corner's responsibility is not simply to count the punches a fighter takes but to determine whether he can still defend himself and change the contest. Davison judged that threshold had been reached.",
+        "## A different fight, not merely a shorter one",
+        "The first encounter rewarded Dubois for surviving adversity and taking command over time. The rematch asked a different question: could Wardley establish enough space and composure to prevent Dubois setting his feet and attacking? The early knockdown removed much of that space before the fight had settled.",
+        "Dubois' approach looked deliberate. Rather than spend several rounds negotiating the jab or reacting to Wardley's counters, he forced damaging exchanges before his opponent could develop a rhythm. That is a tactical reading of the reported sequence, not a claim to have independently calculated punch statistics or verified particular combinations on film.",
+        "## What happens to the heavyweight title?",
+        "Dubois retained the WBO belt and recorded his second stoppage of Wardley. His professional record moves to 24-3, according to fight-night reporting. The performance strengthens his position in any heavyweight title conversation, but no opponent or mandatory defence should be treated as agreed until the parties announce it.",
+        "Wardley, meanwhile, has now been stopped twice by the same fighter within five months. It is not responsible to invent a medical diagnosis or declare his career over. The sensible immediate questions are how he recovers, what his team says after appropriate assessment, and whether his tactical approach can be rebuilt away from the pressure of an immediate rematch.",
+        "The emphatic result should not obscure its sequence. Dubois established an advantage within 17 seconds, carried the pressure forward after the break and left the challenger's corner to make a difficult decision. He did not just win a second fight. He removed the conditions that had made the first one competitive.",
+        "This report will be updated with verified post-fight statements and official information as they become available."
+      ],
+      "media": {
+        "photos": [
+          {
+            "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Daniel_Dubois_walkout.jpg",
+            "alt": "Daniel Dubois walking towards the ring at Wembley Stadium on 19 July 2025 for his fight against Oleksandr Usyk, archival photograph",
+            "credit": "Editor083 / Wikimedia Commons — CC BY 4.0",
+            "caption": "ARCHIVE, 19 July 2025: Daniel Dubois walks to the ring at Wembley before facing Oleksandr Usyk. Photographer: Editor083; CC BY 4.0. Original image, unmodified. This photograph is NOT from Dubois–Wardley II.",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daniel_Dubois_walkout.jpg",
+            "licenceReference": "https://creativecommons.org/licenses/by/4.0/",
+            "rightsVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "slug": "dubois-wardley-first-17-seconds-tactical-analysis",
+      "title": "The First 17 Seconds: How Dubois Took Away Wardley's Route Back",
+      "summary": "Wardley floored Dubois early in May. In October, Dubois took the lead before the fight could settle. We examine the shift in ring geography and recovery time.",
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-17",
+      "category": "Fight Lab · Analysis",
+      "articleType": "Analysis",
+      "featured": true,
+      "priority": 98,
+      "coverageStage": "",
+      "fightId": "",
+      "source": "Reuters — October 17 fight-night reporting",
+      "sourceUrl": "https://www.reuters.com/sports/dubois-stops-wardley-second-round-retain-wbo-heavyweight-title-2026-10-17/",
+      "sources": [
+        {
+          "name": "talkSPORT — fight result and reactions",
+          "url": "https://talksport.com/boxing/4650762/daniel-dubois-fabio-wardley-rematch/"
+        }
+      ],
+      "image": {
+        "src": "https://www.aurafightclub.com/news/media/dubois-wardley-first-17-seconds.svg",
+        "alt": "Original AURA Fight Club typographic editorial graphic for The First 17 Seconds: How Dubois Took Away Wardley's Route Back; not a fight-action photograph.",
+        "credit": "AURA Fight Club — original editorial artwork",
+        "caption": "Original editorial title artwork. A genuine photograph of this fight has not yet been licensed for publication.",
+        "sourceUrl": "https://www.aurafightclub.com/news/media/dubois-wardley-first-17-seconds.svg"
+      },
+      "seoTitle": "The First 17 Seconds: How Dubois Took Away Wardley's Route Back",
+      "metaDescription": "Wardley floored Dubois early in May. In October, Dubois took the lead before the fight could settle. We examine the shift in ring geography and recovery time.",
+      "tags": [
+        "Daniel Dubois",
+        "Fabio Wardley",
+        "tactics",
+        "boxing analysis"
+      ],
+      "body": [
+        "The most important difference between Daniel Dubois and Fabio Wardley in their rematch did not require twelve rounds, or even one full round, to reveal itself. In May, Wardley's early aggression produced two knockdowns and gave him a chance to dictate the fight. On Saturday, Dubois knocked Wardley down within 17 seconds. The champion began from the position the challenger had wanted for himself.",
+        "Once a heavyweight is badly hurt that early, a fight can stop being about the plan discussed in the dressing room. It becomes an exercise in recovery: clinch when appropriate, deny a straight-line attack, reset the feet, breathe and get through the round without exchanging recklessly. Those are general boxing principles, not evidence that Wardley used or failed to use any one move in every exchange.",
+        "## Why the knockdown changed the geometry",
+        "A boxer with room to work can vary his jab, draw a lead and select moments to counter. A hurt boxer being driven backwards has fewer options. He may be moving defensively, but unless that movement makes the aggressor miss or turn, it can simply surrender the space necessary to launch an effective response.",
+        "Wardley was in precisely that emergency after the opening exchange. The bell interrupted the attack at the end of the first, but did not erase the tactical imbalance. Dubois entered round two with an incentive to keep the challenger defensive, drive him towards the ropes or corner and deny him time to set his feet.",
+        "The closing sequence ended with Ben Davison throwing in the towel at 2:21 of the second. It was a corner stoppage, not a dispute settled on the scorecards. There was no opportunity for a late-round surge, no attritional route back and no time for Wardley to reproduce the opening he had created in May.",
+        "## Power versus positioning",
+        "Dubois plainly has the power to change a contest with a single punch. But power by itself is not a complete explanation. The more useful question is how quickly he created the circumstances in which it could be applied again. A fast first-round knockdown is valuable; sustaining pressure without giving an opponent a meaningful reset is how a knockdown becomes a stoppage.",
+        "Wardley will be judged by the result, but his failure should not be reduced to courage or desire. He demonstrated both during their first fight. The problems worth examining are the ones fighters can address: the defensive response to an early crisis, an escape route when backed up and the balance between fighting back and surviving long enough to recover.",
+        "## A result that will travel beyond this rivalry",
+        "The temptation after a short stoppage is to project Dubois into every conceivable championship matchup. This performance strengthens his claim to be a central figure in the division. It does not predict how he would perform against an opponent with a different jab, counterpunching rhythm or reach-management system.",
+        "The immediate lesson is narrower and more valuable. Dubois has won this rivalry in two different ways: once by enduring a dangerous start and taking over late, and once by creating the early crisis himself. A champion who can win from both positions is a more difficult problem than one relying on a single pattern."
+      ]
+    },
+    {
+      "slug": "ben-davison-towel-fabio-wardley-dubois-corner-decision",
+      "title": "Ben Davison Threw in the Towel: Why the Wardley Corner Acted",
+      "summary": "After questions about the first fight's late stoppage, Wardley's trainer stopped the October rematch in round two. The difference is worth examining.",
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-17",
+      "category": "Inside Boxing",
+      "articleType": "News",
+      "featured": false,
+      "priority": 96,
+      "coverageStage": "",
+      "fightId": "",
+      "source": "Reuters — October 17 fight-night reporting",
+      "sourceUrl": "https://www.reuters.com/sports/dubois-stops-wardley-second-round-retain-wbo-heavyweight-title-2026-10-17/",
+      "sources": [
+        {
+          "name": "Sky Sports — Davison discussed the difficult call in the first fight",
+          "url": "https://www.skysports.com/boxing/news/13542311/fabio-wardley-trainer-says-daniel-dubois-fight-could-have-been-stopped-earlier-but-explains-why-towel-not-thrown-in"
+        },
+        {
+          "name": "talkSPORT — October rematch corner stoppage",
+          "url": "https://talksport.com/boxing/4650762/daniel-dubois-fabio-wardley-rematch/"
+        }
+      ],
+      "image": {
+        "src": "https://www.aurafightclub.com/news/media/wardley-corner-decision.svg",
+        "alt": "Original AURA Fight Club typographic editorial graphic for Ben Davison Threw in the Towel: Why the Wardley Corner Acted; not a fight-action photograph.",
+        "credit": "AURA Fight Club — original editorial artwork",
+        "caption": "Original editorial title artwork. A genuine photograph of this fight has not yet been licensed for publication.",
+        "sourceUrl": "https://www.aurafightclub.com/news/media/wardley-corner-decision.svg"
+      },
+      "seoTitle": "Ben Davison Threw in the Towel: Why the Wardley Corner Acted",
+      "metaDescription": "After questions about the first fight's late stoppage, Wardley's trainer stopped the October rematch in round two. The difference is worth examining.",
+      "tags": [
+        "Ben Davison",
+        "Fabio Wardley",
+        "Daniel Dubois",
+        "corner stoppage"
+      ],
+      "body": [
+        "The moment that ended Daniel Dubois' rematch with Fabio Wardley was not a referee's count. It was a decision made in the challenger's corner. With Wardley taking sustained punishment against the ropes and in a corner, trainer Ben Davison threw in the towel in round two. The official result was a TKO victory for Dubois at 2:21.",
+        "It is impossible to assess the decision fairly without the context of their first meeting. After Dubois stopped Wardley in the eleventh round in May, Davison discussed the difficult balance between allowing a responsive boxer to continue and protecting that fighter from unnecessary punishment. He acknowledged then that the earlier fight could have been stopped sooner and explained the pressure on a trainer making the judgement in real time.",
+        "Saturday offered a much faster version of that dilemma. Wardley was down within 17 seconds of the first round, weathered more punishment before the bell and was again struggling under heavy attack in the second. Rather than ask the challenger to absorb another sequence in the hope of a sudden counter, Davison intervened.",
+        "## Why this is not a referendum on bravery",
+        "Heavyweight championship fights create powerful incentives to continue: a belt, pride, contracts, a reputation for resilience and the knowledge that one punch can reverse an apparently lost contest. A responsible corner must resist letting those incentives replace a clear assessment of the fighter's ability to defend himself.",
+        "Wardley's past performances explain why his team would believe he could recover from adversity. But being prepared to fight through hard moments and being able to protect oneself at that specific instant are different propositions. Neither a reporter nor a fan should pretend to know the fighter's medical condition from televised action.",
+        "There is also a distinction between a referee stoppage and a corner retirement. Both produce a TKO result, but the people making the decisions and the information they have may differ. In this case, the corner's action should be reported accurately rather than turned into an invented exchange or a claim that Wardley voluntarily surrendered.",
+        "## The responsible next question",
+        "Discussion will focus on whether the stoppage came at precisely the right moment, but the more relevant follow-up is what the team concludes after reviewing the bout and assessing Wardley's recovery. Davison's decision prevented the fight from continuing while Dubois held a clear and damaging advantage.",
+        "If Wardley fights again, a serious rebuild should start with recovering from the contest and finding better ways to interrupt pressure, not by proving that he is tough. That quality has never been in doubt. The tactical and medical questions deserve more attention than slogans about courage."
+      ]
+    },
     {
       "slug": "dalton-smith-alberto-puello-wbc-title-prediction-october-2026",
       "title": "Dalton Smith beat the bully. Can he solve Puello's southpaw puzzle?",
@@ -395,41 +892,33 @@
     },
     {
       "slug": "figueroa-kameda-featherweight-championship-preview-2026",
-      "title": "Don't overlook Figueroa vs Kameda: the quieter world-title fight with serious risk",
-      "summary": "Brandon Figueroa's first WBA featherweight defence comes against former champion Tomoki Kameda. This could be the most technical contest of a stacked October 17 night.",
-      "date": "2026-10-14",
-      "updatedAt": "2026-10-14",
-      "category": "Fight Lab · Preview",
-      "articleType": "Analysis",
-      "featured": false,
-      "priority": 94,
-      "coverageStage": "Build-up",
+      "title": "Figueroa–Kameda Cancelled After Weight Miss and Illness",
+      "summary": "PBC confirmed the bout was cancelled after Brandon Figueroa missed weight and became ill overnight. Tomoki Kameda will not box on the Fundora card.",
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-17",
+      "category": "Breaking News",
+      "articleType": "News",
+      "featured": true,
+      "priority": 95,
+      "coverageStage": "",
       "fightId": "figueroa-kameda",
-      "source": "Premier Boxing Champions",
-      "sourceUrl": "https://www.premierboxingchampions.com/bouts/483574",
+      "source": "FightMag — PBC cancellation announcement",
+      "sourceUrl": "https://www.fightmag.com/brandon-figueroa-vs-tomoki-kameda-fight-canceled/",
       "sources": [
         {
-          "name": "PBC — confirmed WBA featherweight title fight",
-          "url": "https://www.premierboxingchampions.com/bouts/483574"
-        },
-        {
-          "name": "The Ring — Figueroa wins WBA title against Nick Ball",
-          "url": "https://www.ringmagazine.com/news/brandon-figueroa-targets-unification-fights-after-beating-ball-4owIT57rA1zgE1L9tjvPn1"
-        },
-        {
-          "name": "BoxingScene — Kameda's late-career title ambition",
-          "url": "https://www.boxingscene.com/articles/tomoki-kameda-targets-featherweight-titles-in-final-year-as-a-boxer"
+          "name": "Bad Left Hook — revised Fundora card",
+          "url": "https://www.badlefthook.com/live-boxing-updates/119570/sebastian-fundora-vs-ermal-hadribeaj-live-blog-results-round-by-round-updates-tnt-boxing-news-2026-pbc-dazn"
         }
       ],
       "image": {
-        "src": "https://images.ctfassets.net/lg76kxmf55ue/3QhK5CzXN88YhOK53NJ66k/f9d40aacfb25dc861406d2ddb015a6a6/BFC15572.JPG",
-        "alt": "Brandon Figueroa celebrates with the WBA featherweight world title after defeating Nick Ball in February 2026.",
-        "credit": "The Ring — February 2026 fight-night photograph",
-        "caption": "Brandon Figueroa with the WBA belt after his win over Nick Ball. Archive photograph; Kameda is not pictured.",
-        "sourceUrl": "https://www.ringmagazine.com/news/brandon-figueroa-targets-unification-fights-after-beating-ball-4owIT57rA1zgE1L9tjvPn1"
+        "src": "https://www.aurafightclub.com/news/media/figueroa-kameda-cancelled.svg",
+        "alt": "Original AURA editorial typography announcing the cancellation of Figueroa versus Kameda; not a fighter photograph",
+        "credit": "AURA Fight Club — original editorial artwork",
+        "caption": "The bout is cancelled; this graphic does not show the fighters in action.",
+        "sourceUrl": "https://www.aurafightclub.com/news/media/figueroa-kameda-cancelled.svg"
       },
-      "seoTitle": "Figueroa vs Kameda: WBA Featherweight Prediction | AURA",
-      "metaDescription": "Brandon Figueroa faces Tomoki Kameda for the WBA featherweight belt on October 17. Our analysis of style, body work and the upset route.",
+      "seoTitle": "Figueroa vs Kameda Cancelled After Weigh-In | AURA",
+      "metaDescription": "Figueroa–Kameda is off after Brandon Figueroa missed weight and became ill. PBC confirms cancellation ahead of Fundora–Hadribeaj.",
       "tags": [
         "Brandon Figueroa",
         "Tomoki Kameda",
@@ -439,22 +928,14 @@
         "October 17"
       ],
       "body": [
-        "## A world-title defence hidden behind the bigger bill",
-        "Saturday 17 October is crowded with championship boxing. Daniel Dubois and Fabio Wardley meet again in London; Sebastian Fundora defends his WBC 154-pound title in Las Vegas. In the Nevada co-feature, Brandon Figueroa makes the first defence of the WBA featherweight championship he won by stopping Nick Ball in the last round in Liverpool earlier this year. Across from him is former world champion Tomoki Kameda. It is not a novelty act or a supporting attraction in sporting terms. It is a serious twelve-round examination.",
-        "PBC confirms the fight for The Chelsea at The Cosmopolitan of Las Vegas. Figueroa arrives with recent evidence that his pressure and stamina work against elite opposition. Kameda carries the experience of an accomplished former champion who has negotiated a long professional career through changing divisions and opponents.",
-        "## Figueroa's pressure is a geometry problem",
-        "Pressure is often described as simple aggression, but Figueroa creates his advantage by repeatedly shortening the distance until the other man has fewer safe directions to go. He works the body, throws in combinations and stays busy late, forcing an opponent to either match that output or surrender territory. His dramatic final-round finish against Ball was an example of what sustained insistence can eventually produce.",
-        "However, pressure can be managed. The best counter is not always to run; a well-timed step to the side after a jab can keep a pressure fighter turning without allowing him to settle for two or three consecutive attacks. Kameda's experience gives him a technical pathway to make those entries costly.",
-        "## Kameda needs to win the rests as well as the exchanges",
-        "Kameda should not assume a champion known for activity will become frustrated simply because a few counters land. He needs to keep scoring in the quieter moments: a quick jab, a short two-punch response, then a pivot before Figueroa can touch the body. When a pressure fighter wins the centre of the ring between combinations, he can make a close contest feel increasingly one-sided to the judges.",
-        "An ambitious challenger also has to recognise the danger of waiting too long for perfectly clean openings. Figueroa will keep throwing; passive defence will only invite another round of work. Kameda must break the pattern with his own lead hand and make the champion reset his feet.",
-        "## The battle could be decided downstairs",
-        "At featherweight, the body attack can be the decisive difference between an opponent who moves freely at the start and one who cannot escape by the tenth. Figueroa is built to extract that tax with repeated pressure. If Kameda's counters force Figueroa to hesitate before each entry, the attack slows; if Figueroa gets into a steady rhythm, the challenger may have to absorb punishment just to create the chance to answer.",
-        "The critical middle rounds should reveal which fighter is dictating exchanges. Figueroa will want longer sequences and sustained contact. Kameda needs short, productive bursts with a responsible exit. Neither strategy works unless the fighter can impose it while being hit.",
-        "## AURA prediction: Figueroa on points, but not without difficult rounds",
-        "Our pick is Brandon Figueroa by decision. His recent level of competition, pressure and demonstrated late-fight stamina give him the better case over twelve rounds. A stoppage is a live possibility if Kameda is held on the ropes too often, but we prefer the more measured route: Figueroa winning stretches of each round without a clean finish.",
-        "Kameda's upset route lies in countering the first attack rather than the third, preventing long combinations and winning at least the opening half of the bout with efficient scoring. If the Japanese challenger makes Figueroa restart every few seconds, what looked like a predictable pressure fight can become a tight technical argument.",
-        "The fight takes place on the Fundora–Hadribeaj bill on 17 October. PBC lists the American broadcast window from 8pm Eastern / 5pm Pacific on DAZN and TNT, although that is not this specific bout's guaranteed ring-walk time. It would be a mistake to skip the featherweights simply because the biggest names fight later."
+        "Brandon Figueroa's bout with Tomoki Kameda will not take place on Saturday night. Premier Boxing Champions announced the cancellation after Figueroa failed to make weight and subsequently became ill overnight. The bout had been scheduled as a supporting contest on the Sebastian Fundora–Ermal Hadribeaj show at The Chelsea at The Cosmopolitan of Las Vegas.",
+        "The cancellation changes the story that developed at the weigh-in. Initially the consequence was that Figueroa could no longer retain the WBA featherweight title after missing the limit. With the contest now called off, it would be inaccurate to describe Kameda as boxing for a vacant title later in the evening. Any pre-fight preview suggesting that contest remains on the bill is outdated.",
+        "## The weight issue and the illness must be reported separately",
+        "A missed weight and subsequent illness are related in the chronology of the weekend, but are not grounds for an invented diagnosis. The information reviewed does not establish why Figueroa became ill, whether his weight-cutting caused the illness, or when he might be cleared to return. Those questions require verified statements from appropriate parties.",
+        "The disruption is substantial for Kameda, who completed preparation for an important bout but will not have the chance to compete. There may also be contractual and sanctioning consequences; until officials announce them, they should not be presented as settled facts.",
+        "## How the revised card changes",
+        "Fundora's WBC super-welterweight defence against Ermal Hadribeaj remains the billed main event. Armando Reséndiz versus Koen Mazoudier assumes a more prominent place on the updated card. Viewers should consult the latest broadcaster or promoter information rather than older artwork still promoting the cancelled featherweight contest.",
+        "For Aura, this is a significant breaking story rather than a weigh-in footnote. The initial title-loss development mattered, but the cancellation is the final change to Saturday's schedule. The WBA's subsequent administrative position, Kameda's next steps and any official update from Figueroa's team should be reported when independently verified."
       ]
     },
     {
@@ -1182,13 +1663,13 @@
     {
       "slug": "dubois-wardley-rematch-technical-preview",
       "title": "Dubois vs Wardley II: our prediction, the rematch adjustments and the danger of round one",
-      "summary": "Wardley floored Dubois twice but lost in eleven. Our detailed prediction examines the jab, the exits, the damaged momentum and which heavyweight actually learned more.",
+      "summary": "Archived pre-fight tactical preview, now annotated with the confirmed 17 October result. Dubois stopped Wardley in the second round.",
       "date": "2026-10-14",
-      "updatedAt": "2026-10-14",
-      "category": "Fight Lab · Prediction",
+      "updatedAt": "2026-10-17",
+      "category": "The Archives · Pre-fight analysis",
       "articleType": "Analysis",
-      "featured": true,
-      "priority": 100,
+      "featured": false,
+      "priority": 4,
       "source": "The Ring — Dubois vs Wardley II event details",
       "sourceUrl": "https://www.ringmagazine.com/events/7HVg5exI2jkpqLW3hn9fVB",
       "sources": [
@@ -1221,6 +1702,8 @@
         "sourceUrl": "https://www.boxingscene.com/articles/daniel-dubois-ready-to-go-fabio-wardley-warned"
       },
       "body": [
+        "## Editor's note — updated 17 October 2026",
+        "This article was written before Dubois–Wardley II and is preserved as a record of the pre-fight tactical questions, not as a current fight prediction. Dubois retained his WBO title by second-round TKO on 17 October after dropping Wardley within 17 seconds; Ben Davison threw in the towel at 2:21 of the second. For verified results and updated analysis, see AURA's 17 October News Desk coverage.",
         "## Two knockdowns, one stoppage and an unfinished argument",
         "Fabio Wardley has already demonstrated that he can hurt Daniel Dubois. In Manchester on 9 May 2026 he floored the bigger-name puncher in the opening seconds and dropped him again in the third. Yet Dubois eventually became the WBO heavyweight champion, turning the fight into a punishing eleventh-round stoppage. The result was decisive; the route to it was anything but comfortable for the winner. Five months later, they are meeting again at The O2 in London on Saturday 17 October, with Dubois defending the belt he took from Wardley.",
         "That first fight is a better guide to their physical threat than to what happens next. Both camps now know their opponent's best weapon can reach them. The question is not who hits hard. It is which heavyweight can control the moments between the exchanges, stop the other resetting, and avoid giving away the fight after winning individual rounds.",
@@ -2843,7 +3326,58 @@
       "tags": [
         "news brief"
       ]
+    },
+    {
+      "slug": "lawrence-okolie-wbc-adjudication-agreement-explained-october-2026",
+      "title": "Lawrence Okolie and the WBC Have Reached an Agreement. Here Is What It Actually Says",
+      "summary": "The WBC's agreement with Lawrence Okolie follows an adverse analytical finding. The precise wording matters more than sweeping claims of guilt or exoneration.",
+      "date": "2026-10-17",
+      "updatedAt": "2026-10-17",
+      "category": "Boxing Exposed",
+      "articleType": "News",
+      "coverageStage": "",
+      "fightId": "",
+      "featured": false,
+      "priority": 82,
+      "source": "World Boxing Council — joint statement 16 October 2026",
+      "sourceUrl": "https://wbcboxing.com/en/world-boxing-councils-and-lawrence-okolie-s-joint-statement/",
+      "sources": [
+        {
+          "name": "Sky Sports — reporting on the agreement",
+          "url": "https://www.skysports.com/boxing/news/13600063/lawrence-okolie-hopes-to-resume-boxing-career-after-resolution-with-wbc-following-failed-drug-test-this-year"
+        }
+      ],
+      "tags": [
+        "Lawrence Okolie",
+        "WBC",
+        "anti-doping",
+        "boxing governance"
+      ],
+      "image": {
+        "src": "https://www.aurafightclub.com/news/media/okolie-wbc-agreement.svg",
+        "alt": "AURA original editorial title illustration for Lawrence Okolie and the WBC agreement; not a photograph",
+        "credit": "AURA Fight Club — original editorial design",
+        "caption": "Original editorial graphic. Details of the agreement are drawn from the WBC's published statement.",
+        "sourceUrl": "https://www.aurafightclub.com/news/media/okolie-wbc-agreement.svg"
+      },
+      "seoTitle": "Lawrence Okolie WBC Agreement Explained | AURA",
+      "metaDescription": "The WBC and Lawrence Okolie have resolved a matter arising from an adverse analytical finding. What the governing body's published statement says.",
+      "body": [
+        "The World Boxing Council and Lawrence Okolie have reached an adjudication agreement arising from an adverse analytical finding. For a boxer looking to resume his career, that is a consequential development. It is also a subject on which headlines can get ahead of the official record.",
+        "The WBC's joint statement, published on 16 October, says the matter concerned a sample collected in April 2026 under its Clean Boxing Program. The body says it reviewed the substance and circumstances, considered submissions on Okolie's behalf, and reached a resolution with the boxer.",
+        "The statement also says Okolie cooperated with the review and supplied mitigating evidence supporting his position that the substance entered his system because of a third party without his knowledge or consent. Reporting those submissions accurately is not the same as independently establishing every underlying event.",
+        "These are the contents of a governing body's account. They should not be collapsed into an absolute claim that the original finding never occurred, that all other regulators necessarily agree, or that intentional wrongdoing was established. Each of those stronger conclusions would require distinct evidence.",
+        "## Why the exact terminology matters",
+        "Several questions arise in a case involving an adverse analytical finding. Was a substance detected? What rules govern the programme? What evidence exists about the source of the substance and any athlete fault? What outcome was reached? And which other authorities may exercise separate jurisdiction?",
+        "An adjudication agreement addresses a defined process under the body issuing it. The terms matter; shorthand headlines can erase important legal and sporting distinctions. Careful reporting should link to the original WBC document, explain its scope, and distinguish what the body has decided from what others may still need to determine.",
+        "## The sporting implications",
+        "Before the issue emerged, Okolie was positioned among heavyweight contenders. Whether he can resume a particular title route depends on eligibility, sanctioning-body rankings, opponents and contracted events. Those should be confirmed from official sources before any return fight or guaranteed championship opportunity is announced.",
+        "There is a broader reason to get this right. Anti-doping coverage affects reputations, while uncertainty about eligibility can affect future competition. A publication must neither suppress an adverse finding nor manufacture a disciplinary outcome beyond the formal statement.",
+        "## What remains to be verified",
+        "The WBC agreement changes the immediate public understanding of Okolie's position, but it does not automatically settle every possible sporting question. The next factual developments would be a confirmed ranking, eligibility notice, opponent announcement or formal date for a return.",
+        "Aura will update this analysis as primary records become available. The strongest reporting position is straightforward: present the WBC's actual wording, explain the boxer’s stated position, and make no claim larger than the evidence supports."
+      ]
     }
   ],
-  "updatedAt": "2026-10-14T07:21:27.675Z"
+  "updatedAt": "2026-10-18T00:00:00.000Z"
 }

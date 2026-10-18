@@ -21,13 +21,22 @@ export function validateArticle(input) {
  const checkedSources=sources.map(s=>{const name=String(s.name||'').trim();if(!name||name.length>150)throw new Error('Each source needs a name, up to 150 characters.');return {name,url:httpsUrl(s.url)};});
  const sourceHosts=new Set([input.sourceUrl,...checkedSources.map(s=>s.url)].filter(Boolean).map(url=>{try{return new URL(url).hostname.replace(/^www\./,'')}catch{return ''}}).filter(Boolean));
  if(sourceHosts.size<2)throw new Error('Provide reporting from at least two independent source domains. A second URL from the same publisher does not count.');
+ // Rights-confirmed local/hosted photos only. A source credit alone is not permission.
+ const incomingPhotos=Array.isArray(input.media?.photos)?input.media.photos:[];
+ if(incomingPhotos.length>12)throw new Error('Add at most 12 licensed photographs per article.');
+ const mediaPhotos=incomingPhotos.map((photo,index)=>{
+  if(photo.rightsVerified!==true||!String(photo.licenceReference||'').trim())throw new Error('Photo '+(index+1)+' needs confirmed publication rights and a licence reference.');
+  const alt=String(photo.alt||'').trim(),credit=String(photo.credit||'').trim();
+  if(!alt||!credit)throw new Error('Photo '+(index+1)+' needs descriptive alt text and photographer credit.');
+  return {src:httpsUrl(photo.src),alt:alt.slice(0,500),credit:credit.slice(0,300),caption:String(photo.caption||'').trim().slice(0,500),sourceUrl:httpsUrl(photo.sourceUrl,true),licenceReference:String(photo.licenceReference).trim().slice(0,400),rightsVerified:true};
+ });
  const seoTitle=String(input.seoTitle||'').trim().slice(0,70);
  const metaDescription=String(input.metaDescription||'').trim().slice(0,170);
  const tags=Array.isArray(input.tags)?input.tags.map(v=>String(v).trim()).filter(Boolean).slice(0,12):[];
  const fighterSlugs=Array.isArray(input.fighterSlugs)?input.fighterSlugs.map(v=>String(v).trim()).filter(v=>/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v)).slice(0,12):[];
  const coverageStage=input.coverageStage||'';if(!['','Build-up','Reaction'].includes(coverageStage))throw new Error('Choose Build-up or Reaction.');
  const fightId=String(input.fightId||'');if(fightId&&!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(fightId))throw new Error('Choose a valid fight address.');
- return {coverageStage,fightId,articleType,sources:checkedSources,slug,title:text('title',200),summary:text('summary',500),seoTitle,metaDescription,tags,fighterSlugs,updatedAt:String(input.updatedAt||'').slice(0,10),category:text('category',60),date,body,source:text('source',150),sourceUrl:httpsUrl(input.sourceUrl),featured:input.featured===true,priority:Math.max(0,Math.min(100,Number(input.priority)||0)),youtubeId,videoUrl:youtubeId?`https://www.youtube.com/watch?v=${youtubeId}`:httpsUrl(input.videoUrl,true),image:{src:httpsUrl(image.src),fallbackSrc:image.fallbackSrc && /^\/news\/media\/[a-z0-9-]+\.svg$/.test(image.fallbackSrc) ? image.fallbackSrc : '',alt:String(image.alt).trim().slice(0,500),credit:String(image.credit).trim().slice(0,300),caption:String(image.caption||'').trim().slice(0,500),sourceUrl:httpsUrl(image.sourceUrl,true)}};
+ return {coverageStage,fightId,articleType,sources:checkedSources,media:{photos:mediaPhotos},slug,title:text('title',200),summary:text('summary',500),seoTitle,metaDescription,tags,fighterSlugs,updatedAt:String(input.updatedAt||'').slice(0,10),category:text('category',60),date,body,source:text('source',150),sourceUrl:httpsUrl(input.sourceUrl),featured:input.featured===true,priority:Math.max(0,Math.min(100,Number(input.priority)||0)),youtubeId,videoUrl:youtubeId?`https://www.youtube.com/watch?v=${youtubeId}`:httpsUrl(input.videoUrl,true),image:{src:httpsUrl(image.src),fallbackSrc:image.fallbackSrc && /^\/news\/media\/[a-z0-9-]+\.svg$/.test(image.fallbackSrc) ? image.fallbackSrc : '',alt:String(image.alt).trim().slice(0,500),credit:String(image.credit).trim().slice(0,300),caption:String(image.caption||'').trim().slice(0,500),sourceUrl:httpsUrl(image.sourceUrl,true)}};
 }
 export function orderArticles(articles) {
  return [...articles].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')) || (Number(b.priority)||0)-(Number(a.priority)||0) || Number(b.featured===true)-Number(a.featured===true) || String(b.publishedAt||'').localeCompare(String(a.publishedAt||'')) || String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')) || String(a.slug||'').localeCompare(String(b.slug||'')));

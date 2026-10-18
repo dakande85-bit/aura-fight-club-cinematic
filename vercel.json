@@ -93,6 +93,30 @@
   ],
   "rewrites": [
     {
+      "source": "/news",
+      "destination": "/news/index.html"
+    },
+    {
+      "source": "/news/:slug",
+      "destination": "/news/:slug/index.html"
+    },
+    {
+      "source": "/fighters/compare",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/fighters/:slug",
+      "destination": "/fighters/:slug/index.html"
+    },
+    {
+      "source": "/fights/:id",
+      "destination": "/fights/:id/index.html"
+    },
+    {
+      "source": "/topics/:slug",
+      "destination": "/topics/:slug/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

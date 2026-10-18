@@ -67,6 +67,21 @@ function save(url,options){
  fs.mkdirSync(folder,{recursive:true});
  fs.writeFileSync(path.join(folder,'index.html'),pageHtml({url,...options}));
 }
+
+const storyLinks=articles
+  .filter(article=>article.slug && article.title)
+  .map(article=>'<li><a href="/news/'+encodeURIComponent(article.slug)+'">'+esc(article.title)+'</a></li>')
+  .join('');
+const newsroomBody='<h1>Boxing News &amp; Original Analysis</h1><p>Latest reporting and tactical analysis from the AURA Fight Club fight desk.</p><nav aria-label="Latest boxing articles"><ul>'+storyLinks+'</ul></nav>';
+fs.mkdirSync(path.join(dist,'news'),{recursive:true});
+fs.writeFileSync(path.join(dist,'news','index.html'),pageHtml({
+  url:'/news',
+  title:'Boxing News & Original Analysis | AURA Fight Club',
+  description:'Latest boxing news, fight results, informed previews, analysis and original reporting from AURA Fight Club.',
+  schema:{'@type':'CollectionPage',name:'AURA Fight Club Boxing News',url:site+'/news',inLanguage:'en'},
+  body:newsroomBody
+}));
+
 for(const article of articles){
  if(!article.slug || !article.title)continue;
  const url='/news/'+article.slug;

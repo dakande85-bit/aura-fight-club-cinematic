@@ -1,0 +1,41 @@
+/* AURA Fight Club — rights-aware ringside media desk */
+.aura-real-media{margin:2rem 0 2.5rem;padding:clamp(1rem,2.4vw,2.25rem);border:1px solid rgba(167,148,109,.29);border-radius:10px;background:linear-gradient(145deg,#13171d,#0a0d11);color:#eee;max-width:100%;box-sizing:border-box}
+.aura-real-media__intro{margin:0 0 1.4rem}
+.aura-real-media__intro h2{font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.1;margin:.3rem 0 .6rem;color:#f2f1eb;letter-spacing:-.035em}
+.aura-real-media__intro p:last-child{max-width:780px;color:#b6bec7;font-size:.98rem;line-height:1.65}
+.aura-real-media__group{margin-top:1.8rem}
+.aura-media-heading{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin:0 0:.85rem;border-bottom:1px solid rgba(230,230,215,.12);padding-bottom:.75rem}
+.aura-media-heading h3{margin:0;color:#f6f1e7;font-size:1.06rem}
+.aura-media-heading span{font-size:.71rem;letter-spacing:.04em;text-transform:uppercase;color:#baa887}
+.aura-media-link-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.aura-media-source{display:flex;align-items:start;gap:.8rem;border:1px solid rgba(190,175,149,.2);background:rgba(255,255,255,.035);border-radius:6px;padding:1.1rem;text-decoration:none!important;color:#eaeaea!important;transition:border-color .2s,background .2s;min-width:0}
+.aura-media-source:hover,.aura-media-source:focus-visible{border-color:#c6a677;background:rgba(255,255,255,.075)}
+.aura-media-source__icon{border:1px solid rgba(198,166,119,.35);width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:grid;place-items:center;color:#d8ba8c}
+.aura-media-source__body{display:flex;flex-direction:column;gap:.5rem;min-width:0}
+.aura-media-source__eyebrow{font-size:.72rem!important;line-height:1.5!important;letter-spacing:.055em;text-transform:uppercase;color:#c0a576!important}
+.aura-media-source__body strong{color:#fff;line-height:1.25;font-weight:700;font-size:1.02rem}
+.aura-media-source__body>span:not(.aura-media-source__eyebrow){font-size:.84rem;line-height:1.5;color:#bac0c7}
+.aura-media-source__body .aura-media-source__credit{font-size:.75rem;color:#a8aab0}
+.aura-media-source__body .aura-media-source__action{color:#e9c78f!important;font-size:.76rem;letter-spacing:.04em;margin-top:.3rem;font-weight:700}
+.aura-real-media__notice{font-size:.75rem!important;line-height:1.5;color:#adb6c0!important;margin:.9rem 0 0!important}
+.aura-media-player-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem}
+.aura-media-player{background:rgba(255,255,255,.035);border:1px solid rgba(190,175,149,.2);border-radius:6px;overflow:hidden;padding-bottom:1.05rem}
+.aura-media-player__frame{position:relative;width:100%;aspect-ratio:16/9;background:#0a0a0a}
+.aura-media-player__frame iframe{position:absolute;inset:0;border:0;width:100%;height:100%}
+.aura-media-player h4{margin:.45rem 1rem .3rem;color:#fff;font-size:1.04rem}
+.aura-media-player p{margin:.3rem 1rem!important;color:#b9c0c8!important;line-height:1.5;font-size:.83rem}
+.aura-media-player .aura-media-source__eyebrow{display:block;margin:.9rem 1rem 0}
+.aura-media-player>a{display:inline-block;margin:.55rem 1rem 0;color:#e0b984!important;font-size:.85rem}
+.aura-media-approved-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:.75rem}
+.aura-media-approved-grid figure{margin:0;background:#101010}
+.aura-media-approved-grid img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.aura-media-approved-grid figcaption{padding:.7rem;font-size:.75rem;color:#ddd;line-height:1.5}
+@media(max-width:680px){.aura-media-link-grid{grid-template-columns:1fr}.aura-real-media{margin:1.3rem 0;padding:1rem}.aura-media-heading{align-items:start;flex-direction:column;gap:.3rem}}
+
+/* Original broadcast embed is the visible media lead on fight-result articles. */
+.aura-official-fight-lead{width:100%;margin:0 0 1.3rem;background:#0d1116;border:1px solid rgba(177,147,96,.28);border-radius:6px;overflow:hidden}
+.aura-official-fight-lead__frame{width:100%;aspect-ratio:16/9;position:relative;background:#050506}
+.aura-official-fight-lead__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.aura-official-fight-lead figcaption{padding:.75rem 1rem;line-height:1.55;font-size:.82rem;color:#d8d6d0}
+.aura-official-fight-lead figcaption strong{color:#e8d1a5}
+.aura-official-fight-lead figcaption a{color:#ebca94;text-decoration:underline}
