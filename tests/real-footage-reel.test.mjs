@@ -49,3 +49,16 @@ test('the default boxing video project is now a result analysis and preserves pr
  assert.ok(project.scripts.youtube.draft.split(/\s+/).length>=600);
  assert.equal(project.footageCoverage.realFightNightHighlights,false);
 });
+
+test('the automatic YouTube Data API feed puts genuine October fight highlights first',()=>{
+ const feed=JSON.parse(readFileSync(new URL('../public/news/video-production/auto-discovery/dubois-wardley-2-postfight.json',import.meta.url)));
+ assert.ok(feed.videos.length>=4);
+ assert.equal(feed.videos[0].videoId,'0oAF0n0vzrE');
+ assert.equal(feed.videos[0].publisher,'DAZN Boxing');
+ assert.equal(feed.videos[0].kind,'fight');
+ assert.ok(feed.videos.every(x=>x.embedVerifiedByYouTubeAPI===true && x.clearedForExport===false));
+ const assembled=buildRealFootageReel({...project,sources:[...feed.videos,...project.sources]});
+ assert.equal(assembled[0].id,'0oAF0n0vzrE');
+ assert.ok(assembled.some(x=>x.id==='2W33Uyr3KBc'));
+ assert.ok(assembled.every(x=>x.rightsCleared===false));
+});
