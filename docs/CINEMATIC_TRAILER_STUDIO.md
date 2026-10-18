@@ -53,3 +53,13 @@ The deterministic assembly stack should stay separate from pay-per-generation to
 - Full clip licence audit log and access-control audit.
 - Export job succeeds with re-usable signed media URLs without embedding any provider API key in the frontend.
 - User approval before merging into the protected public release branch.
+
+## Link-first footage workflow (October 2026 update)
+- Paste a real YouTube URL (watch, Shorts, youtu.be) into any scene. The official embed previews the chosen absolute start/end timestamps. No account keys and no media upload needed for editorial shot selection.
+- The Fundora preset now surfaces official PBC and Prime reference links to the Tszyu contests. Source is saved with the exact shot timestamps in the storyboard JSON.
+- A direct HTTPS MP4/WebM/MOV/M4V asset link can be previewed and (if the host permits browser CORS downloads and the user has permission) imported into the local shot. Locally supplied files are also accepted.
+- YouTube's Data API does not deliver the underlying broadcast MP4. We do not misrepresent an embedded player as a file download. Prepare licensed/owned source media for final rendering.
+- Rights/publishing checks DO NOT block research, YouTube previews or JSON storyboard exports. A rough-cut ZIP only requires actual image/video files for each scene; run the renderer with --draft and it watermarks every frame PRIVATE DRAFT - NOT FOR PUBLICATION.
+- Publication-reviewed exports retain the source/provenance/approval checks. Neither mode posts to TikTok.
+- The studio shot plan is automatically saved in localStorage. Media files themselves are not persisted and must be reattached after a reload.
+- Vercel's preview build-rate restriction is external to this editor. The standalone URL-reference HTML workbench provided in chat is a temporary alternative, not a production deployment.
