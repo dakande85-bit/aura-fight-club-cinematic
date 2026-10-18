@@ -5,6 +5,8 @@ on:
       - 'src/pages/AdminSocial.jsx'
       - 'src/pages/AdminTrailerStudio.jsx'
       - 'src/lib/trailerStudio.js'
+      - 'src/lib/footageLinks.js'
+      - 'src/components/FootageLinkPanel.jsx'
       - 'src/styles/aura-trailer-studio.css'
       - 'scripts/render-cinematic-trailer.py'
       - 'tests/trailer-studio.test.mjs'
