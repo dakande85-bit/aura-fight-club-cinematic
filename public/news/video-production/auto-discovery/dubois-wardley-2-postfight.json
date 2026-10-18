@@ -4,22 +4,6 @@
   "videoBytesDownloaded": false,
   "videos": [
     {
-      "id": "youtube-Y-KhK1TJXUU",
-      "videoId": "Y-KhK1TJXUU",
-      "title": "Daniel Dubois vs. Fabio Wardley 2 | Weigh-in Highlights",
-      "publisher": "DAZN Boxing",
-      "kind": "fight",
-      "url": "https://www.youtube.com/watch?v=Y-KhK1TJXUU",
-      "published": "2026-10-16T21:51:29Z",
-      "rightsStatus": "research_only",
-      "clearedForExport": false,
-      "startSeconds": 0,
-      "endSeconds": 20,
-      "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
-      "embedVerifiedByYouTubeAPI": true,
-      "durationISO8601": "PT10M"
-    },
-    {
       "id": "youtube-0oAF0n0vzrE",
       "videoId": "0oAF0n0vzrE",
       "title": "HIGHLIGHTS! Daniel Dubois vs Fabio Wardley 2",
@@ -52,22 +36,6 @@
       "durationISO8601": "PT8M34S"
     },
     {
-      "id": "youtube-9sAwsrJ4mpg",
-      "videoId": "9sAwsrJ4mpg",
-      "title": "'STOP THE FIGHT!'  Duke McKenzie SHOCKED By Dubois' BRUTAL WARDLEY KO | LIVE REACTION",
-      "publisher": "Seconds Out",
-      "kind": "press",
-      "url": "https://www.youtube.com/watch?v=9sAwsrJ4mpg",
-      "published": "2026-10-17T22:12:26Z",
-      "rightsStatus": "research_only",
-      "clearedForExport": false,
-      "startSeconds": 0,
-      "endSeconds": 20,
-      "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
-      "embedVerifiedByYouTubeAPI": true,
-      "durationISO8601": "PT8M31S"
-    },
-    {
       "id": "youtube-5D2XR0tVdGk",
       "videoId": "5D2XR0tVdGk",
       "title": "Daniel Dubois reacts to DESTROYING Fabio Wardley in two rounds!",
@@ -82,22 +50,6 @@
       "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
       "embedVerifiedByYouTubeAPI": true,
       "durationISO8601": "PT2M6S"
-    },
-    {
-      "id": "youtube-xv5FyQY6cUk",
-      "videoId": "xv5FyQY6cUk",
-      "title": "Daniel Dubois vs. Fabio Wardley 2 \u2022 FULL POST FIGHT PRESS CONFERENCE | DAZN Boxing",
-      "publisher": "Seconds Out",
-      "kind": "press",
-      "url": "https://www.youtube.com/watch?v=xv5FyQY6cUk",
-      "published": "2026-10-17T22:47:02Z",
-      "rightsStatus": "research_only",
-      "clearedForExport": false,
-      "startSeconds": 0,
-      "endSeconds": 20,
-      "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
-      "embedVerifiedByYouTubeAPI": true,
-      "durationISO8601": "PT18M5S"
     },
     {
       "id": "youtube-SvxeIoVEKNY",
@@ -116,6 +68,22 @@
       "durationISO8601": "PT2M20S"
     },
     {
+      "id": "youtube-9sAwsrJ4mpg",
+      "videoId": "9sAwsrJ4mpg",
+      "title": "'STOP THE FIGHT!'  Duke McKenzie SHOCKED By Dubois' BRUTAL WARDLEY KO | LIVE REACTION",
+      "publisher": "Seconds Out",
+      "kind": "press",
+      "url": "https://www.youtube.com/watch?v=9sAwsrJ4mpg",
+      "published": "2026-10-17T22:12:26Z",
+      "rightsStatus": "research_only",
+      "clearedForExport": false,
+      "startSeconds": 0,
+      "endSeconds": 20,
+      "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
+      "embedVerifiedByYouTubeAPI": true,
+      "durationISO8601": "PT8M31S"
+    },
+    {
       "id": "youtube-n-n6KTYFQNI",
       "videoId": "n-n6KTYFQNI",
       "title": "REACTION! Daniel Dubois beats Fabio Wardley in rematch!",
@@ -130,6 +98,22 @@
       "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
       "embedVerifiedByYouTubeAPI": true,
       "durationISO8601": "PT1M26S"
+    },
+    {
+      "id": "youtube-Y-KhK1TJXUU",
+      "videoId": "Y-KhK1TJXUU",
+      "title": "Daniel Dubois vs. Fabio Wardley 2 | Weigh-in Highlights",
+      "publisher": "DAZN Boxing",
+      "kind": "faceoff",
+      "url": "https://www.youtube.com/watch?v=Y-KhK1TJXUU",
+      "published": "2026-10-16T21:51:29Z",
+      "rightsStatus": "research_only",
+      "clearedForExport": false,
+      "startSeconds": 0,
+      "endSeconds": 20,
+      "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
+      "embedVerifiedByYouTubeAPI": true,
+      "durationISO8601": "PT10M"
     },
     {
       "id": "youtube-pz2mg_s_oBU",
@@ -148,20 +132,20 @@
       "durationISO8601": "PT8M33S"
     },
     {
-      "id": "youtube-C43SyvZjiYE",
-      "videoId": "C43SyvZjiYE",
-      "title": "Daniel Dubois vs. Fabio Wardley 2 \u2022 FULL FINAL PRESS CONFERENCE | DAZN Boxing",
-      "publisher": "Seconds Out",
+      "id": "youtube-iOnIEzXPVIc",
+      "videoId": "iOnIEzXPVIc",
+      "title": "Fabio Wardley warns Daniel Dubois of 'ignorance' ahead of title clash \ud83d\udc40",
+      "publisher": "Sky Sports Boxing",
       "kind": "press",
-      "url": "https://www.youtube.com/watch?v=C43SyvZjiYE",
-      "published": "2026-10-15T12:28:21Z",
+      "url": "https://www.youtube.com/watch?v=iOnIEzXPVIc",
+      "published": "2026-10-16T18:27:04Z",
       "rightsStatus": "research_only",
       "clearedForExport": false,
       "startSeconds": 0,
       "endSeconds": 20,
       "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
       "embedVerifiedByYouTubeAPI": true,
-      "durationISO8601": "PT23M57S"
+      "durationISO8601": "PT4M52S"
     },
     {
       "id": "youtube-gWNvIbY29Cw",
@@ -180,22 +164,6 @@
       "durationISO8601": "PT3M22S"
     },
     {
-      "id": "youtube-iOnIEzXPVIc",
-      "videoId": "iOnIEzXPVIc",
-      "title": "Fabio Wardley warns Daniel Dubois of 'ignorance' ahead of title clash \ud83d\udc40",
-      "publisher": "Sky Sports Boxing",
-      "kind": "press",
-      "url": "https://www.youtube.com/watch?v=iOnIEzXPVIc",
-      "published": "2026-10-16T18:27:04Z",
-      "rightsStatus": "research_only",
-      "clearedForExport": false,
-      "startSeconds": 0,
-      "endSeconds": 20,
-      "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
-      "embedVerifiedByYouTubeAPI": true,
-      "durationISO8601": "PT4M52S"
-    },
-    {
       "id": "youtube-3KuUJdqdW6I",
       "videoId": "3KuUJdqdW6I",
       "title": "\u2018IF DUBOIS IS A QUITTER, THEN WARDLEY IS TOO!\u2019 Don Charles\u2019 FINAL WORDS",
@@ -210,6 +178,22 @@
       "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
       "embedVerifiedByYouTubeAPI": true,
       "durationISO8601": "PT11M44S"
+    },
+    {
+      "id": "youtube-C43SyvZjiYE",
+      "videoId": "C43SyvZjiYE",
+      "title": "Daniel Dubois vs. Fabio Wardley 2 \u2022 FULL FINAL PRESS CONFERENCE | DAZN Boxing",
+      "publisher": "Seconds Out",
+      "kind": "press",
+      "url": "https://www.youtube.com/watch?v=C43SyvZjiYE",
+      "published": "2026-10-15T12:28:21Z",
+      "rightsStatus": "research_only",
+      "clearedForExport": false,
+      "startSeconds": 0,
+      "endSeconds": 20,
+      "editorialNote": "Verified named fighters and official outlet; content, cut points and rights still need review",
+      "embedVerifiedByYouTubeAPI": true,
+      "durationISO8601": "PT23M57S"
     }
   ],
   "notes": []
